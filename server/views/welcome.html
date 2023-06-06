@@ -1,0 +1,32 @@
+{% extends 'form-layout.html' %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block bodyStart %}
+{% endblock %}
+
+{% block formContent %}
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+        {{ govukRadios({
+          idPrefix: "welcome",
+          name: "welcome",
+          fieldset: {
+            legend: {
+              text: pageTitle,
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          errorMessage: fieldErrors['welcome']
+        }) }}
+
+
+
+    </div>
+  </div>
+{% endblock %}

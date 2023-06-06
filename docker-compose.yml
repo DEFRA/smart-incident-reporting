@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+
+  node:
+    container_name: smart-incident
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - smart-incident-localdev-network
+
+networks:
+  smart-incident-localdev-network:
+    driver: bridge

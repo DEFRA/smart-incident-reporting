@@ -1,0 +1,67 @@
+{
+  "name": "Smart incident reporting",
+  "version": "1.0.0",
+  "description": "Digital service for incident reporting",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build:css": "bin/build-css",
+    "build": "bin/build",
+    "debug": "nodemon --inspect index.js",
+    "lint": "standard",
+    "unit-test": "npx jest --verbose",
+    "test": "npm run lint && npm run unit-test"
+  },
+  "author": "Department for Environment, Food & Rural Affairs",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/DEFRA/smart-incident-reporting/issues"
+  },
+  "homepage": "https://github.com/DEFRA/smart-incident-reporting#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DEFRA/smart-incident-reporting.git"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "dependencies": {
+    "@defra/hapi-gapi": "^1.2.1",
+    "@hapi/basic": "^6.0.0",
+    "@hapi/boom": "^9.1.4",
+    "@hapi/hapi": "^20.2.1",
+    "@hapi/inert": "^6.0.5",
+    "@hapi/vision": "^6.1.0",
+    "applicationinsights": "^2.2.2",
+    "bcrypt": "^5.0.1",
+    "blipp": "^4.0.2",
+    "govuk-frontend": "^4.6.0",
+    "joi": "^17.6.0",
+    "node-fetch": "^2.6.7",
+    "node-sass": "^9.0.0",
+    "nunjucks": "^3.2.4"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "jest-junit": "^13.0.0",
+    "jsdom": "^19.0.0",
+    "hapi-pino": "9.4.0",
+    "nock": "^13.2.4",
+    "standard": "^16.0.4"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "beforeEach",
+      "expect",
+      "it",
+      "afterEach",
+      "jest",
+      "beforeAll",
+      "afterAll"
+    ],
+    "ignore": [
+      "**/public/js/"
+    ]
+  }
+}

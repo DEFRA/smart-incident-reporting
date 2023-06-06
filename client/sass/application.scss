@@ -1,0 +1,100 @@
+$govuk-global-styles: true;
+
+@import 'node_modules/govuk-frontend/govuk/all';
+@import 'node_modules/govuk-frontend/govuk/settings/colours-applied.scss';
+
+///// INTERRUPT PATTERN - FLASH CARD //////
+.flash-card {
+  margin-top: -1em;
+  padding: 30px;
+  margin-bottom: 30px;
+  background: govuk-colour('blue');
+  color: govuk-colour('white');
+
+  header {
+    background-color: inherit;
+  }
+
+  p {
+    color: govuk-colour('white');
+  }
+
+  ul {
+    color: govuk-colour('white');
+
+    h2 {
+      margin: 0;
+      margin-bottom: 0;
+      padding: 0;
+      color: govuk-colour('white');
+      font-size: 28px;
+    }
+
+    li {
+      color: govuk-colour('white');
+    }
+  }
+
+  h1 {
+    color: govuk-colour('white');
+    &:first-of-type {
+      margin-top: 0 !important;
+    }
+  }
+
+  a {
+    color: govuk-colour('white');
+    &:visited,
+    &:active {
+      color: govuk-colour('white');
+    }
+    &:hover {
+      color: darken(govuk-colour('white'), 10%);
+    }
+  }
+
+  details {
+    summary {
+      color: govuk-colour('white');
+    }
+    .panel {
+      border-left-color: govuk-colour('white');
+    }
+  }
+
+  button {
+    box-shadow: 0 1px 0 $govuk-text-colour;
+    border: $govuk-text-colour 1px solid;
+    background-color: govuk-colour('white');
+    color: $govuk-text-colour;
+
+    &[disabled] {
+      background-color: govuk-colour('white');
+    }
+
+    &:hover {
+      background-color: #dbdad9;
+      color: $govuk-text-colour;
+
+      &[disabled] {
+        background-color: govuk-colour('white');
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .flash-card {
+    padding: 50px;
+    margin-bottom: 30px;
+  }
+}
+
+.incident-summary-list {
+  .govuk-summary-list__key {
+    vertical-align: top;
+  }
+  .govuk-summary-list__actions {
+    vertical-align: top;
+  }
+}
