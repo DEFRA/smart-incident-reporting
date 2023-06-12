@@ -2,7 +2,7 @@
 
 # Prerequisites
 
-Node v16.x
+Node v18.x
 
 First install the dependencies & build the application using:
 
