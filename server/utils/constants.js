@@ -5,17 +5,28 @@ const HOME_URL = '/'
 const Urls = {
   GOV_UK_HOME: 'https://www.gov.uk',
   GOV_UK_SERVICE_HOME:
-    'https://www.gov.uk/report-an-environmental-incident',
+    'https://www.gov.uk/report-an-environmental-incident'
 }
 
 const Paths = {
-  WELCOME: '/welcome'
+  WELCOME: '/welcome',
+  PAGE_NOT_FOUND: '/errors/page-not-found',
+  PROBLEM_WITH_SERVICE: '/errors/problem-with-service',
+  SERVICE_UNAVAILABLE: '/errors/service-unavailable',
+  INCIDENT_TYPE: '/incident-type',
+  WATER_TYPE: '/water-quality/water-type',
+  LOCATION: '/location',
+  SUCCESS: '/success'
 }
 
 const Views = {
   SERVICE_UNAVAILABLE: 'errors/service-unavailable',
   SESSION_TIMED_OUT: 'errors/session-timed-out',
   WELCOME: 'welcome',
+  INCIDENT_TYPE: 'incident-type',
+  WATER_TYPE: 'water-quality/watertype',
+  LOCATION: 'location',
+  SUCCESS: 'success'
 }
 
 const StatusCodes = {
@@ -35,5 +46,5 @@ module.exports = Object.freeze({
   Paths,
   StatusCodes,
   Urls,
-  Views,
+  Views
 })

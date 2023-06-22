@@ -7,7 +7,7 @@ const {
 
 const handlers = {
   get: async (request, h) => {
-      return h.redirect(Paths.WELCOME)
+    return h.redirect(Paths.WELCOME)
   }
 }
 

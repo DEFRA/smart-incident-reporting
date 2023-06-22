@@ -1,32 +1,64 @@
 {% extends 'form-layout.html' %}
+{% set pageName="Home" %}
+{% block content %}
 
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
 
-{% block bodyStart %}
-{% endblock %}
+    <h1 class="govuk-heading-xl">
+      {{ serviceName }}
+    </h1>
+    <p>Use this service to report:</p>
 
-{% block formContent %}
+    <ul class="govuk-list govuk-list--bullet">
+      <li>dirty or polluted water</li>
+      <li>unusual or unpleasant smells</li>
+      <li>poaching or illegal fishing</li>
+      <li>flooding or risk of flooding from major rivers or the sea</li>
+    </ul>
+    <p>You do not have to give any personal details if you do not want to.</p>
 
-  <div class="govuk-grid-row">
+    <div class="govuk-inset-text">
+      Do not use this service to report fly-tipping - <a href="https://www.gov.uk/report-flytipping">report fly-tipping to your local council</a>.</div>
 
-    <div class="govuk-grid-column-two-thirds">
-
-        {{ govukRadios({
-          idPrefix: "welcome",
-          name: "welcome",
-          fieldset: {
-            legend: {
-              text: pageTitle,
-              isPageHeading: true,
-              classes: "govuk-fieldset__legend--l"
-            }
-          },
-          errorMessage: fieldErrors['welcome']
-        }) }}
-
-
-
+    {{ govukButton({
+    text: "Start now",
+    href: "/incident-type",
+    isStartButton: true
+    }) }}
+    <h2 class="govuk-heading-l">Other environmental issues or reporting by phone</h2>
+    <p>You can report the following issues to the Environment Agency over the phone, including:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>damage to major rivers or river banks</li>
+      <li>dead fish</li>
+      <li>flooding or risk of flooding from major rivers or the sea</li>
+      <li>people taking water illegally from the environment</li>
+      <li>incidents at waste sites</li>
+      <li>poaching or illegal fishing</li>
+      <li>pollution</li>
+      <li>changes in river levels or flow</li>
+    </ul>
+    <div class="govuk-inset-text">
+      <ul class="govuk-list">
+        <li>Environment Agency incident hotline</li>
+        <li>Telephone: 020 7946 0101</li>
+        <li>24 hours</li>
+      </ul>
     </div>
+    <h2 class="govuk-heading-l">Other incidents</h2>
+    <p>Report the following issues directly to your council or utilities company:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li><a href="/report-flooding-burst-water-mains">burst water mains</a></li>
+      <li><a href="/report-dangerous-building-structure">dangerous buildings or structures</a></li>
+      <li><a href="/report-syringes">discarded syringes</a></li>
+      <li>
+        <a href="/report-flood-cause">flooding from streams, smaller rivers or other water courses</a></li>
+      <li><a href="/report-flytipping">fly-tipping</a></li>
+      <li><a href="/report-litter">a litter problem</a></li>
+      <li><a href="/report-noise-pollution-to-council">noise</a></li>
+      <li><a href="/report-pest-problem">pest nuisances</a></li>
+    </ul>
   </div>
+</div>
+
 {% endblock %}

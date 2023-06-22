@@ -1,0 +1,73 @@
+{% extends 'form-layout.html' %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Where is the {{ data['incident-type']}}?
+      </h1>
+      <form class="form" action="/success" method="post">
+      {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+      {{ govukTextarea({
+        name: "more-detail",
+        id: "more-detail",
+        label: {
+          text: "Give any detail about where the issue is that would help us investigate",
+          classes: "govuk-label--m",
+          isPageHeading: true
+        },
+        hint: {
+          text: "Do not include personal information, like someone's name."
+        }
+      }) }}
+      {% from "govuk/components/input/macro.njk" import govukInput %}
+
+      {{ govukInput({
+        label: {
+          text: "Postcode (optional)"
+        },
+        classes: "govuk-input--width-10",
+        id: "width-10",
+        name: "postcode"
+      }) }}
+
+      {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+      {{ govukCheckboxes({
+        name: "home-address",
+        fieldset: {
+          legend: {
+            text: ""
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "This is my home postcode"
+          }
+        ]
+      }) }}
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

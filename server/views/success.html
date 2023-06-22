@@ -1,0 +1,45 @@
+{% extends 'form-layout.html' %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% block pageTitle %}
+  Confirmation page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukPanel({
+        titleText: "Thank you",
+        html: "We've got your report"
+      }) }}
+
+
+      <h2 class="govuk-heading-m">
+        What happens next
+      </h2>
+
+      <p>The Environment Agency will now:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>look into the incident</li>
+        <li>check for any similar reports in the area</li>
+        <li>decide how to deal with the incident, which may include sending people to investigate</li>
+        <li>pass your report to other organisations if needed</li>
+        <li>contact you only if needed, if you have left your contact details</li>
+      </ul>
+      <p> You can <a href="#">see your issue and the current stage of the Environment Agency response online</a>. </p>
+      {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{{ govukInsetText({
+  text: "Do not contact the Environment Agency call centre to check on your issue. We cannot give updates on individual reports and it may delay us responding to incidents."
+}) }}
+      <!-- <p>
+        <a href="#">What did you think of this service?</a> (takes 30 seconds)
+      </p> -->
+
+
+    </div>
+  </div>
+
+{% endblock %}

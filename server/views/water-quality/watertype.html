@@ -1,0 +1,139 @@
+{% extends 'form-layout.html' %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+      <form class="form" action="/location" method="post">
+
+          {% set otherHtml %}
+          {{ govukInput({
+            id: "other-source",
+            name: "other-source",
+            spellcheck: false,
+            classes: "govuk-!-width-two-third",
+            label: {
+              text: "Give details"
+            }
+          }) }}
+          {% endset -%}
+
+          {% set rivernameHtml %}
+          {{ govukInput({
+            id: "river-name",
+            name: "river-name",
+            spellcheck: false,
+            classes: "govuk-!-width-two-third",
+            label: {
+              text: "Name of river (if known)"
+            }
+          }) }}
+          {% endset -%}
+
+          {% set lakenameHtml %}
+          {{ govukInput({
+            id: "lake-name",
+            name: "lake-name",
+            spellcheck: false,
+            classes: "govuk-!-width-two-third",
+            label: {
+              text: "Name of lake (if known)"
+            }
+          }) }}
+          {% endset -%}
+
+          {% set reservoirnameHtml %}
+          {{ govukInput({
+            id: "res-name",
+            name: "res-name",
+            spellcheck: false,
+            classes: "govuk-!-width-two-third",
+            label: {
+              text: "Name of reservoir (if known)"
+            }
+          }) }}
+          {% endset -%}
+
+        {{ govukRadios({
+          name: "pollution-watertype",
+          fieldset: {
+            legend: {
+              text: "In what kind of water course or feature have you seen pollution?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+          {
+            value: "river",
+            text: "A river",
+            conditional: {
+                html: rivernameHtml
+                }
+          },
+            {
+              value: "lake",
+              text: "A lake",
+              conditional: {
+                  html: lakenameHtml
+                  }
+            },
+            {
+              value: "reservoir",
+              text: "A reservoir",
+              conditional: {
+                  html: reservoirnameHtml
+                  }
+            },
+            {
+              value: "sea",
+              text: "The sea"
+            },
+            {
+              value: "stream",
+              text: "A smaller stream or watercourse"
+            },
+            {
+              value: "water",
+              text: "Something else",
+              conditional: {
+                  html: otherHtml
+                  }
+            },
+            {
+              divider: "or"
+            },
+            {
+              value: "do-not-know",
+              text: "You do not know"
+            }
+          ]
+        }) }}
+
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

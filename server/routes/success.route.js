@@ -5,7 +5,7 @@ const { Paths, Views } = require('../utils/constants')
 const handlers = {
   get: (request, h) => {
     const context = _getContext()
-    return h.view(Views.WELCOME, {
+    return h.view(Views.SUCCESS, {
       ...context
     })
   }
@@ -21,7 +21,7 @@ const _getContext = () => {
 module.exports = [
   {
     method: 'GET',
-    path: `${Paths.WELCOME}`,
+    path: `${Paths.SUCCESS}`,
     handler: handlers.get
   }
 ]

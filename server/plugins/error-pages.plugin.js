@@ -4,6 +4,7 @@
 
 'use strict'
 
+const { StatusCodes, Paths } = require('../utils/constants')
 module.exports = {
   plugin: {
     name: 'error-pages',
@@ -35,3 +36,28 @@ module.exports = {
  */
 const _canIgnoreError = request => request.path === '/favicon.ico'
 
+const _getErrorPagePath = (request, response) => {
+  let path
+  const statusCode = response.output.statusCode
+
+  if (statusCode !== StatusCodes.UNAUTHORIZED) {
+    _logError(request, response, statusCode)
+  }
+
+  if (statusCode === StatusCodes.PAGE_NOT_FOUND) {
+    path = Paths.PAGE_NOT_FOUND
+  } else if (statusCode === StatusCodes.SERVICE_UNAVAILABLE) {
+    path = Paths.SERVICE_UNAVAILABLE
+  } else if (statusCode !== StatusCodes.UNAUTHORIZED) {
+    path = Paths.PROBLEM_WITH_SERVICE
+  }
+  return path
+}
+
+const _logError = (request, response, statusCode) => {
+  request.log('error', {
+    statusCode,
+    message: response.message,
+    stack: response.data ? response.data.stack : response.stack
+  })
+}

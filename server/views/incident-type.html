@@ -1,0 +1,64 @@
+{% extends 'form-layout.html' %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="/water-quality/water-type" method="post">
+        {{ govukRadios({
+          name: "incident-type",
+          fieldset: {
+            legend: {
+              text: "What type of environmental problem do you want to report?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+            {
+              value: "waterpollution",
+              text: "Water pollution"
+            },
+            {
+              value: "smells",
+              text: "Unusual or unpleasant smell"
+            },
+            {
+              value: "fishing",
+              text: "Illegal fishing"
+            },
+            {
+              value: "flooding or risk of flood",
+              text: "Flooding or risk of a flood"
+            },
+            {
+              value: "other",
+              text: "Something else"
+            }
+          ]
+        }) }}
+
+                {{ govukButton({
+                  text: "Continue"
+                }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

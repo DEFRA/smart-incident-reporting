@@ -20,7 +20,7 @@ const schema = joi.object().keys({
   servicePort: joi.number().default(3000),
   serviceName: joi
     .string()
-    .default('Smart incident reporting'),
+    .default('Report an environmental incident'),
   logLevel: joi.string().default('warn'),
   requestTimeout: joi.number(),
   maximumFileSize: joi.number().default(10),
@@ -37,7 +37,7 @@ const config = {
   servicePort: process.env.SERVICE_PORT,
   serviceName: process.env.SERVICE_NAME,
   logLevel: process.env.LOG_LEVEL,
-  requestTimeout: process.env.REQUEST_TIMEOUT,
+  requestTimeout: process.env.REQUEST_TIMEOUT
 }
 
 // Validate config
