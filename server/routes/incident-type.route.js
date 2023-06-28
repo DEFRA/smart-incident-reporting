@@ -11,9 +11,17 @@ const handlers = {
   },
   post: (request, h) => {
     const context = _getContext()
-    return h.view(Views.WATER_TYPE, {
-      ...context
-    })
+
+    var incidenttype = request.payload['incident-type']
+    console.log('Val : ' + incidenttype)
+    if (incidenttype === 'waterpollution') {
+      return h.view(Views.WATER_TYPE, { ...context })
+    } else if (incidenttype === 'smells') {
+      return h.view(Views.WATER_TYPE, { ...context })
+    } else if (incidenttype === 'fishing') {
+      return h.view(Views.FISHING_LOCATION, { ...context })
+    }
+    return h.view(Views.INCIDENT_TYPE, { ...context })
   }
 }
 

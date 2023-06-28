@@ -1,0 +1,86 @@
+{% extends 'form-layout.html' %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+      <form class="form" action="caughtorkilled" method="post">
+
+        {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+        {% from "govuk/components/input/macro.njk" import govukInput %}
+
+          {% set otherHtml %}
+          {{ govukInput({
+            id: "other-equipment",
+            name: "other-equipment",
+            spellcheck: false,
+            classes: "govuk-!-width-two-third",
+            label: {
+              text: "Give details"
+            }
+          }) }}
+          {% endset -%}
+
+        {{ govukCheckboxes({
+          name: "fish-equipment",
+          fieldset: {
+            legend: {
+              text: "Are they using any of the following equipment?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+          {
+            value: "nets",
+            text: "Nets"
+          },
+            {
+              value: "rod",
+              text: "Illegal rod or tackle"
+            },
+            {
+              value: "explosives",
+              text: "Explosives"
+            },
+            {
+              value: "other",
+              text: "Something else",
+              conditional: {
+                  html: otherHtml
+                  }
+            },
+            {
+              divider: "or"
+            },
+            {
+              value: "dunno",
+              text: "You do not know"
+            }
+          ]
+        }) }}
+
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

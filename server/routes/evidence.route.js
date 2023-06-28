@@ -1,17 +1,17 @@
 'use strict'
 
-const { Paths, Views } = require('../../utils/constants')
+const { Paths, Views } = require('../utils/constants')
 
 const handlers = {
   get: (request, h) => {
     const context = _getContext()
-    return h.view(Views.WATER_TYPE, {
+    return h.view(Views.EVIDENCE, {
       ...context
     })
   },
   post: (request, h) => {
     const context = _getContext()
-    return h.view(Views.WATER_TYPE_LOCATION, {
+    return h.view(Views.ANONYMOUS, {
       ...context
     })
   }
@@ -27,12 +27,12 @@ const _getContext = () => {
 module.exports = [
   {
     method: 'GET',
-    path: `${Paths.WATER_TYPE}`,
+    path: `${Paths.EVIDENCE}`,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: `${Paths.WATER_TYPE_ANSWER}`,
+    path: `${Paths.EVIDENCE_ANSWER}`,
     handler: handlers.post
   }
 ]

@@ -1,0 +1,92 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="when" method="post">
+
+        {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+        {% from "govuk/components/input/macro.njk" import govukInput %}
+
+          {% set otherHtml %}
+          {{ govukInput({
+            id: "other-smell-description",
+            name: "other-smell-description",
+            spellcheck: false,
+            classes: "govuk-!-width-two-third",
+            label: {
+              text: "Give details"
+            }
+          }) }}
+          {% endset -%}
+
+        {{ govukCheckboxes({
+          name: "smell-description",
+          fieldset: {
+            legend: {
+              text:  "Would you describe the smell as any of the following?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+          {
+            value: "sewage",
+            text: "Sewage"
+          },
+            {
+              value: "rubbish",
+              text: "Rubbish or refuse"
+            },
+            {
+              value: "burning",
+              text: "Burning or smoke"
+            },
+            {
+              value: "chemical",
+              text: "Gas or petrol"
+            },
+            {
+              value: "rural",
+              text: "Agricultural, for example from muck spreading"
+            },
+            {
+              value: "other",
+              text: "Something else",
+              conditional: {
+                  html: otherHtml
+                  }
+            },
+            {
+              divider: "or"
+            },
+            {
+              value: "do-not-know",
+              text: "You cannot describe it"
+            }
+          ]
+        }) }}
+
+          {{ govukButton({
+            text: "Continue"
+          }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

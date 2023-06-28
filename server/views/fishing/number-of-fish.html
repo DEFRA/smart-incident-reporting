@@ -1,0 +1,61 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="number-of-anglers" method="post">
+
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+        {{ govukRadios({
+          classes: "govuk-radios",
+          name: "fish-number",
+          fieldset: {
+            legend: {
+              text: "How many fish have you seen being caught or killed?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+            {
+              value: "more",
+              text: "5 or more"
+            },
+            {
+              value: "less",
+              text: "Less than 5"
+            },
+            {
+              divider: "or"
+            },
+            {
+              value: "dunno",
+              text: "You do not know"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

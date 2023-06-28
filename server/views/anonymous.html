@@ -1,0 +1,151 @@
+{% extends 'form-layout.html' %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="/anonymous-answer" method="post">
+
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+        {% from "govuk/components/input/macro.njk" import govukInput %}
+        {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+        {% set emailHtml %}
+        {{ govukInput({
+          id: "contact-by-email",
+          name: "contact-by-email",
+          type: "email",
+          autocomplete: "email",
+          spellcheck: false,
+          classes: "govuk-!-width-two-thirds",
+          label: {
+            text: "Email address"
+          }
+        }) }}
+        {% endset -%}
+
+        {% set phoneHtml %}
+        {{ govukInput({
+          id: "contact-by-phone",
+          name: "contact-by-phone",
+          type: "tel",
+          autocomplete: "tel",
+          classes: "govuk-!-width-two-thirds",
+          label: {
+            text: "Phone number"
+          }
+        }) }}
+        {% endset -%}
+
+        {% set detailsHtml %}
+        {{ govukInput({
+          label: {
+            text: "Your name"
+          },
+          id: "full-name",
+          name: "full-name",
+          autocomplete: "name",
+          spellcheck: false
+        }) }}
+
+        {{ govukCheckboxes({
+          name: "contact",
+          fieldset: {
+            legend: {
+              text: "Contact details"
+            }
+          },
+          hint: {
+            text: "Leave your email, phone number or both."
+          },
+          items: [
+            {
+              value: "email",
+              text: "Email",
+              conditional: {
+                html: emailHtml
+              }
+            },
+            {
+              value: "phone",
+              text: "Phone",
+              conditional: {
+                html: phoneHtml
+              }
+            }
+          ]
+        }) }}
+
+        {{ govukRadios({
+          classes: "govuk-radios",
+          name: "updates",
+          fieldset: {
+            legend: {
+              text: "Would you like to get updates on this issue?"
+            }
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              conditional: {
+                html: updatesHtml
+              }
+            },
+            {
+              value: "no",
+              text: "No (you can still check for updates online if needed)"
+            }
+          ]
+        }) }}
+
+
+        {% endset -%}
+
+        {{ govukRadios({
+          classes: "govuk-radios",
+          name: "anonymous",
+          fieldset: {
+            legend: {
+              text: "Can we contact you if we need more information?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              conditional: {
+                html: detailsHtml
+              }
+            },
+            {
+              value: "no",
+              text: "No"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'form-layout.html' %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="/fishing/location/answer" method="post">
+      {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+      {{ govukTextarea({
+        name: "more-detail",
+        id: "more-detail",
+        label: {
+          text: "Where have you seen illegal fishing?",
+          classes: "govuk-label--l",
+          isPageHeading: true
+        },
+        hint: {
+          text: "Give as much detail as you can, including water course, nearest town and what side of the river it is on if a river. Do not include personal information, like someone's name."
+        }
+      }) }}
+      {% from "govuk/components/input/macro.njk" import govukInput %}
+
+      {{ govukInput({
+        label: {
+          text: "Nearest postcode (if known)"
+        },
+        classes: "govuk-input--width-10",
+        id: "width-10",
+        name: "postcode"
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

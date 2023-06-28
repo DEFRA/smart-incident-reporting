@@ -1,0 +1,90 @@
+{% extends 'form-layout.html' %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="impact/aquaticlife" method="post">
+
+        {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+        {% from "govuk/components/input/macro.njk" import govukInput %}
+
+          {% set smallobjectsHtml %}
+          {{ govukInput({
+            id: "waste-or-objects",
+            name: "waste-or-objects",
+            spellcheck: false,
+            classes: "govuk-!-width-two-third",
+            label: {
+              text: "Give details"
+            }
+          }) }}
+          {% endset -%}
+          {% set largeobjectsHtml %}
+          {{ govukInput({
+            id: "large-objects",
+            name: "large-objects",
+            spellcheck: false,
+            classes: "govuk-!-width-two-third",
+            label: {
+              text: "Give details"
+            }
+          }) }}
+          {% endset -%}
+
+        {{ govukCheckboxes({
+          name: "waterquality-appearance",
+          fieldset: {
+            legend: {
+              text:  "Can you see any identifiable waste or items in the water?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+          {
+            value: "yes",
+            text: "Yes, you can see waste or litter such as paper",
+            conditional: {
+                html: smallobjectsHtml
+                }
+          },
+          {
+            value: "yes",
+            text: "Yes, you can see larger waste or objects, such as cans or containers",
+            conditional: {
+                html: largeobjectsHtml
+                }
+          },
+          {
+            divider: "or"
+          },
+            {
+              value: "no",
+              text: "No, nothing you recognise"
+            }
+          ]
+        }) }}
+
+          {{ govukButton({
+            text: "Continue"
+          }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

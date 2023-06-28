@@ -1,0 +1,84 @@
+{% extends 'form-layout.html' %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+      <form class="form" action="../../anonymous" method="post">
+
+        {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+        {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+          {% set otherHtml %}
+          {{ govukTextarea({
+            id: "other-symptoms",
+            name: "other-symptoms",
+            classes: "govuk-!-width-two-third",
+            label: {
+              text: "Give details of what happened, when"
+            }
+          }) }}
+          {% endset -%}
+
+          {{ govukCheckboxes ({
+            name: "symptoms",
+            fieldset: {
+              legend: {
+                text: "What symptoms have people had after being near or in the water?",
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+              }
+            },
+            items: [
+              {
+                value: "eyes",
+                text: "Watering eyes"
+              },
+              {
+                value: "sick",
+                text: "Sickness or nausea"
+              },
+              {
+                value: "vomit",
+                text: "Vomiting"
+              },
+              {
+                value: "other",
+                text: "Something else",
+                conditional: {
+                    html: otherHtml
+                    }
+              },
+              {
+                divider: "or"
+              },
+              {
+                value: "nosymptoms",
+                text: "None of these"
+              }
+            ]
+          }) }}
+
+          {{ govukButton({
+            text: "Continue"
+          }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

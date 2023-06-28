@@ -1,0 +1,57 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="../anonymous" method="post">
+      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+      {{ govukRadios({
+        classes: "govuk-radios",
+        name: "current",
+        fieldset: {
+          legend: {
+            text: "Have you seen this happen here before?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          {
+            value: "recurring",
+            text: "Yes, it happens regularly"
+          },
+          {
+            value: "occasionally",
+            text: "Yes, a few times"
+          },
+          {
+            value: "no",
+            text: "No, this is the first time"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

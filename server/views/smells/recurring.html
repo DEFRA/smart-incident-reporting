@@ -1,0 +1,79 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="smell-strength" method="post">
+      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+      {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+      {% set otherHtml %}
+      {{ govukDateInput({
+        id: "date-of-incident",
+        namePrefix: "date-of-incident",
+        fieldset: {
+          legend: {
+            text: "When were you first aware of the smell?"
+          }
+        },
+        hint: {
+          text: "Give a date as near as possible if you do not know the exact date"
+        }
+      }) }}
+      {% endset -%}
+
+      {{ govukRadios({
+        classes: "govuk-radios",
+        name: "smell-recurring",
+        fieldset: {
+          legend: {
+            text: "Has this happened before?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          {
+            value: "recurring",
+            text: "Yes, it happens regularly",
+            conditional: {
+                html: otherHtml
+                }
+          },
+          {
+            value: "occasionally",
+            text: "Yes, a few times",
+            conditional: {
+                html: otherHtml
+                }
+          },
+          {
+            value: "no",
+            text: "No, this is the first time"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
