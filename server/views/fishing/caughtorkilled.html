@@ -16,13 +16,13 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <form class="form" action="../caughtorkilled-answer" method="post">
+      <form class="form" action="/fishing/caughtorkilled/answer" method="post">
 
         {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
         {{ govukRadios({
           classes: "govuk-radios--inline",
-          name: "fish-taken",
+          name: "fishtaken",
           fieldset: {
             legend: {
               text: "Have you actually seen fish being taken?",

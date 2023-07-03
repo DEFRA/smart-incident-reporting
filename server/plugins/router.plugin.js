@@ -1,7 +1,4 @@
 'use strict'
-
-const { Paths } = require('../utils/constants')
-
 const routes = [].concat(
   require('../routes/home.route'),
   require('../routes/public.route'),
@@ -16,8 +13,16 @@ const routes = [].concat(
   require('../routes/water-quality/extent_two.route'),
   require('../routes/water-quality/aquaticlife.route'),
   require('../routes/water-quality/aquaticlife_two.route'),
-  require('../routes/fishing/fishing.route'),
+  require('../routes/fishing/fishing.location'),
   require('../routes/fishing/fishing-reportreason.route'),
+  require('../routes/fishing/fishing-equipment.route'),
+  require('../routes/fishing/fishing-caughtorkilled.route'),
+  require('../routes/fishing/fishing-typeoffish.route'),
+  require('../routes/fishing/fishing-numberoffish.route'),
+  require('../routes/fishing/fishing-numberofanglers.route'),
+  require('../routes/fishing/fishing-current.route'),
+  require('../routes/fishing/fishing-otherinfo.route'),
+  require('../routes/fishing/fishing-when.route'),
   require('../routes/location.route'),
   require('../routes/success.route'),
   require('../routes/evidence.route'),

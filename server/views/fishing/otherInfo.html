@@ -1,4 +1,4 @@
-{% extends "layouts/main.html" %}
+{% extends 'form-layout.html' %}
 
 {% block pageTitle %}
   Question page template – {{ serviceName }} – GOV.UK Prototype Kit
@@ -16,7 +16,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <form class="form" action="../anonymous" method="post">
+      <form class="form" action="/fishing/otherinfo/answer" method="post">
       {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
       {{ govukTextarea({

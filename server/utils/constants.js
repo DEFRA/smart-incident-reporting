@@ -43,7 +43,23 @@ const Paths = {
   FISHING_LOCATION: '/fishing/location',
   FISHING_LOCATION_ANSWER: '/fishing/location/answer',
   FISHING_REPORTREASON: '/fishing/reportreason',
-  FISHING_REPORTREASON_ANSWER: '/fishing/reportreason/answer'
+  FISHING_REPORTREASON_ANSWER: '/fishing/reportreason/answer',
+  FISHING_EQUIPMENT: '/fishing/equipment',
+  FISHING_EQUIPMENT_ANSWER: '/fishing/equipment/answer',
+  FISHING_CAUGHTORKILLED: '/fishing/caughtorkilled',
+  FISHING_CAUGHTORKILLED_ANSWER: '/fishing/caughtorkilled/answer',
+  FISHING_TYPE_OF_FISH: '/fishing/typeoffish',
+  FISHING_TYPE_OF_FISH_ANSWER: '/fishing/typeoffish/answer',
+  FISHING_NUMBER_OF_FISH: '/fishing/numberoffish',
+  FISHING_NUMBER_OF_FISH_ANSWER: '/fishing/numberoffish/answer',
+  FISHING_NUMBER_OF_ANGLERS: '/fishing/numberofanglers',
+  FISHING_NUMBER_OF_ANGLERS_ANSWER: '/fishing/numberofanglers/answer',
+  FISHING_CURRENT: '/fishing/current',
+  FISHING_CURRENT_ANSWER: '/fishing/current/answer',
+  FISHING_OTHERINFO: '/fishing/otherinfo',
+  FISHING_OTHERINFO_ANSWER: '/fishing/otherinfo/answer',
+  FISHING_WHEN: '/fishing/when',
+  FISHING_WHEN_ANSWER: '/fishing/when/answer'
 }
 
 const Views = {
@@ -68,7 +84,13 @@ const Views = {
   FISHING_LOCATION: 'fishing/location',
   FISHING_REPORTREASON: 'fishing/reportreason',
   FISHING_CAUGHTORKILLED: 'fishing/caughtorkilled',
-  FISHING_EQUIPMENT: 'fishing/equipment'
+  FISHING_EQUIPMENT: 'fishing/equipment',
+  FISHING_TYPE_OF_FISH: 'fishing/type-of-fish',
+  FISHING_NUMBER_OF_FISH: 'fishing/number-of-fish',
+  FISHING_NUMBER_OF_ANGLERS: 'fishing/number-of-anglers',
+  FISHING_CURRENT: 'fishing/current',
+  FISHING_OTHERINFO: 'fishing/otherinfo',
+  FISHING_WHEN: 'fishing/when'
 }
 
 const StatusCodes = {

@@ -5,23 +5,19 @@ const { Paths, Views } = require('../../utils/constants')
 const handlers = {
   get: (request, h) => {
     const context = _getContext()
-    return h.view(Views.FISHING_REPORTREASON, {
+    return h.view(Views.FISHING_CAUGHTORKILLED, {
       ...context
     })
   },
   post: (request, h) => {
     const context = _getContext()
 
-    if (request.payload.fishIllegality === 'location') {
-      return h.view(Views.FISHING_CAUGHTORKILLED, {
+    if (request.payload.fishtaken === 'yes') {
+      return h.view(Views.FISHING_TYPE_OF_FISH, {
         ...context
       })
-    } else if (request.payload.fishIllegality === 'equipment') {
-      return h.view(Views.FISHING_EQUIPMENT, {
-        ...context
-      })
-    } else {
-      return h.view(Views.FISHING_EQUIPMENT, {
+    } else if (request.payload.fishtaken === 'no') {
+      return h.view(Views.FISHING_NUMBER_OF_ANGLERS, {
         ...context
       })
     }
@@ -38,12 +34,12 @@ const _getContext = () => {
 module.exports = [
   {
     method: 'GET',
-    path: `${Paths.FISHING_REPORTREASON}`,
+    path: `${Paths.FISHING_CAUGHTORKILLED}`,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: `${Paths.FISHING_REPORTREASON_ANSWER}`,
+    path: `${Paths.FISHING_CAUGHTORKILLED_ANSWER}`,
     handler: handlers.post
   }
 ]

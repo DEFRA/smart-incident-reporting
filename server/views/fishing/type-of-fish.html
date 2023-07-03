@@ -1,4 +1,4 @@
-{% extends "layouts/main.html" %}
+{% extends 'form-layout.html' %}
 
 {% block pageTitle %}
   Question page template – {{ serviceName }} – GOV.UK Prototype Kit
@@ -17,7 +17,7 @@
     <div class="govuk-grid-column-two-thirds">
 
 
-      <form class="form" action="../fish-type-answer" method="post">
+      <form class="form" action="/fishing/typeoffish/answer" method="post">
 
         {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
         {% from "govuk/components/input/macro.njk" import govukInput %}
