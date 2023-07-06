@@ -1,0 +1,424 @@
+#This JSON Schema is based upon prototype version 2.0 created 29 June Sprint 5
+#Last Edited by Jonathan Robertson 05/07/2023
+#Edit includes update to The sirp_illegalfishing Schema/Are they using any of the following equipment?
+
+{
+	"$schema": "https://json-schema.org/draft/2019-09/schema",
+	"$id": "http://example.com/example.json",
+	"type": "object",
+	"default": {},
+	"title": "Incident Schema",
+	"required": [
+		"sirp_incident"
+	],
+	"properties": {
+		"sirp_incident": {
+			"type": "object",
+			"default": {},
+			"title": "The sirp_incident Schema",
+			"required": [
+				"sirp_incidentid", "sirp_incidentreporttype", "sirp_observereddatetime", "sirp_reporteddatetime", "sirp_incidentlocation", "sirp_reporterdetails"
+			],
+			"properties": {
+				"sirp_incidentid": {
+					"type": "string",
+					"format": "uuid",
+					"default": "",
+					"title": "The sirp_incidentid Schema",
+					"examples": [
+						"9151f21f-43ae-43b4-92f3-f4af67cdf544"
+					]
+				},
+				"sirp_incidentreporttype": {
+					"type": "array",
+					"uniqueItems": true,
+					"minItems": 1,
+					"items": {
+						"type": "integer",
+						"enum": [
+							100, 200, 300, 400
+						],
+						"meta:enum": {
+							"100": "Odour",
+							"200": "Illegal Fishing",
+							"300": "Water Pollution",
+							"400": "Flooding"
+						}
+					}
+				},
+				"sirp_observeddatetime": {
+					"type": "string",
+					"format": "date-time",
+					"default": "",
+					"title": "The sirp_observeddatetime Schema",
+					"examples": [
+						"2023-06-26 23:00:00.0000000"
+					]
+				},
+				"sirp_reporteddatetime": {
+					"type": "string",
+					"format": "date-time",
+					"default": "",
+					"title": "The sirp_reporteddatetime Schema",
+					"examples": [
+						"2023-06-27 23:00:00.0000000"
+					]
+				},
+				"sirp_illegalfishing": {
+					"type": "object",
+					"default": {},
+					"title": "The sirp_illegalfishing Schema",
+					"properties": {
+						"sirp_equipmentillegalfishing": {
+							"type": "array",
+							"description": "Are they using any of the following equipment?",
+							"uniqueItems": true,
+							"minItems": 1,
+							"maxItems": 1,
+							"items": {
+								"type": "integer",
+								"enum": [
+									100, 200, 300, 400, 500
+								],
+								"meta:enum": {
+									"100": "Nets",
+									"200": "Illegal rod or tackle",
+									"300": "Explosives",
+									"400": "Spears, crossbows or firearms",
+									"500": "Poison or Chemicals",
+									"600": "Something else",
+									"700": "You don't know"
+								}
+							}
+						},
+						"sirp_equipmentillegalfishingother": {
+							"type": "string",
+							"description": "(If other else) Please provide a description for the other equipment used",
+							"default": "",
+							"title": "The sirp_reporteddatetime Schema"
+						},
+						"sirp_howmanyillegalfish": {
+							"type": "array",
+							"title": "The sirp_howmanyillegalfish Schema",
+							"description": "How many fish have you seen being caught or killed?",
+							"uniqueItems": true,
+							"minItems": 1,
+							"maxItems": 1,
+							"items": {
+								"type": "integer",
+								"enum": [
+									100, 200, 300
+								],
+								"meta:enum": {
+									"100": "5 or more",
+									"200": "less than 5",
+									"300": "You don't know"
+								}
+							}
+						},
+						"sirp_peopleillegalfishing": {
+							"type": "boolean",
+							"default": "",
+							"description": "Is there more than one person involved?",
+							"title": "The sirp_peopleillegalfishing Schema",
+							"examples": [
+								true, false
+							]
+						},
+						"sirp_registrationillegalfishing": {
+							"type": "boolean",
+							"description": "Do you know the Vehicle registration",
+							"default": "",
+							"title": "The sirp_registrationillegalfishing Schema",
+							"examples": [
+								true, false
+							]
+						},
+						"sirp_registrationillegalfishingdescription": {
+							"type": "string",
+							"description": "The Vehicle registration",
+							"default": "",
+							"title": "The sirp_registrationillegalfishingdescription Schema",
+							"examples": [
+								"GG66 TXC"
+							]
+						},
+						"sirp_takenillegalfish": {
+							"type": "boolean",
+							"description": "Have you actually seen fish being taken?",
+							"default": "",
+							"title": "The sirp_takenillegalfish Schema",
+							"examples": [
+								true, false
+							]
+						},
+						"sirp_typeillegalfish": {
+							"type": "array",
+							"description": "Are they catching any of these types of fish?",
+							"title": "The sirp_typeillegalfish Schema",
+							"uniqueItems": true,
+							"minItems": 1,
+							"items": {
+								"type": "integer",
+								"enum": [
+									100, 200, 300, 400, 500, 600
+								],
+								"meta:enum": {
+									"100": "Salmon",
+									"200": "Lamprey ell",
+									"300": "Sea Trout",
+									"400": "Coarse fish",
+									"500": "Other type of fish",
+									"600": "You don't know"
+								}
+							}
+						},
+						"sirp_typeillegalfishother": {
+							"type": "string",
+							"default": "",
+							"description": "(If other else) Please provide a description for the other illegal fish",
+							"title": "The sirp_typeillegalfishother Schema",
+							"examples": [
+								""
+							]
+						},
+						"sirp_whyillegalfishing": {
+							"type": "array",
+							"description": "Why do you think the fishing is illegal?",
+							"title": "The sirp_whyillegalfishing Schema",
+							"uniqueItems": true,
+							"minItems": 1,
+							"items": {
+								"type": "integer",
+								"enum": [
+									100, 200, 300, 400, 500
+								],
+								"meta:enum": {
+									"100": "Fishing is not allowed here",
+									"200": "The type of equipment being used",
+									"300": "Fishing without a licence",
+									"400": "The type of fish being taken",
+									"500": "Another reason"
+								}
+							}
+						},
+						"sirp_whyillegalfishingother": {
+							"type": "string",
+							"description": "(If other else) Please provide a description for why illegal fishing is not allowed here",
+							"default": "",
+							"title": "The sirp_whyillegalfishingother Schema",
+							"examples": [
+								""
+							]
+						}
+					}
+				},
+				"sirp_incidentlocation": {
+					"type": "object",
+					"default": {},
+					"title": "The sirp_incidentlocation Schema",
+					"properties": {
+						"sirp_bng": {
+							"type": "string",
+							"default": "",
+							"title": "The sirp_bng Schema",
+							"examples": [
+								""
+							]
+						},
+						"sirp_eaarea": {
+							"type": "string",
+							"default": "",
+							"title": "The sirp_eaarea Schema",
+							"examples": [
+								""
+							]
+						},
+						"sirp_eaoffice": {
+							"type": "string",
+							"default": "",
+							"title": "The sirp_eaoffice Schema",
+							"examples": [
+								""
+							]
+						},
+						"sirp_x": {
+							"type": "string",
+							"default": "",
+							"title": "The sirp_x Schema",
+							"examples": [
+								""
+							]
+						},
+						"sirp_y": {
+							"type": "string",
+							"default": "",
+							"title": "The sirp_y Schema",
+							"examples": [
+								""
+							]
+						},
+						"sirp_address": {
+							"type": "object",
+							"default": {},
+							"title": "The sirp_address Schema",
+							"properties": {
+								"sirp_addressline1": {
+									"type": "string",
+									"default": "",
+									"title": "The sirp_addressline1 Schema",
+									"examples": [
+										""
+									]
+								},
+								"sirp_addressline2": {
+									"type": "string",
+									"default": "",
+									"title": "The sirp_addressline2 Schema",
+									"examples": [
+										""
+									]
+								},
+								"sirp_town": {
+									"type": "string",
+									"default": "",
+									"title": "The sirp_town Schema",
+									"examples": [
+										""
+									]
+								},
+								"sirp_postcode": {
+									"type": "string",
+									"default": "",
+									"title": "The sirp_postcode Schema",
+									"examples": [
+										""
+									]
+								}
+							}
+						}
+					},
+					"sirp_reporterdetails": {
+						"type": "object",
+						"default": {},
+						"title": "The sirp_reporterdetails Schema",
+						"properties": {
+							"sirp_consent": {
+								"type": "boolean",
+								"description": "Confirm that the reporter is happy for all information they have submitted as part of this report to be used in analysis and reporting for incident response (including photos, videos & supporting documentation ",
+								"default": "",
+								"title": "The sirp_consent Schema",
+								"examples": [
+									true, false
+								]
+							},
+							"sirp_contactable": {
+								"type": "boolean",
+								"description": "Does the reportee wish to be contact by the duty officer",
+								"default": "",
+								"title": "The sirp_contactable Schema",
+								"examples": [
+									true, false
+								]
+							},
+							"sirp_email": {
+								"type": "string",
+								"default": "",
+								"description": "Reporters email address",
+								"format": "email",
+								"title": "The sirp_email Schema",
+								"examples": [
+									"me@bt.com"
+								]
+							},
+							"sirp_feedback": {
+								"type": "boolean",
+								"description": "Would the reporter like to receive any updates on the incident they have reported",
+								"default": "",
+								"title": "The sirp_feedback Schema",
+								"examples": [
+									true, false
+								]
+							},
+							"sirp_homephonenumber": {
+								"type": [
+									"string", "null"
+								],
+								"minLength": 10,
+								"maxLength": 20,
+								"pattern": "^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$",
+								"title": "The sirp_homephonenumber Schema"
+							},
+							"sirp_mobilephonenumber": {
+								"type": [
+									"string", "null"
+								],
+								"minLength": 10,
+								"maxLength": 20,
+								"pattern": "^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$",
+								"title": "The sirp_mobilephonenumber Schema"
+							},
+							"sirp_previouslyreported": {
+								"type": "boolean",
+								"description": "Has the reporter previosuly used this digital form to report envrionmental incidents to the EA",
+								"default": "",
+								"title": "The sirp_previouslyreported Schema",
+								"examples": [
+									true, false
+								]
+							},
+							"sirp_reportername": {
+								"type": "string",
+								"description": "Name of reporter",
+								"default": "",
+								"title": "The sirp_reportername Schema",
+								"examples": [
+									"Mark Buttle"
+								]
+							},
+							"sirp_address": {
+								"type": "object",
+								"default": {},
+								"title": "The sirp_address Schema",
+								"properties": {
+									"sirp_addressline1": {
+										"type": "string",
+										"default": "",
+										"title": "The sirp_addressline1 Schema",
+										"examples": [
+											""
+										]
+									},
+									"sirp_addressline2": {
+										"type": "string",
+										"default": "",
+										"title": "The sirp_addressline2 Schema",
+										"examples": [
+											""
+										]
+									},
+									"sirp_town": {
+										"type": "string",
+										"default": "",
+										"title": "The sirp_town Schema",
+										"examples": [
+											""
+										]
+									},
+									"sirp_postcode": {
+										"type": "string",
+										"default": "",
+										"title": "The sirp_postcode Schema",
+										"examples": [
+											""
+										]
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

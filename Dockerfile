@@ -1,12 +1,10 @@
-FROM node:16
+FROM node:18
 
 LABEL author="Department for Environment, Food & Rural Affairs"
-
-ENV NODE_ENV=production
-ENV PORT=3000
+#ENV NODE_ENV=production
+ENV PORT=8000
 
 WORKDIR /app
-
 COPY package*.json ./
 RUN npm install
 
@@ -15,4 +13,4 @@ RUN npm run build
 
 EXPOSE $PORT
 
-ENTRYPOINT /bin/sh ./bin/startContainer
+CMD [ "npm", "start" ]

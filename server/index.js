@@ -16,7 +16,7 @@ const createServer = async () => {
   })
 
   await _registerPlugins(server)
-  console.log('Server started at port 3000...')
+  console.log(`Server started at port ${config.servicePort}...`)
   return server
 }
 

@@ -5,11 +5,6 @@
 const joi = require('joi')
 const envs = ['development', 'test', 'production']
 
-const getBoolean = booleanString =>
-  String(booleanString).toLowerCase() === 'true'
-
-const defaultUrl = 'http://some-url'
-
 // Define config schema
 const schema = joi.object().keys({
   env: joi
@@ -17,7 +12,7 @@ const schema = joi.object().keys({
     .valid(...envs)
     .default(envs[0]),
   serviceHost: joi.string(),
-  servicePort: joi.number().default(3000),
+  servicePort: joi.number().default(8000),
   serviceName: joi
     .string()
     .default('Report an environmental incident'),
