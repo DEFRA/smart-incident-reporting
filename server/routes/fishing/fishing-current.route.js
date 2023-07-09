@@ -23,6 +23,10 @@ const handlers = {
       return h.view(Views.FISHING_WHEN, {
         ...context
       })
+    } else {
+      return h.view(Views.FISHING_OTHERINFO, {
+        ...context
+      })
     }
   }
 }
