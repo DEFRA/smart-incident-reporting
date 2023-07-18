@@ -1,6 +1,8 @@
 'use strict'
 
-const { Paths, Views } = require('../utils/constants')
+const { Paths, Views, RedisKeys } = require('../utils/constants')
+const RedisService = require('../services/redis.service')
+const IncidentUtilsService = require('../services/incident.service')
 
 const handlers = {
   get: (request, h) => {
@@ -11,6 +13,13 @@ const handlers = {
   },
   post: (request, h) => {
     const context = _getContext()
+    const payload = request.payload
+    IncidentUtilsService.generateIncidentJson(request)
+    RedisService.set(
+      request,
+      RedisKeys.UPDATES_PAYLOAD,
+      JSON.stringify(payload)
+    )
     if (request.payload.updates === 'yes') {
       return h.view(Views.SUCCESS, {
         ...context

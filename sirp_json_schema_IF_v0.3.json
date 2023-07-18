@@ -1,7 +1,3 @@
-#This JSON Schema is based upon prototype version 2.0 created 29 June Sprint 5
-#Last Edited by Jonathan Robertson 05/07/2023
-#Edit includes update to The sirp_illegalfishing Schema/Are they using any of the following equipment?
-
 {
 	"$schema": "https://json-schema.org/draft/2019-09/schema",
 	"$id": "http://example.com/example.json",
@@ -86,8 +82,9 @@
 									"300": "Explosives",
 									"400": "Spears, crossbows or firearms",
 									"500": "Poison or Chemicals",
-									"600": "Something else",
-									"700": "You don't know"
+                                    "600": "Electric Stun Devices",
+									"700": "Something else",
+									"800": "You don't know"
 								}
 							}
 						},
@@ -119,28 +116,10 @@
 						"sirp_peopleillegalfishing": {
 							"type": "boolean",
 							"default": "",
-							"description": "Is there more than one person involved?",
+							"description": "Are there more than 2 people involved?",
 							"title": "The sirp_peopleillegalfishing Schema",
 							"examples": [
 								true, false
-							]
-						},
-						"sirp_registrationillegalfishing": {
-							"type": "boolean",
-							"description": "Do you know the Vehicle registration",
-							"default": "",
-							"title": "The sirp_registrationillegalfishing Schema",
-							"examples": [
-								true, false
-							]
-						},
-						"sirp_registrationillegalfishingdescription": {
-							"type": "string",
-							"description": "The Vehicle registration",
-							"default": "",
-							"title": "The sirp_registrationillegalfishingdescription Schema",
-							"examples": [
-								"GG66 TXC"
 							]
 						},
 						"sirp_takenillegalfish": {
@@ -198,7 +177,8 @@
 									"200": "The type of equipment being used",
 									"300": "Fishing without a licence",
 									"400": "The type of fish being taken",
-									"500": "Another reason"
+                                    "500": "Causing damage or destruction to fish habitats",
+									"600": "Another reason"
 								}
 							}
 						},
@@ -295,9 +275,10 @@
 										""
 									]
 								}
-							}
-						}
-					},
+							 }
+						  }
+					   }
+                    },
 					"sirp_reporterdetails": {
 						"type": "object",
 						"default": {},
@@ -410,8 +391,15 @@
 										"default": "",
 										"title": "The sirp_postcode Schema",
 										"examples": [
-											""
-										]
+											""],
+						"sirp_Canyougiveusanyotherinformation": {
+							"type": "string",
+							"description": "If there is further information about the incident they would like to add, add it here",
+							"default": "",
+							"title": "The sirp_Canyougiveusanyotherinformation Schema",
+							"examples": [
+								""
+							]     
 									}
 								}
 							}
@@ -420,5 +408,4 @@
 				}
 			}
 		}
-	}
-}
+	}}

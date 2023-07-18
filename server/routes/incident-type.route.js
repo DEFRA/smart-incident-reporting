@@ -1,6 +1,7 @@
 'use strict'
 
-const { Paths, Views } = require('../utils/constants')
+const { Paths, Views, RedisKeys } = require('../utils/constants')
+const RedisService = require('../services/redis.service')
 
 const handlers = {
   get: (request, h) => {
@@ -12,8 +13,14 @@ const handlers = {
   post: (request, h) => {
     const context = _getContext()
 
-    var incidenttype = request.payload['incident-type']
-    console.log('Val : ' + incidenttype)
+    const incidenttype = request.payload['incident-type']
+
+    RedisService.set(
+      request,
+      RedisKeys.INCIDENT_TYPE,
+      incidenttype
+    )
+
     if (incidenttype === 'waterpollution') {
       return h.view(Views.WATER_TYPE, { ...context })
     } else if (incidenttype === 'smells') {

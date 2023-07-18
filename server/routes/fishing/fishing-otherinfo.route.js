@@ -1,6 +1,7 @@
 'use strict'
 
-const { Paths, Views } = require('../../utils/constants')
+const { Paths, Views, RedisKeys } = require('../../utils/constants')
+const RedisService = require('../../services/redis.service')
 
 const handlers = {
   get: (request, h) => {
@@ -11,6 +12,12 @@ const handlers = {
   },
   post: (request, h) => {
     const context = _getContext()
+    const payload = request.payload
+    RedisService.set(
+      request,
+      RedisKeys.FISHING_OTHERINFO_PAYLOAD,
+      JSON.stringify(payload)
+    )
     return h.view(Views.ANONYMOUS, {
       ...context
     })

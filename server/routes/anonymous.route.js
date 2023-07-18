@@ -1,6 +1,9 @@
 'use strict'
 
-const { Paths, Views } = require('../utils/constants')
+const { Paths, Views, RedisKeys } = require('../utils/constants')
+const RedisService = require('../services/redis.service')
+const IncidentUtilsService = require('../services/incident.service')
+const ASBService = require('../services/asb.send')
 
 const handlers = {
   get: (request, h) => {
@@ -9,13 +12,23 @@ const handlers = {
       ...context
     })
   },
-  post: (request, h) => {
+  post: async (request, h) => {
     const context = _getContext()
+    const payload = request.payload
+    RedisService.set(
+      request,
+      RedisKeys.ANONYMOUS_PAYLOAD,
+      JSON.stringify(payload)
+    )
+    const incidentToPost = await IncidentUtilsService.generateIncidentJson(request)
+
     if (request.payload.anonymous === 'yes') {
+      await ASBService.sendMessageToQueue(incidentToPost)
       return h.view(Views.SUCCESS, {
         ...context
       })
     } else if (request.payload.anonymous === 'no') {
+      await ASBService.sendMessageToQueue(incidentToPost)
       return h.view(Views.UPDATES, {
         ...context
       })

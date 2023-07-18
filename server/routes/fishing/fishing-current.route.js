@@ -1,6 +1,7 @@
 'use strict'
 
-const { Paths, Views } = require('../../utils/constants')
+const { Paths, Views, RedisKeys, SirpRedisKeys } = require('../../utils/constants')
+const RedisService = require('../../services/redis.service')
 
 const handlers = {
   get: (request, h) => {
@@ -11,6 +12,21 @@ const handlers = {
   },
   post: (request, h) => {
     const context = _getContext()
+
+    const payload = request.payload
+
+    if (payload.ongoing === undefined) {
+      return h.view(Views.FISHING_CURRENT, {
+        ...context
+      })
+    }
+
+    RedisService.set(
+      request,
+      RedisKeys.FISHING_CURRENT_PAYLOAD,
+      JSON.stringify(payload)
+    )
+    _generateSirpData(request, payload)
     if (request.payload.ongoing === 'yes') {
       return h.view(Views.FISHING_OTHERINFO, {
         ...context
@@ -29,6 +45,24 @@ const handlers = {
       })
     }
   }
+}
+
+const _generateSirpData = (request, payload) => {
+  const isItStillhappening = payload.ongoing
+  var isItStillHappeningValue = 0
+  if (isItStillhappening === 'yes') {
+    isItStillHappeningValue = 100
+  } else if (isItStillhappening === 'no') {
+    isItStillHappeningValue = 200
+  } else if (isItStillhappening === 'dunno') {
+    isItStillHappeningValue = 300
+  }
+
+  RedisService.set(
+    request,
+    SirpRedisKeys.SIRP_FISHING_CURRENT_PAYLOAD,
+    JSON.stringify(isItStillHappeningValue)
+  )
 }
 
 const _getContext = () => {

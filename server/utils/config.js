@@ -16,10 +16,13 @@ const schema = joi.object().keys({
   serviceName: joi
     .string()
     .default('Report an environmental incident'),
+  redisHost: joi.string().default('localhost'),
+  redisPort: joi.number().default(6379),
+  redisPassword: joi.string(),
   logLevel: joi.string().default('warn'),
   requestTimeout: joi.number(),
   maximumFileSize: joi.number().default(10),
-  cookieTimeout: joi.number(),
+  cookieTimeout: joi.number().default(90000),
   cookieValidationPassword: joi
     .string()
     .default('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -32,7 +35,10 @@ const config = {
   servicePort: process.env.SERVICE_PORT,
   serviceName: process.env.SERVICE_NAME,
   logLevel: process.env.LOG_LEVEL,
-  requestTimeout: process.env.REQUEST_TIMEOUT
+  requestTimeout: process.env.REQUEST_TIMEOUT,
+  redisHost: process.env.REDIS_HOST,
+  redisPort: process.env.REDIS_PORT,
+  redisPassword: process.env.REDIS_PASSWORD
 }
 
 // Validate config

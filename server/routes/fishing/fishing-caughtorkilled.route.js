@@ -1,6 +1,7 @@
 'use strict'
 
-const { Paths, Views } = require('../../utils/constants')
+const { Paths, Views, RedisKeys, SirpRedisKeys } = require('../../utils/constants')
+const RedisService = require('../../services/redis.service')
 
 const handlers = {
   get: (request, h) => {
@@ -12,6 +13,13 @@ const handlers = {
   post: (request, h) => {
     const context = _getContext()
 
+    const payload = request.payload
+    RedisService.set(
+      request,
+      RedisKeys.FISHING_CAUGHTORKILLED_PAYLOAD,
+      JSON.stringify(payload)
+    )
+    _generateSirpData(request, payload)
     if (request.payload.fishtaken === 'yes') {
       return h.view(Views.FISHING_TYPE_OF_FISH, {
         ...context
@@ -21,6 +29,24 @@ const handlers = {
         ...context
       })
     }
+  }
+}
+
+const _generateSirpData = (request, payload) => {
+  let isFishTaken
+  const fishTakenValue = payload.fishtaken
+  if (fishTakenValue !== undefined) {
+    if (fishTakenValue === 'yes') {
+      isFishTaken = true
+    } else if (fishTakenValue === 'no') {
+      isFishTaken = false
+    }
+
+    RedisService.set(
+      request,
+      SirpRedisKeys.SIRP_FISHING_CAUGHTORKILLED_PAYLOAD,
+      JSON.stringify(isFishTaken)
+    )
   }
 }
 

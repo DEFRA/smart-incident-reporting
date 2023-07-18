@@ -105,10 +105,45 @@ const StatusCodes = {
   SERVICE_UNAVAILABLE: 503
 }
 
+const RedisKeys = {
+  INCIDENT_TYPE: 'incidentType.incident-type',
+  FISHING_LOCATION_PAYLOAD: 'fishing-location.payload',
+  FISHING_REPORTREASON_PAYLOAD: 'fishing-reportreason.payload',
+  FISHING_CAUGHTORKILLED_PAYLOAD: 'fishing-caughtorkilled.payload',
+  FISHING_TYPEOFFISH_PAYLOAD: 'fishing-typeoffish.payload',
+  FISHING_NUMBEROFANGLERS_PAYLOAD: 'fishing-numberofanglers.payload',
+  FISHING_NUMBEROFFISH_PAYLOAD: 'fishing-numberoffish.payload',
+  FISHING_CURRENT_PAYLOAD: 'fishing-current.payload',
+  FISHING_OTHERINFO_PAYLOAD: 'fishing-otherinfo.payload',
+  ANONYMOUS_PAYLOAD: 'anonymous.payload',
+  UPDATES_PAYLOAD: 'updates.payload',
+  FISHING_EQUIPMENT_PAYLOAD: 'fishing-equipment.payload',
+  FISHING_WHEN_PAYLOAD: 'fishing-when.payload'
+}
+
+const SirpRedisKeys = {
+  INCIDENT_TYPE: 'incidentType.incident-type',
+  FISHING_LOCATION_PAYLOAD: 'fishing-location.payload',
+  SIRP_FISHING_REPORTREASON_PAYLOAD: 'fishing-reportreason.sirp',
+  SIRP_FISHING_CAUGHTORKILLED_PAYLOAD: 'fishing-caughtorkilled.sirp',
+  SIRP_FISHING_TYPEOFFISH_PAYLOAD: 'fishing-typeoffish.sirp',
+  SIRP_FISHING_NUMBEROFANGLERS_PAYLOAD: 'fishing-numberofanglers.sirp',
+  SIRP_FISHING_NUMBEROFFISH_PAYLOAD: 'fishing-numberoffish.sirp',
+  SIRP_FISHING_CURRENT_PAYLOAD: 'fishing-current.sirp',
+  FISHING_OTHERINFO_PAYLOAD: 'fishing-otherinfo.payload',
+  ANONYMOUS_PAYLOAD: 'anonymous.payload',
+  UPDATES_PAYLOAD: 'updates.payload',
+  SIRP_FISHING_EQUIPMENT_PAYLOAD: 'fishing-equipment.sirp',
+  FISHING_WHEN_PAYLOAD: 'fishing-when.payload'
+}
+
 module.exports = Object.freeze({
   HOME_URL,
   Paths,
   StatusCodes,
   Urls,
-  Views
+  Views,
+  RedisKeys,
+  SirpRedisKeys,
+  SI_SESSION_KEY: 'SISession'
 })
