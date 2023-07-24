@@ -12,10 +12,9 @@ const _getSettings = () => {
     settings.password = config.redisPassword
   }
 
-  if (config.redisUseTls) {
-    settings.tls = {}
-  }
+  settings.tls = { host: config.redisHost }
 
+  console.log('Redis settings ' + JSON.stringify(settings))
   return settings
 }
 

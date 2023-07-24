@@ -3,7 +3,6 @@
 const { SirpRedisKeys } = require('../utils/constants')
 const RedisService = require('./redis.service')
 const { v4: uuidv4 } = require('uuid')
-const format = require('date-format')
 
 module.exports = class IncidentService {
   static async generateIncidentJson (request) {
@@ -13,8 +12,8 @@ module.exports = class IncidentService {
     const incidentObj = iJsonObj.sirp_incident = {}
     incidentObj.sirp_incidentid = uuidv4()
     incidentObj.sirp_incidentreporttype = incidentTypeFishing
-    incidentObj.sirp_observeddatetime = new Date().toJSON()// format('yyyy-MM-dd hh:mm:ss:SSS', new Date())
-    incidentObj.sirp_reporteddatetime = new Date().toJSON()// format('yyyy-MM-dd hh:mm:ss:SSS', new Date())
+    incidentObj.sirp_observeddatetime = new Date().toJSON()
+    incidentObj.sirp_reporteddatetime = new Date().toJSON()
 
     incidentObj.sirp_illegalfishing = await RedisService.get(request, SirpRedisKeys.SIRP_FISHING_EQUIPMENT_PAYLOAD)
 
@@ -43,6 +42,10 @@ module.exports = class IncidentService {
     }
 
     // sirp_typeillegalfishother
+    // Latitude and longitude hardcoded for backend display
+    incidentObj.sirp_incidentlocation = {}
+    incidentObj.sirp_incidentlocation.sirp_x = 51.50
+    incidentObj.sirp_incidentlocation.sirp_y = 0.0293
 
     console.log(JSON.stringify(iJsonObj))
     return iJsonObj
