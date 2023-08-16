@@ -1,6 +1,6 @@
 'use strict'
 
-const { SirpRedisKeys } = require('../utils/constants')
+const { SirpRedisKeys, RedisKeys } = require('../utils/constants')
 const RedisService = require('./redis.service')
 const { v4: uuidv4 } = require('uuid')
 
@@ -43,9 +43,10 @@ module.exports = class IncidentService {
 
     // sirp_typeillegalfishother
     // Latitude and longitude hardcoded for backend display
+    const fishingIncodentCoordinates = await RedisService.get(request, RedisKeys.FISHING_INCIDENT_COORDINATES)
     incidentObj.sirp_incidentlocation = {}
-    incidentObj.sirp_incidentlocation.sirp_x = 51.50
-    incidentObj.sirp_incidentlocation.sirp_y = 0.0293
+    incidentObj.sirp_incidentlocation.sirp_x = fishingIncodentCoordinates.X_COORDINATE
+    incidentObj.sirp_incidentlocation.sirp_y = fishingIncodentCoordinates.Y_COORDINATE
 
     console.log(JSON.stringify(iJsonObj))
     return iJsonObj

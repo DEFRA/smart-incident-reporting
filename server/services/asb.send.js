@@ -10,18 +10,6 @@ module.exports = class ASBService {
     const sender = sbClient.createSender(queueName)
 
     try {
-      // for (let i = 0; i < 10; i++) {
-      //   const message = {
-      //     body: `Hello world! ${i}`,
-      //     label: 'test',
-      //     userProperties: {
-      //       myCustomPropertyName: `my custom property value ${i}`
-      //     }
-      //   }
-      //   console.log(`Sending message: ${message.body}`)
-      //   await sender.sendMessages(message)
-      // }
-
       const message = {
         body: incidentToPublish,
         label: incidentType,
@@ -36,8 +24,5 @@ module.exports = class ASBService {
     } finally {
       await sbClient.close()
     }
-    // ASBService.sendMessageToQueue().catch((err) => {
-    //   console.log('Error occurred: ', err)
-    // })
   }
 }

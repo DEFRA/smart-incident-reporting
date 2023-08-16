@@ -46,7 +46,7 @@ module.exports = [
     handler: handlers.get
   }, {
     method: 'POST',
-    path: `${Paths.WATER_TYPE}`,
+    path: `${Paths.INCIDENT_TYPE_ANSWER}`,
     handler: handlers.post
   }
 ]

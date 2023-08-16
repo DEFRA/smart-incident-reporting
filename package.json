@@ -33,6 +33,7 @@
     "@hapi/hapi": "^20.2.1",
     "@hapi/inert": "^6.0.5",
     "@hapi/vision": "^6.1.0",
+    "@hapi/wreck": "^18.0.1",
     "applicationinsights": "^2.2.2",
     "bcrypt": "^5.0.1",
     "blipp": "^4.0.2",
@@ -40,7 +41,9 @@
     "express": "^4.18.2",
     "govuk-frontend": "^4.6.0",
     "hapi-redis2": "^3.0.1",
+    "https-proxy-agent": "^7.0.1",
     "joi": "^17.6.0",
+    "moment-timezone": "^0.5.43",
     "node-fetch": "^2.6.7",
     "node-sass": "^9.0.0",
     "nunjucks": "^3.2.4"

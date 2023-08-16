@@ -14,6 +14,7 @@ const Paths = {
   PROBLEM_WITH_SERVICE: '/errors/problem-with-service',
   SERVICE_UNAVAILABLE: '/errors/service-unavailable',
   INCIDENT_TYPE: '/incident-type',
+  INCIDENT_TYPE_ANSWER: '/incident-type/incident-type',
   WATER_TYPE: '/water-quality/water-type',
   WATER_TYPE_ANSWER: '/water-quality/water-type-answer',
   WATER_TYPE_LOCATION: '/water-quality/location',
@@ -124,6 +125,7 @@ const RedisKeys = {
 const SirpRedisKeys = {
   INCIDENT_TYPE: 'incidentType.incident-type',
   FISHING_LOCATION_PAYLOAD: 'fishing-location.payload',
+  FISHING_INCIDENT_COORDINATES: 'fishing-incident.coordinates.sirp',
   SIRP_FISHING_REPORTREASON_PAYLOAD: 'fishing-reportreason.sirp',
   SIRP_FISHING_CAUGHTORKILLED_PAYLOAD: 'fishing-caughtorkilled.sirp',
   SIRP_FISHING_TYPEOFFISH_PAYLOAD: 'fishing-typeoffish.sirp',

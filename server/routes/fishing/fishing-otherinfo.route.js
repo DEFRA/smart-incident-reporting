@@ -18,7 +18,7 @@ const handlers = {
       RedisKeys.FISHING_OTHERINFO_PAYLOAD,
       JSON.stringify(payload)
     )
-    return h.view(Views.ANONYMOUS, {
+    return h.view(Views.EVIDENCE, {
       ...context
     })
   }
