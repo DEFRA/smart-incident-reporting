@@ -25,7 +25,8 @@ const schema = joi.object().keys({
   cookieTimeout: joi.number().default(90000),
   cookieValidationPassword: joi
     .string()
-    .default('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+    .default('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'),
+  osDataURI: joi.string().default('https://osdatahub.co.uk')
 })
 
 // Build config
@@ -38,7 +39,8 @@ const config = {
   requestTimeout: process.env.REQUEST_TIMEOUT,
   redisHost: process.env.REDIS_HOST,
   redisPort: process.env.REDIS_PORT,
-  redisPassword: process.env.REDIS_PASSWORD
+  redisPassword: process.env.REDIS_PASSWORD,
+  osDataURI: process.env.OS_DATA_HUB_URI
 }
 
 // Validate config
