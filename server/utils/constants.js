@@ -42,6 +42,7 @@ const Paths = {
   UPDATES: '/updates',
   UPDATES_ANSWER: '/updates-answer',
   FISHING_LOCATION: '/fishing/location',
+  FISHING_LOCATION_PIN_POINT: '/fishing/locationpinpoint',
   FISHING_LOCATION_ANSWER: '/fishing/location/answer',
   FISHING_REPORTREASON: '/fishing/reportreason',
   FISHING_REPORTREASON_ANSWER: '/fishing/reportreason/answer',
@@ -84,6 +85,7 @@ const Views = {
   WATER_TYPE_AQUATICLIFE_TWO: 'water-quality/impact/aquaticlife02',
   FISHING_LOCATION: 'fishing/location',
   FISHING_REPORTREASON: 'fishing/reportreason',
+  FISHING_LOCATION_MAPPING_OPTION: 'fishing/location-mapping-option',
   FISHING_CAUGHTORKILLED: 'fishing/caughtorkilled',
   FISHING_EQUIPMENT: 'fishing/equipment',
   FISHING_TYPE_OF_FISH: 'fishing/type-of-fish',
@@ -119,7 +121,8 @@ const RedisKeys = {
   ANONYMOUS_PAYLOAD: 'anonymous.payload',
   UPDATES_PAYLOAD: 'updates.payload',
   FISHING_EQUIPMENT_PAYLOAD: 'fishing-equipment.payload',
-  FISHING_WHEN_PAYLOAD: 'fishing-when.payload'
+  FISHING_WHEN_PAYLOAD: 'fishing-when.payload',
+  LOCATION_MAPPING_PINPOINT_FISHING: 'fishing-locationpinpoint.payload'
 }
 
 const SirpRedisKeys = {

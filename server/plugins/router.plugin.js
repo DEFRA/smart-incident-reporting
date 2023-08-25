@@ -23,6 +23,7 @@ const routes = [].concat(
   require('../routes/fishing/fishing-current.route'),
   require('../routes/fishing/fishing-otherinfo.route'),
   require('../routes/fishing/fishing-when.route'),
+  require('../routes/fishing/fishing.locationpinpoint.route'),
   require('../routes/location.route'),
   require('../routes/success.route'),
   require('../routes/evidence.route'),

@@ -26,9 +26,22 @@ const handlers = {
       RedisKeys.FISHING_INCIDENT_COORDINATES,
       JSON.stringify(incidentCoordinates)
     )
-    return h.view(Views.FISHING_REPORTREASON, {
-      ...context
-    })
+
+    const locationMappingPinpointFishing = request.payload['location-mapping-pinpoint-fishing']
+
+    RedisService.set(
+      request,
+      RedisKeys.LOCATION_MAPPING_PINPOINT_FISHING,
+      locationMappingPinpointFishing
+    )
+
+    if (locationMappingPinpointFishing === 'no') {
+      return h.view(Views.FISHING_REPORTREASON, {
+        ...context
+      })
+    } else {
+      return h.view(Views.FISHING_LOCATION_MAPPING_OPTION, { ...context })
+    }
   }
 }
 

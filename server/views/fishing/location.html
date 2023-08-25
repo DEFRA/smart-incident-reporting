@@ -1,54 +1,81 @@
 {% extends 'form-layout.html' %}
 
 {% block pageTitle %}
-  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+Question page template – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukBackLink({
-  text: "Back",
-  href: "javascript:window.history.back()"
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
 }) }}
 {% endblock %}
 
 {% block content %}
+<!--        <form class="form" action="../location-mapping-pinpoint-fishing" method="post">-->
+<form action="/fishing/location/answer" class="form" method="post">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <h1 class="govuk-fieldset__heading">
+                    What is the nearest town, village or landmark to where you saw people illegally fishing?
+                </h1>
+            </legend>
 
-      <form class="form" action="/fishing/location/answer" method="post">
-      {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+            <div class="govuk-form-group">
+                <input autocomplete="address-line1" class="govuk-input" id="address-line-1" name="postcode"
+                       type="text">
+            </div>
 
-      {{ govukTextarea({
-        name: "more-detail",
-        id: "more-detail",
-        label: {
-          text: "Where have you seen illegal fishing?",
-          classes: "govuk-label--l",
-          isPageHeading: true
-        },
-        hint: {
-          text: "Give as much detail as you can, including water course, nearest town and what side of the river it is on if a river. Do not include personal information, like someone's name."
-        }
-      }) }}
-      {% from "govuk/components/input/macro.njk" import govukInput %}
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="sort-code">
+                    Can you give any more details?
+                </label>
 
-      {{ govukInput({
-        label: {
-          text: "Nearest postcode (if known)"
-        },
-        classes: "govuk-input--width-10",
-        id: "width-10",
-        name: "postcode"
-      }) }}
 
-      {{ govukButton({
-        text: "Continue"
-      }) }}
+                <div class="govuk-hint" id="more-detail-hint">
+                    For example, which side of the river they were on.
+                </div>
 
-      </form>
+                <textarea aria-describedby="more-detail-hint" class="govuk-textarea" id="more-detail" name="more-detail"
+                          rows="5"></textarea>
+            </div>
 
-    </div>
-  </div>
+
+            {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+            {{ govukRadios({
+            classes: "govuk-radios--inline",
+            name: "location-mapping-pinpoint-fishing",
+            fieldset: {
+            legend: {
+            text: "Could you pinpoint this on a map?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--l"
+            }
+            },
+            items: [
+            {
+            value: "yes",
+            text: "Yes"
+            },
+            {
+            value: "no",
+            text: "No"
+            }
+            ]
+            }) }}
+
+            {{ govukButton({
+            text: "Continue"
+            }) }}
+
+</form>
+
+</div>
+
+</div>
+
 
 {% endblock %}
