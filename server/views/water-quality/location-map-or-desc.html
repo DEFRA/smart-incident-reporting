@@ -1,0 +1,62 @@
+{% extends 'form-layout.html' %}
+
+{% block pageTitle %}
+Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <form action="/water-quality/location-map-or-desc" class="form" method="post">
+
+            <h1 class="govuk-heading-l">
+                Where did you see the pollution?
+            </h1>
+            <div class="govuk-hint" id="location-hint">
+                Choose how you'd prefer to give the location.
+            </div>
+
+            <!-- default incidentType in case skips the first page -->
+            <input id="incidentType" name="incidentType" type="hidden" value="waterquality">
+
+            <!-- Includes of the html does not work - have to include the partials-->
+
+            {% from "govuk/components/radios/macro.njk" import govukRadios %}
+            {% from "govuk/components/input/macro.njk" import govukInput %}
+
+            {{ govukRadios({
+            classes: "govuk-radios",
+            name: "location-map-or-desc",
+            items: [
+            {
+            value: "address",
+            text: "Give an address"
+            },
+            {
+            value: "map",
+            text: "Mark the location on an online map"
+            },
+            {
+            value: "desc",
+            text: "Describe the location (including using things like what3words if you want to)"
+            }
+            ]
+            }) }}
+
+            {{ govukButton({
+            text: "Continue"
+            }) }}
+
+        </form>
+    </div>
+
+</div>
+{% endblock %}

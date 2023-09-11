@@ -1,0 +1,54 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% set w3wHtml %}
+<h1 class="govuk-fieldset__heading">
+  Mark the location on the map
+</h1>
+<div id="location-hint" class="govuk-hint">
+  Enter town, postcode or location name to search the map. Double tap or click to place a pin. When you're happy with the location, continue.
+</div>
+</legend>
+<div id="map" style= min-height:600px; width: 100%; height: 100%;"></div>
+<br><br><br>
+{{ govukButton({
+text: "Continue",
+href: "when.html",
+isStartButton: false
+}) }}
+{% endset -%}
+
+{% set coordHtml %}
+{{ govukInput({
+  id: "location-coord",
+  name: "locaton-coord",
+  spellcheck: false,
+  classes: "govuk-!-width-one-third",
+  label: {
+    text: "Give the map coordinates"
+  }
+}) }}
+{% endset -%}
+
+{{ govukRadios({
+  classes: "govuk-radios",
+  name: "location-map-or-desc",
+  items: [
+    {
+      value: "address",
+      text: "Give an address"
+    },
+    {
+      value: "map",
+      text: "Mark the location on an online map"
+    },
+    {
+      value: "desc",
+      text: "Describe the location (including using things like what3words if you want to)"
+    }
+  ]
+}) }}
+
+{{ govukButton({
+  text: "Continue"
+}) }}

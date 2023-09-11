@@ -11,7 +11,7 @@ const handlers = {
   },
   post: (request, h) => {
     const context = _getContext()
-    return h.view(Views.WATER_TYPE_EXTENT_TWO, {
+    return h.view(Views.WATER_TYPE_EXTENT_THREE, {
       ...context
     })
   }
@@ -32,7 +32,7 @@ module.exports = [
   },
   {
     method: 'POST',
-    path: `${Paths.WATER_TYPE_EXTENT_ANSWER}`,
+    path: `${Paths.WATER_TYPE_EXTENT}`,
     handler: handlers.post
   }
 ]

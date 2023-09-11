@@ -12,13 +12,13 @@ const _getSettings = () => {
     settings.password = config.redisPassword
   }
 
-  // Needed to connect to local cache
+  // Needed to connect to azure cached
   // settings.tls = { host: config.redisHost }
 
-  // Needed to connect to azure redis cache
-  // if (config.redisUseTls) {
-  settings.tls = {}
-  // }
+  // Needed to connect to local cache
+  if (config.redisUseTls) {
+    settings.tls = {}
+  }
 
   console.log('Redis settings ' + JSON.stringify(settings))
   return settings

@@ -5,13 +5,13 @@ const { Paths, Views } = require('../../utils/constants')
 const handlers = {
   get: (request, h) => {
     const context = _getContext()
-    return h.view(Views.WATER_TYPE_AQUATICLIFE, {
+    return h.view(Views.WATER_TYPE_OTHER_INFO, {
       ...context
     })
   },
   post: (request, h) => {
     const context = _getContext()
-    return h.view(Views.WATER_TYPE_AQUATICLIFE_TWO, {
+    return h.view(Views.WATER_TYPE_CONTACT, {
       ...context
     })
   }
@@ -27,12 +27,12 @@ const _getContext = () => {
 module.exports = [
   {
     method: 'GET',
-    path: `${Paths.WATER_TYPE_AQUATICLIFE}`,
+    path: `${Paths.WATER_TYPE_OTHER_INFO}`,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: `${Paths.WATER_TYPE_AQUATICLIFE}`,
+    path: `${Paths.WATER_TYPE_OTHER_INFO}`,
     handler: handlers.post
   }
 ]

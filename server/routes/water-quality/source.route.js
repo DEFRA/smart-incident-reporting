@@ -32,7 +32,7 @@ module.exports = [
   },
   {
     method: 'POST',
-    path: `${Paths.WATER_TYPE_SOURCE_ANSWER}`,
+    path: `${Paths.WATER_TYPE_SOURCE}`,
     handler: handlers.post
   }
 ]

@@ -1,0 +1,119 @@
+{% extends 'form-layout.html' %}
+
+{% block pageTitle %}
+Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form action="../water-quality/when" class="form" method="post">
+            {% from "govuk/components/radios/macro.njk" import govukRadios %}
+            {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+            {% from "govuk/components/input/macro.njk" import govukInput %}
+
+            {% set otherHtml %}
+            {{ govukDateInput({
+            id: "date-of-incident",
+            namePrefix: "date-of-incident",
+            fieldset: {
+            legend: {
+            text: "Date",
+            classes: "govuk-fieldset__legend--s"
+            }
+            }
+            }) }}
+
+            {{ govukInput({
+            label: {
+            text: "Approximate time (optional)",
+            classes: "govuk-fieldset__legend--s"
+            },
+            classes: "govuk-input--width-5",
+            id: "time",
+            name: "time"
+            }) }}
+            {% endset -%}
+
+            {% set timeHtml %}
+            {{ govukInput({
+            label: {
+            text: "Approximate time (optional)",
+            classes: "govuk-fieldset__legend--s"
+            },
+            classes: "govuk-input--width-5",
+            id: "time",
+            name: "time"
+            }) }}
+            {% endset -%}
+
+            {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+            {{ govukRadios({
+            classes: "govuk-radios",
+            name: "current",
+            fieldset: {
+            legend: {
+            text: "When did you most recently see water pollution here?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+            }
+            },
+            items: [
+            {
+            value: "today",
+            text: "Today",
+            conditional: {
+            html: timeHtml
+            }
+            },
+            {
+            value: "yesterday",
+            text: "Yesterday",
+            conditional: {
+            html: timeHtml
+            }
+            },
+            {
+            value: "thisweek",
+            text: "In the last week",
+            conditional: {
+            html: otherHtml
+            }
+            },
+            {
+            value: "date",
+            text: "Before then",
+            conditional: {
+            html: otherHtml
+            }
+            },
+            {
+            divider: "or"
+            },
+            {
+            value: "dunno",
+            text: "You do not know"
+            }
+            ]
+            }) }}
+
+            {{ govukButton({
+            text: "Continue"
+            }) }}
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

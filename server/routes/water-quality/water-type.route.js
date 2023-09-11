@@ -10,8 +10,9 @@ const handlers = {
     })
   },
   post: (request, h) => {
+
     const context = _getContext()
-    return h.view(Views.WATER_TYPE_LOCATION, {
+    return h.view(Views.WATER_TYPE_LOCATION_MAP_OR_DESC, {
       ...context
     })
   }
