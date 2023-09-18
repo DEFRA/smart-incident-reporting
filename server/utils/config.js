@@ -1,6 +1,7 @@
 'use strict'
 
 // (see https://www.npmjs.com/package/dotenv)
+require('dotenv').config()
 
 const joi = require('joi')
 const envs = ['development', 'test', 'production']
