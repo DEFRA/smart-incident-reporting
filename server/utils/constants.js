@@ -13,6 +13,9 @@ const Paths = {
   PAGE_NOT_FOUND: '/errors/page-not-found',
   PROBLEM_WITH_SERVICE: '/errors/problem-with-service',
   SERVICE_UNAVAILABLE: '/errors/service-unavailable',
+  COOKIES: '/notices/cookies',
+  PRIVACY_STATEMENT: '/notices/privacy',
+  ACCESSIBILITY_STATEMENT: '/notices/accessibility',
   INCIDENT_TYPE: '/incident-type',
   INCIDENT_TYPE_ANSWER: '/incident-type/incident-type-answer',
   WATER_TYPE: '/water-quality/water-type',
@@ -87,6 +90,9 @@ const Views = {
   EVIDENCE: 'evidence',
   ANONYMOUS: 'anonymous',
   UPDATES: 'updates',
+  COOKIES: 'notices/cookies',
+  PRIVACY_STATEMENT: 'notices/privacy',
+  ACCESSIBILITY_STATEMENT: 'notices/accessibility',
   WATER_TYPE_LOCATION: 'water-quality/location',
   WATER_TYPE_LOCATION_MAP_OR_DESC: 'water-quality/location-map-or-desc',
   WATER_TYPE_LOCATION_ADDRESS_OPTION: 'water-quality/location-address-option',
@@ -170,6 +176,48 @@ const SirpRedisKeys = {
   FISHING_WHEN_PAYLOAD: 'fishing-when.payload'
 }
 
+const WQRedisKeys = {
+  WATER_TYPE: 'wq.water-type',
+  WQ_ADDRESS: 'wq-address',
+  WQ_PREVIOUSLY_REPORTED: 'wq-previously-reported',
+  WQ_WHAT_CAN_YOU_SEE: 'wq-what-can-you-see',
+  WQ_WHAT_IS_IN_WATER: 'wq-what-is-in-water',
+  WQ_POLLUTION_SOURCE: 'wq-pollution-source',
+  WQ_HOW_FAR_ACROSS: 'wq-how-far-across',
+  WQ_HOW_FAR_ALONG: 'wq-how-far-along',
+  WQ_SEEN_DEAD_FISH: 'wq-seen-dead-fish',
+  WQ_HOW_MANY_DEAD_FISH: 'wq-how-many-dead-fish'
+}
+
+const WQSirpRedisKeys = {
+  INCIDENT_TYPE: 'incidentType.incident-type',
+  FISHING_LOCATION_PAYLOAD: 'fishing-location.payload',
+  FISHING_INCIDENT_COORDINATES: 'fishing-incident.coordinates.sirp',
+  WATER_INCIDENT_COORDINATES: 'water-incident.coordinates.sirp',
+  SIRP_WATER_TYPE: 'sirp_Inwhatkindofwaterfeaturehaveyouseenpollut',
+  SIRP_WATER_FEATURE_OTHER: 'sirp_waterFeatureOther',
+  WQ_SIRP_ADDRESS: 'wq_sirp_address',
+  WQ_SIRP_ADDRESS_LINE_1: 'wq_sirp_addressline1',
+  WQ_SIRP_ADDRESS_LINE_2: 'wq_sirp_addressline2',
+  WQ_SIRP_ADDRESS_TOWN: 'wq_sirp_town',
+  WQ_SIRP_ADDRESS_POSTCODE: 'wq_sirp_postcode',
+  WQ_SIRP_PREVIOUSLY_REPORTED: 'wq_sirp_previouslyreported',
+  WQ_SIRP_WHAT_CAN_YOU_SEE: 'WQ_sirp_Whatcanyouseeinoronthewater',
+  WQ_SIRP_WHAT_IS_IN_WATER: 'WQ_sirp_Whatdoyouthinkisinthewater',
+  WQ_SIRP_WHAT_IS_IN_WATER_OTHER: 'WQ_sirp_inWaterOther',
+  WQ_SIRP_POLLUTION_SOURCE: 'WQ_sirp_Doyouthinkyouknowwherethepollutioniscomin',
+  WQ_SIRP_POLLUTION_SOURCE_OTHER: 'WQ_sirp_pollutionSourceOther',
+  WQ_SIRP_HOW_FAR_ACROSS: 'WQ_sirp_Howfaracrossthewaterfeaturecanyouseethe',
+  WQ_SIRP_HOW_FAR_ALONG: 'WQ_',
+  WQ_SIRP_SEEN_DEAD_FISH: 'WQ_sirp_Haveyouseendeadfishnearby',
+  WQ_SIRP_HOW_MANY_DEAD_FISH: 'WQ_sirp_Howmanydeadfishhaveyouseen',
+  ANONYMOUS_PAYLOAD: 'anonymous.payload',
+  UPDATES_PAYLOAD: 'updates.payload',
+  SIRP_FISHING_EQUIPMENT_PAYLOAD: 'fishing-equipment.sirp',
+  SIRP_WATER_QUALITY_PAYLOAD: 'water-quality.sirp',
+  FISHING_WHEN_PAYLOAD: 'fishing-when.payload'
+}
+
 module.exports = Object.freeze({
   HOME_URL,
   Paths,
@@ -178,5 +226,7 @@ module.exports = Object.freeze({
   Views,
   RedisKeys,
   SirpRedisKeys,
+  WQRedisKeys,
+  WQSirpRedisKeys,
   SI_SESSION_KEY: 'SISession'
 })

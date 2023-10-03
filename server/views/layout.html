@@ -41,7 +41,7 @@
 {% block beforeContent %}
   {{ govukPhaseBanner({
     tag: {
-      text: "beta"
+      text: "Alpha"
     },
     html: 'This is a new service – <a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_cMxUuwi2OGTwAfQ" target="_blank" rel="noopener noreferrer">give feedback (opens new tab)</a> to help us to improve it.'
   }) }}
@@ -73,15 +73,15 @@
     meta: {
       items: [
         {
-          href: "/privacy-notice",
+          href: "/notices/privacy",
           text: "Privacy notice"
         },
         {
-          href: "/cookie-policy",
+          href: "/notices/cookies",
           text: "Cookies"
         },
         {
-          href: "/accessibility-statement",
+          href: "/notices/accessibility",
           text: "Accessibility statement"
         }
       ]

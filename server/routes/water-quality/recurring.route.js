@@ -23,9 +23,13 @@ const handlers = {
     //   return h.view(Views.FISHING_LOCATION, { ...context })
     // }
     //
-    return h.view(Views.WATER_TYPE_RECURRING, {
+    return h.view(Views.WATER_TYPE_REPORTED, {
       ...context
     })
+
+    // return h.view(Views.WATER_TYPE_RECURRING, {
+    //   ...context
+    // })
   }
 }
 

@@ -8,6 +8,13 @@ const {
   SI_SESSION_KEY
 } = require('./utils/constants')
 
+const users = {
+  smart: {
+    username: config.defraUsername,
+    password: config.defraPassword
+  }
+}
+
 const createServer = async () => {
   const server = hapi.server({
     port: config.servicePort,
@@ -27,24 +34,17 @@ const createServer = async () => {
 }
 
 const _registerPlugins = async server => {
+  if (config.useBasicAuth) {
+    await server.register(require('@hapi/basic'))
+    server.auth.strategy('simple', 'basic', { validate })
+    server.auth.default('simple')
+  }
   await server.register(require('./plugins/error-pages.plugin'))
   await server.register(require('./plugins/inert.plugin'))
   await server.register(require('./plugins/router.plugin'))
   await server.register(require('./plugins/views.plugin'))
   await server.register(require('./plugins/hapi-gapi.plugin'))
   await server.register(require('./plugins/redis.plugin'))
-  await server.register(require('@hapi/basic'))
-  await server.auth.strategy('simple', 'basic', { validate })
-  await server.auth.default('simple')
-}
-
-const users = {
-  smart: {
-    username: 'smart',
-    password: '$2a$10$bdNlhk7QgjGrLrnCqr3mYe1gmjpsNm/dAU17lcaGNZk9y/Gi/WhKy', // 'incident'
-    name: 'John Doe',
-    id: '2133d32a'
-  }
 }
 
 const validate = async (request, username, password) => {

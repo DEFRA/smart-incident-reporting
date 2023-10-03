@@ -1,6 +1,6 @@
 'use strict'
 
-const { SirpRedisKeys, RedisKeys } = require('../utils/constants')
+const { SirpRedisKeys, RedisKeys, WQSirpRedisKeys } = require('../utils/constants')
 const RedisService = require('./redis.service')
 const { v4: uuidv4 } = require('uuid')
 
@@ -85,7 +85,6 @@ module.exports = class IncidentService {
     const howfaracrossthewaterfeaturecanyouseethe = []
     howfaracrossthewaterfeaturecanyouseethe.push(Number(100))
     incidentObj.sirp_WaterQuality.sirp_Howfaracrossthewaterfeaturecanyouseethe = howfaracrossthewaterfeaturecanyouseethe
-
     incidentObj.sirp_WaterQuality.sirp_onWaterOther = 'Something on the water'
 
     const howfaralongthewaterfeaturedoesthepollutio = []
@@ -106,6 +105,111 @@ module.exports = class IncidentService {
     incidentObj.sirp_incidentlocation = {}
     incidentObj.sirp_incidentlocation.sirp_x = waterIncidentCoordinates.X_COORDINATE
     incidentObj.sirp_incidentlocation.sirp_y = waterIncidentCoordinates.Y_COORDINATE
+
+    console.log(JSON.stringify(iJsonObj))
+    return iJsonObj
+  }
+
+  static async generateWaterIncidentJson2 (request) {
+    const incidentTypeWater = 300
+
+    const iJsonObj = {}
+    const incidentObj = iJsonObj.sirp_incident = {}
+    incidentObj.sirp_incidentid = uuidv4()
+    incidentObj.sirp_incidentreporttype = incidentTypeWater
+    incidentObj.sirp_observeddatetime = new Date().toJSON()
+    incidentObj.sirp_reporteddatetime = new Date().toJSON()
+
+    incidentObj.sirp_WaterQuality = { }
+
+    // Water Type Done
+    const whatKindOfWater = []
+    const waterType = await RedisService.get(request, WQSirpRedisKeys.SIRP_WATER_TYPE)
+    whatKindOfWater.push(Number(waterType))
+    incidentObj.sirp_WaterQuality.sirp_Inwhatkindofwaterfeaturehaveyouseenpollut = whatKindOfWater
+
+    // Water type other - Done
+    const waterTypeOther = await RedisService.get(request, WQSirpRedisKeys.SIRP_WATER_FEATURE_OTHER)
+    if (waterTypeOther !== undefined && waterTypeOther != null) {
+      incidentObj.sirp_WaterQuality.sirp_waterFeatureOther = waterTypeOther
+    }
+
+    // What can you see in or on the water? - Done
+    const wqWhatCanYouSee = await RedisService.get(request, WQSirpRedisKeys.WQ_SIRP_WHAT_CAN_YOU_SEE)
+    if (wqWhatCanYouSee !== undefined) {
+      incidentObj.sirp_WaterQuality.sirp_Whatcanyouseeinoronthewater = wqWhatCanYouSee
+    }
+
+    // What is in the water done
+    const whatIsInTheWaterArray = []
+    const whatIsInTheWater = await RedisService.get(request, WQSirpRedisKeys.WQ_SIRP_WHAT_IS_IN_WATER)
+    if (whatIsInTheWater !== undefined) {
+      whatIsInTheWaterArray.push(Number(whatIsInTheWater))
+      incidentObj.sirp_WaterQuality.sirp_Whatdoyouthinkisinthewater = whatIsInTheWaterArray
+    }
+    // What is in the water other done
+    const whatIsInTheWaterOther = await RedisService.get(request, WQSirpRedisKeys.WQ_SIRP_WHAT_IS_IN_WATER_OTHER)
+    if (whatIsInTheWaterOther !== undefined) {
+      incidentObj.sirp_WaterQuality.sirp_inWaterOther = whatIsInTheWaterOther
+    }
+
+    // Do you know where the pollution is coming from? - Done
+    const pollutionSource = await RedisService.get(request, WQSirpRedisKeys.WQ_SIRP_POLLUTION_SOURCE)
+    if (pollutionSource !== undefined) {
+      incidentObj.sirp_WaterQuality.sirp_Doyouthinkyouknowwherethepollutioniscomin = Boolean(pollutionSource)
+    }
+    // Do you know where the pollution is coming from? - other ? Done
+    const pollutionSourceOther = await RedisService.get(request, WQSirpRedisKeys.WQ_SIRP_POLLUTION_SOURCE_OTHER)
+    if (pollutionSourceOther !== undefined) {
+      incidentObj.sirp_WaterQuality.sirp_pollutionSourceOther = pollutionSourceOther
+    }
+
+    // How far across Done
+    const howFarAcrossArray = []
+    const howFarAcross = await RedisService.get(request, WQSirpRedisKeys.WQ_SIRP_HOW_FAR_ACROSS)
+    if (howFarAcross !== undefined && howFarAcross != null) {
+      howFarAcrossArray.push(Number(howFarAcross))
+      incidentObj.sirp_WaterQuality.sirp_Howfaracrossthewaterfeaturecanyouseethe = howFarAcrossArray
+    }
+    incidentObj.sirp_WaterQuality.sirp_Howfaralongthewaterfeaturedoesthepollutio = [100]
+
+    // Seen dead fish Done
+    const seenDeadFish = await RedisService.get(request, WQSirpRedisKeys.WQ_SIRP_SEEN_DEAD_FISH)
+    if (seenDeadFish !== undefined) {
+      incidentObj.sirp_WaterQuality.sirp_Haveyouseendeadfishnearby = Boolean(seenDeadFish)
+    }
+
+    // How many dead fish Done
+    const howManyDeadFishArray = []
+    const howManyDeadFish = await RedisService.get(request, WQSirpRedisKeys.WQ_SIRP_HOW_MANY_DEAD_FISH)
+    if (howManyDeadFish !== undefined) {
+      howManyDeadFishArray.push(Number(howManyDeadFish))
+      incidentObj.sirp_WaterQuality.sirp_Howmanydeadfishhaveyouseen = howManyDeadFishArray
+    }
+
+    // sirp_typeillegalfishother
+    // Latitude and longitude hardcoded for backend display
+    const waterIncidentCoordinates = await RedisService.get(request, SirpRedisKeys.WATER_INCIDENT_COORDINATES)
+    incidentObj.sirp_incidentlocation = {}
+    if (waterIncidentCoordinates) {
+      incidentObj.sirp_incidentlocation.sirp_x = waterIncidentCoordinates.X_COORDINATE
+      incidentObj.sirp_incidentlocation.sirp_y = waterIncidentCoordinates.Y_COORDINATE
+    } else {
+      incidentObj.sirp_incidentlocation.sirp_x = 51.5
+      incidentObj.sirp_incidentlocation.sirp_y = 0.0293
+    }
+
+    // What's the address? Done
+    const wqAddress = await RedisService.get(request, SirpRedisKeys.WQ_SIRP_ADDRESS)
+    if (wqAddress !== undefined && wqAddress != null) {
+      incidentObj.sirp_incidentlocation.sirp_address = wqAddress.wq_sirp_address
+    }
+
+    // Previously Reported Done
+    const wqPreviouslyReported = await RedisService.get(request, WQSirpRedisKeys.WQ_SIRP_PREVIOUSLY_REPORTED)
+    if (wqPreviouslyReported !== undefined && wqPreviouslyReported != null) {
+      incidentObj.sirp_reporterdetails.sirp_previouslyreported = wqPreviouslyReported
+    }
 
     console.log(JSON.stringify(iJsonObj))
     return iJsonObj

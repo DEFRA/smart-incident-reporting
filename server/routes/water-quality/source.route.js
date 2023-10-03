@@ -1,6 +1,7 @@
 'use strict'
 
-const { Paths, Views } = require('../../utils/constants')
+const { Paths, Views, WQRedisKeys, WQSirpRedisKeys } = require('../../utils/constants')
+const RedisService = require('../../services/redis.service')
 
 const handlers = {
   get: (request, h) => {
@@ -11,9 +12,42 @@ const handlers = {
   },
   post: (request, h) => {
     const context = _getContext()
+    const payload = request.payload
+    RedisService.set(
+      request,
+      WQRedisKeys.WQ_POLLUTION_SOURCE,
+      JSON.stringify(payload)
+    )
+    _generateSirpData(request, payload)
+
     return h.view(Views.WATER_TYPE_EXTENT, {
       ...context
     })
+  }
+}
+
+const _generateSirpData = (request, payload) => {
+  const pollutionSource = payload['waterquality-source']
+  var pollutionSourceValue
+  if (pollutionSource === 'yes') {
+    pollutionSourceValue = true
+  } else if (pollutionSource === 'no') {
+    pollutionSourceValue = false
+  }
+
+  RedisService.set(
+    request,
+    WQSirpRedisKeys.WQ_SIRP_POLLUTION_SOURCE,
+    JSON.stringify(pollutionSourceValue)
+  )
+
+  const pollutionSourceOther = payload['source-details']
+  if (pollutionSourceOther !== undefined && pollutionSourceOther !== ' ') {
+    RedisService.set(
+      request,
+      WQSirpRedisKeys.WQ_SIRP_POLLUTION_SOURCE_OTHER,
+      pollutionSourceOther
+    )
   }
 }
 

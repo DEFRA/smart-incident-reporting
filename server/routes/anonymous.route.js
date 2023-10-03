@@ -4,6 +4,7 @@ const { Paths, Views, RedisKeys } = require('../utils/constants')
 const RedisService = require('../services/redis.service')
 const IncidentUtilsService = require('../services/incident.service')
 const ASBService = require('../services/asb.send')
+const config = require('../utils/config')
 
 const handlers = {
   get: (request, h) => {
@@ -23,12 +24,16 @@ const handlers = {
     const incidentToPost = await IncidentUtilsService.generateIncidentJson(request)
 
     if (request.payload.anonymous === 'yes') {
-      await ASBService.sendMessageToQueue(incidentToPost)
+      if (config.submitIncident) {
+        await ASBService.sendMessageToQueue(incidentToPost)
+      }
       return h.view(Views.SUCCESS, {
         ...context
       })
     } else if (request.payload.anonymous === 'no') {
-      await ASBService.sendMessageToQueue(incidentToPost)
+      if (config.submitIncident) {
+        await ASBService.sendMessageToQueue(incidentToPost)
+      }
       return h.view(Views.UPDATES, {
         ...context
       })

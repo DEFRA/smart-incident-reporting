@@ -42,7 +42,10 @@ const routes = [].concat(
   require('../routes/success.route'),
   require('../routes/evidence.route'),
   require('../routes/anonymous.route'),
-  require('../routes/updates.route')
+  require('../routes/updates.route'),
+  require('../routes/notices/cookies.route'),
+  require('../routes/notices/privacy.route'),
+  require('../routes/notices/accessibility.route')
 )
 
 module.exports = {

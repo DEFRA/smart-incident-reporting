@@ -16,9 +16,9 @@ const _getSettings = () => {
   // settings.tls = { host: config.redisHost }
 
   // Needed to connect to local cache
-  if (config.redisUseTls) {
-    settings.tls = {}
-  }
+  // if (config.redisUseTls) {
+  // settings.tls = {}
+  // }
 
   console.log('Redis settings ' + JSON.stringify(settings))
   return settings
