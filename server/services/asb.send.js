@@ -1,6 +1,7 @@
 const { ServiceBusClient } = require('@azure/service-bus')
 
 // Define connection string and related Service Bus entity names here
+// Get it from the azure portal
 const fishingConnectionString = ''
 const waterConnectionString = ''
 
