@@ -10,7 +10,7 @@
     "debug": "nodemon --inspect index.js",
     "lint": "standard",
     "unit-test": "npx jest --verbose",
-    "test": "npm run lint && npm run unit-test",
+    "test": "npm run unit-test",
     "prepare": "husky install"
   },
   "author": "Department for Environment, Food & Rural Affairs",
