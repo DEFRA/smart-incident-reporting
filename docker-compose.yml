@@ -1,19 +1,19 @@
-version: '3.8'
+version: '3.3'
 
 services:
-
-  node:
-    container_name: smart-incident
-    build:
-      context: .
-      dockerfile: Dockerfile
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
     ports:
-      - "3000:3000"
+      - "6379:6379"
     environment:
-      - NODE_ENV=development
+      - REDIS_PASSWORD=foo
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=1
     networks:
-      - smart-incident-localdev-network
+      - default
 
-networks:
-  smart-incident-localdev-network:
-    driver: bridge
+volumes:
+  redisdata:
+    driver: local

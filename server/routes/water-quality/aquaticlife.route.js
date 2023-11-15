@@ -29,7 +29,7 @@ const handlers = {
 
 const _generateSirpData = (request, payload) => {
   const deadFish = payload.deadfish
-  var deadFishValue
+  let deadFishValue
   if (deadFish === 'yes') {
     deadFishValue = true
   } else if (deadFish === 'no') {

@@ -49,7 +49,7 @@ const handlers = {
 
 const _generateSirpData = (request, payload) => {
   const isItStillhappening = payload.ongoing
-  var isItStillHappeningValue = 0
+  let isItStillHappeningValue = 0
   if (isItStillhappening === 'yes') {
     isItStillHappeningValue = 100
   } else if (isItStillhappening === 'no') {

@@ -12,7 +12,6 @@ const {
 
 const handlers = {
   get: async (request, h) => {
-
     const sessionCookie = CookieService.getSessionCookie(request, false)
     if (sessionCookie) {
       RedisService.deleteSessionData(request)

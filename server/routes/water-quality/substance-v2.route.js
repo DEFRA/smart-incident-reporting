@@ -28,7 +28,7 @@ const handlers = {
 }
 
 const _generateSirpData = (request, payload) => {
-  var whatIsInTheWaterValue
+  let whatIsInTheWaterValue
   if (payload.sewage !== undefined) {
     whatIsInTheWaterValue = 100
   } else if (payload.sewage !== undefined) {

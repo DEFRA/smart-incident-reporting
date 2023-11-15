@@ -11,7 +11,6 @@ const handlers = {
     })
   },
   post: (request, h) => {
-
     const context = _getContext()
 
     const payload = request.payload
@@ -29,8 +28,8 @@ const handlers = {
 
 const _generateSirpData = (request, payload) => {
   const pollutionWaterType = payload['pollution-watertype']
-  var pollutionWaterTypeValue = ''
-  var waterFeatureOther
+  let pollutionWaterTypeValue = ''
+  let waterFeatureOther
   if (pollutionWaterType === 'river') {
     pollutionWaterTypeValue = 100
     waterFeatureOther = payload['river-name']

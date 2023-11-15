@@ -27,7 +27,7 @@ const handlers = {
 
 const _generateSirpData = (request, payload) => {
   const pollutionWidth = payload['pollution-width']
-  var pollutionWidthValue = ''
+  let pollutionWidthValue = ''
   if (pollutionWidth === 'all') {
     pollutionWidthValue = 100
   } else if (pollutionWidth === 'half') {
