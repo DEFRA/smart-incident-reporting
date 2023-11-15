@@ -1,6 +1,5 @@
 'use strict'
 
-
 const { Paths, Views } = require('../../utils/constants')
 
 const handlers = {

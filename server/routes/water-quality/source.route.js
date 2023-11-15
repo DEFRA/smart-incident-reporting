@@ -28,7 +28,7 @@ const handlers = {
 
 const _generateSirpData = (request, payload) => {
   const pollutionSource = payload['waterquality-source']
-  var pollutionSourceValue
+  let pollutionSourceValue
   if (pollutionSource === 'yes') {
     pollutionSourceValue = true
   } else if (pollutionSource === 'no') {
