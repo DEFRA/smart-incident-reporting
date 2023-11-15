@@ -8,6 +8,9 @@
     "build:css": "bin/build-css",
     "build": "bin/build",
     "debug": "nodemon --inspect index.js",
+    "watch:css": "nodemon -e scss -x 'npm run build:css'",
+    "watch:nodejs": "nodemon -r dotenv/config index.js",
+    "dev": "concurrently 'npm:watch:css' 'npm:watch:nodejs'",
     "lint": "standard",
     "unit-test": "npx jest --verbose",
     "test": "npm run unit-test",
@@ -53,6 +56,7 @@
     "nunjucks": "^3.2.4"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "hapi-pino": "9.4.0",
     "husky": "^8.0.3",
     "jest": "^27.5.1",
@@ -60,6 +64,7 @@
     "jsdom": "^19.0.0",
     "lint-staged": "^15.1.0",
     "nock": "^13.2.4",
+    "nodemon": "^3.0.1",
     "prettier": "^3.1.0",
     "prettier-config-standard": "^7.0.0",
     "standard": "^16.0.4"
