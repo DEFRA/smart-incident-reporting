@@ -9,7 +9,7 @@
     "build": "bin/build",
     "debug": "nodemon --inspect index.js",
     "watch:css": "nodemon -e scss -x 'npm run build:css'",
-    "watch:nodejs": "nodemon -r dotenv/config index.js",
+    "watch:nodejs": "nodemon --delay 1000ms --signal SIGTERM -r dotenv/config index.js",
     "dev": "concurrently 'npm:watch:css' 'npm:watch:nodejs'",
     "lint": "standard",
     "unit-test": "npx jest --verbose",
@@ -83,5 +83,13 @@
     "ignore": [
       "**/public/js/"
     ]
+  },
+  "nodemonConfig": {
+    "ext": "html,css,js,cjs,mjs,json,pug,njk",
+    "ignore": [
+      "**/test/**",
+      "**/docs/**"
+    ],
+    "delay": 3000
   }
 }

@@ -205,6 +205,10 @@ const WQSirpRedisKeys = {
   WQ_SIRP_WHAT_CAN_YOU_SEE: 'WQ_sirp_Whatcanyouseeinoronthewater',
   WQ_SIRP_WHAT_IS_IN_WATER: 'WQ_sirp_Whatdoyouthinkisinthewater',
   WQ_SIRP_WHAT_IS_IN_WATER_OTHER: 'WQ_sirp_inWaterOther',
+
+  WQ_SIRP_SMELL_SOURCE: 'WQ_sirp_isthereasmell',
+  WQ_SIRP_SMELL_SOURCE_OTHER: 'WQ_sirp_isthereasmellother',
+
   WQ_SIRP_POLLUTION_SOURCE: 'WQ_sirp_Doyouthinkyouknowwherethepollutioniscomin',
   WQ_SIRP_POLLUTION_SOURCE_OTHER: 'WQ_sirp_pollutionSourceOther',
   WQ_SIRP_HOW_FAR_ACROSS: 'WQ_sirp_Howfaracrossthewaterfeaturecanyouseethe',
