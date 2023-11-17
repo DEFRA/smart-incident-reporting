@@ -1,15 +1,13 @@
 'use strict'
 
-const {
-  SI_SESSION_KEY
-} = require('../utils/constants')
+const { SI_SESSION_KEY } = require('../utils/constants')
 
 const config = require('../utils/config')
 
 const REDIS_TTL_IN_SECONDS = config.cookieTimeout / 1000
 
 module.exports = class RedisService {
-  static async get (request, key) {
+  static async get(request, key) {
     const client = request.redis.client
     const redisValue = await client.get(
       `${request.state[SI_SESSION_KEY]}.${key}`
@@ -29,19 +27,25 @@ module.exports = class RedisService {
     return parsedValue
   }
 
-  static set (request, key, value) {
+  static set(request, key, value) {
     const client = request.redis.client
     const keyWithSessionId = `${request.state[SI_SESSION_KEY]}.${key}`
-    return client.setex(keyWithSessionId, REDIS_TTL_IN_SECONDS, value)
+
+    try {
+      return client.setex(keyWithSessionId, REDIS_TTL_IN_SECONDS, value)
+    } catch (err) {
+      console.error(err.message)
+      return false
+    }
   }
 
-  static delete (request, key) {
+  static delete(request, key) {
     const client = request.redis.client
     const keyWithSessionId = `${request.state[SI_SESSION_KEY]}.${key}`
     client.del(keyWithSessionId)
   }
 
-  static async deleteSessionData (request) {
+  static async deleteSessionData(request) {
     const client = request.redis.client
     const keys = await _getMatchingRedisKeys(request)
     for (const key of keys) {
@@ -55,7 +59,7 @@ module.exports = class RedisService {
  * @param {*} value The string value to be chekced
  * @returns True if the string looks like a Json object, otherwise false
  */
-const _isJsonString = value =>
+const _isJsonString = (value) =>
   value &&
   value.length &&
   ((value.startsWith('{') && value.endsWith('}')) ||
@@ -67,7 +71,7 @@ const _isJsonString = value =>
  * @returns True if the string contains a bolean, otherwise false
  */
 
-const _isBooleanString = value =>
+const _isBooleanString = (value) =>
   value &&
   value.length &&
   (value.toLowerCase() === 'true' || value.toLowerCase() === 'false')
@@ -79,7 +83,7 @@ const _isBooleanString = value =>
  * @param {*} request The request containing the Redis cache
  * @returns An array of Redis keys that are prefixed with the session key
  */
-const _getMatchingRedisKeys = async request => {
+const _getMatchingRedisKeys = async (request) => {
   const client = request.redis.client
   const sessionKey = request.state[SI_SESSION_KEY]
 

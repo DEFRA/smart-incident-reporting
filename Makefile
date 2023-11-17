@@ -12,7 +12,7 @@ install:
 
 start:
 	$(MAKE) backend-up
-	
+
 	npm start
 
 build-image:
@@ -22,7 +22,7 @@ build-image:
 	docker images | grep $(SERVICE_NAME)
 
 backend-up:
-	docker-compose -f docker-compose-dev.yml up -d
+	docker-compose up -d
 
 backend-down:
 	docker-compose down

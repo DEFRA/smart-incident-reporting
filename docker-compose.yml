@@ -10,10 +10,13 @@ services:
     environment:
       - REDIS_PASSWORD=foo
       - REDIS_PORT=6379
-      - REDIS_DATABASES=1
+      - REDIS_ARGS=""
     networks:
       - default
 
 volumes:
   redisdata:
     driver: local
+
+
+    
