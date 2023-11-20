@@ -270,8 +270,18 @@ module.exports = class IncidentService {
       incidentObj.sirp_WaterQuality.sirp_Howfaracrossthewaterfeaturecanyouseethe =
         howFarAcrossArray
     }
-    incidentObj.sirp_WaterQuality.sirp_Howfaralongthewaterfeaturedoesthepollutio =
-      [100]
+
+    // howFarAlong - TEST
+
+    const howFarAlong = await RedisService.get(
+      request,
+      WQSirpRedisKeys.WQ_SIRP_HOW_FAR_ALONG
+    )
+
+    if (howFarAlong !== undefined) {
+      incidentObj.sirp_WaterQuality.sirp_Howfaralongthewaterfeaturedoesthepollutio =
+        howFarAlong
+    }
 
     // Seen dead fish Done
     const seenDeadFish = await RedisService.get(
