@@ -14,6 +14,7 @@ const handlers = {
     const context = _getContext()
 
     const locationmapordesc = request.payload['location-map-or-desc']
+
     if (locationmapordesc === 'address') {
       return h.view(Views.WATER_TYPE_LOCATION_ADDRESS_OPTION, { ...context })
     } else if (locationmapordesc === 'map') {

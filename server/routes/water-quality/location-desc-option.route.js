@@ -13,17 +13,7 @@ const handlers = {
   post: (request, h) => {
     const context = _getContext()
 
-    // const locationmapordesc = request.payload['location-map-or-desc']
-    //
-    // if (locationmapordesc === 'address') {
-    //   return h.view(Views.WATER_TYPE, { ...context })
-    // } else if (locationmapordesc === 'map') {
-    //   return h.view(Views.WATER_TYPE, { ...context })
-    // } else if (locationmapordesc === 'desc') {
-    //   return h.view(Views.FISHING_LOCATION, { ...context })
-    // }
-    //
-    return h.view(Views.WATER_TYPE_REPORTED, {
+    return h.view(Views.WATER_TYPE_WHEN, {
       ...context
     })
   }
