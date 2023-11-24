@@ -2,21 +2,39 @@
 
 # Prerequisites
 
-Node v18.x
+Please install [Brew](https://brew.sh/) as package manager to install all dependencies for the solution,.
 
-First install the dependencies & build the application using:
+After that please execute the following in a shell command in the root of the solution:
 
-`$ npm install`
+```sh
+$ make
+```
 
-followed by:
 
-`$ npm run build` - This runs the build tasks, which currently are just building the CSS. This needs to be run on the initial install, if updates are made to the Sass, or if the "govuk-frontend" is updated.
+# Getting started
 
-If installing on a Windows machine you may encounter an error when running `$ npm run build` relating to your OS not being able to run the Bash scripts which are part of the installation. Should you have this problem first ensure that you have installed [Git for Windows](https://gitforwindows.org). Then run the command `$ npm config set script-shell %userprofile%\cmder\vendor\git-for-windows\bin\bash` followed by `$ npm run build`.
+To start the application `dev` environment please run:
 
-Now the application is ready to run:
+```sh
+$ make start
+```
 
-`$ npm start` or `$ node index.js`
+and:
+
+```sh
+$ make restart
+```
+
+In case you want to restart the `dev` environment.
+
+
+# Testing Docker build of the image
+
+To test the creation on the Docker image please run:
+
+```sh
+$ make build-image
+```
 
 ## Project structure
 
@@ -135,3 +153,11 @@ The default values will be used if the environment variables are missing or comm
 | SERVICE_PORT                                                 | Port number                                         |    no    | 3000                  |                                                         |
 | SERVICE_NAME                                                 | Name of the service                                 |    no    |                       |                       Any string                        |
 | LOG_LEVEL                                                    | The level of logging                                |    no    | warn                  |                       warn, debug                       |
+| REDIS_HOST                                                   | Redis host address                                  |    yes   | localhost             |                                                         |
+| REDIS_PORT                                                   | Redis port                                          |    yes   | 6379                  |                                                         |
+| REDIS_PASSWORD                                               | Redis password                                      |    yes   | foo                   |                                                         |
+| COOKIE_TIMEOUT                                               | Cookie timeout in ms                                |    yes   | 7200000               |                                                         |
+| USE_BASIC_AUTH                                               | Basic auth to prevent access to unauthorized people |    yes   | warn                  |                                                         |
+| DEFRA_USERNAME                                               | Basic Auth username                                 |    yes   | smart                 |                                                         |
+| DEFRA_PASSWORD                                               | Basic Auth password                                 |    yes   |                       |                                                         |
+| SUBMIT_INCIDENT                                              | Submit incident flag                                |    yes   | false                 |                                                         |
