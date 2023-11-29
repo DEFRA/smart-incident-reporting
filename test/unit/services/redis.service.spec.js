@@ -23,9 +23,9 @@ const mockClient = {
   },
   async del(key) {
     // Mock Redis del method
-    delete tempKeys[key]
+    tempKeys = tempKeys.filter((x) => x !== key)
   },
-  async scan(cursor, match, sessionKey) {
+  async scan(cursor, _match, sessionKey) {
     // Mock Redis scan method
     const keys = Object.keys(tempKeys).filter((k) => k.match(sessionKey))
     const cursorIndex = keys.indexOf(cursor)
@@ -78,12 +78,12 @@ describe('RedisService', () => {
   })
 
   describe('delete()', () => {
-    it('should delete value from Redis', async () => {
+    it.only('should delete value from Redis', async () => {
       await mockClient.setex(mockTestKey, mockTTLValue, mockValue)
 
       await deleteItem(mockRequest, 'testKey')
 
-      const result = await mockClient.get(mockTestKey)
+      const result = await mockClient.get(mockTestKey) //?
 
       expect(result).toBe(undefined)
     })

@@ -26,6 +26,7 @@ const get = async (request, key) => {
         parsedValue = redisValue
       }
     }
+
     return parsedValue
   } catch (err) {
     console.error(err)
@@ -49,7 +50,7 @@ const set = async (request, key, value) => {
 
 const deleteItem = async (request, key) => {
   const client = getRedisClient(request)
-  const keyWithSessionId = `${getSessionKey(request)}.${key}`
+  const keyWithSessionId = `${getSessionKey(request)}.${key}`//?
 
   try {
     await client.del(keyWithSessionId)
@@ -57,6 +58,7 @@ const deleteItem = async (request, key) => {
     return true
   } catch (err) {
     console.error(err)
+
     return false
   }
 }
@@ -69,9 +71,11 @@ const deleteSessionData = async (request) => {
     for (const key of keys) {
       await client.del(key)
     }
+
     return true
   } catch (err) {
     console.error(err)
+
     throw new Error('Failed to delete session data from Redis')
   }
 }
@@ -102,6 +106,7 @@ const getMatchingRedisKeys = async (request) => {
     } while (cursor !== '0')
   } catch (err) {
     console.error(err)
+
     throw new Error('Failed to get matching Redis keys')
   }
 
