@@ -15,7 +15,6 @@ const get = async (request, key) => {
 
   try {
     const redisValue = await client.get(`${getSessionKey(request)}.${key}`)
-
     let parsedValue = redisValue
 
     if (isBooleanString(redisValue)) {
@@ -30,7 +29,7 @@ const get = async (request, key) => {
     return parsedValue
   } catch (err) {
     console.error(err)
-    return false
+    throw new Error('Failed to retrieve value from Redis')
   }
 }
 
@@ -39,7 +38,9 @@ const set = async (request, key, value) => {
   const keyWithSessionId = `${getSessionKey(request)}.${key}`
 
   try {
-    return client.setex(keyWithSessionId, REDIS_TTL_IN_SECONDS, value)
+    await client.setex(keyWithSessionId, REDIS_TTL_IN_SECONDS, value)
+
+    return true
   } catch (err) {
     console.error(err)
     return false
@@ -52,6 +53,8 @@ const deleteItem = async (request, key) => {
 
   try {
     await client.del(keyWithSessionId)
+
+    return true
   } catch (err) {
     console.error(err)
     return false
@@ -66,55 +69,40 @@ const deleteSessionData = async (request) => {
     for (const key of keys) {
       await client.del(key)
     }
+    return true
   } catch (err) {
     console.error(err)
-    return false
+    throw new Error('Failed to delete session data from Redis')
   }
 }
-/**
- * Checks a string value to see if it looks like a Json object i.e. begins and ends with curly brackets
- * @param {*} value The string value to be chekced
- * @returns True if the string looks like a Json object, otherwise false
- */
+
 const isJsonString = (value) =>
   value &&
   value.length &&
   ((value.startsWith('{') && value.endsWith('}')) ||
     (value.startsWith('[') && value.endsWith(']')))
 
-/**
- * Checks a string value to see if it contains a bolean i.e. 'true' or 'false'
- * @param {*} value The string value to be chekced
- * @returns True if the string contains a bolean, otherwise false
- */
-
 const isBooleanString = (value) =>
   value &&
   value.length &&
   (value.toLowerCase() === 'true' || value.toLowerCase() === 'false')
 
-/**
- * Scans the Redis cache for all keys matching the session key held in the session.
- * The Redis scan function returns a cursor and a set of results. The scan function
- * needs to be called repeatedly until the cursor is back to 0.
- * @param {*} request The request containing the Redis cache
- * @returns An array of Redis keys that are prefixed with the session key
- */
 const getMatchingRedisKeys = async (request) => {
   const client = getRedisClient(request)
   const sessionKey = getSessionKey(request)
 
   const keys = []
 
-  let scanResult = await client.scan('0', 'MATCH', `${sessionKey}.*`)
-  let cursor = scanResult[0]
-
-  keys.push(...scanResult[1]) //?
-
-  while (cursor !== '0') {
-    scanResult = await client.scan(cursor, 'MATCH', `${sessionKey}.*`)
-    cursor = scanResult[0]
-    keys.push(...scanResult[1])
+  try {
+    let cursor = '0'
+    do {
+      const scanResult = await client.scan(cursor, 'MATCH', `${sessionKey}.*`)
+      cursor = scanResult[0]
+      keys.push(...scanResult[1])
+    } while (cursor !== '0')
+  } catch (err) {
+    console.error(err)
+    throw new Error('Failed to get matching Redis keys')
   }
 
   return keys

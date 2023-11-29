@@ -17,7 +17,7 @@ const mockClient = {
     // Mock Redis get method
     return tempKeys[key]
   },
-  async setex(key, ttl, value) {
+  async setex(key, _ttl, value) {
     // Mock Redis setex method
     tempKeys[key] = value
   },
@@ -50,6 +50,7 @@ const mockRequest = {
 // Mock data
 const mockValue = 'mockValue'
 const mockTTLValue = 100
+const mockTestKey = 'session_key.testKey'
 
 describe('RedisService', () => {
   afterEach(() => {
@@ -58,7 +59,7 @@ describe('RedisService', () => {
 
   describe('get()', () => {
     it('should get value from Redis', async () => {
-      await mockClient.setex('session_key.testKey', mockTTLValue, mockValue)
+      await mockClient.setex(mockTestKey, mockTTLValue, mockValue)
 
       const result = await get(mockRequest, 'testKey')
 
@@ -70,7 +71,7 @@ describe('RedisService', () => {
     it('should set value in Redis', async () => {
       await set(mockRequest, 'testKey', mockValue)
 
-      const result = await mockClient.get('session_key.testKey')
+      const result = await mockClient.get(mockTestKey)
 
       expect(result).toEqual(mockValue)
     })
@@ -78,11 +79,11 @@ describe('RedisService', () => {
 
   describe('delete()', () => {
     it('should delete value from Redis', async () => {
-      await mockClient.setex('session_key.testKey', mockTTLValue, mockValue)
+      await mockClient.setex(mockTestKey, mockTTLValue, mockValue)
 
       await deleteItem(mockRequest, 'testKey')
 
-      const result = await mockClient.get('session_key.testKey')
+      const result = await mockClient.get(mockTestKey)
 
       expect(result).toBe(undefined)
     })
@@ -90,13 +91,13 @@ describe('RedisService', () => {
 
   describe('deleteSessionData()', () => {
     it('should delete all session data from Redis', async () => {
-      await mockClient.setex('session_key.testKey1', mockTTLValue, mockValue)
-      await mockClient.setex('session_key.testKey2', mockTTLValue, mockValue)
+      await mockClient.setex(`${mockTestKey}1`, mockTTLValue, mockValue)
+      await mockClient.setex(`${mockTestKey}2`, mockTTLValue, mockValue)
 
       await deleteSessionData(mockRequest)
 
-      const result1 = await mockClient.get('session_key.testKey1')
-      const result2 = await mockClient.get('session_key.testKey2')
+      const result1 = await mockClient.get(`${mockTestKey}1`)
+      const result2 = await mockClient.get(`${mockTestKey}2`)
 
       expect(result1).toBe(undefined)
       expect(result2).toBe(undefined)
