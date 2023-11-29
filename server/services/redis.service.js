@@ -6,18 +6,21 @@ const config = require('../utils/config')
 
 const REDIS_TTL_IN_SECONDS = config.cookieTimeout / 1000
 
-module.exports = class RedisService {
-  static async get(request, key) {
-    const client = request.redis.client
-    const redisValue = await client.get(
-      `${request.state[SI_SESSION_KEY]}.${key}`
-    )
+const getRedisClient = (request) => request.redis.client
+
+const getSessionKey = (request) => request.state[SI_SESSION_KEY]
+
+const get = async (request, key) => {
+  const client = getRedisClient(request)
+
+  try {
+    const redisValue = await client.get(`${getSessionKey(request)}.${key}`)
 
     let parsedValue = redisValue
 
-    if (_isBooleanString(redisValue)) {
+    if (isBooleanString(redisValue)) {
       parsedValue = redisValue.toLowerCase() === 'true'
-    } else if (_isJsonString(redisValue)) {
+    } else if (isJsonString(redisValue)) {
       try {
         parsedValue = JSON.parse(redisValue)
       } catch (e) {
@@ -25,41 +28,55 @@ module.exports = class RedisService {
       }
     }
     return parsedValue
-  }
-
-  static set(request, key, value) {
-    const client = request.redis.client
-    const keyWithSessionId = `${request.state[SI_SESSION_KEY]}.${key}`
-
-    try {
-      return client.setex(keyWithSessionId, REDIS_TTL_IN_SECONDS, value)
-    } catch (err) {
-      console.error(err.message)
-      return false
-    }
-  }
-
-  static delete(request, key) {
-    const client = request.redis.client
-    const keyWithSessionId = `${request.state[SI_SESSION_KEY]}.${key}`
-    client.del(keyWithSessionId)
-  }
-
-  static async deleteSessionData(request) {
-    const client = request.redis.client
-    const keys = await _getMatchingRedisKeys(request)
-    for (const key of keys) {
-      client.del(key)
-    }
+  } catch (err) {
+    console.error(err)
+    return false
   }
 }
 
+const set = async (request, key, value) => {
+  const client = getRedisClient(request)
+  const keyWithSessionId = `${getSessionKey(request)}.${key}`
+
+  try {
+    return client.setex(keyWithSessionId, REDIS_TTL_IN_SECONDS, value)
+  } catch (err) {
+    console.error(err)
+    return false
+  }
+}
+
+const deleteItem = async (request, key) => {
+  const client = getRedisClient(request)
+  const keyWithSessionId = `${getSessionKey(request)}.${key}`
+
+  try {
+    await client.del(keyWithSessionId)
+  } catch (err) {
+    console.error(err)
+    return false
+  }
+}
+
+const deleteSessionData = async (request) => {
+  const client = getRedisClient(request)
+  const keys = await getMatchingRedisKeys(request)
+
+  try {
+    for (const key of keys) {
+      await client.del(key)
+    }
+  } catch (err) {
+    console.error(err)
+    return false
+  }
+}
 /**
  * Checks a string value to see if it looks like a Json object i.e. begins and ends with curly brackets
  * @param {*} value The string value to be chekced
  * @returns True if the string looks like a Json object, otherwise false
  */
-const _isJsonString = (value) =>
+const isJsonString = (value) =>
   value &&
   value.length &&
   ((value.startsWith('{') && value.endsWith('}')) ||
@@ -71,7 +88,7 @@ const _isJsonString = (value) =>
  * @returns True if the string contains a bolean, otherwise false
  */
 
-const _isBooleanString = (value) =>
+const isBooleanString = (value) =>
   value &&
   value.length &&
   (value.toLowerCase() === 'true' || value.toLowerCase() === 'false')
@@ -83,16 +100,16 @@ const _isBooleanString = (value) =>
  * @param {*} request The request containing the Redis cache
  * @returns An array of Redis keys that are prefixed with the session key
  */
-const _getMatchingRedisKeys = async (request) => {
-  const client = request.redis.client
-  const sessionKey = request.state[SI_SESSION_KEY]
+const getMatchingRedisKeys = async (request) => {
+  const client = getRedisClient(request)
+  const sessionKey = getSessionKey(request)
 
   const keys = []
 
   let scanResult = await client.scan('0', 'MATCH', `${sessionKey}.*`)
   let cursor = scanResult[0]
 
-  keys.push(...scanResult[1])
+  keys.push(...scanResult[1]) //?
 
   while (cursor !== '0') {
     scanResult = await client.scan(cursor, 'MATCH', `${sessionKey}.*`)
@@ -101,4 +118,14 @@ const _getMatchingRedisKeys = async (request) => {
   }
 
   return keys
+}
+
+module.exports = {
+  get,
+  set,
+  delete: deleteItem,
+  deleteSessionData,
+  getMatchingRedisKeys,
+  isJsonString,
+  isBooleanString
 }
