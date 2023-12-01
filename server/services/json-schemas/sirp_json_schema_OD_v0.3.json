@@ -1,0 +1,496 @@
+{
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "default": {},
+  "title": "Odour",
+  "required": [
+    "sirp_incident"
+  ],
+  "properties": {
+    "sirp_incident": {
+      "type": "object",
+      "default": {},
+      "title": "sirp_incident",
+      "required": [
+        "sirp_incidentid",
+        "sirp_incidentreporttype",
+        "sirp_observeddatetime",
+        "sirp_reporteddatetime"
+      ],
+      "properties": {
+        "sirp_incidentid": {
+          "type": "string",
+          "format": "uuid",
+          "default": "",
+          "title": "sirp_incidentid",
+          "examples": [
+            "9151f21f-43ae-43b4-92f3-f4af67cdf544"
+          ]
+        },
+        "properties": {
+          "sirp_incidentreporttype": {
+            "type": "array",
+            "description": "Incident Type",
+            "uniqueItems": true,
+            "minItems": 1,
+            "items": {
+              "type": "integer",
+              "enum": [
+                100,
+                200,
+                300,
+                400
+              ],
+              "meta:enum": {
+                "100": "Odour",
+                "200": "Illegal Fishing",
+                "300": "Water Pollution",
+                "400": "Flooding"
+              }
+            }
+          }
+        },
+        "sirp_observeddatetime": {
+          "type": "string",
+          "format": "date-time",
+          "default": "",
+          "title": "sirp_observeddatetime",
+          "examples": [
+            "2023-07-17T13:59:15"
+          ]
+        },
+        "sirp_reporteddatetime": {
+          "type": "string",
+          "format": "date-time",
+          "default": "",
+          "title": "sirp_reporteddatetime",
+          "examples": [
+            "2023-07-17T13:59:15"
+          ]
+        },
+        "sirp_Odour": {
+          "type": "object",
+          "default": {},
+          "title": "sirp_Odour",
+          "properties": {
+            "sirp_haveyounoticedthesamesmellbefore": {
+              "type": "array",
+              "title": "sirp_haveyounoticedthesamesmellbefore",
+              "description": "Have you noticed the smell this smell before",
+              "uniqueItems": true,
+              "minItems": 1,
+              "maxItems": 1,
+              "items": {
+                "type": "integer",
+                "enum": [
+                  100,
+                  200,
+                  300
+                ],
+                "meta:enum": {
+                  "100": "Yes, it happens regularly",
+                  "200": "Yes, a few times",
+                  "300": "No, this is the first time"
+                }
+              }
+            },
+            "sirp_doyouknowwherethesmelliscomingfrom": {
+              "type": "boolean",
+              "description": "Do you know where the smell is coming from",
+              "default": "",
+              "title": "sirp_doyouknowwherethesmelliscomingfrom",
+              "examples": [
+                true,
+                false
+              ]
+            },
+            "sirp_odourSourceOther": {
+              "type": "string",
+              "description": "A description field for when do you know where the smell is coming from?",
+              "default": "",
+              "title": "sirp_odourSourceOther",
+              "examples": [
+                "Waste Site which is located down the street"
+              ]
+            },
+            "sirp_Canyourecognisethesmellonthingslikeyourcl": {
+              "type": "array",
+              "description": "Can you smell things on your clothes or hair",
+              "title": "sirp_Canyourecognisethesmellonthingslikeyourcl",
+              "uniqueItems": true,
+              "minItems": 1,
+              "items": {
+                "type": "integer",
+                "enum": [
+                  100,
+                  200,
+                  300
+                ],
+                "meta:enum": {
+                  "100": "Yes",
+                  "200": "No",
+                  "300": "Dont Know"
+                }
+              }
+            },
+            "sirp_Isthesmellstilltherenow": {
+              "type": "boolean",
+              "description": "Is the smell stil present",
+              "default": "",
+              "title": "sirp_Isthesmellstilltherenow",
+              "examples": [
+                true,
+                false
+              ]
+            },
+            "sirp_Hasthesmellstoppedyoufromdoinganyofthefo": {
+              "type": "array",
+              "description": "Has the smell stopped any of the following activities",
+              "title": "sirp_Hasthesmellstoppedyoufromdoinganyofthefo",
+              "uniqueItems": true,
+              "minItems": 1,
+              "items": {
+                "type": "integer",
+                "enum": [
+                  100,
+                  200,
+                  300,
+                  400,
+                  500
+                ],
+                "meta:enum": {
+                  "100": "Using parts of your own property, for example sitting in your garden",
+                  "200": "Doing jobs outside, for example hanging washing out or gardening",
+                  "300": "Going to certain places, for example going to the shops",
+                  "400": "Something else",
+                  "500": "None of these"
+                }
+              }
+            },
+            "sirp_OdourStoppedActivityOther": {
+              "type": "string",
+              "default": "",
+              "description": "Please provide a description of which activities you can no longer do",
+              "title": "sirp_OdourStoppedActivity",
+              "examples": [
+                ""
+              ]
+            },
+            "sirp_hasthesmellcausedanyofthefollowingsymptoms": {
+              "type": "array",
+              "default": {},
+              "title": "sirp_hasthesmellcausedanyofthefollowingsymptoms",
+              "description": "Has the smell caused any of the following symptoms?",
+              "uniqueItems": true,
+              "minItems": 1,
+              "items": {
+                "type": "integer",
+                "enum": [
+                  100,
+                  200,
+                  300,
+                  400,
+                  500,
+                  600
+                ],
+                "meta:enum": {
+                  "100": "Headache",
+                  "200": "Watering eyes",
+                  "300": "Sickness or nausea",
+                  "400": "Vomiting",
+                  "500": "Something else",
+                  "600": "None of these"
+                }
+              }
+            },
+            "sirp_odourSymptomsOther": {
+              "type": "string",
+              "description": "Please provide a description of the symptoms you have",
+              "default": "",
+              "title": "sirp_odourSymptomsOther"
+            },
+            "sirp_hownoticeableisthesmellwhenitsthere": {
+              "type": "array",
+              "description": "How noticeable is the smell when it's there?",
+              "title": "sirp_hownoticeableisthesmellwhenitsthere",
+              "uniqueItems": true,
+              "minItems": 1,
+              "items": {
+                "type": "integer",
+                "enum": [
+                  100,
+                  200,
+                  300,
+                  400,
+                  500
+                ],
+                "meta:enum": {
+                  "100": "You can smell it all the time when breathing normally",
+                  "200": "You notice it if you breathe in deeply",
+                  "300": "It is quite faint",
+                  "400": "It is very faint, you can only notice it if you try",
+                  "500": "You cannot remember"
+                }
+              }
+            },
+            "sirp_hasthesmellmeantyouhavehadtodoanyofthe": {
+              "type": "array",
+              "description": "Has the smell meant you have had to do the following?",
+              "title": "sirp_hasthesmellmeantyouhavehadtodoanyofthe",
+              "uniqueItems": true,
+              "minItems": 1,
+              "items": {
+                "type": "integer",
+                "enum": [
+                  100,
+                  200,
+                  300,
+                  400,
+                  500,
+                  600
+                ],
+                "meta:enum": {
+                  "100": "Cover your face or nose",
+                  "200": "Keep windows and doors closed",
+                  "300": "Leave the area of the smell",
+                  "400": "Leave your home",
+                  "500": "Something else",
+                  "600": "None of these"
+                }
+              }
+            },
+            "sirp_odouractionother": {
+              "type": "string",
+              "description": "Please provide a description of measures you have had to take",
+              "default": "",
+              "title": "sirp_odouractionother",
+              "examples": []
+            }
+          }
+        },
+        "sirp_incidentlocation": {
+          "type": "object",
+          "default": {},
+          "title": "sirp_incidentlocation",
+          "properties": {
+            "sirp_bng": {
+              "type": "string",
+              "default": "",
+              "title": "sirp_bng",
+              "examples": [
+                ""
+              ]
+            },
+            "sirp_eaarea": {
+              "type": "string",
+              "default": "",
+              "title": "sirp_eaarea",
+              "examples": [
+                ""
+              ]
+            },
+            "sirp_eaoffice": {
+              "type": "string",
+              "default": "",
+              "title": "sirp_eaoffice",
+              "examples": [
+                ""
+              ]
+            },
+            "sirp_x": {
+              "type": "string",
+              "default": "",
+              "title": "sirp_x",
+              "examples": [
+                ""
+              ]
+            },
+            "sirp_y": {
+              "type": "string",
+              "default": "",
+              "title": "sirp_y",
+              "examples": [
+                ""
+              ]
+            },
+            "sirp_address": {
+              "type": "object",
+              "default": {},
+              "title": "sirp_address",
+              "properties": {
+                "sirp_addressline1": {
+                  "type": "string",
+                  "description": "Address line 1",
+                  "default": "",
+                  "title": "sirp_addressline1",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "sirp_addressline2": {
+                  "type": "string",
+                  "description": "Address line 2",
+                  "default": "",
+                  "title": "sirp_addressline2",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "sirp_town": {
+                  "type": "string",
+                  "description": "Town/City",
+                  "default": "",
+                  "title": "sirp_town",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "sirp_postcode": {
+                  "type": "string",
+                  "description": "Postcode",
+                  "default": "",
+                  "title": "sirp_postcode",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "sirp_reporterdetails": {
+                  "type": "object",
+                  "default": {},
+                  "title": "sirp_reporterdetails",
+                  "properties": {
+                    "sirp_consent": {
+                      "type": "boolean",
+                      "description": "Confirm that the reporter is happy for all information they have submitted as part of this report to be used in analysis and reporting for incident response (including photos, videos & supporting documentation ",
+                      "default": "",
+                      "title": "sirp_consent",
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "sirp_contactable": {
+                      "type": "boolean",
+                      "description": "Does the reportee wish to be contact by the duty officer",
+                      "default": "",
+                      "title": "sirp_contactable",
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "sirp_email": {
+                      "type": "string",
+                      "default": "",
+                      "description": "Reporters email address",
+                      "format": "email",
+                      "title": "sirp_email",
+                      "examples": [
+                        "me@bt.com"
+                      ]
+                    },
+                    "sirp_feedback": {
+                      "type": "boolean",
+                      "description": "Would the reporter like to receive any updates on the incident they have reported",
+                      "default": "",
+                      "title": "sirp_feedback",
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "sirp_homephonenumber": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "minLength": 10,
+                      "maxLength": 20,
+                      "title": "The sirp_homephonenumber Schema"
+                    },
+                    "sirp_mobilephonenumber": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "minLength": 10,
+                      "maxLength": 20,
+                      "title": "The sirp_mobilephonenumber Schema"
+                    },
+                    "sirp_previouslyreported": {
+                      "type": "boolean",
+                      "description": "Has the reporter previosuly used this digital form to report envrionmental incidents to the EA",
+                      "default": "",
+                      "title": "The sirp_previouslyreported Schema",
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "sirp_reportername": {
+                      "type": "string",
+                      "description": "Name of reporter",
+                      "default": "",
+                      "title": "sirp_reportername",
+                      "examples": [
+                        "Mark Buttle"
+                      ]
+                    },
+                    "sirp_address": {
+                      "type": "object",
+                      "default": {},
+                      "title": "The sirp_address Schema",
+                      "properties": {
+                        "sirp_addressline1": {
+                          "type": "string",
+                          "default": "",
+                          "title": "sirp_addressline1",
+                          "examples": [
+                            ""
+                          ]
+                        },
+                        "sirp_addressline2": {
+                          "type": "string",
+                          "default": "",
+                          "title": "sirp_addressline2",
+                          "examples": [
+                            ""
+                          ]
+                        },
+                        "sirp_town": {
+                          "type": "string",
+                          "default": "",
+                          "title": "sirp_town",
+                          "examples": [
+                            ""
+                          ]
+                        },
+                        "sirp_postcode": {
+                          "type": "string",
+                          "default": "",
+                          "title": "sirp_postcode",
+                          "examples": [
+                            ""
+                          ],
+                          "sirp_Canyougiveusanyotherinformation": {
+                            "type": "string",
+                            "description": "If there is further information about the incident they would like to add, add it here",
+                            "default": "",
+                            "title": "sirp_Canyougiveusanyotherinformation",
+                            "examples": [
+                              ""
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

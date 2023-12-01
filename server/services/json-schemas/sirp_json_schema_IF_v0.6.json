@@ -1,0 +1,445 @@
+{
+	"$id": "http://example.com/example.json",
+	"type": "object",
+	"default": {},
+	"title": "Illegal Fishing",
+	"required": [
+		"sirp_incident"
+	],
+	"properties": {
+		"sirp_incident": {
+			"type": "object",
+			"default": {},
+			"title": "sirp_incident",
+			"required": [
+				       "sirp_incidentid"
+				       ,"sirp_incidentreporttype", "sirp_observeddatetime"
+				       , "sirp_reporteddatetime", "sirp_incidentlocation", "sirp_reporterdetails"
+			],
+					"properties": {
+				  "sirp_incidentid": {
+					"type": "string",
+					"format": "uuid",
+					"default": "",
+					"title": "sirp_incidentid",
+					"examples": [
+						"9151f21f-43ae-43b4-92f3-f4af67cdf544"
+					]
+				},
+		      	"properties": {
+			    	"sirp_incidentreporttype": {
+					  "type": "integer",
+					  "uniqueItems": true,
+				  	"minItems": 1,
+					  "items": {
+						"type": "integer",
+						"enum": [
+							100, 200, 300, 400
+						],
+						"meta:enum": {
+							"100": "Odour",
+							"200": "Illegal Fishing",
+							"300": "Water Pollution",
+							"400": "Flooding"
+						}
+					}
+				},
+				"sirp_ObservedDateTime": {
+					"type": "string",
+					"format": "date-time",
+					"default": "",
+					"title": "sirp_observeddatetime",
+					"examples": [
+						"2023-06-26 23:00:00.0000000"
+					]
+				},
+				"sirp_reportedDateTime": {
+					"type": "string",
+					"format": "date-time",
+					"default": "",
+					"title": "sirp_reportedDateTime",
+					"examples": [
+						"2023-06-27 23:00:00.0000000"
+					]
+				},
+				"sirp_illegalfishing": {
+					"type": "object",
+					"default": {},
+					"title": "sirp_illegalfishing",
+                    "required":["sirp_equipmentillegalfishing", "sirp_howmanyillegalfish"
+                    ,"sirp_peopleillegalfishing","sirp_takenillegalfish","sirp_typeillegalfish"
+                    ,"sirp_whyillegalfishing", "sirp_aretherepeoplefishingstillthere"],
+					"properties": {
+						"sirp_equipmentillegalfishing": {
+							"type": "array",
+							"description": "Are they using any of the following equipment?",
+							"uniqueItems": true,
+							"minItems": 1,
+							"maxItems": 10,
+							"items": {
+								"type": "integer",
+								"enum": [
+									100, 200, 300, 400, 500
+								],
+								"meta:enum": {
+									"100": "Nets",
+									"200": "Illegal rod or tackle",
+									"300": "Explosives",
+									"400": "Spears, crossbows or firearms",
+									"500": "Poison or Chemicals",
+									"600": "Electric Stun Devices",
+									"700": "Something else",
+									"800": "You don't know"
+								}
+							}
+						},
+						"sirp_equipmentillegalfishingother": {
+							"type": "string",
+							"description": "(If other else) Please provide a description for the other equipment used",
+							"default": "",
+							"title": "sirp_reporteddatetime"
+						},
+						"sirp_howmanyillegalfish": {
+							"type": "integer",
+							"title": "sirp_howmanyillegalfish",
+							"description": "How many fish have you seen being caught or killed?",
+							"uniqueItems": true,
+							"minItems": 1,
+							"maxItems": 1,
+							"items": {
+								"type": "integer",
+								"enum": [
+									100, 200, 300
+								],
+								"meta:enum": {
+									"100": "5 or more",
+									"200": "less than 5",
+									"300": "You don't know"
+								}
+							}
+						},
+						"sirp_peopleillegalfishing": {
+							"type": "boolean",
+							"default": "",
+							"description": "Are there more than 2 people involved?",
+							"title": "sirp_peopleillegalfishing",
+							"examples": [
+								true, false
+							]
+						},
+						"sirp_takenillegalfish": {
+							"type": "boolean",
+							"description": "Have you actually seen fish being taken?",
+							"default": "",
+							"title": "sirp_takenillegalfish",
+							"examples": [
+								true, false
+							]
+						},
+						"sirp_typeillegalfish": {
+							"type": "array",
+							"description": "Are they catching any of these types of fish?",
+							"title": "sirp_typeillegalfish",
+							"uniqueItems": true,
+							"minItems": 1,
+							"items": {
+								"type": "integer",
+								"enum": [
+									100, 200, 300, 400, 500, 600
+								],
+								"meta:enum": {
+									"100": "Salmon",
+									"200": "Lamprey eel",
+									"300": "Sea Trout",
+									"400": "Coarse fish",
+									"500": "Other type of fish",
+									"600": "You don't know"
+								}
+							}
+						},
+                        "sirp_registrationIllegalFishingDescription": {
+							"type": "string",
+							"default": "",
+							"description": "Registration Illegal Fishing Description",
+							"title": "sirp_registrationIllegalFishingDescription"
+						},
+                          "sirp_typeillegalfishother": {
+							"type": "string",
+							"default": "",
+							"description": "(If other else) Please provide a description for the other illegal fish",
+							"title": "sirp_typeillegalfishother",
+							"examples": [
+								""
+							]
+						},
+						"sirp_whyillegalfishing": {
+							"type": "array",
+							"description": "Why do you think the fishing is illegal?",
+							"title": "sirp_whyillegalfishing",
+							"uniqueItems": true,
+							"minItems": 1,
+							"items": {
+								"type": "integer",
+								"enum": [
+									100, 200, 300, 400, 500
+								],
+								"meta:enum": {
+									"100": "Fishing is not allowed here",
+									"200": "The type of equipment being used",
+									"300": "Fishing without a licence",
+									"400": "The type of fish being taken",
+									"500": "Causing damage or destruction to fish habitats",
+									"600": "Another reason"
+								}
+							}
+						},
+                          
+						"sirp_aretherepeoplefishingstillthere": {
+							"type": "integer",
+							"description": "Are there people fishing still there?",
+							"title": "sirp_aretherepeoplefishingstillthere",
+							"uniqueItems": true,
+							"minItems": 1,
+							"items": {
+								"type": "integer",
+								"enum": [
+									100, 200, 300
+								],
+								"meta:enum": {
+									"100": "Yes",
+									"200": "No",
+									"300": "Dont Know"
+								}
+							}
+						},                          
+						"sirp_whyillegalfishingother": {
+							"type": "string",
+							"description": "(If other else) Please provide a description for why illegal fishing is not allowed here",
+							"default": "",
+							"title": "sirp_whyillegalfishingother",
+							"examples": [
+								""
+							]
+						}
+					}
+				},
+				"sirp_incidentlocation": {
+					"type": "object",
+					"default": {},
+					"title": "sirp_incidentlocation",
+					"properties": {
+						"sirp_bng": {
+							"type": "string",
+							"default": "",
+							"title": "sirp_bng",
+							"examples": [
+								""
+							]
+						},
+						"sirp_eaarea": {
+							"type": "string",
+							"default": "",
+							"title": "sirp_eaarea",
+							"examples": [
+								""
+							]
+						},
+						"sirp_eaoffice": {
+							"type": "string",
+							"default": "",
+							"title": "sirp_eaoffice",
+							"examples": [
+								""
+							]
+						},
+						"sirp_x": {
+							"type": "number",
+							"default": "",
+							"title": "sirp_x"
+
+						},
+						"sirp_y": {
+							"type": "number",
+							"default": "",
+							"title": "sirp_y",
+							"examples": [
+								""
+							]
+						},
+						"sirp_address": {
+							"type": "object",
+							"default": {},
+							"title": "sirp_address",
+							"properties": {
+								"sirp_addressline1": {
+									"type": "string",
+                                    "description":"location address line",
+									"default": "",
+									"title": "sirp_addressline1",
+									"examples": [
+										""
+									]
+								},
+								"sirp_addressline2": {
+									"type": "string",
+                                    "description":"location addressline2",
+									"default": "",
+									"title": "sirp_addressline2",
+									"examples": [
+										""
+									]
+								},
+								"sirp_town": {
+									"type": "string",
+									"default": "",
+                                    "description":"location town", 
+									"title": "sirp_town",
+									"examples": [
+										""
+									]
+								},
+								"sirp_postcode": {
+									"type": "string",
+									"default": "",
+                                    "description":"location postcode",
+									"title": "sirp_postcode",
+									"examples": [
+										""
+									]
+								}
+							}
+						}
+					}
+				},
+				"sirp_reporterdetails": {
+					"type": "object",
+					"default": {},
+					"title": "sirp_reporterdetails",
+					"properties": {
+						"sirp_consent": {
+							"type": "boolean",
+							"description": "Confirm that the reporter is happy for all information they have submitted as part of this report to be used in analysis and reporting for incident response (including photos, videos & supporting documentation ",
+							"default": "",
+							"title": "sirp_consent",
+							"examples": [
+								true, false
+							]
+						},
+						"sirp_contactable": {
+							"type": "boolean",
+                            "description": "contactable - Does the reportee wish to be contact by the duty officer",
+							"default": "",
+							"title": "sirp_contactable",
+							"examples": [
+								true, false
+							]
+						},
+						"sirp_email": {
+							"type": "string",
+							"default": "",
+							"description": "Reporters email address",
+							"format": "email",
+							"title": "sirp_email",
+							"examples": [
+								"me@bt.com"
+							]
+						},
+						"sirp_feedback": {
+							"type": "boolean",
+							"description": "feedback - Would the reporter like to receive any updates on the incident they have reported",
+							"default": "",
+							"title": "sirp_feedback",
+							"examples": [
+								true, false
+							]
+						},
+						"sirp_homephonenumber": {
+							"type": "string",
+                            "description":"home number",
+							"minLength": 10,
+							"maxLength": 20,
+							"title": "sirp_homephonenumber"
+						},
+						"sirp_mobilephonenumber": {
+							"type": "string",
+                            "description":"mobile number",
+							"minLength": 10,
+							"maxLength": 20,
+							"title": "sirp_mobilephonenumber"
+						},
+						"sirp_previouslyreported": {
+							"type": "boolean",
+							"description": "Has the reporter previosuly used this digital form to report envrionmental incidents to the EA",
+							"default": "",
+							"title": "sirp_previouslyreported",
+							"examples": [
+								true, false
+							]
+						},
+						"sirp_reportername": {
+							"type": "string",
+							"description": "Name of reporter",
+							"default": "",
+							"title": "sirp_reportername",
+							"examples": [
+								"Mark Buttle"
+							]
+						},
+						"sirp_address": {
+							"type": "object",
+							"default": {},
+							"title": "sirp_address",
+							"properties": {
+								"sirp_addressline1": {
+									"type": "string",
+									"default": "",
+                                    "description":"reporter addressline1", 
+									"title": "sirp_addressline1",
+									"examples": [
+										""
+									]
+								},
+								"sirp_addressline2": {
+									"type": "string",
+                                    "description":"reporter addressline2", 
+									"default": "",
+									"title": "sirp_addressline2",
+									"examples": [
+										""
+									]
+								},
+								"sirp_town": {
+									"type": "string",
+									"default": "",
+									"title": "sirp_town",
+                                    "description":"reporter town", 
+									"examples": [
+										""
+									]
+								},
+								"sirp_postcode": {
+									"type": "string",
+									"default": "",
+                                    "description":"reporter postcode", 
+									"title": "sirp_postcode",
+									"examples": [
+										""
+									],
+									"sirp_Canyougiveusanyotherinformation": {
+										"type": "string",
+										"description": "If there is further information about the incident they would like to add, add it here",
+										"default": "",
+										"title": "sirp_Canyougiveusanyotherinformation",
+										"examples": [
+											""
+										]
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}}
