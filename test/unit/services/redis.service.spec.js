@@ -57,7 +57,7 @@ describe('RedisService', () => {
     tempKeys = []
   })
 
-  describe('get()', () => {
+  describe('get', () => {
     it('should get value from Redis', async () => {
       await mockClient.setex(mockTestKey, mockTTLValue, mockValue)
 
@@ -67,7 +67,7 @@ describe('RedisService', () => {
     })
   })
 
-  describe('set()', () => {
+  describe('set', () => {
     it('should set value in Redis', async () => {
       await set(mockRequest, 'testKey', mockValue)
 
@@ -77,8 +77,8 @@ describe('RedisService', () => {
     })
   })
 
-  describe('delete()', () => {
-    it.only('should delete value from Redis', async () => {
+  describe('delete', () => {
+    it('should delete value from Redis', async () => {
       await mockClient.setex(mockTestKey, mockTTLValue, mockValue)
 
       await deleteItem(mockRequest, 'testKey')
@@ -89,7 +89,7 @@ describe('RedisService', () => {
     })
   })
 
-  describe('deleteSessionData()', () => {
+  describe('deleteSessionData', () => {
     it('should delete all session data from Redis', async () => {
       await mockClient.setex(`${mockTestKey}1`, mockTTLValue, mockValue)
       await mockClient.setex(`${mockTestKey}2`, mockTTLValue, mockValue)
@@ -104,7 +104,7 @@ describe('RedisService', () => {
     })
   })
 
-  describe('isJsonString()', () => {
+  describe('isJsonString', () => {
     it('should correctly identify JSON strings', () => {
       expect(isJsonString('{"key": "value"}')).toBe(true)
       expect(isJsonString('["value1", "value2"]')).toBe(true)
@@ -114,7 +114,7 @@ describe('RedisService', () => {
     })
   })
 
-  describe('isBooleanString()', () => {
+  describe('isBooleanString', () => {
     it('should correctly identify boolean strings', () => {
       expect(isBooleanString('true')).toBe(true)
       expect(isBooleanString('false')).toBe(true)

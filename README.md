@@ -19,15 +19,6 @@ To start the application `dev` environment please run:
 $ make start
 ```
 
-and:
-
-```sh
-$ make restart
-```
-
-In case you want to restart the `dev` environment.
-
-
 # Testing Docker build of the image
 
 To test the creation on the Docker image please run:
