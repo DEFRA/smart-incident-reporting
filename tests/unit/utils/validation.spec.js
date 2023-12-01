@@ -6,7 +6,7 @@ const {
   maxLength,
   postcode,
   buildErrorSummary
-} = require('../../../server/utils/validation') // Replace 'yourFile' with the actual file path
+} = require('../../../server/utils/validation')
 
 jest.mock('postcode-validator', () => ({
   postcodeValidator: jest.fn()

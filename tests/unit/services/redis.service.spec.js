@@ -7,7 +7,7 @@ const {
   isJsonString,
   isBooleanString
 } = require('../../../server/services/redis.service.js')
-const { SI_SESSION_KEY } = require('../../../server/utils/constants')
+const { SI_SESSION_KEY } = require('../../../server/utils/constants.js')
 
 // Mock Redis client
 let tempKeys = []

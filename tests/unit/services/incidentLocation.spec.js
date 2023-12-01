@@ -2,7 +2,7 @@ const {
   findByPostcode
 } = require('../../../server/services/incidentLocation.js')
 
-const util = require('../../../server/utils/util')
+const util = require('../../../server/utils/util.js')
 
 jest.mock('../../../server/utils/util', () => ({
   getJson: jest.fn()
