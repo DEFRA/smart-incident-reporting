@@ -43,7 +43,7 @@ Here's the default structure for your project files.
   - **views**
   - config.js
   - index.js (Exports a function that creates a server)
-- **test**
+- **tests**
 - README.md
 - index.js (startup server)
 
@@ -117,14 +117,14 @@ The predefined tasks are:
 - `npm run build` (Runs all build sub-tasks)
 - `npm run build:css` (Builds the client-side sass)
 - `npm run lint` (Runs the lint task using standard.js)
-- `npm run unit-test` (Runs the `lab` tests in the `/test` folder)
+- `npm run unit-test` (Runs the `lab` tests in the `/tests` folder)
 - `npm test` (Runs the `lint` task then the `unit-tests`)
 
 ## Testing
 
 [Jest](https://jestjs.io/) is used for unit testing.
 
-See the `/test` folder for more information.
+See the `/tests` folder for more information.
 
 ## Linting
 
@@ -148,7 +148,7 @@ The default values will be used if the environment variables are missing or comm
 | REDIS_PORT                                                   | Redis port                                          |    yes   | 6379                  |                                                         |
 | REDIS_PASSWORD                                               | Redis password                                      |    yes   | foo                   |                                                         |
 | COOKIE_TIMEOUT                                               | Cookie timeout in ms                                |    yes   | 7200000               |                                                         |
-| USE_BASIC_AUTH                                               | Basic auth to prevent access to unauthorized people |    yes   | warn                  |                                                         |
-| DEFRA_USERNAME                                               | Basic Auth username                                 |    yes   | smart                 |                                                         |
-| DEFRA_PASSWORD                                               | Basic Auth password                                 |    yes   |                       |                                                         |
+| USE_BASIC_AUTH                                               | Basic auth to prevent access to unauthorized people |    yes   |                       |                                                         |
+| DEFRA_USERNAME                                               | Basic auth username                                 |    yes   | smart                 |                                                         |
+| DEFRA_PASSWORD                                               | Basic auth password                                 |    yes   | .......               |                                                         |
 | SUBMIT_INCIDENT                                              | Submit incident flag                                |    yes   | false                 |                                                         |
