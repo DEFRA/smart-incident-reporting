@@ -8,7 +8,9 @@ const makeRequest = async (method, url, options, _ext = false) => {
     const { res, payload } = response
 
     if (res.statusCode !== 200) {
+      // NOSONAR
       const err = payload || new Error('Unknown error')
+
       throw err
     }
 
