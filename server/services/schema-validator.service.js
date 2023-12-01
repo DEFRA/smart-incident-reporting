@@ -1,10 +1,9 @@
 const Ajv = require('ajv')
-const addFormats = require("ajv-formats")
+const addFormats = require('ajv-formats')
 
-const validateDataAgainstSchema = (data, schema,meta) => {
+const validateDataAgainstSchema = (data, schema) => {
   const ajv = new Ajv({ strict: false })
   addFormats(ajv)
-
 
   // Compile the schema
   const validate = ajv.compile(schema)
@@ -18,7 +17,6 @@ const validateDataAgainstSchema = (data, schema,meta) => {
   }
 
   return valid
-
 }
 
 module.exports = {
