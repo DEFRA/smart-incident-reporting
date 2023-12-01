@@ -25,13 +25,14 @@ const mockResponseError = {
   payload: { error: 'not found' }
 }
 
+
 describe('utils', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
 
   describe('get', () => {
-    it('it should return a successful request', async () => {
+    it('get should return a successful request', async () => {
       mockWreck.get.mockResolvedValueOnce(mockResponseSuccess)
       const url = 'https://example.com/get'
 
@@ -43,7 +44,7 @@ describe('utils', () => {
   })
 
   describe('post', () => {
-    it('it should return a successful request', async () => {
+    it('post should return a successful request', async () => {
       mockWreck.post.mockResolvedValueOnce(mockResponseSuccess)
       const url = 'https://example.com/post'
       const data = { payload: 'test' }
@@ -55,7 +56,7 @@ describe('utils', () => {
   })
 
   describe('getJson', () => {
-    it('it should return a successful request', async () => {
+    it('getJson should return a successful request', async () => {
       mockWreck.get.mockResolvedValueOnce(mockResponseSuccess)
       const url = 'https://example.com/getJson'
       const result = await getJson(url)
@@ -66,7 +67,7 @@ describe('utils', () => {
   })
 
   describe('makeRequest', () => {
-    it('it should return a successful request', async () => {
+    it('makeRequest should return a successful request', async () => {
       // Mock the wreck[method] call to resolve with a successful response
       mockWreck.get = jest.fn().mockResolvedValue(mockResponseSuccess)
 
@@ -77,7 +78,7 @@ describe('utils', () => {
       expect(mockWreck.get).toHaveBeenCalledWith(url, undefined)
     })
 
-    it('it should return a failed request', async () => {
+    it('makeRequest should return a failed request', async () => {
       // Mock the wreck[method] call to resolve with an error response
       mockWreck.get = jest.fn().mockResolvedValue(mockResponseError)
 
