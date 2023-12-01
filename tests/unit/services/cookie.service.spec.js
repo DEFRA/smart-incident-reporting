@@ -1,6 +1,6 @@
 const CookieService = require('../../../server/services/cookie.service.js')
 
-const { SI_SESSION_KEY } = require('../../../server/utils/constants')
+const { SI_SESSION_KEY } = require('../../../server/utils/constants.js')
 
 describe('CookieService', () => {
   describe('getSessionCookie', () => {
