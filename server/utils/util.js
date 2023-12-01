@@ -2,7 +2,7 @@ const wreck = require('@hapi/wreck').defaults({
   timeout: 10000
 })
 
-const makeRequest = async (method, url, options, ext = false) => {
+const makeRequest = async (method, url, options, _ext = false) => {
   try {
     const response = await wreck[method](url, options)
     const { res, payload } = response
