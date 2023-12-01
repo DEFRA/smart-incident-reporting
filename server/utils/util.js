@@ -1,35 +1,33 @@
-
 const wreck = require('@hapi/wreck').defaults({
   timeout: 10000
 })
 
-function request (method, url, options, ext = false) {
-  return wreck[method](url, options)
-    .then(response => {
-      const res = response.res
-      const payload = response.payload
+const makeRequest = async (method, url, options, ext = false) => {
+  try {
+    const response = await wreck[method](url, options)
+    const { res, payload } = response
 
-      if (res.statusCode !== 200) {
-        const err = (payload || new Error('Unknown error'))
-        throw err
-      }
+    if (res.statusCode !== 200) {
+      const err = payload || new Error('Unknown error')
+      throw err
+    }
 
-      return payload
-    })
-}
-function get (url, options, ext = false) {
-  return request('get', url, options, ext)
+    return payload
+  } catch (error) {
+    throw error
+  }
 }
 
-function post (url, options) {
-  return request('post', url, options)
-}
-function getJson (url, ext = false) {
-  return get(url, { json: true }, ext)
-}
+const get = async (url, options, ext = false) =>
+  makeRequest('get', url, options, ext)
+
+const post = async (url, options) => makeRequest('post', url, options)
+
+const getJson = async (url, ext = false) => get(url, { json: true }, ext)
+
 module.exports = {
   get,
   post,
   getJson,
-  request
+  makeRequest
 }
