@@ -31,10 +31,15 @@ const schema = joi.object().keys({
     .string()
     .default('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'),
   osDataURI: joi.string().default('https://osdatahub.co.uk'),
+  osKey: joi.string(),
   useBasicAuth: joi.bool().valid(true, false),
   defraUsername: joi.string(),
   defraPassword: joi.string(),
-  submitIncident: joi.bool().valid(true, false)
+  submitIncident: joi.bool().valid(true, false),
+  fishingConnectionString: joi.string(),
+  waterConnectionString: joi.string(),
+  fishingQueue: joi.string(),
+  waterQueue: joi.string()
 })
 
 // Build config
@@ -49,10 +54,15 @@ const config = {
   redisPort: process.env.REDIS_PORT,
   redisPassword: process.env.REDIS_PASSWORD,
   osDataURI: process.env.OS_DATA_HUB_URI,
+  osKey: process.env.OS_KEY,
   useBasicAuth: getBoolean(process.env.USE_BASIC_AUTH || false),
   defraUsername: process.env.DEFRA_USERNAME,
   defraPassword: process.env.DEFRA_PASSWORD,
-  submitIncident: getBoolean(process.env.SUBMIT_INCIDENT || false)
+  submitIncident: getBoolean(process.env.SUBMIT_INCIDENT || false),
+  fishingConnectionString: process.env.FISHING_CONNECTION_STRING,
+  waterConnectionString: process.env.WATER_CONNECTION_STRING,
+  fishingQueue: process.env.FISHING_QUEUE,
+  waterQueue: process.env.WATER_QUEUE
 }
 
 // Validate config

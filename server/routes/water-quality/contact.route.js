@@ -1,7 +1,7 @@
 'use strict'
 
-const { Paths, Views, RedisKeys } = require('../../utils/constants')
-const RedisService = require('../../services/redis.service')
+const { Paths, Views /** ,RedisKeys */ } = require('../../utils/constants')
+// const RedisService = require('../../services/redis.service')
 
 const handlers = {
   get: (request, h) => {

@@ -1,15 +1,16 @@
+const config = require('../utils/config')
 const { ServiceBusClient } = require('@azure/service-bus')
 
 // Define connection string and related Service Bus entity names here
 // Get it from the azure portal
-const fishingConnectionString = '' // TODO this should go in the env vars
-const waterConnectionString = '' // TODO this should go in the env vars
+const fishingConnectionString = config.fishingConnectionString
+const waterConnectionString = config.waterConnectionString
 
-const fishingQueue = 'devsirinfsb1401-sbncomq-illegal-fishing' // TODO this should go in the env vars
-const waterQueue = 'devsirinfsb1401-sbncomq-water-quality' // TODO this should go in the env vars
+const fishingQueue = config.fishingQueue
+const waterQueue = config.waterQueue
 
 module.exports = class ASBService {
-  static async sendMessageToQueue(incidentToPublish, incidentType) {
+  static async sendMessageToQueue (incidentToPublish, incidentType) {
     let sbClient, sender
 
     if (incidentType === 300) {
@@ -28,7 +29,7 @@ module.exports = class ASBService {
           myCustomPropertyName: 'Custom property'
         }
       }
-      //console.log(`Sending message: ${message.body}`)
+      // console.log(`Sending message: ${message.body}`)
       await sender.sendMessages(message)
 
       await sbClient.close()

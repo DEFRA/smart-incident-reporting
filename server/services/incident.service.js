@@ -9,7 +9,7 @@ const RedisService = require('./redis.service')
 const { v4: uuidv4 } = require('uuid')
 
 module.exports = class IncidentService {
-  static async generateIncidentJson(request) {
+  static async generateIncidentJson (request) {
     const incidentTypeFishing = 200
 
     const iJsonObj = {}
@@ -88,7 +88,7 @@ module.exports = class IncidentService {
     return iJsonObj
   }
 
-  static async generateWaterIncidentJson(request) {
+  static async generateWaterIncidentJson (request) {
     const incidentTypeWater = 300
 
     const iJsonObj = {}
@@ -130,7 +130,7 @@ module.exports = class IncidentService {
 
     const howfaralongthewaterfeaturedoesthepollutio = []
     howfaralongthewaterfeaturedoesthepollutio.push(
-      howfaralongthewaterfeaturedoesthepollutioText
+      howfaralongthewaterfeaturedoesthepollutio
     )
     incidentObj.sirp_WaterQuality.sirp_Howfaralongthewaterfeaturedoesthepollutio =
       howfaralongthewaterfeaturedoesthepollutio
@@ -160,7 +160,7 @@ module.exports = class IncidentService {
     return iJsonObj
   }
 
-  static async generateWaterIncidentJson2(request) {
+  static async generateWaterIncidentJson2 (request) {
     const incidentTypeWater = 300
 
     const iJsonObj = {}
@@ -221,7 +221,7 @@ module.exports = class IncidentService {
       incidentObj.sirp_WaterQuality.sirp_inWaterOther = whatIsInTheWaterOther
     }
 
-    //Is there a smell? - Test
+    // Is there a smell? - Test
     const smell = await RedisService.get(
       request,
       WQSirpRedisKeys.WQ_SIRP_SMELL_SOURCE
@@ -229,7 +229,7 @@ module.exports = class IncidentService {
     if (smell !== undefined) {
       incidentObj.sirp_WaterQuality.sirp_isthereasmell = Boolean(smell)
     }
-    //Is there a smell - other ? - Test
+    // Is there a smell - other ? - Test
     const smellOther = await RedisService.get(
       request,
       WQSirpRedisKeys.WQ_SIRP_SMELL_SOURCE_OTHER

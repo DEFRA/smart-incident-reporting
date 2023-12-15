@@ -3,7 +3,6 @@
 const {
   Paths,
   Views,
-  RedisKeys,
   WQSirpRedisKeys
 } = require('../../utils/constants')
 

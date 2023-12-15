@@ -1,7 +1,6 @@
 'use strict'
 
-const { Paths, Views, RedisKeys } = require('../../utils/constants')
-const RedisService = require('../../services/redis.service')
+const { Paths, Views } = require('../../utils/constants')
 const IncidentUtilsService = require('../../services/incident.service')
 const ASBService = require('../../services/asb.send')
 const config = require('../../utils/config')

@@ -1,7 +1,7 @@
+const config = require('../utils/config')
 const util = require('../utils/util')
 
-const apiKey = '50br44ij15V5hIAAhLoeFTiY57NZBYHS' // // TODO this should go in the env vars, this should never be in the source code!!
-
+const apiKey = config.osKey
 module.exports = {
   findByPostcode: async (postcode) => {
     try {

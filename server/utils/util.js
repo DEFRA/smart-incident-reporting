@@ -3,22 +3,15 @@ const wreck = require('@hapi/wreck').defaults({
 })
 
 const makeRequest = async (method, url, options, _ext = false) => {
-  try {
-    const response = await wreck[method](url, options)
-    const { res, payload } = response
-
-    if (res.statusCode !== 200) {
-      if (payload) {
-        throw payload
-      }
-
-      throw new Error('Unknown error')
+  const response = await wreck[method](url, options)
+  const { res, payload } = response
+  if (res.statusCode !== 200) {
+    if (payload) {
+      throw payload
     }
-
-    return payload
-  } catch (error) {
-    throw error
+    throw new Error('Unknown error')
   }
+  return payload
 }
 
 const get = async (url, options, ext = false) =>
