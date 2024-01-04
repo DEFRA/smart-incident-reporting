@@ -1,7 +1,7 @@
 $govuk-global-styles: true;
 
-@import 'node_modules/govuk-frontend/govuk/all';
-@import 'node_modules/govuk-frontend/govuk/settings/colours-applied.scss';
+@import 'node_modules/govuk-frontend/dist/govuk/all';
+@import 'node_modules/govuk-frontend/dist/govuk/settings/colours-applied.scss';
 
 ///// INTERRUPT PATTERN - FLASH CARD //////
 .flash-card {

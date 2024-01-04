@@ -5,9 +5,9 @@ const os = require('os')
 module.exports = [
   {
     method: 'GET',
-    path: '/assets/all.js',
+    path: '/assets/manifest.json',
     handler: {
-      file: 'node_modules/govuk-frontend/govuk/all.js'
+      file: 'node_modules/govuk-frontend/dist/govuk/assets/manifest.json'
     }
   },
   {
@@ -20,7 +20,8 @@ module.exports = [
           'server/public/static',
           'server/public/build',
           'server/public/js',
-          'node_modules/govuk-frontend/govuk/assets',
+          'node_modules/govuk-frontend/dist/govuk',
+          'node_modules/govuk-frontend/dist/govuk/assets',
           'node_modules/ispinner.css'
         ]
       }
