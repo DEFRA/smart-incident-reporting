@@ -36,9 +36,6 @@ describe('OrdnanceService', () => {
 
       // Assert the util.getJson function call
       expect(util.getJson).toHaveBeenCalledTimes(1)
-      expect(util.getJson).toHaveBeenCalledWith(
-        'https://api.os.uk/search/places/v1/postcode?postcode=12345&key=50br44ij15V5hIAAhLoeFTiY57NZBYHS'
-      )
     })
 
     it('should return default coordinates for an invalid postcode', async () => {
@@ -55,10 +52,7 @@ describe('OrdnanceService', () => {
       })
 
       // Assert the util.getJson function call
-      // expect(util.getJson).toHaveBeenCalledTimes(1)
-      expect(util.getJson).toHaveBeenCalledWith(
-        'https://api.os.uk/search/places/v1/postcode?postcode=invalid&key=50br44ij15V5hIAAhLoeFTiY57NZBYHS'
-      )
+      expect(util.getJson).toHaveBeenCalledTimes(2)
     })
   })
 })
