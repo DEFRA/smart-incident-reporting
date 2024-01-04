@@ -1,3 +1,3 @@
 module.exports = () => ({
-	autoDetect: true,
-});
+  autoDetect: true
+})

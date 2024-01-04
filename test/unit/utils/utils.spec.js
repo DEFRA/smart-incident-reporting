@@ -25,7 +25,6 @@ const mockResponseError = {
   payload: { error: 'not found' }
 }
 
-
 describe('utils', () => {
   afterEach(() => {
     jest.clearAllMocks()

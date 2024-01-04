@@ -46,7 +46,6 @@ const _generateSirpData = (request, payload) => {
   const addressLine1 = payload['address-line-1']
   const addressLine2 = payload['address-line-2']
   const addressLineTown = payload['address-town']
-  const addressLineCounty = payload['address-county']
   const addressLinePostCode = payload['address-postcode']
 
   if (payload.reported === undefined) {

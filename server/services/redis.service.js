@@ -50,7 +50,7 @@ const set = async (request, key, value) => {
 
 const deleteItem = async (request, key) => {
   const client = getRedisClient(request)
-  const keyWithSessionId = `${getSessionKey(request)}.${key}` //?
+  const keyWithSessionId = `${getSessionKey(request)}.${key}` // ?
 
   try {
     await client.del(keyWithSessionId)
