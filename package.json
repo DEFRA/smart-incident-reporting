@@ -100,6 +100,9 @@
     "coverageReporters": [
       "lcov",
       "text"
+    ],
+    "setupFiles": [
+      "./.jest/test.env.js"
     ]
   }
 }
