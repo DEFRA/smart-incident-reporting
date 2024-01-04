@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
-    "hapi-pino": "9.4.0",
+    "hapi-pino": "12.1.0",
     "husky": "^8.0.3",
     "jest": "^27.5.1",
     "jest-junit": "^13.0.0",
