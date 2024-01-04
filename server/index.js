@@ -43,7 +43,7 @@ const _registerPlugins = async server => {
   await server.register(require('./plugins/inert.plugin'))
   await server.register(require('./plugins/router.plugin'))
   await server.register(require('./plugins/views.plugin'))
-  await server.register(require('./plugins/hapi-gapi.plugin'))
+  // await server.register(require('./plugins/hapi-gapi.plugin'))
   await server.register(require('./plugins/redis.plugin'))
 }
 
