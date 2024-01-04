@@ -1,1 +1,5 @@
 process.env.OS_KEY = 'testKey'
+process.env.FISHING_CONNECTION_STRING = 'fishingConnectionString'
+process.env.FISHING_QUEUE = 'fishingQueue'
+process.env.WATER_CONNECTION_STRING = 'waterConnectionString'
+process.env.WATER_QUEUE = 'waterQueue'
