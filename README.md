@@ -8,30 +8,50 @@
 
 # Prerequisites
 
-Please install [Brew](https://brew.sh/) as package manager to install all dependencies for the solution,.
-
-After that please execute the following in a shell command in the root of the solution:
-
-```sh
-$ make
-```
-
+NodeJS v18 needs to be installed locally along with npm.
 
 # Getting started
 
-To start the application `dev` environment please run:
+Install dependencies and build the application via
 
 ```sh
-$ make start
+$ npm i
+```
+
+# Run tests
+
+```sh
+$ npm test
+```
+
+# Build backend and start services
+
+```sh
+$ docker-compose -f docker/backend-services.yml up -d
+```
+
+# Start application
+
+```sh
+$ npm run dev
+or
+$ npm run start
 ```
 
 # Testing Docker build of the image
 
-To test the creation on the Docker image please run:
+To create docker image of service:
 
 ```sh
-$ make build-image
+$ 	docker build -t smart-incident-reporting:latest .
 ```
+
+# Starting application in docker
+
+```sh
+$ 	docker-compose -f docker/service.yml up -d
+```
+
 
 ## Project structure
 

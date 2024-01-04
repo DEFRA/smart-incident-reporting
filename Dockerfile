@@ -4,8 +4,9 @@ LABEL author="Department for Environment, Food & Rural Affairs"
 #ENV NODE_ENV=production
 ENV PORT=8000
 
-WORKDIR /app
-COPY package*.json ./
+WORKDIR /usr/src
+COPY . .
+
 RUN npm install
 
 COPY . .

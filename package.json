@@ -1,9 +1,10 @@
 {
-  "name": "Smart incident reporting",
+  "name": "smart-incident-reporting",
   "version": "1.0.0",
   "description": "Digital service for incident reporting",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm run build",
     "start": "node index.js",
     "build:css": "bin/build-css",
     "build": "bin/build",
