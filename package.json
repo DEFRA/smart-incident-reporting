@@ -12,7 +12,7 @@
     "watch:nodejs": "nodemon --delay 1000ms --signal SIGTERM -r dotenv/config index.js",
     "dev": "concurrently 'npm:watch:css' 'npm:watch:nodejs'",
     "lint": "standard",
-    "unit-test": "npx jest --verbose",
+    "unit-test": "jest --verbose",
     "test": "npm run unit-test",
     "prettier": "prettier-config-standard",
     "prepare": "husky install"
@@ -94,5 +94,12 @@
       "**/docs/**"
     ],
     "delay": 3000
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ]
   }
 }
