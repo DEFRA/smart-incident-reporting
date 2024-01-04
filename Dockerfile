@@ -6,11 +6,7 @@ ENV PORT=8000
 
 WORKDIR /usr/src
 COPY . .
-
 RUN npm install
-
-COPY . .
-RUN npm run build
 
 EXPOSE $PORT
 
