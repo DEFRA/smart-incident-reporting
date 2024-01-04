@@ -1,5 +1,11 @@
 # Smart Incident Reporting Project
 
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_smart-incident-reporting&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=DEFRA_smart-incident-reporting)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_smart-incident-reporting&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=DEFRA_smart-incident-reporting)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_smart-incident-reporting&metric=coverage)](https://sonarcloud.io/summary/new_code?id=DEFRA_smart-incident-reporting)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_smart-incident-reporting&metric=bugs)](https://sonarcloud.io/summary/new_code?id=DEFRA_smart-incident-reporting)
+
 # Prerequisites
 
 Please install [Brew](https://brew.sh/) as package manager to install all dependencies for the solution,.
