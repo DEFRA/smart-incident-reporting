@@ -3,7 +3,6 @@ const {
   set,
   delete: deleteItem,
   deleteSessionData,
-  getMatchingRedisKeys,
   isJsonString,
   isBooleanString
 } = require('../../../server/services/redis.service.js')
@@ -13,21 +12,21 @@ const { SI_SESSION_KEY } = require('../../../server/utils/constants.js')
 let tempKeys = []
 
 const mockClient = {
-  async get(key) {
+  async get (key) {
     // Mock Redis get method
     return tempKeys[key]
   },
-  async setex(key, _ttl, value) {
+  async setex (key, _ttl, value) {
     // Mock Redis setex method
     tempKeys[key] = value
   },
-  async del(key) {
+  async del (key) {
     // Mock Redis del method
-    tempKeys = tempKeys.filter((x) => x !== key)
+    tempKeys = tempKeys.filter(x => x !== key)
   },
-  async scan(cursor, _match, sessionKey) {
+  async scan (cursor, _match, sessionKey) {
     // Mock Redis scan method
-    const keys = Object.keys(tempKeys).filter((k) => k.match(sessionKey))
+    const keys = Object.keys(tempKeys).filter(k => k.match(sessionKey))
     const cursorIndex = keys.indexOf(cursor)
     const nextKeys = keys.slice(cursorIndex + 1)
     const nextCursor = nextKeys.length > 0 ? nextKeys[0] : '0'
@@ -83,7 +82,7 @@ describe('RedisService', () => {
 
       await deleteItem(mockRequest, 'testKey')
 
-      const result = await mockClient.get(mockTestKey) //?
+      const result = await mockClient.get(mockTestKey) // ?
 
       expect(result).toBe(undefined)
     })

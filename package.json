@@ -13,7 +13,7 @@
     "dev": "concurrently 'npm:watch:css' 'npm:watch:nodejs'",
     "lint": "standard",
     "unit-test": "jest --verbose",
-    "test": "npm run unit-test",
+    "test": "npm run lint && npm run unit-test",
     "prettier": "prettier-config-standard",
     "prepare": "husky install"
   },
