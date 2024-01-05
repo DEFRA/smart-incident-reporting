@@ -38,7 +38,7 @@ module.exports = {
     isCached: !config.isDev,
     context: {
       appVersion: pkg.version,
-      assetPath: '/assets',
+      assetPath: '/public',
       govUkHome: constants.Urls.GOV_UK_HOME,
       serviceNameUrl: constants.Urls.GOV_UK_SERVICE_HOME,
       serviceName: config.serviceName,
