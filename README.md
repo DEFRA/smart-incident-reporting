@@ -27,7 +27,7 @@ $ npm test
 # Build backend and start services
 
 ```sh
-$ docker-compose -f docker/backend-services.yml up -d
+$ npm run start-backend
 ```
 
 # Start application
@@ -43,13 +43,13 @@ $ npm run start
 To create docker image of service:
 
 ```sh
-$ 	docker build -t smart-incident-reporting:latest .
+$ docker build -t smart-incident-reporting:latest .
 ```
 
 # Starting application in docker
 
 ```sh
-$ 	docker-compose -f docker/service.yml up -d
+$ docker-compose -f docker/service.yml up -d
 ```
 
 

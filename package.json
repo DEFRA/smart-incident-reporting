@@ -20,7 +20,9 @@
     "unit-test": "jest --verbose",
     "test": "npm run lint && npm run unit-test",
     "prettier": "prettier-config-standard",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "start-backend": "docker-compose -f docker/backend-services.yml up -d",
+    "stop-backend": "docker-compose -f docker/backend-services.yml down"
   },
   "author": "Department for Environment, Food & Rural Affairs",
   "license": "SEE LICENSE IN LICENSE",
