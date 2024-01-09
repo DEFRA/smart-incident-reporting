@@ -1,8 +1,6 @@
-'use strict'
-
-const { SI_SESSION_KEY } = require('../utils/constants')
-
-const config = require('../utils/config')
+import constants from '../utils/constants.js'
+import config from '../utils/config.js'
+const { SI_SESSION_KEY } = constants
 
 const REDIS_TTL_IN_SECONDS = config.cookieTimeout / 1000
 
@@ -113,7 +111,7 @@ const getMatchingRedisKeys = async (request) => {
   return keys
 }
 
-module.exports = {
+export default {
   get,
   set,
   delete: deleteItem,

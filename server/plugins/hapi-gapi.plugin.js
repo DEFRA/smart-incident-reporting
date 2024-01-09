@@ -1,8 +1,6 @@
-'use strict'
+import constants from '../utils/constants'
 
-const { SI_SESSION_KEY } = require('../utils/constants')
-
-module.exports = {
+export default {
   plugin: require('@defra/hapi-gapi'),
   options: {
     propertySettings: [
@@ -12,6 +10,6 @@ module.exports = {
       }
     ],
     // Would normally use the request object to retrieve the proper session identifier
-    sessionIdProducer: async request => request.state[SI_SESSION_KEY]
+    sessionIdProducer: async request => request.state[constants.SI_SESSION_KEY]
   }
 }

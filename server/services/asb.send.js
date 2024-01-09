@@ -1,5 +1,5 @@
-const config = require('../utils/config')
-const { ServiceBusClient } = require('@azure/service-bus')
+import config from '../utils/config.js'
+import { ServiceBusClient } from '@azure/service-bus'
 
 // Define connection string and related Service Bus entity names here
 // Get it from the azure portal
@@ -9,7 +9,7 @@ const waterConnectionString = config.waterConnectionString
 const fishingQueue = config.fishingQueue
 const waterQueue = config.waterQueue
 
-module.exports = class ASBService {
+export default class ASBService {
   static async sendMessageToQueue (incidentToPublish, incidentType) {
     let sbClient, sender
 

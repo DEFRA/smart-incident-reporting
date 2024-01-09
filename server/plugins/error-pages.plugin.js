@@ -1,11 +1,9 @@
 /*
  * Add an `onPreResponse` listener to return error pages
  */
-
-'use strict'
-
-const { StatusCodes, Paths } = require('../utils/constants')
-module.exports = {
+import constants from '../utils/constants.js'
+const { StatusCodes, Paths } = constants
+export default {
   plugin: {
     name: 'error-pages',
     register: server => {

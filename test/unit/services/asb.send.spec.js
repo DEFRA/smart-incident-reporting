@@ -1,6 +1,6 @@
-const { ServiceBusClient } = require('@azure/service-bus')
+import { ServiceBusClient } from '@azure/service-bus'
+import ASBService from '../../../server/services/asb.send.js'
 jest.mock('@azure/service-bus')
-const ASBService = require('../../../server/services/asb.send.js')
 
 describe('ASBService', () => {
   describe('sendMessageToQueue', () => {

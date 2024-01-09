@@ -1,5 +1,3 @@
-'use strict'
-
 const HOME_URL = '/'
 
 const Urls = {
@@ -220,7 +218,7 @@ const WQSirpRedisKeys = {
   FISHING_WHEN_PAYLOAD: 'fishing-when.payload'
 }
 
-module.exports = Object.freeze({
+export default Object.freeze({
   HOME_URL,
   Paths,
   StatusCodes,

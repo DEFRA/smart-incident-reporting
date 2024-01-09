@@ -1,12 +1,14 @@
-'use strict'
-
-const config = require('./utils/config')
-const hapi = require('@hapi/hapi')
-const Bcrypt = require('bcrypt')
-
-const {
-  SI_SESSION_KEY
-} = require('./utils/constants')
+import Hapi from '@hapi/hapi'
+import config from './utils/config.js'
+import Bcrypt from 'bcrypt'
+import Basic from '@hapi/basic'
+import errorPages from './plugins/error-pages.plugin.js'
+import inert from './plugins/inert.plugin.js'
+import router from './plugins/router.plugin.js'
+import views from './plugins/views.plugin.js'
+import redis from './plugins/redis.plugin.js'
+// import hapiGapi from './plugins/hapi-gapi.plugin.js'
+import constants from './utils/constants.js'
 
 const users = {
   smart: {
@@ -16,7 +18,7 @@ const users = {
 }
 
 const createServer = async () => {
-  const server = hapi.server({
+  return new Hapi.Server({
     port: config.servicePort,
     routes: {
       validate: {
@@ -26,25 +28,27 @@ const createServer = async () => {
       }
     }
   })
+}
 
+const init = async server => {
   await _registerPlugins(server)
   _createSessionCookie(server)
+  await server.start()
   console.log(`Server started at port ${config.servicePort}...`)
-  return server
 }
 
 const _registerPlugins = async server => {
   if (config.useBasicAuth) {
-    await server.register(require('@hapi/basic'))
+    await server.register(Basic)
     server.auth.strategy('simple', 'basic', { validate })
     server.auth.default('simple')
   }
-  await server.register(require('./plugins/error-pages.plugin'))
-  await server.register(require('./plugins/inert.plugin'))
-  await server.register(require('./plugins/router.plugin'))
-  await server.register(require('./plugins/views.plugin'))
+  await server.register(errorPages)
+  await server.register(inert)
+  await server.register(router)
+  await server.register(views)
   // await server.register(require('./plugins/hapi-gapi.plugin'))
-  await server.register(require('./plugins/redis.plugin'))
+  await server.register(redis)
 }
 
 const validate = async (request, username, password) => {
@@ -60,7 +64,7 @@ const validate = async (request, username, password) => {
 }
 
 const _createSessionCookie = server => {
-  server.state(SI_SESSION_KEY)
+  server.state(constants.SI_SESSION_KEY)
 }
 
-module.exports = createServer
+export { createServer, init }

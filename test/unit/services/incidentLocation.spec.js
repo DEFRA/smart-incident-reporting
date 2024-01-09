@@ -1,8 +1,5 @@
-const {
-  findByPostcode
-} = require('../../../server/services/incidentLocation.js')
-
-const util = require('../../../server/utils/util.js')
+import incidentLocation from '../../../server/services/incidentLocation.js'
+import util from '../../../server/utils/util.js'
 
 jest.mock('../../../server/utils/util', () => ({
   getJson: jest.fn()
@@ -24,7 +21,7 @@ describe('OrdnanceService', () => {
       })
 
       // Call the function
-      const result = await findByPostcode('12345')
+      const result = await incidentLocation.findByPostcode('12345')
 
       const expectedResults = {
         X_COORDINATE: 1.234,
@@ -44,7 +41,7 @@ describe('OrdnanceService', () => {
       util.getJson.mockRejectedValueOnce(new Error('Invalid postcode'))
 
       // Call the function
-      const result = await findByPostcode('invalid')
+      const result = await incidentLocation.findByPostcode('invalid')
 
       // Assert the result
       expect(result).toEqual({
