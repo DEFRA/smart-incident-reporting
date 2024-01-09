@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Digital service for incident reporting",
   "main": "index.js",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "postinstall": "npm run build",
     "start": "node index.js",
@@ -16,7 +19,9 @@
     "unit-test": "jest --verbose",
     "test": "npm run lint && npm run unit-test",
     "prettier": "prettier-config-standard",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "start-backend": "docker-compose -f docker/backend-services.yml up -d",
+    "stop-backend": "docker-compose -f docker/backend-services.yml down"
   },
   "author": "Department for Environment, Food & Rural Affairs",
   "license": "SEE LICENSE IN LICENSE",
@@ -27,9 +32,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/DEFRA/smart-incident-reporting.git"
-  },
-  "engines": {
-    "node": "18.x"
   },
   "dependencies": {
     "@azure/service-bus": "^7.9.3",
