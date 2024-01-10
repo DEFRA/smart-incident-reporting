@@ -1,4 +1,5 @@
-const wreck = require('@hapi/wreck').defaults({
+import wreck from '@hapi/wreck'
+wreck.defaults({
   timeout: 10000
 })
 
@@ -21,7 +22,7 @@ const post = async (url, options) => makeRequest('post', url, options)
 
 const getJson = async (url, ext = false) => get(url, { json: true }, ext)
 
-module.exports = {
+export {
   get,
   post,
   getJson,

@@ -1,8 +1,8 @@
-const config = require('../utils/config')
-const util = require('../utils/util')
+import config from '../utils/config.js'
+import util from '../utils/util.js'
 
 const apiKey = config.osKey
-module.exports = {
+export default {
   findByPostcode: async (postcode) => {
     try {
       const uri = `https://api.os.uk/search/places/v1/postcode?postcode=${postcode}&key=${apiKey}`

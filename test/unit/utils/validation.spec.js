@@ -1,12 +1,12 @@
-const { postcodeValidator } = require('postcode-validator')
+import { postcodeValidator } from 'postcode-validator'
 
-const {
+import {
   email,
   empty,
   maxLength,
   postcode,
   buildErrorSummary
-} = require('../../../server/utils/validation')
+} from '../../../server/utils/validation'
 
 jest.mock('postcode-validator', () => ({
   postcodeValidator: jest.fn()

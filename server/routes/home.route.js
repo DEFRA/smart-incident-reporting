@@ -1,14 +1,13 @@
-'use strict'
-
-const { v4: uuidv4 } = require('uuid')
-const CookieService = require('../services/cookie.service')
-const RedisService = require('../services/redis.service')
+import * as uuid from 'uuid'
+import CookieService from '../services/cookie.service.js'
+import RedisService from '../services/redis.service.js'
+import constants from '../utils/constants.js'
 
 const {
   HOME_URL,
   Paths,
   SI_SESSION_KEY
-} = require('../utils/constants')
+} = constants
 
 const handlers = {
   get: async (request, h) => {
@@ -23,10 +22,10 @@ const handlers = {
 }
 
 const _setCookieSessionId = h => {
-  h.state(SI_SESSION_KEY, uuidv4())
+  h.state(SI_SESSION_KEY, uuid.v4())
 }
 
-module.exports = [
+export default [
   {
     method: 'GET',
     path: HOME_URL,

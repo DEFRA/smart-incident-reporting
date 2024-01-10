@@ -1,6 +1,5 @@
-'use strict'
-
-const { Paths, Views } = require('../utils/constants')
+import constants from '../utils/constants.js'
+const { Paths, Views } = constants
 
 const handlers = {
   get: async (request, h) => {
@@ -18,7 +17,7 @@ const _getContext = () => {
   }
 }
 
-module.exports = [
+export default [
   {
     method: 'GET',
     path: `${Paths.WELCOME}`,

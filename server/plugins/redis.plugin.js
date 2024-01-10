@@ -1,6 +1,5 @@
-'use strict'
-
-const config = require('../utils/config')
+import config from '../utils/config.js'
+import hapiRedis2 from 'hapi-redis2'
 
 const _getSettings = () => {
   const settings = {
@@ -24,8 +23,8 @@ const _getSettings = () => {
   return settings
 }
 
-module.exports = {
-  plugin: require('hapi-redis2'),
+export default {
+  plugin: hapiRedis2,
   options: {
     settings: _getSettings(),
     decorate: true

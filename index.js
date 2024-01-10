@@ -1,10 +1,10 @@
-'use strict'
-
-const createServer = require('./server')
+import { createServer, init } from './server/index.js'
 
 createServer()
-  .then(server => server.start())
-  .catch(err => {
-    console.error(err)
-    process.exit(1)
-  })
+  .then(server =>
+    init(server)
+      .catch(err => {
+        console.error(err)
+        process.exit(1)
+      })
+  )

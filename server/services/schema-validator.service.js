@@ -1,5 +1,5 @@
-const Ajv = require('ajv')
-const addFormats = require('ajv-formats')
+import Ajv from 'ajv'
+import addFormats from 'ajv-formats'
 
 const validateDataAgainstSchema = (data, schema) => {
   const ajv = new Ajv({ strict: false })
@@ -19,6 +19,6 @@ const validateDataAgainstSchema = (data, schema) => {
   return valid
 }
 
-module.exports = {
+export {
   validateDataAgainstSchema
 }

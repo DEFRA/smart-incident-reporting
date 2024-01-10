@@ -1,45 +1,42 @@
-'use strict'
-
-// (see https://www.npmjs.com/package/dotenv)
-require('dotenv').config()
-
-const joi = require('joi')
+import dotenv from 'dotenv'
+import Joi from 'joi'
+dotenv.config()
 const envs = ['development', 'test', 'production']
 
 const getBoolean = booleanString =>
   String(booleanString).toLowerCase() === 'true'
 
 // Define config schema
-const schema = joi.object().keys({
-  env: joi
+const schema = Joi.object().keys({
+  env: Joi
     .string()
     .valid(...envs)
     .default(envs[0]),
-  serviceHost: joi.string(),
-  servicePort: joi.number().default(8000),
-  serviceName: joi
+  serviceHost: Joi.string(),
+  servicePort: Joi.number().default(8000),
+  serviceName: Joi
     .string()
     .default('Report an environmental incident'),
-  redisHost: joi.string().default('localhost'),
-  redisPort: joi.number().default(6379),
-  redisPassword: joi.string(),
-  logLevel: joi.string().default('warn'),
-  requestTimeout: joi.number(),
-  maximumFileSize: joi.number().default(10),
-  cookieTimeout: joi.number().default(90000),
-  cookieValidationPassword: joi
+  redisHost: Joi.string().default('localhost'),
+  redisPort: Joi.number().default(6379),
+  redisPassword: Joi.string(),
+  logLevel: Joi.string().default('warn'),
+  requestTimeout: Joi.number(),
+  maximumFileSize: Joi.number().default(10),
+  cookieTimeout: Joi.number().default(90000),
+  cookieValidationPassword: Joi
     .string()
     .default('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'),
-  osDataURI: joi.string().default('https://osdatahub.co.uk'),
-  osKey: joi.string(),
-  useBasicAuth: joi.bool().valid(true, false),
-  defraUsername: joi.string(),
-  defraPassword: joi.string(),
-  submitIncident: joi.bool().valid(true, false),
-  fishingConnectionString: joi.string(),
-  waterConnectionString: joi.string(),
-  fishingQueue: joi.string(),
-  waterQueue: joi.string()
+  osDataURI: Joi.string().default('https://osdatahub.co.uk'),
+  osKey: Joi.string(),
+  useBasicAuth: Joi.bool().valid(true, false),
+  defraUsername: Joi.string(),
+  defraPassword: Joi.string(),
+  submitIncident: Joi.bool().valid(true, false),
+  fishingConnectionString: Joi.string(),
+  waterConnectionString: Joi.string(),
+  fishingQueue: Joi.string(),
+  waterQueue: Joi.string()
 })
 
 // Build config
@@ -76,4 +73,4 @@ if (error) {
 // Add some helper props
 value.isDev = value.env === 'development'
 
-module.exports = value
+export default value

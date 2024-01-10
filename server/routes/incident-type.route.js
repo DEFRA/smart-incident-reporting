@@ -1,7 +1,6 @@
-'use strict'
-
-const { Paths, Views, RedisKeys } = require('../utils/constants')
-const RedisService = require('../services/redis.service')
+import constants from '../utils/constants.js'
+import RedisService from '../services/redis.service.js'
+const { Paths, Views, RedisKeys } = constants
 
 const handlers = {
   get: (request, h) => {
@@ -39,7 +38,7 @@ const _getContext = () => {
   }
 }
 
-module.exports = [
+export default [
   {
     method: 'GET',
     path: `${Paths.INCIDENT_TYPE}`,

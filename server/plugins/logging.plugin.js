@@ -1,9 +1,8 @@
-'use strict'
+import config from '../utils/config.js'
+import HapiPino from 'hapi-pino'
 
-const config = require('../utils/config')
-
-module.exports = {
-  plugin: require('hapi-pino'),
+export default {
+  plugin: HapiPino,
   options: {
     logPayload: true,
     prettyPrint: config.isDev,
