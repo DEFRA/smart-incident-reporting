@@ -42,9 +42,9 @@ const _registerPlugins = async server => {
     server.auth.strategy('simple', 'basic', { validate })
     server.auth.default('simple')
   }
-  await server.register(errorPages)
+  // await server.register(errorPages)
   await server.register(inert)
-  await server.register(router)
+  await server.register(await router())
   await server.register(views)
   await server.register(redis)
   await server.register(Blipp)

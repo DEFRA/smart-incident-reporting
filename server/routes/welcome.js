@@ -1,10 +1,9 @@
 import constants from '../utils/constants.js'
-const { Paths, Views } = constants
 
 const handlers = {
   get: async (request, h) => {
     const context = _getContext()
-    return h.view(Views.WELCOME, {
+    return h.view(constants.views.WELCOME, {
       ...context
     })
   }
@@ -20,7 +19,7 @@ const _getContext = () => {
 export default [
   {
     method: 'GET',
-    path: `${Paths.WELCOME}`,
+    path: constants.routes.WELCOME,
     handler: handlers.get
   }
 ]
