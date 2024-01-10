@@ -1,9 +1,8 @@
-const {
-  validateDataAgainstSchema
-} = require('../../../server/services/schema-validator.service.js')
+import fs from 'fs'
+import { validateDataAgainstSchema } from '../../../server/services/schema-validator.service.js'
 
-const wqJsonSchema = require('../../../server/services/json-schemas/sirp_json_schema_WQ_v0.3.json')
-const wqSampleResponse = require('../../samples/sample_water_quality_incident.json')
+const wqJsonSchema = JSON.parse(fs.readFileSync('./server/services/json-schemas/sirp_json_schema_WQ_v0.3.json'))
+const wqSampleResponse = JSON.parse(fs.readFileSync('./test/samples/sample_water_quality_incident.json'))
 
 describe('SchemaValidatorService', () => {
   describe('validateDataAgainstSchema', () => {
