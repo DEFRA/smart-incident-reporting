@@ -8,6 +8,7 @@ import inert from './plugins/inert.js'
 import router from './plugins/router.js'
 import views from './plugins/views.js'
 import redis from './plugins/redis.js'
+import cache from './plugins/cache.js'
 import constants from './utils/constants.js'
 import logging from './plugins/logging.js'
 
@@ -18,17 +19,26 @@ const users = {
   }
 }
 
-const createServer = async () => {
-  return new Hapi.Server({
-    port: config.servicePort,
-    routes: {
-      validate: {
-        options: {
-          abortEarly: false
-        }
-      }
-    }
-  })
+const createServer = async options => {
+  // Create the hapi server
+  options = {
+    ...{
+      port: config.servicePort,
+      routes: {
+        validate: {
+          options: {
+            abortEarly: false
+          }
+        },
+        cors: true,
+        security: true
+      },
+      cache
+    },
+    ...options
+  }
+
+  return new Hapi.Server(options)
 }
 
 const init = async server => {
