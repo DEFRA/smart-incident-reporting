@@ -2,8 +2,7 @@ const errorPages = {
   name: 'error-pages',
   register: server => {
     server.ext('onPreResponse', (request, h) => {
-      const response = request.response
-
+      const { response } = request
       if (response.isBoom) {
         // An error was raised during
         // processing the request
