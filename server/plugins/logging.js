@@ -5,7 +5,6 @@ export default {
   plugin: HapiPino,
   options: {
     logPayload: true,
-    prettyPrint: config.isDev,
     level: config.logLevel
   }
 }
