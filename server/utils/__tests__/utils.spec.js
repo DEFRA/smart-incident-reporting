@@ -1,4 +1,4 @@
-import { get, post, getJson, makeRequest } from '../../../server/utils/util.js'
+import { get, post, getJson, makeRequest } from '../util.js'
 import wreck from '@hapi/wreck'
 jest.mock('@hapi/wreck')
 

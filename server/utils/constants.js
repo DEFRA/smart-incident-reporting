@@ -110,7 +110,6 @@ const StatusCodes = {
   SERVICE_UNAVAILABLE: 503
 }
 
-
 // TODO remove keys and base them off of the route name
 const RedisKeys = {
   INCIDENT_TYPE: 'incidentType.incident-type',
