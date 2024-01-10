@@ -7,10 +7,10 @@ import errorPages from './plugins/error-pages.js'
 import inert from './plugins/inert.js'
 import router from './plugins/router.js'
 import views from './plugins/views.js'
-import redis from './plugins/redis.js'
 import cache from './plugins/cache.js'
 import constants from './utils/constants.js'
 import logging from './plugins/logging.js'
+import session from './plugins/session.js'
 
 const users = {
   smart: {
@@ -54,11 +54,11 @@ const _registerPlugins = async server => {
     server.auth.default('simple')
   }
   await server.register(logging)
+  await server.register(session)
   await server.register(errorPages)
   await server.register(inert)
   await server.register(await router())
   await server.register(views)
-  await server.register(redis)
   await server.register(Blipp)
 }
 

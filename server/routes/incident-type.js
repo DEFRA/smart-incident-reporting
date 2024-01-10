@@ -1,5 +1,4 @@
 import constants from '../utils/constants.js'
-import RedisService from '../services/redis.service.js'
 
 const handlers = {
   get: (request, h) => {
@@ -13,11 +12,7 @@ const handlers = {
 
     const incidenttype = request.payload['incident-type']
 
-    RedisService.set(
-      request,
-      constants.RedisKeys.INCIDENT_TYPE,
-      incidenttype
-    )
+    request.yar.set(constants.RedisKeys.INCIDENT_TYPE, incidenttype)
 
     if (incidenttype === 'waterpollution') {
       return h.redirect(constants.routes.WATER_TYPE, { ...context })
