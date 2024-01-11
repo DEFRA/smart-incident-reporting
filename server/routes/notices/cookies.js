@@ -1,11 +1,9 @@
-'use strict'
-
-const { Paths, Views } = require('../../utils/constants')
+import constants from '../../utils/constants.js'
 
 const handlers = {
-  get: (request, h) => {
+  get: (_request, h) => {
     const context = _getContext()
-    return h.view(Views.PRIVACY_STATEMENT, {
+    return h.view(constants.views.COOKIES, {
       ...context
     })
   }
@@ -18,10 +16,10 @@ const _getContext = () => {
   }
 }
 
-module.exports = [
+export default [
   {
     method: 'GET',
-    path: `${Paths.PRIVACY_STATEMENT}`,
+    path: constants.routes.COOKIES,
     handler: handlers.get
   }
 ]

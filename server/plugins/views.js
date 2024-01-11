@@ -37,8 +37,8 @@ export default {
       appVersion: version,
       env: config.env,
       assetPath: '/public',
-      govUkHome: constants.Urls.GOV_UK_HOME,
-      serviceNameUrl: constants.Urls.GOV_UK_SERVICE_HOME,
+      govUkHome: constants.urls.GOV_UK_HOME,
+      serviceNameUrl: constants.urls.GOV_UK_SERVICE_HOME,
       serviceName: config.serviceName,
       pageTitle: `${config.serviceName} - GOV.UK`,
       analyticsAccount
