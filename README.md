@@ -173,6 +173,7 @@ The default values will be used if the environment variables are missing or comm
 | REDIS_HOST                                                   | Redis host address                                  |    yes   | localhost             |                                                         |
 | REDIS_PORT                                                   | Redis port                                          |    yes   | 6379                  |                                                         |
 | REDIS_PASSWORD                                               | Redis password                                      |    yes   | foo                   |                                                         |
+| REDIS_TLS                                                    | Does redis connect over TLS                         |    no    | false                    |                                                         |
 | COOKIE_TIMEOUT                                               | Cookie timeout in ms                                |    yes   | 7200000               |                                                         |
 | USE_BASIC_AUTH                                               | Basic auth to prevent access to unauthorized people |    yes   |                       |                                                         |
 | DEFRA_USERNAME                                               | Basic auth username                                 |    yes   | smart                 |                                                         |

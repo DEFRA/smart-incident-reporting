@@ -1,12 +1,9 @@
-'use strict'
-
-const { Paths, Views, WQRedisKeys, WQSirpRedisKeys } = require('../../utils/constants')
-const RedisService = require('../../services/redis.service')
+import constants from '../../utils/constants.js'
 
 const handlers = {
-  get: (request, h) => {
+  get: (_request, h) => {
     const context = _getContext()
-    return h.view(Views.WATER_TYPE, {
+    return h.view(constants.views.WATER_TYPE, {
       ...context
     })
   },
@@ -14,13 +11,10 @@ const handlers = {
     const context = _getContext()
 
     const payload = request.payload
-    RedisService.set(
-      request,
-      WQRedisKeys.WATER_TYPE,
-      JSON.stringify(payload)
-    )
+    request.yar.set(constants.WQRedisKeys.WATER_TYPE, JSON.stringify(payload))
+
     _generateSirpData(request, payload)
-    return h.view(Views.WATER_TYPE_LOCATION_MAP_OR_DESC, {
+    return h.view('404', {
       ...context
     })
   }
@@ -50,18 +44,10 @@ const _generateSirpData = (request, payload) => {
     pollutionWaterTypeValue = 700
   }
 
-  RedisService.set(
-    request,
-    WQSirpRedisKeys.SIRP_WATER_TYPE,
-    JSON.stringify(pollutionWaterTypeValue)
-  )
+  request.yar.set(constants.WQSirpRedisKeys.SIRP_WATER_TYPE, JSON.stringify(pollutionWaterTypeValue))
 
-  if (waterFeatureOther !== undefined) {
-    RedisService.set(
-      request,
-      WQSirpRedisKeys.SIRP_WATER_FEATURE_OTHER,
-      waterFeatureOther
-    )
+  if (waterFeatureOther) {
+    request.yar.set(constants.WQSirpRedisKeys.SIRP_WATER_FEATURE_OTHER, waterFeatureOther)
   }
 }
 
@@ -72,15 +58,15 @@ const _getContext = () => {
   }
 }
 
-module.exports = [
+export default [
   {
     method: 'GET',
-    path: `${Paths.WATER_TYPE}`,
+    path: constants.routes.WATER_TYPE,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: `${Paths.WATER_TYPE_ANSWER}`,
+    path: constants.routes.WATER_TYPE,
     handler: handlers.post
   }
 ]

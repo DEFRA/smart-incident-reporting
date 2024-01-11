@@ -6,7 +6,7 @@ import {
   maxLength,
   postcode,
   buildErrorSummary
-} from '../../../server/utils/validation'
+} from '../validation'
 
 jest.mock('postcode-validator', () => ({
   postcodeValidator: jest.fn()

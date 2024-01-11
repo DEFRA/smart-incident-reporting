@@ -35,6 +35,7 @@ export default {
     isCached: !config.isDev,
     context: {
       appVersion: version,
+      env: config.env,
       assetPath: '/public',
       govUkHome: constants.Urls.GOV_UK_HOME,
       serviceNameUrl: constants.Urls.GOV_UK_SERVICE_HOME,
