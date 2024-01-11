@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:18-alpine
 
 LABEL author="Department for Environment, Food & Rural Affairs"
 #ENV NODE_ENV=production
