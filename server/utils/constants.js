@@ -9,21 +9,19 @@ const ACCESSIBILITY = 'notices/accessibility'
 const COOKIES = 'notices/cookies'
 const PRIVACY = 'notices/privacy'
 
+const ERROR = 'error'
 const PUBLIC = 'public'
-const REPORT_WATER_POLUTION = 'report-water-pollution'
 const HOME = 'home'
-const INCIDENT_TYPE = 'incident-type'
-const WATER_TYPE = 'water-quality/water-type'
+const REPORT_WATER_POLUTION = 'report-water-pollution'
 
 const routes = {
   ACCESSIBILITY,
   COOKIES,
   PRIVACY,
+  ERROR,
   PUBLIC,
-  REPORT_WATER_POLUTION,
   HOME,
-  INCIDENT_TYPE,
-  WATER_TYPE
+  REPORT_WATER_POLUTION
 }
 
 const views = {
