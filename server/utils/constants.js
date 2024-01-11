@@ -10,7 +10,7 @@ const COOKIES = 'notices/cookies'
 const PRIVACY = 'notices/privacy'
 
 const PUBLIC = 'public'
-const WELCOME = 'welcome'
+const REPORT_WATER_POLUTION = 'report-water-pollution'
 const HOME = 'home'
 const INCIDENT_TYPE = 'incident-type'
 const WATER_TYPE = 'water-quality/water-type'
@@ -20,7 +20,7 @@ const routes = {
   COOKIES,
   PRIVACY,
   PUBLIC,
-  WELCOME,
+  REPORT_WATER_POLUTION,
   HOME,
   INCIDENT_TYPE,
   WATER_TYPE

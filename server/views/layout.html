@@ -6,6 +6,7 @@
   <!-- Version: {{ appVersion }} -->
   <!-- Environment: {{ env }} -->
   <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Report pollution in rivers, lakes, canals and other watercourses in England">
 
   <!--[if !IE 8]><!-->
     <link href="{{ assetPath }}/stylesheets/application.css" rel="stylesheet" />
@@ -25,25 +26,21 @@
 
 {% block header %}
   {{ govukHeader({
-    homepageUrl: govUkHome,
+    homepageUrl: "/",
     containerClasses: "govuk-width-container",
     serviceName: serviceName,
-    serviceUrl: serviceNameUrl
+    serviceUrl: "/"
   }) }}
 {% endblock %}
 
 {% block pageTitle %}
-  {% if fieldErrors %}
-    Error: 
-  {% endif %}
-
-  {{ pageTitle }} - {{ serviceName }} – GOV.UK
+  {% if err %} Error: {% endif %} {{ pageHeading }} {{ titleSuffix }}
 {% endblock %}
 
 {% block beforeContent %}
   {{ govukPhaseBanner({
     tag: {
-      text: "Alpha"
+      text: "beta"
     },
     html: 'This is a new service – <a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_cMxUuwi2OGTwAfQ" target="_blank" rel="noopener noreferrer">give feedback (opens new tab)</a> to help us to improve it.'
   }) }}
@@ -71,24 +68,7 @@
 {% endblock %}
 
 {% block footer %}
-  {{ govukFooter({
-    meta: {
-      items: [
-        {
-          href: "/notices/privacy",
-          text: "Privacy notice"
-        },
-        {
-          href: "/notices/cookies",
-          text: "Cookies"
-        },
-        {
-          href: "/notices/accessibility",
-          text: "Accessibility statement"
-        }
-      ]
-    }
-  }) }}
+  {% include "footer.html" %}
 {% endblock %}
 
 {% block bodyEnd %}

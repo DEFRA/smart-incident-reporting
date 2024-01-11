@@ -18,7 +18,14 @@
       "type": "node",
       "request": "launch",
       "name": "Jest All",
-      "program": "${workspaceFolder}/node_modules/.bin/jest"
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [
+        "--runInBand",
+        "--testTimeout",
+        "999999",
+        "--silent=false"
+      ],
+      "outputCapture": "std"
     },
     {
       "type": "node",
@@ -26,8 +33,13 @@
       "name": "Jest Current File",
       "program": "${workspaceFolder}/node_modules/.bin/jest",
       "args": [
+        "--runInBand",
+        "--testTimeout",
+        "999999",
+        "--silent=false",
         "${fileBasenameNoExtension}"
-      ]
+      ],
+      "outputCapture": "std"
     }
   ]
 }

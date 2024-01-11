@@ -1,9 +1,9 @@
 import constants from '../utils/constants.js'
 
 const handlers = {
-  get: async (request, h) => {
+  get: async (_request, h) => {
     const context = _getContext()
-    return h.view(constants.views.WELCOME, {
+    return h.view(constants.views.REPORT_WATER_POLUTION, {
       ...context
     })
   }
@@ -11,7 +11,7 @@ const handlers = {
 
 const _getContext = () => {
   return {
-    pageTitle: 'Report an environmental incident',
+    pageHeading: 'Report water pollution in England',
     hideBackLink: true
   }
 }
@@ -19,7 +19,7 @@ const _getContext = () => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.WELCOME,
+    path: constants.routes.REPORT_WATER_POLUTION,
     handler: handlers.get
   }
 ]
