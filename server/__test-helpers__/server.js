@@ -1,14 +1,16 @@
 import { getServer } from '../../.jest/setup.js'
 import onPreAuth from './on-pre-auth.js'
 
-const submitGetRequest = async (options, expectedResponseCode = 200, sessionData) => {
-  // await addOnPreAuth(sessionData)
+const submitGetRequest = async (options, expectedResponseCode = 200, sessionData = {}) => {
+  if (Object.keys(sessionData).length > 0) {
+    await addOnPreAuth(sessionData)
+  }
   options.method = 'GET'
   return submitRequest(options, expectedResponseCode)
 }
 
-const submitPostRequest = async (options, expectedResponseCode = 302, sessionData) => {
-  if (sessionData && Object.keys(sessionData).length > 0) {
+const submitPostRequest = async (options, expectedResponseCode = 302, sessionData = {}) => {
+  if (Object.keys(sessionData).length > 0) {
     await addOnPreAuth(sessionData)
   }
   options.method = 'POST'
@@ -21,7 +23,7 @@ const submitRequest = async (options, expectedResponseCode) => {
   return response
 }
 
-const addOnPreAuth = async (sessionData) => {
+const addOnPreAuth = async sessionData => {
   // Add session injection using on pre auth functionality.
   // This shoud be done using a pre handler but only one pre handler can be registered
   // with a Hapi.js server.
