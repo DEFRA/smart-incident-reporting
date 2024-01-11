@@ -175,7 +175,4 @@ The default values will be used if the environment variables are missing or comm
 | REDIS_PASSWORD                                               | Redis password                                      |    yes   | foo                   |                                                         |
 | REDIS_TLS                                                    | Does redis connect over TLS                         |    no    | false                    |                                                         |
 | COOKIE_TIMEOUT                                               | Cookie timeout in ms                                |    yes   | 7200000               |                                                         |
-| USE_BASIC_AUTH                                               | Basic auth to prevent access to unauthorized people |    yes   |                       |                                                         |
-| DEFRA_USERNAME                                               | Basic auth username                                 |    yes   | smart                 |                                                         |
-| DEFRA_PASSWORD                                               | Basic auth password                                 |    yes   | .......               |                                                         |
 | SUBMIT_INCIDENT                                              | Submit incident flag                                |    yes   | false                 |                                                         |

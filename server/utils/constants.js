@@ -200,6 +200,5 @@ export default Object.freeze({
   RedisKeys,
   SirpRedisKeys,
   WQRedisKeys,
-  WQSirpRedisKeys,
-  SI_SESSION_KEY: 'SISession'
+  WQSirpRedisKeys
 })

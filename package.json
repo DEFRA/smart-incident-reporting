@@ -37,7 +37,6 @@
   "dependencies": {
     "@azure/service-bus": "^7.9.3",
     "@defra/hapi-gapi": "^2.1.1",
-    "@hapi/basic": "^7.0.2",
     "@hapi/boom": "^10.0.1",
     "@hapi/catbox-redis": "^7.0.2",
     "@hapi/hapi": "^21.3.2",
@@ -48,7 +47,6 @@
     "ajv": "^8.12.0",
     "ajv-formats": "^2.1.1",
     "applicationinsights": "^2.9.1",
-    "bcrypt": "^5.1.1",
     "blipp": "^4.0.2",
     "date-format": "^4.0.14",
     "dotenv": "^16.3.1",
@@ -56,7 +54,6 @@
     "govuk-frontend": "^4.6.0",
     "hapi-auth-basic": "^5.0.0",
     "hapi-pino": "12.1.0",
-    "hapi-redis2": "^3.1.2",
     "https-proxy-agent": "^7.0.2",
     "joi": "^17.11.0",
     "moment-timezone": "^0.5.44",
