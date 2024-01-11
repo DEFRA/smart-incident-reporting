@@ -1,9 +1,13 @@
-const HOME_URL = '/'
-const Urls = {
+const urls = {
   GOV_UK_HOME: 'https://www.gov.uk',
   GOV_UK_SERVICE_HOME:
     'https://www.gov.uk/report-an-environmental-incident'
 }
+
+// Notices
+const ACCESSIBILITY = 'notices/accessibility'
+const COOKIES = 'notices/cookies'
+const PRIVACY = 'notices/privacy'
 
 const PUBLIC = 'public'
 const WELCOME = 'welcome'
@@ -12,6 +16,9 @@ const INCIDENT_TYPE = 'incident-type'
 const WATER_TYPE = 'water-quality/water-type'
 
 const routes = {
+  ACCESSIBILITY,
+  COOKIES,
+  PRIVACY,
   PUBLIC,
   WELCOME,
   HOME,
@@ -27,78 +34,11 @@ for (const [key, value] of Object.entries(routes)) {
   routes[key] = `/${value}`
 }
 
-// const Paths = {
-//   WELCOME: '/welcome',
-//   PAGE_NOT_FOUND: '/errors/page-not-found',
-//   PROBLEM_WITH_SERVICE: '/errors/problem-with-service',
-//   SERVICE_UNAVAILABLE: '/errors/service-unavailable',
-//   COOKIES: '/notices/cookies',
-//   PRIVACY_STATEMENT: '/notices/privacy',
-//   ACCESSIBILITY_STATEMENT: '/notices/accessibility',
-//   INCIDENT_TYPE: '/incident-type',
-//   INCIDENT_TYPE_ANSWER: '/incident-type/incident-type-answer',
-//   WATER_TYPE: '/water-quality/water-type',
-//   WATER_TYPE_ANSWER: '/water-quality/water-type-answer',
-//   WATER_TYPE_LOCATION: '/water-quality/location',
-//   WATER_TYPE_LOCATION_ANSWER: '/water-quality/location-answer',
-//   WATER_TYPE_LOCATION_MAP_OR_DESC: '/water-quality/location-map-or-desc',
-//   WATER_TYPE_LOCATION_ADDRESS_OPTION: '/water-quality/location-address-option',
-//   WATER_TYPE_LOCATION_MAPPING_OPTION: '/water-quality/location-mapping-option',
-//   WATER_TYPE_LOCATION_DESC_OPTION: '/water-quality/location-desc-option',
-//   WATER_TYPE_REPORTED: '/water-quality/reported',
-//   WATER_TYPE_WHEN: '/water-quality/when',
-//   WATER_TYPE_RECURRING: '/water-quality/recurring',
-//   WATER_TYPE_PAST: '/water-quality/past',
-//   WATER_TYPE_SUBSTANCE_V2: '/water-quality/substance-v2',
-//   WATER_TYPE_SMELL_DESC: '/water-quality/smell-desc',
-//   WATER_TYPE_SUBSTANCE: '/water-quality/substance',
-//   WATER_TYPE_SUBSTANCE_ANSWER: '/water-quality/substanceSubmit',
-//   WATER_TYPE_APPEARANCE: '/water-quality/appearance',
-//   WATER_TYPE_SOURCE: '/water-quality/source',
-//   WATER_TYPE_SOURCE_ANSWER: '/water-quality/source-answer',
-//   WATER_TYPE_EXTENT: '/water-quality/extent',
-//   WATER_TYPE_EXTENT_THREE: '/water-quality/extent-three',
-//   WATER_TYPE_EXTENT_ANSWER: '/water-quality/extent-answer',
-//   WATER_TYPE_EXTENT_TWO: '/water-quality/extent02',
-//   WATER_TYPE_EXTENT_TWO_ANSWER: '/water-quality/extent-two-answer',
-//   WATER_TYPE_OTHER_INFO: '/water-quality/other-info',
-//   WATER_TYPE_AQUATICLIFE: '/water-quality/aquaticlife',
-//   WATER_TYPE_AQUATICLIFE_TWO: '/water-quality/aquaticlife-two',
-//   WATER_TYPE_CONTACT: '/water-quality/contact',
-//   WATER_TYPE_VOLUNTEER_MEDIA_CONTACT: '/water-quality/volunteer-media-contact',
-//   LOCATION: '/location',
-//   SUCCESS: '/success',
-//   OUTCOME_SUCCESS: '/outcomes/success',
-//   EVIDENCE: '/evidence',
-//   EVIDENCE_ANSWER: '/evidence-answer',
-//   ANONYMOUS: '/anonymous',
-//   ANONYMOUS_ANSWER: '/anonymous-answer',
-//   UPDATES: '/updates',
-//   UPDATES_ANSWER: '/updates-answer',
-//   FISHING_LOCATION: '/fishing/location',
-//   FISHING_LOCATION_PIN_POINT: '/fishing/locationpinpoint',
-//   FISHING_LOCATION_ANSWER: '/fishing/location/answer',
-//   FISHING_REPORTREASON: '/fishing/reportreason',
-//   FISHING_REPORTREASON_ANSWER: '/fishing/reportreason/answer',
-//   FISHING_EQUIPMENT: '/fishing/equipment',
-//   FISHING_EQUIPMENT_ANSWER: '/fishing/equipment/answer',
-//   FISHING_CAUGHTORKILLED: '/fishing/caughtorkilled',
-//   FISHING_CAUGHTORKILLED_ANSWER: '/fishing/caughtorkilled/answer',
-//   FISHING_TYPE_OF_FISH: '/fishing/typeoffish',
-//   FISHING_TYPE_OF_FISH_ANSWER: '/fishing/typeoffish/answer',
-//   FISHING_NUMBER_OF_FISH: '/fishing/numberoffish',
-//   FISHING_NUMBER_OF_FISH_ANSWER: '/fishing/numberoffish/answer',
-//   FISHING_NUMBER_OF_ANGLERS: '/fishing/numberofanglers',
-//   FISHING_NUMBER_OF_ANGLERS_ANSWER: '/fishing/numberofanglers/answer',
-//   FISHING_CURRENT: '/fishing/current',
-//   FISHING_CURRENT_ANSWER: '/fishing/current/answer',
-//   FISHING_OTHERINFO: '/fishing/otherinfo',
-//   FISHING_OTHERINFO_ANSWER: '/fishing/otherinfo/answer',
-//   FISHING_WHEN: '/fishing/when',
-//   FISHING_WHEN_ANSWER: '/fishing/when/answer'
-// }
+const redisKeys = {
+  ...routes
+}
 
-const StatusCodes = {
+const statusCodes = {
   OK: 200,
   CREATED: 201,
   NO_CONTENT: 204,
@@ -110,95 +50,10 @@ const StatusCodes = {
   SERVICE_UNAVAILABLE: 503
 }
 
-// TODO remove keys and base them off of the route name
-const RedisKeys = {
-  INCIDENT_TYPE: 'incidentType.incident-type',
-  FISHING_LOCATION_PAYLOAD: 'fishing-location.payload',
-  FISHING_REPORTREASON_PAYLOAD: 'fishing-reportreason.payload',
-  FISHING_CAUGHTORKILLED_PAYLOAD: 'fishing-caughtorkilled.payload',
-  FISHING_TYPEOFFISH_PAYLOAD: 'fishing-typeoffish.payload',
-  FISHING_NUMBEROFANGLERS_PAYLOAD: 'fishing-numberofanglers.payload',
-  FISHING_NUMBEROFFISH_PAYLOAD: 'fishing-numberoffish.payload',
-  FISHING_CURRENT_PAYLOAD: 'fishing-current.payload',
-  FISHING_OTHERINFO_PAYLOAD: 'fishing-otherinfo.payload',
-  ANONYMOUS_PAYLOAD: 'anonymous.payload',
-  UPDATES_PAYLOAD: 'updates.payload',
-  FISHING_EQUIPMENT_PAYLOAD: 'fishing-equipment.payload',
-  FISHING_WHEN_PAYLOAD: 'fishing-when.payload',
-  LOCATION_MAPPING_PINPOINT_FISHING: 'fishing-locationpinpoint.payload'
-}
-
-const SirpRedisKeys = {
-  INCIDENT_TYPE: 'incidentType.incident-type',
-  FISHING_LOCATION_PAYLOAD: 'fishing-location.payload',
-  FISHING_INCIDENT_COORDINATES: 'fishing-incident.coordinates.sirp',
-  WATER_INCIDENT_COORDINATES: 'water-incident.coordinates.sirp',
-  SIRP_FISHING_REPORTREASON_PAYLOAD: 'fishing-reportreason.sirp',
-  SIRP_FISHING_CAUGHTORKILLED_PAYLOAD: 'fishing-caughtorkilled.sirp',
-  SIRP_FISHING_TYPEOFFISH_PAYLOAD: 'fishing-typeoffish.sirp',
-  SIRP_FISHING_NUMBEROFANGLERS_PAYLOAD: 'fishing-numberofanglers.sirp',
-  SIRP_FISHING_NUMBEROFFISH_PAYLOAD: 'fishing-numberoffish.sirp',
-  SIRP_FISHING_CURRENT_PAYLOAD: 'fishing-current.sirp',
-  FISHING_OTHERINFO_PAYLOAD: 'fishing-otherinfo.payload',
-  ANONYMOUS_PAYLOAD: 'anonymous.payload',
-  UPDATES_PAYLOAD: 'updates.payload',
-  SIRP_FISHING_EQUIPMENT_PAYLOAD: 'fishing-equipment.sirp',
-  SIRP_WATER_QUALITY_PAYLOAD: 'water-quality.sirp',
-  FISHING_WHEN_PAYLOAD: 'fishing-when.payload'
-}
-
-const WQRedisKeys = {
-  WATER_TYPE: 'wq.water-type',
-  WQ_ADDRESS: 'wq-address',
-  WQ_PREVIOUSLY_REPORTED: 'wq-previously-reported',
-  WQ_WHAT_CAN_YOU_SEE: 'wq-what-can-you-see',
-  WQ_WHAT_IS_IN_WATER: 'wq-what-is-in-water',
-  WQ_POLLUTION_SOURCE: 'wq-pollution-source',
-  WQ_HOW_FAR_ACROSS: 'wq-how-far-across',
-  WQ_HOW_FAR_ALONG: 'wq-how-far-along',
-  WQ_SEEN_DEAD_FISH: 'wq-seen-dead-fish',
-  WQ_HOW_MANY_DEAD_FISH: 'wq-how-many-dead-fish'
-}
-
-const WQSirpRedisKeys = {
-  INCIDENT_TYPE: 'incidentType.incident-type',
-  FISHING_LOCATION_PAYLOAD: 'fishing-location.payload',
-  FISHING_INCIDENT_COORDINATES: 'fishing-incident.coordinates.sirp',
-  WATER_INCIDENT_COORDINATES: 'water-incident.coordinates.sirp',
-  SIRP_WATER_TYPE: 'sirp_Inwhatkindofwaterfeaturehaveyouseenpollut',
-  SIRP_WATER_FEATURE_OTHER: 'sirp_waterFeatureOther',
-  WQ_SIRP_ADDRESS: 'wq_sirp_address',
-  WQ_SIRP_ADDRESS_LINE_1: 'wq_sirp_addressline1',
-  WQ_SIRP_ADDRESS_LINE_2: 'wq_sirp_addressline2',
-  WQ_SIRP_ADDRESS_TOWN: 'wq_sirp_town',
-  WQ_SIRP_ADDRESS_POSTCODE: 'wq_sirp_postcode',
-  WQ_SIRP_PREVIOUSLY_REPORTED: 'wq_sirp_previouslyreported',
-  WQ_SIRP_WHAT_CAN_YOU_SEE: 'WQ_sirp_Whatcanyouseeinoronthewater',
-  WQ_SIRP_WHAT_IS_IN_WATER: 'WQ_sirp_Whatdoyouthinkisinthewater',
-  WQ_SIRP_WHAT_IS_IN_WATER_OTHER: 'WQ_sirp_inWaterOther',
-  WQ_SIRP_SMELL_SOURCE: 'WQ_sirp_isthereasmell',
-  WQ_SIRP_SMELL_SOURCE_OTHER: 'WQ_sirp_isthereasmellother',
-  WQ_SIRP_POLLUTION_SOURCE: 'WQ_sirp_Doyouthinkyouknowwherethepollutioniscomin',
-  WQ_SIRP_POLLUTION_SOURCE_OTHER: 'WQ_sirp_pollutionSourceOther',
-  WQ_SIRP_HOW_FAR_ACROSS: 'WQ_sirp_Howfaracrossthewaterfeaturecanyouseethe',
-  WQ_SIRP_HOW_FAR_ALONG: 'WQ_sirp_Howfaralongthewaterfeaturedoesthepollutio',
-  WQ_SIRP_SEEN_DEAD_FISH: 'WQ_sirp_Haveyouseendeadfishnearby',
-  WQ_SIRP_HOW_MANY_DEAD_FISH: 'WQ_sirp_Howmanydeadfishhaveyouseen',
-  ANONYMOUS_PAYLOAD: 'anonymous.payload',
-  UPDATES_PAYLOAD: 'updates.payload',
-  SIRP_FISHING_EQUIPMENT_PAYLOAD: 'fishing-equipment.sirp',
-  SIRP_WATER_QUALITY_PAYLOAD: 'water-quality.sirp',
-  FISHING_WHEN_PAYLOAD: 'fishing-when.payload'
-}
-
 export default Object.freeze({
-  HOME_URL,
   routes,
   views,
-  StatusCodes,
-  Urls,
-  RedisKeys,
-  SirpRedisKeys,
-  WQRedisKeys,
-  WQSirpRedisKeys
+  statusCodes,
+  urls,
+  redisKeys
 })

@@ -7,7 +7,7 @@ const handlers = {
 export default [
   {
     method: 'GET',
-    path: constants.HOME_URL,
+    path: '/',
     handler: handlers.get
   }
 ]
