@@ -106,6 +106,17 @@
       "lcov",
       "text"
     ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 50,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    },
+    "coveragePathIgnorePatterns": [
+      "__test-helpers__"
+    ],
     "setupFiles": [
       "./.jest/test.env.js"
     ],
