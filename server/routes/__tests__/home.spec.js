@@ -6,7 +6,6 @@ describe(url, () => {
   describe('GET', () => {
     it(`Should redirect to ${constants.routes.REPORT_WATER_POLLUTION}`, async () => {
       await submitGetRequest({ url }, 302)
-      expect(true)
     })
   })
 })
