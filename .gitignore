@@ -2,3 +2,4 @@
 /smart-incident-reporting.iml
 /node_modules/
 coverage
+server/public

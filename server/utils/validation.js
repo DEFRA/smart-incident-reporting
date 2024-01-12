@@ -2,27 +2,18 @@ import { postcodeValidator } from 'postcode-validator'
 
 const VALIDATION_SUMMARY_HEADING = 'There is a problem'
 
-const email = (value) =>
+const email = value =>
   value.match(
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
   )
 
-const empty = (value) => !value || value.toString().trim().length === 0
+const empty = value => !value || value.toString().trim().length === 0
 
-const maxLength = (value, characterLimit) =>
-  value && value.toString().trim().length > characterLimit
+const maxLength = (value, characterLimit) => value && value.toString().trim().length > characterLimit
 
-const postcode = (value) =>
-  !value || postcodeValidator(value.toString().trim(), 'GB')
+const postcode = value => !value || postcodeValidator(value.toString().trim(), 'GB')
 
-const Validators = {
-  email,
-  empty,
-  maxLength,
-  postcode
-}
-
-const buildErrorSummary = (errors) =>
+const buildErrorSummary = errors =>
   errors && errors.length
     ? {
         errorSummary: {
@@ -47,6 +38,5 @@ export {
   empty,
   maxLength,
   postcode,
-  buildErrorSummary,
-  Validators
+  buildErrorSummary
 }
