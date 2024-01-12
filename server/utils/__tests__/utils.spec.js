@@ -73,5 +73,19 @@ describe('utils', () => {
 
       expect(wreck.get).toHaveBeenCalledWith(url, undefined)
     })
+
+    it('makeRequest should return a failed request with Unknown error if no payload', async () => {
+      // Mock the wreck[method] call to resolve with an error response
+      wreck.get = jest.fn().mockResolvedValue({
+        res: {
+          statusCode: 500
+        }
+      })
+
+      const url = 'https://example.com/failure'
+      await expect(makeRequest('get', url)).rejects.toEqual(new Error('Unknown error'))
+
+      expect(wreck.get).toHaveBeenCalledWith(url, undefined)
+    })
   })
 })

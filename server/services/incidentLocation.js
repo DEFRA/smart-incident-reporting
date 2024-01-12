@@ -3,7 +3,7 @@ import util from '../utils/util.js'
 
 const apiKey = config.osKey
 export default {
-  findByPostcode: async (postcode) => {
+  findByPostcode: async postcode => {
     try {
       const uri = `https://api.os.uk/search/places/v1/postcode?postcode=${postcode}&key=${apiKey}`
       const payload = await util.getJson(uri)
