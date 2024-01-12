@@ -73,4 +73,6 @@ if (error) {
 // Add some helper props
 value.isDev = value.env === 'development'
 
-export default value
+export default {
+  ...value
+}
