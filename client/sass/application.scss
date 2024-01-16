@@ -323,3 +323,79 @@ $govuk-global-styles: true;
   background-color: #f3f2f1;
   border-top: 1px solid #263135;
 }
+
+
+//////////////////////////////////////////////////
+// OS MAP STYLES END /////////////////////////////
+//////////////////////////////////////////////////
+.map {
+  border: 1px solid #b1b4b6;
+  height: 400px;
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+
+  &:focus {
+    outline: 0 !important;
+  }
+
+  // .ol-viewport {
+  //   height: 400px !important;
+  // }
+
+  // @include govuk-media-query($from: tablet) {
+  //   height: 678px;
+
+  //   .ol-viewport {
+  //     height: 600px !important;
+  //   }
+  // }
+}
+
+.ol-control button {
+  color: #626a6e !important;
+  background-color: white !important;
+  font-size: 1.5em !important;
+}
+
+.ol-control {
+  background-color: rgba(98, 106, 110, 0.5) !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+.map-coordinates{
+  @include govuk-font($size: 16);
+  @include govuk-text-colour;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  border: 1px solid rgba(98, 106, 110, 0.5);
+  bottom: 4em;
+  padding: 10px;
+  position: absolute;
+  left: .5em;
+  width: 130px;
+  z-index: 999;
+
+  @include govuk-media-query($until: desktop) {
+    display: none;
+  }
+}
+
+.ol-zoom .ol-zoom-in {
+  border-radius: 2px 2px 0 0;
+}
+
+.ol-full-screen {
+  display: none;
+}
+
+.map--location {
+  height: auto;
+
+  .ol-viewport {
+    height: 300px !important;
+  }
+}
+//////////////////////////////////////////////////
+// OS MAP STYLES END /////////////////////////////
+//////////////////////////////////////////////////

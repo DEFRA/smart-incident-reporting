@@ -12,6 +12,9 @@ const PRIVACY = 'notices/privacy'
 const ERROR = 'error'
 const PUBLIC = 'public'
 const HOME = 'home'
+const LOCATION_MAP = 'location-map'
+const API_OS_API_TOKEN = 'api/os-api-token'
+const API_LOCATION = 'api/location'
 
 const REPORT_WATER_POLUTION = 'report-water-pollution'
 
@@ -22,6 +25,9 @@ const routes = {
   ERROR,
   PUBLIC,
   HOME,
+  LOCATION_MAP,
+  API_OS_API_TOKEN,
+  API_LOCATION,
   REPORT_WATER_POLUTION
 }
 
