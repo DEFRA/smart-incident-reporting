@@ -12,6 +12,7 @@ const PRIVACY = 'notices/privacy'
 const ERROR = 'error'
 const PUBLIC = 'public'
 const HOME = 'home'
+
 const REPORT_WATER_POLUTION = 'report-water-pollution'
 
 const routes = {
