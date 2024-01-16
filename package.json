@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@azure/service-bus": "^7.9.3",
-    "@defra/hapi-gapi": "^2.1.1",
+    "@defra/hapi-gapi": "^2.1.2",
     "@hapi/boom": "^10.0.1",
     "@hapi/catbox-redis": "^7.0.2",
     "@hapi/hapi": "^21.3.2",
