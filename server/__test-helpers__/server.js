@@ -1,15 +1,22 @@
 import { getServer } from '../../.jest/setup.js'
 import onPreAuth from './on-pre-auth.js'
+import { parse } from 'node-html-parser'
+import constants from '../utils/constants.js'
 
-const submitGetRequest = async (options, expectedResponseCode = 200, sessionData = {}) => {
+const submitGetRequest = async (options, header, expectedResponseCode = constants.statusCodes.OK, sessionData = {}) => {
   if (Object.keys(sessionData).length > 0) {
     await addOnPreAuth(sessionData)
   }
   options.method = 'GET'
-  return submitRequest(options, expectedResponseCode)
+  const response = await submitRequest(options, expectedResponseCode)
+  if (header) {
+    const html = parse(response.payload)
+    expect(html.querySelector('h1').textContent).toContain(header)
+  }
+  return response
 }
 
-const submitPostRequest = async (options, expectedResponseCode = 302, sessionData = {}) => {
+const submitPostRequest = async (options, expectedResponseCode = constants.statusCodes.REDIRECT, sessionData = {}) => {
   if (Object.keys(sessionData).length > 0) {
     await addOnPreAuth(sessionData)
   }

@@ -14,6 +14,7 @@ const PUBLIC = 'public'
 const HOME = 'home'
 
 const REPORT_WATER_POLUTION = 'report-water-pollution'
+const WATER_QUALITY_DESCRIBE_THE_POLLUTION = 'waterquality/describe-the-pollution'
 
 const routes = {
   ACCESSIBILITY,
@@ -22,7 +23,8 @@ const routes = {
   ERROR,
   PUBLIC,
   HOME,
-  REPORT_WATER_POLUTION
+  REPORT_WATER_POLUTION,
+  WATER_QUALITY_DESCRIBE_THE_POLLUTION
 }
 
 const views = {
@@ -41,6 +43,7 @@ const statusCodes = {
   OK: 200,
   CREATED: 201,
   NO_CONTENT: 204,
+  REDIRECT: 302,
   UNAUTHORIZED: 401,
   PAGE_NOT_FOUND: 404,
   REQUEST_TIMEOUT: 408,
@@ -49,10 +52,18 @@ const statusCodes = {
   SERVICE_UNAVAILABLE: 503
 }
 
+const errors = {
+  errorSummary: {
+    titleText: 'There is a problem',
+    errorList: []
+  }
+}
+
 export default Object.freeze({
   routes,
   views,
   statusCodes,
   urls,
-  redisKeys
+  redisKeys,
+  errors
 })
