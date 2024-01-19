@@ -1,9 +1,7 @@
 import constants from '../../utils/constants.js'
 
 const handlers = {
-  get: async (_request, h) => {
-    return h.view(constants.views.WATER_QUALITY_DESCRIBE_THE_POLLUTION)
-  },
+  get: async (_request, h) => h.view(constants.views.WATER_QUALITY_DESCRIBE_THE_POLLUTION),
   post: async (request, h) => {
     const { otherInfo } = request.payload
     if (!otherInfo) {
