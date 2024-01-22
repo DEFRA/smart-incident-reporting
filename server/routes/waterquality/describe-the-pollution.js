@@ -15,7 +15,7 @@ const handlers = {
       })
     }
     request.yar.set(constants.redisKeys.WATER_QUALITY_DESCRIBE_THE_POLLUTION, otherInfo)
-    //TODO Data needs forwarding to service bus queue here
+    // TODO Data needs forwarding to service bus queue here
     return h.redirect(constants.routes.REPORT_SENT)
   }
 }
