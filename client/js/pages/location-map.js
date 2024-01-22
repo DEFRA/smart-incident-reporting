@@ -16,7 +16,7 @@ const searchLocation = async () => {
 }
 
 const getLocation = async () => {
-  const location =  await new Promise((resolve, reject) => {
+  const location = await new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject)
   })
   return [
@@ -25,7 +25,7 @@ const getLocation = async () => {
   ]
 }
 
-///// Events
+/// // Events
 locationSearchButton.addEventListener('click', async (e) => {
   e.preventDefault()
   await searchLocation()

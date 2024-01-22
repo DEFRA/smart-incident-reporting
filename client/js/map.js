@@ -151,7 +151,6 @@ const getMap = async config => {
   })
 }
 
-
 // External functions
 const initialiseMap = () => {
   (
