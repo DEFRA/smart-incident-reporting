@@ -1,5 +1,10 @@
-export default [
-  {
+export default [{
+    method: 'GET',
+    path: '/robots.txt',
+    handler: {
+      file: 'server/public/static/robots.txt'
+    }
+  }, {
     method: 'GET',
     path: '/public/all.js',
     handler: {
