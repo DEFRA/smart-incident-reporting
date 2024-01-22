@@ -1,0 +1,32 @@
+{% extends 'form-layout.html' %}
+
+{% set pageHeading = 'Can you describe the pollution - Report water pollution in England' %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukTextarea({
+      name: "otherInfo",
+      id: "otherInfo",
+      rows: "10",
+      label: {
+        text: "Can you describe the pollution?",
+        classes: "govuk-label--l",
+        isPageHeading: true
+      },
+      hint: {
+        text: "Include things like what the pollution looks like, how much of the water it covers and where it's coming from (if known)."
+      },
+      errorMessage: errorSummary.errorList[0]
+    }) }}
+
+    {{ govukButton({
+      text: "Send report"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

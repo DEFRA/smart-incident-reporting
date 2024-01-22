@@ -11,7 +11,6 @@ const handlers = {
 
 const _getContext = () => {
   return {
-    pageHeading: 'Report water pollution in England',
     hideBackLink: true
   }
 }
