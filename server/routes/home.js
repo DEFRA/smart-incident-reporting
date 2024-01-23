@@ -1,7 +1,7 @@
 import constants from '../utils/constants.js'
 
 const handlers = {
-  get: async (_request, h) => h.redirect(constants.routes.REPORT_WATER_POLUTION)
+  get: async (_request, h) => h.redirect(constants.routes.WATER_POLUTION)
 }
 
 export default [

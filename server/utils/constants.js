@@ -14,7 +14,7 @@ const PUBLIC = 'public'
 const HOME = 'home'
 const REPORT_SENT = 'report-sent'
 
-const REPORT_WATER_POLUTION = 'report-water-pollution'
+const WATER_POLUTION = 'water-pollution'
 const WATER_QUALITY_DESCRIBE_THE_POLLUTION = 'waterquality/describe-the-pollution'
 
 const routes = {
@@ -25,7 +25,7 @@ const routes = {
   PUBLIC,
   HOME,
   REPORT_SENT,
-  REPORT_WATER_POLUTION,
+  WATER_POLUTION,
   WATER_QUALITY_DESCRIBE_THE_POLLUTION
 }
 
