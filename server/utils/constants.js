@@ -15,7 +15,7 @@ const HOME = 'home'
 const REPORT_SENT = 'report-sent'
 
 const WATER_POLUTION = 'water-pollution'
-const WATER_QUALITY_DESCRIBE_THE_POLLUTION = 'waterquality/describe-the-pollution'
+const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 
 const routes = {
   ACCESSIBILITY,
@@ -26,7 +26,7 @@ const routes = {
   HOME,
   REPORT_SENT,
   WATER_POLUTION,
-  WATER_QUALITY_DESCRIBE_THE_POLLUTION
+  WATER_POLLUTION_OTHER_INFORMATION
 }
 
 const views = {
