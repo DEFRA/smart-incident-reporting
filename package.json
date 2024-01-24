@@ -10,8 +10,8 @@
   "scripts": {
     "postinstall": "npm run build",
     "start": "node index.js",
-    "build:css": "bin/build-css",
-    "build": "bin/build",
+    "build:css": "./bin/build-css.sh",
+    "build": "./bin/build.sh",
     "debug": "nodemon --inspect index.js",
     "watch:css": "nodemon -e scss -x 'npm run build:css'",
     "watch:nodejs": "nodemon --delay 1000ms --signal SIGTERM -r dotenv/config index.js",
@@ -20,7 +20,6 @@
     "unit-test": "jest --runInBand --verbose",
     "test": "npm run lint && npm run unit-test",
     "prettier": "prettier-config-standard",
-    "prepare": "husky install",
     "start-backend": "docker-compose -f docker/backend-services.yml up -d",
     "stop-backend": "docker-compose -f docker/backend-services.yml down"
   },

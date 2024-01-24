@@ -1,20 +1,12 @@
 version: "3.9"
-# secrets:
-#   WEBAPP_ENV:
-#     file: ./secrets/WEBAPP_ENV
 services:
-  ##############################################################################################################
-  # Biodiversity net gain service - Application to register webapp - web app found on localhost:3000
-  ##############################################################################################################
   webapp:
     image: smart-incident-reporting:${TAG:-latest}
+    build:
+      context: ../
+      dockerfile: dockerfile
     ports:
       - "8000:8000"
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-    # secrets:
-    #   - WEBAPP_ENV
-    entrypoint: [ '/bin/sh', '-c', "npm run start" ]
-    # extra_hosts:
-    #   - "host.docker.internal:host-gateway"
