@@ -19,6 +19,6 @@ steps:
 - task: AzureWebAppContainer@1
   displayName: 'Azure Web App on Container Deploy: $(CONTAINER_APP_NAME)'
   inputs:
-    azureSubscription: $(azureSubscription)
-    appName: $(webAppName)
+    azureSubscription: $(AZURE_SUBSCRIPTION)
+    appName: $(WEB_APP_NAME)
     containers: $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
