@@ -13,6 +13,7 @@ steps:
 - script: |
     docker-compose -f docker/service.yml build
     docker image ls
+    docker image tag docker.io/library/${CONTAINER_APP_NAME):latest $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):latest
   displayName: 'Create Docker image and push to container registry'
 
 # - task: AzureWebAppContainer@1
