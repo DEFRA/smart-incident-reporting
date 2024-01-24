@@ -13,14 +13,11 @@ steps:
 - script: |
     docker-compose -f docker/service.yml build
     docker image ls
-    docker image tag ${CONTAINER_APP_NAME):latest $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):latest
-    docker image ls
-    docker push $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
   displayName: 'Create Docker image and push to container registry'
 
-- task: AzureWebAppContainer@1
-  displayName: 'Azure Web App on Container Deploy: $(CONTAINER_APP_NAME)'
-  inputs:
-    azureSubscription: $(AZURE_SUBSCRIPTION)
-    appName: $(WEB_APP_NAME)
-    containers: $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
+# - task: AzureWebAppContainer@1
+#   displayName: 'Azure Web App on Container Deploy: $(CONTAINER_APP_NAME)'
+#   inputs:
+#     azureSubscription: $(AZURE_SUBSCRIPTION)
+#     appName: $(WEB_APP_NAME)
+#     containers: $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
