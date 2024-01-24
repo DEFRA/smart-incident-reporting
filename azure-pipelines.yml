@@ -14,6 +14,7 @@ steps:
     docker-compose -f docker/service.yml build
     docker image ls
     docker image tag ${CONTAINER_APP_NAME) $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
+    docker image ls
     docker push $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
   displayName: 'Create Docker image and push to container registry'
 
