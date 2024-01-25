@@ -30,10 +30,9 @@ steps:
       docker image ls
       docker push $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):$(TAG)
 
-
-# # - task: AzureWebAppContainer@1
-# #   displayName: 'Azure Web App on Container Deploy: $(CONTAINER_APP_NAME)'
-# #   inputs:
-# #     azureSubscription: $(AZURE_SUBSCRIPTION)
-# #     appName: $(WEB_APP_NAME)
-# #     containers: $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
+- task: AzureWebAppContainer@1
+  displayName: 'Azure Web App on Container Deploy: $(CONTAINER_APP_NAME)'
+  inputs:
+    azureSubscription: $(AZURE_SUBSCRIPTION)
+    appName: $(WEB_APP_NAME)
+    containers: $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):$(TAG)
