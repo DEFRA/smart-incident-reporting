@@ -65,7 +65,7 @@
     "@babel/preset-env": "^7.23.8",
     "@hapi/catbox-memory": "^6.0.1",
     "concurrently": "^8.2.2",
-    "husky": "^8.0.3",
+    "husky": "^9.0.5",
     "jest": "^29.7.0",
     "jest-junit": "^16.0.0",
     "jsdom": "^24.0.0",
