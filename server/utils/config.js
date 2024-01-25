@@ -31,12 +31,7 @@ const schema = Joi.object().keys({
   sessionCookiePassword: Joi.string().default('the-password-must-be-at-least-32-characters-long'),
   cookieIsSecure: Joi.bool().default(false),
   osDataURI: Joi.string().default('https://osdatahub.co.uk'),
-  osKey: Joi.string(),
-  submitIncident: Joi.bool().valid(true, false),
-  fishingConnectionString: Joi.string(),
-  waterConnectionString: Joi.string(),
-  fishingQueue: Joi.string(),
-  waterQueue: Joi.string()
+  osKey: Joi.string()
 })
 
 // Build config
@@ -54,12 +49,7 @@ const config = {
   sessionCookiePassword: process.env.SESSION_COOKIE_PASSWORD,
   cookieIsSecure: getBoolean(process.env.COOKIE_IS_SECURE),
   osDataURI: process.env.OS_DATA_HUB_URI,
-  osKey: process.env.OS_KEY,
-  submitIncident: getBoolean(process.env.SUBMIT_INCIDENT),
-  fishingConnectionString: process.env.FISHING_CONNECTION_STRING,
-  waterConnectionString: process.env.WATER_CONNECTION_STRING,
-  fishingQueue: process.env.FISHING_QUEUE,
-  waterQueue: process.env.WATER_QUEUE
+  osKey: process.env.OS_KEY
 }
 
 // Validate config
