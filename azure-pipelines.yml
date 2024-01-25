@@ -1,5 +1,13 @@
+# ADO Pipeline for smart-incident-reporting
+# preliminary pipeline is as follows
+# Automatically trigger on merge to main and develop
+# # Deploy develop to DEV1
+# # Deploy main to TST1
+# Manually allow build against feature branch or any branch selected in drop down
+# Currently only DEV1 exists so just deploy to DEV1 for main & develop
 trigger:
-- main
+- main # TODO if main deploy to TST1 automatically
+- develop # TODO if develop deploy to DEV1 automatically
 
 pool:
   vmImage: ubuntu-latest
