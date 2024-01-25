@@ -62,7 +62,7 @@
     "postcode-validator": "^3.8.20"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.23.8",
+    "@babel/preset-env": "^7.23.9",
     "@hapi/catbox-memory": "^6.0.1",
     "concurrently": "^8.2.2",
     "husky": "^8.0.3",
