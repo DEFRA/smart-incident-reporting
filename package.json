@@ -1,6 +1,6 @@
 {
   "name": "smart-incident-reporting",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Digital service for incident reporting",
   "main": "index.js",
   "type": "module",
@@ -12,6 +12,7 @@
     "start": "node index.js",
     "build:css": "./bin/build-css.sh",
     "build": "./bin/build.sh",
+    "copy:static": "bin/copy-static.sh",
     "debug": "nodemon --inspect index.js",
     "watch:css": "nodemon -e scss -x 'npm run build:css'",
     "watch:nodejs": "nodemon --delay 1000ms --signal SIGTERM -r dotenv/config index.js",

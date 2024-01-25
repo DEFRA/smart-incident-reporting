@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% set pageHeading = 'Report received - report a problem in your environment' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukPanel({
+      titleText: "Report sent",
+      html: "We have received your report"
+      }) }}
+    <h2 class="govuk-heading-m">
+      What happens next
+    </h2>
+    <p>An agent will look into the problem. This may include:
+    <ul class="govuk-list govuk-list--bullet">
+      <li>checking for similar reports in the area</li>
+      <li>sending someone to investigate if needed</li>
+      <li>passing details of the problem to a local team or another
+        organisation who can help</li>
+    </ul>
+    
+    {{ govukInsetText({
+      text: "Do not contact the Environment Agency hotline - they
+      will not be able to give you any updates about your report."
+      }) }}
+    <p><a href="/">Make another report</a>
+  </div>
+</div>
+
+{% endblock %}

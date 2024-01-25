@@ -1,8 +1,8 @@
 import { submitGetRequest } from '../../__test-helpers__/server.js'
 import constants from '../../utils/constants.js'
 
-const url = constants.routes.REPORT_WATER_POLUTION
-const header = 'Report water pollution'
+const url = constants.routes.REPORT_SENT
+const header = 'Report sent'
 
 describe(url, () => {
   describe('GET', () => {

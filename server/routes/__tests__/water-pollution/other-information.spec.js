@@ -1,7 +1,7 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
 
-const url = constants.routes.WATER_QUALITY_DESCRIBE_THE_POLLUTION
+const url = constants.routes.WATER_POLLUTION_OTHER_INFORMATION
 const header = 'Can you describe the pollution?'
 
 describe(url, () => {
@@ -21,7 +21,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.request.yar.get(constants.redisKeys.WATER_QUALITY_DESCRIBE_THE_POLLUTION)).toEqual(otherInfo)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION)).toEqual(otherInfo)
     })
     it('Should return view and error message if no description is provided', async () => {
       const options = {

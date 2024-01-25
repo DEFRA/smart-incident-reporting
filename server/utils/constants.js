@@ -12,9 +12,10 @@ const PRIVACY = 'notices/privacy'
 const ERROR = 'error'
 const PUBLIC = 'public'
 const HOME = 'home'
+const REPORT_SENT = 'report-sent'
 
-const REPORT_WATER_POLUTION = 'report-water-pollution'
-const WATER_QUALITY_DESCRIBE_THE_POLLUTION = 'waterquality/describe-the-pollution'
+const WATER_POLUTION = 'water-pollution'
+const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 
 const routes = {
   ACCESSIBILITY,
@@ -23,8 +24,9 @@ const routes = {
   ERROR,
   PUBLIC,
   HOME,
-  REPORT_WATER_POLUTION,
-  WATER_QUALITY_DESCRIBE_THE_POLLUTION
+  REPORT_SENT,
+  WATER_POLUTION,
+  WATER_POLLUTION_OTHER_INFORMATION
 }
 
 const views = {
