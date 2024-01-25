@@ -7,32 +7,32 @@ pool:
 steps:
 - script: |
     NPM_VERSION=$(node -p "require('./package.json').version")
-    echo $(NPM_VERSION)  
+    echo ${NPM_VERSION}
   displayName: 'Get package.json npm version'
 
-- script: |
-    echo $(NPM_VERSION)
-    docker-compose -f docker/service.yml build
-    docker image ls
-  displayName: 'Create Docker image'
+# - script: |
+#     echo $(NPM_VERSION)
+#     docker-compose -f docker/service.yml build
+#     docker image ls
+#   displayName: 'Create Docker image'
 
-- task: AzureCLI@2
-  displayName: 'Push image to container registry'
-  inputs:
-    azureSubscription: $(AZURE_SUBSCRIPTION)
-    scriptType: bash
-    scriptLocation: inlineScript
-    inlineScript: |
-      az acr login --name $(CONTAINER_REGISTRY)
-      docker image ls
-      docker image tag $(CONTAINER_APP_NAME) $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
-      docker image ls
-      docker push $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
-
-
-# - task: AzureWebAppContainer@1
-#   displayName: 'Azure Web App on Container Deploy: $(CONTAINER_APP_NAME)'
+# - task: AzureCLI@2
+#   displayName: 'Push image to container registry'
 #   inputs:
 #     azureSubscription: $(AZURE_SUBSCRIPTION)
-#     appName: $(WEB_APP_NAME)
-#     containers: $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
+#     scriptType: bash
+#     scriptLocation: inlineScript
+#     inlineScript: |
+#       az acr login --name $(CONTAINER_REGISTRY)
+#       docker image ls
+#       docker image tag $(CONTAINER_APP_NAME) $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
+#       docker image ls
+#       docker push $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
+
+
+# # - task: AzureWebAppContainer@1
+# #   displayName: 'Azure Web App on Container Deploy: $(CONTAINER_APP_NAME)'
+# #   inputs:
+# #     azureSubscription: $(AZURE_SUBSCRIPTION)
+# #     appName: $(WEB_APP_NAME)
+# #     containers: $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
