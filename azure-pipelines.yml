@@ -5,12 +5,13 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-# - task: NodeTool@0
-#   inputs:
-#     versionSpec: '18.x'
-#   displayName: 'Install Node.js'
+- script: |
+    NPM_VERSION=$(node -p "require('./package.json').version")
+    echo $(NPM_VERSION)  
+  displayName: 'Get package.json npm version'
 
 - script: |
+    echo $(NPM_VERSION)
     docker-compose -f docker/service.yml build
     docker image ls
   displayName: 'Create Docker image'
@@ -26,7 +27,7 @@ steps:
       docker image ls
       docker image tag $(CONTAINER_APP_NAME) $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
       docker image ls
-      docker push ${CONTAINER_REGISTRY}/${CONTAINER_APP_NAME}
+      docker push $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME)
 
 
 # - task: AzureWebAppContainer@1
