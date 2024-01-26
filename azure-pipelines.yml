@@ -44,3 +44,23 @@ steps:
     azureSubscription: $(AZURE_SUBSCRIPTION)
     appName: $(WEB_APP_NAME)
     containers: $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):$(TAG)
+    
+- task: Delay@1
+  displayName: Wait 5 minutes for application to update fully
+  inputs:
+   delayForMinutes: 0.1
+
+- script: |
+    git clone https://github.com/DEFRA/smart-incident-reporting-ui-tests
+    cd smart-incident-reporting-ui-tests
+    git checkout feature/mvp-thin-slice
+    npm i
+    npm run test
+
+- task: PublishTestResults@2
+  displayName: 'Publish test results **/TEST-*.xml'
+  inputs:
+   testResultsFormat: 'JUnit'
+   testResultsFiles: '**/TEST-*.xml'
+   searchFolder: '$(System.DefaultWorkingDirectory)'
+  condition: succeededOrFailed()
