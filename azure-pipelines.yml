@@ -46,9 +46,9 @@ steps:
     containers: $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):$(TAG)
     
 - task: Delay@1
-  displayName: Wait 5 minutes for application to update fully
+  displayName: Wait 1 minute for application to update fully
   inputs:
-   delayForMinutes: 0.1
+   delayForMinutes: 1
 
 - script: |
     git clone https://github.com/DEFRA/smart-incident-reporting-ui-tests
