@@ -53,9 +53,8 @@ steps:
     git clone https://$(GITHUB_PAT)@github.com/DEFRA/smart-incident-reporting-ui-tests.git
     cd smart-incident-reporting-ui-tests
     git checkout feature/mvp-thin-slice
-    google-chrome --version
     npm i
-    npm run test
+    npm run test-headless
 
 - task: PublishTestResults@2
   displayName: 'Publish test results **/TEST-*.xml'
