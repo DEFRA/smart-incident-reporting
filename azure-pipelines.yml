@@ -45,10 +45,9 @@ steps:
     appName: $(WEB_APP_NAME)
     containers: $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):$(TAG)
     
-- task: Delay@1
-  displayName: Wait 1 minute for application to update fully
-  inputs:
-   delayForMinutes: 1
+- powershell: |
+   Start-Sleep -Seconds 60
+  displayName: 'Powershell script to wait for 1 minute'
 
 - script: |
     git clone https://github.com/DEFRA/smart-incident-reporting-ui-tests
