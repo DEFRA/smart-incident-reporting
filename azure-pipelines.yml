@@ -44,3 +44,22 @@ steps:
     azureSubscription: $(AZURE_SUBSCRIPTION)
     appName: $(WEB_APP_NAME)
     containers: $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):$(TAG)
+    
+- powershell: |
+   Start-Sleep -Seconds 60
+  displayName: 'Powershell script to wait for 1 minute'
+
+- script: |
+    git clone https://$(GITHUB_PAT)@github.com/DEFRA/smart-incident-reporting-ui-tests.git
+    cd smart-incident-reporting-ui-tests
+    git checkout feature/mvp-thin-slice
+    npm i
+    npm run test-headless
+
+- task: PublishTestResults@2
+  displayName: 'Publish test results **/TEST-*.xml'
+  inputs:
+   testResultsFormat: 'JUnit'
+   testResultsFiles: '**/TEST-*.xml'
+   searchFolder: '$(System.DefaultWorkingDirectory)'
+  condition: succeededOrFailed()
