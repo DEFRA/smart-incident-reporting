@@ -10,10 +10,6 @@ on:
 
 name: CI
 
-env:
-  SERVICE_BUS_CONNECTION_STRING: 'test'
-  SERVICE_BUS_QUEUE_NAME: 'test'
-
 jobs:
   build:
     runs-on: ubuntu-latest
