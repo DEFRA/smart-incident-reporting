@@ -1,4 +1,5 @@
 import constants from '../../utils/constants.js'
+import { sendMessage } from '../../services/service-bus.js'
 
 const handlers = {
   get: async (_request, h) => h.view(constants.views.WATER_POLLUTION_OTHER_INFORMATION),
@@ -15,7 +16,9 @@ const handlers = {
       })
     }
     request.yar.set(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION, otherInfo)
-    // TODO Data needs forwarding to service bus queue here
+    
+    await sendMessage()
+
     return h.redirect(constants.routes.REPORT_SENT)
   }
 }
