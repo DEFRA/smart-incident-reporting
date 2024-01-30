@@ -35,6 +35,7 @@
     "url": "https://github.com/DEFRA/smart-incident-reporting.git"
   },
   "dependencies": {
+    "@azure/identity": "^4.0.1",
     "@azure/service-bus": "^7.9.3",
     "@defra/hapi-gapi": "^2.1.2",
     "@hapi/boom": "^10.0.1",
