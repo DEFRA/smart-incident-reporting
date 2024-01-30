@@ -6,7 +6,7 @@ const handlers = {
   post: async (request, h) => {
     const { otherInfo } = request.payload
     if (!otherInfo) {
-      const { errorSummary } = constants.errors
+      const { errorSummary } = JSON.parse(JSON.stringify(constants.errors))
       errorSummary.errorList.push({
         text: 'Enter a description of the pollution',
         href: '#otherInfo'
