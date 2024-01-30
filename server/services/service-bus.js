@@ -1,29 +1,18 @@
-// Note we will use passwordless connectivity to service bus via azure identity
-// This means the service principal of the webapp will need contributor/write
-// access to the servicebus 
+// Note that we should be using azure/identiy to connect
+// to service bus via azure permissions, however we will
+// use connectionstrings for time being whilst are environments are sorted
 import { ServiceBusClient } from '@azure/service-bus'
-import { DefaultAzureCredential } from '@azure/identity'
 import config from '../utils/config.js'
 const connectionString = config.serviceBusConnectionString
-const serviceBusNamespace = 'DEVSIRINFSB1401.servicebus.windows.net'
+const queueName = config.serviceBusQueueName
 
-const credential = new DefaultAzureCredential()
-
-const queueName = 'devsirinfsb1401-sbncomq-general'
-
-const sendMessage = async () => {
+const sendMessage = async (message) => {
   const sbClient = new ServiceBusClient(connectionString)
-
   const sender = sbClient.createSender(queueName)
-
-  let batch = await sender.createMessageBatch()
-
-  batch.tryAddMessage({ body: {
-    foo: 'bar'
-  }})
+  const batch = await sender.createMessageBatch()
+  batch.tryAddMessage({ body: message })
   await sender.sendMessages(batch)
   await sender.close()
-
 }
 
 export {

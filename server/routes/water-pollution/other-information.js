@@ -16,8 +16,10 @@ const handlers = {
       })
     }
     request.yar.set(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION, otherInfo)
-    
-    await sendMessage()
+    request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
+
+    // Need to transform this data using a schema, but for now just submit raw
+    await sendMessage(request.yar._store)
 
     return h.redirect(constants.routes.REPORT_SENT)
   }

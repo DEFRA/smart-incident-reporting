@@ -17,6 +17,9 @@ const REPORT_SENT = 'report-sent'
 const WATER_POLUTION = 'water-pollution'
 const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 
+// Meta data
+const SUBMISSION_TIMESTAMP = 'submission-timestamp'
+
 const routes = {
   ACCESSIBILITY,
   COOKIES,
@@ -38,7 +41,8 @@ for (const [key, value] of Object.entries(routes)) {
 }
 
 const redisKeys = {
-  ...routes
+  ...routes,
+  SUBMISSION_TIMESTAMP
 }
 
 const statusCodes = {

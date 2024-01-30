@@ -32,7 +32,8 @@ const schema = Joi.object().keys({
   cookieIsSecure: Joi.bool().default(false),
   osDataURI: Joi.string().default('https://osdatahub.co.uk'),
   osKey: Joi.string(),
-  serviceBusConnectionString: Joi.string().required()
+  serviceBusConnectionString: Joi.string().required(),
+  serviceBusQueueName: Joi.string().required()
 })
 
 // Build config
@@ -51,7 +52,8 @@ const config = {
   cookieIsSecure: getBoolean(process.env.COOKIE_IS_SECURE),
   osDataURI: process.env.OS_DATA_HUB_URI,
   osKey: process.env.OS_KEY,
-  serviceBusConnectionString: process.env.SERVICE_BUS_CONNECTION_STRING
+  serviceBusConnectionString: process.env.SERVICE_BUS_CONNECTION_STRING,
+  serviceBusQueueName: process.env.SERVICE_BUS_QUEUE_NAME
 }
 
 // Validate config
