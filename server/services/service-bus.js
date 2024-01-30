@@ -6,7 +6,7 @@ import config from '../utils/config.js'
 const connectionString = config.serviceBusConnectionString
 const queueName = config.serviceBusQueueName
 
-const sendMessage = async (message) => {
+const sendMessage = async message => {
   const sbClient = new ServiceBusClient(connectionString)
   const sender = sbClient.createSender(queueName)
   const batch = await sender.createMessageBatch()
