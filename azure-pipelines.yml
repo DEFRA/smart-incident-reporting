@@ -50,6 +50,23 @@ steps:
   displayName: 'Powershell script to wait for 1 minute'
 
 - script: |
+    HOST_IP=$(curl ipinfo.io/ip)
+    echo ${HOST_IP}
+    echo "##vso[task.setvariable variable=HOST_IP;]${HOST_IP}"
+  displayName: 'Get IP address for DevOps host'
+
+- task: AzureCLI@2
+  displayName: 'Allow access to webapp for DevOps host'
+  inputs:
+    azureSubscription: $(AZURE_SUBSCRIPTION)
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      echo $(HOST_IP)
+      az webapp config access-restriction add --resource-group $(RESOURCE_GROUP) --name $(WEB_APP_NAME) \
+      --rule-name 'Allow SIRP DevOps' --action Allow --ip-address $(HOST_IP) --priority 400
+
+- script: |
     git clone https://$(GITHUB_PAT)@github.com/DEFRA/smart-incident-reporting-ui-tests.git
     cd smart-incident-reporting-ui-tests
     git checkout feature/mvp-thin-slice
@@ -62,4 +79,16 @@ steps:
    testResultsFormat: 'JUnit'
    testResultsFiles: '**/TEST-*.xml'
    searchFolder: '$(System.DefaultWorkingDirectory)'
+  condition: succeededOrFailed()
+
+- task: AzureCLI@2
+  displayName: 'Remove allow access for DevOps Host'
+  inputs:
+    azureSubscription: $(AZURE_SUBSCRIPTION)
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      echo $(HOST_IP)
+      az webapp config access-restriction remove --resource-group $(RESOURCE_GROUP) --name $(WEB_APP_NAME) \
+      --rule-name 'Allow SIRP DevOps'
   condition: succeededOrFailed()
