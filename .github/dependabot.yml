@@ -6,3 +6,4 @@ updates:
       interval: daily
     open-pull-requests-limit: 5
     versioning-strategy: increase
+    target-branch: develop
