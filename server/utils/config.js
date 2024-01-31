@@ -1,6 +1,4 @@
-import dotenv from 'dotenv'
 import Joi from 'joi'
-dotenv.config()
 const envs = ['development', 'test', 'production']
 
 const getBoolean = booleanString =>
