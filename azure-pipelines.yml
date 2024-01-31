@@ -80,3 +80,15 @@ steps:
    testResultsFiles: '**/TEST-*.xml'
    searchFolder: '$(System.DefaultWorkingDirectory)'
   condition: succeededOrFailed()
+
+- task: AzureCLI@2
+  displayName: 'Remove allow access for DevOps Host'
+  inputs:
+    azureSubscription: $(AZURE_SUBSCRIPTION)
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      echo $(HOST_IP)
+      az webapp config access-restriction remove --resource-group $(RESOURCE_GROUP) --name $(WEB_APP_NAME) \
+      --rule-name 'Allow SIRP DevOps'
+  condition: succeededOrFailed()
