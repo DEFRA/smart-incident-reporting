@@ -161,19 +161,12 @@ It's defined as a build task and can be run using `npm run lint`.
 
 # Environment variables
 
-The default values will be used if the environment variables are missing or commented out.
+Environment variables and their default values if not set can be found in the file `server/utils/config.js`
 
-| name                                                         | description                                         | required | default               |                          valid                          |
-| ------------------------------------------------------------ | --------------------------------------------------- | :------: | --------------------- | :-----------------------------------------------------: |
-| NODE_ENV                                                     | Node environment                                    |    no    |                       |               development,test,production               |
-| SERVICE_HOST                                                 | Application's URL                                   |   yes    | http://localhost:3000 |               development,test,production               |
-| SERVICE_PORT                                                 | Port number                                         |    no    | 3000                  |                                                         |
-| SERVICE_NAME                                                 | Name of the service                                 |    no    |                       |                       Any string                        |
-| LOG_LEVEL                                                    | The level of logging                                |    no    | warn                  |                       warn, debug                       |
-| REDIS_HOST                                                   | Redis host address                                  |    yes   | localhost             |                                                         |
-| REDIS_PORT                                                   | Redis port                                          |    yes   | 6379                  |                                                         |
-| REDIS_PASSWORD                                               | Redis password                                      |    yes   | foo                   |                                                         |
-| REDIS_TLS                                                    | Does redis connect over TLS                         |    no    | false                    |                                                         |
-| COOKIE_TIMEOUT                                               | Cookie timeout in ms                                |    yes   | 7200000               |                                                         |                                                   |
-| SERVICE_BUS_CONNECTION_STRING                                               | Service bus connection string                                |    yes   |                |                                                         |                                                   |
-| SERVICE_BUS_QUEUE_NAME                                               | Service bus queue name                               |    yes   |                |                                                         |                                                   |
+# Private beta authentication
+
+There is basic authentication in place for private beta, the accounts and passwords will be provided to the web app
+via the environment variable `AUTH_ACCOUNTS`
+
+AUTH_ACCOUNTS should be set as an array of objects as a JSON string in the following format:
+`[{"id":1,"password":"PASSWORD_HASH"}]`

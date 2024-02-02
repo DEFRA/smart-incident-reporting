@@ -4,6 +4,8 @@ const urls = {
     'https://www.gov.uk/report-an-environmental-incident'
 }
 
+const phoneRegex = /^[\d-+()#]*$/
+
 // Notices
 const ACCESSIBILITY = 'notices/accessibility'
 const COOKIES = 'notices/cookies'
@@ -71,5 +73,6 @@ export default Object.freeze({
   statusCodes,
   urls,
   redisKeys,
-  errors
+  errors,
+  phoneRegex
 })

@@ -1,5 +1,7 @@
 import Joi from 'joi'
 const envs = ['development', 'test', 'production']
+const defaultPort = 8000
+const defaultRedisPort = 6379
 
 const getBoolean = booleanString =>
   String(booleanString).toLowerCase() === 'true'
@@ -11,27 +13,23 @@ const schema = Joi.object().keys({
     .valid(...envs)
     .default(envs[0]),
   serviceHost: Joi.string(),
-  servicePort: Joi.number().default(8000),
-  serviceName: Joi
-    .string()
-    .default('Report an environmental incident'),
+  servicePort: Joi.number().default(defaultPort),
   redisHost: Joi.string().default('localhost'),
-  redisPort: Joi.number().default(6379),
+  redisPort: Joi.number().default(defaultRedisPort),
   redisPassword: Joi.string(),
   redisTls: Joi.bool().default(false),
   logLevel: Joi.string().default('warn'),
-  requestTimeout: Joi.number(),
-  maximumFileSize: Joi.number().default(10),
-  cookieTimeout: Joi.number().default(90000),
-  cookieValidationPassword: Joi
-    .string()
-    .default('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'),
   sessionCookiePassword: Joi.string().default('the-password-must-be-at-least-32-characters-long'),
+  authCookiePassword: Joi.string().default('the-password-must-be-at-least-32-characters-long'),
   cookieIsSecure: Joi.bool().default(false),
   osDataURI: Joi.string().default('https://osdatahub.co.uk'),
   osKey: Joi.string(),
   serviceBusConnectionString: Joi.string().required(),
-  serviceBusQueueName: Joi.string().required()
+  serviceBusQueueName: Joi.string().required(),
+  accounts: Joi.array().items(Joi.object().keys({
+    id: Joi.number(),
+    password: Joi.string()
+  })).required()
 })
 
 // Build config
@@ -39,19 +37,19 @@ const config = {
   env: process.env.NODE_ENV,
   serviceHost: process.env.SERVICE_HOST,
   servicePort: process.env.SERVICE_PORT,
-  serviceName: process.env.SERVICE_NAME,
   logLevel: process.env.LOG_LEVEL,
-  requestTimeout: process.env.REQUEST_TIMEOUT,
   redisHost: process.env.REDIS_HOST,
   redisPort: process.env.REDIS_PORT,
   redisPassword: process.env.REDIS_PASSWORD,
   redisTls: getBoolean(process.env.REDIS_TLS),
   sessionCookiePassword: process.env.SESSION_COOKIE_PASSWORD,
+  authCookiePassword: process.env.AUTH_COOKIE_PASSWORD,
   cookieIsSecure: getBoolean(process.env.COOKIE_IS_SECURE),
   osDataURI: process.env.OS_DATA_HUB_URI,
   osKey: process.env.OS_KEY,
   serviceBusConnectionString: process.env.SERVICE_BUS_CONNECTION_STRING,
-  serviceBusQueueName: process.env.SERVICE_BUS_QUEUE_NAME
+  serviceBusQueueName: process.env.SERVICE_BUS_QUEUE_NAME,
+  accounts: JSON.parse(process.env.AUTH_ACCOUNTS)
 }
 
 // Validate config

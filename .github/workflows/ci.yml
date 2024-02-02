@@ -30,6 +30,8 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
+        env:
+          AUTH_ACCOUNTS: ${{ secrets.AUTH_ACCOUNTS }}
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
