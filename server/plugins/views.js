@@ -39,7 +39,7 @@ export default {
       assetPath: '/public',
       govUkHome: constants.urls.GOV_UK_HOME,
       serviceNameUrl: constants.urls.GOV_UK_SERVICE_HOME,
-      serviceName: config.serviceName,
+      serviceName: 'Report an environmental problem',
       titleSuffix: ' - report an environmental problem - GOV.UK',
       analyticsAccount
     }
