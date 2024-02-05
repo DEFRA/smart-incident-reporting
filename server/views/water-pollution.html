@@ -1,12 +1,12 @@
 {% extends 'layout.html' %}
 
-{% set pageHeading = 'Report water pollution in England' %}
+{% set pageTitle = 'Report water pollution' %}
 
 {% block content %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">Report water pollution</h1>
+    <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
     <p>Use this service to report pollution in the sea, lakes, reservoirs, rivers or other watercourses in England.</p>
     <p>Pollution can include:</p>
     <ul class="govuk-list govuk-list--bullet">
@@ -15,13 +15,13 @@
       <li>discharges from industry</li>
       <li>leaks from objects in the river, such as vehicles</li>
     </ul>
-    <div class="govuk-inset-text">There’s a different way to report <a rel="external" href="https://naturalresources.wales/about-us/contact-us/report-an-incident/?lang=en">water pollution in Wales</a>, <a rel="external" href="https://www.mygov.scot/report-environmental-incident">water pollution in Scotland</a> or <a rel="external" href="https://www.nidirect.gov.uk/information-and-services/environment-and-outdoors/environmental-quality-your-area">water pollution in Northern Ireland</a>.</div>
+    <div class="govuk-inset-text">There's a different way to report <a rel="external" href="https://naturalresources.wales/about-us/contact-us/report-an-incident/?lang=en">water pollution in Wales</a>, <a rel="external" href="https://www.mygov.scot/report-environmental-incident">water pollution in Scotland</a> or <a rel="external" href="https://www.nidirect.gov.uk/information-and-services/environment-and-outdoors/environmental-quality-your-area">water pollution in Northern Ireland</a>.</div>
     <h2 class="govuk-heading-m">Before you start</h2>
     <p>You need to be able to describe the location of the pollution or we will not be able to investigate it.</p>
     <div class="govuk-inset-text">Do not use this service to report littering in rivers. <a href="https://www.gov.uk/find-local-council">Contact your local council</a> instead.</div>
     {{ govukButton({
       text: "Start now",
-      href: "/waterquality/describe-the-pollution",
+      href: startHref,
       isStartButton: true
     }) }}
     <h2 class="govuk-heading-l">If you cannot report online</h2>
@@ -31,14 +31,14 @@
       Telephone: 0800 80 70 60<br />
       24 hours</p>
     </div>
-    <h2 class="govuk-heading-l">Other problems with your environment</h2>
+    <h2 class="govuk-heading-l">Other environmental problems</h2>
     <p>How you report other problems affecting the environment depends on the type of problem it is and where it's happening. You may have to report it to:
       <ul class="govuk-list govuk-list--bullet">
     <li>the Environment Agency</li>
     <li>your local council</li>
     <li>your utilities company</li>
     </ul>
-    <p><a href="https://www.gov.uk/report-an-environmental-incident">Find out how to report other problems with your environment</a></p>
+    <p><a href="https://www.gov.uk/report-an-environmental-incident">Report other environmental problems</a>.</p>
   </div>
 </div>
 

@@ -3,7 +3,7 @@ import constants from '../utils/constants.js'
 const handlers = {
   get: async (_request, h) => {
     const context = _getContext()
-    return h.view(constants.views.REPORT_WATER_POLUTION, {
+    return h.view(constants.views.WATER_POLUTION, {
       ...context
     })
   }
@@ -11,14 +11,15 @@ const handlers = {
 
 const _getContext = () => {
   return {
-    hideBackLink: true
+    hideBackLink: true,
+    startHref: constants.routes.WATER_POLLUTION_OTHER_INFORMATION
   }
 }
 
 export default [
   {
     method: 'GET',
-    path: constants.routes.REPORT_WATER_POLUTION,
+    path: constants.routes.WATER_POLUTION,
     handler: handlers.get
   }
 ]

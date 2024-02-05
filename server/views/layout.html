@@ -4,12 +4,14 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/inset-text/macro.njk" import  govukInsetText %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
 
 {% block head %}
   <!-- Version: {{ appVersion }} -->
   <!-- Environment: {{ env }} -->
   <meta name="robots" content="noindex, nofollow">
-  <meta name="description" content="Report pollution in rivers, lakes, canals and other watercourses in England">
+  <meta name="description" content="Report pollution, including sewage, in rivers, lakes, canals, the sea and other watercourses in England.">
 
   <!--[if !IE 8]><!-->
     <link href="{{ assetPath }}/stylesheets/application.css" rel="stylesheet" />
@@ -37,7 +39,7 @@
 {% endblock %}
 
 {% block pageTitle %}
-  {% if err %} Error: {% endif %} {{ pageHeading }} {{ titleSuffix }}
+  {% if err %} Error: {% endif %} {{ pageTitle }} {{ titleSuffix }}
 {% endblock %}
 
 {% block beforeContent %}

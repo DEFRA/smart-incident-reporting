@@ -7,7 +7,7 @@ ENV PORT=8000
 WORKDIR /usr/src
 COPY . smart-incident-reporting
 WORKDIR /usr/src/smart-incident-reporting
-RUN npm install
+RUN npm ci
 
 EXPOSE $PORT
 

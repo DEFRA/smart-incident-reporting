@@ -40,8 +40,7 @@ export default {
       govUkHome: constants.urls.GOV_UK_HOME,
       serviceNameUrl: constants.urls.GOV_UK_SERVICE_HOME,
       serviceName: config.serviceName,
-      pageTitle: `${config.serviceName} - GOV.UK`,
-      titleSuffix: ' - GOV.UK',
+      titleSuffix: ' - report an environmental problem - GOV.UK',
       analyticsAccount
     }
   }
