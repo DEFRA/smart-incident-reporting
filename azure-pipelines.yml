@@ -69,7 +69,6 @@ steps:
 - script: |
     git clone https://$(GITHUB_PAT)@github.com/DEFRA/smart-incident-reporting-ui-tests.git
     cd smart-incident-reporting-ui-tests
-    git checkout $(Build.SourceBranch)
     npm i
     npm run test-headless
 
