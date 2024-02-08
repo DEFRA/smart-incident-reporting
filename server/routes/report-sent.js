@@ -1,7 +1,8 @@
 import constants from '../utils/constants.js'
 
 const handlers = {
-  get: async (_request, h) => {
+  get: async (request, h) => {
+    request.cookieAuth.clear()
     const context = _getContext()
     return h.view(constants.views.REPORT_SENT, {
       ...context
