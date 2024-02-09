@@ -77,7 +77,7 @@ describe(url, () => {
       expect(response.payload).not.toContain('Enter your name')
       expect(response.payload).not.toContain('Enter a phone number')
       expect(response.payload).not.toContain('Enter an access code')
-      expect(response.payload).toContain('Enter a valid access code')
+      expect(response.payload).toContain('Check you have entered your access code correctly')
     })
     // Sad: invalid phone format
     it('Should error with if invalid phone number', async () => {

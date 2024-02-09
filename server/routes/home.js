@@ -37,7 +37,7 @@ const handlers = {
         errorSummary: {
           titleText: 'There is a problem',
           errorList: [{
-            text: 'Enter a valid access code, it will be {description of format}',
+            text: 'Check you have entered your access code correctly',
             href: '#accessCode'
           }]
         }
