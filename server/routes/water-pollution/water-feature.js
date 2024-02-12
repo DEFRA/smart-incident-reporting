@@ -30,9 +30,9 @@ const handlers = {
 
     // handle redirection
     if (answerId === question.answers.lakeOrReservoir.answerId || answerId === question.answers.sea.answerId) {
-      return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_AREA)
+      return h.redirect(constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
     } else {
-      return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_LENGTH)
+      return h.redirect(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
     }
   }
 }
