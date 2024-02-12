@@ -18,7 +18,7 @@ describe(url, () => {
   })
   describe('POST', () => {
     it('Happy: accepts valid answerId of sea or lake/reservoir and redirects to pollution-area', async () => {
-      const answerId = constants.questions.WATER_POLLUTION_WATER_FEATURE.answers.sea.answerId
+      const answerId = question.answers.sea.answerId
       const options = {
         url,
         payload: {
@@ -33,7 +33,7 @@ describe(url, () => {
       }])
     })
     it('Happy: accepts valid answerId of not sea/lake/reservoir and redirects to pollution-length', async () => {
-      const answerId = constants.questions.WATER_POLLUTION_WATER_FEATURE.answers.river.answerId
+      const answerId = question.answers.river.answerId
       const options = {
         url,
         payload: {
@@ -48,7 +48,7 @@ describe(url, () => {
       }])
     })
     it('Happy: accepts valid answerId of something else with further details ', async () => {
-      const answerId = constants.questions.WATER_POLLUTION_WATER_FEATURE.answers.somethingElse.answerId
+      const answerId = question.answers.somethingElse.answerId
       const otherSource = 'test other details'
       const options = {
         url,
@@ -63,8 +63,13 @@ describe(url, () => {
         ...baseAnswer,
         answerId
       }, {
+<<<<<<< HEAD
         ...baseAnswer,
         answerId: constants.questions.WATER_POLLUTION_WATER_FEATURE.answers.somethingElseDetails.answerId,
+=======
+        questionId,
+        answerId: question.answers.somethingElseDetails.answerId,
+>>>>>>> 3fc6951... WIP, broken code
         questionResponse: otherSource
       }])
     })

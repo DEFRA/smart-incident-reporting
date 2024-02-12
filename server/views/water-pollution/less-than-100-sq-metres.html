@@ -1,14 +1,10 @@
 {% extends 'form-layout.html' %}
 
-{% set pageTitle = 'Holding page' %}
+{% set pageTitle = question.text.replace('?', '') %}
+{% set pageHeader = question.text %}
 
 {% block formContent %}
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h1>Holding page</h1>
-
-  </div>
-</div>
+  {% include "water-pollution/partials/less-than-x-x.html" %}
 
 {% endblock %}

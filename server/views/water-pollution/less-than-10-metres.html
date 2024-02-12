@@ -1,14 +1,10 @@
 {% extends 'form-layout.html' %}
 
-{% set pageTitle = 'Holding page' %}
+{% set pageTitle = 'Does the pollution spread less than 10 metres' %}
+{% set pageHeader = 'Does the pollution spread less than 10 metres along the ' + waterFeature + '?' %}
 
 {% block formContent %}
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h1>Holding page</h1>
-
-  </div>
-</div>
+  {% include "water-pollution/partials/less-than-x-x.html" %}
 
 {% endblock %}
