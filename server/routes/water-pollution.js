@@ -12,7 +12,7 @@ const handlers = {
 const _getContext = () => {
   return {
     hideBackLink: true,
-    startHref: constants.routes.WATER_POLLUTION_OTHER_INFORMATION
+    startHref: constants.routes.WATER_POLLUTION_WATER_FEATURE
   }
 }
 

@@ -1,0 +1,78 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'In what kind of water is the pollution' %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% set otherHtml %}
+    {{ govukInput({
+      id: "otherSource",
+      name: "otherSource",
+      spellcheck: false,
+      classes: "govuk-!-width-two-thirds",
+      label: {
+        text: "Give details"
+      }
+    }) }}
+    {% endset %}
+
+    {{ govukRadios({
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, 'answerId'),
+      fieldset: {
+        legend: {
+          text: question.text,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: question.answers.river.answerId,
+          text: question.answers.river.text
+        },
+        {
+          value: question.answers.lakeOrReservoir.answerId,
+          text: question.answers.lakeOrReservoir.text
+        },
+        {
+          value: question.answers.sea.answerId,
+          text: question.answers.sea.text
+        },
+        {
+          value: question.answers.canal.answerId,
+          text: question.answers.canal.text
+        },
+        {
+          value: question.answers.smallWatercourse.answerId,
+          text: question.answers.smallWatercourse.text
+        },
+        {
+          value: question.answers.somethingElse.answerId,
+          text: question.answers.somethingElse.text,
+          conditional: {
+              html: otherHtml
+            }
+        },
+        {
+          divider: "or"
+        },
+        {
+          value: question.answers.doNotKnow.answerId,
+          text: question.answers.doNotKnow.text
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,6 +1,7 @@
 import constants from '../utils/constants.js'
 import bcrypt from 'bcrypt'
 import config from '../utils/config.js'
+import { getErrorSummary } from '../utils/helpers.js'
 
 const handlers = {
   get: async (request, h) => {
@@ -47,7 +48,7 @@ const handlers = {
 }
 
 const validatePayload = (fullName, phone, accessCode) => {
-  const { errorSummary } = JSON.parse(JSON.stringify(constants.errors))
+  const errorSummary = getErrorSummary()
   if (!fullName) {
     errorSummary.errorList.push({
       text: 'Enter your name',

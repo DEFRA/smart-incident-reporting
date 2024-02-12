@@ -1,12 +1,13 @@
 import constants from '../../utils/constants.js'
 import { sendMessage } from '../../services/service-bus.js'
+import { getErrorSummary } from '../../utils/helpers.js'
 
 const handlers = {
   get: async (_request, h) => h.view(constants.views.WATER_POLLUTION_OTHER_INFORMATION),
   post: async (request, h) => {
     const { otherInfo } = request.payload
     if (!otherInfo) {
-      const { errorSummary } = JSON.parse(JSON.stringify(constants.errors))
+      const errorSummary = getErrorSummary()
       errorSummary.errorList.push({
         text: 'Enter a description of the pollution',
         href: '#otherInfo'

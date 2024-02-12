@@ -17,12 +17,15 @@ const HOME = 'home'
 const REPORT_SENT = 'report-sent'
 
 const WATER_POLUTION = 'water-pollution'
+const WATER_POLLUTION_WATER_FEATURE = 'water-pollution/water-feature'
+const WATER_POLLUTION_POLLUTION_AREA = 'water-pollution/pollution-area'
+const WATER_POLLUTION_POLLUTION_LENGTH = 'water-pollution/pollution-length'
 const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 
-const routes = {
+const views = {
   ACCESSIBILITY,
   COOKIES,
   PRIVACY,
@@ -31,19 +34,22 @@ const routes = {
   HOME,
   REPORT_SENT,
   WATER_POLUTION,
+  WATER_POLLUTION_WATER_FEATURE,
+  WATER_POLLUTION_POLLUTION_AREA,
+  WATER_POLLUTION_POLLUTION_LENGTH,
   WATER_POLLUTION_OTHER_INFORMATION
 }
 
-const views = {
-  ...routes
+const routes = {
+  ...views
 }
 
-for (const [key, value] of Object.entries(routes)) {
+for (const [key, value] of Object.entries(views)) {
   routes[key] = `/${value}`
 }
 
 const redisKeys = {
-  ...routes,
+  ...views,
   SUBMISSION_TIMESTAMP
 }
 
@@ -60,10 +66,48 @@ const statusCodes = {
   SERVICE_UNAVAILABLE: 503
 }
 
-const errors = {
-  errorSummary: {
-    titleText: 'There is a problem',
-    errorList: []
+const errorSummary = {
+  titleText: 'There is a problem',
+  errorList: []
+}
+
+const questions = {
+  WATER_POLLUTION_WATER_FEATURE: {
+    questionId: 500,
+    text: 'In what kind of water is the pollution?',
+    answers: {
+      river: {
+        answerId: 501,
+        text: 'A river'
+      },
+      lakeOrReservoir: {
+        answerId: 502,
+        text: 'A lake or reservoir'
+      },
+      sea: {
+        answerId: 503,
+        text: 'The sea'
+      },
+      canal: {
+        answerId: 504,
+        text: 'A canal'
+      },
+      smallWatercourse: {
+        answerId: 505,
+        text: 'A smaller stream or watercourse'
+      },
+      somethingElse: {
+        answerId: 506,
+        text: 'Something else'
+      },
+      doNotKnow: {
+        answerId: 507,
+        text: 'You do not know'
+      },
+      somethingElseDetails: {
+        answerId: 508
+      }
+    }
   }
 }
 
@@ -73,6 +117,7 @@ export default Object.freeze({
   statusCodes,
   urls,
   redisKeys,
-  errors,
-  phoneRegex
+  errorSummary,
+  phoneRegex,
+  questions
 })

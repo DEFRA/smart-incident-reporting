@@ -1,0 +1,86 @@
+import constants from '../../utils/constants.js'
+import { getErrorSummary } from '../../utils/helpers.js'
+
+const question = constants.questions.WATER_POLLUTION_WATER_FEATURE
+
+const handlers = {
+  get: async (_request, h) => {
+    return h.view(constants.views.WATER_POLLUTION_WATER_FEATURE, {
+      ...getContext()
+    })
+  },
+  post: async (request, h) => {
+    // get payload
+    let { answerId, otherSource } = request.payload
+
+    // validate payload for errors
+    const errorSummary = validatePayload(answerId)
+    if (errorSummary.errorList.length > 0) {
+      return h.view(constants.views.WATER_POLLUTION_WATER_FEATURE, {
+        errorSummary,
+        ...getContext()
+      })
+    }
+
+    // convert answerId to number
+    answerId = Number(answerId)
+
+    // set answer in session
+    request.yar.set(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE, buildAnswers(answerId, otherSource))
+
+    // handle redirection
+    if (answerId === question.answers.lakeOrReservoir.answerId || answerId === question.answers.sea.answerId) {
+      return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_AREA)
+    } else {
+      return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_LENGTH)
+    }
+  }
+}
+
+const buildAnswers = (answerId, otherSource) => {
+  const answers = []
+  answers.push({
+    questionId: question.questionId,
+    answerId
+  })
+
+  if (answerId === question.answers.somethingElse.answerId && otherSource) {
+    answers.push({
+      questionId: question.questionId,
+      answerId: question.answers.somethingElseDetails.answerId,
+      questionResponse: otherSource
+    })
+  }
+
+  return answers
+}
+
+const getContext = () => {
+  return {
+    question
+  }
+}
+
+const validatePayload = answerId => {
+  const errorSummary = getErrorSummary()
+  if (!answerId) {
+    errorSummary.errorList.push({
+      text: 'Select a type of watercourse or feature, or you do not know',
+      href: '#answerId'
+    })
+  }
+  return errorSummary
+}
+
+export default [
+  {
+    method: 'GET',
+    path: constants.routes.WATER_POLLUTION_WATER_FEATURE,
+    handler: handlers.get
+  },
+  {
+    method: 'POST',
+    path: constants.routes.WATER_POLLUTION_WATER_FEATURE,
+    handler: handlers.post
+  }
+]
