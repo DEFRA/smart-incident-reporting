@@ -63,13 +63,8 @@ describe(url, () => {
         ...baseAnswer,
         answerId
       }, {
-<<<<<<< HEAD
         ...baseAnswer,
-        answerId: constants.questions.WATER_POLLUTION_WATER_FEATURE.answers.somethingElseDetails.answerId,
-=======
-        questionId,
         answerId: question.answers.somethingElseDetails.answerId,
->>>>>>> 3fc6951... WIP, broken code
         questionResponse: otherSource
       }])
     })
