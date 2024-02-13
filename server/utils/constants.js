@@ -185,6 +185,24 @@ const questions = {
         text: YOU_DO_NOT_KNOW
       }
     }
+  },
+  WATER_POLLUTION_POLLUTION_AREA: {
+    questionId: 300,
+    text: 'How large an area does the pollution cover?',
+    answers: {
+      under500sqm: {
+        answerId: 301,
+        text: '100 to 500 square metres (sq m)'
+      },
+      over500sqm: {
+        answerId: 302,
+        text: 'More than 500 sq m'
+      },
+      youDoNotKnow: {
+        answerId: 303,
+        text: YOU_DO_NOT_KNOW
+      }
+    }
   }
 }
 
