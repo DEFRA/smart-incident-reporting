@@ -3,7 +3,12 @@ import constants from '../../../utils/constants.js'
 
 const url = constants.routes.WATER_POLLUTION_WATER_FEATURE
 const header = 'In what kind of water is the pollution?'
-const questionId = constants.questions.WATER_POLLUTION_WATER_FEATURE.questionId
+const question = constants.questions.WATER_POLLUTION_WATER_FEATURE
+const baseAnswer = {
+  questionId: question.questionId,
+  questionAsked: question.text,
+  questionResponse: true
+}
 
 describe(url, () => {
   describe('GET', () => {
@@ -23,8 +28,8 @@ describe(url, () => {
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
-        answerId,
-        questionId
+        ...baseAnswer,
+        answerId
       }])
     })
     it('Happy: accepts valid answerId of not sea/lake/reservoir and redirects to pollution-length', async () => {
@@ -38,8 +43,8 @@ describe(url, () => {
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
-        answerId,
-        questionId
+        ...baseAnswer,
+        answerId
       }])
     })
     it('Happy: accepts valid answerId of something else with further details ', async () => {
@@ -55,10 +60,10 @@ describe(url, () => {
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
-        answerId,
-        questionId
+        ...baseAnswer,
+        answerId
       }, {
-        questionId,
+        ...baseAnswer,
         answerId: constants.questions.WATER_POLLUTION_WATER_FEATURE.answers.somethingElseDetails.answerId,
         questionResponse: otherSource
       }])

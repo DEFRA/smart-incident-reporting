@@ -3,6 +3,12 @@ import { getErrorSummary } from '../../utils/helpers.js'
 
 const question = constants.questions.WATER_POLLUTION_WATER_FEATURE
 
+const baseAnswer = {
+  questionId: question.questionId,
+  questionAsked: question.text,
+  questionResponse: true
+}
+
 const handlers = {
   get: async (_request, h) => {
     return h.view(constants.views.WATER_POLLUTION_WATER_FEATURE, {
@@ -40,13 +46,13 @@ const handlers = {
 const buildAnswers = (answerId, otherSource) => {
   const answers = []
   answers.push({
-    questionId: question.questionId,
+    ...baseAnswer,
     answerId
   })
 
   if (answerId === question.answers.somethingElse.answerId && otherSource) {
     answers.push({
-      questionId: question.questionId,
+      ...baseAnswer,
       answerId: question.answers.somethingElseDetails.answerId,
       questionResponse: otherSource
     })
