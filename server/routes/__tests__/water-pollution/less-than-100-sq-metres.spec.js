@@ -1,8 +1,9 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
+import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES
-const question = constants.questions.WATER_POLLUTION_LESS_THAN_100_SQ_METRES
+const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_100_SQ_METRES
 const header = question.text
 const baseAnswer = {
   questionId: question.questionId,

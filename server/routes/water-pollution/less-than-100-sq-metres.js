@@ -1,7 +1,8 @@
 import constants from '../../utils/constants.js'
+import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 
-const question = constants.questions.WATER_POLLUTION_LESS_THAN_100_SQ_METRES
+const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_100_SQ_METRES
 
 const baseAnswer = {
   questionId: question.questionId,

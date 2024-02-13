@@ -24,6 +24,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options)
       expect(sendMessage).toHaveBeenCalledTimes(1)
+      // TODO test what sendMessage has been called with 
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION)).toEqual(otherInfo)
       expect(new Date(response.request.yar.get(constants.redisKeys.SUBMISSION_TIMESTAMP))).toBeInstanceOf(Date)
     })
