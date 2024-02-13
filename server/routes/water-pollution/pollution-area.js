@@ -24,7 +24,7 @@ const handlers = {
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.WATER_POLLUTION_POLLUTION_AREA, {
         errorSummary,
-        ...getContext(request)
+        ...getContext()
       })
     }
 
