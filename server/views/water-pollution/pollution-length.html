@@ -1,12 +1,55 @@
 {% extends 'form-layout.html' %}
 
-{% set pageTitle = 'Holding page' %}
+{% set pageTitle = 'How far along the ' + waterFeature + ' does the pollution spread' %}
 
 {% block formContent %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1>Holding page</h1>
+    {{ govukRadios({
+        name: "answerId",
+        id: "answerId",
+        errorMessage: findErrorMessageById(errorSummary, "answerId"),
+        fieldset: {
+          legend: {
+            html: pageTitle + '?',
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          text: "Estimate as best you can. We'll check the exact length if needed."
+        },
+        items: [
+        {
+          value: question.answers.stretches10to100m.answerId,
+          text: question.answers.stretches10to100m.text
+        },
+        {
+          value: question.answers.stretches100to500m.answerId,
+          text: question.answers.stretches100to500m.text
+        },
+        {
+          value: question.answers.stretches500to1000m.answerId,
+          text: question.answers.stretches500to1000m.text
+        },
+        {
+          value: question.answers.over1km.answerId,
+          text: question.answers.over1km.text
+        },
+          {
+            divider: "or"
+          },
+          {
+            value: question.answers.youDoNotKnow.answerId,
+            text: question.answers.youDoNotKnow.text
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
 
   </div>
 </div>

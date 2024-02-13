@@ -78,6 +78,14 @@ const errorSummary = {
   errorList: []
 }
 
+const waterFeatureLabels = {
+  501: 'river',
+  504: 'canal',
+  505: 'watercourse',
+  506: 'watercourse',
+  507: 'watercourse'
+}
+
 const questions = {
   WATER_POLLUTION_WATER_FEATURE: {
     questionId: 500,
@@ -151,6 +159,32 @@ const questions = {
         text: YOU_DO_NOT_KNOW
       }
     }
+  },
+  WATER_POLLUTION_POLLUTION_LENGTH: {
+    questionId: 400,
+    text: 'How far along the water feature does the pollution spread?',
+    answers: {
+      stretches10to100m: {
+        answerId: 401,
+        text: '10 to 100 metres (less than 2 minutes average walk)'
+      },
+      stretches100to500m: {
+        answerId: 402,
+        text: '100 to 500 metres (around 2 to 8 minutes walk)'
+      },
+      stretches500to1000m: {
+        answerId: 403,
+        text: '500 metres to a kilometre (around 8 to 16 minutes walk)'
+      },
+      over1km: {
+        answerId: 404,
+        text: 'Over a kilometre'
+      },
+      youDoNotKnow: {
+        answerId: 405,
+        text: YOU_DO_NOT_KNOW
+      }
+    }
   }
 }
 
@@ -162,5 +196,6 @@ export default Object.freeze({
   redisKeys,
   errorSummary,
   phoneRegex,
-  questions
+  questions,
+  waterFeatureLabels
 })

@@ -9,14 +9,6 @@ const baseAnswer = {
   questionResponse: true
 }
 
-const featureLabels = {
-  501: 'river',
-  504: 'canal',
-  505: 'watercourse',
-  506: 'watercourse',
-  507: 'watercourse'
-}
-
 const handlers = {
   get: async (request, h) => {
     return h.view(constants.views.WATER_POLLUTION_LESS_THAN_10_METRES, {
@@ -51,15 +43,15 @@ const handlers = {
   }
 }
 
-const getContext = (request) => {
-  const waterFeature = featureLabels[request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)[0].answerId]
+const getContext = request => {
+  const waterFeature = constants.waterFeatureLabels[request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)[0].answerId]
   return {
     question,
     waterFeature
   }
 }
 
-const validatePayload = (answerId) => {
+const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
@@ -70,7 +62,7 @@ const validatePayload = (answerId) => {
   return errorSummary
 }
 
-const buildAnswers = (answerId) => {
+const buildAnswers = answerId => {
   return [{
     ...baseAnswer,
     answerId
