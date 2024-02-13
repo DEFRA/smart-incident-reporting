@@ -3,7 +3,11 @@ import constants from '../../../utils/constants.js'
 
 const url = constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES
 const question = constants.questions.WATER_POLLUTION_LESS_THAN_10_METRES
-const questionId = question.questionId
+const baseAnswer = {
+  questionId: question.questionId,
+  questionAsked: question.text,
+  questionResponse: true
+}
 
 const sessionData = {
   'water-pollution/water-feature': [{
@@ -38,8 +42,8 @@ describe(url, () => {
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES)).toEqual([{
-        answerId,
-        questionId
+        ...baseAnswer,
+        answerId
       }])
     })
     it('Happy: accepts no and redirects to pollution-length', async () => {
@@ -53,8 +57,8 @@ describe(url, () => {
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_LENGTH)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES)).toEqual([{
-        answerId,
-        questionId
+        ...baseAnswer,
+        answerId
       }])
     })
     it('Happy: accepts do not know and redirects to other information', async () => {
@@ -68,8 +72,8 @@ describe(url, () => {
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES)).toEqual([{
-        answerId,
-        questionId
+        ...baseAnswer,
+        answerId
       }])
     })
     it('Sad: no radio selected, returns error state', async () => {

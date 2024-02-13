@@ -3,6 +3,12 @@ import { getErrorSummary } from '../../utils/helpers.js'
 
 const question = constants.questions.WATER_POLLUTION_LESS_THAN_10_METRES
 
+const baseAnswer = {
+  questionId: question.questionId,
+  questionAsked: question.text,
+  questionResponse: true
+}
+
 const featureLabels = {
   501: 'river',
   504: 'canal',
@@ -66,7 +72,7 @@ const validatePayload = (answerId) => {
 
 const buildAnswers = (answerId) => {
   return [{
-    questionId: question.questionId,
+    ...baseAnswer,
     answerId
   }]
 }

@@ -3,6 +3,12 @@ import { getErrorSummary } from '../../utils/helpers.js'
 
 const question = constants.questions.WATER_POLLUTION_LESS_THAN_100_SQ_METRES
 
+const baseAnswer = {
+  questionId: question.questionId,
+  questionAsked: question.text,
+  questionResponse: true
+}
+
 const handlers = {
   get: async (_request, h) => {
     return h.view(constants.views.WATER_POLLUTION_LESS_THAN_100_SQ_METRES, {
@@ -55,7 +61,7 @@ const validatePayload = (answerId) => {
 
 const buildAnswers = (answerId) => {
   return [{
-    questionId: question.questionId,
+    ...baseAnswer,
     answerId
   }]
 }
