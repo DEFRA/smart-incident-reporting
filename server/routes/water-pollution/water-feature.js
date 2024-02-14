@@ -1,7 +1,8 @@
 import constants from '../../utils/constants.js'
+import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 
-const question = constants.questions.WATER_POLLUTION_WATER_FEATURE
+const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_WATER_FEATURE
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -54,7 +55,7 @@ const buildAnswers = (answerId, otherSource) => {
     answers.push({
       ...baseAnswer,
       answerId: question.answers.somethingElseDetails.answerId,
-      questionResponse: otherSource
+      otherDetails: otherSource
     })
   }
 

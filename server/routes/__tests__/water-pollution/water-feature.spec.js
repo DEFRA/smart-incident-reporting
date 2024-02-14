@@ -1,9 +1,10 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
+import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.WATER_POLLUTION_WATER_FEATURE
 const header = 'In what kind of water is the pollution?'
-const question = constants.questions.WATER_POLLUTION_WATER_FEATURE
+const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_WATER_FEATURE
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
@@ -65,7 +66,7 @@ describe(url, () => {
       }, {
         ...baseAnswer,
         answerId: question.answers.somethingElseDetails.answerId,
-        questionResponse: otherSource
+        otherDetails: otherSource
       }])
     })
     it('Sad: errors on no answerId', async () => {

@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SIR Reporting An Environmental Problem",
+  "type": "object",
+  "properties": {
+    "reportingAnEnvironmentalProblem": {
+      "type": "object",
+      "properties": {
+        "sessionGuid": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "reportType": {
+          "type": "integer",
+          "enum": [
+            100,
+            200,
+            300,
+            400
+          ],
+          "meta:enum": {
+            "100": "Water Pollution",
+            "200": "Odour",
+            "300": "Illegal Fishing",
+            "400": "Flooding"
+          }
+        },
+        "datetimeReported": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "datetimeObserved": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "questionSetId": {
+          "type": "number"
+        },
+        "otherDetails": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "object",
+            "properties": {
+              "questionId": {
+                "type": "number"
+              },
+              "questionAsked": {
+                "type": "string"
+              },
+              "answerId": {
+                "type": "number"
+              },
+              "questionResponse": {
+                "type": "boolean"
+              },
+			  "otherDetails": {
+			  "type": "string"
+			  }
+            },
+            "required": [
+              "questionId",
+              "questionAsked",
+              "answerId",
+              "questionResponse"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "sessionGuid",
+        "reportType",
+        "datetimeReported",
+        "datetimeObserved",
+        "questionSetId",
+        "data"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "reportingAnEnvironmentalProblem"
+  ]
+}
