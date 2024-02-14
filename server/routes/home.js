@@ -49,6 +49,7 @@ const handlers = {
 
 const validatePayload = (fullName, phone, accessCode) => {
   const errorSummary = getErrorSummary()
+
   if (!fullName) {
     errorSummary.errorList.push({
       text: 'Enter your name',
