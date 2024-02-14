@@ -3,12 +3,18 @@ export default [{
   path: '/robots.txt',
   handler: {
     file: 'server/public/static/robots.txt'
+  },
+  options: {
+    auth: false
   }
 }, {
   method: 'GET',
   path: '/public/all.js',
   handler: {
     file: 'node_modules/govuk-frontend/govuk/all.js'
+  },
+  options: {
+    auth: false
   }
 },
 {
@@ -25,6 +31,9 @@ export default [{
         'node_modules/ispinner.css'
       ]
     }
+  },
+  options: {
+    auth: false
   }
 }
 ]
