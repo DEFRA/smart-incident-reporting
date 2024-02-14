@@ -27,6 +27,9 @@ const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 
+// Common phrases
+const YOU_DO_NOT_KNOW = 'You do not know'
+
 const views = {
   ACCESSIBILITY,
   COOKIES,
@@ -106,10 +109,46 @@ const questions = {
       },
       doNotKnow: {
         answerId: 507,
-        text: 'You do not know'
+        text: YOU_DO_NOT_KNOW
       },
       somethingElseDetails: {
         answerId: 508
+      }
+    }
+  },
+  WATER_POLLUTION_LESS_THAN_10_METRES: {
+    questionId: 700,
+    text: 'Does the pollution spread less than 10 metres along the watercourse?',
+    answers: {
+      yes: {
+        answerId: 701,
+        text: 'Yes'
+      },
+      no: {
+        answerId: 702,
+        text: 'No, it is over a longer stretch'
+      },
+      doNotKnow: {
+        answerId: 703,
+        text: YOU_DO_NOT_KNOW
+      }
+    }
+  },
+  WATER_POLLUTION_LESS_THAN_100_SQ_METRES: {
+    questionId: 800,
+    text: 'Does the pollution cover an area less than 100 square metres in size?',
+    answers: {
+      yes: {
+        answerId: 801,
+        text: 'Yes'
+      },
+      no: {
+        answerId: 802,
+        text: 'No, it spreads over a larger area'
+      },
+      doNotKnow: {
+        answerId: 803,
+        text: YOU_DO_NOT_KNOW
       }
     }
   }
