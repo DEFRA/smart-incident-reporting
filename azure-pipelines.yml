@@ -32,6 +32,7 @@ steps:
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
+      az acr update --name $(CONTAINER_REGISTRY) --public-network-enabled true
       az acr network-rule add --name $(CONTAINER_REGISTRY) --ip-address $(HOST_IP)
       az webapp config access-restriction add --resource-group $(RESOURCE_GROUP) --name $(WEB_APP_NAME) \
       --rule-name 'Allow SIRP DevOps' --action Allow --ip-address $(HOST_IP) --priority 400
@@ -88,6 +89,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az acr network-rule remove --name $(CONTAINER_REGISTRY) --ip-address $(HOST_IP)
+      az acr update --name $(CONTAINER_REGISTRY) --public-network-enabled false
       az webapp config access-restriction remove --resource-group $(RESOURCE_GROUP) --name $(WEB_APP_NAME) \
       --rule-name 'Allow SIRP DevOps'
   condition: succeededOrFailed()
