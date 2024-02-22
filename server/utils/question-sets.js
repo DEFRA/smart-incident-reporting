@@ -128,6 +128,33 @@ const questionSets = {
             text: YOU_DO_NOT_KNOW
           }
         }
+      },
+      WATER_POLLUTION_POLLUTION_APPEARANCE: {
+        questionId: 100,
+        key: constants.redisKeys.WATER_POLLUTION_POLLUTION_APPEARANCE,
+        text: 'What does the pollution look like?',
+        answers: {
+          cloudy: {
+            answerId: 101,
+            text: 'Cloudy or grey water'
+          },
+          rainbow: {
+            answerId: 102,
+            text: 'A \'rainbow\' film on top of the water'
+          },
+          scum: {
+            answerId: 103,
+            text: 'A foam or scum'
+          },
+          somethingElse: {
+            answerId: 104,
+            text: 'Something else'
+          },
+          somethingElseDetail: {
+            answerId: 105,
+            text: 'Describe what you can see in or on the water'
+          }
+        }
       }
     }
   },

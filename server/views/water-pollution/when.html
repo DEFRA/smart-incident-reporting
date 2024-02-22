@@ -1,0 +1,77 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'When did you see the pollution' %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">
+      {{ pageTitle }}?
+    </h1>
+    {{ govukDateInput({
+      id: "date-of-incident",
+      namePrefix: "date-of-incident",
+      fieldset: {
+        legend: {
+          text: "Date",
+          isPageHeading: false,
+          classes: "govuk-label govuk-label--m"
+        }
+      },
+      hint: {
+        text: "For example, 27 1 2024."
+      }
+    }) }}
+    <div class="govuk-form-group">
+      <fieldset class="govuk-fieldset" role="group" aria-describedby="time-of-incident">
+        <label class="govuk-label govuk-label--m">
+            Time (approximately)
+        </label>
+        <div id="time-of-incident-hint" class="govuk-hint">
+          For example, 9:30am or 2:55pm.
+        </div>
+        <div class="govuk-date-input" id="passport-issued">
+          <div class="govuk-time-input__item__separator">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="incident-time-min">
+                Hour
+              </label>
+              <input class="govuk-input govuk-input--width-2" id="incident-time-hour" name="incident-time-hour" type="text" inputmode="numeric">
+            </div>
+          </div>
+          <div class="govuk-time-input__item govuk-time-input__item__separator">
+            <label class="govuk-label" for="incident-time-min">:</label>
+          </div>
+          <div class="govuk-time-input__item">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="incident-time-min">
+                Minute
+              </label>
+              <input class="govuk-input govuk-input--width-2" id="incident-time-min" name="incident-time-min" type="text" inputmode="numeric">
+            </div>
+          </div>
+          <div class="govuk-time-input__item">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="incident-time-ampm">
+                am or pm
+              </label>
+              <select class="govuk-select govuk-select--custom-time" id="incident-time-ampm" name="incident-time-ampm">
+                <option value="am" selected>&nbsp;</option>
+                <option value="am">am</option>
+                <option value="pm">pm</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div> 
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

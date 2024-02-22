@@ -323,3 +323,19 @@ $govuk-global-styles: true;
   background-color: #f3f2f1;
   border-top: 1px solid #263135;
 }
+
+// custom time input SIR-656
+.govuk-select--custom-time {
+  min-width: 2.5em;
+}
+.govuk-time-input__item  {
+  display: inline-block;
+  margin-right: 20px;
+  margin-bottom: 0;
+}
+
+.govuk-time-input__item__separator {
+display: inline-block;
+margin-right: 8px;
+margin-bottom: 0;
+}

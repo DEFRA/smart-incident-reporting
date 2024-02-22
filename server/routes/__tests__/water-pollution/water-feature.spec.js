@@ -18,7 +18,7 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Happy: accepts valid answerId of sea or lake/reservoir and redirects to pollution-area', async () => {
+    it('Happy: accepts valid answerId of sea or lake/reservoir and redirects to pollution-location', async () => {
       const answerId = question.answers.sea.answerId
       const options = {
         url,
@@ -27,13 +27,13 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LOCATION_DESCRIPTION)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    it('Happy: accepts valid answerId of not sea/lake/reservoir and redirects to pollution-length', async () => {
+    it('Happy: accepts valid answerId of not sea/lake/reservoir and redirects to pollution-location', async () => {
       const answerId = question.answers.river.answerId
       const options = {
         url,
@@ -42,7 +42,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LOCATION_DESCRIPTION)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
         ...baseAnswer,
         answerId
@@ -59,7 +59,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LOCATION_DESCRIPTION)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
         ...baseAnswer,
         answerId

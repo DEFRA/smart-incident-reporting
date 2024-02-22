@@ -35,12 +35,7 @@ const handlers = {
     // set answer in session
     request.yar.set(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE, buildAnswers(answerId, otherSource))
 
-    // handle redirection
-    if (answerId === question.answers.lakeOrReservoir.answerId || answerId === question.answers.sea.answerId) {
-      return h.redirect(constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
-    } else {
-      return h.redirect(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
-    }
+    return h.redirect(constants.routes.WATER_POLLUTION_LOCATION_DESCRIPTION)
   }
 }
 
