@@ -11,13 +11,6 @@ const baseAnswer = {
   questionResponse: true
 }
 
-const sessionData = {
-  'water-pollution/water-feature': [{
-    questionId: 500,
-    answerId: 503
-  }]
-}
-
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
@@ -75,7 +68,7 @@ describe(url, () => {
         url,
         payload: {}
       }
-      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
+      const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Select yes if the pollution covers less than 100 square metres')
     })
