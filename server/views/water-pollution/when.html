@@ -10,8 +10,9 @@
       {{ pageTitle }}?
     </h1>
     {{ govukDateInput({
-      id: "date-of-incident",
-      namePrefix: "date-of-incident",
+      id: "date",
+      namePrefix: "date",
+      errorMessage: getDateErrors(errorSummary, validateAndError)[0],
       fieldset: {
         legend: {
           text: "Date",
@@ -19,11 +20,28 @@
           classes: "govuk-label govuk-label--m"
         }
       },
+      items: [
+        {
+          classes: fieldErrorClasses(validateAndError.day, 'govuk-input--width-2'),
+          name: "day",
+          value: validateAndError.day.value
+        },
+        {
+          classes: fieldErrorClasses(validateAndError.month, 'govuk-input--width-2'),
+          name: "month",
+          value: validateAndError.month.value
+        },
+        {
+          classes: fieldErrorClasses(validateAndError.year, 'govuk-input--width-4'),
+          name: "year",
+          value: validateAndError.year.value
+        }
+      ],
       hint: {
         text: "For example, 27 1 2024."
       }
     }) }}
-    <div class="govuk-form-group">
+    <div class="govuk-form-group{% if getTimeErrors(errorSummary, validateAndError) %} govuk-form-group--error{% endif %}">
       <fieldset class="govuk-fieldset" role="group" aria-describedby="time-of-incident">
         <legend class="govuk-label govuk-label--m">
             Time (approximately)
@@ -31,35 +49,40 @@
         <div id="time-of-incident-hint" class="govuk-hint">
           For example, 9:30am or 2:55pm.
         </div>
-        <div class="govuk-date-input" id="passport-issued">
+        {% if getTimeErrors(errorSummary, validateAndError) %}
+          <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ getTimeErrors(errorSummary, validateAndError)[0].text }}
+          </p>
+        {% endif %}
+        <div class="govuk-date-input">
           <div class="govuk-time-input__item__separator">
             <div class="govuk-form-group">
-              <label class="govuk-label" for="incident-time-min">
+              <label class="govuk-label" for="hour">
                 Hour
               </label>
-              <input class="govuk-input govuk-input--width-2" id="incident-time-hour" name="incident-time-hour" type="text" inputmode="numeric">
+              <input class="{{ fieldErrorClasses(validateAndError.hour, 'govuk-input govuk-input--width-2') }}" id="hour" name="hour" type="text" inputmode="numeric" value="{{ validateAndError.hour.value }}">
             </div>
           </div>
           <div class="govuk-time-input__item govuk-time-input__item__separator">
-            <label class="govuk-label" for="incident-time-min">:</label>
+            <label class="govuk-label" for="minute">:</label>
           </div>
           <div class="govuk-time-input__item">
             <div class="govuk-form-group">
-              <label class="govuk-label" for="incident-time-min">
+              <label class="govuk-label" for="minute">
                 Minute
               </label>
-              <input class="govuk-input govuk-input--width-2" id="incident-time-min" name="incident-time-min" type="text" inputmode="numeric">
+              <input class="{{ fieldErrorClasses(validateAndError.minute, 'govuk-input govuk-input--width-2') }}" id="minute" name="minute" type="text" inputmode="numeric" value="{{ validateAndError.minute.value }}">
             </div>
           </div>
           <div class="govuk-time-input__item">
             <div class="govuk-form-group">
-              <label class="govuk-label" for="incident-time-ampm">
+              <label class="govuk-label" for="period">
                 am or pm
               </label>
-              <select class="govuk-select govuk-select--custom-time" id="incident-time-ampm" name="incident-time-ampm">
-                <option value="am" selected>&nbsp;</option>
-                <option value="am">am</option>
-                <option value="pm">pm</option>
+              <select class="govuk-select govuk-select--custom-time {% if (validateAndError.period.isEmpty) %}govuk-select--error{% endif %} {% if not validateAndError.period.isValid %}govuk-select--error{% endif %}" id="period" name="period">
+                <option value="" selected>&nbsp;</option>
+                <option value="am" {% if validateAndError.period.value === 'am' %}selected{% endif %}>am</option>
+                <option value="pm" {% if validateAndError.period.value === 'pm' %}selected{% endif %}>pm</option>
               </select>
             </div>
           </div>
