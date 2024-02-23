@@ -52,9 +52,9 @@ steps:
     inlineScript: |
       az acr login --name $(CONTAINER_REGISTRY)
       docker image ls
-      docker image tag $(CONTAINER_APP_NAME):$(TAG) $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):latest
+      docker image tag $(CONTAINER_APP_NAME):$(TAG) $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):$(TAG)
       docker image ls
-      docker push $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):latest
+      docker push $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):$(TAG)
 
 - task: AzureWebAppContainer@1
   displayName: 'Azure Web App on Container Deploy: $(CONTAINER_APP_NAME)'
