@@ -1,6 +1,6 @@
 {% extends 'form-layout.html' %}
 
-{% set pageTitle = 'Where is the pollution' %}
+{% set pageTitle = question.text.replace('?', '') %}
 
 {% block formContent %}
 
@@ -12,13 +12,14 @@
       id: "locationDescription",
       rows: "10",
       label: {
-        text: pageTitle + "?",
+        text: question.text,
         classes: "govuk-label--l",
         isPageHeading: true
       },
       hint: {
         html: "Include things like the name of the watercourse and nearest town or landmarks. You can also include things like <a href='http://www.what3words.com' target='_new'>what3words (opens new tab)</a> or map references."
-      }
+      },
+      errorMessage: findErrorMessageById(errorSummary, 'locationDescription')
     }) }}
 
     {{ govukButton({
