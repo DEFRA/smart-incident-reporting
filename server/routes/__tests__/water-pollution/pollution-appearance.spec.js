@@ -18,11 +18,8 @@ describe(url, () => {
   })
 
   describe('POST', () => {
-    it('Happy: accepts valid answerIds and redirects to WATER_POLLUTION_LESS_THAN_10_METRES if flowing water feature', async () => {
-      const answerId = [
-        question.answers.cloudy.answerId,
-        question.answers.scum.answerId
-      ]
+    it('Happy: accepts valid single answerID (non array) and redirects to WATER_POLLUTION_LESS_THAN_10_METRES if flowing water feature', async () => {
+      const answerId = question.answers.cloudy.answerId.toString()
       const options = {
         url,
         payload: {
@@ -38,10 +35,7 @@ describe(url, () => {
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_APPEARANCE)).toEqual([{
         ...baseAnswer,
-        answerId: answerId[0]
-      }, {
-        ...baseAnswer,
-        answerId: answerId[1]
+        answerId: question.answers.cloudy.answerId
       }])
     })
     it('Happy: accepts valid answerIds and redirects to WATER_POLLUTION_LESS_THAN_100_SQ_METRES if static water feature', async () => {

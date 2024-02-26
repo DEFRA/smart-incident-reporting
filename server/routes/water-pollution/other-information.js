@@ -40,7 +40,7 @@ const buildPayload = (session) => {
       sessionGuid: session.id,
       reportType: questionSets.WATER_POLLUTION.questionSetId,
       datetimeObserved: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
-      datetimeReported: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP), // This is not yet captured, so defaulting to submission timestamp
+      datetimeReported: session.get(constants.redisKeys.WATER_POLLUTION_WHEN),
       otherDetails: session.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION),
       questionSetId: questionSets.WATER_POLLUTION.questionSetId, // duplication?
       data: buildAnswerDataset(session, questionSets.WATER_POLLUTION)

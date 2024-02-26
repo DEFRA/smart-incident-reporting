@@ -8,7 +8,7 @@ const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
   questionResponse: true,
-  answerId: question.answers.locationDetails
+  answerId: question.answers.locationDetails.answerId
 }
 
 const handlers = {

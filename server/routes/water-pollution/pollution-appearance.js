@@ -16,7 +16,7 @@ const handlers = {
   }),
   post: async (request, h) => {
     // get payload
-    const { answerId, somethingElseDetail } = request.payload
+    let { answerId, somethingElseDetail } = request.payload
 
     // validate payload for errors
     const errorSummary = validatePayload(answerId)
@@ -25,6 +25,11 @@ const handlers = {
         errorSummary,
         ...getContext()
       })
+    }
+
+    // Convert answer to array if only a single string answer
+    if (!Array.isArray(answerId)) {
+      answerId = [answerId]
     }
 
     // set answer in session
