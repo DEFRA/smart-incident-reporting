@@ -142,7 +142,7 @@ const validatePayload = (payload, validateAndError) => {
     }
   }
 
-  return checkValidDate(dateTime, validateAndError, errorSummary) 
+  return checkValidDate(dateTime, validateAndError, errorSummary)
 }
 
 const checkValidDate = (dateTime, validateAndError, errorSummary) => {
