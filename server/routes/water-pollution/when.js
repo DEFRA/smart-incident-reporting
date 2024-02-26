@@ -1,3 +1,4 @@
+// Note that this will need to refactored into shared code once other journeys have the same date entry
 import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import moment from 'moment'
@@ -74,43 +75,27 @@ const handlers = {
 const validatePayload = (payload, validateAndError) => {
   const emptyErrorSummary = getErrorSummary()
   const validateErrorSummary = getErrorSummary()
-  let emptyDateCount = 0
-  let emptyDateError = ''
-  let emptyDateId = ''
-  let emptyTimeCount = 0
-  let emptyTimeError = ''
-  let emptyTimeId = ''
-  let dateTime
-  for (const [key, value] of Object.entries(payload)) {
-    validateAndError[key].value = value
-    validateAndError[key].isEmpty = !value
-    validateAndError[key].isValid = validateAndError[key].validate(value)
-    if (validateAndError[key].isDatePart && !value) {
-      emptyDateCount++
-      emptyDateError = validateAndError[key].emptyError
-      emptyDateId = !emptyDateId ? validateAndError[key].id : emptyDateId
-    }
-    if (!validateAndError[key].isDatePart && !value) {
-      emptyTimeCount++
-      emptyTimeError = validateAndError[key].emptyError
-      emptyTimeId = !emptyTimeId ? validateAndError[key].id : emptyTimeId
-    }
-    if (!validateAndError[key].isValid) {
-      validateErrorSummary.errorList.push({
-        text: validateAndError[key].validateError,
-        href: validateAndError[key].id
-      })
-    }
+
+  const issues = {
+    emptyDateCount: 0,
+    emptyDateError: '',
+    emptyDateId: '',
+    emptyTimeCount: 0,
+    emptyTimeError: '',
+    emptyTimeId: ''
   }
+  let dateTime
+
+  processPayloadValidation(payload, validateAndError, validateErrorSummary, issues)
 
   // Check for mandatory fields
-  if (emptyDateCount > 0) {
-    const text = emptyDateCount === 1 ? emptyDateError : 'Date must include day, month and year, for example 27 1 2024'
-    returnError(emptyErrorSummary, validateAndError, text, emptyDateId, false, false)
+  if (issues.emptyDateCount > 0) {
+    const text = issues.emptyDateCount === 1 ? issues.emptyDateError : 'Date must include day, month and year, for example 27 1 2024'
+    returnError(emptyErrorSummary, validateAndError, text, issues.emptyDateId, false, false)
   }
-  if (emptyTimeCount > 0) {
-    const text = emptyTimeCount === 1 ? emptyTimeError : 'Time must include hours, minutes and am or pm, for example 2:25pm'
-    returnError(emptyErrorSummary, validateAndError, text, emptyTimeId, false, false)
+  if (issues.emptyTimeCount > 0) {
+    const text = issues.emptyTimeCount === 1 ? issues.emptyTimeError : 'Time must include hours, minutes and am or pm, for example 2:25pm'
+    returnError(emptyErrorSummary, validateAndError, text, issues.emptyTimeId, false, false)
   }
 
   if (emptyErrorSummary.errorList.length > 0) {
@@ -131,6 +116,30 @@ const validatePayload = (payload, validateAndError) => {
   }
 
   return checkValidDate(dateTime, validateAndError)
+}
+
+const processPayloadValidation = (payload, validateAndError, validateErrorSummary, issues) => {
+  for (const [key, value] of Object.entries(payload)) {
+    validateAndError[key].value = value
+    validateAndError[key].isEmpty = !value
+    validateAndError[key].isValid = validateAndError[key].validate(value)
+    if (validateAndError[key].isDatePart && !value) {
+      issues.emptyDateCount++
+      issues.emptyDateError = validateAndError[key].emptyError
+      issues.emptyDateId = !issues.emptyDateId ? validateAndError[key].id : issues.emptyDateId
+    }
+    if (!validateAndError[key].isDatePart && !value) {
+      issues.emptyTimeCount++
+      issues.emptyTimeError = validateAndError[key].emptyError
+      issues.emptyTimeId = !issues.emptyTimeId ? validateAndError[key].id : issues.emptyTimeId
+    }
+    if (!validateAndError[key].isValid) {
+      validateErrorSummary.errorList.push({
+        text: validateAndError[key].validateError,
+        href: validateAndError[key].id
+      })
+    }
+  }
 }
 
 const checkValidDate = (dateTime, validateAndError) => {
