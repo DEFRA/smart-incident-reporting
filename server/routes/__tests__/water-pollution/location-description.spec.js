@@ -1,8 +1,16 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
+import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.WATER_POLLUTION_LOCATION_DESCRIPTION
-const header = 'Where is the pollution?'
+const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LOCATION_DESCRIPTION
+const header = question.text
+const baseAnswer = {
+  questionId: question.questionId,
+  questionAsked: question.text,
+  questionResponse: true,
+  answerId: question.answers.locationDetails.answerId
+}
 
 describe(url, () => {
   describe('GET', () => {
@@ -22,7 +30,10 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_WHEN)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_DESCRIPTION)).toEqual(locationDescription)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_DESCRIPTION)).toEqual([{
+        ...baseAnswer,
+        otherDetails: locationDescription
+      }])
     })
     it('Sad: errors on no locationDescription provided', async () => {
       const options = {

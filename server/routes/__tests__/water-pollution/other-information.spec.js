@@ -55,6 +55,25 @@ describe(url, () => {
               questionAsked: 'How far along the water feature does the pollution spread?',
               questionResponse: true,
               answerId: 403
+            }),
+            expect.objectContaining({
+              questionId: 900,
+              questionAsked: 'Where is the pollution?',
+              questionResponse: true,
+              answerId: 901,
+              otherDetails: 'test location'
+            }),
+            expect.objectContaining({
+              questionId: 1000,
+              questionAsked: 'What does the pollution look like?',
+              questionResponse: true,
+              answerId: 1002
+            }),
+            expect.objectContaining({
+              questionId: 1000,
+              questionAsked: 'What does the pollution look like?',
+              questionResponse: true,
+              answerId: 1003
             })
           ])
         })

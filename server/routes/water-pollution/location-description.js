@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
-const question = questionSets.WATER_POLLUTION.questions.LOCATION_DESCRIPTION
+const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LOCATION_DESCRIPTION
 
 const baseAnswer = {
   questionId: question.questionId,

@@ -156,7 +156,7 @@ const questionSets = {
           }
         }
       },
-      LOCATION_DESCRIPTION: {
+      WATER_POLLUTION_LOCATION_DESCRIPTION: {
         questionId: 900,
         key: constants.redisKeys.WATER_POLLUTION_LOCATION_DESCRIPTION,
         text: 'Where is the pollution?',
