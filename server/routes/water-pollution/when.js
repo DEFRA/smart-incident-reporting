@@ -105,16 +105,12 @@ const validatePayload = (payload, validateAndError) => {
 
   // Check for mandatory fields
   if (emptyDateCount > 0) {
-    emptyErrorSummary.errorList.push({
-      text: emptyDateCount === 1 ? emptyDateError : 'Date must include day, month and year, for example 27 1 2024',
-      href: emptyDateId
-    })
+    const text = emptyDateCount === 1 ? emptyDateError : 'Date must include day, month and year, for example 27 1 2024'
+    returnError(emptyErrorSummary, validateAndError, text, emptyDateId, false, false)
   }
   if (emptyTimeCount > 0) {
-    emptyErrorSummary.errorList.push({
-      text: emptyTimeCount === 1 ? emptyTimeError : 'Time must include hours, minutes and am or pm, for example 2:25pm',
-      href: emptyTimeId
-    })
+    const text = emptyTimeCount === 1 ? emptyTimeError : 'Time must include hours, minutes and am or pm, for example 2:25pm'
+    returnError(emptyErrorSummary, validateAndError, text, emptyTimeId, false, false)
   }
 
   if (emptyErrorSummary.errorList.length > 0) {
@@ -130,7 +126,7 @@ const validatePayload = (payload, validateAndError) => {
     const dateString = `${payload.year}-${payload.month.padStart(2, '0')}-${payload.day.padStart(2, '0')} ${payload.hour.padStart(2, '0')}:${payload.minute.padStart(2, '0')} ${payload.period}`
     dateTime = moment(dateString, 'YYYY-MM-DD hh:mm a')
     if (!dateTime.isValid()) {
-      return returnError(validateAndError, 'The date entered must be a real date', '#date-day', true, false)
+      return returnError(getErrorSummary(), validateAndError, 'The date entered must be a real date', '#date-day', true, false)
     }
   }
 
@@ -139,15 +135,15 @@ const validatePayload = (payload, validateAndError) => {
 
 const checkValidDate = (dateTime, validateAndError) => {
   if (dateTime.isBefore(moment().subtract(1, 'years'))) {
-    return returnError(validateAndError, 'Date must be in the past year', '#date-day', true, false)
+    return returnError(getErrorSummary(), validateAndError, 'Date must be in the past year', '#date-day', true, false)
   }
 
   if (dateTime.isAfter(moment(), 'days')) {
-    return returnError(validateAndError, 'Date must be today or in the past year', '#date-day', true, false)
+    return returnError(getErrorSummary(), validateAndError, 'Date must be today or in the past year', '#date-day', true, false)
   }
 
   if (dateTime.isAfter(moment().add(maxAgeMinutes, 'minutes'))) {
-    return returnError(validateAndError, 'Time must be in the past', '#minute', false, true)
+    return returnError(getErrorSummary(), validateAndError, 'Time must be in the past', '#minute', false, true)
   }
 
   return {
@@ -156,8 +152,7 @@ const checkValidDate = (dateTime, validateAndError) => {
   }
 }
 
-const returnError = (validateAndError, text, href, invalidDate, invalidTime) => {
-  const errorSummary = getErrorSummary()
+const returnError = (errorSummary, validateAndError, text, href, invalidDate, invalidTime) => {
   errorSummary.errorList.push({
     text,
     href
