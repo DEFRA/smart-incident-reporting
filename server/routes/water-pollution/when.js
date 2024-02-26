@@ -142,6 +142,10 @@ const validatePayload = (payload, validateAndError) => {
     }
   }
 
+  return checkValidDate(dateTime, validateAndError, errorSummary) 
+}
+
+const checkValidDate = (dateTime, validateAndError, errorSummary) => {
   if (dateTime.isBefore(moment().subtract(1, 'years'))) {
     errorSummary.errorList.push({
       text: 'Date must be in the past year',
