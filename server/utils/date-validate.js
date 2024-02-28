@@ -1,4 +1,3 @@
-// SonarCloud doesn't
 const zero = 0
 const monthsOrHours = 12
 const maxDays = 31
