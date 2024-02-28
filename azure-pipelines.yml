@@ -25,17 +25,17 @@ steps:
     echo "##vso[task.setvariable variable=HOST_IP;]${HOST_IP}"
   displayName: 'Get IP address for DevOps host'
 
-- task: AzureCLI@2
-  displayName: 'Allow accesses for DevOps Host'
-  inputs:
-    azureSubscription: $(AZURE_SUBSCRIPTION)
-    scriptType: bash
-    scriptLocation: inlineScript
-    inlineScript: |
-      az acr update --name $(CONTAINER_REGISTRY) --public-network-enabled true
-      az acr network-rule add --name $(CONTAINER_REGISTRY) --ip-address $(HOST_IP)
-      az webapp config access-restriction add --resource-group $(RESOURCE_GROUP) --name $(WEB_APP_NAME) \
-      --rule-name 'Allow SIRP DevOps' --action Allow --ip-address $(HOST_IP) --priority 400
+# - task: AzureCLI@2
+#   displayName: 'Allow accesses for DevOps Host'
+#   inputs:
+#     azureSubscription: $(AZURE_SUBSCRIPTION)
+#     scriptType: bash
+#     scriptLocation: inlineScript
+#     inlineScript: |
+#       az acr update --name $(CONTAINER_REGISTRY) --public-network-enabled true
+#       az acr network-rule add --name $(CONTAINER_REGISTRY) --ip-address $(HOST_IP)
+#       az webapp config access-restriction add --resource-group $(RESOURCE_GROUP) --name $(WEB_APP_NAME) \
+#       --rule-name 'Allow SIRP DevOps' --action Allow --ip-address $(HOST_IP) --priority 400
 
 - script: |
     echo $(TAG)
@@ -81,15 +81,15 @@ steps:
    searchFolder: '$(System.DefaultWorkingDirectory)'
   condition: succeededOrFailed()
 
-- task: AzureCLI@2
-  displayName: 'Remove allow accesses for DevOps Host'
-  inputs:
-    azureSubscription: $(AZURE_SUBSCRIPTION)
-    scriptType: bash
-    scriptLocation: inlineScript
-    inlineScript: |
-      az acr network-rule remove --name $(CONTAINER_REGISTRY) --ip-address $(HOST_IP)
-      az acr update --name $(CONTAINER_REGISTRY) --public-network-enabled false
-      az webapp config access-restriction remove --resource-group $(RESOURCE_GROUP) --name $(WEB_APP_NAME) \
-      --rule-name 'Allow SIRP DevOps'
-  condition: succeededOrFailed()
+# - task: AzureCLI@2
+#   displayName: 'Remove allow accesses for DevOps Host'
+#   inputs:
+#     azureSubscription: $(AZURE_SUBSCRIPTION)
+#     scriptType: bash
+#     scriptLocation: inlineScript
+#     inlineScript: |
+#       az acr network-rule remove --name $(CONTAINER_REGISTRY) --ip-address $(HOST_IP)
+#       az acr update --name $(CONTAINER_REGISTRY) --public-network-enabled false
+#       az webapp config access-restriction remove --resource-group $(RESOURCE_GROUP) --name $(WEB_APP_NAME) \
+#       --rule-name 'Allow SIRP DevOps'
+#   condition: succeededOrFailed()
