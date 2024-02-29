@@ -36,7 +36,7 @@ const questionSets = {
             answerId: 506,
             text: 'Something else'
           },
-          doNotKnow: {
+          youDoNotKnow: {
             answerId: 507,
             text: YOU_DO_NOT_KNOW
           },
@@ -58,7 +58,7 @@ const questionSets = {
             answerId: 702,
             text: 'No, it is over a longer stretch'
           },
-          doNotKnow: {
+          youDoNotKnow: {
             answerId: 703,
             text: YOU_DO_NOT_KNOW
           }
@@ -77,7 +77,7 @@ const questionSets = {
             answerId: 802,
             text: 'No, it spreads over a larger area'
           },
-          doNotKnow: {
+          youDoNotKnow: {
             answerId: 803,
             text: YOU_DO_NOT_KNOW
           }
@@ -163,6 +163,25 @@ const questionSets = {
         answers: {
           locationDetails: {
             answerId: 901
+          }
+        }
+      },
+      WATER_POLLUTION_POLLUTION_WIDTH: {
+        questionId: 1100,
+        key: constants.redisKeys.WATER_POLLUTION_POLLUTION_WIDTH,
+        text: 'Is the pollution across the full width of the watercourse?',
+        answers: {
+          yes: {
+            answerId: 1101,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 1102,
+            text: 'No'
+          },
+          youDoNotKnow: {
+            answerId: 1103,
+            text: YOU_DO_NOT_KNOW
           }
         }
       }

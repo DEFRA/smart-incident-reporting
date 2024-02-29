@@ -49,7 +49,7 @@ describe(url, () => {
       }])
     })
     it('Happy: accepts do not know and redirects to other information', async () => {
-      const answerId = question.answers.doNotKnow.answerId
+      const answerId = question.answers.youDoNotKnow.answerId
       const options = {
         url,
         payload: {

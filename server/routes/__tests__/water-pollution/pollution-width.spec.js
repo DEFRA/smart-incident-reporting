@@ -2,8 +2,8 @@ import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/s
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
-const url = constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES
-const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_10_METRES
+const url = constants.routes.WATER_POLLUTION_POLLUTION_WIDTH
+const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_POLLUTION_WIDTH
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
@@ -20,15 +20,15 @@ const sessionData = {
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}: river`, async () => {
-      await submitGetRequest({ url }, 'Does the pollution spread less than 10 metres along the river?', constants.statusCodes.OK, sessionData)
+      await submitGetRequest({ url }, 'Is the pollution across the full width of the river?', constants.statusCodes.OK, sessionData)
     })
     it(`Should return success response and correct view for ${url}: canal`, async () => {
       sessionData[constants.redisKeys.WATER_POLLUTION_WATER_FEATURE][0].answerId = 504
-      await submitGetRequest({ url }, 'Does the pollution spread less than 10 metres along the canal?', constants.statusCodes.OK, sessionData)
+      await submitGetRequest({ url }, 'Is the pollution across the full width of the canal?', constants.statusCodes.OK, sessionData)
     })
     it(`Should return success response and correct view for ${url}: watercourse`, async () => {
       sessionData[constants.redisKeys.WATER_POLLUTION_WATER_FEATURE][0].answerId = 505
-      await submitGetRequest({ url }, 'Does the pollution spread less than 10 metres along the watercourse?', constants.statusCodes.OK, sessionData)
+      await submitGetRequest({ url }, 'Is the pollution across the full width of the watercourse?', constants.statusCodes.OK, sessionData)
     })
   })
   describe('POST', () => {
@@ -40,9 +40,9 @@ describe(url, () => {
           answerId
         }
       }
-      const response = await submitPostRequest(options)
+      const response = await submitPostRequest(options, 302, sessionData)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES)).toEqual([{
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_WIDTH)).toEqual([{
         ...baseAnswer,
         answerId
       }])
@@ -55,9 +55,9 @@ describe(url, () => {
           answerId
         }
       }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_LENGTH)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES)).toEqual([{
+      const response = await submitPostRequest(options, 302, sessionData)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_WIDTH)).toEqual([{
         ...baseAnswer,
         answerId
       }])
@@ -70,9 +70,9 @@ describe(url, () => {
           answerId
         }
       }
-      const response = await submitPostRequest(options)
+      const response = await submitPostRequest(options, 302, sessionData)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES)).toEqual([{
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_WIDTH)).toEqual([{
         ...baseAnswer,
         answerId
       }])
@@ -84,7 +84,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select yes if the pollution spreads less than 10 metres')
+      expect(response.payload).toContain('Select yes if there&#39;s pollution along both sides of the watercourse')
     })
   })
 })
