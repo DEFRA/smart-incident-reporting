@@ -64,8 +64,16 @@ steps:
     containers: $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):$(TAG)
     
 - powershell: |
-   Start-Sleep -Seconds 60
+    Start-Sleep -Seconds 60
   displayName: 'Powershell script to wait for 1 minute'
+
+- script: |
+    curl -s -X $(SERVICE_URL)
+    if [ $? -ne 0 ]; then
+      echo "Failed to get Service"
+      exit 1
+    fi
+  displayName: 'Curl Service URL to ensure service running'
 
 - script: |
     git clone https://$(GITHUB_PAT)@github.com/DEFRA/smart-incident-reporting-ui-tests.git
@@ -73,6 +81,7 @@ steps:
     git checkout $(E2E_TEST_BRANCH)
     npm i
     npm run test-headless
+  displayName: 'Execute E2E automated feature tests'
 
 - task: PublishTestResults@2
   displayName: 'Publish test results **/TEST-*.xml'
