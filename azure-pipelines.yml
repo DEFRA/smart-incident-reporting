@@ -68,7 +68,7 @@ steps:
   displayName: 'Powershell script to wait for 1 minute'
 
 - script: |
-    curl -s -X $(SERVICE_URL)
+    curl -s -X GET $(SERVICE_URL)
     if [ $? -ne 0 ]; then
       echo "Failed to get Service"
       exit 1
