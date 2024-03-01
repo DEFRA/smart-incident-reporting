@@ -50,7 +50,7 @@
     "ajv-formats": "^2.1.1",
     "bcrypt": "^5.1.1",
     "blipp": "^4.0.2",
-    "govuk-frontend": "^4.6.0",
+    "govuk-frontend": "^5.2.0",
     "hapi-pino": "12.1.0",
     "joi": "^17.12.2",
     "node-sass": "^9.0.0",
