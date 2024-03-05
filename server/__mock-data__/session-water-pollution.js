@@ -1,12 +1,75 @@
-const session = JSON.parse('{"water-pollution/water-feature":[{"questionId":500,"questionAsked":"In what kind of water is the pollution?","questionResponse":true,"answerId":506},{"questionId":500,"questionAsked":"In what kind of water is the pollution?","questionResponse":true,"answerId":508,"otherDetails":"this is a test"}],"water-pollution/less-than-10-metres":[{"questionId":700,"questionAsked":"Does the pollution spread less than 10 metres along the watercourse?","questionResponse":true,"answerId":702}],"water-pollution/pollution-length":[{"questionId":400,"questionAsked":"How far along the water feature does the pollution spread?","questionResponse":true,"answerId":403}],"water-pollution/other-information":"test","submission-timestamp":"2024-02-14T09:18:48.848Z"}')
+import moment from 'moment'
+
+const yesterday = moment().seconds(0).milliseconds(0).subtract(1, 'days')
+const today = moment().seconds(0).milliseconds(0)
+
+const session = JSON.parse(`{
+  "water-pollution/water-feature": [ 
+    {
+      "questionId": 500,
+      "questionAsked": "In what kind of water is the pollution?",
+      "questionResponse": true,
+      "answerId": 506
+    },
+    {
+      "questionId": 500,
+      "questionAsked": "In what kind of water is the pollution?",
+      "questionResponse": true,
+      "answerId": 508,
+      "otherDetails": "this is a test"
+    }
+  ],
+  "water-pollution/less-than-10-metres": [
+    {
+      "questionId": 700,
+      "questionAsked": "Does the pollution spread less than 10 metres along the watercourse?",
+      "questionResponse": true,
+      "answerId": 702
+    }
+  ],
+  "water-pollution/pollution-length": [
+    {
+      "questionId": 400,
+      "questionAsked": "How far along the water feature does the pollution spread?",
+      "questionResponse": true,
+      "answerId": 403
+    }
+  ],
+  "water-pollution/location-description": [
+    {
+      "questionId": 900,
+      "questionAsked": "Where is the pollution?",
+      "questionResponse": true,
+      "answerId": 901,
+      "otherDetails": "test location"
+    }
+  ],
+  "water-pollution/pollution-appearance": [
+    {
+      "questionId": 1000,
+      "questionAsked": "What does the pollution look like?",
+      "questionResponse": true,
+      "answerId": 1002
+    },
+    {
+      "questionId": 1000,
+      "questionAsked": "What does the pollution look like?",
+      "questionResponse": true,
+      "answerId": 1003
+    }
+  ],
+  "water-pollution/other-information": "test",
+  "water-pollution/when": "${yesterday.toISOString()}",
+  "submission-timestamp": "${today.toISOString()}"
+}`)
 
 const payload =
 {
   reportingAnEnvironmentalProblem: {
     sessionGuid: 'fbeaf5ba-11bc-4478-942a-939fe0dc1e52',
     reportType: 100,
-    datetimeObserved: '2024-02-14T09:41:26.283Z',
-    datetimeReported: '2024-02-14T09:41:26.283Z',
+    datetimeObserved: yesterday.toISOString(),
+    datetimeReported: today.toISOString(),
     otherDetails: 'test',
     questionSetId: 100,
     data: [{
@@ -30,6 +93,22 @@ const payload =
       questionAsked: 'How far along the water feature does the pollution spread?',
       questionResponse: true,
       answerId: 403
+    }, {
+      questionId: 900,
+      questionAsked: 'Where is the pollution?',
+      questionResponse: true,
+      answerId: 901,
+      otherDetails: 'test location'
+    }, {
+      questionId: 1000,
+      questionAsked: 'What does the pollution look like?',
+      questionResponse: true,
+      answerId: 1002
+    }, {
+      questionId: 1000,
+      questionAsked: 'What does the pollution look like?',
+      questionResponse: true,
+      answerId: 1003
     }]
   }
 }
