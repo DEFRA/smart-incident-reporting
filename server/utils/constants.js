@@ -25,6 +25,7 @@ const WATER_POLLUTION_LESS_THAN_10_METRES = 'water-pollution/less-than-10-metres
 const WATER_POLLUTION_LESS_THAN_100_SQ_METRES = 'water-pollution/less-than-100-sq-metres'
 const WATER_POLLUTION_POLLUTION_AREA = 'water-pollution/pollution-area'
 const WATER_POLLUTION_POLLUTION_LENGTH = 'water-pollution/pollution-length'
+const WATER_POLLUTION_POLLUTION_WIDTH = 'water-pollution/pollution-width'
 const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 
 // Meta data
@@ -47,6 +48,7 @@ const views = {
   WATER_POLLUTION_LESS_THAN_100_SQ_METRES,
   WATER_POLLUTION_POLLUTION_AREA,
   WATER_POLLUTION_POLLUTION_LENGTH,
+  WATER_POLLUTION_POLLUTION_WIDTH,
   WATER_POLLUTION_OTHER_INFORMATION
 }
 

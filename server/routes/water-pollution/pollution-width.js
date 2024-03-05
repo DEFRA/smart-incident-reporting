@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 
-const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_POLLUTION_LENGTH
+const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_POLLUTION_WIDTH
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -12,7 +12,7 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => {
-    return h.view(constants.views.WATER_POLLUTION_POLLUTION_LENGTH, {
+    return h.view(constants.views.WATER_POLLUTION_POLLUTION_WIDTH, {
       ...getContext(request)
     })
   },
@@ -20,10 +20,10 @@ const handlers = {
     // get payload
     let { answerId } = request.payload
 
-    // validate payload for errors
-    const errorSummary = validatePayload(answerId)
+    // validate payload
+    const errorSummary = validatePayload(answerId, request)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.WATER_POLLUTION_POLLUTION_LENGTH, {
+      return h.view(constants.views.WATER_POLLUTION_POLLUTION_WIDTH, {
         errorSummary,
         ...getContext(request)
       })
@@ -33,20 +33,10 @@ const handlers = {
     answerId = Number(answerId)
 
     // set answer in session
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_POLLUTION_LENGTH, buildAnswers(answerId))
+    request.yar.set(constants.redisKeys.WATER_POLLUTION_POLLUTION_WIDTH, buildAnswers(answerId))
 
-    // handle redirection
-    return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_WIDTH)
+    return h.redirect(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
   }
-}
-
-const buildAnswers = answerId => {
-  const answers = []
-  answers.push({
-    ...baseAnswer,
-    answerId
-  })
-  return answers
 }
 
 const getContext = request => {
@@ -57,26 +47,34 @@ const getContext = request => {
   }
 }
 
-const validatePayload = answerId => {
+const validatePayload = (answerId, request) => {
   const errorSummary = getErrorSummary()
+  const waterFeature = constants.waterFeatureLabels[request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)[0].answerId]
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select your estimated length, or that you do not know',
+      text: `Select yes if there's pollution along both sides of the ${waterFeature}`,
       href: '#answerId'
     })
   }
   return errorSummary
 }
 
+const buildAnswers = answerId => {
+  return [{
+    ...baseAnswer,
+    answerId
+  }]
+}
+
 export default [
   {
     method: 'GET',
-    path: constants.routes.WATER_POLLUTION_POLLUTION_LENGTH,
+    path: constants.routes.WATER_POLLUTION_POLLUTION_WIDTH,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.WATER_POLLUTION_POLLUTION_LENGTH,
+    path: constants.routes.WATER_POLLUTION_POLLUTION_WIDTH,
     handler: handlers.post
   }
 ]

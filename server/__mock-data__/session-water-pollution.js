@@ -58,6 +58,14 @@ const session = JSON.parse(`{
       "answerId": 1003
     }
   ],
+  "water-pollution/pollution-width": [
+    {
+      "questionId": 1100,
+      "questionAsked": "Is the pollution across the full width of the watercourse?",
+      "questionResponse": true,
+      "answerId": 1101
+    }
+  ],
   "water-pollution/other-information": "test",
   "water-pollution/when": "${yesterday.toISOString()}",
   "submission-timestamp": "${today.toISOString()}"
@@ -109,6 +117,11 @@ const payload =
       questionAsked: 'What does the pollution look like?',
       questionResponse: true,
       answerId: 1003
+    }, {
+      questionId: 1100,
+      questionAsked: 'Is the pollution across the full width of the river?',
+      questionResponse: true,
+      answerId: 1101
     }]
   }
 }

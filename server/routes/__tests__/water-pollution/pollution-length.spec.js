@@ -32,7 +32,7 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Happy: accepts valid answer and redirects to other information', async () => {
+    it('Happy: accepts valid answer and redirects to width', async () => {
       const answerId = question.answers.stretches10to100m.answerId
       const options = {
         url,
@@ -41,7 +41,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_WIDTH)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_LENGTH)).toEqual([{
         ...baseAnswer,
         answerId
