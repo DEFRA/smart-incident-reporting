@@ -28,6 +28,9 @@ describe(url, () => {
       expect(sendMessage).toHaveBeenCalledWith(expect.objectContaining({
         reportingAnEnvironmentalProblem: expect.objectContaining({
           reportType: 100,
+          reporterName: 'John Smith',
+          reporterPhoneNumber: '012345678910',
+          reporterAccessCode: 'password',
           otherDetails: otherInfo,
           questionSetId: 100,
           data: expect.arrayContaining([

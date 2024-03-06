@@ -4,6 +4,11 @@ const yesterday = moment().seconds(0).milliseconds(0).subtract(1, 'days')
 const today = moment().seconds(0).milliseconds(0)
 
 const session = JSON.parse(`{
+  "home": {
+    "reporterName": "John Smith",
+    "reporterPhoneNumber": "012345678910",
+    "reporterAccessCode": "password"
+  },
   "water-pollution/water-feature": [ 
     {
       "questionId": 500,
@@ -78,6 +83,9 @@ const payload =
     reportType: 100,
     datetimeObserved: yesterday.toISOString(),
     datetimeReported: today.toISOString(),
+    reporterName: 'John Smith',
+    reporterPhoneNumber: '012345678910',
+    reporterAccessCode: 'password',
     otherDetails: 'test',
     questionSetId: 100,
     data: [{

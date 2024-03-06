@@ -26,6 +26,7 @@ const handlers = {
 }
 
 const buildPayload = (session) => {
+  const reporter = session.get(constants.redisKeys.HOME)
   return {
     reportingAnEnvironmentalProblem: {
       sessionGuid: session.id,
@@ -33,8 +34,9 @@ const buildPayload = (session) => {
       datetimeObserved: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
       datetimeReported: session.get(constants.redisKeys.WATER_POLLUTION_WHEN),
       otherDetails: session.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION),
-      questionSetId: questionSets.WATER_POLLUTION.questionSetId, // duplication?
-      data: buildAnswerDataset(session, questionSets.WATER_POLLUTION)
+      questionSetId: questionSets.WATER_POLLUTION.questionSetId,
+      data: buildAnswerDataset(session, questionSets.WATER_POLLUTION),
+      ...reporter
     }
   }
 }

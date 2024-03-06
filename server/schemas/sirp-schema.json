@@ -33,6 +33,15 @@
           "type": "string",
           "format": "date-time"
         },
+        "reporterName": {
+          "type": "string"
+        },
+        "reporterPhoneNumber": {
+          "type": "string"
+        },
+        "reporterAccessCode": {
+          "type": "string"
+        },
         "questionSetId": {
           "type": "number"
         },
