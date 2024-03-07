@@ -11,7 +11,7 @@ window.sir = {
           window.dataLayer = window.dataLayer || []
           function gtag() { dataLayer.push(arguments) }
           gtag('js', new Date())
-          gtag('config', gaid)
+          gtag('config', gaid, { cookie_domain: window.location.hostname })
         }
         document.body.appendChild(script)
       }
