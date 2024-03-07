@@ -3,15 +3,15 @@
 window.sir = {
   utils: {
     setupGoogleTagManager: () => {
-      const gaid = process.env.GA_ID
-      if (gaid) {
+      const gaId = process.env.GA_ID
+      if (gaId) {
         const script = document.createElement('script')
-        script.src = `https://www.googletagmanager.com/gtag/js?id=${gaid}`
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`
         script.onload = () => {
           window.dataLayer = window.dataLayer || []
           function gtag () { window.dataLayer.push(arguments) }
           gtag('js', new Date())
-          gtag('config', gaid, { cookie_domain: window.location.hostname })
+          gtag('config', gaId, { cookie_domain: window.location.hostname })
         }
         document.body.appendChild(script)
       }
