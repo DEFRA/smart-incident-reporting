@@ -9,7 +9,7 @@ window.sir = {
         script.src = `https://www.googletagmanager.com/gtag/js?id=${gaid}`
         script.onload = () => {
           window.dataLayer = window.dataLayer || []
-          function gtag() { dataLayer.push(arguments) }
+          function gtag () { window.dataLayer.push(arguments) }
           gtag('js', new Date())
           gtag('config', gaid, { cookie_domain: window.location.hostname })
         }
