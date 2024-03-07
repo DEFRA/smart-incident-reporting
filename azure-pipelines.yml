@@ -40,6 +40,7 @@ steps:
 - script: |
     echo $(TAG)
     echo $(GA_ID)
+    echo ${GA_ID}
     docker-compose -f docker/service.yml build
     docker image ls
   displayName: 'Create Docker image'
