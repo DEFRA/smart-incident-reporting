@@ -1,11 +1,15 @@
 {% extends 'layout.html' %}
+{% set pageTitle = 'Sorry, there is a problem with the service' %}
+{% set metaDescription = 'The report an environmental problem service is currently unavailable. You can report an environmental incident on GOV.UK.' %}
+{% set hideBackLink = true %}
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 id="pageTitle" class="govuk-heading-l">{{ pageTitle }}</h1>
-
-      <p id="para1" class="govuk-body">Try again later.</p>
+      <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+      <p>Try again later.</p>
+      <p>We have not saved your answers. When the service is available, you will have to start again.</p>
+      <p>Alternatively, <a href="https://www.gov.uk/report-an-environmental-incident">report an environmental incident</a> by calling the Environment Agency incident hotline.</p>
     </div>
   </div>
 {% endblock %}
