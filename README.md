@@ -161,7 +161,9 @@ It's defined as a build task and can be run using `npm run lint`.
 
 # Environment variables
 
-Environment variables and their default values if not set can be found in the file `server/utils/config.js`
+Environment variables for the webapp and their default values if not set can be found in the file `server/utils/config.js`
+
+The build of the webapp requires an environment variable GA_ID if google analytics is required
 
 # Private beta authentication
 

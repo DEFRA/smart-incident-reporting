@@ -11,6 +11,7 @@
     "postinstall": "npm run build",
     "start": "node index.js",
     "build:css": "./bin/build-css.sh",
+    "build:js": "./bin/build-js.sh",
     "build": "./bin/build.sh",
     "copy:static": "bin/copy-static.sh",
     "debug": "nodemon --inspect index.js",
@@ -66,7 +67,10 @@
     "jest-junit": "^16.0.0",
     "node-html-parser": "^6.1.12",
     "nodemon": "^3.1.0",
-    "standard": "^17.1.0"
+    "standard": "^17.1.0",
+    "style-loader": "^3.3.4",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
   },
   "standard": {
     "globals": [
