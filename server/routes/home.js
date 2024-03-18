@@ -29,6 +29,11 @@ const handlers = {
         fullName,
         phone
       })
+      request.yar.set(constants.redisKeys.HOME, {
+        reporterName: fullName,
+        reporterPhoneNumber: phone,
+        reporterAccessCode: accessCode
+      })
       return h.redirect(constants.routes.WATER_POLUTION)
     } else {
       // Handle error for bad accessCode
