@@ -7,7 +7,7 @@ const urls = {
 const phoneRegex = /^[\d-+()#]*$/
 
 // Notices
-const ACCESSIBILITY = 'notices/accessibility'
+const ACCESSIBILITY = 'accessibility'
 const COOKIES = 'notices/cookies'
 const PRIVACY_NOTICE = 'privacy-notice'
 
