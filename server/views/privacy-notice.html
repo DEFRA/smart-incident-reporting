@@ -1,9 +1,14 @@
 {% extends 'layout.html' %}
 
+{% set pageTitle = 'Privacy notice - ' + serviceName %}
+{% set pageHeader = 'Privacy notice: ' + serviceName + ' service' %}
+
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">Privacy notice: report an environmental problem service</h1>
+    <h1 class="govuk-heading-xl">
+        {{ pageHeader }}
+    </h1>
     <p class="govuk-body">The Environment Agency is the data controller for the report an environmental problem service on GOV.UK. </p>
     <p class="govuk-body">A data controller determines how and why personal data (personal information) is processed.</p>
     <p class="govuk-body">Our <a href="https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs/about/personal-information-charter">personal information charter</a> explains:</p>
@@ -23,16 +28,17 @@
     <h2 class="govuk-heading-m">What personal data we collect</h2>
     <p class="govuk-body">We collect the following personal data from you directly:</p>
     <ul class="govuk-list govuk-list--bullet">
-      <li>your name, if you include it</li>
+      <li>your name</li>
+      <li>your phone number</li>
       <li>your email address, if you include it</li>
-      <li>your phone number, if you include it</li>
       <li>your home address, if you include it</li>
     </ul>
 
     <p class="govuk-body">We collect some personal data by placing small files called cookies onto your computer to collect information about how you use our service.</p>
-    <p class="govuk-body">The categories of personal data collected are:</p>
+    <p class="govuk-body">The personal data collected are:</p>
     <ul class="govuk-list govuk-list--bullet">
-      <li>your Internet Protocol (IP) address, and details of which version of which <a href="https://www.gov.uk/help/browsers">web browser</a> you use</li>
+      <li>your Internet Protocol (IP) address</li>
+      <li>details of which version of which <a href="https://www.gov.uk/help/browsers">web browser</a> you use</li>
     </ul>
 
     <h2 class="govuk-heading-m">What we do with your personal data</h2>
@@ -40,17 +46,17 @@
     <p class="govuk-body">We use your personal data to:</p>
 
     <ul class="govuk-list govuk-list--bullet">
-      <li>respond to you regarding your report if necessary</li>
+      <li>respond to you about your report if necessary</li>
       <li>improve the service by monitoring how it's used and analysing feedback</li>
     </ul>
 
     <p class="govuk-body">We may share your personal data with emergency services and environmental response teams outside the Environment Agency if it is essential to deal with the problem you report.</p>
 
-    <p class="govuk-body">We will not share your personal data with anyone else without your consent unless we must do so by law.</p>
+    <p class="govuk-body">We will not share your personal data with anyone else without your consent, unless we must do so by law.</p>
 
     <p class="govuk-body">We do not use your data to make any automated decisions or for automated profiling.</p>
 
-    <p class="govuk-body">You can withdraw consent for us using your personal data at any time by contacting:</p>
+    <p class="govuk-body">You can remove consent for us to use your personal data at any time by contacting:</p>
     <p class="govuk-body">Email: <a href="mailto:enquiries@environment-agency.gov.uk">enquiries@environment-agency.gov.uk</a><br />
     Telephone: 03708 506 506</p>
 
@@ -60,7 +66,7 @@
     <p class="govuk-body">Your data will not be transferred outside the European Economic Area.</p>
 
     <h2 class="govuk-heading-m">How long we keep your personal data</h2>
-    <p class="govuk-body">We keep your personal data while the incident is ongoing and for seven years after the incident’s conclusion, in line with our retention policy.</p>
+    <p class="govuk-body">We keep your personal data while an environmental incident is ongoing and for seven years after the incident is deemed concluded, in line with our retention policy.</p>
 
     <h2 class="govuk-heading-m">Changes to this notice</h2>
 
