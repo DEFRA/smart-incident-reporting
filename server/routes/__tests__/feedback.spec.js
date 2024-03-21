@@ -9,6 +9,10 @@ const refererUrl = 'http://localhost:3000/water-pollution'
 
 describe(url, () => {
   describe('GET', () => {
+    it(`Should return success response and correct view for ${url}`, async () => {
+      const response = await submitGetRequest({ url }, 'Give feedback on the Report an environmental problem service')
+      expect(response.request.yar.get(constants.redisKeys.FEEDBACK).feedbackURL).toEqual('')
+    })
     it(`Should return success response and correct view for ${url} and set the feedbackURL`, async () => {
       const options = {
         url,
@@ -54,6 +58,9 @@ describe(url, () => {
       expect(response.payload).toContain('Select how you feel about the service')
     })
     it('Should fail if payload validation fails', async () => {
+      session[constants.redisKeys.FEEDBACK] = {
+        feedbackURL: false
+      }
       const options = {
         url,
         payload: {
@@ -61,7 +68,7 @@ describe(url, () => {
           otherInfo: 'This is test feedback'
         }
       }
-      const response = await submitPostRequest(options, constants.statusCodes.PROBLEM_WITH_SERVICE)
+      const response = await submitPostRequest(options, constants.statusCodes.PROBLEM_WITH_SERVICE, session)
       expect(response.payload).toContain('Sorry, there is a problem with the service')
     })
   })
