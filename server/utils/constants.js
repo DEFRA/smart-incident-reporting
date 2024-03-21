@@ -15,6 +15,8 @@ const ERROR = 'error'
 const PUBLIC = 'public'
 const HOME = 'home'
 const REPORT_SENT = 'report-sent'
+const FEEDBACK = 'feedback'
+const FEEDBACK_SUCCESS = 'feedback-success'
 
 const WATER_POLUTION = 'water-pollution'
 const WATER_POLLUTION_WATER_FEATURE = 'water-pollution/water-feature'
@@ -38,6 +40,8 @@ const views = {
   ERROR,
   PUBLIC,
   HOME,
+  FEEDBACK,
+  FEEDBACK_SUCCESS,
   REPORT_SENT,
   WATER_POLUTION,
   WATER_POLLUTION_WATER_FEATURE,

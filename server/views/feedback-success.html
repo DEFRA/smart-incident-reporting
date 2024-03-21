@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% set pageTitle = 'Thank you for your feedback' %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">
+        {{ pageTitle }}
+      </h1>
+      <p>
+        {% if returnToStart %}
+          <a href="/">Return to the start of the service</a>.
+        {% else %}
+          <a href="{{ feedbackURL }}">Go back to the page you were looking at</a>.
+        {% endif %}
+        
+      </p>
+    </div>
+  </div>
+
+{% endblock %}
