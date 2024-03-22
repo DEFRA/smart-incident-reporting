@@ -1,26 +1,28 @@
 {% extends 'layout.html' %}
 
-{% block content %}
+{% set pageTitle = 'Accessibility statement - ' + serviceName %}
+{% set pageHeader = 'Accessibility statement for the ' + serviceName + ' service' %}
+{% set metaDescription = 'This statement applies to the Report an environmental problem service which is designed to be used by as many people as possible.' %}
 
+{% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-
-    <h1 class="govuk-heading-xl">Accessibility statement for Report a problem in your environment</h1>
-
+    <h1 class="govuk-heading-xl">
+        {{ pageHeader }}
+    </h1>
     <p>
-        This service is part of the wider GOV.UK website. There's a separate
+        This service is part of GOV.UK. There's a separate
         <a href="https://www.gov.uk/help/accessibility-statement" rel="noopener noreferrer" target="_blank" aria-describedby="new-window-0" class="govuk-link">
-            accessibility statement for the main GOV.UK website.</a>
+            accessibility statement for the main GOV.UK website</a>.
     </p>
     <p class="govuk-body">
-        This page only contains information about this service, available at
-        <a href="#" rel="noopener noreferrer" target="_blank" aria-describedby="new-window-0" class="govuk-link">https://reportanenvironmentalproblem.service.gov.uk</a>.</p>
+        This page only contains information about the Report an environmental problem service, available at
+        <a href="#" rel="noopener noreferrer" target="_blank" aria-describedby="new-window-0" class="govuk-link">https://report-an-environmental-problem.service.gov.uk</a>.</p>
     <h2 class="govuk-heading-l">
         Using this service
     </h2>
     <p class="govuk-body">
-
-        This service is run by the Environment Agency (EA). We want as many people as possible to be able to use this service. For example, that means you should be able to:
+        This service is run by the Environment Agency. We want as many people as possible to be able to use this service. This means you should, for example, be able to:
     </p>
     <ul class="govuk-list govuk-list--bullet">
         <li>change colours, contrast levels and fonts</li>
@@ -51,9 +53,7 @@
         <li>Dragon speech recognition software – links that reveal hidden text on a page will not respond to the ‘click link’ command, but will respond to ‘click button’ – this is a
             <a href="https://github.com/alphagov/govuk-design-system-backlog/issues/44#issuecomment-628082040" rel="noopener noreferrer" target="_blank" aria-describedby="new-window-0" class="govuk-link">known issue with the GOV.UK Design System details component</a>
         </li>
-        <li>if you do not have JavaScript enabled in your browser, you will not be able to use the site.</li>
-        <li>{list other known and identified issues}
-        </li>
+        <li>if you do not have JavaScript enabled in your browser, you may not be able to use some features of the service</li>
     </ul>
 
 
@@ -62,11 +62,11 @@
     </h2>
     <p class="govuk-body">
         If you have difficulty using this service,
-        <a href="#" rel="noopener noreferrer" target="_blank" aria-describedby="new-window-0" class="govuk-link">
-            contact the Environment Agency's hotline</a>.
+        <a href="https://www.gov.uk/report-an-environmental-incident" rel="noopener noreferrer" target="_blank" aria-describedby="new-window-0" class="govuk-link">
+            contact the Environment Agency's incident hotline</a>.
     </p>
     <p class="govuk-body">
-        As part of providing this service, we may need to send you messages or documents. We’ll ask you how you want us to send messages or documents to you, but contact us if you need them in a different format. For example, large print, audio recording or braille.
+        As part of providing this service, we may send you messages or documents. Contact us if you need them in a different format. For example, large print, audio recording or braille.
     </p>
 
 
@@ -74,13 +74,13 @@
         Reporting accessibility problems with this service
     </h2>
     <p class="govuk-body">
-        We’re always looking to improve the accessibility of this service. If you find any problems that are not listed on this page, or think we’re not meeting accessibility requirements, you can contact us by email:
+        <p>If you find any problems that are not listed on this page, or think we’re not meeting accessibility requirements, contact us by email:
 
         <br>
 
         <a href="mailto:Customer.Identity-Support@defra.gov.uk" rel="noopener noreferrer" target="_blank" aria-describedby="new-window-0" class="govuk-link">Customer.Identity-Support@defra.gov.uk</a>
     </p>
-
+    <p>We aim to solve any issues with accessibility as quickly as possible, and work to improve the accessibility of this service wherever we can.</p>
 
 
     <h2 class="govuk-heading-l">
@@ -89,7 +89,7 @@
     <p class="govuk-body">
         The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’).
     </p>
-    <p class="govuk-body">If you're not happy with how we respond to your complaint, contact the:
+    <p class="govuk-body">If you're not happy with how we respond to a complaint, contact the:
     </p>
 
     <ul class="govuk-list govuk-list--bullet">
@@ -127,8 +127,7 @@
         Technical information about this service’s accessibility
     </h2>
     <p class="govuk-body">
-
-        EA is committed to making this service accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
+        The Environment Agency is committed to making this service accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
     </p>
     <p class="govuk-body">
         This service is fully compliant with the
@@ -144,7 +143,7 @@
         The service was last tested on {test date}. It was checked for compliance with WCAG 2.1 AA using both automated and manual testing. The tests were carried out by {testing agency/EA}.
     </p>
     <p class="govuk-body">
-        This page was prepared on {date of publication/significant edit}.
+        This page was last updated on {date of publication/significant edit}.
     </p>
   </div>
 </div>
