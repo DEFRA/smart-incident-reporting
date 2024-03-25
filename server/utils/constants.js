@@ -14,8 +14,8 @@ const PRIVACY = 'notices/privacy'
 const ERROR = 'error'
 const PUBLIC = 'public'
 const HOME = 'home'
+const SERVICE_UNAVAILABLE = 'service-unavailable'
 const REPORT_SENT = 'report-sent'
-
 const WATER_POLUTION = 'water-pollution'
 const WATER_POLLUTION_WATER_FEATURE = 'water-pollution/water-feature'
 const WATER_POLLUTION_LOCATION_DESCRIPTION = 'water-pollution/location-description'
@@ -38,6 +38,7 @@ const views = {
   ERROR,
   PUBLIC,
   HOME,
+  SERVICE_UNAVAILABLE,
   REPORT_SENT,
   WATER_POLUTION,
   WATER_POLLUTION_WATER_FEATURE,

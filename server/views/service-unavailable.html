@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% set hideBackLink = true %}
+{% set pageTitle = 'Sorry, the service is unavailable' %}
+{% set metaDescription = 'The report an environmental problem service is currently unavailable. You can report an environmental incident on GOV.UK.' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+    <p class="govuk-body">
+        You'll be able to use the service from 9am on the next working day (Monday to Friday, apart from bank holidays).
+      </p>
+    <p>Alternatively, <a href="https://www.gov.uk/report-an-environmental-incident">report an environmental incident</a> by calling the Environment Agency incident hotline.</p>
+  </div>
+</div>
+
+{% endblock %}

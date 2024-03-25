@@ -172,3 +172,7 @@ via the environment variable `AUTH_ACCOUNTS`
 
 AUTH_ACCOUNTS should be set as an array of objects as a JSON string in the following format:
 `[{"id":1,"password":"PASSWORD_HASH"}]`
+
+# Service availability
+
+The service in production for private beta is only to be available in working hours, set this cron with the environment variable `SERVICE_AVAILABLE_CRON` with the value `'* * 9-16 * * 1-5'` this will disable the home login page outside of working hours and for bank holidays. If this env var is not set or if it is set to `'* * * * * *'` then the service will be available at all times and dates.
