@@ -7,15 +7,18 @@ const urls = {
 const phoneRegex = /^[\d-+()#]*$/
 
 // Notices
-const ACCESSIBILITY = 'notices/accessibility'
+const ACCESSIBILITY = 'accessibility'
 const COOKIES = 'notices/cookies'
-const PRIVACY = 'notices/privacy'
+const PRIVACY_NOTICE = 'privacy-notice'
 
 const ERROR = 'error'
 const PUBLIC = 'public'
 const HOME = 'home'
 const SERVICE_UNAVAILABLE = 'service-unavailable'
 const REPORT_SENT = 'report-sent'
+const FEEDBACK = 'feedback'
+const FEEDBACK_SUCCESS = 'feedback-success'
+
 const WATER_POLUTION = 'water-pollution'
 const WATER_POLLUTION_WATER_FEATURE = 'water-pollution/water-feature'
 const WATER_POLLUTION_LOCATION_DESCRIPTION = 'water-pollution/location-description'
@@ -34,11 +37,13 @@ const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 const views = {
   ACCESSIBILITY,
   COOKIES,
-  PRIVACY,
+  PRIVACY_NOTICE,
   ERROR,
   PUBLIC,
   HOME,
   SERVICE_UNAVAILABLE,
+  FEEDBACK,
+  FEEDBACK_SUCCESS,
   REPORT_SENT,
   WATER_POLUTION,
   WATER_POLLUTION_WATER_FEATURE,

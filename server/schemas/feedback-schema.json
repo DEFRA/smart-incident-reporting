@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SIR User Response",
+  "type": "object",
+  "properties": {
+    "givingFeedbackToAEnvironmentalProblemReport": {
+      "type": "object",
+      "properties": {
+        "sessionGuid": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "feedbackRating": {
+          "type": "string"
+        },
+        "feedbackDateAndTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "feedbackURL": {
+          "type": "string"
+        },
+        "feedbackText": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "sessionGuid",
+        "feedbackRating",
+        "feedbackDateAndTime",
+        "feedbackURL",
+        "feedbackText"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "givingFeedbackToAEnvironmentalProblemReport"
+  ]
+}

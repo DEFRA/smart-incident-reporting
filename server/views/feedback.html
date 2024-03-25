@@ -1,0 +1,71 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'Give feedback' %}
+{% set pageHeader = 'Give feedback on the Report an environmental problem service' %}
+
+{% block formContent %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">
+        {{ pageHeader }}
+      </h1>
+      <h2 class="govuk-heading-m">
+        Satisfaction survey
+      </h2>
+        {{ govukRadios({
+          name: "feedback",
+          id: "feedback",
+          errorMessage: findErrorMessageById(errorSummary, "feedback"),
+          fieldset: {
+            legend: {
+              text: "Overall, how did you feel about the service?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: "vsatisfied",
+              text: "Very satisfied"
+            },
+            {
+              value: "satisfied",
+              text: "Satisfied"
+            },
+            {
+              value: "neither",
+              text: "Neither satisfied or dissatisfied"
+            },
+            {
+              value: "dissatisfied",
+              text: "Dissatisfied"
+            },
+            {
+              value: "vdissatisfied",
+              text: "Very dissatisfied"
+            }
+          ]
+        }) }}
+
+        {{ govukTextarea({
+          name: "otherInfo",
+          id: "otherInfo",
+          rows: "10",
+          label: {
+            text: "How could we improve this service?",
+            classes: "govuk-label--s",
+            isPageHeading: true
+          },
+          hint: {
+            text: "Do not include any personal or financial information, for example your National Insurance or credit card numbers."
+          }
+        }) }}
+
+        {{ govukButton({
+          text: "Send feedback"
+        }) }}
+    </div>
+  </div>
+
+{% endblock %}
