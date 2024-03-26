@@ -67,4 +67,17 @@ describe('Is working hours', () => {
       }
     })
   })
+  it('Should return true if cron set to * * * * * * and no datetime provided', done => {
+    jest.isolateModules(async () => {
+      try {
+        process.env.SERVICE_AVAILABLE_CRON = '* * * * * *'
+        const isWorkingHours = require('../is-working-hours').default
+        expect(await isWorkingHours()).toBeTruthy()
+        expect(wreck.get).toHaveBeenCalledTimes(0)
+        done()
+      } catch (e) {
+        done(e)
+      }
+    })
+  })
 })
