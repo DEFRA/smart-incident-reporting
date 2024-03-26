@@ -10,6 +10,7 @@ const handlers = {
     if (await isWorkingHours()) {
       return h.view(constants.views.HOME)
     } else {
+      request.logger.warn('Service unavailable outside of working hours')
       return h.redirect(constants.routes.SERVICE_UNAVAILABLE)
     }
   },
