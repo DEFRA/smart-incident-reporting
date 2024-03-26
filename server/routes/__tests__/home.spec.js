@@ -1,6 +1,12 @@
 import { submitGetRequest, submitPostRequest } from '../../__test-helpers__/server.js'
-// import constants from '../../utils/constants.js'
 const url = '/'
+
+// As the mocked return for this default es6 module export gets cached, separate test file
+// named home-unavailable.spec.js tests the outside of working hours logic
+jest.mock('../../utils/is-working-hours', () => ({
+  __esModule: true,
+  default: jest.fn(() => Promise.resolve(true))
+}))
 
 describe(url, () => {
   describe('GET', () => {
@@ -96,5 +102,22 @@ describe(url, () => {
       expect(response.payload).toContain('Enter a real phone number')
       expect(response.payload).not.toContain('Enter an access code')
     })
+    // it.only('Should return service unavailable if outside working hours', done => {
+    //   jest.isolateModules(async () => {
+    //     try {
+    //       const isWorkingHours = require('../../utils/is-working-hours').default
+    //       jest.mock('../../utils/is-working-hours')
+    //       isWorkingHours.mockImplementation = (() => {
+    //         console.log('in mock')
+    //         return Promise.resolve(false)
+    //       })
+    //       // isWorkingHours.mockResolvedValue(false)
+    //       const response = await submitGetRequest({ url })
+    //       done()
+    //     } catch (e) {
+    //       done(e)
+    //     }
+    //   })
+    // })
   })
 })

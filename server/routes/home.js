@@ -10,7 +10,7 @@ const handlers = {
     if (await isWorkingHours()) {
       return h.view(constants.views.HOME)
     } else {
-      return h.view(constants.views.SERVICE_UNAVAILABLE)
+      return h.redirect(constants.routes.SERVICE_UNAVAILABLE)
     }
   },
   post: async (request, h) => {
