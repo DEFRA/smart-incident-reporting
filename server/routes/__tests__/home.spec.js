@@ -102,22 +102,5 @@ describe(url, () => {
       expect(response.payload).toContain('Enter a real phone number')
       expect(response.payload).not.toContain('Enter an access code')
     })
-    // it.only('Should return service unavailable if outside working hours', done => {
-    //   jest.isolateModules(async () => {
-    //     try {
-    //       const isWorkingHours = require('../../utils/is-working-hours').default
-    //       jest.mock('../../utils/is-working-hours')
-    //       isWorkingHours.mockImplementation = (() => {
-    //         console.log('in mock')
-    //         return Promise.resolve(false)
-    //       })
-    //       // isWorkingHours.mockResolvedValue(false)
-    //       const response = await submitGetRequest({ url })
-    //       done()
-    //     } catch (e) {
-    //       done(e)
-    //     }
-    //   })
-    // })
   })
 })
