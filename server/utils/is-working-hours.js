@@ -24,11 +24,7 @@ const isWorkingHours = async (dateToTest = new Date()) => {
     currentDate: dateToTest
   })
 
-  if (interval.fields.dayOfWeek.includes(dateToTest.getDay()) && interval.fields.hour.includes(dateToTest.getHours())) {
-    return true
-  }
-
-  return false
+  return interval.fields.dayOfWeek.includes(dateToTest.getDay()) && interval.fields.hour.includes(dateToTest.getHours())
 }
 
 export default isWorkingHours
