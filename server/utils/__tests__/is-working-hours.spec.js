@@ -80,4 +80,17 @@ describe('Is working hours', () => {
       }
     })
   })
+  it.only('Should catch error and reject', done => {
+    jest.isolateModules(async () => {
+      try {
+        process.env.SERVICE_AVAILABLE_CRON = '* * 9-16 * * 1-5'
+        wreck.get = jest.fn().mockImplementation(() => Promise.reject(new Error('test error')))
+        const isWorkingHours = require('../is-working-hours').default
+        await expect(isWorkingHours()).rejects.toEqual(new Error('test error'))
+        done()
+      } catch (e) {
+        done(e)
+      }
+    })
+  })
 })
