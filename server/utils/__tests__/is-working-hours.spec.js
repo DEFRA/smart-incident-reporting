@@ -80,7 +80,7 @@ describe('Is working hours', () => {
       }
     })
   })
-  it.only('Should catch error and reject', done => {
+  it('Should catch error and reject', done => {
     jest.isolateModules(async () => {
       try {
         process.env.SERVICE_AVAILABLE_CRON = '* * 9-16 * * 1-5'
