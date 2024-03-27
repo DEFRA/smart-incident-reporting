@@ -31,7 +31,9 @@ const isWorkingHours = async (dateToTest = new Date()) => {
       currentDate: dateToTest
     })
 
-    return interval.fields.dayOfWeek.includes(dateToTest.getDay()) && interval.fields.hour.includes(dateToTest.getHours())
+    return interval.fields.dayOfWeek.includes(dateToTest.getDay()) &&
+      interval.fields.hour.includes(dateToTest.getHours()) &&
+      interval.fields.minute.includes(dateToTest.getMinutes())
   } catch (err) {
     console.error(err)
     throw err
