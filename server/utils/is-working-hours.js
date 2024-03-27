@@ -15,7 +15,8 @@ const isWorkingHours = async (dateToTest = new Date()) => {
 
     // Get bank holiday data
     const { payload } = await Wreck.get('https://www.gov.uk/bank-holidays.json', {
-      json: true
+      json: true,
+      rejectUnauthorized: false
     })
 
     const dateString = dateToTest.toLocaleDateString('en-GB', { timeZone: 'Europe/London' })
