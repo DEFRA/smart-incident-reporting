@@ -2,11 +2,17 @@ import constants from '../utils/constants.js'
 import bcrypt from 'bcrypt'
 import config from '../utils/config.js'
 import { getErrorSummary } from '../utils/helpers.js'
+import isWorkingHours from '../utils/is-working-hours.js'
 
 const handlers = {
   get: async (request, h) => {
     request.cookieAuth.clear()
-    return h.view(constants.views.HOME)
+    if (await isWorkingHours()) {
+      return h.view(constants.views.HOME)
+    } else {
+      request.logger.warn('Service unavailable outside of working hours')
+      return h.redirect(constants.routes.SERVICE_UNAVAILABLE)
+    }
   },
   post: async (request, h) => {
     const { fullName, phone, accessCode } = request.payload

@@ -14,6 +14,7 @@ const PRIVACY_NOTICE = 'privacy-notice'
 const ERROR = 'error'
 const PUBLIC = 'public'
 const HOME = 'home'
+const SERVICE_UNAVAILABLE = 'service-unavailable'
 const REPORT_SENT = 'report-sent'
 const FEEDBACK = 'feedback'
 const FEEDBACK_SUCCESS = 'feedback-success'
@@ -40,6 +41,7 @@ const views = {
   ERROR,
   PUBLIC,
   HOME,
+  SERVICE_UNAVAILABLE,
   FEEDBACK,
   FEEDBACK_SUCCESS,
   REPORT_SENT,
