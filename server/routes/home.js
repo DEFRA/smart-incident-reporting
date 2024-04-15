@@ -6,6 +6,7 @@ import isWorkingHours from '../utils/is-working-hours.js'
 
 const handlers = {
   get: async (request, h) => {
+    request.yar.reset()
     request.cookieAuth.clear()
     if (await isWorkingHours()) {
       return h.view(constants.views.HOME)
@@ -20,6 +21,7 @@ const handlers = {
 
     // Validation error so return view in Error state
     if (errorSummary.errorList.length > 0) {
+      request.yar.reset()
       request.cookieAuth.clear()
       return h.view(constants.views.HOME, {
         errorSummary,
@@ -43,6 +45,7 @@ const handlers = {
       return h.redirect(constants.routes.WATER_POLUTION)
     } else {
       // Handle error for bad accessCode
+      request.yar.reset()
       request.cookieAuth.clear()
       return h.view(constants.views.HOME, {
         ...request.payload,
