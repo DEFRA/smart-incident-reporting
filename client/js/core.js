@@ -49,8 +49,8 @@ window.sir = {
       const prefs = {
         analytics: accepted ? 'on' : 'off'
       }
-      window.sir.utils.setCookie('cookies_settings', JSON.stringify(prefs), 365)
-      window.sir.utils.setCookie('cookies_preferences_set', 'true', 365)
+      window.sir.utils.setCookie('cookies_settings', JSON.stringify(prefs))
+      window.sir.utils.setCookie('cookies_preferences_set', 'true')
     }
   }
 }
