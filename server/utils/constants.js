@@ -8,7 +8,7 @@ const phoneRegex = /^[\d-+()#]*$/
 
 // Notices
 const ACCESSIBILITY = 'accessibility'
-const COOKIES = 'notices/cookies'
+const COOKIES = 'cookies'
 const PRIVACY_NOTICE = 'privacy-notice'
 
 const ERROR = 'error'
