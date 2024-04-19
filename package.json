@@ -52,7 +52,7 @@
     "bcrypt": "^5.1.1",
     "blipp": "^4.0.2",
     "cron-parser": "^4.9.0",
-    "govuk-frontend": "^4.6.0",
+    "govuk-frontend": "^5.3.0",
     "hapi-pino": "12.1.0",
     "joi": "^17.12.3",
     "moment": "^2.30.1",
