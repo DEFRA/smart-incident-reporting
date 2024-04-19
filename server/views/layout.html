@@ -10,6 +10,7 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% block head %}
   <!-- Version: {{ appVersion }} -->
@@ -34,6 +35,7 @@
 {% endblock %}
 
 {% block header %}
+  {% include "cookie-banner.html" %}
   {{ govukHeader({
     homepageUrl: govUkHome,
     containerClasses: "govuk-width-container",

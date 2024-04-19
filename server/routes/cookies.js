@@ -1,4 +1,4 @@
-import constants from '../../utils/constants.js'
+import constants from '../utils/constants.js'
 
 const handlers = {
   get: (_request, h) => {
@@ -20,6 +20,9 @@ export default [
   {
     method: 'GET',
     path: constants.routes.COOKIES,
-    handler: handlers.get
+    handler: handlers.get,
+    options: {
+      auth: false
+    }
   }
 ]
