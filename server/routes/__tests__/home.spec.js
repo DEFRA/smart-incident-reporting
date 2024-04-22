@@ -2,7 +2,6 @@ import { submitGetRequest, submitPostRequest } from '../../__test-helpers__/serv
 import constants from '../../utils/constants.js'
 const url = '/'
 
-
 // As the mocked return for this default es6 module export gets cached, separate test file
 // named home-unavailable.spec.js tests the outside of working hours logic
 jest.mock('../../utils/is-working-hours', () => ({
