@@ -1,5 +1,7 @@
 import { submitGetRequest, submitPostRequest } from '../../__test-helpers__/server.js'
+import constants from '../../utils/constants.js'
 const url = '/'
+
 
 // As the mocked return for this default es6 module export gets cached, separate test file
 // named home-unavailable.spec.js tests the outside of working hours logic
@@ -16,17 +18,29 @@ describe(url, () => {
   })
   describe('POST', () => {
     // Happy: All valid with correct accessCode
-    it('Should redirect to /water-pollution if details correct', async () => {
+    it('Should redirect to /water-pollution if water pollution login', async () => {
       const options = {
         url,
         payload: {
           fullName: 'John Smith',
           phone: '#+441234567890',
-          accessCode: 'password'
+          accessCode: 'WPINTERNAL'
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual('/water-pollution')
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLUTION)
+    })
+    it('Should redirect to /smell if odure login', async () => {
+      const options = {
+        url,
+        payload: {
+          fullName: 'John Smith',
+          phone: '#+441234567890',
+          accessCode: 'ODINTERNAL'
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.SMELL)
     })
     // Sad: name, phone, code missing
     it('Should error if all is data missing', async () => {

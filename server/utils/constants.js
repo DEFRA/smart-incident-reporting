@@ -31,6 +31,9 @@ const WATER_POLLUTION_POLLUTION_LENGTH = 'water-pollution/pollution-length'
 const WATER_POLLUTION_POLLUTION_WIDTH = 'water-pollution/pollution-width'
 const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 
+const SMELL = 'smell'
+// const SMELL_LOCATION_DESCRIPTION = 'smell/location-description'
+
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 
@@ -55,7 +58,9 @@ const views = {
   WATER_POLLUTION_POLLUTION_AREA,
   WATER_POLLUTION_POLLUTION_LENGTH,
   WATER_POLLUTION_POLLUTION_WIDTH,
-  WATER_POLLUTION_OTHER_INFORMATION
+  WATER_POLLUTION_OTHER_INFORMATION,
+  SMELL
+  // SMELL_LOCATION_DESCRIPTION
 }
 
 const routes = {
