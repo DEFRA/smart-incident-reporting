@@ -46,7 +46,7 @@ describe(url, () => {
     it('Happy accepts No and forwards to SMELL_DESCRIPTION', async () => {
       const options = {
         url,
-        payload:{
+        payload: {
           smellSource: 'no'
         }
       }

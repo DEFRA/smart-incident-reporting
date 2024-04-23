@@ -294,7 +294,7 @@ const questionSets = {
             answerId: 106,
             text: 'Something else'
           },
-          otherDetail: {  
+          otherDetail: {
             answerId: 107,
             text: 'Describe the smell'
           },

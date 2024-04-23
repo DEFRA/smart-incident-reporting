@@ -23,9 +23,9 @@ describe(url, () => {
       const options = {
         url,
         payload: {
-          smellDescription: [ 
-            question.answers.sewage.answerId, 
-            question.answers.burning.answerId, 
+          smellDescription: [
+            question.answers.sewage.answerId,
+            question.answers.burning.answerId,
             question.answers.rural.answerId
           ],
           otherDetail: ''
@@ -48,9 +48,9 @@ describe(url, () => {
       const options = {
         url,
         payload: {
-          smellDescription: [ 
-            question.answers.sewage.answerId, 
-            question.answers.burning.answerId, 
+          smellDescription: [
+            question.answers.sewage.answerId,
+            question.answers.burning.answerId,
             question.answers.other.answerId
           ],
           otherDetail: 'other details'
