@@ -63,7 +63,7 @@ describe(url, () => {
     })
     // Happy: Accepts a partial address, but with complete mandatory fields
     it('Happy: accepts a complete address with valid postcode', async () => {
-      let partialPayload = JSON.parse(JSON.stringify(payload))
+      const partialPayload = JSON.parse(JSON.stringify(payload))
       delete partialPayload.addressLine2
       delete partialPayload.county
       delete partialPayload.homeAddress
