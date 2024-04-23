@@ -187,9 +187,66 @@ const questionSets = {
       }
     }
   },
-  ODOUR: {
+  SMELL: {
     id: 200,
-    questions: {}
+    questions: {
+      SMELL_LOCATION_OPTION: {
+        questionId: 100,
+        key: constants.redisKeys.SMELL_OPTION,
+        text: 'Where can you notice the smell?',
+        answers: {
+          address: {
+            answerId: 101,
+            text: 'Give an address'
+          },
+          description: {
+            answerId: 102,
+            text: 'Describe the location'
+          }
+        }
+      },
+      SMELL_LOCATION_DESCRIPTION: {
+        questionId: 100,
+        key: constants.redisKeys.SMELL_LOCATION_DESCRIPTION,
+        text: 'Describe where you\'ve noticed the smell',
+        answers: {
+          locationDetails: {
+            answerId: 101
+          }
+        }
+      },
+      SMELL_LOCATION_ADDRESS: {
+        questionId: 100,
+        key: constants.redisKeys.SMELL_LOCATION_ADDRESS,
+        text: 'Enter the address',
+        answers: {
+          addressLine1: {
+            answerId: 101,
+            text: 'Address line 1'
+          },
+          addressLine2: {
+            answerId: 102,
+            text: 'Address line 2 (optional)'
+          },
+          townOrCity: {
+            answerId: 103,
+            text: 'Town or city'
+          },
+          county: {
+            answerId: 104,
+            text: 'County (optional)'
+          },
+          postcode: {
+            answerId: 105,
+            text: 'Postcode'
+          },
+          homeAddress: {
+            answerId: 106,
+            text: 'This is your home address'
+          }
+        }
+      }
+    }
   },
   ILLEGAL_FISHING: {
     id: 300,

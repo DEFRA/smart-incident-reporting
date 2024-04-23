@@ -12,7 +12,7 @@ const handlers = {
 const _getContext = () => {
   return {
     hideBackLink: true,
-    startHref: constants.routes.SMELL_LOCATION_DESCRIPTION
+    startHref: constants.routes.SMELL_LOCATION_OPTION
   }
 }
 
