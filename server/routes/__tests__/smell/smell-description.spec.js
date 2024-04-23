@@ -73,6 +73,21 @@ describe(url, () => {
         otherDetails: 'other details'
       }])
     })
+    it('Happy accepts single answer and forwards to SMELL_PREVIOUSLY_REPORTED', async () => {
+      const options = {
+        url,
+        payload: {
+          smellDescription: question.answers.sewage.answerId,
+          otherDetail: ''
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_PREVIOUSLY_REPORTED)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_DESCRIPTION)).toEqual([{
+        ...baseAnswer,
+        answerId: question.answers.sewage.answerId
+      }])
+    })
     it('Happy accepts no answer and defaults to You cannot describe it and forwards to SMELL_PREVIOUSLY_REPORTED', async () => {
       const options = {
         url,

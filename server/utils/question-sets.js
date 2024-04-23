@@ -303,6 +303,21 @@ const questionSets = {
             text: 'You cannot describe it'
           }
         }
+      },
+      SMELL_PREVIOUSLY_REPORTED: {
+        questionId: 100,
+        key: constants.redisKeys.SMELL_PREVIOUSLY_REPORTED,
+        text: 'Have you reported the smell before?',
+        answers: {
+          yes: {
+            answerId: 101,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 102,
+            text: 'No, this is the first time'
+          }
+        }
       }
     }
   },

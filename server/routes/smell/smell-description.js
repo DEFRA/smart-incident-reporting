@@ -30,7 +30,13 @@ const getContext = () => {
 
 const buildAnswers = payload => {
   const answers = []
-  payload.smellDescription.forEach(item => {
+  let { smellDescription } = payload
+
+  if (!Array.isArray(smellDescription)) {
+    smellDescription = [smellDescription]
+  }
+
+  smellDescription.forEach(item => {
     answers.push({
       ...baseAnswer,
       answerId: Number(item)
