@@ -35,7 +35,7 @@ describe(url, () => {
         payload
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_SMELL_SOURCE)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_SOURCE)
       expect(response.request.yar.get(constants.redisKeys.SMELL_LOCATION_ADDRESS)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.addressLine1.answerId,
@@ -73,7 +73,7 @@ describe(url, () => {
         payload: partialPayload
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_SMELL_SOURCE)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_SOURCE)
       expect(response.request.yar.get(constants.redisKeys.SMELL_LOCATION_ADDRESS)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.addressLine1.answerId,

@@ -29,7 +29,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_SMELL_SOURCE)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_SOURCE)
       expect(response.request.yar.get(constants.redisKeys.SMELL_LOCATION_DESCRIPTION)).toEqual([{
         ...baseAnswer,
         otherDetails: locationDescription

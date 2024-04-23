@@ -245,6 +245,25 @@ const questionSets = {
             text: 'This is your home address'
           }
         }
+      },
+      SMELL_SOURCE: {
+        questionId: 100,
+        key: constants.redisKeys.SMELL_SOURCE,
+        text: 'Do you know where the smell is coming from?',
+        answers: {
+          yes: {
+            answerId: 101,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 102,
+            text: 'No'
+          },
+          yesDetails: {
+            answerId: 103,
+            text: 'Give as many details about the source of the smell as you can, including an address if known.'
+          }
+        }
       }
     }
   },
