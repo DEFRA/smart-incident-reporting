@@ -36,6 +36,7 @@ const SMELL_LOCATION_OPTION = 'smell/location-option'
 const SMELL_LOCATION_DESCRIPTION = 'smell/location-description'
 const SMELL_LOCATION_ADDRESS = 'smell/location-address'
 const SMELL_SOURCE = 'smell/smell-source'
+const SMELL_DESCRIPTION = 'smell/smell-description'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -66,7 +67,8 @@ const views = {
   SMELL_LOCATION_OPTION,
   SMELL_LOCATION_DESCRIPTION,
   SMELL_LOCATION_ADDRESS,
-  SMELL_SOURCE
+  SMELL_SOURCE,
+  SMELL_DESCRIPTION
 }
 
 const routes = {

@@ -264,6 +264,45 @@ const questionSets = {
             text: 'Give as many details about the source of the smell as you can, including an address if known.'
           }
         }
+      },
+      SMELL_DESCRIPTION: {
+        questionId: 100,
+        key: constants.redisKeys.SMELL_DESCRIPTION,
+        text: 'How would you describe the smell?',
+        answers: {
+          sewage: {
+            answerId: 101,
+            text: 'Sewage'
+          },
+          rubbish: {
+            answerId: 102,
+            text: 'Rubbish or refuse'
+          },
+          burning: {
+            answerId: 103,
+            text: 'Burning or smoke'
+          },
+          chemical: {
+            answerId: 104,
+            text: 'Gas or petrol'
+          },
+          rural: {
+            answerId: 105,
+            text: 'Agricultural, for example from muck spreading'
+          },
+          other: {
+            answerId: 106,
+            text: 'Something else'
+          },
+          otherDetail: {  
+            answerId: 107,
+            text: 'Describe the smell'
+          },
+          youCannotDescribeIt: {
+            answerId: 108,
+            text: 'You cannot describe it'
+          }
+        }
       }
     }
   },
