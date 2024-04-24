@@ -347,6 +347,21 @@ const questionSets = {
             answerId: 101
           }
         }
+      },
+      SMELL_ONGOING: {
+        questionId: 100,
+        key: constants.redisKeys.SMELL_ONGOING,
+        text: 'Is the smell still there?',
+        answers: {
+          yes: {
+            answerId: 101,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 102,
+            text: 'No, it\'s gone now'
+          }
+        }
       }
     }
   },
