@@ -1,0 +1,27 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukTextarea({
+      name: "howLong",
+      id: "howLong",
+      label: {
+        text: question.text,
+        classes: "govuk-label--l",
+        isPageHeading: true
+      }
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

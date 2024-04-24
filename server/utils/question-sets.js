@@ -337,6 +337,16 @@ const questionSets = {
             text: 'No, this is the first time'
           }
         }
+      },
+      SMELL_PAST: {
+        questionId: 100,
+        key: constants.redisKeys.SMELL_PAST,
+        text: 'How long has the smell been causing problems?',
+        answers: {
+          howLong: {
+            answerId: 101
+          }
+        }
       }
     }
   },
