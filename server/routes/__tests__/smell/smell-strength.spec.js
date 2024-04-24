@@ -48,7 +48,7 @@ describe(url, () => {
         ...baseAnswer,
         answerId: question.answers.strong.answerId
       }])
-    }) 
+    })
     it('Happy persistent and continues to SMELL_EFFECT_ON_ACTIVITY', async () => {
       const options = {
         url,

@@ -385,6 +385,33 @@ const questionSets = {
             text: 'It is very faint - you can only notice it if you try'
           }
         }
+      },
+      SMELL_EFFECT_ON_ACTIVITY: {
+        questionId: 100,
+        key: constants.redisKeys.SMELL_EFFECT_ON_ACTIVITY,
+        text: 'Has the smell stopped you from doing any of the following?',
+        answers: {
+          goingOutside: {
+            answerId: 101,
+            text: 'Using parts of your own property, including your garden'
+          },
+          leavingHome: {
+            answerId: 102,
+            text: 'Going out of your house, for example going to the shops'
+          },
+          goingElsewhere: {
+            answerId: 103,
+            text: 'Going to an event, for example a football match or concert'
+          },
+          noImpact: {
+            answerId: 104,
+            text: 'None of these'
+          },
+          otherDetails: {
+            answerId: 105,
+            text: 'Give details of the event'
+          }
+        }
       }
     }
   },
