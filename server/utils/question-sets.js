@@ -362,6 +362,29 @@ const questionSets = {
             text: 'No, it\'s gone now'
           }
         }
+      },
+      SMELL_STRENGTH: {
+        questionId: 100,
+        key: constants.redisKeys.SMELL_STRENGTH,
+        text: 'How strong is the smell?',
+        answers: {
+          strong: {
+            answerId: 101,
+            text: 'You can smell it when breathing normally'
+          },
+          persistent: {
+            answerId: 102,
+            text: 'You notice it if you breathe in deeply'
+          },
+          faint: {
+            answerId: 103,
+            text: 'It is quite faint'
+          },
+          veryFaint: {
+            answerId: 104,
+            text: 'It is very faint - you can only notice it if you try'
+          }
+        }
       }
     }
   },

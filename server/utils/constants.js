@@ -42,6 +42,7 @@ const SMELL_RECURRING_PROBLEM = 'smell/recurring-problem'
 const SMELL_PAST = 'smell/past'
 const SMELL_DATE_TIME = 'smell/date-time'
 const SMELL_ONGOING = 'smell/ongoing'
+const SMELL_STRENGTH = 'smell/smell-strength'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -78,7 +79,8 @@ const views = {
   SMELL_RECURRING_PROBLEM,
   SMELL_PAST,
   SMELL_DATE_TIME,
-  SMELL_ONGOING
+  SMELL_ONGOING,
+  SMELL_STRENGTH
 }
 
 const routes = {
