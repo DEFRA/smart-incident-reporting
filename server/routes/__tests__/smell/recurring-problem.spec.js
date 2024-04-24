@@ -2,8 +2,8 @@ import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/s
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
-const url = constants.routes.SMELL_PREVIOUSLY_REPORTED
-const question = questionSets.SMELL.questions.SMELL_PREVIOUSLY_REPORTED
+const url = constants.routes.SMELL_RECURRING_PROBLEM
+const question = questionSets.SMELL.questions.SMELL_RECURRING_PROBLEM
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
@@ -17,7 +17,7 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Should accept yes option and redirect to smell/date-time', async () => {
+    it('Happy accepts yes and redirects to SMELL_PAST', async () => {
       const answerId = question.answers.yes.answerId
       const options = {
         url,
@@ -26,13 +26,28 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_DATE_TIME)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_PREVIOUSLY_REPORTED)).toEqual([{
+      expect(response.headers.location).toEqual(constants.routes.SMELL_PAST)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_RECURRING_PROBLEM)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    it('Should accept no and redirect to smell/recurring', async () => {
+    it('Happy accepts occasionally and redirects to SMELL_PAST', async () => {
+      const answerId = question.answers.occasionally.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_PAST)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_RECURRING_PROBLEM)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
+    it('Happy accepts No and redirects to SMELL_DATE_TIME', async () => {
       const answerId = question.answers.no.answerId
       const options = {
         url,
@@ -41,8 +56,8 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_RECURRING_PROBLEM)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_PREVIOUSLY_REPORTED)).toEqual([{
+      expect(response.headers.location).toEqual(constants.routes.SMELL_DATE_TIME)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_RECURRING_PROBLEM)).toEqual([{
         ...baseAnswer,
         answerId
       }])
@@ -54,7 +69,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select yes if you&#39;ve reported the smell before')
+      expect(response.payload).toContain('Select yes if the smell has caused you a problem before')
     })
   })
 })

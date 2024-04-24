@@ -38,6 +38,7 @@ const SMELL_LOCATION_ADDRESS = 'smell/location-address'
 const SMELL_SOURCE = 'smell/smell-source'
 const SMELL_DESCRIPTION = 'smell/smell-description'
 const SMELL_PREVIOUSLY_REPORTED = 'smell/previously-reported'
+const SMELL_RECURRING_PROBLEM = 'smell/recurring-problem'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -70,7 +71,8 @@ const views = {
   SMELL_LOCATION_ADDRESS,
   SMELL_SOURCE,
   SMELL_DESCRIPTION,
-  SMELL_PREVIOUSLY_REPORTED
+  SMELL_PREVIOUSLY_REPORTED,
+  SMELL_RECURRING_PROBLEM
 }
 
 const routes = {

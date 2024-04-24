@@ -318,6 +318,25 @@ const questionSets = {
             text: 'No, this is the first time'
           }
         }
+      },
+      SMELL_RECURRING_PROBLEM: {
+        questionId: 100,
+        key: constants.redisKeys.SMELL_RECURRING_PROBLEM,
+        text: 'Has the same smell caused you a problem before?',
+        answers: {
+          yes: {
+            answerId: 101,
+            text: 'Yes, regularly'
+          },
+          occasionally: {
+            answerId: 102,
+            text: 'Yes, not and then'
+          },
+          no: {
+            answerId: 103,
+            text: 'No, this is the first time'
+          }
+        }
       }
     }
   },
