@@ -2,41 +2,19 @@
 
 {% set pageTitle = question.text.replace('?', '') %}
 
+{% set items = [
+  {
+    value: question.answers.yes.answerId,
+    text: question.answers.yes.text
+  },
+  {
+    value: question.answers.no.answerId,
+    text: question.answers.no.text
+  }
+]%}
+
 {% block formContent %}
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-
-    {{ govukRadios({
-      classes: "govuk-radios",
-      name: "answerId",
-      id: "answerId",
-      errorMessage: findErrorMessageById(errorSummary, "answerId"),
-      fieldset: {
-        legend: {
-          text: question.text,
-          isPageHeading: true,
-          classes: "govuk-fieldset__legend--l"
-        }
-      },
-      items: [
-        {
-          value: question.answers.yes.answerId,
-          text: question.answers.yes.text
-        },
-        {
-          value: question.answers.no.answerId,
-          text: question.answers.no.text
-        }
-      ]
-    }) }}
-
-    {{ govukButton({
-      text: "Continue"
-    }) }}
-
-  </div>
-</div>
+  {% include "partials/radios.html" %} 
 
 {% endblock %}
-
