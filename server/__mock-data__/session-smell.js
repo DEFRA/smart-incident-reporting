@@ -3,6 +3,7 @@ import moment from 'moment'
 
 const yesterday = moment().seconds(0).milliseconds(0).subtract(1, 'days')
 const today = moment().seconds(0).milliseconds(0)
+const enterTheAddress = 'Enter the address'
 
 const session = JSON.parse(`{
   "home": {
@@ -172,12 +173,12 @@ const payload =
     reporterAccessCode: 'password',
     otherDetails: 'test',
     questionSetId: 200,
-    data: [{ questionId: 100, questionAsked: 'Enter the address', questionResponse: true, answerId: 101, otherDetails: 'Test address 1' },
-      { questionId: 100, questionAsked: 'Enter the address', questionResponse: true, answerId: 102, otherDetails: 'test address 2' },
-      { questionId: 100, questionAsked: 'Enter the address', questionResponse: true, answerId: 103, otherDetails: 'city' },
-      { questionId: 100, questionAsked: 'Enter the address', questionResponse: true, answerId: 104, otherDetails: 'county' },
-      { questionId: 100, questionAsked: 'Enter the address', questionResponse: true, answerId: 105, otherDetails: 'M6 7PW' },
-      { questionId: 100, questionAsked: 'Enter the address', questionResponse: true, answerId: 106 },
+    data: [{ questionId: 100, questionAsked: enterTheAddress, questionResponse: true, answerId: 101, otherDetails: 'Test address 1' },
+      { questionId: 100, questionAsked: enterTheAddress, questionResponse: true, answerId: 102, otherDetails: 'test address 2' },
+      { questionId: 100, questionAsked: enterTheAddress, questionResponse: true, answerId: 103, otherDetails: 'city' },
+      { questionId: 100, questionAsked: enterTheAddress, questionResponse: true, answerId: 104, otherDetails: 'county' },
+      { questionId: 100, questionAsked: enterTheAddress, questionResponse: true, answerId: 105, otherDetails: 'M6 7PW' },
+      { questionId: 100, questionAsked: enterTheAddress, questionResponse: true, answerId: 106 },
       { questionId: 100, questionAsked: 'Do you know where the smell is coming from?', questionResponse: true, answerId: 101 },
       { questionId: 100, questionAsked: 'Do you know where the smell is coming from?', questionResponse: true, answerId: 103, otherDetails: 'test' },
       { questionId: 100, questionAsked: 'How would you describe the smell?', questionResponse: true, answerId: 101 },

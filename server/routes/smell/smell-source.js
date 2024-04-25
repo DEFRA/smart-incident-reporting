@@ -51,6 +51,8 @@ const validatePayload = payload => {
       text: 'Give details about the source of the smell',
       href: '#yesDetails'
     })
+  } else {
+    // do nothing
   }
 
   return errorSummary

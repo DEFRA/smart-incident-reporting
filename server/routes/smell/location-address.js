@@ -64,6 +64,8 @@ const validatePayload = payload => {
       text: 'Enter a full postcode, for example W1 8QS',
       href: '#postcode'
     })
+  } else {
+    // do nothing
   }
   return errorSummary
 }

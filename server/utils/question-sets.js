@@ -2,6 +2,8 @@ import constants from './constants.js'
 
 // Common phrases
 const YOU_DO_NOT_KNOW = 'You do not know'
+const SOMETHING_ELSE = 'Something else'
+const NONE_OF_THESE = 'None of these'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -34,7 +36,7 @@ const questionSets = {
           },
           somethingElse: {
             answerId: 506,
-            text: 'Something else'
+            text: SOMETHING_ELSE
           },
           youDoNotKnow: {
             answerId: 507,
@@ -148,7 +150,7 @@ const questionSets = {
           },
           somethingElse: {
             answerId: 1004,
-            text: 'Something else'
+            text: SOMETHING_ELSE
           },
           somethingElseDetail: {
             answerId: 1005,
@@ -292,7 +294,7 @@ const questionSets = {
           },
           other: {
             answerId: 106,
-            text: 'Something else'
+            text: SOMETHING_ELSE
           },
           otherDetail: {
             answerId: 107,
@@ -405,7 +407,7 @@ const questionSets = {
           },
           noImpact: {
             answerId: 104,
-            text: 'None of these'
+            text: NONE_OF_THESE
           },
           otherDetails: {
             answerId: 105,
@@ -436,11 +438,11 @@ const questionSets = {
           },
           other: {
             answerId: 105,
-            text: 'Something else'
+            text: SOMETHING_ELSE
           },
           noActions: {
             answerId: 105,
-            text: 'None of these'
+            text: NONE_OF_THESE
           },
           otherDetails: {
             answerId: 106,
@@ -471,11 +473,11 @@ const questionSets = {
           },
           other: {
             answerId: 105,
-            text: 'Something else'
+            text: SOMETHING_ELSE
           },
           noSymptoms: {
             answerId: 106,
-            text: 'None of these'
+            text: NONE_OF_THESE
           },
           otherDetails: {
             answerId: 107,
