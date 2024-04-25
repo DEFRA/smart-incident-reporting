@@ -447,6 +447,41 @@ const questionSets = {
             text: 'Describe what happened'
           }
         }
+      },
+      SMELL_EFFECT_ON_HEALTH: {
+        questionId: 100,
+        key: constants.redisKeys.SMELL_EFFECT_ON_HEALTH,
+        text: 'Did the smell cause any of the following?',
+        answers: {
+          headache: {
+            answerId: 101,
+            text: 'Headache'
+          },
+          wateringEyes: {
+            answerId: 102,
+            text: 'Watering eyes'
+          },
+          sick: {
+            answerId: 103,
+            text: 'Sickness or nausea'
+          },
+          vomit: {
+            answerId: 104,
+            text: 'Vomiting'
+          },
+          other: {
+            answerId: 105,
+            text: 'Something else'
+          },
+          noSymptoms: {
+            answerId: 106,
+            text: 'None of these'
+          },
+          otherDetails: {
+            answerId: 107,
+            text: 'Describe what happened'
+          }
+        }
       }
     }
   },
