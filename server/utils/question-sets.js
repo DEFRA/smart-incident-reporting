@@ -412,6 +412,41 @@ const questionSets = {
             text: 'Give details of the event'
           }
         }
+      },
+      SMELL_EFFECT_ON_DAILY_LIFE: {
+        questionId: 100,
+        key: constants.redisKeys.SMELL_EFFECT_ON_DAILY_LIFE,
+        text: 'Have any of the following happened?',
+        answers: {
+          cover: {
+            answerId: 101,
+            text: 'You had to cover your face or nose'
+          },
+          clothes: {
+            answerId: 102,
+            text: 'The smell stuck to your clothers or hair'
+          },
+          windows: {
+            answerId: 103,
+            text: 'You had to keep your windows and doors closed'
+          },
+          leaveArea: {
+            answerId: 104,
+            text: 'You had to move out of your home because of the smell'
+          },
+          other: {
+            answerId: 105,
+            text: 'Something else'
+          },
+          noActions: {
+            answerId: 105,
+            text: 'None of these'
+          },
+          otherDetails: {
+            answerId: 106,
+            text: 'Describe what happened'
+          }
+        }
       }
     }
   },

@@ -44,6 +44,7 @@ const SMELL_DATE_TIME = 'smell/date-time'
 const SMELL_ONGOING = 'smell/ongoing'
 const SMELL_STRENGTH = 'smell/smell-strength'
 const SMELL_EFFECT_ON_ACTIVITY = 'smell/effect-on-activity'
+const SMELL_EFFECT_ON_DAILY_LIFE = 'smell/effect-on-daily-life'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -82,7 +83,8 @@ const views = {
   SMELL_DATE_TIME,
   SMELL_ONGOING,
   SMELL_STRENGTH,
-  SMELL_EFFECT_ON_ACTIVITY
+  SMELL_EFFECT_ON_ACTIVITY,
+  SMELL_EFFECT_ON_DAILY_LIFE
 }
 
 const routes = {
