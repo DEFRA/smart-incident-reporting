@@ -188,7 +188,7 @@ const questionSets = {
     }
   },
   SMELL: {
-    id: 200,
+    questionSetId: 200,
     questions: {
       SMELL_LOCATION_OPTION: {
         questionId: 100,
@@ -486,11 +486,11 @@ const questionSets = {
     }
   },
   ILLEGAL_FISHING: {
-    id: 300,
+    questionSetId: 300,
     questions: {}
   },
   FLOODING: {
-    id: 400,
+    questionSetId: 400,
     questions: {}
   }
 }
