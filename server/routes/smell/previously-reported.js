@@ -12,7 +12,7 @@ const baseAnswer = {
 
 const handlers = {
   get: async (_request, h) => {
-    return h.view(constants.views.SMELL_PREVIOUSLY_REPORTED, {
+    return h.view('smell/yes-no', {
       ...getContext()
     })
   },
@@ -22,7 +22,7 @@ const handlers = {
     // validate payload
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.SMELL_PREVIOUSLY_REPORTED, {
+      return h.view('smell/yes-no', {
         ...getContext(),
         errorSummary
       })
