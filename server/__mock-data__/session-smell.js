@@ -13,147 +13,147 @@ const session = JSON.parse(`{
   },
   "smell/location-option": [
     {
-      "questionId": 100,
+      "questionId": 1200,
       "questionAsked": "Where can you notice the smell?",
       "questionResponse": true,
-      "answerId": 101
+      "answerId": 1201
     }
   ],
   "smell/location-address": [
     {
-      "questionId": 100,
+      "questionId": 1400,
       "questionAsked": "Enter the address",
       "questionResponse": true,
-      "answerId": 101,
+      "answerId": 1401,
       "otherDetails": "Test address 1"
     },
     {
-      "questionId": 100,
+      "questionId": 1400,
       "questionAsked": "Enter the address",
       "questionResponse": true,
-      "answerId": 102,
+      "answerId": 1402,
       "otherDetails": "test address 2"
     },
     {
-      "questionId": 100,
+      "questionId": 1400,
       "questionAsked": "Enter the address",
       "questionResponse": true,
-      "answerId": 103,
+      "answerId": 1403,
       "otherDetails": "city"
     },
     {
-      "questionId": 100,
+      "questionId": 1400,
       "questionAsked": "Enter the address",
       "questionResponse": true,
-      "answerId": 104,
+      "answerId": 1404,
       "otherDetails": "county"
     },
     {
-      "questionId": 100,
+      "questionId": 1400,
       "questionAsked": "Enter the address",
       "questionResponse": true,
-      "answerId": 105,
+      "answerId": 1405,
       "otherDetails": "M6 7PW"
     },
     {
-      "questionId": 100,
+      "questionId": 1400,
       "questionAsked": "Enter the address",
       "questionResponse": true,
-      "answerId": 106
+      "answerId": 1406
     }
   ],
   "smell/smell-source": [
     {
-      "questionId": 100,
+      "questionId": 1600,
       "questionAsked": "Do you know where the smell is coming from?",
       "questionResponse": true,
-      "answerId": 101
+      "answerId": 1601
     },
     {
-      "questionId": 100,
+      "questionId": 1600,
       "questionAsked": "Do you know where the smell is coming from?",
       "questionResponse": true,
-      "answerId": 103,
+      "answerId": 1603,
       "otherDetails": "test"
     }
   ],
   "smell/smell-description": [
     {
-      "questionId": 100,
+      "questionId": 1700,
       "questionAsked": "How would you describe the smell?",
       "questionResponse": true,
-      "answerId": 101
+      "answerId": 1701
     },
     {
-      "questionId": 100,
+      "questionId": 1700,
       "questionAsked": "How would you describe the smell?",
       "questionResponse": true,
-      "answerId": 103
+      "answerId": 1703
     }
   ],
   "smell/previously-reported": [
     {
-      "questionId": 100,
+      "questionId": 1800,
       "questionAsked": "Have you reported the smell before?",
       "questionResponse": true,
-      "answerId": 102
+      "answerId": 1802
     }
   ],
   "smell/recurring-problem": [
     {
-      "questionId": 100,
+      "questionId": 1900,
       "questionAsked": "Has the same smell caused you a problem before?",
       "questionResponse": true,
-      "answerId": 101
+      "answerId": 1901
     }
   ],
   "smell/past": [
     {
-      "questionId": 100,
+      "questionId": 2000,
       "questionAsked": "How long has the smell been causing problems?",
       "questionResponse": true,
-      "answerId": 101,
+      "answerId": 2001,
       "otherDetails": "test"
     }
   ],
   "smell/ongoing": [
     {
-      "questionId": 100,
+      "questionId": 2100,
       "questionAsked": "Is the smell still there?",
       "questionResponse": true,
-      "answerId": 101
+      "answerId": 2101
     }
   ],
   "smell/smell-strength": [
     {
-      "questionId": 100,
+      "questionId": 2200,
       "questionAsked": "How strong is the smell?",
       "questionResponse": true,
-      "answerId": 101
+      "answerId": 2201
     }
   ],
   "smell/effect-on-activity": [
     {
-      "questionId": 100,
+      "questionId": 2300,
       "questionAsked": "Has the smell stopped you from doing any of the following?",
       "questionResponse": true,
-      "answerId": 101
+      "answerId": 2301
     }
   ],
   "smell/effect-on-daily-life": [
     {
-      "questionId": 100,
+      "questionId": 2400,
       "questionAsked": "Have any of the following happened?",
       "questionResponse": true,
-      "answerId": 101
+      "answerId": 2401
     }
   ],
   "smell/effect-on-health": [
     {
-      "questionId": 100,
+      "questionId": 2500,
       "questionAsked": "Did the smell cause any of the following?",
       "questionResponse": true,
-      "answerId": 101
+      "answerId": 2501
     }
   ],
   "smell/other-information": "test",
@@ -173,24 +173,24 @@ const payload =
     reporterAccessCode: 'password',
     otherDetails: 'test',
     questionSetId: 200,
-    data: [{ questionId: 100, questionAsked: enterTheAddress, questionResponse: true, answerId: 101, otherDetails: 'Test address 1' },
-      { questionId: 100, questionAsked: enterTheAddress, questionResponse: true, answerId: 102, otherDetails: 'test address 2' },
-      { questionId: 100, questionAsked: enterTheAddress, questionResponse: true, answerId: 103, otherDetails: 'city' },
-      { questionId: 100, questionAsked: enterTheAddress, questionResponse: true, answerId: 104, otherDetails: 'county' },
-      { questionId: 100, questionAsked: enterTheAddress, questionResponse: true, answerId: 105, otherDetails: 'M6 7PW' },
-      { questionId: 100, questionAsked: enterTheAddress, questionResponse: true, answerId: 106 },
-      { questionId: 100, questionAsked: 'Do you know where the smell is coming from?', questionResponse: true, answerId: 101 },
-      { questionId: 100, questionAsked: 'Do you know where the smell is coming from?', questionResponse: true, answerId: 103, otherDetails: 'test' },
-      { questionId: 100, questionAsked: 'How would you describe the smell?', questionResponse: true, answerId: 101 },
-      { questionId: 100, questionAsked: 'How would you describe the smell?', questionResponse: true, answerId: 103 },
-      { questionId: 100, questionAsked: 'Have you reported the smell before?', questionResponse: true, answerId: 102 },
-      { questionId: 100, questionAsked: 'Has the same smell caused you a problem before?', questionResponse: true, answerId: 101 },
-      { questionId: 100, questionAsked: 'How long has the smell been causing problems?', questionResponse: true, answerId: 101, otherDetails: 'test' },
-      { questionId: 100, questionAsked: 'Is the smell still there?', questionResponse: true, answerId: 101 },
-      { questionId: 100, questionAsked: 'How strong is the smell?', questionResponse: true, answerId: 101 },
-      { questionId: 100, questionAsked: 'Has the smell stopped you from doing any of the following?', questionResponse: true, answerId: 101 },
-      { questionId: 100, questionAsked: 'Have any of the following happened?', questionResponse: true, answerId: 101 },
-      { questionId: 100, questionAsked: 'Did the smell cause any of the following?', questionResponse: true, answerId: 101 }
+    data: [{ questionId: 1400, questionAsked: enterTheAddress, questionResponse: true, answerId: 1401, otherDetails: 'Test address 1' },
+      { questionId: 1400, questionAsked: enterTheAddress, questionResponse: true, answerId: 1402, otherDetails: 'test address 2' },
+      { questionId: 1400, questionAsked: enterTheAddress, questionResponse: true, answerId: 1403, otherDetails: 'city' },
+      { questionId: 1400, questionAsked: enterTheAddress, questionResponse: true, answerId: 1404, otherDetails: 'county' },
+      { questionId: 1400, questionAsked: enterTheAddress, questionResponse: true, answerId: 1405, otherDetails: 'M6 7PW' },
+      { questionId: 1400, questionAsked: enterTheAddress, questionResponse: true, answerId: 1406 },
+      { questionId: 1600, questionAsked: 'Do you know where the smell is coming from?', questionResponse: true, answerId: 1601 },
+      { questionId: 1600, questionAsked: 'Do you know where the smell is coming from?', questionResponse: true, answerId: 1603, otherDetails: 'test' },
+      { questionId: 1700, questionAsked: 'How would you describe the smell?', questionResponse: true, answerId: 1701 },
+      { questionId: 1700, questionAsked: 'How would you describe the smell?', questionResponse: true, answerId: 1703 },
+      { questionId: 1800, questionAsked: 'Have you reported the smell before?', questionResponse: true, answerId: 1802 },
+      { questionId: 1900, questionAsked: 'Has the same smell caused you a problem before?', questionResponse: true, answerId: 1901 },
+      { questionId: 2000, questionAsked: 'How long has the smell been causing problems?', questionResponse: true, answerId: 2001, otherDetails: 'test' },
+      { questionId: 2100, questionAsked: 'Is the smell still there?', questionResponse: true, answerId: 2101 },
+      { questionId: 2200, questionAsked: 'How strong is the smell?', questionResponse: true, answerId: 2201 },
+      { questionId: 2300, questionAsked: 'Has the smell stopped you from doing any of the following?', questionResponse: true, answerId: 2301 },
+      { questionId: 2400, questionAsked: 'Have any of the following happened?', questionResponse: true, answerId: 2401 },
+      { questionId: 2500, questionAsked: 'Did the smell cause any of the following?', questionResponse: true, answerId: 2501 }
     ]
   }
 }
