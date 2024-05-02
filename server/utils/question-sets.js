@@ -332,7 +332,7 @@ const questionSets = {
           },
           occasionally: {
             answerId: 1902,
-            text: 'Yes, not and then'
+            text: 'Yes, now and then'
           },
           no: {
             answerId: 1903,
