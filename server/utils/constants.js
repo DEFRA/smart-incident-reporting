@@ -21,6 +21,8 @@ const FEEDBACK_SUCCESS = 'feedback-success'
 
 const WATER_POLUTION = 'water-pollution'
 const WATER_POLLUTION_WATER_FEATURE = 'water-pollution/water-feature'
+const WATER_POLLUTION_LOCATION_OPTION = 'water-pollution/location-option'
+const WATER_POLLUTION_LOCATION_MAP = 'water-pollution/location-map'
 const WATER_POLLUTION_LOCATION_DESCRIPTION = 'water-pollution/location-description'
 const WATER_POLLUTION_WHEN = 'water-pollution/when'
 const WATER_POLLUTION_POLLUTION_APPEARANCE = 'water-pollution/pollution-appearance'
@@ -64,6 +66,8 @@ const views = {
   REPORT_SENT,
   WATER_POLUTION,
   WATER_POLLUTION_WATER_FEATURE,
+  WATER_POLLUTION_LOCATION_OPTION,
+  WATER_POLLUTION_LOCATION_MAP,
   WATER_POLLUTION_LOCATION_DESCRIPTION,
   WATER_POLLUTION_WHEN,
   WATER_POLLUTION_POLLUTION_APPEARANCE,
@@ -88,7 +92,8 @@ const views = {
   SMELL_EFFECT_ON_ACTIVITY,
   SMELL_EFFECT_ON_DAILY_LIFE,
   SMELL_EFFECT_ON_HEALTH,
-  SMELL_OTHER_INFORMATION
+  SMELL_OTHER_INFORMATION,
+  MAP
 }
 
 const routes = {

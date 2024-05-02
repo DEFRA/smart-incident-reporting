@@ -1,0 +1,33 @@
+{% extends 'form-layout.html' %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds"> 
+    <h1 class="govuk-heading-l"> 
+      Where did you see the pollution? 
+    </h1> 
+    {{ govukRadios({ 
+      classes: "govuk-radios", 
+      name: "locationOption",
+      id: "locationOption",
+      errorMessage: findErrorMessageById(errorSummary, "locationOption"),
+      items: [ 
+        { 
+          value: "map", 
+          text: "Mark the location on an online map" 
+        }, 
+        { 
+          value: "desc", 
+          text: "Describe the location" 
+        } 
+      ] 
+    }) }} 
+
+    {{ govukButton({ 
+      text: "Continue" 
+    }) }} 
+  </div> 
+
+</div> 
+{% endblock %}
