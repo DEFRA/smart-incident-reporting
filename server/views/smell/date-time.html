@@ -1,0 +1,9 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = ('When did the smell start' if not onThisOccasion else 'When did the smell start, on this occasion') %}
+
+{% block formContent %}
+
+  {% include "partials/date-time.html" %}
+
+{% endblock %}

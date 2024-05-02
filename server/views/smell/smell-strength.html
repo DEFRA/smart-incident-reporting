@@ -1,0 +1,50 @@
+{% extends 'form-layout.html' %}
+
+{% set title = (question.text if onGoing else question.text.replace('is', 'was')) %}
+{% set pageTitle = title.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukRadios({
+      classes: "govuk-radios",
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      fieldset: {
+        legend: {
+          text: title,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: question.answers.strong.answerId,
+          text: question.answers.strong.text
+        },
+        {
+          value: question.answers.persistent.answerId,
+          text: question.answers.persistent.text
+        },
+        {
+          value: question.answers.faint.answerId,
+          text: question.answers.faint.text
+        },
+        {
+          value: question.answers.veryFaint.answerId,
+          text: question.answers.veryFaint.text
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

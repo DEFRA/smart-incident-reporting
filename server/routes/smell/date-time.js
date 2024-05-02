@@ -6,10 +6,14 @@ import {
   getTimeErrors,
   validatePayload
 } from '../../utils/date-helpers.js'
+import { questionSets } from '../../utils/question-sets.js'
 
 const handlers = {
-  get: async (_request, h) => {
-    return h.view(constants.views.WATER_POLLUTION_WHEN, {
+  get: async (request, h) => {
+    const recurringProblem = request.yar.get(constants.redisKeys.SMELL_RECURRING_PROBLEM)
+    const onThisOccasion = (recurringProblem && recurringProblem[0].answerId === questionSets.SMELL.questions.SMELL_RECURRING_PROBLEM.answers.no.answerId)
+    return h.view(constants.views.SMELL_DATE_TIME, {
+      onThisOccasion,
       fieldErrorClasses,
       getDateErrors,
       getTimeErrors,
@@ -30,30 +34,33 @@ const handlers = {
     // validate payload for errors
     const { errorSummary, dateTime } = validatePayload(payload, validateAndError)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.WATER_POLLUTION_WHEN, {
+      const recurringProblem = request.yar.get(constants.redisKeys.SMELL_RECURRING_PROBLEM)
+      const onThisOccasion = (recurringProblem && recurringProblem[0].answerId === questionSets.SMELL.questions.SMELL_RECURRING_PROBLEM.answers.no.answerId)
+      return h.view(constants.views.SMELL_DATE_TIME, {
         errorSummary,
         validateAndError,
         fieldErrorClasses,
         getDateErrors,
-        getTimeErrors
+        getTimeErrors,
+        onThisOccasion
       })
     }
 
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_WHEN, dateTime.toISOString())
+    request.yar.set(constants.redisKeys.SMELL_DATE_TIME, dateTime.toISOString())
 
-    return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_APPEARANCE)
+    return h.redirect(constants.routes.SMELL_ONGOING)
   }
 }
 
 export default [
   {
     method: 'GET',
-    path: constants.routes.WATER_POLLUTION_WHEN,
+    path: constants.routes.SMELL_DATE_TIME,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.WATER_POLLUTION_WHEN,
+    path: constants.routes.SMELL_DATE_TIME,
     handler: handlers.post
   }
 ]

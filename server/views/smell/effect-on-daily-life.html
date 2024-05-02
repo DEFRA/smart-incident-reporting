@@ -1,0 +1,76 @@
+{% extends 'form-layout.html' %}
+
+{% set title = (question.text if onGoing else question.text.replace('?', ', on this occasion?')) %}
+{% set pageTitle = title.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+      {% set otherHtml %}
+      {{ govukInput({
+        id: "otherDetails",
+        name: "otherDetails",
+        spellcheck: false,
+        classes: "govuk-!-width-two-third",
+        label: {
+          text: question.answer.otherDetails.text
+        }
+      }) }}
+      {% endset -%}
+
+        {{ govukCheckboxes({
+          name: "effect",
+          id: "effect",
+          fieldset: {
+            legend: {
+              text: title,
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+          {
+            value: question.answers.cover.answerId,
+            text: question.answers.cover.text
+          },
+          {
+            value: question.answers.clothes.answerId,
+            text: question.answers.clothes.text
+          },
+          {
+            value: question.answers.windows.answerId,
+            text: question.answers.windows.text
+          },
+            {
+              value: question.answers.leaveArea.answerId,
+              text: question.answers.leaveArea.text
+            },
+            {
+              value: question.answers.other.answerId,
+              text: question.answers.other.text,
+              conditional: {
+                  html: otherHtml
+                  }
+            },
+            {
+              divider: "or"
+            },
+            {
+              value: question.answers.noActions.answerId,
+              text: question.answers.noActions.text
+            }
+          ]
+        }) }}
+
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+  </div>
+</div>
+
+{% endblock %}
+

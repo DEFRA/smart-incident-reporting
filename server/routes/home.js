@@ -42,7 +42,12 @@ const handlers = {
         reporterPhoneNumber: phone,
         reporterAccessCode: accessCode
       })
-      return h.redirect(constants.routes.WATER_POLUTION)
+
+      if (accessCode.substring(0, 2).toUpperCase() === 'OD') {
+        return h.redirect(constants.routes.SMELL)
+      } else {
+        return h.redirect(constants.routes.WATER_POLUTION)
+      }
     } else {
       // Handle error for bad accessCode
       request.yar.reset()

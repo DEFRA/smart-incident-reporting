@@ -1,0 +1,23 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukRadios({
+      classes: "govuk-radios",
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      fieldset: {
+        legend: {
+          text: question.text,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: items
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
