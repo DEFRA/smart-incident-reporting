@@ -18,7 +18,6 @@ const handlers = {
   }
 }
 
-
 export default [
   {
     method: 'GET',

@@ -3,7 +3,7 @@ import { initialiseLocationSearch } from '../location-search.js'
 
 const currentLocationButton = document.getElementById('current-location')
 
-// events 
+// events
 currentLocationButton.addEventListener('click', async (e) => {
   e.preventDefault()
   if ('geolocation' in navigator) {
@@ -16,7 +16,7 @@ currentLocationButton.addEventListener('click', async (e) => {
 })
 
 const getLocation = async () => {
-  const location =  await new Promise((resolve, reject) => {
+  const location = await new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject)
   })
   return [

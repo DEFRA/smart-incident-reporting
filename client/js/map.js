@@ -79,7 +79,7 @@ const getOptionsFromCapabilities = async config => {
 const getBase64TileSource = async blob => {
   return new Promise((resolve, reject) => {
     try {
-      const reader = new FileReader()
+      const reader = new FileReader() //eslint-disable-line
       reader.onloadend = () => {
         resolve(reader.result)
       }
@@ -135,7 +135,7 @@ const transformPoint = (point) => {
 const panToOSValue = (value) => {
   if (value) {
     if (value?.GAZETTEER_ENTRY) {
-      if(value.GAZETTEER_ENTRY.MBR_XMIN) {
+      if (value.GAZETTEER_ENTRY.MBR_XMIN) {
         panToBbox([value.GAZETTEER_ENTRY.MBR_XMIN, value.GAZETTEER_ENTRY.MBR_YMIN, value.GAZETTEER_ENTRY.MBR_XMAX, value.GAZETTEER_ENTRY.MBR_YMAX])
       } else {
         panToPoint([value.GAZETTEER_ENTRY.GEOMETRY_X, value.GAZETTEER_ENTRY.GEOMETRY_Y])
@@ -161,14 +161,14 @@ const initialiseMap = () => {
       map = new Map({
         target: 'map',
         interactions: defaultInteractions({
-         altShiftDragRotate: false,
-         pinchRotate: false
-       }),
+          altShiftDragRotate: false,
+          pinchRotate: false
+        }),
         controls: defaultControls().extend([
-         new ScaleLine({
-           units: 'metric',
-           minWidth: 100
-         })
+          new ScaleLine({
+            units: 'metric',
+            minWidth: 100
+          })
         ]),
         layers: [
           oSLayer,

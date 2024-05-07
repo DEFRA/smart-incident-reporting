@@ -4,7 +4,7 @@ import { getErrorSummary } from '../../utils/helpers.js'
 const handlers = {
   get: async (_request, h) => h.view(constants.views.WATER_POLLUTION_LOCATION_OPTION),
   post: async (request, h) => {
-    let { locationOption } = request.payload
+    const { locationOption } = request.payload
 
     // validate payload
     const errorSummary = validatePayload(locationOption)

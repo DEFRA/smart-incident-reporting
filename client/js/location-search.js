@@ -4,14 +4,14 @@ import { panToOSValue, panToPoint, panToBbox } from './map.js'
 let autoCompleteValue
 const locationSearchButton = document.getElementById('search-location')
 
-///// Events
+/// // Events
 locationSearchButton.addEventListener('click', async (e) => {
   e.preventDefault()
   if (autoCompleteValue) {
-   panToOSValue(autoCompleteValue)
+    panToOSValue(autoCompleteValue)
   } else {
-   await searchLocation()
-  }   
+    await searchLocation()
+  }
 })
 
 const searchLocation = async () => {
@@ -19,21 +19,21 @@ const searchLocation = async () => {
   const response = await fetch(`/api/location?location=${locationString}`)
   const data = await response.json()
   if (data?.GAZETTEER_ENTRY) {
-   if(data.GAZETTEER_ENTRY.MBR_XMIN) {
-     panToBbox([data.GAZETTEER_ENTRY.MBR_XMIN, data.GAZETTEER_ENTRY.MBR_YMIN, data.GAZETTEER_ENTRY.MBR_XMAX, data.GAZETTEER_ENTRY.MBR_YMAX])
-   } else {
-     panToPoint([data.GAZETTEER_ENTRY.GEOMETRY_X, data.GAZETTEER_ENTRY.GEOMETRY_Y])
-   }
- } else {
-   console.log('No Location results found')
- }
+    if (data.GAZETTEER_ENTRY.MBR_XMIN) {
+      panToBbox([data.GAZETTEER_ENTRY.MBR_XMIN, data.GAZETTEER_ENTRY.MBR_YMIN, data.GAZETTEER_ENTRY.MBR_XMAX, data.GAZETTEER_ENTRY.MBR_YMAX])
+    } else {
+      panToPoint([data.GAZETTEER_ENTRY.GEOMETRY_X, data.GAZETTEER_ENTRY.GEOMETRY_Y])
+    }
+  } else {
+    console.log('No Location results found')
+  }
 }
 
 const getLocationName = (value) => {
   let location = ''
   if (value && value.GAZETTEER_ENTRY.NAME1) {
     location = value.GAZETTEER_ENTRY.NAME1
-    if(value.GAZETTEER_ENTRY.COUNTY_UNITARY) {
+    if (value.GAZETTEER_ENTRY.COUNTY_UNITARY) {
       location += ` | ${value.GAZETTEER_ENTRY.COUNTY_UNITARY}`
     } else if (value.GAZETTEER_ENTRY.REGION) {
       location += ` | ${value.GAZETTEER_ENTRY.REGION}`
@@ -71,7 +71,7 @@ const initialiseLocationSearch = () => {
       populateResults(englandmatches)
     },
     onConfirm: (value) => {
-      if (!value) { 
+      if (!value) {
         panToOSValue(autoCompleteValue)
       } else {
         autoCompleteValue = value
