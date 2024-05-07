@@ -6,6 +6,11 @@ const urls = {
 
 const phoneRegex = /^[\d-+()#]*$/
 
+// API
+const API_OS_API_TOKEN = 'api/os-api-token'
+const API_LOCATION = 'api/location'
+const API_LOCATION_SUGGESTIONS = 'api/location-suggestions'
+
 // Notices
 const ACCESSIBILITY = 'accessibility'
 const COOKIES = 'cookies'
@@ -54,6 +59,9 @@ const SMELL_OTHER_INFORMATION = 'smell/other-information'
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 
 const views = {
+  API_OS_API_TOKEN,
+  API_LOCATION,
+  API_LOCATION_SUGGESTIONS,
   ACCESSIBILITY,
   COOKIES,
   PRIVACY_NOTICE,
@@ -92,8 +100,7 @@ const views = {
   SMELL_EFFECT_ON_ACTIVITY,
   SMELL_EFFECT_ON_DAILY_LIFE,
   SMELL_EFFECT_ON_HEALTH,
-  SMELL_OTHER_INFORMATION,
-  MAP
+  SMELL_OTHER_INFORMATION
 }
 
 const routes = {

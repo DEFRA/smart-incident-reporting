@@ -10,7 +10,8 @@ const inDev = env === 'development'
 export default {
   entry: {
     core: './client/js/core.js',
-    cookies: './client/js/pages/cookies.js'
+    cookies: './client/js/pages/cookies.js',
+    locationMap: './client/js/pages/location-map.js'
   },
   output: {
     path: path.resolve(__dirname, 'server/public/build/js'),
