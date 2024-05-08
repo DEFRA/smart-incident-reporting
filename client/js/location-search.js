@@ -16,6 +16,9 @@ locationSearchButton.addEventListener('click', async (e) => {
 
 const searchLocation = async () => {
   const locationString = document.getElementById('location').value
+  if (locationString.length === 0) {
+    return showError('Enter a search term, for example a nearby town, city or postcode')
+  }
   const response = await fetch(`/api/location?location=${locationString}`)
   const data = await response.json()
   if (data?.GAZETTEER_ENTRY) {
@@ -25,8 +28,48 @@ const searchLocation = async () => {
       panToPoint([data.GAZETTEER_ENTRY.GEOMETRY_X, data.GAZETTEER_ENTRY.GEOMETRY_Y])
     }
   } else {
-    console.log('No Location results found')
+    return showError('Enter a different search term, for example a nearby town, city or postcode')
   }
+}
+
+const showError = (message) => {
+  const currentLocation = document.getElementById('current-location')
+  const errorMessage = document.getElementById('error-message')
+  // Clear out point error if present
+  if (document.getElementById('point-error')) {
+    document.getElementById('point-error').remove()
+  }
+  const formGroup = document.getElementsByClassName('govuk-form-group')[0]
+  formGroup.classList.remove('govuk-form-group--error')
+
+  if (errorMessage) {
+    errorMessage.innerText = message
+    errorMessage.href = '#location'
+    if (document.getElementById('current-location-error')) {
+      document.getElementById('current-location-error').remove()
+    }
+  } else {
+    const formElement = document.getElementsByTagName('form')[0]
+    formElement.insertAdjacentHTML('beforebegin', `<div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">
+          There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+              <li>
+                <a href="#location" id="error-message">${message}</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>`)
+  }
+  currentLocation.insertAdjacentHTML('beforebegin', `<p class="govuk-error-message" id="current-location-error">
+    <span class="govuk-visually-hidden">Error:</span> ${message}
+  </p>`)
+  window.scrollTo({ top: 0 })
+  document.getElementsByClassName('govuk-error-summary')[0].focus()
 }
 
 const getLocationName = (value) => {
@@ -76,6 +119,14 @@ const initialiseLocationSearch = () => {
       } else {
         autoCompleteValue = value
       }
+    }
+  })
+
+  const locationTextBox = document.getElementById('location')
+  locationTextBox.addEventListener('keyup', async (e) => {
+    e.preventDefault()
+    if (e.key === 'Enter') {
+      await searchLocation()
     }
   })
 }

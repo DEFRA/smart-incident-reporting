@@ -168,6 +168,16 @@ const questionSets = {
           }
         }
       },
+      WATER_POLLUTION_LOCATION_MAP: {
+        questionId: 100,
+        key: constants.redisKeys.WATER_POLLUTION_LOCATION_MAP,
+        text: 'Mark the location of the pollution',
+        answers: {
+          nationalGridReference: {
+            answerId: 101
+          }
+        }
+      },
       WATER_POLLUTION_POLLUTION_WIDTH: {
         questionId: 1100,
         key: constants.redisKeys.WATER_POLLUTION_POLLUTION_WIDTH,

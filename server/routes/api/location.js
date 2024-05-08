@@ -4,8 +4,9 @@ import { findByQuery } from '../../services/location.js'
 const handler = async (request, h) => {
   const { location } = request.query
   if (location) {
-    const result = await findByQuery(location)
-    return result
+    return await findByQuery(location)
+  } else {
+    return {}
   }
 }
 
