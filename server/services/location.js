@@ -10,7 +10,7 @@ const findByQuery = async query => {
   }
 
   // Strip out any non England results
-  return payload.results.find(item => item.GAZETTEER_ENTRY.COUNTRY === 'England')
+  return payload.results.find(item => item.GAZETTEER_ENTRY.COUNTRY === 'England') || {}
 }
 
 const findSuggestionsByQuery = async query => {
