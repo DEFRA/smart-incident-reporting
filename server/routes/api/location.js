@@ -1,10 +1,10 @@
 import constants from '../../utils/constants.js'
 import { findByQuery } from '../../services/location.js'
 
-const handler = async (request, h) => {
+const handler = (request, _h) => {
   const { location } = request.query
   if (location) {
-    return await findByQuery(location)
+    return findByQuery(location)
   } else {
     return {}
   }

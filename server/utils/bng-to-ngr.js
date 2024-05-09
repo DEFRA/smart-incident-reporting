@@ -1,5 +1,5 @@
 // Taken from https://github.com/OrdnanceSurvey/os-transform/blob/main/os-transform.js
-
+const five = 5
 const bngToNgr = (point) => {
   const prefixes = [
     ['SV', 'SW', 'SX', 'SY', 'SZ', 'TV', 'TW'],
@@ -25,11 +25,11 @@ const bngToNgr = (point) => {
   let e = Math.floor(point[0] % 100000)
   let n = Math.floor(point[1] % 100000)
 
-  e = String(e).padStart(5, '0')
-  n = String(n).padStart(5, '0')
+  e = String(e).padStart(five, '0')
+  n = String(n).padStart(five, '0')
 
-  const text = prefix + ' ' + e + ' ' + n
-  const html = prefix + '&thinsp' + e + '&thinsp' + n
+  const text = `${prefix} ${e} ${n}`
+  const html = `${prefix}&thinsp${e}&thinsp${n}`
 
   return { text, html, letters: prefix, eastings: e, northings: n }
 }

@@ -16,7 +16,13 @@ import 'ol/ol.css'
 
 let token, map
 
+const OSGB36 = 'EPSG:27700'
+const extent = [0, 0, 700000, 1300000]
+const center = [360589, 175650]
+const zoom = 1
+const maxZoom = 13
 const pointElement = document.getElementById('point')
+const premiumTileMatrix = [10, 11, 12, 13]
 
 // Map drawing interaction
 const vectorSource = new VectorSource({ wrapX: false })
@@ -34,12 +40,12 @@ const vectorLayer = new VectorLayer({
 })
 
 const initialise27700Projection = () => {
-  proj4.defs('EPSG:27700', '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 ' +
+  proj4.defs(OSGB36, '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 ' +
   '+x_0=400000 +y_0=-100000 +ellps=airy ' +
   '+towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 ' +
   '+units=m +no_defs')
   register(proj4)
-  getProjection('EPSG:27700').setExtent([0, 0, 700000, 1300000])
+  getProjection(OSGB36).setExtent(extent)
 }
 
 const setToken = async () => {
@@ -60,17 +66,16 @@ const getFetchOptions = () => {
   }
 }
 
-const getOptionsFromCapabilities = async config => {
+const getOptionsFromCapabilities = async () => {
   const url = 'https://api.os.uk/maps/raster/v1/wmts?request=GetCapabilities&service=WMTS'
   const parser = new WMTSCapabilities()
   const response = await fetch(url, getFetchOptions())
   const text = await response.text()
   const parsedCapabilities = parser.read(text)
   // Delete premium OS data layers
-  delete parsedCapabilities.Contents.TileMatrixSet[0].TileMatrix[13]
-  delete parsedCapabilities.Contents.TileMatrixSet[0].TileMatrix[12]
-  delete parsedCapabilities.Contents.TileMatrixSet[0].TileMatrix[11]
-  delete parsedCapabilities.Contents.TileMatrixSet[0].TileMatrix[10]
+  premiumTileMatrix.forEach(value => {
+    delete parsedCapabilities.Contents.TileMatrixSet[0].TileMatrix[value]
+  })
   return optionsFromCapabilities(parsedCapabilities, {
     layer: 'Road_27700'
   })
@@ -85,7 +90,7 @@ const getBase64TileSource = async blob => {
       }
       reader.readAsDataURL(blob)
     } catch (err) {
-      reject(err)
+      reject(new Error(err))
     }
   })
 }
@@ -115,9 +120,6 @@ const dropPin = (coordinate) => {
   })
   vectorSource.addFeature(marker)
   pointElement.value = JSON.stringify(coordinate)
-  // continueButton.removeAttribute('disabled')
-  // continueButton.classList.remove('govuk-button--disabled')
-  // continueButton.setAttribute('aria-disabled', 'false')
 }
 
 const panToPoint = (point, extentBuffer = 250) => {
@@ -129,17 +131,15 @@ const panToBbox = (bbox) => {
 }
 
 const transformPoint = (point) => {
-  return fromLonLat(point, 'EPSG:27700')
+  return fromLonLat(point, OSGB36)
 }
 
 const panToOSValue = (value) => {
-  if (value) {
-    if (value?.GAZETTEER_ENTRY) {
-      if (value.GAZETTEER_ENTRY.MBR_XMIN) {
-        panToBbox([value.GAZETTEER_ENTRY.MBR_XMIN, value.GAZETTEER_ENTRY.MBR_YMIN, value.GAZETTEER_ENTRY.MBR_XMAX, value.GAZETTEER_ENTRY.MBR_YMAX])
-      } else {
-        panToPoint([value.GAZETTEER_ENTRY.GEOMETRY_X, value.GAZETTEER_ENTRY.GEOMETRY_Y])
-      }
+  if (value?.GAZETTEER_ENTRY) {
+    if (value.GAZETTEER_ENTRY.MBR_XMIN) {
+      panToBbox([value.GAZETTEER_ENTRY.MBR_XMIN, value.GAZETTEER_ENTRY.MBR_YMIN, value.GAZETTEER_ENTRY.MBR_XMAX, value.GAZETTEER_ENTRY.MBR_YMAX])
+    } else {
+      panToPoint([value.GAZETTEER_ENTRY.GEOMETRY_X, value.GAZETTEER_ENTRY.GEOMETRY_Y])
     }
   }
 }
@@ -175,12 +175,12 @@ const initialiseMap = () => {
           vectorLayer
         ],
         view: new View({
-          projection: 'EPSG:27700',
-          center: [360589, 175650],
-          extent: [0, 0, 700000, 1300000],
-          zoom: 1,
-          maxZoom: 13,
-          showFullExtent: false
+          projection: OSGB36,
+          showFullExtent: false,
+          extent,
+          center,
+          zoom,
+          maxZoom
         })
       })
       // add Marker interaction

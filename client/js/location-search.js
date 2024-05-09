@@ -74,12 +74,14 @@ const showError = (message) => {
 
 const getLocationName = (value) => {
   let location = ''
-  if (value && value.GAZETTEER_ENTRY.NAME1) {
+  if (value?.GAZETTEER_ENTRY.NAME1) {
     location = value.GAZETTEER_ENTRY.NAME1
     if (value.GAZETTEER_ENTRY.COUNTY_UNITARY) {
       location += ` | ${value.GAZETTEER_ENTRY.COUNTY_UNITARY}`
     } else if (value.GAZETTEER_ENTRY.REGION) {
       location += ` | ${value.GAZETTEER_ENTRY.REGION}`
+    } else {
+      // do nothing for sonarcloud
     }
   }
   return location
@@ -99,7 +101,7 @@ const initialiseLocationSearch = () => {
       }
     },
     source: async (query, populateResults) => {
-      autoCompleteValue = undefined
+      autoCompleteValue = null
       const response = await fetch(`/api/location-suggestions?location=${query}`)
       // Filter results to exact string matches
       const data = await response.json()
@@ -125,7 +127,7 @@ const initialiseLocationSearch = () => {
   const locationTextBox = document.getElementById('location')
   locationTextBox.addEventListener('keyup', async (e) => {
     e.preventDefault()
-    if (e.key === 'Enter') {
+    if (!autoCompleteValue && e.key === 'Enter') {
       await searchLocation()
     }
   })
