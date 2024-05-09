@@ -90,7 +90,7 @@ describe(url, () => {
       util.getJson.mockImplementation(() => {
         return {}
       })
-      const { result } = await submitGetRequest({ url: `${url}?location=` })
+      const { result } = await submitGetRequest({ url: `${url}?location=test` })
       expect(result).toEqual({})
     })
     it('Should return empty object if empty array returned', async () => {
@@ -99,7 +99,7 @@ describe(url, () => {
           results: []
         }
       })
-      const { result } = await submitGetRequest({ url: `${url}?location=` })
+      const { result } = await submitGetRequest({ url: `${url}?location=test` })
       expect(result).toEqual({})
     })
   })

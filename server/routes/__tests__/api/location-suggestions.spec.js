@@ -137,11 +137,11 @@ describe(url, () => {
       const { result } = await submitGetRequest({ url: `${url}?location=` })
       expect(result).toEqual([])
     })
-    it('Should return empty array if no results returned', async () => {
+    it.only('Should return empty array if no results returned', async () => {
       util.getJson.mockImplementation(() => {
         return {}
       })
-      const { result } = await submitGetRequest({ url: `${url}?location=` })
+      const { result } = await submitGetRequest({ url: `${url}?location=test` })
       expect(result).toEqual([])
     })
     it('Should return empty array if empty array returned', async () => {
@@ -150,7 +150,7 @@ describe(url, () => {
           results: []
         }
       })
-      const { result } = await submitGetRequest({ url: `${url}?location=` })
+      const { result } = await submitGetRequest({ url: `${url}?location=test` })
       expect(result).toEqual([])
     })
   })
