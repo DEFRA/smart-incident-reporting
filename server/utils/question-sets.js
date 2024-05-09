@@ -164,11 +164,11 @@ const questionSets = {
         text: 'Where did you see the pollution?',
         answers: {
           map: {
-            answerId: 2601,
+            answerId: 2602,
             text: 'Mark the location on an online map'
           },
           description: {
-            answerId: 2602,
+            answerId: 2601,
             text: 'Describe the location'
           }
         }
