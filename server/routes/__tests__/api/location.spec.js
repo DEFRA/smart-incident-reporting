@@ -86,5 +86,21 @@ describe(url, () => {
       const { result } = await submitGetRequest({ url: `${url}?location=` })
       expect(result).toEqual({})
     })
+    it('Should return empty object if no results returned', async () => {
+      util.getJson.mockImplementation(() => {
+        return {}
+      })
+      const { result } = await submitGetRequest({ url: `${url}?location=` })
+      expect(result).toEqual({})
+    })
+    it('Should return empty object if empty array returned', async () => {
+      util.getJson.mockImplementation(() => {
+        return {
+          results: []
+        }
+      })
+      const { result } = await submitGetRequest({ url: `${url}?location=` })
+      expect(result).toEqual({})
+    })
   })
 })

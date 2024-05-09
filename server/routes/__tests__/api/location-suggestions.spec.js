@@ -91,7 +91,7 @@ describe(url, () => {
         }
       }])
     })
-    it(`Should return no results if none from England ${url}`, async () => {
+    it('Should return no results if none from England', async () => {
       util.getJson.mockImplementation(() => {
         return {
           results: [{
@@ -114,7 +114,7 @@ describe(url, () => {
       const { result } = await submitGetRequest({ url: `${url}?location=WA4 1HT` })
       expect(result).toEqual([])
     })
-    it(`Should return no results if no search term ${url}`, async () => {
+    it('Should return no results if no search term', async () => {
       util.getJson.mockImplementation(() => {
         return {
           results: [{
@@ -132,6 +132,22 @@ describe(url, () => {
               COUNTRY: 'Wales'
             }
           }]
+        }
+      })
+      const { result } = await submitGetRequest({ url: `${url}?location=` })
+      expect(result).toEqual([])
+    })
+    it('Should return empty array if no results returned', async () => {
+      util.getJson.mockImplementation(() => {
+        return {}
+      })
+      const { result } = await submitGetRequest({ url: `${url}?location=` })
+      expect(result).toEqual([])
+    })
+    it('Should return empty array if empty array returned', async () => {
+      util.getJson.mockImplementation(() => {
+        return {
+          results: []
         }
       })
       const { result } = await submitGetRequest({ url: `${url}?location=` })
