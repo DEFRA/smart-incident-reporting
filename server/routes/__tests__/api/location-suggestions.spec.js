@@ -137,7 +137,7 @@ describe(url, () => {
       const { result } = await submitGetRequest({ url: `${url}?location=` })
       expect(result).toEqual([])
     })
-    it.only('Should return empty array if no results returned', async () => {
+    it('Should return empty array if no results returned', async () => {
       util.getJson.mockImplementation(() => {
         return {}
       })
