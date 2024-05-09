@@ -1,27 +1,27 @@
 {% extends 'form-layout.html' %}
-{% set pageTitle = 'Where did you see the pollution' %}
+{% set pageTitle = question.text.replace('?', '') %}
 
 {% block formContent %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds"> 
     <h1 class="govuk-heading-l"> 
-      {{ pageTitle }}? 
+      {{ question.text }}
     </h1> 
     {{ govukRadios({ 
       classes: "govuk-radios", 
-      name: "locationOption",
-      id: "locationOption",
-      errorMessage: findErrorMessageById(errorSummary, "locationOption"),
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
       items: [ 
-        { 
-          value: "map", 
-          text: "Mark the location on an online map" 
-        }, 
-        { 
-          value: "desc", 
-          text: "Describe the location" 
-        } 
+      {
+        value: question.answers.map.answerId,
+        text: question.answers.map.text
+      },
+      {
+        value: question.answers.description.answerId,
+        text: question.answers.description.text
+      }
       ] 
     }) }} 
 

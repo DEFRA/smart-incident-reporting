@@ -3,12 +3,12 @@ import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.WATER_POLLUTION_LOCATION_OPTION
-// const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LOCATION_OPTION
-// const baseAnswer = {
-//   questionId: question.questionId,
-//   questionAsked: question.text,
-//   questionResponse: true
-// }
+const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LOCATION_OPTION
+const baseAnswer = {
+  questionId: question.questionId,
+  questionAsked: question.text,
+  questionResponse: true
+}
 
 describe(url, () => {
   describe('GET', () => {
@@ -18,24 +18,34 @@ describe(url, () => {
   })
   describe('POST', () => {
     it('Should accept map option and redirect to water-pollution/location-map', async () => {
+      const answerId = question.answers.map.answerId
       const options = {
         url,
         payload: {
-          locationOption: 'map'
+          answerId
         }
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LOCATION_MAP)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_OPTION)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
     })
     it('Should accept description option and redirect to water-pollution/location-description', async () => {
+      const answerId = question.answers.description.answerId
       const options = {
         url,
         payload: {
-          locationOption: 'desc'
+          answerId
         }
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LOCATION_DESCRIPTION)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_OPTION)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
     })
     it('Sad: no radio selected, returns error state', async () => {
       const options = {
