@@ -23,9 +23,9 @@ const searchLocation = async () => {
   const data = await response.json()
   if (data?.GAZETTEER_ENTRY) {
     if (data.GAZETTEER_ENTRY.MBR_XMIN) {
-      panToBbox([data.GAZETTEER_ENTRY.MBR_XMIN, data.GAZETTEER_ENTRY.MBR_YMIN, data.GAZETTEER_ENTRY.MBR_XMAX, data.GAZETTEER_ENTRY.MBR_YMAX])
+      return panToBbox([data.GAZETTEER_ENTRY.MBR_XMIN, data.GAZETTEER_ENTRY.MBR_YMIN, data.GAZETTEER_ENTRY.MBR_XMAX, data.GAZETTEER_ENTRY.MBR_YMAX])
     } else {
-      panToPoint([data.GAZETTEER_ENTRY.GEOMETRY_X, data.GAZETTEER_ENTRY.GEOMETRY_Y])
+      return panToPoint([data.GAZETTEER_ENTRY.GEOMETRY_X, data.GAZETTEER_ENTRY.GEOMETRY_Y])
     }
   } else {
     return showError('Enter a different search term, for example a nearby town, city or postcode')
