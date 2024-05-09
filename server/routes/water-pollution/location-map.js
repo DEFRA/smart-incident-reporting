@@ -15,7 +15,7 @@ const handlers = {
   post: async (request, h) => {
     let { point } = request.payload
 
-    point = JSON.parse(point)
+    point = point && JSON.parse(point)
 
     if (!point || point.length === 0) {
       return h.view(constants.views.WATER_POLLUTION_LOCATION_MAP, {
@@ -23,7 +23,7 @@ const handlers = {
       })
     }
 
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_WHEN, buildAnswers(bngToNgr(point).text))
+    request.yar.set(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP, buildAnswers(bngToNgr(point).text))
 
     // handle redirects
     return h.redirect(constants.routes.WATER_POLLUTION_WHEN)
