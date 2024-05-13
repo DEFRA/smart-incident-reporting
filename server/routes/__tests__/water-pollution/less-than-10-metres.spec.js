@@ -41,7 +41,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_EFFECT_ON_WILDLIFE)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES)).toEqual([{
         ...baseAnswer,
         answerId
@@ -71,7 +71,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_EFFECT_ON_WILDLIFE)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES)).toEqual([{
         ...baseAnswer,
         answerId

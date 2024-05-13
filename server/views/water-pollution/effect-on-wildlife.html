@@ -1,0 +1,56 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+      {% set sourceDetailsHtml %}
+      {{ govukTextarea({
+        id: "yesDetails",
+        name: "yesDetails",
+        errorMessage: findErrorMessageById(errorSummary, "yesDetails"),
+        classes: "govuk-!-width-two-third",
+        label: {
+          text: question.answers.yesDetails.text
+        }
+      }) }}
+      {% endset -%}
+
+      {{ govukRadios ({
+        id: "effectOnWildlife",
+        name: "effectOnWildlife",
+        errorMessage: findErrorMessageById(errorSummary, "effectOnWildlife"),
+        fieldset: {
+          legend: {
+            text: question.text,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: sourceDetailsHtml
+            },
+            checked: effectOnWildlife === 'yes'
+          },
+          {
+            value: "no",
+            text: "No",
+            checked: effectOnWildlife === 'no'
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+  </div>
+</div>
+
+{% endblock %}

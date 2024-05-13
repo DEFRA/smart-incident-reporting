@@ -38,7 +38,7 @@ const handlers = {
     if (answerId === question.answers.no.answerId) {
       return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_AREA)
     } else {
-      return h.redirect(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
+      return h.redirect(constants.routes.WATER_POLLUTION_EFFECT_ON_WILDLIFE)
     }
   }
 }

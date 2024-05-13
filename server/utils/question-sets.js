@@ -211,6 +211,25 @@ const questionSets = {
             text: YOU_DO_NOT_KNOW
           }
         }
+      },
+      WATER_POLLUTION_EFFECT_ON_WILDLIFE: {
+        questionId: 200,
+        key: constants.redisKeys.WATER_POLLUTION_EFFECT_ON_WILDLIFE,
+        text: 'Have you seen any dead or distressed fish or animals nearby?',
+        answers: {
+          yes: {
+            answerId: 201,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 202,
+            text: 'No'
+          },
+          yesDetails: {
+            answerId: 203,
+            text: 'Give details about what you\'ve seen, including the type and number of fish or animals affected'
+          }
+        }
       }
     }
   },
