@@ -158,6 +158,21 @@ const questionSets = {
           }
         }
       },
+      WATER_POLLUTION_LOCATION_OPTION: {
+        questionId: 2600,
+        key: constants.redisKeys.WATER_POLLUTION_LOCATION_OPTION,
+        text: 'Where did you see the pollution?',
+        answers: {
+          map: {
+            answerId: 2602,
+            text: 'Mark the location on an online map'
+          },
+          description: {
+            answerId: 2601,
+            text: 'Describe the location'
+          }
+        }
+      },
       WATER_POLLUTION_LOCATION_DESCRIPTION: {
         questionId: 900,
         key: constants.redisKeys.WATER_POLLUTION_LOCATION_DESCRIPTION,
@@ -165,6 +180,16 @@ const questionSets = {
         answers: {
           locationDetails: {
             answerId: 901
+          }
+        }
+      },
+      WATER_POLLUTION_LOCATION_MAP: {
+        questionId: 2700,
+        key: constants.redisKeys.WATER_POLLUTION_LOCATION_MAP,
+        text: 'Mark the location of the pollution',
+        answers: {
+          nationalGridReference: {
+            answerId: 2701
           }
         }
       },
@@ -194,7 +219,7 @@ const questionSets = {
     questions: {
       SMELL_LOCATION_OPTION: {
         questionId: 1200,
-        key: constants.redisKeys.SMELL_OPTION,
+        key: constants.redisKeys.SMELL_LOCATION_OPTION,
         text: 'Where can you notice the smell?',
         answers: {
           address: {

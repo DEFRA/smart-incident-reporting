@@ -6,6 +6,11 @@ const urls = {
 
 const phoneRegex = /^[\d-+()#]*$/
 
+// API
+const API_OS_API_TOKEN = 'api/os-api-token'
+const API_LOCATION = 'api/location'
+const API_LOCATION_SUGGESTIONS = 'api/location-suggestions'
+
 // Notices
 const ACCESSIBILITY = 'accessibility'
 const COOKIES = 'cookies'
@@ -21,6 +26,8 @@ const FEEDBACK_SUCCESS = 'feedback-success'
 
 const WATER_POLUTION = 'water-pollution'
 const WATER_POLLUTION_WATER_FEATURE = 'water-pollution/water-feature'
+const WATER_POLLUTION_LOCATION_OPTION = 'water-pollution/location-option'
+const WATER_POLLUTION_LOCATION_MAP = 'water-pollution/location-map'
 const WATER_POLLUTION_LOCATION_DESCRIPTION = 'water-pollution/location-description'
 const WATER_POLLUTION_WHEN = 'water-pollution/when'
 const WATER_POLLUTION_POLLUTION_APPEARANCE = 'water-pollution/pollution-appearance'
@@ -52,6 +59,9 @@ const SMELL_OTHER_INFORMATION = 'smell/other-information'
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 
 const views = {
+  API_OS_API_TOKEN,
+  API_LOCATION,
+  API_LOCATION_SUGGESTIONS,
   ACCESSIBILITY,
   COOKIES,
   PRIVACY_NOTICE,
@@ -64,6 +74,8 @@ const views = {
   REPORT_SENT,
   WATER_POLUTION,
   WATER_POLLUTION_WATER_FEATURE,
+  WATER_POLLUTION_LOCATION_OPTION,
+  WATER_POLLUTION_LOCATION_MAP,
   WATER_POLLUTION_LOCATION_DESCRIPTION,
   WATER_POLLUTION_WHEN,
   WATER_POLLUTION_POLLUTION_APPEARANCE,
