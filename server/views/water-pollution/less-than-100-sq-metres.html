@@ -2,6 +2,21 @@
 
 {% set pageTitle = question.text.replace('?', '') %}
 {% set pageHeader = question.text %}
+{% set helpHtml %}
+  <details class="govuk-details" data-module="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        Help with estimating area
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+      <p class="govuk-body govuk-caption-m">100 square metres is about the same area taken up by 3 double-decker buses parked side by side.</p>
+      <img src="/public/images/3-buses.svg" alt="3 double-decker buses" width="55%" class="govuk-!-margin-bottom-4">
+      <p class="govuk-body govuk-caption-m">Base your answer only on the pollution you've actually seen.</p>
+      <p class="govuk-body govuk-caption-m">If the pollution is in patches, estimate the area of water that would include all the pollution you've seen, including gaps between patches.</p>
+    </div>
+  </details>
+{% endset -%}
 
 {% block formContent %}
 
