@@ -35,7 +35,7 @@ const handlers = {
     // set answer in session
     request.yar.set(constants.redisKeys.WATER_POLLUTION_POLLUTION_WIDTH, buildAnswers(answerId))
 
-    return h.redirect(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
+    return h.redirect(constants.routes.WATER_POLLUTION_EFFECT_ON_WILDLIFE)
   }
 }
 

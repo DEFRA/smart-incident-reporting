@@ -36,7 +36,7 @@ const handlers = {
     request.yar.set(constants.redisKeys.WATER_POLLUTION_POLLUTION_AREA, buildAnswers(answerId))
 
     // handle redirection
-    return h.redirect(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
+    return h.redirect(constants.routes.WATER_POLLUTION_EFFECT_ON_WILDLIFE)
   }
 }
 
