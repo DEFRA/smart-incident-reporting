@@ -32,7 +32,7 @@ describe(url, () => {
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_WHEN)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP)).toEqual([{
         ...baseAnswer,
-        nationalGridReference: 'SJ 65739 43015'
+        otherDetails: 'SJ 65739 43015'
       }])
     })
     it('Sad: errors on no point provided', async () => {

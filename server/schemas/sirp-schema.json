@@ -66,9 +66,9 @@
               "questionResponse": {
                 "type": "boolean"
               },
-			  "otherDetails": {
-			  "type": "string"
-			  }
+              "otherDetails": {
+              "type": "string"
+              }
             },
             "required": [
               "questionId",

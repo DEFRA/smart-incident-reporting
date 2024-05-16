@@ -33,7 +33,7 @@ const handlers = {
 const buildAnswers = ngr => {
   return [{
     ...baseAnswer,
-    nationalGridReference: ngr
+    otherDetails: ngr
   }]
 }
 
