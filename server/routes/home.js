@@ -1,5 +1,4 @@
 import constants from '../utils/constants.js'
-import bcrypt from 'bcrypt'
 import config from '../utils/config.js'
 import { getErrorSummary } from '../utils/helpers.js'
 import isWorkingHours from '../utils/is-working-hours.js'
@@ -30,7 +29,7 @@ const handlers = {
     }
 
     // Find account by accessCode
-    const account = config.accounts.find(item => bcrypt.compareSync(accessCode, item.password))
+    const account = config.accounts.find(item => item.password === accessCode)
     if (account) {
       request.cookieAuth.set({
         ...account,
