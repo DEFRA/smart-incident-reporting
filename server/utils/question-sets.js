@@ -193,25 +193,6 @@ const questionSets = {
           }
         }
       },
-      WATER_POLLUTION_POLLUTION_WIDTH: {
-        questionId: 1100,
-        key: constants.redisKeys.WATER_POLLUTION_POLLUTION_WIDTH,
-        text: 'Is the pollution across the full width of the watercourse?',
-        answers: {
-          yes: {
-            answerId: 1101,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 1102,
-            text: 'No'
-          },
-          youDoNotKnow: {
-            answerId: 1103,
-            text: YOU_DO_NOT_KNOW
-          }
-        }
-      },
       WATER_POLLUTION_EFFECT_ON_WILDLIFE: {
         questionId: 200,
         key: constants.redisKeys.WATER_POLLUTION_EFFECT_ON_WILDLIFE,
