@@ -1,0 +1,11 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+{% set pageHeader = question.text.replace('watercourse', waterFeature) %}
+{% set pageHint = 'This means it touches both sides or banks at any point.' %}
+
+{% block formContent %}
+
+  {% include "water-pollution/partials/less-than-x-x.html" %}
+
+{% endblock %}

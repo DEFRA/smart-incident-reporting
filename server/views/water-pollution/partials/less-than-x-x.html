@@ -1,0 +1,47 @@
+{% if not pageHint %}
+  {% set pageHint = 'Answer based on the pollution you\'ve actually seen.' %}
+{% endif %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    {{ govukRadios({
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      fieldset: {
+        legend: {
+          html: pageHeader,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      hint: {
+        text: pageHint
+      },
+      items: [
+        {
+          value: question.answers.yes.answerId,
+          text: question.answers.yes.text
+        },
+        {
+          value: question.answers.no.answerId,
+          text: question.answers.no.text
+        },
+        {
+          divider: "or"
+        },
+        {
+          value: question.answers.youDoNotKnow.answerId,
+          text: question.answers.youDoNotKnow.text
+        }
+      ]
+    }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+  </div>
+</div>

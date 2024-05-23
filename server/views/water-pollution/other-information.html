@@ -1,6 +1,6 @@
 {% extends 'form-layout.html' %}
 
-{% set pageTitle = 'Can you describe the pollution' %}
+{% set pageTitle = 'Is there anything else you\'d like to add' %}
 
 {% block formContent %}
 
@@ -12,14 +12,14 @@
       id: "otherInfo",
       rows: "10",
       label: {
-        text: "Can you describe the pollution?",
+        text: "Is there anything else you'd like to add (optional)?",
         classes: "govuk-label--l",
         isPageHeading: true
       },
       hint: {
         text: "Include things like where the pollution is, what it looks like, how much of the water it covers and where it's coming from (if known) "
       },
-      errorMessage: errorSummary.errorList[0]
+      errorMessage: findErrorMessageById(errorSummary, 'otherInfo')
     }) }}
 
     {{ govukButton({

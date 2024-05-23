@@ -5,6 +5,7 @@ import config from '../utils/config.js'
 import constants from '../utils/constants.js'
 import fs from 'fs'
 import dirname from '../../dirname.cjs'
+import { findErrorMessageById } from '../utils/template-helpers.js'
 const { version } = JSON.parse(fs.readFileSync('./package.json'))
 const analyticsAccount = config.analyticsAccount
 
@@ -18,10 +19,12 @@ export default {
           return context => template.render(context)
         },
         prepare: (options, next) => {
-          options.compileOptions.environment = nunjucks.configure(options.path, {
+          const env = options.compileOptions.environment = nunjucks.configure(options.path, {
             autoescape: true,
             watch: false
           })
+          // Add global functions for view templates
+          env.addGlobal('findErrorMessageById', findErrorMessageById)
           return next()
         }
       }
@@ -39,7 +42,7 @@ export default {
       assetPath: '/public',
       govUkHome: constants.urls.GOV_UK_HOME,
       serviceNameUrl: constants.urls.GOV_UK_SERVICE_HOME,
-      serviceName: config.serviceName,
+      serviceName: 'Report an environmental problem',
       titleSuffix: ' - report an environmental problem - GOV.UK',
       analyticsAccount
     }

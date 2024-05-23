@@ -6,12 +6,18 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "govuk/components/inset-text/macro.njk" import  govukInsetText %}
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 
 {% block head %}
   <!-- Version: {{ appVersion }} -->
   <!-- Environment: {{ env }} -->
   <meta name="robots" content="noindex, nofollow">
-  <meta name="description" content="Report pollution, including sewage, in rivers, lakes, canals, the sea and other watercourses in England.">
+  <meta name="description" content="{% if metaDescription %}{{ metaDescription }}{% else %}Report pollution, including sewage, in rivers, lakes, canals, the sea and other watercourses in England.{% endif %}">
 
   <!--[if !IE 8]><!-->
     <link href="{{ assetPath }}/stylesheets/application.css" rel="stylesheet" />
@@ -30,6 +36,7 @@
 {% endblock %}
 
 {% block header %}
+  {% include "cookie-banner.html" %}
   {{ govukHeader({
     homepageUrl: govUkHome,
     containerClasses: "govuk-width-container",
@@ -47,7 +54,7 @@
     tag: {
       text: "beta"
     },
-    html: 'This is a new service – <a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_cMxUuwi2OGTwAfQ" target="_blank" rel="noopener noreferrer">give feedback (opens new tab)</a> to help us to improve it.'
+    html: 'This is a new service – <a class="govuk-link" href="/feedback">leave feedback</a> to help us to improve it.'
   }) }}
 
   <!-- Hide the back link if Javascript is not available -->
@@ -80,4 +87,5 @@
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   <script src="{{ assetPath }}/all.js"></script>
   <script>window.GOVUKFrontend.initAll()</script>
+  <script src="{{ assetPath }}/js/core.js"></script>
 {% endblock %}

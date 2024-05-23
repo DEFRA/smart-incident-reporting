@@ -1,6 +1,7 @@
 FROM node:18-alpine
 
 LABEL author="DEFRA"
+ARG GA_ID
 ENV NODE_ENV=production
 ENV PORT=8000
 

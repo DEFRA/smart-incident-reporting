@@ -1,0 +1,10 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'Does the pollution spread less than 10 metres' %}
+{% set pageHeader = 'Does the pollution spread less than 10 metres along the ' + waterFeature + '?' %}
+
+{% block formContent %}
+
+  {% include "water-pollution/partials/less-than-x-x.html" %}
+
+{% endblock %}

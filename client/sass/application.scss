@@ -323,3 +323,117 @@ $govuk-global-styles: true;
   background-color: #f3f2f1;
   border-top: 1px solid #263135;
 }
+
+// custom time input SIR-656
+.govuk-select--custom-time {
+  min-width: 2.5em;
+}
+.govuk-time-input__item  {
+  display: inline-block;
+  margin-right: 20px;
+  margin-bottom: 0;
+}
+
+.govuk-time-input__item__separator {
+display: inline-block;
+margin-right: 8px;
+margin-bottom: 0;
+}
+
+
+//////////////////////////////////////////////////
+// OS MAP STYLES START ///////////////////////////
+//////////////////////////////////////////////////
+.map {
+  height: 500px;
+  position: relative;
+  width: 100%;
+  &:focus {
+    outline: 0 !important;
+  }
+}
+
+.map-and-search-group {
+  border: 1px solid #b1b4b6;
+  margin-bottom: 20px;
+}
+
+.search-group {
+  padding: 15px;
+}
+
+.search-group button {
+  display: block;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin: 0px;
+  padding: 0px;
+  box-shadow: none;
+  background-color: #00703c;
+  border: 2px solid #00703c;
+  z-index: 1;
+  cursor: pointer;
+  color: #fff;
+}
+
+.search-box-and-button {
+  display: table;
+  width: 100%;
+  margin-top: 15px;
+}
+
+@media (min-width: 40.0625em) {
+  .search-box-and-button {
+    width: 66%;
+  }
+}
+
+#location-container {
+  display: table-cell;
+  position: relative;
+  vertical-align: top;
+  width: 100%;
+  input {
+    z-index: 2;
+  }
+}
+
+#search-location {
+  display: table-cell;
+  position: relative;
+  vertical-align: top;
+}
+
+.ol-control button {
+  color: #626a6e !important;
+  background-color: white !important;
+  font-size: 1.5em !important;
+}
+
+.ol-control {
+  background-color: rgba(98, 106, 110, 0.5) !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+.ol-zoom .ol-zoom-in {
+  border-radius: 2px 2px 0 0;
+}
+
+.ol-full-screen {
+  display: none;
+}
+
+@media (max-width: 40.0625em) {
+  .sticky-container {
+    background-color: white;
+    margin-top: 1rem;
+    position: sticky;
+    bottom: 0;
+  }
+}
+
+//////////////////////////////////////////////////
+// OS MAP STYLES END /////////////////////////////
+//////////////////////////////////////////////////

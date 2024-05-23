@@ -5,6 +5,8 @@ services:
     build:
       context: ../
       dockerfile: dockerfile
+      args:
+        - GA_ID
     ports:
       - "8000:8000"
     environment:

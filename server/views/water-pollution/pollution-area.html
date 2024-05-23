@@ -1,0 +1,49 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukRadios({
+        name: "answerId",
+        id: "answerId",
+        errorMessage: findErrorMessageById(errorSummary, "answerId"),
+        fieldset: {
+          legend: {
+            html: question.text,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          text: "Estimate as best you can. We'll check the exact size if needed."
+        },
+        items: [
+        {
+          value: question.answers.under500sqm.answerId,
+          text: question.answers.under500sqm.text
+        },
+        {
+          value: question.answers.over500sqm.answerId,
+          text: question.answers.over500sqm.text
+        },
+          {
+            divider: "or"
+          },
+          {
+            value: question.answers.youDoNotKnow.answerId,
+            text: question.answers.youDoNotKnow.text
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+  </div>
+</div>
+
+{% endblock %}

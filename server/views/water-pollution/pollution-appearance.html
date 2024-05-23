@@ -1,0 +1,66 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'What does the pollution look like' %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% set otherHtml %}
+      {{ govukInput({
+        id: "somethingElseDetail",
+        name: "somethingElseDetail",
+        spellcheck: false,
+        classes: "govuk-!-width-two-third",
+        label: {
+          text: question.answers.somethingElseDetail.text
+        }
+      }) }}
+    {% endset -%}
+
+    {{ govukCheckboxes({
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      fieldset: {
+        legend: {
+          text:  pageTitle + "?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      hint: {
+        html: "Choose as many as you want."
+      },
+      items: [
+        {
+          value: question.answers.cloudy.answerId,
+          text: question.answers.cloudy.text
+        },
+        {
+          value: question.answers.rainbow.answerId,
+          text: question.answers.rainbow.text
+        },
+        {
+          value: question.answers.scum.answerId,
+          text: question.answers.scum.text
+        },
+        {
+          value: question.answers.somethingElse.answerId,
+          text: question.answers.somethingElse.text,
+          conditional: {
+            html: otherHtml
+          }
+        }
+      ]
+    }) }}
+ 
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

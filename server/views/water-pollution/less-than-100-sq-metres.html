@@ -1,0 +1,10 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+{% set pageHeader = question.text %}
+
+{% block formContent %}
+
+  {% include "water-pollution/partials/less-than-x-x.html" %}
+
+{% endblock %}
