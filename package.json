@@ -61,7 +61,7 @@
     "moment": "^2.30.1",
     "node-sass": "^9.0.0",
     "nunjucks": "^3.2.4",
-    "ol": "^9.2.1",
+    "ol": "^9.2.3",
     "postcode-validator": "^3.8.20",
     "proj4": "^2.11.0",
     "webpack": "^5.91.0",
