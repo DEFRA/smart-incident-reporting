@@ -95,7 +95,7 @@ describe(url, () => {
       expect(response.headers.location).toEqual(constants.routes.SMELL_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.SMELL_EFFECT_ON_HEALTH)).toEqual([{
         ...baseAnswer,
-        answerId: question.answers.noSymptoms.answerId
+        answerId: question.answers.noneOfThese.answerId
       }])
     })
   })
