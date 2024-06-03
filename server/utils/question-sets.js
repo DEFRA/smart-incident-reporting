@@ -484,7 +484,7 @@ const questionSets = {
             answerId: 2405,
             text: SOMETHING_ELSE
           },
-          noActions: {
+          noneOfThese: {
             answerId: 2406,
             text: NONE_OF_THESE
           },
@@ -519,7 +519,7 @@ const questionSets = {
             answerId: 2505,
             text: SOMETHING_ELSE
           },
-          noSymptoms: {
+          noneOfThese: {
             answerId: 2506,
             text: NONE_OF_THESE
           },
