@@ -12,7 +12,7 @@ window.sir = {
       date.setTime(date.getTime() + (cookieExpiryDays * 24 * 60 * 60 * 1000))
       const expires = 'expires=' + date.toUTCString()
       const sameSite = 'SameSite=Strict'
-      document.cookie = `${cookieName}=${window.btoa(encodeURIComponent(cookieValue))};${sameSite};${expires};path=/`
+      document.cookie = `${cookieName}=${window.btoa(encodeURIComponent(cookieValue))};${sameSite};${expires};path=/;secure`
     },
     deleteCookie: (cookieName) => {
       const expires = 'expires=Thu, 01 Jan 1970 00:00:01 GMT'

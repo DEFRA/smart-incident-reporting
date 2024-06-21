@@ -44,7 +44,7 @@ const config = {
   redisPassword: process.env.REDIS_PASSWORD,
   redisTls: getBoolean(process.env.REDIS_TLS),
   sessionCookiePassword: process.env.SESSION_COOKIE_PASSWORD,
-  authCookiePassword: process.env.AUTH_COOKIE_PASSWORD,
+  authCookiePassword: process.env.SESSION_COOKIE_PASSWORD,
   cookieIsSecure: getBoolean(process.env.COOKIE_IS_SECURE),
   osSecret: process.env.OS_SECRET,
   osKey: process.env.OS_KEY,
