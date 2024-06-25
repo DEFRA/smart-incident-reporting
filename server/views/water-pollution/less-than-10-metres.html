@@ -3,6 +3,23 @@
 {% set pageTitle = 'Does the pollution spread less than 10 metres' %}
 {% set pageHeader = 'Does the pollution spread less than 10 metres along the ' + waterFeature + '?' %}
 
+{% set helpHtml %}
+  <details class="govuk-details govuk-!-margin-top-6 govuk-!-margin-bottom-6" data-module="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        Help with estimating size
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+      <p class="govuk-body govuk-caption-m">10 metres is about the length of a double-decker bus.</p>
+      <img src="/public/images/bus.svg" class="govuk-!-margin-top-2 govuk-!-margin-bottom-4" alt="A double-decker bus" width="40%">
+      <p class="govuk-body govuk-caption-m">Base your answer only on the pollution you've actually seen.</p>
+      <p class="govuk-body govuk-caption-m">If the pollution is in a single patch, estimate from where it starts to where it ends.</p>
+      <p class="govuk-body govuk-caption-m">If the pollution is in patches, estimate the distance between the 2 farthest apart patches.</p>
+    </div>
+  </details>
+{% endset -%}
+
 {% block formContent %}
 
   {% include "water-pollution/partials/less-than-x-x.html" %}

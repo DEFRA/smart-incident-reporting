@@ -112,6 +112,7 @@ const tileLoad = (tile, src) => {
 }
 
 const dropPin = (coordinate) => {
+  console.log(coordinate)
   vectorSource.clear()
   const point = new Point(coordinate)
   const marker = new Feature({
