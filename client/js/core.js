@@ -39,6 +39,7 @@ window.sir = {
         script.onload = () => {
           window.dataLayer = window.dataLayer || []
           function gtag () { window.dataLayer.push(arguments) }
+          // setupGoogleTagManager is only called after cookies/tracking has been consented to
           gtag('consent', 'default', {
             ad_storage: 'granted',
             ad_personalization: 'granted',
