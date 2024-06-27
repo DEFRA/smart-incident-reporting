@@ -35,12 +35,21 @@ window.sir = {
       const gaId = process.env.GA_ID
       if (gaId) {
         const script = document.createElement('script')
-        script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`
+        script.src = `https://www.googletagmanager.com/gtm.js?id=${gaId}`
         script.onload = () => {
           window.dataLayer = window.dataLayer || []
           function gtag () { window.dataLayer.push(arguments) }
-          gtag('js', new Date())
-          gtag('config', gaId, { cookie_domain: window.location.hostname })
+          // setupGoogleTagManager is only called after cookies/tracking has been consented to
+          gtag('consent', 'default', {
+            ad_storage: 'granted',
+            ad_personalization: 'granted',
+            ad_user_data: 'granted',
+            analytics_storage: 'granted'
+          })
+          window.dataLayer.push({
+            'gtm.start': new Date().getTime(),
+            event: 'gtm.js'
+          })
         }
         document.body.appendChild(script)
       }
