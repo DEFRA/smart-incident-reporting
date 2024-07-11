@@ -69,7 +69,7 @@
     "webpack-cli": "^5.1.4"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-env": "^7.24.8",
     "@hapi/catbox-memory": "^6.0.2",
     "husky": "^9.0.11",
     "jest": "^29.7.0",
