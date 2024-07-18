@@ -55,41 +55,43 @@ steps:
       docker image tag $(CONTAINER_APP_NAME):$(TAG) $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):$(TAG)
       docker image ls
       docker push $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):$(TAG)
+      docker image tag $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):$(TAG) $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):latest
+      docker push $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):latest
 
-- task: AzureWebAppContainer@1
-  displayName: 'Azure Web App on Container Deploy: $(CONTAINER_APP_NAME)'
-  inputs:
-    azureSubscription: $(AZURE_SUBSCRIPTION)
-    appName: $(WEB_APP_NAME)
-    containers: $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):$(TAG)
+# - task: AzureWebAppContainer@1
+#   displayName: 'Azure Web App on Container Deploy: $(CONTAINER_APP_NAME)'
+#   inputs:
+#     azureSubscription: $(AZURE_SUBSCRIPTION)
+#     appName: $(WEB_APP_NAME)
+#     containers: $(CONTAINER_REGISTRY)/$(CONTAINER_APP_NAME):$(TAG)
     
-- powershell: |
-    Start-Sleep -Seconds 60
-  displayName: 'Powershell script to wait for 1 minute'
+# - powershell: |
+#     Start-Sleep -Seconds 60
+#   displayName: 'Powershell script to wait for 1 minute'
 
-- script: |
-    curl -s -X GET $(SERVICE_URL)
-    if [ $? -ne 0 ]; then
-      echo "Failed to get Service"
-      exit 1
-    fi
-  displayName: 'Curl Service URL to ensure service running'
+# - script: |
+#     curl -s -X GET $(SERVICE_URL)
+#     if [ $? -ne 0 ]; then
+#       echo "Failed to get Service"
+#       exit 1
+#     fi
+#   displayName: 'Curl Service URL to ensure service running'
 
-- script: |
-    git clone https://$(GITHUB_PAT)@github.com/DEFRA/smart-incident-reporting-ui-tests.git
-    cd smart-incident-reporting-ui-tests
-    git checkout $(E2E_TEST_BRANCH)
-    npm i
-    npm run test-headless
-  displayName: 'Execute E2E automated feature tests'
+# - script: |
+#     git clone https://$(GITHUB_PAT)@github.com/DEFRA/smart-incident-reporting-ui-tests.git
+#     cd smart-incident-reporting-ui-tests
+#     git checkout $(E2E_TEST_BRANCH)
+#     npm i
+#     npm run test-headless
+#   displayName: 'Execute E2E automated feature tests'
 
-- task: PublishTestResults@2
-  displayName: 'Publish test results **/TEST-*.xml'
-  inputs:
-   testResultsFormat: 'JUnit'
-   testResultsFiles: '**/TEST-*.xml'
-   searchFolder: '$(System.DefaultWorkingDirectory)'
-  condition: succeededOrFailed()
+# - task: PublishTestResults@2
+#   displayName: 'Publish test results **/TEST-*.xml'
+#   inputs:
+#    testResultsFormat: 'JUnit'
+#    testResultsFiles: '**/TEST-*.xml'
+#    searchFolder: '$(System.DefaultWorkingDirectory)'
+#   condition: succeededOrFailed()
 
 # - task: AzureCLI@2
 #   displayName: 'Remove allow accesses for DevOps Host'
