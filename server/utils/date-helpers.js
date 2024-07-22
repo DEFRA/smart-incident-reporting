@@ -125,7 +125,7 @@ const validatePayload = (payload, validateAndError) => {
 
   // Check for mandatory fields
   if (issues.emptyDateCount > 0) {
-    const text = issues.emptyDateCount === 1 ? issues.emptyDateError : 'Date must include day, month and year, for example 27 1 2024'
+    const text = issues.emptyDateCount === 1 ? issues.emptyDateError : 'Date must include day, month and year'
     returnError(emptyErrorSummary, validateAndError, text, issues.emptyDateId, false, false)
   }
   if (issues.emptyTimeCount > 0) {
