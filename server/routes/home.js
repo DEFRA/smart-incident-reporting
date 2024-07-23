@@ -1,6 +1,6 @@
 import constants from '../utils/constants.js'
 import config from '../utils/config.js'
-import { getErrorSummary } from '../utils/helpers.js'
+import { getErrorSummary, validateEmail } from '../utils/helpers.js'
 import isWorkingHours from '../utils/is-working-hours.js'
 
 const handlers = {
@@ -15,8 +15,8 @@ const handlers = {
     }
   },
   post: async (request, h) => {
-    const { fullName, phone, accessCode } = request.payload
-    const errorSummary = validatePayload(fullName, phone, accessCode)
+    const { fullName, phone, accessCode, email } = request.payload
+    const errorSummary = validatePayload(fullName, phone, email, accessCode)
 
     // Validation error so return view in Error state
     if (errorSummary.errorList.length > 0) {
@@ -34,11 +34,13 @@ const handlers = {
       request.cookieAuth.set({
         ...account,
         fullName,
-        phone
+        phone,
+        email
       })
       request.yar.set(constants.redisKeys.HOME, {
         reporterName: fullName,
         reporterPhoneNumber: phone,
+        reporterEmailAddress: email,
         reporterAccessCode: accessCode
       })
 
@@ -56,7 +58,7 @@ const handlers = {
         errorSummary: {
           titleText: 'There is a problem',
           errorList: [{
-            text: 'Check you have entered your access code correctly',
+            text: 'Check you have entered your access code correctly, without any spaces at the end',
             href: '#accessCode'
           }]
         }
@@ -65,7 +67,7 @@ const handlers = {
   }
 }
 
-const validatePayload = (fullName, phone, accessCode) => {
+const validatePayload = (fullName, phone, email, accessCode) => {
   const errorSummary = getErrorSummary()
   if (!fullName) {
     errorSummary.errorList.push({
@@ -80,11 +82,17 @@ const validatePayload = (fullName, phone, accessCode) => {
     })
   } else if (!constants.phoneRegex.test(phone)) {
     errorSummary.errorList.push({
-      text: 'Enter a real phone number',
+      text: 'Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192',
       href: '#phone'
     })
   } else {
     // do nothing; sonarcloud has lost the plot.
+  }
+  if (!validateEmail(email)) {
+    errorSummary.errorList.push({
+      text: 'Enter an email address in the correct format, like name@example.com',
+      href: '#email'
+    })
   }
   if (!accessCode) {
     errorSummary.errorList.push({

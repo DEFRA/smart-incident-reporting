@@ -45,6 +45,19 @@
         },
         errorMessage: findErrorMessageById(errorSummary, 'phone')
       }) }}
+      {{ govukInput({
+        id: "email",
+        name: "email",
+        value: email,
+        type: "email",
+        autocomplete: "email",
+        spellcheck: false,
+        classes: "govuk-!-width-two-thirds",
+        label: {
+          text: "Email address"
+        },
+        errorMessage: findErrorMessageById(errorSummary, 'email')
+      }) }}
       {% endcall %}
       {{ govukInput({
         id: "accessCode",
