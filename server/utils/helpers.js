@@ -22,11 +22,12 @@ const validatePayload = (payload, feedback = false) => {
 }
 
 // Borrowed from https://github.com/DEFRA/biodiversity-net-gain-service/blob/master/packages/webapp/src/utils/helpers.js#L487
-const validateEmail = (email, id) => {
+const validateEmail = email => {
+  const maxLength = 255
   const tester = /^[-!#$%&'*+\0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/
   // https://en.wikipedia.org/wiki/Email_address  The format of an email address is local-part@domain, where the
   // local part may be up to 64 octets long and the domain may have a maximum of 255 octets.
-  if (!email || email.length === 0 || email.length > 255) {
+  if (!email || email.length === 0 || email.length > maxLength) {
     return false
   }
 
@@ -38,7 +39,7 @@ const validateEmail = (email, id) => {
 
   const account = emailParts[0]
   const address = emailParts[1]
-  if (account.length > 64 || address.length > 255) {
+  if (account.length > 64 || address.length > maxLength) {
     return false
   }
 
@@ -46,13 +47,11 @@ const validateEmail = (email, id) => {
 
   // https://en.wikipedia.org/wiki/Email_address#Domain
   // It must match the requirements for a hostname, a list of dot-separated DNS labels, each label being limited to a length of 63 characters
-  if (domainParts.some((part) => {
+  const domainIssue = domainParts.some(part => {
     return part.length > 63
-  })) {
-    return false
-  }
+  })
 
-  return true
+  return !domainIssue
 }
 
 export {
