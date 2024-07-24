@@ -7,6 +7,7 @@ const session = JSON.parse(`{
   "home": {
     "reporterName": "John Smith",
     "reporterPhoneNumber": "012345678910",
+    "reporterEmailAddress": "test@test.com",
     "reporterAccessCode": "password"
   },
   "water-pollution/water-feature": [ 
@@ -85,6 +86,7 @@ const payload =
     datetimeReported: today.toISOString(),
     reporterName: 'John Smith',
     reporterPhoneNumber: '012345678910',
+    reporterEmailAddress: 'test@test.com',
     reporterAccessCode: 'password',
     otherDetails: 'test',
     questionSetId: 100,
