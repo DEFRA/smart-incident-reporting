@@ -2,7 +2,6 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_POLLUTION_APPEARANCE
-const waterFeatureQuestion = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_WATER_FEATURE
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -35,13 +34,7 @@ const handlers = {
     // set answer in session
     request.yar.set(constants.redisKeys.WATER_POLLUTION_POLLUTION_APPEARANCE, buildAnswers(answerId, somethingElseDetail))
 
-    const waterFeatureAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)
-
-    if (waterFeatureAnswer[0].answerId === waterFeatureQuestion.answers.lakeOrReservoir.answerId || waterFeatureAnswer[0].answerId === waterFeatureQuestion.answers.sea.answerId) {
-      return h.redirect(constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
-    } else {
-      return h.redirect(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
-    }
+    return h.redirect(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
   }
 }
 

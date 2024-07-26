@@ -1,0 +1,41 @@
+{% extends 'form-layout.html' %}
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds"> 
+    <h1 class="govuk-heading-l"> 
+      {{ question.text }}
+    </h1> 
+    {% set contactHtml %}
+      <p>We'll send a message to <strong>{{ reporterEmailAddress }}</strong> with details on where to send these, if needed.</p>
+    {% endset -%}
+
+    {{ govukRadios({ 
+      classes: "govuk-radios", 
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      items: [ 
+        {
+          value: question.answers.yes.answerId,
+          text: question.answers.yes.text,
+          conditional: {
+            html: contactHtml
+          }
+        },
+        {
+          value: question.answers.no.answerId,
+          text: question.answers.no.text
+        }
+      ] 
+    }) }} 
+
+    {{ govukButton({ 
+      text: "Continue" 
+    }) }} 
+  </div> 
+
+</div> 
+{% endblock %}

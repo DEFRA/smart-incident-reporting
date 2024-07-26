@@ -158,6 +158,21 @@ const questionSets = {
           }
         }
       },
+      WATER_POLLUTION_IMAGES_OR_VIDEO: {
+        questionId: 2800,
+        key: constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO,
+        text: 'Do you want to send us any images or videos of the pollution?',
+        answers: {
+          yes: {
+            answerId: 2801,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 2802,
+            text: 'No'
+          }
+        }
+      },
       WATER_POLLUTION_LOCATION_OPTION: {
         questionId: 2600,
         key: constants.redisKeys.WATER_POLLUTION_LOCATION_OPTION,
