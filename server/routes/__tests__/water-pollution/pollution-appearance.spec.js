@@ -18,7 +18,7 @@ describe(url, () => {
   })
 
   describe('POST', () => {
-    it('Happy: accepts valid single answerID (non array) and redirects to WATER_POLLUTION_LESS_THAN_10_METRES if flowing water feature', async () => {
+    it('Happy: accepts valid single answerID (non array) and redirects to WATER_POLLUTION_IMAGES_OR_VIDEO', async () => {
       const answerId = question.answers.cloudy.answerId.toString()
       const options = {
         url,
@@ -26,19 +26,14 @@ describe(url, () => {
           answerId
         }
       }
-      const response = await submitPostRequest(options, 302, {
-        'water-pollution/water-feature': [{
-          questionId: 500,
-          answerId: 501 // A River
-        }]
-      })
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_APPEARANCE)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.cloudy.answerId
       }])
     })
-    it('Happy: accepts valid answerIds and redirects to WATER_POLLUTION_LESS_THAN_100_SQ_METRES if static water feature', async () => {
+    it('Happy: accepts valid answerIds and redirects to WATER_POLLUTION_IMAGES_OR_VIDEO', async () => {
       const answerId = [
         question.answers.cloudy.answerId,
         question.answers.scum.answerId
@@ -49,13 +44,8 @@ describe(url, () => {
           answerId
         }
       }
-      const response = await submitPostRequest(options, 302, {
-        'water-pollution/water-feature': [{
-          questionId: 500,
-          answerId: 503 // The sea
-        }]
-      })
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_APPEARANCE)).toEqual([{
         ...baseAnswer,
         answerId: answerId[0]
@@ -78,13 +68,8 @@ describe(url, () => {
           somethingElseDetail
         }
       }
-      const response = await submitPostRequest(options, 302, {
-        'water-pollution/water-feature': [{
-          questionId: 500,
-          answerId: 501 // A River
-        }]
-      })
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_APPEARANCE)).toEqual([{
         ...baseAnswer,
         answerId: answerId[0]
