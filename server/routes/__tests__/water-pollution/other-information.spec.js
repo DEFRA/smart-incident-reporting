@@ -78,6 +78,12 @@ describe(url, () => {
               questionAsked: 'What does the pollution look like?',
               questionResponse: true,
               answerId: 1003
+            }),
+            expect.objectContaining({
+              questionId: 2800,
+              questionAsked: 'Do you want to send us any images or videos of the pollution?',
+              questionResponse: true,
+              answerId: 2801
             })
           ])
         })
