@@ -34,7 +34,7 @@ const handlers = {
     // set answer in session
     request.yar.set(constants.redisKeys.WATER_POLLUTION_POLLUTION_APPEARANCE, buildAnswers(answerId, somethingElseDetail))
 
-    return h.redirect(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
+    return h.redirect(constants.routes.WATER_POLLUTION_SOURCE)
   }
 }
 

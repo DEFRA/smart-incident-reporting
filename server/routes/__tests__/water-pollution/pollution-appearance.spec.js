@@ -18,7 +18,7 @@ describe(url, () => {
   })
 
   describe('POST', () => {
-    it('Happy: accepts valid single answerID (non array) and redirects to WATER_POLLUTION_IMAGES_OR_VIDEO', async () => {
+    it('Happy: accepts valid single answerID (non array) and redirects to WATER_POLLUTION_SOURCE', async () => {
       const answerId = question.answers.cloudy.answerId.toString()
       const options = {
         url,
@@ -27,13 +27,13 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_SOURCE)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_APPEARANCE)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.cloudy.answerId
       }])
     })
-    it('Happy: accepts valid answerIds and redirects to WATER_POLLUTION_IMAGES_OR_VIDEO', async () => {
+    it('Happy: accepts valid answerIds and redirects to WATER_POLLUTION_SOURCE', async () => {
       const answerId = [
         question.answers.cloudy.answerId,
         question.answers.scum.answerId
@@ -45,7 +45,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_SOURCE)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_APPEARANCE)).toEqual([{
         ...baseAnswer,
         answerId: answerId[0]
@@ -69,7 +69,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_SOURCE)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_APPEARANCE)).toEqual([{
         ...baseAnswer,
         answerId: answerId[0]

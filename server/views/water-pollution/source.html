@@ -1,0 +1,57 @@
+{% extends 'form-layout.html' %}
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds"> 
+    {% set yesDetailsHtml %}
+      {{ govukTextarea({
+        id: "yesDetails",
+        name: "yesDetails",
+        classes: "govuk-!-width-two-third",
+        errorMessage: findErrorMessageById(errorSummary, "yesDetails"),
+        label: {
+          text: question.answers.yesDetails.text
+        }
+      }) }}
+    {% endset -%}
+
+    {{ govukRadios({ 
+      classes: "govuk-radios", 
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      fieldset: {
+        legend: {
+          text: question.text,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      hint: {
+        text: "For example, a business, an object in the river, or an activity, such as muckspreading."
+      },
+      items: [ 
+        {
+          value: question.answers.yes.answerId,
+          text: question.answers.yes.text,
+          checked: yesChecked,
+          conditional: {
+            html: yesDetailsHtml
+          }
+        },
+        {
+          value: question.answers.no.answerId,
+          text: question.answers.no.text
+        }
+      ] 
+    }) }} 
+
+    {{ govukButton({ 
+      text: "Continue" 
+    }) }} 
+  </div> 
+
+</div> 
+{% endblock %}

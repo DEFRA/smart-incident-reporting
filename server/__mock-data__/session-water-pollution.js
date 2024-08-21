@@ -98,7 +98,20 @@ const session = JSON.parse(`{
       "questionId": 2900,
       "questionAsked": "What do you think the pollution is?",
       "questionResponse": true,
-      "answerId": 2907,
+      "answerId": 2907
+    } 
+  ],
+  "water-pollution/source": [
+    {
+      "questionId": 100,
+      "questionAsked": "Do you know where the pollution is coming from?",
+      "questionResponse": true,
+      "answerId": 101
+    }, {
+      "questionId": 100,
+      "questionAsked": "Do you know where the pollution is coming from?",
+      "questionResponse": true,
+      "answerId": 103,
       "otherDetails": "other details"
     }
   ],
@@ -181,7 +194,17 @@ const payload =
       questionId: 2900,
       questionAsked: pollutionSubstance,
       questionResponse: true,
-      answerId: 2907,
+      answerId: 2907
+    }, {
+      questionId: 100,
+      questionAsked: 'Do you know where the pollution is coming from?',
+      questionResponse: true,
+      answerId: 101
+    }, {
+      questionId: 100,
+      questionAsked: 'Do you know where the pollution is coming from?',
+      questionResponse: true,
+      answerId: 103,
       otherDetails: 'other details'
     }]
   }
