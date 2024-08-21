@@ -80,6 +80,27 @@ const session = JSON.parse(`{
       "answerId": 2801
     }
   ],
+  "water-pollution/pollution-substance": [
+    {
+      "questionId": 2900,
+      "questionAsked": "What do you think the pollution is?",
+      "questionResponse": true,
+      "answerId": 2901
+    },
+    {
+      "questionId": 2900,
+      "questionAsked": "What do you think the pollution is?",
+      "questionResponse": true,
+      "answerId": 2905
+    },
+    {
+      "questionId": 2900,
+      "questionAsked": "What do you think the pollution is?",
+      "questionResponse": true,
+      "answerId": 2907,
+      "otherDetails": "other details"
+    }
+  ],
   "water-pollution/other-information": "test",
   "water-pollution/when": "${yesterday.toISOString()}",
   "submission-timestamp": "${today.toISOString()}"
@@ -145,6 +166,22 @@ const payload =
       questionAsked: 'Do you want to send us any images or videos of the pollution?',
       questionResponse: true,
       answerId: 2801
+    }, {
+      questionId: 2900,
+      questionAsked: 'What do you think the pollution is?',
+      questionResponse: true,
+      answerId: 2901
+    }, {
+      questionId: 2900,
+      questionAsked: 'What do you think the pollution is?',
+      questionResponse: true,
+      answerId: 2905
+    }, {
+      questionId: 2900,
+      questionAsked: 'What do you think the pollution is?',
+      questionResponse: true,
+      answerId: 2907,
+      otherDetails: 'other details'
     }]
   }
 }

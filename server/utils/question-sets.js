@@ -226,6 +226,41 @@ const questionSets = {
             text: 'Give details about what you\'ve seen, including the type and number of fish or animals affected'
           }
         }
+      },
+      WATER_POLLUTION_POLLUTION_SUBSTANCE: {
+        questionId: 2900,
+        key: constants.redisKeys.WATER_POLLUTION_POLLUTION_SUBSTANCE,
+        text: 'What do you think the pollution is?',
+        answers: {
+          sewage: {
+            answerId: 2901,
+            text: 'Sewage'
+          },
+          chemical: {
+            answerId: 2902,
+            text: 'Oil or petrol'
+          },
+          rural: {
+            answerId: 2903,
+            text: 'Agricultural waste, for example from muck spreading'
+          },
+          refuse: {
+            answerId: 2904,
+            text: 'Rubbish or refuse'
+          },
+          somethingElse: {
+            answerId: 2905,
+            text: SOMETHING_ELSE
+          },
+          unknown: {
+            answerId: 2906,
+            text: 'You do not know'
+          },
+          somethingElseDetail: {
+            answerId: 2907,
+            text: 'Give details of what you think is in the water'
+          }
+        }
       }
     }
   },

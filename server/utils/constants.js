@@ -30,6 +30,7 @@ const WATER_POLLUTION_LOCATION_OPTION = 'water-pollution/location-option'
 const WATER_POLLUTION_LOCATION_MAP = 'water-pollution/location-map'
 const WATER_POLLUTION_LOCATION_DESCRIPTION = 'water-pollution/location-description'
 const WATER_POLLUTION_WHEN = 'water-pollution/when'
+const WATER_POLLUTION_POLLUTION_SUBSTANCE = 'water-pollution/pollution-substance'
 const WATER_POLLUTION_POLLUTION_APPEARANCE = 'water-pollution/pollution-appearance'
 const WATER_POLLUTION_IMAGES_OR_VIDEO = 'water-pollution/images-or-video'
 const WATER_POLLUTION_LESS_THAN_10_METRES = 'water-pollution/less-than-10-metres'
@@ -79,6 +80,7 @@ const views = {
   WATER_POLLUTION_LOCATION_MAP,
   WATER_POLLUTION_LOCATION_DESCRIPTION,
   WATER_POLLUTION_WHEN,
+  WATER_POLLUTION_POLLUTION_SUBSTANCE,
   WATER_POLLUTION_POLLUTION_APPEARANCE,
   WATER_POLLUTION_IMAGES_OR_VIDEO,
   WATER_POLLUTION_LESS_THAN_10_METRES,
