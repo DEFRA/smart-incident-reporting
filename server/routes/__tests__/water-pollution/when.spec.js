@@ -27,22 +27,22 @@ describe(url, () => {
   })
 
   describe('POST', () => {
-    it('Happy: accept a valid date time and continue to WATER_POLLUTION_POLLUTION_APPEARANCE', async () => {
+    it('Happy: accept a valid date time and continue to WATER_POLLUTION_POLLUTION_SUBSTANCE', async () => {
       const dateTime = moment().seconds(0).milliseconds(0).subtract(1, 'days')
       const response = await submitPostRequest(getOptions(dateTime))
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_APPEARANCE)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WHEN)).toEqual(dateTime.toISOString())
     })
-    it('Happy: accept a valid date time and continue to WATER_POLLUTION_POLLUTION_APPEARANCE', async () => {
+    it('Happy: accept a valid date time and continue to WATER_POLLUTION_POLLUTION_SUBSTANCE', async () => {
       const dateTime = moment().seconds(0).milliseconds(0).subtract(1, 'years').add(5, 'minutes')
       const response = await submitPostRequest(getOptions(dateTime))
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_APPEARANCE)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WHEN)).toEqual(dateTime.toISOString())
     })
-    it('Happy: accept a valid date time and continue to WATER_POLLUTION_POLLUTION_APPEARANCE', async () => {
+    it('Happy: accept a valid date time and continue to WATER_POLLUTION_POLLUTION_SUBSTANCE', async () => {
       const dateTime = moment().seconds(0).milliseconds(0).add(3, 'minutes')
       const response = await submitPostRequest(getOptions(dateTime))
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_APPEARANCE)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WHEN)).toEqual(dateTime.toISOString())
     })
     it('Sad path: valid datetime must not > 5 minutes into the future', async () => {
