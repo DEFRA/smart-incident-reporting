@@ -39,7 +39,7 @@ steps:
 
 - script: |
     echo $(TAG)
-    docker-compose -f docker/service.yml build
+    docker compose -f docker/service.yml build
     docker image ls
   displayName: 'Create Docker image'
 
