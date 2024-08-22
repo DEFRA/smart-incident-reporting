@@ -31,8 +31,8 @@ const buildPayload = (session) => {
     reportingAnEnvironmentalProblem: {
       sessionGuid: session.id,
       reportType: questionSets.WATER_POLLUTION.questionSetId,
-      datetimeObserved: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
-      datetimeReported: session.get(constants.redisKeys.WATER_POLLUTION_WHEN),
+      datetimeObserved: session.get(constants.redisKeys.WATER_POLLUTION_WHEN),
+      datetimeReported: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
       otherDetails: session.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION),
       questionSetId: questionSets.WATER_POLLUTION.questionSetId,
       data: buildAnswerDataset(session, questionSets.WATER_POLLUTION),
