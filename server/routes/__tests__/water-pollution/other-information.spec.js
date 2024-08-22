@@ -101,7 +101,8 @@ describe(url, () => {
               questionId: 2900,
               questionAsked: 'What do you think the pollution is?',
               questionResponse: true,
-              answerId: 2907
+              answerId: 2907,
+              otherDetails: 'other details'
             }),
             expect.objectContaining({
               questionId: 100,
