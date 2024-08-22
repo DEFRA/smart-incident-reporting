@@ -51,7 +51,7 @@
     "accessible-autocomplete": "^3.0.0",
     "ajv": "^8.16.0",
     "ajv-formats": "^3.0.1",
-    "axios": "^1.7.2",
+    "axios": "^1.7.4",
     "blipp": "^4.0.2",
     "cron-parser": "^4.9.0",
     "css-loader": "^7.1.2",
