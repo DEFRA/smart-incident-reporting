@@ -1,17 +1,17 @@
-{% extends "govuk/template.njk" %}
-{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
-{% from "govuk/components/inset-text/macro.njk" import  govukInsetText %}
-{% from "govuk/components/panel/macro.njk" import govukPanel %}
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% from "govuk/components/input/macro.njk" import govukInput %}
-{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
-{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
-{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
-{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% extends "dist/govuk/template.njk" %}
+{% from "dist/govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "dist/govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "dist/govuk/components/button/macro.njk" import govukButton %}
+{% from "dist/govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "dist/govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "dist/govuk/components/inset-text/macro.njk" import  govukInsetText %}
+{% from "dist/govuk/components/panel/macro.njk" import govukPanel %}
+{% from "dist/govuk/components/radios/macro.njk" import govukRadios %}
+{% from "dist/govuk/components/input/macro.njk" import govukInput %}
+{% from "dist/govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "dist/govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "dist/govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "dist/govuk/components/fieldset/macro.njk" import govukFieldset %}
 
 {% block head %}
   <!-- Version: {{ appVersion }} -->
@@ -19,20 +19,8 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="{% if metaDescription %}{{ metaDescription }}{% else %}Report pollution, including sewage, in rivers, lakes, canals, the sea and other watercourses in England.{% endif %}">
 
-  <!--[if !IE 8]><!-->
-    <link href="{{ assetPath }}/stylesheets/application.css" rel="stylesheet" />
-  <!--<![endif]-->
+  <link href="{{ assetPath }}/stylesheets/application.css" rel="stylesheet" />
 
-  {# For Internet Explorer 8, you need to compile specific stylesheet #}
-  {# see https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md #}
-  <!--[if IE 8]>
-    <link href="{{ assetPath }}/govuk-frontend/all-ie8.css" rel="stylesheet" />
-  <![endif]-->
-
-  {# For older browsers to allow them to recognise HTML5 elements such as `<header>` #}
-  <!--[if lt IE 9]>
-    <script src="/html5-shiv/html5shiv.js"></script>
-  <![endif]-->
 {% endblock %}
 
 {% block header %}
@@ -85,7 +73,10 @@
 
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
-  <script src="{{ assetPath }}/all.js"></script>
-  <script>window.GOVUKFrontend.initAll()</script>
+  <script type="module" src="{{ assetPath }}/govuk-frontend.min.js"></script>
+  <script type="module">
+    import { initAll } from '{{assetPath}}/govuk-frontend.min.js'
+    initAll()
+  </script>
   <script src="{{ assetPath }}/js/core.js"></script>
 {% endblock %}

@@ -12,8 +12,8 @@
     </h1>
     <div class="govuk-inset-text">This service is in 'private beta'. This means we limit the number of people using it, so we can test it and make improvements, before it's available to everyone.</div>
     <form class="form" action="index" method="post">
-      {% from "govuk/components/input/macro.njk" import govukInput %}
-      {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+      {% from "dist/govuk/components/input/macro.njk" import govukInput %}
+      {% from "dist/govuk/components/fieldset/macro.njk" import govukFieldset %}
       {% call govukFieldset({
         legend: {
           text: "Your details",
