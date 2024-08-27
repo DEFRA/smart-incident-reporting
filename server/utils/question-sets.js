@@ -158,6 +158,25 @@ const questionSets = {
           }
         }
       },
+      WATER_POLLUTION_SOURCE: {
+        questionId: 100,
+        key: constants.redisKeys.WATER_POLLUTION_SOURCE,
+        text: 'Do you know where the pollution is coming from?',
+        answers: {
+          yes: {
+            answerId: 101,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 102,
+            text: 'No'
+          },
+          yesDetails: {
+            answerId: 103,
+            text: 'Give details about where the pollution is coming from'
+          }
+        }
+      },
       WATER_POLLUTION_IMAGES_OR_VIDEO: {
         questionId: 2800,
         key: constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO,
