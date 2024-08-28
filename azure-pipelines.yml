@@ -13,11 +13,12 @@ pool:
   name: $(POOL_NAME)
 
 steps:
+- checkout: git://DEFRA-SMART-INCIDENT-REPORTING/Defra.SIR.Infra
 - script: |
     # NPM_VERSION=$(node -p "require('./package.json').version")
     # echo ${NPM_VERSION}
     # echo "##vso[task.setvariable variable=TAG;]${NPM_VERSION}"
-    git clone https://dev.azure.com/defragovuk/DEFRA-SMART-INCIDENT-REPORTING/_git/Defra.SIR.Infra
+    git clone git@ssh.dev.azure.com:v3/defragovuk/DEFRA-SMART-INCIDENT-REPORTING/Defra.SIR.Infra
   displayName: 'Clone infrastructure scripts'
 
 # - script: |
