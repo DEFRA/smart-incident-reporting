@@ -13,6 +13,7 @@ pool:
   name: $(POOL_NAME)
 
 steps:
+- checkout: self
 - checkout: git://DEFRA-SMART-INCIDENT-REPORTING/Defra.SIR.Infra@main
 - script: |
     ls -l
