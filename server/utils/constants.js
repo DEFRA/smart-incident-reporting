@@ -41,22 +41,22 @@ const WATER_POLLUTION_POLLUTION_LENGTH = 'water-pollution/pollution-length'
 const WATER_POLLUTION_EFFECT_ON_WILDLIFE = 'water-pollution/effect-on-wildlife'
 const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 
-const SMELL = 'smell'
-const SMELL_LOCATION_OPTION = 'smell/location-option'
-const SMELL_LOCATION_DESCRIPTION = 'smell/location-description'
-const SMELL_LOCATION_ADDRESS = 'smell/location-address'
-const SMELL_SOURCE = 'smell/smell-source'
-const SMELL_DESCRIPTION = 'smell/smell-description'
-const SMELL_PREVIOUSLY_REPORTED = 'smell/previously-reported'
-const SMELL_RECURRING_PROBLEM = 'smell/recurring-problem'
-const SMELL_PAST = 'smell/past'
-const SMELL_DATE_TIME = 'smell/date-time'
-const SMELL_ONGOING = 'smell/ongoing'
-const SMELL_STRENGTH = 'smell/smell-strength'
-const SMELL_EFFECT_ON_ACTIVITY = 'smell/effect-on-activity'
-const SMELL_EFFECT_ON_DAILY_LIFE = 'smell/effect-on-daily-life'
-const SMELL_EFFECT_ON_HEALTH = 'smell/effect-on-health'
-const SMELL_OTHER_INFORMATION = 'smell/other-information'
+// const SMELL = 'smell'
+// const SMELL_LOCATION_OPTION = 'smell/location-option'
+// const SMELL_LOCATION_DESCRIPTION = 'smell/location-description'
+// const SMELL_LOCATION_ADDRESS = 'smell/location-address'
+// const SMELL_SOURCE = 'smell/smell-source'
+// const SMELL_DESCRIPTION = 'smell/smell-description'
+// const SMELL_PREVIOUSLY_REPORTED = 'smell/previously-reported'
+// const SMELL_RECURRING_PROBLEM = 'smell/recurring-problem'
+// const SMELL_PAST = 'smell/past'
+// const SMELL_DATE_TIME = 'smell/date-time'
+// const SMELL_ONGOING = 'smell/ongoing'
+// const SMELL_STRENGTH = 'smell/smell-strength'
+// const SMELL_EFFECT_ON_ACTIVITY = 'smell/effect-on-activity'
+// const SMELL_EFFECT_ON_DAILY_LIFE = 'smell/effect-on-daily-life'
+// const SMELL_EFFECT_ON_HEALTH = 'smell/effect-on-health'
+// const SMELL_OTHER_INFORMATION = 'smell/other-information'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -91,22 +91,22 @@ const views = {
   WATER_POLLUTION_POLLUTION_LENGTH,
   WATER_POLLUTION_EFFECT_ON_WILDLIFE,
   WATER_POLLUTION_OTHER_INFORMATION,
-  SMELL,
-  SMELL_LOCATION_OPTION,
-  SMELL_LOCATION_DESCRIPTION,
-  SMELL_LOCATION_ADDRESS,
-  SMELL_SOURCE,
-  SMELL_DESCRIPTION,
-  SMELL_PREVIOUSLY_REPORTED,
-  SMELL_RECURRING_PROBLEM,
-  SMELL_PAST,
-  SMELL_DATE_TIME,
-  SMELL_ONGOING,
-  SMELL_STRENGTH,
-  SMELL_EFFECT_ON_ACTIVITY,
-  SMELL_EFFECT_ON_DAILY_LIFE,
-  SMELL_EFFECT_ON_HEALTH,
-  SMELL_OTHER_INFORMATION
+  // SMELL,
+  // SMELL_LOCATION_OPTION,
+  // SMELL_LOCATION_DESCRIPTION,
+  // SMELL_LOCATION_ADDRESS,
+  // SMELL_SOURCE,
+  // SMELL_DESCRIPTION,
+  // SMELL_PREVIOUSLY_REPORTED,
+  // SMELL_RECURRING_PROBLEM,
+  // SMELL_PAST,
+  // SMELL_DATE_TIME,
+  // SMELL_ONGOING,
+  // SMELL_STRENGTH,
+  // SMELL_EFFECT_ON_ACTIVITY,
+  // SMELL_EFFECT_ON_DAILY_LIFE,
+  // SMELL_EFFECT_ON_HEALTH,
+  // SMELL_OTHER_INFORMATION
 }
 
 const routes = {
