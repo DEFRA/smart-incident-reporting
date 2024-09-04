@@ -42,9 +42,10 @@ const WATER_POLLUTION_EFFECT_ON_WILDLIFE = 'water-pollution/effect-on-wildlife'
 const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 
 const SMELL = 'smell'
-// const SMELL_LOCATION_OPTION = 'smell/location-option'
+const SMELL_LOCATION_HOME = 'smell/location-home'
+const SMELL_LOCATION_ADDRESS = 'smell/location-address'
+const SMELL_LOCATION_OPTIONS = 'smell/location-options'
 // const SMELL_LOCATION_DESCRIPTION = 'smell/location-description'
-// const SMELL_LOCATION_ADDRESS = 'smell/location-address'
 // const SMELL_SOURCE = 'smell/smell-source'
 // const SMELL_DESCRIPTION = 'smell/smell-description'
 // const SMELL_PREVIOUSLY_REPORTED = 'smell/previously-reported'
@@ -92,9 +93,10 @@ const views = {
   WATER_POLLUTION_EFFECT_ON_WILDLIFE,
   WATER_POLLUTION_OTHER_INFORMATION,
   SMELL,
-  // SMELL_LOCATION_OPTION,
+  SMELL_LOCATION_HOME,
+  SMELL_LOCATION_OPTIONS,
+  SMELL_LOCATION_ADDRESS,
   // SMELL_LOCATION_DESCRIPTION,
-  // SMELL_LOCATION_ADDRESS,
   // SMELL_SOURCE,
   // SMELL_DESCRIPTION,
   // SMELL_PREVIOUSLY_REPORTED,

@@ -283,6 +283,26 @@ const questionSets = {
       }
     }
   },
+  SMELL: {
+    questionSetId: 200,
+    questions: {
+      SMELL_LOCATION_HOME: {
+        questionId: 1,
+        key: constants.redisKeys.SMELL_LOCATION_HOME,
+        text: 'Is the smell affecting you at home?',
+        answers: {
+          yes: {
+            answerId: 2,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3,
+            text: 'No, somewhere else'
+          }
+        }
+      }
+    }
+  },
   // SMELL: {
   //   questionSetId: 200,
   //   questions: {
