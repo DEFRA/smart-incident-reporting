@@ -11,7 +11,7 @@ import { questionSets } from '../../utils/question-sets.js'
 
 const handlers = {
   get: async (_request, h) => {
-    return h.view(constants.views.SMELL_PAST, {
+    return h.view(constants.views.SMELL_LOCATION_OPTIONS, {
       ...getContext()
     })
   },

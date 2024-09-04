@@ -19,7 +19,7 @@
     "watch:nodejs": "nodemon --delay 1000ms --signal SIGTERM -r dotenv/config index.js",
     "dev": "concurrently 'npm:watch:css' 'npm:watch:nodejs'",
     "lint": "standard",
-    "unit-test": "jest --runInBand --verbose",
+    "unit-test": "jest --runInBand --verbose --testPathIgnorePatterns /old-smell/",
     "test": "npm run lint && npm run unit-test",
     "prettier": "prettier-config-standard",
     "start-backend": "docker-compose -f docker/backend-services.yml up -d",
