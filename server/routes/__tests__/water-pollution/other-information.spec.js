@@ -30,6 +30,7 @@ describe(url, () => {
           reportType: 100,
           reporterName: 'John Smith',
           reporterPhoneNumber: '012345678910',
+          reporterEmailAddress: 'test@test.com',
           reporterAccessCode: 'password',
           otherDetails: otherInfo,
           questionSetId: 100,
@@ -77,6 +78,44 @@ describe(url, () => {
               questionAsked: 'What does the pollution look like?',
               questionResponse: true,
               answerId: 1003
+            }),
+            expect.objectContaining({
+              questionId: 2800,
+              questionAsked: 'Do you want to send us any images or videos of the pollution?',
+              questionResponse: true,
+              answerId: 2801
+            }),
+            expect.objectContaining({
+              questionId: 2900,
+              questionAsked: 'What do you think the pollution is?',
+              questionResponse: true,
+              answerId: 2901
+            }),
+            expect.objectContaining({
+              questionId: 2900,
+              questionAsked: 'What do you think the pollution is?',
+              questionResponse: true,
+              answerId: 2905
+            }),
+            expect.objectContaining({
+              questionId: 2900,
+              questionAsked: 'What do you think the pollution is?',
+              questionResponse: true,
+              answerId: 2907,
+              otherDetails: 'other details'
+            }),
+            expect.objectContaining({
+              questionId: 100,
+              questionAsked: 'Do you know where the pollution is coming from?',
+              questionResponse: true,
+              answerId: 101
+            }),
+            expect.objectContaining({
+              questionId: 100,
+              questionAsked: 'Do you know where the pollution is coming from?',
+              questionResponse: true,
+              answerId: 103,
+              otherDetails: 'other details'
             })
           ])
         })

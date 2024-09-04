@@ -1,6 +1,11 @@
 import { submitGetRequest, submitPostRequest } from '../../__test-helpers__/server.js'
 import constants from '../../utils/constants.js'
 const url = '/'
+const phoneEmptyError = 'Enter a phone number'
+const phoneError = 'Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192'
+const emailError = 'Enter an email address in the correct format, like name@example.com'
+const accessCodeEmptyError = 'Enter an access code'
+const accessCodeInvalidError = 'Check you have entered your access code correctly, without any spaces at the end'
 
 // As the mocked return for this default es6 module export gets cached, separate test file
 // named home-unavailable.spec.js tests the outside of working hours logic
@@ -23,6 +28,7 @@ describe(url, () => {
         payload: {
           fullName: 'John Smith',
           phone: '#+441234567890',
+          email: 'test@test.com',
           accessCode: 'WPINTERNAL'
         }
       }
@@ -35,6 +41,7 @@ describe(url, () => {
         payload: {
           fullName: 'John Smith',
           phone: '#+441234567890',
+          email: 'test@test.com',
           accessCode: 'ODINTERNAL'
         }
       }
@@ -50,8 +57,9 @@ describe(url, () => {
       const response = await submitPostRequest(options, 200)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Enter your name')
-      expect(response.payload).toContain('Enter a phone number')
-      expect(response.payload).toContain('Enter an access code')
+      expect(response.payload).toContain(phoneEmptyError)
+      expect(response.payload).toContain(emailError)
+      expect(response.payload).toContain(accessCodeEmptyError)
     })
     // Sad: phone, code missing
     it('Should error if partial data missing', async () => {
@@ -64,8 +72,9 @@ describe(url, () => {
       const response = await submitPostRequest(options, 200)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).not.toContain('Enter your name')
-      expect(response.payload).toContain('Enter a phone number')
-      expect(response.payload).toContain('Enter an access code')
+      expect(response.payload).toContain(phoneEmptyError)
+      expect(response.payload).toContain(emailError)
+      expect(response.payload).toContain(accessCodeEmptyError)
     })
     // sad: name, code missing
     it('Should error if partial data missing', async () => {
@@ -78,8 +87,9 @@ describe(url, () => {
       const response = await submitPostRequest(options, 200)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Enter your name')
-      expect(response.payload).not.toContain('Enter a phone number')
-      expect(response.payload).toContain('Enter an access code')
+      expect(response.payload).not.toContain(phoneEmptyError)
+      expect(response.payload).toContain(emailError)
+      expect(response.payload).toContain(accessCodeEmptyError)
     })
     // Sad: all present, code not matching account
     it('Should error with 401:Unauthorised if invalid access code', async () => {
@@ -88,15 +98,17 @@ describe(url, () => {
         payload: {
           fullName: 'John Smith',
           phone: '#+441234567890',
+          email: 'test@test.com',
           accessCode: 'sdfsdfsd'
         }
       }
       const response = await submitPostRequest(options, 401)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).not.toContain('Enter your name')
-      expect(response.payload).not.toContain('Enter a phone number')
-      expect(response.payload).not.toContain('Enter an access code')
-      expect(response.payload).toContain('Check you have entered your access code correctly')
+      expect(response.payload).not.toContain(phoneEmptyError)
+      expect(response.payload).not.toContain(emailError)
+      expect(response.payload).not.toContain(accessCodeEmptyError)
+      expect(response.payload).toContain(accessCodeInvalidError)
     })
     // Sad: invalid phone format
     it('Should error with if invalid phone number', async () => {
@@ -111,9 +123,8 @@ describe(url, () => {
       const response = await submitPostRequest(options, 200)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).not.toContain('Enter your name')
-      expect(response.payload).not.toContain('Enter a phone number')
-      expect(response.payload).toContain('Enter a real phone number')
-      expect(response.payload).not.toContain('Enter an access code')
+      expect(response.payload).toContain(phoneError)
+      expect(response.payload).not.toContain(accessCodeEmptyError)
     })
   })
 })

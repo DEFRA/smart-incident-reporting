@@ -41,7 +41,7 @@ const handlers = {
 
     request.yar.set(constants.redisKeys.WATER_POLLUTION_WHEN, dateTime.toISOString())
 
-    return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_APPEARANCE)
+    return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
   }
 }
 

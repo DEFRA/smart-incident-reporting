@@ -9,9 +9,9 @@ const isWorkingHours = async (dateToTest = new Date()) => {
     }
 
     // logging for azure checking timezone correct when BST
-    console.log(`Testing date: ${dateToTest.toLocaleString()}`)
-    console.log(`Date TZ: ${dateToTest}`)
-    console.log(`Date TZ offset: ${dateToTest.getTimezoneOffset()}`)
+    // console.log(`Testing date: ${dateToTest.toLocaleString()}`)
+    // console.log(`Date TZ: ${dateToTest}`)
+    // console.log(`Date TZ offset: ${dateToTest.getTimezoneOffset()}`)
 
     // Get bank holiday data
     const { payload } = await Wreck.get('https://www.gov.uk/bank-holidays.json', {

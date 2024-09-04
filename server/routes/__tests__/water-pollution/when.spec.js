@@ -27,22 +27,22 @@ describe(url, () => {
   })
 
   describe('POST', () => {
-    it('Happy: accept a valid date time and continue to WATER_POLLUTION_POLLUTION_APPEARANCE', async () => {
+    it('Happy: accept a valid date time and continue to WATER_POLLUTION_POLLUTION_SUBSTANCE', async () => {
       const dateTime = moment().seconds(0).milliseconds(0).subtract(1, 'days')
       const response = await submitPostRequest(getOptions(dateTime))
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_APPEARANCE)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WHEN)).toEqual(dateTime.toISOString())
     })
-    it('Happy: accept a valid date time and continue to WATER_POLLUTION_POLLUTION_APPEARANCE', async () => {
+    it('Happy: accept a valid date time and continue to WATER_POLLUTION_POLLUTION_SUBSTANCE', async () => {
       const dateTime = moment().seconds(0).milliseconds(0).subtract(1, 'years').add(5, 'minutes')
       const response = await submitPostRequest(getOptions(dateTime))
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_APPEARANCE)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WHEN)).toEqual(dateTime.toISOString())
     })
-    it('Happy: accept a valid date time and continue to WATER_POLLUTION_POLLUTION_APPEARANCE', async () => {
+    it('Happy: accept a valid date time and continue to WATER_POLLUTION_POLLUTION_SUBSTANCE', async () => {
       const dateTime = moment().seconds(0).milliseconds(0).add(3, 'minutes')
       const response = await submitPostRequest(getOptions(dateTime))
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_APPEARANCE)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WHEN)).toEqual(dateTime.toISOString())
     })
     it('Sad path: valid datetime must not > 5 minutes into the future', async () => {
@@ -167,7 +167,7 @@ describe(url, () => {
       delete options.payload['date-month']
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Date must include day, month and year, for example 27 1 2024')
+      expect(response.payload).toContain('Date must include day, month and year')
     })
     it('Sad path: If 2 or more time parts missing', async () => {
       const dateTime = moment().seconds(0).milliseconds(0)
@@ -188,7 +188,7 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Time must include hours, minutes and am or pm, for example 2:25pm')
-      expect(response.payload).toContain('Date must include day, month and year, for example 27 1 2024')
+      expect(response.payload).toContain('Date must include day, month and year')
     })
     it('Sad path: If 2 or more date and 1 time parts missing', async () => {
       const dateTime = moment().seconds(0).milliseconds(0)
@@ -199,7 +199,7 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Time must include an hour from 1 to 12')
-      expect(response.payload).toContain('Date must include day, month and year, for example 27 1 2024')
+      expect(response.payload).toContain('Date must include day, month and year')
     })
     it('Sad path: If 2 or more time and 1 date parts missing', async () => {
       const dateTime = moment().seconds(0).milliseconds(0)

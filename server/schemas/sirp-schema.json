@@ -39,6 +39,9 @@
         "reporterPhoneNumber": {
           "type": "string"
         },
+        "reporterEmailAddress": {
+          "type": "string"
+        },
         "reporterAccessCode": {
           "type": "string"
         },

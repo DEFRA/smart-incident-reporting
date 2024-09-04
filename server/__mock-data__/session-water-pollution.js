@@ -2,11 +2,13 @@ import moment from 'moment'
 
 const yesterday = moment().seconds(0).milliseconds(0).subtract(1, 'days')
 const today = moment().seconds(0).milliseconds(0)
+const pollutionSubstance = 'What do you think the pollution is?'
 
 const session = JSON.parse(`{
   "home": {
     "reporterName": "John Smith",
     "reporterPhoneNumber": "012345678910",
+    "reporterEmailAddress": "test@test.com",
     "reporterAccessCode": "password"
   },
   "water-pollution/water-feature": [ 
@@ -71,6 +73,49 @@ const session = JSON.parse(`{
       "answerId": 1101
     }
   ],
+  "water-pollution/images-or-video": [
+    {
+      "questionId": 2800,
+      "questionAsked": "Do you want to send us any images or videos of the pollution?",
+      "questionResponse": true,
+      "answerId": 2801
+    }
+  ],
+  "water-pollution/pollution-substance": [
+    {
+      "questionId": 2900,
+      "questionAsked": "What do you think the pollution is?",
+      "questionResponse": true,
+      "answerId": 2901
+    },
+    {
+      "questionId": 2900,
+      "questionAsked": "What do you think the pollution is?",
+      "questionResponse": true,
+      "answerId": 2905
+    },
+    {
+      "questionId": 2900,
+      "questionAsked": "What do you think the pollution is?",
+      "questionResponse": true,
+      "answerId": 2907,
+      "otherDetails": "other details"
+    } 
+  ],
+  "water-pollution/source": [
+    {
+      "questionId": 100,
+      "questionAsked": "Do you know where the pollution is coming from?",
+      "questionResponse": true,
+      "answerId": 101
+    }, {
+      "questionId": 100,
+      "questionAsked": "Do you know where the pollution is coming from?",
+      "questionResponse": true,
+      "answerId": 103,
+      "otherDetails": "other details"
+    }
+  ],
   "water-pollution/other-information": "test",
   "water-pollution/when": "${yesterday.toISOString()}",
   "submission-timestamp": "${today.toISOString()}"
@@ -85,6 +130,7 @@ const payload =
     datetimeReported: today.toISOString(),
     reporterName: 'John Smith',
     reporterPhoneNumber: '012345678910',
+    reporterEmailAddress: 'test@test.com',
     reporterAccessCode: 'password',
     otherDetails: 'test',
     questionSetId: 100,
@@ -130,6 +176,38 @@ const payload =
       questionAsked: 'Is the pollution across the full width of the river?',
       questionResponse: true,
       answerId: 1101
+    }, {
+      questionId: 2800,
+      questionAsked: 'Do you want to send us any images or videos of the pollution?',
+      questionResponse: true,
+      answerId: 2801
+    }, {
+      questionId: 2900,
+      questionAsked: pollutionSubstance,
+      questionResponse: true,
+      answerId: 2901
+    }, {
+      questionId: 2900,
+      questionAsked: pollutionSubstance,
+      questionResponse: true,
+      answerId: 2905
+    }, {
+      questionId: 2900,
+      questionAsked: pollutionSubstance,
+      questionResponse: true,
+      answerId: 2907,
+      otherDetails: 'other details'
+    }, {
+      questionId: 100,
+      questionAsked: 'Do you know where the pollution is coming from?',
+      questionResponse: true,
+      answerId: 101
+    }, {
+      questionId: 100,
+      questionAsked: 'Do you know where the pollution is coming from?',
+      questionResponse: true,
+      answerId: 103,
+      otherDetails: 'other details'
     }]
   }
 }
