@@ -1,5 +1,5 @@
 import constants from '../../utils/constants.js'
-import { questionSets } from '../../utils/question-sets.js'
+// import { questionSets } from '../../utils/question-sets.js'
 
 // const question = questionSets.SMELL.questions.SMELL_LOCATION_ADDRESS
 
@@ -44,23 +44,23 @@ const getContext = () => {
   }
 }
 
-const validatePayload = answerId => {
-  const errorSummary = getErrorSummary()
-  if (!answerId) {
-    errorSummary.errorList.push({
-      text: 'Select yes if the smell is affecting you at home',
-      href: '#answerId'
-    })
-  }
-  return errorSummary
-}
+// const validatePayload = answerId => {
+//   const errorSummary = getErrorSummary()
+//   if (!answerId) {
+//     errorSummary.errorList.push({
+//       text: 'Select yes if the smell is affecting you at home',
+//       href: '#answerId'
+//     })
+//   }
+//   return errorSummary
+// }
 
-const buildAnswers = answerId => {
-  return [{
-    ...baseAnswer,
-    answerId
-  }]
-}
+// const buildAnswers = answerId => {
+//   return [{
+//     ...baseAnswer,
+//     answerId
+//   }]
+// }
 
 export default [
   {

@@ -3,7 +3,7 @@ import constants from './constants.js'
 // Common phrases
 const YOU_DO_NOT_KNOW = 'You do not know'
 const SOMETHING_ELSE = 'Something else'
-const NONE_OF_THESE = 'None of these'
+// const NONE_OF_THESE = 'None of these'
 
 const questionSets = {
   WATER_POLLUTION: {
