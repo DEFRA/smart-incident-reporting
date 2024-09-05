@@ -300,7 +300,34 @@ const questionSets = {
             text: 'No, somewhere else'
           }
         }
-      }
+      },
+        SMELL_LOCATION_ADDRESS: {
+            questionId: 1400,
+            key: constants.redisKeys.SMELL_LOCATION_ADDRESS,
+            text: 'Enter the address',
+            answers: {
+              addressLine1: {
+                answerId: 1401,
+                text: 'Address line 1'
+              },
+              addressLine2: {
+                answerId: 1402,
+                text: 'Address line 2 (optional)'
+              },
+              townOrCity: {
+                answerId: 1403,
+                text: 'Town or city'
+              },
+              county: {
+                answerId: 1404,
+                text: 'County (optional)'
+              },
+              postcode: {
+                answerId: 1405,
+                text: 'Postcode'
+              }
+            }
+          }
     }
   },
   // SMELL: {

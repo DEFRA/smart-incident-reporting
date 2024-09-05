@@ -7,8 +7,81 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
+    {% call govukFieldset({
+      legend: {
+        text: "Enter the address",
+        classes: "govuk-fieldset__legend--l",
+        isPageHeading: true
+      }
+    }) %}
+
+      {{ govukInput({
+        errorMessage: findErrorMessageById(errorSummary, "addressLine1"),
+        label: {
+          text: question.answers.addressLine1.text,
+          classes: "govuk-fieldset__legend--s"
+        },
+        id: "addressLine1",
+        name: "addressLine1",
+        autocomplete: "address-line1",
+        value: addressLine1
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: question.answers.addressLine2.text,
+          classes: "govuk-fieldset__legend--s"
+        },
+        id: "addressLine2",
+        name: "addressLine2",
+        autocomplete: "address-line2",
+        value: addressLine2
+      }) }}
+
+      {{ govukInput({
+        errorMessage: findErrorMessageById(errorSummary, "townOrCity"),
+        label: {
+          text: question.answers.townOrCity.text,
+          classes: "govuk-fieldset__legend--s"
+        },
+        classes: "govuk-!-width-two-thirds",
+        id: "townOrCity",
+        name: "townOrCity",
+        autocomplete: "address-level2",
+        value: townOrCity
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: question.answers.county.text,
+          classes: "govuk-fieldset__legend--s"
+        },
+        classes: "govuk-!-width-two-thirds",
+        id: "county",
+        name: "county",
+        value: county
+      }) }}
+
+      {{ govukInput({
+        errorMessage: findErrorMessageById(errorSummary, "postcode"),
+        label: {
+          text: question.answers.postcode.text,
+          classes: "govuk-fieldset__legend--s"
+        },
+        classes: "govuk-input--width-10",
+        id: "postcode",
+        name: "postcode",
+        autocomplete: "postal-code",
+        value: postcode
+      }) }}
+
+    {% endcall %}
 
 
+    {{ govukButton({
+      text: "Continue",
+      isStartButton: false
+    }) }}
   </div>
 </div>
 

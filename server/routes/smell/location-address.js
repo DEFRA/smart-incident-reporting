@@ -1,13 +1,15 @@
 import constants from '../../utils/constants.js'
-// import { questionSets } from '../../utils/question-sets.js'
+import { getErrorSummary } from '../../utils/helpers.js'
+import { questionSets } from '../../utils/question-sets.js'
 
-// const question = questionSets.SMELL.questions.SMELL_LOCATION_ADDRESS
+const question = questionSets.SMELL.questions.SMELL_LOCATION_ADDRESS
+const postcodeRegExp = /^([A-Za-z][A-Ha-hJ-Yj-y]?\d[A-Za-z0-9]? ?\d[A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/ // https://stackoverflow.com/a/51885364
 
-// const baseAnswer = {
-//   questionId: question.questionId,
-//   questionAsked: question.text,
-//   questionResponse: true
-// }
+const baseAnswer = {
+  questionId: question.questionId,
+  questionAsked: question.text,
+  questionResponse: true
+}
 
 const handlers = {
   get: async (_request, h) => {
@@ -16,51 +18,75 @@ const handlers = {
     })
   },
   post: async (request, h) => {
-    // let { answerId } = request.payload
+    // cleanse postcode for special characters https://design-system.service.gov.uk/patterns/addresses/#allow-different-postcode-formats
+    if(request.payload.postcode) {
+      request.payload.postcode = request.payload.postcode.replace(/[^\w\s]/gi, '')
+    }
+    
+    // validate payload
+    const errorSummary = validatePayload(request.payload)
+    if (errorSummary.errorList.length > 0) {
+      return h.view(constants.views.SMELL_LOCATION_ADDRESS, {
+        ...getContext(),
+        errorSummary,
+        ...request.payload
+      })
+    }
 
-    // // validate payload
-    // const errorSummary = validatePayload(answerId)
-    // if (errorSummary.errorList.length > 0) {
-    //   return h.view(constants.views.SMELL_LOCATION_HOME, {
-    //     ...getContext(),
-    //     errorSummary
-    //   })
-    // }
-    // // convert answerId to number
-    // answerId = Number(answerId)
+    request.yar.set(constants.redisKeys.SMELL_LOCATION_ADDRESS, buildAnswers(request.payload))
 
-    // request.yar.set(constants.redisKeys.SMELL_LOCATION_HOME, buildAnswers(answerId))
-    // if (answerId === questions.answers.yes.answerId) {
-    //   return h.redirect(constants.routes.SMELL_LOCATION_ADDRESS)
-    // } else {
-    //   return h.redirect(constants.routes.SMELL_LOCATION_OPTIONS)
-    // }
+    return h.redirect(constants.routes.SMELL_PREVIOUS)
   }
 }
 
 const getContext = () => {
   return {
-    // question
+    question
   }
 }
 
-// const validatePayload = answerId => {
-//   const errorSummary = getErrorSummary()
-//   if (!answerId) {
-//     errorSummary.errorList.push({
-//       text: 'Select yes if the smell is affecting you at home',
-//       href: '#answerId'
-//     })
-//   }
-//   return errorSummary
-// }
+const validatePayload = payload => {
+  const errorSummary = getErrorSummary()
+  if (!payload.addressLine1) {
+    errorSummary.errorList.push({
+      text: 'Enter the first line of the address, for example house number and street',
+      href: '#addressLine1'
+    })
+  }
+  if (!payload.townOrCity) {
+    errorSummary.errorList.push({
+      text: 'Enter a town or city',
+      href: '#townOrCity'
+    })
+  }
+  if (!payload.postcode) {
+    errorSummary.errorList.push({
+      text: 'Enter a postcode',
+      href: '#postcode'
+    })
+  } else if (!postcodeRegExp.test(payload.postcode)) {
+    errorSummary.errorList.push({
+      text: 'Enter a full postcode, for example W1 8QS',
+      href: '#postcode'
+    })
+  } else {
+    // do nothing
+  }
+  return errorSummary
+}
 
-// const buildAnswers = answerId => {
-//   return [{
-//     ...baseAnswer,
-//     answerId
-//   }]
-// }
+const buildAnswers = payload => {
+  const answers = []
+  Object.keys(payload).forEach(key => {
+    answers.push({
+      ...baseAnswer,
+      answerId: question.answers[key].answerId,
+      otherDetails: payload[key]
+    })
+  })
+
+  return answers
+}
 
 export default [
   {
