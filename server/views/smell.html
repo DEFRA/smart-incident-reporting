@@ -10,47 +10,60 @@
     <h1 class="govuk-heading-xl">
       Report a smell
     </h1>
-    <p>Use this service to report large-scale, unpleasant smells in England. This includes smells from:</p>
+    <p>Use this service to report unpleasant smells from industry and businesses in England.</p>
+    <p>This includes smells from:</p>
     <ul class="govuk-list govuk-list--bullet">
-      <li>rubbish tips, landfill or other waste management sites</li>
-      <li>industrial processes</li>
-      <li>agriculture</li>
+      <li>rubbish tips</li>
+      <li>recycling centres</li>
+      <li>other waste management activities</li>
     </ul>
-    <h2 class="govuk-heading-m">Before you start</h2>
-
-    <p>You'll need:</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>the location where the smell has caused you a problem</li>
-      <li>the dates and approximate times when you noticed the smell</li>
-    </ul>
-
-    <p>If you've reported the smell before then you can report it again, if it has happened again.</p>
 
     <div class="govuk-inset-text">
-    Do not use this service to report nuisance smells from your neighbours, domestic rubbish or small local businesses, such as restaurants. <a href="https://www.gov.uk/guidance/nuisance-smells-how-councils-deal-with-complaints">Report this to your local council's environmental health department</a>.
+      There’s a different way to
+      <a rel="external" href="https://naturalresources.wales/about-us/contact-us/report-an-incident/?lang=en">report an environmental problem in Wales</a>,
+      <a rel="external" href="https://www.mygov.scot/report-environmental-incident">report an environmental problem in Scotland</a> or
+      <a rel="external" href="https://www.nidirect.gov.uk/information-and-services/environment-and-outdoors/">report an environmental problem in Northern Ireland</a>.
     </div>
 
-    {{ govukButton({
-      text: "Start now",
-      href: startHref,
-      isStartButton: true
-    }) }}
+    <h2 class="govuk-heading-m">Before you start</h2>
+    <p>You'll need to know:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>where the smell is coming from, for example the name of the site or business responsible</li>
+      <li>where you were when you noticed the smell</li>
+      <li>when the smell started</li>
+    </ul>
 
+    <div class="govuk-inset-text">
+      Do not use this service to report nuisance smells from your neighbours, domestic rubbish or small local businesses, such as restaurants.
+      <a href="https://www.gov.uk/guidance/nuisance-smells-how-councils-deal-with-complaints">Report these to your local council's environmental health department</a>.
+    </div>
+
+    <form class="form" action="smell/smell-source" method="post">
+      <input type="hidden" id="incidentType" name="incidentType" value="sprint-current/smell">
+
+      {{ govukButton({
+      text: "Start now",
+      isStartButton: true
+      }) }}
+
+    </form>
 
     <h2 class="govuk-heading-l">If you cannot report online</h2>
     <p>You can report the problem to the Environment Agency over the phone.</p>
     <div class="contact">
       <p>Environment Agency incident hotline<br />
-      Telephone: 0800 80 70 60<br />
-      24 hours<br />
-      <a href="https://www.gov.uk/call-charges">Find out about call charges</a></p>
+        Telephone: 0800 80 70 60<br />
+        24 hours<br />
+        <a href="https://www.gov.uk/call-charges">Find out about call charges</a>
+      </p>
     </div>
+
     <h2 class="govuk-heading-l">Other environmental problems</h2>
-    <p>How you report other problems affecting the environment depends on the type of problem it is and where it's happening. You may have to report it to:
-      <ul class="govuk-list govuk-list--bullet">
-    <li>the Environment Agency</li>
-    <li>your local council</li>
-    <li>your utilities company</li>
+    <p>How you report other problems affecting the environment depends on what it is and where it's happening. You may have to report it to:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>the Environment Agency</li>
+      <li>your local council</li>
+      <li>your utilities company</li>
     </ul>
     <p><a href="https://www.gov.uk/report-an-environmental-incident">Report other environmental problems</a>.</p>
   </div>
