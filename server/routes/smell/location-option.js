@@ -1,8 +1,8 @@
 import constants from '../../utils/constants.js'
-import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary } from '../../utils/helpers.js'
+import { questionSets } from '../../utils/question-sets.js'
 
-const question = questionSets.SMELL.questions.SMELL_LOCATION_HOME
+const question = questionSets.SMELL.questions.SMELL_LOCATION_OPTION
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -12,7 +12,7 @@ const baseAnswer = {
 
 const handlers = {
   get: async (_request, h) => {
-    return h.view(constants.views.SMELL_LOCATION_HOME, {
+    return h.view(constants.views.SMELL_LOCATION_OPTION, {
       ...getContext()
     })
   },
@@ -22,7 +22,7 @@ const handlers = {
     // validate payload
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.SMELL_LOCATION_HOME, {
+      return h.view(constants.views.SMELL_LOCATION_OPTION, {
         ...getContext(),
         errorSummary
       })
@@ -30,11 +30,12 @@ const handlers = {
     // convert answerId to number
     answerId = Number(answerId)
 
-    request.yar.set(constants.redisKeys.SMELL_LOCATION_HOME, buildAnswers(answerId))
-    if (answerId === question.answers.yes.answerId) {
-      return h.redirect(constants.routes.SMELL_LOCATION_ADDRESS)
+    request.yar.set(constants.redisKeys.SMELL_LOCATION_OPTION, buildAnswers(answerId))
+
+    if (answerId === question.answers.map.answerId) {
+      return h.redirect(constants.routes.SMELL_LOCATION_MAP)
     } else {
-      return h.redirect(constants.routes.SMELL_LOCATION_OPTION)
+      return h.redirect(constants.routes.SMELL_LOCATION_DESCRIPTION)
     }
   }
 }
@@ -49,7 +50,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select yes if the smell is affecting you at home',
+      text: 'Select how you want to give the location',
       href: '#answerId'
     })
   }
@@ -66,12 +67,12 @@ const buildAnswers = answerId => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.SMELL_LOCATION_HOME,
+    path: constants.routes.SMELL_LOCATION_OPTION,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.SMELL_LOCATION_HOME,
+    path: constants.routes.SMELL_LOCATION_OPTION,
     handler: handlers.post
   }
 ]
