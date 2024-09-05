@@ -21,7 +21,7 @@ describe(url, () => {
 
   describe('POST', () => {
     it('Happy: accept and store a location description', async () => {
-      const locationDescription = 'This is a description of the location of the water pollution'
+      const locationDescription = 'This is a description of the location of the smell'
       const options = {
         url,
         payload: {
@@ -29,7 +29,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_SOURCE)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_PREVIOUS)
       expect(response.request.yar.get(constants.redisKeys.SMELL_LOCATION_DESCRIPTION)).toEqual([{
         ...baseAnswer,
         otherDetails: locationDescription
@@ -42,7 +42,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Enter a description of where you&#39;ve noticed the smell')
+      expect(response.payload).toContain('Enter a description of the location')
     })
   })
 })
