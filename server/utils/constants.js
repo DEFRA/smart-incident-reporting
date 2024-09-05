@@ -44,20 +44,10 @@ const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 const SMELL = 'smell'
 const SMELL_LOCATION_HOME = 'smell/location-home'
 const SMELL_LOCATION_ADDRESS = 'smell/location-address'
-const SMELL_LOCATION_OPTIONS = 'smell/location-options'
-// const SMELL_LOCATION_DESCRIPTION = 'smell/location-description'
-// const SMELL_SOURCE = 'smell/smell-source'
-// const SMELL_DESCRIPTION = 'smell/smell-description'
-// const SMELL_PREVIOUSLY_REPORTED = 'smell/previously-reported'
+const SMELL_LOCATION_OPTION = 'smell/location-option'
 const SMELL_PREVIOUS = 'smell/previous'
-// const SMELL_PAST = 'smell/past'
-// const SMELL_DATE_TIME = 'smell/date-time'
-// const SMELL_ONGOING = 'smell/ongoing'
-// const SMELL_STRENGTH = 'smell/smell-strength'
-// const SMELL_EFFECT_ON_ACTIVITY = 'smell/effect-on-activity'
-// const SMELL_EFFECT_ON_DAILY_LIFE = 'smell/effect-on-daily-life'
-// const SMELL_EFFECT_ON_HEALTH = 'smell/effect-on-health'
-// const SMELL_OTHER_INFORMATION = 'smell/other-information'
+const SMELL_LOCATION_MAP = 'smell/location-map'
+const SMELL_LOCATION_DESCRIPTION = 'smell/location-description'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -94,21 +84,11 @@ const views = {
   WATER_POLLUTION_OTHER_INFORMATION,
   SMELL,
   SMELL_LOCATION_HOME,
-  SMELL_LOCATION_OPTIONS,
   SMELL_LOCATION_ADDRESS,
-  SMELL_PREVIOUS
-  // SMELL_LOCATION_DESCRIPTION,
-  // SMELL_SOURCE,
-  // SMELL_DESCRIPTION,
-  // SMELL_PREVIOUSLY_REPORTED,
-  // SMELL_PAST,
-  // SMELL_DATE_TIME,
-  // SMELL_ONGOING,
-  // SMELL_STRENGTH,
-  // SMELL_EFFECT_ON_ACTIVITY,
-  // SMELL_EFFECT_ON_DAILY_LIFE,
-  // SMELL_EFFECT_ON_HEALTH,
-  // SMELL_OTHER_INFORMATION
+  SMELL_LOCATION_OPTION,
+  SMELL_PREVIOUS,
+  SMELL_LOCATION_MAP,
+  SMELL_LOCATION_DESCRIPTION
 }
 
 const routes = {

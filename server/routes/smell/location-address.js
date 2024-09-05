@@ -19,10 +19,10 @@ const handlers = {
   },
   post: async (request, h) => {
     // cleanse postcode for special characters https://design-system.service.gov.uk/patterns/addresses/#allow-different-postcode-formats
-    if(request.payload.postcode) {
+    if (request.payload.postcode) {
       request.payload.postcode = request.payload.postcode.replace(/[^\w\s]/gi, '')
     }
-    
+
     // validate payload
     const errorSummary = validatePayload(request.payload)
     if (errorSummary.errorList.length > 0) {

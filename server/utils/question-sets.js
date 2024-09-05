@@ -301,33 +301,48 @@ const questionSets = {
           }
         }
       },
-        SMELL_LOCATION_ADDRESS: {
-            questionId: 1400,
-            key: constants.redisKeys.SMELL_LOCATION_ADDRESS,
-            text: 'Enter the address',
-            answers: {
-              addressLine1: {
-                answerId: 1401,
-                text: 'Address line 1'
-              },
-              addressLine2: {
-                answerId: 1402,
-                text: 'Address line 2 (optional)'
-              },
-              townOrCity: {
-                answerId: 1403,
-                text: 'Town or city'
-              },
-              county: {
-                answerId: 1404,
-                text: 'County (optional)'
-              },
-              postcode: {
-                answerId: 1405,
-                text: 'Postcode'
-              }
-            }
+      SMELL_LOCATION_ADDRESS: {
+        questionId: 1400,
+        key: constants.redisKeys.SMELL_LOCATION_ADDRESS,
+        text: 'Enter the address',
+        answers: {
+          addressLine1: {
+            answerId: 1401,
+            text: 'Address line 1'
+          },
+          addressLine2: {
+            answerId: 1402,
+            text: 'Address line 2 (optional)'
+          },
+          townOrCity: {
+            answerId: 1403,
+            text: 'Town or city'
+          },
+          county: {
+            answerId: 1404,
+            text: 'County (optional)'
+          },
+          postcode: {
+            answerId: 1405,
+            text: 'Postcode'
           }
+        }
+      },
+      SMELL_LOCATION_OPTION: {
+        questionId: 1200,
+        key: constants.redisKeys.SMELL_LOCATION_OPTION,
+        text: 'How do you want to tell us where you\'ve noticed the smell?',
+        answers: {
+          map: {
+            answerId: 1201,
+            text: 'Mark the location on an online map'
+          },
+          description: {
+            answerId: 1202,
+            text: 'Describe the location'
+          }
+        }
+      }
     }
   },
   // SMELL: {

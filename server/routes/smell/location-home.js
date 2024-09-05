@@ -34,7 +34,7 @@ const handlers = {
     if (answerId === question.answers.yes.answerId) {
       return h.redirect(constants.routes.SMELL_LOCATION_ADDRESS)
     } else {
-      return h.redirect(constants.routes.SMELL_LOCATION_OPTIONS)
+      return h.redirect(constants.routes.SMELL_LOCATION_OPTION)
     }
   }
 }

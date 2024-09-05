@@ -32,8 +32,8 @@ const handlers = {
 
     request.yar.set(constants.redisKeys.SMELL_LOCATION_OPTION, buildAnswers(answerId))
 
-    if (answerId === question.answers.address.answerId) {
-      return h.redirect(constants.routes.SMELL_LOCATION_ADDRESS)
+    if (answerId === question.answers.map.answerId) {
+      return h.redirect(constants.routes.SMELL_LOCATION_MAP)
     } else {
       return h.redirect(constants.routes.SMELL_LOCATION_DESCRIPTION)
     }
@@ -50,7 +50,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select how you\'d prefer to give the location',
+      text: 'Select how you want to give the location',
       href: '#answerId'
     })
   }
