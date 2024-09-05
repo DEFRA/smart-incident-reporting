@@ -352,6 +352,25 @@ const questionSets = {
             answerId: 1501
           }
         }
+      },
+      SMELL_PREVIOUS: {
+        questionId: 1900,
+        key: constants.redisKeys.SMELL_PREVIOUS,
+        text: 'Has this smell caused you problems before?',
+        answers: {
+          yes: {
+            answerId: 1901,
+            text: 'Yes, regularly'
+          },
+          occasionally: {
+            answerId: 1902,
+            text: 'Yes, now and then'
+          },
+          no: {
+            answerId: 1903,
+            text: 'No, this is the first time'
+          }
+        }
       }
     }
   },
@@ -431,25 +450,7 @@ const questionSets = {
   //         }
   //       }
   //     },
-  //     SMELL_RECURRING_PROBLEM: {
-  //       questionId: 1900,
-  //       key: constants.redisKeys.SMELL_RECURRING_PROBLEM,
-  //       text: 'Has the same smell caused you a problem before?',
-  //       answers: {
-  //         yes: {
-  //           answerId: 1901,
-  //           text: 'Yes, regularly'
-  //         },
-  //         occasionally: {
-  //           answerId: 1902,
-  //           text: 'Yes, now and then'
-  //         },
-  //         no: {
-  //           answerId: 1903,
-  //           text: 'No, this is the first time'
-  //         }
-  //       }
-  //     },
+
   //     SMELL_PAST: {
   //       questionId: 2000,
   //       key: constants.redisKeys.SMELL_PAST,
