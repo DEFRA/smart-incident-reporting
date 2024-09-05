@@ -342,7 +342,7 @@ const questionSets = {
             text: 'Describe the location'
           }
         }
-      },
+      }
     }
   },
   // SMELL: {
