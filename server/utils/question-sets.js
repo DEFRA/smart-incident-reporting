@@ -342,68 +342,22 @@ const questionSets = {
             text: 'Describe the location'
           }
         }
+      },
+      SMELL_LOCATION_DESCRIPTION: {
+        questionId: 1500,
+        key: constants.redisKeys.SMELL_LOCATION_DESCRIPTION,
+        text: 'Describe the location where you noticed the smell',
+        answers: {
+          locationDetails: {
+            answerId: 1501
+          }
+        }
       }
     }
   },
   // SMELL: {
   //   questionSetId: 200,
   //   questions: {
-  //     SMELL_LOCATION_OPTION: {
-  //       questionId: 1200,
-  //       key: constants.redisKeys.SMELL_LOCATION_OPTION,
-  //       text: 'Where can you notice the smell?',
-  //       answers: {
-  //         address: {
-  //           answerId: 1201,
-  //           text: 'Give an address'
-  //         },
-  //         description: {
-  //           answerId: 1301,
-  //           text: 'Describe the location'
-  //         }
-  //       }
-  //     },
-  //     SMELL_LOCATION_DESCRIPTION: {
-  //       questionId: 1500,
-  //       key: constants.redisKeys.SMELL_LOCATION_DESCRIPTION,
-  //       text: 'Describe where you\'ve noticed the smell',
-  //       answers: {
-  //         locationDetails: {
-  //           answerId: 1501
-  //         }
-  //       }
-  //     },
-  //     SMELL_LOCATION_ADDRESS: {
-  //       questionId: 1400,
-  //       key: constants.redisKeys.SMELL_LOCATION_ADDRESS,
-  //       text: 'Enter the address',
-  //       answers: {
-  //         addressLine1: {
-  //           answerId: 1401,
-  //           text: 'Address line 1'
-  //         },
-  //         addressLine2: {
-  //           answerId: 1402,
-  //           text: 'Address line 2 (optional)'
-  //         },
-  //         townOrCity: {
-  //           answerId: 1403,
-  //           text: 'Town or city'
-  //         },
-  //         county: {
-  //           answerId: 1404,
-  //           text: 'County (optional)'
-  //         },
-  //         postcode: {
-  //           answerId: 1405,
-  //           text: 'Postcode'
-  //         },
-  //         homeAddress: {
-  //           answerId: 1406,
-  //           text: 'This is your home address'
-  //         }
-  //       }
-  //     },
   //     SMELL_SOURCE: {
   //       questionId: 1600,
   //       key: constants.redisKeys.SMELL_SOURCE,
