@@ -31,7 +31,7 @@ const handlers = {
 
     request.yar.set(constants.redisKeys.SMELL_LOCATION_DESCRIPTION, buildAnswers(locationDescription))
 
-    return h.redirect(constants.routes.SMELL_SOURCE)
+    return h.redirect(constants.routes.SMELL_PREVIOUS)
   }
 }
 
@@ -45,7 +45,7 @@ const validatePayload = locationDescription => {
   const errorSummary = getErrorSummary()
   if (!locationDescription) {
     errorSummary.errorList.push({
-      text: 'Enter a description of where you\'ve noticed the smell',
+      text: 'Enter a description of the location',
       href: '#locationDescription'
     })
   }

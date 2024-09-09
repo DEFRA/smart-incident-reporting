@@ -300,68 +300,93 @@ const questionSets = {
             text: 'No, somewhere else'
           }
         }
+      },
+      SMELL_LOCATION_ADDRESS: {
+        questionId: 1400,
+        key: constants.redisKeys.SMELL_LOCATION_ADDRESS,
+        text: 'Enter the address',
+        answers: {
+          addressLine1: {
+            answerId: 1401,
+            text: 'Address line 1'
+          },
+          addressLine2: {
+            answerId: 1402,
+            text: 'Address line 2 (optional)'
+          },
+          townOrCity: {
+            answerId: 1403,
+            text: 'Town or city'
+          },
+          county: {
+            answerId: 1404,
+            text: 'County (optional)'
+          },
+          postcode: {
+            answerId: 1405,
+            text: 'Postcode'
+          }
+        }
+      },
+      SMELL_LOCATION_OPTION: {
+        questionId: 1200,
+        key: constants.redisKeys.SMELL_LOCATION_OPTION,
+        text: 'How do you want to tell us where you\'ve noticed the smell?',
+        answers: {
+          map: {
+            answerId: 1201,
+            text: 'Mark the location on an online map'
+          },
+          description: {
+            answerId: 1202,
+            text: 'Describe the location'
+          }
+        }
+      },
+      SMELL_LOCATION_DESCRIPTION: {
+        questionId: 1500,
+        key: constants.redisKeys.SMELL_LOCATION_DESCRIPTION,
+        text: 'Describe the location where you noticed the smell',
+        answers: {
+          locationDetails: {
+            answerId: 1501
+          }
+        }
+      },
+      SMELL_PREVIOUS: {
+        questionId: 1900,
+        key: constants.redisKeys.SMELL_PREVIOUS,
+        text: 'Has this smell caused you problems before?',
+        answers: {
+          yes: {
+            answerId: 1901,
+            text: 'Yes, regularly'
+          },
+          occasionally: {
+            answerId: 1902,
+            text: 'Yes, now and then'
+          },
+          no: {
+            answerId: 1903,
+            text: 'No, this is the first time'
+          }
+        }
+      },
+      SMELL_LOCATION_MAP: {
+        questionId: 1,
+        key: constants.redisKeys.SMELL_LOCATION_MAP,
+        text: 'Mark the location of the smell',
+        answers: {
+          nationalGridReference: {
+            answerId: 2
+          }
+        }
       }
     }
   },
   // SMELL: {
   //   questionSetId: 200,
   //   questions: {
-  //     SMELL_LOCATION_OPTION: {
-  //       questionId: 1200,
-  //       key: constants.redisKeys.SMELL_LOCATION_OPTION,
-  //       text: 'Where can you notice the smell?',
-  //       answers: {
-  //         address: {
-  //           answerId: 1201,
-  //           text: 'Give an address'
-  //         },
-  //         description: {
-  //           answerId: 1301,
-  //           text: 'Describe the location'
-  //         }
-  //       }
-  //     },
-  //     SMELL_LOCATION_DESCRIPTION: {
-  //       questionId: 1500,
-  //       key: constants.redisKeys.SMELL_LOCATION_DESCRIPTION,
-  //       text: 'Describe where you\'ve noticed the smell',
-  //       answers: {
-  //         locationDetails: {
-  //           answerId: 1501
-  //         }
-  //       }
-  //     },
-  //     SMELL_LOCATION_ADDRESS: {
-  //       questionId: 1400,
-  //       key: constants.redisKeys.SMELL_LOCATION_ADDRESS,
-  //       text: 'Enter the address',
-  //       answers: {
-  //         addressLine1: {
-  //           answerId: 1401,
-  //           text: 'Address line 1'
-  //         },
-  //         addressLine2: {
-  //           answerId: 1402,
-  //           text: 'Address line 2 (optional)'
-  //         },
-  //         townOrCity: {
-  //           answerId: 1403,
-  //           text: 'Town or city'
-  //         },
-  //         county: {
-  //           answerId: 1404,
-  //           text: 'County (optional)'
-  //         },
-  //         postcode: {
-  //           answerId: 1405,
-  //           text: 'Postcode'
-  //         },
-  //         homeAddress: {
-  //           answerId: 1406,
-  //           text: 'This is your home address'
-  //         }
-  //       }
-  //     },
   //     SMELL_SOURCE: {
   //       questionId: 1600,
   //       key: constants.redisKeys.SMELL_SOURCE,
@@ -435,25 +460,7 @@ const questionSets = {
   //         }
   //       }
   //     },
-  //     SMELL_RECURRING_PROBLEM: {
-  //       questionId: 1900,
-  //       key: constants.redisKeys.SMELL_RECURRING_PROBLEM,
-  //       text: 'Has the same smell caused you a problem before?',
-  //       answers: {
-  //         yes: {
-  //           answerId: 1901,
-  //           text: 'Yes, regularly'
-  //         },
-  //         occasionally: {
-  //           answerId: 1902,
-  //           text: 'Yes, now and then'
-  //         },
-  //         no: {
-  //           answerId: 1903,
-  //           text: 'No, this is the first time'
-  //         }
-  //       }
-  //     },
+
   //     SMELL_PAST: {
   //       questionId: 2000,
   //       key: constants.redisKeys.SMELL_PAST,
