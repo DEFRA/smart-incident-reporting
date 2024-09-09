@@ -371,6 +371,16 @@ const questionSets = {
             text: 'No, this is the first time'
           }
         }
+      },
+      SMELL_LOCATION_MAP: {
+        questionId: 1,
+        key: constants.redisKeys.SMELL_LOCATION_MAP,
+        text: 'Mark the location of the smell',
+        answers: {
+          nationalGridReference: {
+            answerId: 2
+          }
+        }
       }
     }
   },
