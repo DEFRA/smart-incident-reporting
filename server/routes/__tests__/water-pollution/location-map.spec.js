@@ -21,7 +21,7 @@ describe(url, () => {
 
   describe('POST', () => {
     it('Happy: accept and store a point as a national grid reference', async () => {
-      const point = '[365739, 343015]'
+      const point = '[365739.764, 343015.986]'
       const options = {
         url,
         payload: {
@@ -32,7 +32,16 @@ describe(url, () => {
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_WHEN)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP)).toEqual([{
         ...baseAnswer,
+        answerId: question.answers.nationalGridReference.answerId,
         otherDetails: 'SJ 65739 43015'
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.easting.answerId,
+        otherDetails: '365739'
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.northing.answerId,
+        otherDetails: '343015'
       }])
     })
     it('Sad: errors on no point provided', async () => {
