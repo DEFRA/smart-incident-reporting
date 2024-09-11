@@ -45,6 +45,10 @@ const SMELL = 'smell'
 const SMELL_LOCATION_HOME = 'smell/location-home'
 const SMELL_LOCATION_ADDRESS = 'smell/location-address'
 const SMELL_LOCATION_OPTIONS = 'smell/location-options'
+const SMELL_SOURCE = 'smell/source'
+const SMELL_REPORT_LOCAL_COUNCIL = 'smell/report-local-council'
+const SMELL_CONTACT_LOCAL_COUNCIL = 'smell/contact-local-council'
+const SMELL_SOURCE_DETAILS = 'smell/source-details'
 // const SMELL_LOCATION_DESCRIPTION = 'smell/location-description'
 // const SMELL_SOURCE = 'smell/smell-source'
 // const SMELL_DESCRIPTION = 'smell/smell-description'
@@ -95,9 +99,12 @@ const views = {
   SMELL,
   SMELL_LOCATION_HOME,
   SMELL_LOCATION_OPTIONS,
-  SMELL_LOCATION_ADDRESS
+  SMELL_LOCATION_ADDRESS,
+  SMELL_SOURCE,
+  SMELL_REPORT_LOCAL_COUNCIL,
+  SMELL_CONTACT_LOCAL_COUNCIL,
+  SMELL_SOURCE_DETAILS
   // SMELL_LOCATION_DESCRIPTION,
-  // SMELL_SOURCE,
   // SMELL_DESCRIPTION,
   // SMELL_PREVIOUSLY_REPORTED,
   // SMELL_RECURRING_PROBLEM,

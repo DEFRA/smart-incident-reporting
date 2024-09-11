@@ -1,9 +1,9 @@
-import constants from '../utils/constants.js'
+import constants from '../../utils/constants.js'
 
 const handlers = {
   get: async (_request, h) => {
     const context = _getContext()
-    return h.view(constants.views.SMELL, {
+    return h.view(constants.views.SMELL_CONTACT_LOCAL_COUNCIL, {
       ...context
     })
   }
@@ -11,15 +11,14 @@ const handlers = {
 
 const _getContext = () => {
   return {
-    hideBackLink: true,
-    startHref: constants.routes.SMELL_SOURCE
+    hideBackLink: true
   }
 }
 
 export default [
   {
     method: 'GET',
-    path: constants.routes.SMELL,
+    path: constants.routes.SMELL_CONTACT_LOCAL_COUNCIL,
     handler: handlers.get
   }
 ]

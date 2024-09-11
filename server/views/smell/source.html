@@ -1,0 +1,64 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukRadios({
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      fieldset: {
+        legend: {
+          text: question.text,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: question.answers.wasteSite.answerId,
+          text: question.answers.wasteSite.text
+        },
+                {
+          value: question.answers.industry.answerId,
+          text: question.answers.industry.text
+        },
+        {
+          value: question.answers.sewage.answerId,
+          text: question.answers.sewage.text
+        },
+        {
+          value: question.answers.wasteSpreading.answerId,
+          text: question.answers.wasteSpreading.text
+        },
+                {
+          value: question.answers.local.answerId,
+          text: question.answers.local.text
+        },
+        {
+          value: question.answers.neighbour.answerId,
+          text: question.answers.neighbour.text
+        },
+        {
+          value: question.answers.rubbish.answerId,
+          text: question.answers.rubbish.text
+        },
+        {
+          value: question.answers.unknown.answerId,
+          text: question.answers.unknown.text
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}
