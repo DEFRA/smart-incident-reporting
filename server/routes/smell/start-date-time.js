@@ -24,13 +24,13 @@ const handlers = {
   post: async (request, h) => {
     const validateAndError = dateValidateAndError()
     if (!request.payload.current) {
-      const errorSummary = getErrorSummary()
-      errorSummary.errorList.push({
+      const errors = getErrorSummary()
+      errors.errorList.push({
         text: 'Select when the smell started',
         href: '#current'
       })
       return h.view(constants.views.SMELL_START_DATE_TIME, {
-        errorSummary,
+        errorSummary: errors,
         validateAndError,
         fieldErrorClasses,
         getDateErrors,

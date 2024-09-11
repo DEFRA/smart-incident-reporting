@@ -13,7 +13,7 @@
     {% set todayHtml %}
     <div class="govuk-form-group{% if getTimeErrors(errorSummary, validateAndError) %} govuk-form-group--error{% endif %}">
       <fieldset class="govuk-fieldset" role="group" aria-describedby="time-of-incident">
-        <label class="govuk-label govuk-label--m">
+        <label class="govuk-label govuk-label--m" for="hour-0">
             Time (approximately)
         </label>
         <div id="time-of-incident-hint" class="govuk-hint">
@@ -64,7 +64,7 @@
     {% set yesterdayHtml %}
     <div class="govuk-form-group{% if getTimeErrors(errorSummary, validateAndError) %} govuk-form-group--error{% endif %}">
       <fieldset class="govuk-fieldset" role="group" aria-describedby="time-of-incident">
-        <label class="govuk-label govuk-label--m">
+        <label class="govuk-label govuk-label--m" for="hour-1">
             Time (approximately)
         </label>
         <div id="time-of-incident-hint" class="govuk-hint">
@@ -143,7 +143,7 @@
     }) }}
     <div class="govuk-form-group{% if getTimeErrors(errorSummary, validateAndError) %} govuk-form-group--error{% endif %}">
       <fieldset class="govuk-fieldset" role="group" aria-describedby="time-of-incident">
-        <label class="govuk-label govuk-label--m">
+        <label class="govuk-label govuk-label--m" for="hour-2">
             Time (approximately)
         </label>
         <div id="time-of-incident-hint" class="govuk-hint">
