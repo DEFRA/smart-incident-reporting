@@ -98,13 +98,13 @@ const getDateErrors = (errorSummary, validateAndError) => {
 }
 
 const getTimeErrors = (errorSummary, validateAndError) => {
-  const dateErrors = []
+  const timeErrors = []
   errorSummary?.errorList.forEach(item => {
-    if (item.href === validateAndError.hour.id || item.href === validateAndError.minute.id || item.href === validateAndError.period.id) {
-      dateErrors.push(item)
+    if (item.href.includes(validateAndError.hour.id) || item.href.includes(validateAndError.minute.id) || item.href.includes(validateAndError.period.id)) {
+      timeErrors.push(item)
     }
   })
-  return dateErrors.length > 0 ? dateErrors : undefined
+  return timeErrors.length > 0 ? timeErrors : undefined
 }
 
 const validatePayload = (payload, validateAndError) => {
