@@ -38,7 +38,7 @@ const handlers = {
       return h.redirect(constants.routes.SMELL_SOURCE_DETAILS)
     } else if (answerId === question.answers.local.answerId || answerId === question.answers.neighbour.answerId || answerId === question.answers.rubbish.answerId) {
       return h.redirect(constants.routes.SMELL_REPORT_LOCAL_COUNCIL)
-    } else if (answerId === question.answers.unknown.answerId) {
+    } else (answerId === question.answers.unknown.answerId) {
       return h.redirect(constants.routes.SMELL_CONTACT_LOCAL_COUNCIL)
     }
   }
