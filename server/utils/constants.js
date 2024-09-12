@@ -52,6 +52,7 @@ const SMELL_START_DATE_TIME = 'smell/start-date-time'
 const SMELL_CURRENT = 'smell/current'
 const SMELL_SMELL_STRENGTH = 'smell/smell-strength'
 const SMELL_INDOORS = 'smell/indoors'
+const SMELL_CLOTHING_AND_HAIR = 'smell/clothing-and-hair'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -96,7 +97,8 @@ const views = {
   SMELL_START_DATE_TIME,
   SMELL_CURRENT,
   SMELL_SMELL_STRENGTH,
-  SMELL_INDOORS
+  SMELL_INDOORS,
+  SMELL_CLOTHING_AND_HAIR
 }
 
 const routes = {
