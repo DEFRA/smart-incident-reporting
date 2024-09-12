@@ -18,7 +18,7 @@ const handlers = {
   },
   post: async (request, h) => {
     let { answerId } = request.payload
-    const { question, current } = getContext(request)
+    const { current } = getContext(request)
 
     // validate payload
     const errorSummary = validatePayload(answerId, current)
