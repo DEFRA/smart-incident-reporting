@@ -1,0 +1,20 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+{% set items = [
+  {
+    value: question.answers.map.answerId,
+    text: question.answers.map.text
+  },
+  {
+    value: question.answers.description.answerId,
+    text: question.answers.description.text
+  }
+]%}
+{% set hintHtml = "Choose how you want to give the location." %}
+
+{% block formContent %}
+
+  {% include "partials/radios.html" %} 
+
+{% endblock %}

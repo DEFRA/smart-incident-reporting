@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import bngToNgr from '../../utils/bng-to-ngr.js'
 import { questionSets } from '../../utils/question-sets.js'
 
-const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LOCATION_MAP
+const question = questionSets.SMELL.questions.SMELL_LOCATION_MAP
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
@@ -12,7 +12,7 @@ const baseAnswer = {
 
 const handlers = {
   get: async (_request, h) => {
-    return h.view(constants.views.WATER_POLLUTION_LOCATION_MAP, {
+    return h.view(constants.views.SMELL_LOCATION_MAP, {
       ...getContext()
     })
   },
@@ -22,16 +22,16 @@ const handlers = {
     point = point && JSON.parse(point)
 
     if (!point || point.length === 0) {
-      return h.view(constants.views.WATER_POLLUTION_LOCATION_MAP, {
+      return h.view(constants.views.SMELL_LOCATION_MAP, {
         ...getContext(),
         noPoint: true
       })
     }
 
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP, buildAnswers(bngToNgr(point).text))
+    request.yar.set(constants.redisKeys.SMELL_LOCATION_MAP, buildAnswers(bngToNgr(point).text))
 
     // handle redirects
-    return h.redirect(constants.routes.WATER_POLLUTION_WHEN)
+    return h.redirect(constants.routes.SMELL_PREVIOUS)
   }
 }
 
@@ -51,12 +51,12 @@ const buildAnswers = ngr => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.WATER_POLLUTION_LOCATION_MAP,
+    path: constants.routes.SMELL_LOCATION_MAP,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.WATER_POLLUTION_LOCATION_MAP,
+    path: constants.routes.SMELL_LOCATION_MAP,
     handler: handlers.post
   }
 ]

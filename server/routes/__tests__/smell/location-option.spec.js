@@ -13,13 +13,13 @@ const baseAnswer = {
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, 'Where can you notice the smell?')
+      await submitGetRequest({ url }, 'How do you want to tell us where you\'ve noticed the smell?')
     })
   })
   describe('POST', () => {
-    // Happy accepts address and redirects to address
-    it('Should accept address option and redirect to smell/location-address', async () => {
-      const answerId = question.answers.address.answerId
+    // Happy accepts map and redirects to location-map
+    it('Should accept map option and redirect to smell/location-address', async () => {
+      const answerId = question.answers.map.answerId
       const options = {
         url,
         payload: {
@@ -27,7 +27,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_LOCATION_ADDRESS)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_LOCATION_MAP)
       expect(response.request.yar.get(constants.redisKeys.SMELL_LOCATION_OPTION)).toEqual([{
         ...baseAnswer,
         answerId
@@ -58,7 +58,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select how you&#39;d prefer to give the location')
+      expect(response.payload).toContain('Select how you want to give the location')
     })
   })
 })

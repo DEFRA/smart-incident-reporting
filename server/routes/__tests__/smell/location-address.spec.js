@@ -16,8 +16,7 @@ const payload = {
   addressLine2: 'Address Line 2',
   townOrCity: 'town or city',
   county: 'county',
-  postcode: 'WA4 1HT',
-  homeAddress: 'homeAddress'
+  postcode: 'WA4 1HT'
 }
 
 describe(url, () => {
@@ -35,7 +34,7 @@ describe(url, () => {
         payload
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_SOURCE)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_PREVIOUS)
       expect(response.request.yar.get(constants.redisKeys.SMELL_LOCATION_ADDRESS)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.addressLine1.answerId,
@@ -56,9 +55,6 @@ describe(url, () => {
         ...baseAnswer,
         answerId: question.answers.postcode.answerId,
         otherDetails: payload.postcode
-      }, {
-        ...baseAnswer,
-        answerId: question.answers.homeAddress.answerId
       }])
     })
     // Happy: Accepts a partial address, but with complete mandatory fields
@@ -73,7 +69,7 @@ describe(url, () => {
         payload: partialPayload
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_SOURCE)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_PREVIOUS)
       expect(response.request.yar.get(constants.redisKeys.SMELL_LOCATION_ADDRESS)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.addressLine1.answerId,
@@ -88,6 +84,38 @@ describe(url, () => {
         otherDetails: payload.postcode
       }])
     })
+    it('Happy: accepts and strips out postcode with special characters', async () => {
+      const partialPayload = JSON.parse(JSON.stringify(payload))
+      partialPayload.postcode = 'WA4 &^%$%$--1HT'
+
+      const options = {
+        url,
+        payload: partialPayload
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_PREVIOUS)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_LOCATION_ADDRESS)).toEqual([{
+        ...baseAnswer,
+        answerId: question.answers.addressLine1.answerId,
+        otherDetails: payload.addressLine1
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.addressLine2.answerId,
+        otherDetails: payload.addressLine2
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.townOrCity.answerId,
+        otherDetails: payload.townOrCity
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.county.answerId,
+        otherDetails: payload.county
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.postcode.answerId,
+        otherDetails: 'WA4 1HT'
+      }])
+    })
     it('Sad: errors on no fields provided', async () => {
       const options = {
         url,
@@ -96,7 +124,7 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Enter the first line of the address, for example house number and street')
-      expect(response.payload).toContain('Enter the town or city')
+      expect(response.payload).toContain('Enter a town or city')
       expect(response.payload).toContain('Enter a postcode')
     })
     it('Sad: errors on invalid postcode provided', async () => {
