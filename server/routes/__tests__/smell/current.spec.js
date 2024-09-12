@@ -26,7 +26,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_STRENGTH)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_SMELL_STRENGTH)
       expect(response.request.yar.get(constants.redisKeys.SMELL_CURRENT)).toEqual([{
         ...baseAnswer,
         answerId
@@ -41,7 +41,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_STRENGTH)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_SMELL_STRENGTH)
       expect(response.request.yar.get(constants.redisKeys.SMELL_CURRENT)).toEqual([{
         ...baseAnswer,
         answerId

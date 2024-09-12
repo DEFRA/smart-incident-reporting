@@ -50,7 +50,8 @@ const SMELL_LOCATION_MAP = 'smell/location-map'
 const SMELL_LOCATION_DESCRIPTION = 'smell/location-description'
 const SMELL_START_DATE_TIME = 'smell/start-date-time'
 const SMELL_CURRENT = 'smell/current'
-const SMELL_STRENGTH = 'smell/strength'
+const SMELL_SMELL_STRENGTH = 'smell/smell-strength'
+const SMELL_INDOORS = 'smell/indoors'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -94,7 +95,8 @@ const views = {
   SMELL_LOCATION_DESCRIPTION,
   SMELL_START_DATE_TIME,
   SMELL_CURRENT,
-  SMELL_STRENGTH
+  SMELL_SMELL_STRENGTH,
+  SMELL_INDOORS
 }
 
 const routes = {

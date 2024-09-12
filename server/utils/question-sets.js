@@ -396,6 +396,37 @@ const questionSets = {
             text: 'No'
           }
         }
+      },
+      SMELL_SMELL_STRENGTH: {
+        questionId: 2200,
+        key: constants.redisKeys.SMELL_STRENGTH,
+        text: 'How strong is the smell?',
+        answers: {
+          strong: {
+            answerId: 2201,
+            text: 'Strong - a smell that\'s noticeable all the time, you cannot ignore it'
+          },
+          persistent: {
+            answerId: 2202,
+            text: 'not in use'
+          },
+          faint: {
+            answerId: 2203,
+            text: 'Faint - a smell you notice occasionally or on the wind'
+          },
+          veryFaint: {
+            answerId: 2204,
+            text: 'not in use'
+          },
+          distinct: {
+            answerId: 2205,
+            text: 'Distinct - a smell you can notice when breathing normally'
+          },
+          veryStrong: {
+            answerId: 2206,
+            text: 'Very strong - an unbearable smell you need to get away from'
+          }
+        }
       }
     }
   },
@@ -521,7 +552,7 @@ const questionSets = {
   //         veryFaint: {
   //           answerId: 2204,
   //           text: 'It is very faint - you can only notice it if you try'
-  //         }
+  //         },
   //       }
   //     },
   //     SMELL_EFFECT_ON_ACTIVITY: {

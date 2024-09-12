@@ -9,7 +9,7 @@ const handlers = {
 export default [
   {
     method: 'GET',
-    path: constants.routes.SMELL_STRENGTH,
+    path: constants.routes.SMELL_INDOORS,
     handler: handlers.get
   }
 ]

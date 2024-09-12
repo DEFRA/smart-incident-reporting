@@ -32,7 +32,7 @@ const handlers = {
 
     request.yar.set(constants.redisKeys.SMELL_CURRENT, buildAnswers(answerId))
 
-    return h.redirect(constants.routes.SMELL_STRENGTH)
+    return h.redirect(constants.routes.SMELL_SMELL_STRENGTH)
   }
 }
 

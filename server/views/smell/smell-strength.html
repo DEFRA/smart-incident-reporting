@@ -1,6 +1,6 @@
 {% extends 'form-layout.html' %}
 
-{% set title = (question.text if onGoing else question.text.replace('is', 'was')) %}
+{% set title = (question.text if current else question.text.replace('is', 'was')) %}
 {% set pageTitle = title.replace('?', '') %}
 
 {% block formContent %}
@@ -22,20 +22,20 @@
       },
       items: [
         {
-          value: question.answers.strong.answerId,
-          text: question.answers.strong.text
-        },
-        {
-          value: question.answers.persistent.answerId,
-          text: question.answers.persistent.text
-        },
-        {
           value: question.answers.faint.answerId,
           text: question.answers.faint.text
         },
         {
-          value: question.answers.veryFaint.answerId,
-          text: question.answers.veryFaint.text
+          value: question.answers.distinct.answerId,
+          text: question.answers.distinct.text
+        },
+        {
+          value: question.answers.strong.answerId,
+          text: question.answers.strong.text
+        },
+        {
+          value: question.answers.veryStrong.answerId,
+          text: question.answers.veryStrong.text
         }
       ]
     }) }}
