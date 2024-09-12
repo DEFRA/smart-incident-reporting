@@ -427,6 +427,21 @@ const questionSets = {
             text: 'Very strong - an unbearable smell you need to get away from'
           }
         }
+      },
+      SMELL_INDOORS: {
+        questionId: 1,
+        key: constants.redisKeys.SMELL_INDOORS,
+        text: 'Is the smell noticeable indoors?',
+        answers: {
+          yes: {
+            answerId: 2,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3,
+            text: 'No, you can only smell it outside'
+          }
+        }
       }
     }
   },

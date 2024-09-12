@@ -12,25 +12,21 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => {
-    const currentAnswer = request.yar.get(constants.redisKeys.SMELL_CURRENT)
-    const current = currentAnswer && currentAnswer[0].answerId === questionSets.SMELL.questions.SMELL_CURRENT.answers.yes.answerId
     return h.view(constants.views.SMELL_SMELL_STRENGTH, {
-      ...getContext(),
-      current
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
     let { answerId } = request.payload
-    const currentAnswer = request.yar.get(constants.redisKeys.SMELL_CURRENT)
-    const current = currentAnswer && currentAnswer[0].answerId === questionSets.SMELL.questions.SMELL_CURRENT.answers.yes.answerId
+    const { question, current } = getContext(request)
 
     // validate payload
     const errorSummary = validatePayload(answerId, current)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.SMELL_SMELL_STRENGTH, {
-        ...getContext(),
-        errorSummary,
-        current
+        question,
+        current,
+        errorSummary
       })
     }
     // convert answerId to number
@@ -42,9 +38,12 @@ const handlers = {
   }
 }
 
-const getContext = () => {
+const getContext = request => {
+  const currentAnswer = request.yar.get(constants.redisKeys.SMELL_CURRENT)
+  const current = currentAnswer && currentAnswer[0].answerId === questionSets.SMELL.questions.SMELL_CURRENT.answers.yes.answerId
   return {
-    question
+    question,
+    current
   }
 }
 
