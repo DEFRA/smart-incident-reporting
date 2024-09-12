@@ -34,12 +34,13 @@ const handlers = {
 
     // set answer in session
     request.yar.set(constants.redisKeys.SMELL_SOURCE, buildAnswers(answerId))
-    if (answerId === question.answers.wasteSite.answerId || answerId === question.answers.industry.answerId || answerId === question.answers.sewage.answerId || answerId === question.answers.wasteSpreading.answerId) {
-      return h.redirect(constants.routes.SMELL_SOURCE_DETAILS)
-    } else if (answerId === question.answers.local.answerId || answerId === question.answers.neighbour.answerId || answerId === question.answers.rubbish.answerId) {
+
+    if (answerId === question.answers.local.answerId || answerId === question.answers.neighbour.answerId || answerId === question.answers.rubbish.answerId) {
       return h.redirect(constants.routes.SMELL_REPORT_LOCAL_COUNCIL)
-    } else (answerId === question.answers.unknown.answerId) {
+    } else if (answerId === question.answers.unknown.answerId) {
       return h.redirect(constants.routes.SMELL_CONTACT_LOCAL_COUNCIL)
+    } else {
+      return h.redirect(constants.routes.SMELL_SOURCE_DETAILS)
     }
   }
 }

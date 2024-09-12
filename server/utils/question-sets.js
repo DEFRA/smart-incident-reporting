@@ -273,7 +273,7 @@ const questionSets = {
           },
           unknown: {
             answerId: 2906,
-            text: 'You do not know'
+            text: YOU_DO_NOT_KNOW
           },
           somethingElseDetail: {
             answerId: 2907,
@@ -321,7 +321,7 @@ const questionSets = {
           },
           unknown: {
             answerId: 108,
-            text: 'You do not know'
+            text: YOU_DO_NOT_KNOW
           }
         }
       },
