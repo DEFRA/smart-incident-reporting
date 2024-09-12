@@ -57,6 +57,8 @@ describe(url, () => {
 
   describe('POST', () => {
     it('Happy: accept a valid time for today and continue to SMELL_CURRENT', async () => {
+      const date = new Date()
+      const period = date.getHours() > 11 ? 'pm' : 'am'
       const options = {
         url,
         payload: {
@@ -64,12 +66,12 @@ describe(url, () => {
           'date-day': '1',
           'date-month': '1',
           'date-year': '2024',
-          hour: ['12', '1', '1'],
-          minute: ['00', '1', '1'],
-          period: ['pm', 'am', 'am']
+          hour: [date.getHours().toString(), '1', '1'],
+          minute: ['0', '1', '1'],
+          period: [period, 'am', 'am']
         }
       }
-      const dateTime = moment().hours(12).minutes(0).seconds(0).milliseconds(0)
+      const dateTime = moment().hours(date.getHours().toString()).minutes(0).seconds(0).milliseconds(0)
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.SMELL_CURRENT)
       expect(response.request.yar.get(constants.redisKeys.SMELL_START_DATE_TIME)).toEqual(dateTime.toISOString())
