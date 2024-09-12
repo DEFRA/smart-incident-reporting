@@ -273,7 +273,7 @@ const questionSets = {
           },
           unknown: {
             answerId: 2906,
-            text: 'You do not know'
+            text: YOU_DO_NOT_KNOW
           },
           somethingElseDetail: {
             answerId: 2907,
@@ -286,6 +286,45 @@ const questionSets = {
   SMELL: {
     questionSetId: 200,
     questions: {
+      SMELL_SOURCE: {
+        questionId: 100,
+        key: constants.redisKeys.SMELL_SOURCE,
+        text: 'Where is the smell coming from?',
+        answers: {
+          wasteSite: {
+            answerId: 101,
+            text: 'A waste site, for example a landfill or recycling centre'
+          },
+          industry: {
+            answerId: 102,
+            text: 'A large industrial site, factory or business, for example a food processing plant'
+          },
+          sewage: {
+            answerId: 103,
+            text: 'A sewage or water treatment works'
+          },
+          wasteSpreading: {
+            answerId: 104,
+            text: 'Agricultural site or activity, for example muck spreading'
+          },
+          local: {
+            answerId: 105,
+            text: 'A small local business, for example a restaurant'
+          },
+          neighbour: {
+            answerId: 106,
+            text: 'A neighbouring property'
+          },
+          rubbish: {
+            answerId: 107,
+            text: 'Household waste and rubbish'
+          },
+          unknown: {
+            answerId: 108,
+            text: YOU_DO_NOT_KNOW
+          }
+        }
+      },
       SMELL_LOCATION_HOME: {
         questionId: 1,
         key: constants.redisKeys.SMELL_LOCATION_HOME,

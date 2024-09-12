@@ -53,6 +53,10 @@ const SMELL_CURRENT = 'smell/current'
 const SMELL_SMELL_STRENGTH = 'smell/smell-strength'
 const SMELL_INDOORS = 'smell/indoors'
 const SMELL_CLOTHING_AND_HAIR = 'smell/clothing-and-hair'
+const SMELL_SOURCE = 'smell/source'
+const SMELL_REPORT_LOCAL_COUNCIL = 'smell/report-local-council'
+const SMELL_CONTACT_LOCAL_COUNCIL = 'smell/contact-local-council'
+const SMELL_SOURCE_DETAILS = 'smell/source-details'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -95,6 +99,10 @@ const views = {
   SMELL_LOCATION_MAP,
   SMELL_LOCATION_DESCRIPTION,
   SMELL_START_DATE_TIME,
+  SMELL_SOURCE,
+  SMELL_REPORT_LOCAL_COUNCIL,
+  SMELL_CONTACT_LOCAL_COUNCIL,
+  SMELL_SOURCE_DETAILS,
   SMELL_CURRENT,
   SMELL_SMELL_STRENGTH,
   SMELL_INDOORS,

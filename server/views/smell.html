@@ -38,15 +38,11 @@
       <a href="https://www.gov.uk/guidance/nuisance-smells-how-councils-deal-with-complaints">Report these to your local council's environmental health department</a>.
     </div>
 
-    <form class="form" action="smell/smell-source" method="post">
-      <input type="hidden" id="incidentType" name="incidentType" value="sprint-current/smell">
-
-      {{ govukButton({
-      text: "Start now",
-      isStartButton: true
-      }) }}
-
-    </form>
+    {{ govukButton({
+    text: "Start now",
+    href: startHref,
+    isStartButton: true
+    }) }}
 
     <h2 class="govuk-heading-l">If you cannot report online</h2>
     <p>You can report the problem to the Environment Agency over the phone.</p>
