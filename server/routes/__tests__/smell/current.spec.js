@@ -2,8 +2,8 @@ import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/s
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
-const url = constants.routes.SMELL_ONGOING
-const question = questionSets.SMELL.questions.SMELL_ONGOING
+const url = constants.routes.SMELL_CURRENT
+const question = questionSets.SMELL.questions.SMELL_CURRENT
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
@@ -26,8 +26,8 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_STRENGTH)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_ONGOING)).toEqual([{
+      expect(response.headers.location).toEqual(constants.routes.SMELL_SMELL_STRENGTH)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_CURRENT)).toEqual([{
         ...baseAnswer,
         answerId
       }])
@@ -41,8 +41,8 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_STRENGTH)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_ONGOING)).toEqual([{
+      expect(response.headers.location).toEqual(constants.routes.SMELL_SMELL_STRENGTH)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_CURRENT)).toEqual([{
         ...baseAnswer,
         answerId
       }])
