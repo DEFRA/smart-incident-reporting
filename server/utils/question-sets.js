@@ -224,6 +224,12 @@ const questionSets = {
         answers: {
           nationalGridReference: {
             answerId: 2701
+          },
+          easting: {
+            answerId: 2702
+          },
+          northing: {
+            answerId: 2703
           }
         }
       },

@@ -6,8 +6,7 @@ const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LOCATION
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
-  questionResponse: true,
-  answerId: question.answers.nationalGridReference.answerId
+  questionResponse: true
 }
 
 const handlers = {
@@ -28,7 +27,7 @@ const handlers = {
       })
     }
 
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP, buildAnswers(bngToNgr(point).text))
+    request.yar.set(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP, buildAnswers(point))
 
     // handle redirects
     return h.redirect(constants.routes.WATER_POLLUTION_WHEN)
@@ -41,10 +40,20 @@ const getContext = () => {
   }
 }
 
-const buildAnswers = ngr => {
+const buildAnswers = point => {
+  const ngr = bngToNgr(point).text
   return [{
     ...baseAnswer,
+    answerId: question.answers.nationalGridReference.answerId,
     otherDetails: ngr
+  }, {
+    ...baseAnswer,
+    answerId: question.answers.easting.answerId,
+    otherDetails: Math.floor(point[0]).toString()
+  }, {
+    ...baseAnswer,
+    answerId: question.answers.northing.answerId,
+    otherDetails: Math.floor(point[1]).toString()
   }]
 }
 
