@@ -405,7 +405,7 @@ const questionSets = {
         answers: {
           yes: {
             answerId: 1901,
-            text: 'Yes, regularly'
+            text: 'Yes, it happens often'
           },
           occasionally: {
             answerId: 1902,
