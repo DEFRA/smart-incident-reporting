@@ -2,6 +2,7 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
+const sharedYesNo = 'shared/yes-no'
 const question = questionSets.SMELL.questions.SMELL_CURRENT
 
 const baseAnswer = {
@@ -12,7 +13,7 @@ const baseAnswer = {
 
 const handlers = {
   get: async (_request, h) => {
-    return h.view(constants.views.SMELL_CURRENT, {
+    return h.view(sharedYesNo, {
       ...getContext()
     })
   },
@@ -22,7 +23,7 @@ const handlers = {
     // validate payload
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.SMELL_CURRENT, {
+      return h.view(sharedYesNo, {
         ...getContext(),
         errorSummary
       })
