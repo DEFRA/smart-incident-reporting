@@ -35,6 +35,7 @@ const handlers = {
     // set answer in session
     request.yar.set(constants.redisKeys.SMELL_SOURCE, buildAnswers(answerId))
 
+    // handle redirects
     if (answerId === question.answers.local.answerId || answerId === question.answers.neighbour.answerId || answerId === question.answers.rubbish.answerId) {
       return h.redirect(constants.routes.SMELL_REPORT_LOCAL_COUNCIL)
     } else if (answerId === question.answers.unknown.answerId) {

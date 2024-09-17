@@ -331,6 +331,29 @@ const questionSets = {
           }
         }
       },
+      SMELL_SOURCE_DETAILS: {
+        questionId: 200,
+        key: constants.redisKeys.SMELL_SOURCE_DETAILS,
+        text: 'Can you give details about where the smell is coming from?',
+        answers: {
+          siteName: {
+            answerId: 203,
+            text: 'Name of person or site'
+          },
+          sourceAddress: {
+            answerId: 204,
+            text: 'Street name and number (if known)'
+          },
+          sourceTown: {
+            answerId: 205,
+            text: 'Town or city'
+          },
+          sourcePostcode: {
+            answerId: 205,
+            text: 'Postcode (if known)'
+          }
+        }
+      },
       SMELL_LOCATION_HOME: {
         questionId: 1,
         key: constants.redisKeys.SMELL_LOCATION_HOME,
