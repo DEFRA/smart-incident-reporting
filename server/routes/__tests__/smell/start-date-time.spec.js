@@ -59,6 +59,7 @@ describe(url, () => {
     it('Happy: accept a valid time for today and continue to SMELL_CURRENT', async () => {
       const date = new Date()
       const period = date.getHours() > 11 ? 'pm' : 'am'
+      const hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours()
       const options = {
         url,
         payload: {
@@ -66,7 +67,7 @@ describe(url, () => {
           'date-day': '1',
           'date-month': '1',
           'date-year': '2024',
-          hour: [date.getHours().toString(), '1', '1'],
+          hour: [hours.toString(), '1', '1'],
           minute: ['0', '1', '1'],
           period: [period, 'am', 'am']
         }
