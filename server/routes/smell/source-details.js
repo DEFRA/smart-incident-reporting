@@ -42,7 +42,7 @@ const handlers = {
     } else if (request.payload.answerId === 'no') {
       return h.redirect(constants.routes.SMELL_CONTACT_LOCAL_COUNCIL)
     } else {
-      //do nothing
+      // do nothing
     }
   }
 }
