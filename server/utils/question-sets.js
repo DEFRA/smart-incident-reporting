@@ -516,6 +516,21 @@ const questionSets = {
             text: 'No, you can only smell it outside'
           }
         }
+      },
+      SMELL_CONTACT: {
+        questionId: 1,
+        key: constants.redisKeys.SMELL_CONTACT,
+        text: 'Can we contact you for more information if needed?',
+        answers: {
+          yes: {
+            answerId: 2,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3,
+            text: 'No'
+          }
+        }
       }
     }
   },
