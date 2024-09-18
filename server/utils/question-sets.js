@@ -293,78 +293,78 @@ const questionSets = {
     questionSetId: 200,
     questions: {
       SMELL_SOURCE: {
-        questionId: 100,
+        questionId: 1600,
         key: constants.redisKeys.SMELL_SOURCE,
         text: 'Where is the smell coming from?',
         answers: {
           wasteSite: {
-            answerId: 101,
+            answerId: 1601,
             text: 'A waste site, for example a landfill or recycling centre'
           },
           industry: {
-            answerId: 102,
+            answerId: 1602,
             text: 'A large industrial site, factory or business, for example a food processing plant'
           },
           sewage: {
-            answerId: 103,
+            answerId: 1603,
             text: 'A sewage or water treatment works'
           },
           wasteSpreading: {
-            answerId: 104,
+            answerId: 1604,
             text: 'Agricultural site or activity, for example muck spreading'
           },
           local: {
-            answerId: 105,
+            answerId: 1605,
             text: 'A small local business, for example a restaurant'
           },
           neighbour: {
-            answerId: 106,
+            answerId: 1606,
             text: 'A neighbouring property'
           },
           rubbish: {
-            answerId: 107,
+            answerId: 1607,
             text: 'Household waste and rubbish'
           },
           unknown: {
-            answerId: 108,
+            answerId: 1608,
             text: YOU_DO_NOT_KNOW
           }
         }
       },
       SMELL_SOURCE_DETAILS: {
-        questionId: 200,
+        questionId: 32000,
         key: constants.redisKeys.SMELL_SOURCE_DETAILS,
         text: 'Can you give details about where the smell is coming from?',
         answers: {
           siteName: {
-            answerId: 203,
+            answerId: 32002,
             text: 'Name of person or site'
           },
           sourceAddress: {
-            answerId: 204,
+            answerId: 32003,
             text: 'Street name and number (if known)'
           },
           sourceTown: {
-            answerId: 205,
+            answerId: 32004,
             text: 'Town or city'
           },
           sourcePostcode: {
-            answerId: 205,
+            answerId: 32005,
             text: 'Postcode (if known)'
           }
         }
       },
       SMELL_LOCATION_HOME: {
-        questionId: 1,
+        questionId: 3100,
         key: constants.redisKeys.SMELL_LOCATION_HOME,
         text: 'Is the smell affecting you at home?',
         answers: {
           yes: {
-            answerId: 2,
+            answerId: 30001,
             text: 'Yes'
           },
           no: {
-            answerId: 3,
+            answerId: 30002,
             text: 'No, somewhere else'
           }
         }
@@ -441,18 +441,18 @@ const questionSets = {
         }
       },
       SMELL_LOCATION_MAP: {
-        questionId: 1,
+        questionId: 2700,
         key: constants.redisKeys.SMELL_LOCATION_MAP,
         text: 'Mark the location of the smell',
         answers: {
           nationalGridReference: {
-            answerId: 2
+            answerId: 2701
           },
           easting: {
-            answerId: 3
+            answerId: 2702
           },
           northing: {
-            answerId: 4
+            answerId: 2703
           }
         }
       },
@@ -503,16 +503,16 @@ const questionSets = {
         }
       },
       SMELL_INDOORS: {
-        questionId: 1,
+        questionId: 3000,
         key: constants.redisKeys.SMELL_INDOORS,
         text: 'Is the smell noticeable indoors?',
         answers: {
           yes: {
-            answerId: 2,
+            answerId: 30001,
             text: 'Yes'
           },
           no: {
-            answerId: 3,
+            answerId: 30002,
             text: 'No, you can only smell it outside'
           }
         }
