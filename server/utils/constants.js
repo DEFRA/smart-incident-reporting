@@ -59,6 +59,7 @@ const SMELL_CONTACT_LOCAL_COUNCIL = 'smell/contact-local-council'
 const SMELL_SOURCE_DETAILS = 'smell/source-details'
 const SMELL_CONTACT = 'smell/contact'
 const SMELL_IMAGES_OR_VIDEO = 'smell/images-or-video'
+const SMELL_OTHER_INFORMATION = 'smell/other-information'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -110,7 +111,8 @@ const views = {
   SMELL_INDOORS,
   SMELL_CLOTHING_AND_HAIR,
   SMELL_CONTACT,
-  SMELL_IMAGES_OR_VIDEO
+  SMELL_IMAGES_OR_VIDEO,
+  SMELL_OTHER_INFORMATION
 }
 
 const routes = {
