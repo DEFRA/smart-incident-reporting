@@ -531,6 +531,21 @@ const questionSets = {
             text: 'No'
           }
         }
+      },
+      SMELL_IMAGES_OR_VIDEO: {
+        questionId: 1,
+        key: constants.redisKeys.SMELL_IMAGES_OR_VIDEO,
+        text: 'Do you want to send us any images or videos of the problem?',
+        answers: {
+          yes: {
+            answerId: 2,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3,
+            text: 'No'
+          }
+        }
       }
     }
   },
