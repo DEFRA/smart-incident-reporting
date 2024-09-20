@@ -17,11 +17,11 @@ describe(url, () => {
 
   describe('POST', () => {
     it('Should accept and store a description', async () => {
-      const otherDetails = 'This is a description of the odour'
+      const otherInfo = 'This is a description of the odour'
       const options = {
         url,
         payload: {
-          otherDetails
+          otherInfo
         }
       }
       const response = await submitPostRequest(options, 302, session)
@@ -32,7 +32,7 @@ describe(url, () => {
           reporterName: 'John Smith',
           reporterPhoneNumber: '012345678910',
           reporterAccessCode: 'password',
-          otherDetails,
+          otherDetails: otherInfo,
           questionSetId: 200,
           data: expect.arrayContaining([
             expect.objectContaining({ questionId: 1400, questionAsked: enterTheAddress, questionResponse: true, answerId: 1401, otherDetails: 'Test address 1' }),
@@ -58,7 +58,7 @@ describe(url, () => {
           ])
         })
       }))
-      expect(response.request.yar.get(constants.redisKeys.SMELL_OTHER_INFORMATION)).toEqual(otherDetails)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_OTHER_INFORMATION)).toEqual(otherInfo)
       expect(new Date(response.request.yar.get(constants.redisKeys.SUBMISSION_TIMESTAMP))).toBeInstanceOf(Date)
     })
     it('Should error if validatePayload fails', async () => {

@@ -473,7 +473,7 @@ const questionSets = {
       },
       SMELL_SMELL_STRENGTH: {
         questionId: 2200,
-        key: constants.redisKeys.SMELL_STRENGTH,
+        key: constants.redisKeys.SMELL_SMELL_STRENGTH,
         text: 'How strong is the smell?',
         answers: {
           strong: {
