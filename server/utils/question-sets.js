@@ -517,6 +517,21 @@ const questionSets = {
           }
         }
       },
+      SMELL_CLOTHING_AND_HAIR: {
+        questionId: 500,
+        key: constants.redisKeys.SMELL_CLOTHING_AND_HAIR,
+        text: 'Does the smell stick to your clothing or hair?',
+        answers: {
+          yes: {
+            answerId: 501,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 502,
+            text: 'No'
+          }
+        }
+      },
       SMELL_CONTACT: {
         questionId: 1,
         key: constants.redisKeys.SMELL_CONTACT,
