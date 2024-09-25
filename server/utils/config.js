@@ -1,6 +1,6 @@
 import Joi from 'joi'
 const envs = ['development', 'test', 'production']
-const defaultPort = 8000
+const defaultPort = 3000
 const defaultRedisPort = 6379
 
 const getBoolean = booleanString =>
@@ -12,7 +12,6 @@ const schema = Joi.object().keys({
     .string()
     .valid(...envs)
     .default(envs[0]),
-  serviceHost: Joi.string(),
   servicePort: Joi.number().default(defaultPort),
   redisHost: Joi.string().default('localhost'),
   redisPort: Joi.number().default(defaultRedisPort),
@@ -36,7 +35,6 @@ const schema = Joi.object().keys({
 // Build config
 const config = {
   env: process.env.NODE_ENV,
-  serviceHost: process.env.SERVICE_HOST,
   servicePort: process.env.SERVICE_PORT,
   logLevel: process.env.LOG_LEVEL,
   redisHost: process.env.REDIS_HOST,

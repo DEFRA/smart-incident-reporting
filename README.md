@@ -161,9 +161,27 @@ It's defined as a build task and can be run using `npm run lint`.
 
 # Environment variables
 
-Environment variables for the webapp and their default values if not set can be found in the file `server/utils/config.js`
-
 The build of the webapp requires an environment variable GA_ID if google analytics is required
+
+| name    | description | mandatory | default value |
+|---------|-------------|-----------| ------------- |
+| 	NODE_ENV	 | 	Environment, eg development, test, production	 | 	N	 |	development	 |
+| 	SERVICE_PORT	 | 	Port for sevice to run on eg 3000	 | 	N	 |	3000	 |
+| 	LOG_LEVEL	 | 	Log level eg info, warn, error	 | 	N	 |	warn	 |
+| 	REDIS_HOST	 | 	Redis host name	 | 	Y	 |		 |
+| 	REDIS_PORT	 | 	Redis port name	 | 	N	 |	6379	 |
+| 	REDIS_PASSWORD	 | 	Redis password	 | 	Y	 |		 |
+| 	REDIS_TLS	 | 	Redis tls eg true or false	 | 	N	 |	FALSE	 |
+| 	SESSION_COOKIE_PASSWORD	 | 	Cookie password min 32 characters	 | 	N	 |	the-password-must-be-at-least-32-characters-long	 |
+| 	COOKIE_IS_SECURE	 | 	Cookie secure boolean	 | 	N	 |	FALSE	 |
+| 	OS_SECRET	 | 	OS API secret	 | 	Y	 |		 |
+| 	OS_KEY	 | 	OS API key	 | 	Y	 |		 |
+| 	SERVICE_BUS_CONNECTION_STRING	 | 	Service bus connection string	 | 	Y	 |		 |
+| 	SERVICE_BUS_QUEUE_NAME	 | 	Service bus queue name	 | 	Y	 |		 |
+| 	AUTH_ACCOUNTS	 | 	JSON string of auth accounts and access codes	 | 	Y	 |		 |
+| 	SERVICE_AVAILABLE_CRON	 | 	Cron for when service is available in office hours	 | 	N	 |	* * * * * *	 |
+|   GA_ID   |   Google tag manager ID   |   N   |   |
+
 
 # Private beta authentication
 
