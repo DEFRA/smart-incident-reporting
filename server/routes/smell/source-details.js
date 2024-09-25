@@ -75,7 +75,7 @@ const validatePayload = payload => {
         href: '#sourceTown'
       })
     }
-    if ((payload.sourcePostcode.length > 0) && (!postcodeRegExp.test(payload.sourcePostcode))) {
+    if ((payload.sourcePostcode?.length > 0) && (!postcodeRegExp.test(payload.sourcePostcode))) {
       errorSummary.errorList.push({
         text: 'Enter a full UK postcode',
         href: '#sourcePostcode'
