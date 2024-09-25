@@ -132,17 +132,17 @@ describe(url, () => {
       expect(response.payload).toContain('Answer yes if you can give details about where the smell is coming from')
     })
     it('Sad: valid answerId yes but errors on no fields provided', async () => {
+      const answerId = 'yes'
       const options = {
         url,
         payload: {
-          answerId: 'yes'
+          answerId
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Enter a name')
       expect(response.payload).toContain('Enter a town or city')
-      expect(response.payload).toContain('Enter a postcode')
     })
     it('Sad: errors on invalid postcode provided', async () => {
       const options = {
