@@ -1,0 +1,17 @@
+version: "3.9"
+secrets:
+  WEBAPP_ENV:
+    file: ./secrets/WEBAPP_ENV
+services:
+  webapp:
+    image: smart-incident-reporting:${TAG:-latest}
+    build:
+      context: ../
+      dockerfile: dockerfile
+      args:
+        - GA_ID
+    ports:
+      - "3000:3000"
+    secrets:
+      - WEBAPP_ENV
+    entrypoint: [ '/bin/sh', '-c', "source /run/secrets/WEBAPP_ENV && npm run start" ]

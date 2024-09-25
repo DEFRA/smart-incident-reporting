@@ -38,20 +38,27 @@ or
 $ npm run start
 ```
 
-# Testing Docker build of the image
+# Docker 
 
-To create docker image of service:
-
-```sh
-$ docker build -t smart-incident-reporting:latest .
+Create secrets file in docker/secrets/WEBAPP_ENV that exports the mandatory env vars:
+eg:
+```
+export REDIS_HOST=redis
+export REDIS_PORT=6379
+export NODE_ENV=production
+export SERVICE_BUS_QUEUE_NAME=****
+export SERVICE_BUS_CONNECTION_STRING=****
+export AUTH_ACCOUNTS='[{"id":1,"password":"WPINTERNAL"},{"id":2,"password":"ODINTERNAL"}]'
 ```
 
-# Starting application in docker
-
+Build the image
 ```sh
-$ docker-compose -f docker/service.yml up -d
+docker compose -f docker/service-local.yml build
 ```
-
+Run the container
+```sh
+docker-compose -f docker/service-local.yml up
+```
 
 ## Project structure
 
