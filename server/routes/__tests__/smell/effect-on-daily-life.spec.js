@@ -75,6 +75,42 @@ describe(url, () => {
         otherDetails: 'Put off doing something'
       }])
     })
+    it('Happy: accepts valid array of answerID and other details and redirects to SMELL_EFFECT_ON_HEALTH', async () => {
+      const answerId = [question.answers.goingElsewhere.answerId.toString(), question.answers.cancelEvent.answerId.toString(), question.answers.somethingElse.answerId.toString()]
+      const options = {
+        url,
+        payload: {
+          answerId,
+          putOffDetails: 'Put off doing something',
+          eventDetails: 'Details of the event',
+          somethingElseDetails: 'Details about what happened'
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_EFFECT_ON_HEALTH)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_EFFECT_ON_DAILY_LIFE)).toEqual([{
+        ...baseAnswer,
+        answerId: question.answers.goingElsewhere.answerId
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.cancelEvent.answerId
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.somethingElse.answerId
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.putOffDetails.answerId,
+        otherDetails: 'Put off doing something'
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.eventDetails.answerId,
+        otherDetails: 'Details of the event'
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.somethingElseDetails.answerId,
+        otherDetails: 'Details about what happened'
+      }])
+    })
     it('Happy: accepts empty answerId, defaults to none of these and redirects to SMELL_EFFECT_ON_HEALTH', async () => {
       const options = {
         url,
