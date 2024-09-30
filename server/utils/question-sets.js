@@ -579,56 +579,6 @@ const questionSets = {
           }
         }
       },
-      SMELL_EFFECT_ON_HEALTH: {
-        questionId: 2500,
-        key: constants.redisKeys.SMELL_EFFECT_ON_HEALTH,
-        text: 'Did the smell cause any of these health problems?',
-        answers: {
-          headache: {
-            answerId: 2501,
-            text: 'Headache'
-          },
-          wateringEyes: {
-            answerId: 2502,
-            text: 'Watering eyes'
-          },
-          sicknessOrNausea: {
-            answerId: 2503,
-            text: 'Sickness or nausea'
-          },
-          vomiting: {
-            answerId: 2504,
-            text: 'Vomiting'
-          },
-          somethingElse: {
-            answerId: 2505,
-            text: SOMETHING_ELSE
-          },
-          noneOfthese: {
-            answerId: 2506,
-            text: NONE_OF_THESE
-          },
-          somethingElseDetails: {
-            answerId: 2507,
-            text: 'Give details about the health problem'
-          }
-        }
-      },
-      SMELL_MEDICAL_HELP: {
-        questionId: 2600,
-        key: constants.redisKeys.SMELL_MEDICAL_HELP,
-        text: 'Have you had to get any medical help because of the smell?',
-        answers: {
-          yes: {
-            answerId: 2601,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 2602,
-            text: 'No'
-          }
-        }
-      },
       SMELL_CONTACT: {
         questionId: 1,
         key: constants.redisKeys.SMELL_CONTACT,
