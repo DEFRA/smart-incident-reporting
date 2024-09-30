@@ -1,0 +1,109 @@
+{% extends 'form-layout.html' %}
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+      {% set otherHtmlPutOff %}
+      {{ govukInput({
+        id: "putOffDetails",
+        name: "putOffDetails",
+        spellcheck: false,
+        classes: "govuk-!-width-two-third",
+        label: {
+          text: question.answers.putOffDetails.text
+        }
+      }) }}
+      {% endset -%}
+
+      {% set otherHtmlEvent %}
+      {{ govukInput({
+        id: "eventDetails",
+        name: "eventDetails",
+        spellcheck: false,
+        classes: "govuk-!-width-two-third",
+        label: {
+          text: question.answers.eventDetails.text
+        }
+      }) }}
+      {% endset -%}
+
+      {% set otherHtmlSomethingElse %}
+      {{ govukInput({
+        id: "somethingElseDetails",
+        name: "somethingElseDetails",
+        spellcheck: false,
+        classes: "govuk-!-width-two-third",
+        label: {
+          text: question.answers.somethingElseDetails.text
+        }
+      }) }}
+      {% endset -%}
+
+        {{ govukCheckboxes({
+          name: "answerId",
+          id: "answerId",
+          fieldset: {
+            legend: {
+              text: question.text,
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+          {
+            value: question.answers.leave.answerId,
+            text: question.answers.leave.text
+          },
+          {
+            value: question.answers.windows.answerId,
+            text: question.answers.windows.text
+          },
+          {
+            value: question.answers.goingOutside.answerId,
+            text: question.answers.goingOutside.text
+          },
+          {
+            value: question.answers.goingElsewhere.answerId,
+            text: question.answers.goingElsewhere.text,
+            conditional: {
+              html: otherHtmlPutOff
+            }
+          },
+          {
+            value: question.answers.cancelEvent.answerId,
+            text: question.answers.cancelEvent.text,
+            conditional: {
+              html: otherHtmlEvent
+            }
+          },
+          {
+            value: question.answers.somethingElse.answerId,
+            text: question.answers.somethingElse.text,
+            conditional: {
+              html: otherHtmlSomethingElse
+            }
+          },
+          {
+            divider: "or"
+          },
+          {
+            value: question.answers.noImpact.answerId,
+            text: question.answers.noImpact.text,
+            behaviour: "exclusive"
+          }
+          ]
+        }) }}
+
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+  </div>
+</div>
+
+{% endblock %}
+
