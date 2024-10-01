@@ -518,16 +518,16 @@ const questionSets = {
         }
       },
       SMELL_CLOTHING_AND_HAIR: {
-        questionId: 500,
+        questionId: 3600,
         key: constants.redisKeys.SMELL_CLOTHING_AND_HAIR,
         text: 'Does the smell stick to your clothing or hair?',
         answers: {
           yes: {
-            answerId: 501,
+            answerId: 3601,
             text: 'Yes'
           },
           no: {
-            answerId: 502,
+            answerId: 3602,
             text: 'No'
           }
         }
@@ -630,31 +630,31 @@ const questionSets = {
         }
       },
       SMELL_CONTACT: {
-        questionId: 1,
+        questionId: 3400,
         key: constants.redisKeys.SMELL_CONTACT,
         text: 'Can we contact you for more information if needed?',
         answers: {
           yes: {
-            answerId: 2,
+            answerId: 3401,
             text: 'Yes'
           },
           no: {
-            answerId: 3,
+            answerId: 3402,
             text: 'No'
           }
         }
       },
       SMELL_IMAGES_OR_VIDEO: {
-        questionId: 1,
+        questionId: 3500,
         key: constants.redisKeys.SMELL_IMAGES_OR_VIDEO,
         text: 'Do you want to send us any images or videos of the problem?',
         answers: {
           yes: {
-            answerId: 2,
+            answerId: 3501,
             text: 'Yes'
           },
           no: {
-            answerId: 3,
+            answerId: 3502,
             text: 'No'
           }
         }
