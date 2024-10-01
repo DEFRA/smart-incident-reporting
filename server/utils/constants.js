@@ -55,6 +55,7 @@ const SMELL_INDOORS = 'smell/indoors'
 const SMELL_CLOTHING_AND_HAIR = 'smell/clothing-and-hair'
 const SMELL_EFFECT_ON_DAILY_LIFE = 'smell/effect-on-daily-life'
 const SMELL_EFFECT_ON_HEALTH = 'smell/effect-on-health'
+const SMELL_MEDICAL_HELP = 'smell/medical-help'
 const SMELL_SOURCE = 'smell/source'
 const SMELL_REPORT_LOCAL_COUNCIL = 'smell/report-local-council'
 const SMELL_CONTACT_LOCAL_COUNCIL = 'smell/contact-local-council'
@@ -114,6 +115,7 @@ const views = {
   SMELL_CLOTHING_AND_HAIR,
   SMELL_EFFECT_ON_DAILY_LIFE,
   SMELL_EFFECT_ON_HEALTH,
+  SMELL_MEDICAL_HELP,
   SMELL_CONTACT,
   SMELL_IMAGES_OR_VIDEO,
   SMELL_OTHER_INFORMATION
