@@ -21,31 +21,31 @@ const session = JSON.parse(`{
   ],
   "smell/source-details": [
     {
-      "questionId": 32000,
+      "questionId": 3200,
       "questionAsked": "Can you give details about where the smell is coming from?",
       "questionResponse": true,
-      "answerId": 32002,
+      "answerId": 3202,
       "otherDetails": "test"
     },
     {
-      "questionId": 32000,
+      "questionId": 3200,
       "questionAsked": "Can you give details about where the smell is coming from?",
       "questionResponse": true,
-      "answerId": 32003,
+      "answerId": 3203,
       "otherDetails": "test"
     },
     {
-      "questionId": 32000,
+      "questionId": 3200,
       "questionAsked": "Can you give details about where the smell is coming from?",
       "questionResponse": true,
-      "answerId": 32004,
+      "answerId": 3204,
       "otherDetails": "test"
     },
     {
-      "questionId": 32000,
+      "questionId": 3200,
       "questionAsked": "Can you give details about where the smell is coming from?",
       "questionResponse": true,
-      "answerId": 32005,
+      "answerId": 3205,
       "otherDetails": "m11mm"
     }
   ],
@@ -54,7 +54,7 @@ const session = JSON.parse(`{
       "questionId": 3100,
       "questionAsked": "Is the smell affecting you at home?",
       "questionResponse": true,
-      "answerId": 30001
+      "answerId": 3001
     }
   ],
   "smell/location-address": [
@@ -123,7 +123,7 @@ const session = JSON.parse(`{
       "questionId": 3000,
       "questionAsked": "Is the smell noticeable indoors?",
       "questionResponse": true,
-      "answerId": 30001
+      "answerId": 3001
     }
   ],
   "smell/contact": [

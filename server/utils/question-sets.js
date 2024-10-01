@@ -332,24 +332,24 @@ const questionSets = {
         }
       },
       SMELL_SOURCE_DETAILS: {
-        questionId: 32000,
+        questionId: 3200,
         key: constants.redisKeys.SMELL_SOURCE_DETAILS,
         text: 'Can you give details about where the smell is coming from?',
         answers: {
           siteName: {
-            answerId: 32002,
+            answerId: 3202,
             text: 'Name of person or site'
           },
           sourceAddress: {
-            answerId: 32003,
+            answerId: 3203,
             text: 'Street name and number (if known)'
           },
           sourceTown: {
-            answerId: 32004,
+            answerId: 3204,
             text: 'Town or city'
           },
           sourcePostcode: {
-            answerId: 32005,
+            answerId: 3205,
             text: 'Postcode (if known)'
           }
         }
@@ -360,11 +360,11 @@ const questionSets = {
         text: 'Is the smell affecting you at home?',
         answers: {
           yes: {
-            answerId: 30001,
+            answerId: 3001,
             text: 'Yes'
           },
           no: {
-            answerId: 30002,
+            answerId: 3002,
             text: 'No, somewhere else'
           }
         }
@@ -508,11 +508,11 @@ const questionSets = {
         text: 'Is the smell noticeable indoors?',
         answers: {
           yes: {
-            answerId: 30001,
+            answerId: 3001,
             text: 'Yes'
           },
           no: {
-            answerId: 30002,
+            answerId: 3002,
             text: 'No, you can only smell it outside'
           }
         }
