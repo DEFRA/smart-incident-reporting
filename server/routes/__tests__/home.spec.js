@@ -48,6 +48,19 @@ describe(url, () => {
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.SMELL)
     })
+    it('Should redirect to /smell if odure login', async () => {
+      const options = {
+        url,
+        payload: {
+          fullName: 'John Smith',
+          phone: '#+441234567890',
+          email: 'test@test.com',
+          accessCode: 'RPSMINTERNAL'
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.SMELL)
+    })
     // Sad: name, phone, code missing
     it('Should error if all is data missing', async () => {
       const options = {
