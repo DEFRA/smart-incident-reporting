@@ -11,7 +11,7 @@
         errorMessage: findErrorMessageById(errorSummary, "siteName"),
         label: {
           text: question.answers.siteName.text,
-          classes: "govuk-fieldset__legend--s"
+          classes: "govuk-label"
         },
         id: "siteName",
         name: "siteName",
@@ -22,7 +22,7 @@
       {{ govukInput({
         label: {
           text: question.answers.sourceAddress.text,
-          classes: "govuk-fieldset__legend--s"
+          classes: "govuk-label"
         },
         id: "sourceAddress",
         name: "sourceAddress",
@@ -34,7 +34,7 @@
         errorMessage: findErrorMessageById(errorSummary, "sourceTown"),
         label: {
           text: question.answers.sourceTown.text,
-          classes: "govuk-fieldset__legend--s"
+          classes: "govuk-label"
         },
         classes: "govuk-!-width-two-thirds",
         id: "sourceTown",
@@ -47,7 +47,7 @@
         errorMessage: findErrorMessageById(errorSummary, "sourcePostcode"),
         label: {
           text: question.answers.sourcePostcode.text,
-          classes: "govuk-fieldset__legend--s"
+          classes: "govuk-label"
         },
         classes: "govuk-input--width-10",
         id: "sourcePostcode",
