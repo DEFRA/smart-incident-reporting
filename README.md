@@ -173,7 +173,7 @@ The build of the webapp requires an environment variable GA_ID if google analyti
 | name    | description | mandatory | default value |
 |---------|-------------|-----------| ------------- |
 | 	NODE_ENV	 | 	Environment, eg development, test, production	 | 	N	 |	development	 |
-| 	SERVICE_PORT	 | 	Port for sevice to run on eg 3000	 | 	N	 |	3000	 |
+| 	SERVICE_PORT	 | 	Port for sevice to run on eg 8000	 | 	N	 |	8000	 |
 | 	LOG_LEVEL	 | 	Log level eg info, warn, error	 | 	N	 |	warn	 |
 | 	REDIS_HOST	 | 	Redis host name	 | 	Y	 |		 |
 | 	REDIS_PORT	 | 	Redis port name	 | 	N	 |	6379	 |

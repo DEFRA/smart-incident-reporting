@@ -1,6 +1,6 @@
 import Joi from 'joi'
 const envs = ['development', 'test', 'production']
-const defaultPort = 3000
+const defaultPort = 8000
 const defaultRedisPort = 6379
 
 const getBoolean = booleanString =>
