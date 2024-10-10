@@ -18,7 +18,8 @@
       {{ govukInput({
         errorMessage: findErrorMessageById(errorSummary, "addressLine1"),
         label: {
-          text: question.answers.addressLine1.text
+          text: question.answers.addressLine1.text,
+          classes: "govuk-label"
         },
         id: "addressLine1",
         name: "addressLine1",
@@ -28,7 +29,8 @@
 
       {{ govukInput({
         label: {
-          text: question.answers.addressLine2.text
+          text: question.answers.addressLine2.text,
+          classes: "govuk-label"
         },
         id: "addressLine2",
         name: "addressLine2",
@@ -39,7 +41,8 @@
       {{ govukInput({
         errorMessage: findErrorMessageById(errorSummary, "townOrCity"),
         label: {
-          text: question.answers.townOrCity.text
+          text: question.answers.townOrCity.text,
+          classes: "govuk-label"
         },
         classes: "govuk-!-width-two-thirds",
         id: "townOrCity",
@@ -50,7 +53,8 @@
 
       {{ govukInput({
         label: {
-          text: question.answers.county.text
+          text: question.answers.county.text,
+          classes: "govuk-label"
         },
         classes: "govuk-!-width-two-thirds",
         id: "county",
@@ -61,30 +65,14 @@
       {{ govukInput({
         errorMessage: findErrorMessageById(errorSummary, "postcode"),
         label: {
-          text: question.answers.postcode.text
+          text: question.answers.postcode.text,
+          classes: "govuk-label"
         },
         classes: "govuk-input--width-10",
         id: "postcode",
         name: "postcode",
         autocomplete: "postal-code",
         value: postcode
-      }) }}
-
-      {{ govukCheckboxes({
-        id: "homeAddress",
-        name: "homeAddress",
-        fieldset: {
-          legend: {
-            text: ""
-          }
-        },
-        items: [
-          {
-            value: "homeAddress",
-            text: question.answers.homeAddress.text,
-            checked: homeAddress
-          }
-        ]
       }) }}
 
     {% endcall %}

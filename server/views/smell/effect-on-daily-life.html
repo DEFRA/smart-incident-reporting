@@ -1,66 +1,99 @@
 {% extends 'form-layout.html' %}
-
-{% set title = (question.text if onGoing else question.text.replace('?', ', on this occasion?')) %}
-{% set pageTitle = title.replace('?', '') %}
+{% set pageTitle = question.text.replace('?', '') %}
 
 {% block formContent %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-      {% set otherHtml %}
+      {% set otherHtmlPutOff %}
       {{ govukInput({
-        id: "otherDetails",
-        name: "otherDetails",
+        id: "putOffDetails",
+        name: "putOffDetails",
         spellcheck: false,
         classes: "govuk-!-width-two-third",
         label: {
-          text: question.answer.otherDetails.text
+          text: question.answers.putOffDetails.text
+        }
+      }) }}
+      {% endset -%}
+
+      {% set otherHtmlEvent %}
+      {{ govukInput({
+        id: "eventDetails",
+        name: "eventDetails",
+        spellcheck: false,
+        classes: "govuk-!-width-two-third",
+        label: {
+          text: question.answers.eventDetails.text
+        }
+      }) }}
+      {% endset -%}
+
+      {% set otherHtmlSomethingElse %}
+      {{ govukInput({
+        id: "somethingElseDetails",
+        name: "somethingElseDetails",
+        spellcheck: false,
+        classes: "govuk-!-width-two-third",
+        label: {
+          text: question.answers.somethingElseDetails.text
         }
       }) }}
       {% endset -%}
 
         {{ govukCheckboxes({
-          name: "effect",
-          id: "effect",
+          name: "answerId",
+          id: "answerId",
           fieldset: {
             legend: {
-              text: title,
+              text: question.text,
               isPageHeading: true,
               classes: "govuk-fieldset__legend--l"
             }
           },
           items: [
           {
-            value: question.answers.cover.answerId,
-            text: question.answers.cover.text
-          },
-          {
-            value: question.answers.clothes.answerId,
-            text: question.answers.clothes.text
+            value: question.answers.leave.answerId,
+            text: question.answers.leave.text
           },
           {
             value: question.answers.windows.answerId,
             text: question.answers.windows.text
           },
-            {
-              value: question.answers.leaveArea.answerId,
-              text: question.answers.leaveArea.text
-            },
-            {
-              value: question.answers.other.answerId,
-              text: question.answers.other.text,
-              conditional: {
-                  html: otherHtml
-                  }
-            },
-            {
-              divider: "or"
-            },
-            {
-              value: question.answers.noActions.answerId,
-              text: question.answers.noActions.text
+          {
+            value: question.answers.goingOutside.answerId,
+            text: question.answers.goingOutside.text
+          },
+          {
+            value: question.answers.goingElsewhere.answerId,
+            text: question.answers.goingElsewhere.text,
+            conditional: {
+              html: otherHtmlPutOff
             }
+          },
+          {
+            value: question.answers.cancelEvent.answerId,
+            text: question.answers.cancelEvent.text,
+            conditional: {
+              html: otherHtmlEvent
+            }
+          },
+          {
+            value: question.answers.somethingElse.answerId,
+            text: question.answers.somethingElse.text,
+            conditional: {
+              html: otherHtmlSomethingElse
+            }
+          },
+          {
+            divider: "or"
+          },
+          {
+            value: question.answers.noImpact.answerId,
+            text: question.answers.noImpact.text,
+            behaviour: "exclusive"
+          }
           ]
         }) }}
 

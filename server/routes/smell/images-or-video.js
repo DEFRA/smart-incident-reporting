@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
-const question = questionSets.SMELL.questions.SMELL_RECURRING_PROBLEM
+const question = questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -11,9 +11,9 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (_request, h) => {
-    return h.view(constants.views.SMELL_RECURRING_PROBLEM, {
-      ...getContext()
+  get: async (request, h) => {
+    return h.view(constants.views.SMELL_IMAGES_OR_VIDEO, {
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
@@ -22,27 +22,27 @@ const handlers = {
     // validate payload
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.SMELL_RECURRING_PROBLEM, {
-        ...getContext(),
+      return h.view(constants.views.SMELL_IMAGES_OR_VIDEO, {
+        ...getContext(request),
         errorSummary
       })
     }
+
     // convert answerId to number
     answerId = Number(answerId)
 
-    request.yar.set(constants.redisKeys.SMELL_RECURRING_PROBLEM, buildAnswers(answerId))
+    request.yar.set(constants.redisKeys.SMELL_IMAGES_OR_VIDEO, buildAnswers(answerId))
 
-    if (answerId === question.answers.no.answerId) {
-      return h.redirect(constants.routes.SMELL_DATE_TIME)
-    } else {
-      return h.redirect(constants.routes.SMELL_PAST)
-    }
+    // handle redirects
+    return h.redirect(constants.routes.SMELL_OTHER_INFORMATION)
   }
 }
 
-const getContext = () => {
+const getContext = (request) => {
+  const { reporterEmailAddress } = request.yar.get(constants.redisKeys.HOME)
   return {
-    question
+    question,
+    reporterEmailAddress
   }
 }
 
@@ -50,7 +50,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select yes if the smell has caused you a problem before',
+      text: 'Select yes if you want to send us any images or videos',
       href: '#answerId'
     })
   }
@@ -67,12 +67,12 @@ const buildAnswers = answerId => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.SMELL_RECURRING_PROBLEM,
+    path: constants.routes.SMELL_IMAGES_OR_VIDEO,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.SMELL_RECURRING_PROBLEM,
+    path: constants.routes.SMELL_IMAGES_OR_VIDEO,
     handler: handlers.post
   }
 ]

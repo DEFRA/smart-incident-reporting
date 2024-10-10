@@ -44,7 +44,7 @@ const handlers = {
         reporterAccessCode: accessCode
       })
 
-      if (accessCode.substring(0, 2).toUpperCase() === 'OD') {
+      if (accessCode.substring(0, 2).toUpperCase() === 'OD' || accessCode.substring(0, 4).toUpperCase() === 'RPSM') {
         return h.redirect(constants.routes.SMELL)
       } else {
         return h.redirect(constants.routes.WATER_POLUTION)

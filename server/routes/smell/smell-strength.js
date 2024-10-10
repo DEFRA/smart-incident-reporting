@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
-const question = questionSets.SMELL.questions.SMELL_STRENGTH
+const question = questionSets.SMELL.questions.SMELL_SMELL_STRENGTH
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -12,47 +12,46 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => {
-    const onGoingAnswer = request.yar.get(constants.redisKeys.SMELL_ONGOING)
-    const onGoing = onGoingAnswer && onGoingAnswer[0].answerId === questionSets.SMELL.questions.SMELL_ONGOING.answers.yes.answerId
-    return h.view(constants.views.SMELL_STRENGTH, {
-      ...getContext(),
-      onGoing
+    return h.view(constants.views.SMELL_SMELL_STRENGTH, {
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
     let { answerId } = request.payload
-    const onGoingAnswer = request.yar.get(constants.redisKeys.SMELL_ONGOING)
-    const onGoing = onGoingAnswer && onGoingAnswer[0].answerId === questionSets.SMELL.questions.SMELL_ONGOING.answers.yes.answerId
+    const { current } = getContext(request)
 
     // validate payload
-    const errorSummary = validatePayload(answerId, onGoing)
+    const errorSummary = validatePayload(answerId, current)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.SMELL_STRENGTH, {
-        ...getContext(),
-        errorSummary,
-        onGoing
+      return h.view(constants.views.SMELL_SMELL_STRENGTH, {
+        question,
+        current,
+        errorSummary
       })
     }
     // convert answerId to number
     answerId = Number(answerId)
 
-    request.yar.set(constants.redisKeys.SMELL_STRENGTH, buildAnswers(answerId))
+    request.yar.set(constants.redisKeys.SMELL_SMELL_STRENGTH, buildAnswers(answerId))
 
-    return h.redirect(constants.routes.SMELL_EFFECT_ON_ACTIVITY)
+    return h.redirect(constants.routes.SMELL_INDOORS)
   }
 }
 
-const getContext = () => {
+const getContext = request => {
+  const currentAnswer = request.yar.get(constants.redisKeys.SMELL_CURRENT)
+  const current = currentAnswer && currentAnswer[0].answerId === questionSets.SMELL.questions.SMELL_CURRENT.answers.yes.answerId
   return {
-    question
+    question,
+    current
   }
 }
 
-const validatePayload = (answerId, onGoing) => {
+const validatePayload = (answerId, current) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: `Select how strong the smell ${onGoing ? 'is' : 'was'}`,
+      text: `Select how strong the smell ${current ? 'is' : 'was'}`,
       href: '#answerId'
     })
   }
@@ -69,12 +68,12 @@ const buildAnswers = answerId => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.SMELL_STRENGTH,
+    path: constants.routes.SMELL_SMELL_STRENGTH,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.SMELL_STRENGTH,
+    path: constants.routes.SMELL_SMELL_STRENGTH,
     handler: handlers.post
   }
 ]

@@ -6,9 +6,9 @@ import { validatePayload } from '../../utils/helpers.js'
 const handlers = {
   get: async (_request, h) => h.view(constants.views.SMELL_OTHER_INFORMATION),
   post: async (request, h) => {
-    const { otherDetails } = request.payload
+    const { otherInfo } = request.payload
 
-    request.yar.set(constants.redisKeys.SMELL_OTHER_INFORMATION, otherDetails)
+    request.yar.set(constants.redisKeys.SMELL_OTHER_INFORMATION, otherInfo)
     request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
 
     // Build the payload to send to service bus
@@ -31,8 +31,8 @@ const buildPayload = (session) => {
     reportingAnEnvironmentalProblem: {
       sessionGuid: session.id,
       reportType: questionSets.SMELL.questionSetId,
-      datetimeObserved: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
-      datetimeReported: session.get(constants.redisKeys.SMELL_DATE_TIME),
+      datetimeObserved: session.get(constants.redisKeys.SMELL_START_DATE_TIME),
+      datetimeReported: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
       otherDetails: session.get(constants.redisKeys.SMELL_OTHER_INFORMATION),
       questionSetId: questionSets.SMELL.questionSetId,
       data: buildAnswerDataset(session, questionSets.SMELL),

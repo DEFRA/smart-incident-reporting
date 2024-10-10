@@ -42,20 +42,26 @@ const WATER_POLLUTION_EFFECT_ON_WILDLIFE = 'water-pollution/effect-on-wildlife'
 const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 
 const SMELL = 'smell'
-const SMELL_LOCATION_OPTION = 'smell/location-option'
-const SMELL_LOCATION_DESCRIPTION = 'smell/location-description'
+const SMELL_LOCATION_HOME = 'smell/location-home'
 const SMELL_LOCATION_ADDRESS = 'smell/location-address'
-const SMELL_SOURCE = 'smell/smell-source'
-const SMELL_DESCRIPTION = 'smell/smell-description'
-const SMELL_PREVIOUSLY_REPORTED = 'smell/previously-reported'
-const SMELL_RECURRING_PROBLEM = 'smell/recurring-problem'
-const SMELL_PAST = 'smell/past'
-const SMELL_DATE_TIME = 'smell/date-time'
-const SMELL_ONGOING = 'smell/ongoing'
-const SMELL_STRENGTH = 'smell/smell-strength'
-const SMELL_EFFECT_ON_ACTIVITY = 'smell/effect-on-activity'
+const SMELL_LOCATION_OPTION = 'smell/location-option'
+const SMELL_PREVIOUS = 'smell/previous'
+const SMELL_LOCATION_MAP = 'smell/location-map'
+const SMELL_LOCATION_DESCRIPTION = 'smell/location-description'
+const SMELL_START_DATE_TIME = 'smell/start-date-time'
+const SMELL_CURRENT = 'smell/current'
+const SMELL_SMELL_STRENGTH = 'smell/smell-strength'
+const SMELL_INDOORS = 'smell/indoors'
+const SMELL_CLOTHING_AND_HAIR = 'smell/clothing-and-hair'
 const SMELL_EFFECT_ON_DAILY_LIFE = 'smell/effect-on-daily-life'
 const SMELL_EFFECT_ON_HEALTH = 'smell/effect-on-health'
+const SMELL_MEDICAL_HELP = 'smell/medical-help'
+const SMELL_SOURCE = 'smell/source'
+const SMELL_REPORT_LOCAL_COUNCIL = 'smell/report-local-council'
+const SMELL_CONTACT_LOCAL_COUNCIL = 'smell/contact-local-council'
+const SMELL_SOURCE_DETAILS = 'smell/source-details'
+const SMELL_CONTACT = 'smell/contact'
+const SMELL_IMAGES_OR_VIDEO = 'smell/images-or-video'
 const SMELL_OTHER_INFORMATION = 'smell/other-information'
 
 // Meta data
@@ -92,20 +98,26 @@ const views = {
   WATER_POLLUTION_EFFECT_ON_WILDLIFE,
   WATER_POLLUTION_OTHER_INFORMATION,
   SMELL,
-  SMELL_LOCATION_OPTION,
-  SMELL_LOCATION_DESCRIPTION,
+  SMELL_LOCATION_HOME,
   SMELL_LOCATION_ADDRESS,
+  SMELL_LOCATION_OPTION,
+  SMELL_PREVIOUS,
+  SMELL_LOCATION_MAP,
+  SMELL_LOCATION_DESCRIPTION,
+  SMELL_START_DATE_TIME,
   SMELL_SOURCE,
-  SMELL_DESCRIPTION,
-  SMELL_PREVIOUSLY_REPORTED,
-  SMELL_RECURRING_PROBLEM,
-  SMELL_PAST,
-  SMELL_DATE_TIME,
-  SMELL_ONGOING,
-  SMELL_STRENGTH,
-  SMELL_EFFECT_ON_ACTIVITY,
+  SMELL_REPORT_LOCAL_COUNCIL,
+  SMELL_CONTACT_LOCAL_COUNCIL,
+  SMELL_SOURCE_DETAILS,
+  SMELL_CURRENT,
+  SMELL_SMELL_STRENGTH,
+  SMELL_INDOORS,
+  SMELL_CLOTHING_AND_HAIR,
   SMELL_EFFECT_ON_DAILY_LIFE,
   SMELL_EFFECT_ON_HEALTH,
+  SMELL_MEDICAL_HELP,
+  SMELL_CONTACT,
+  SMELL_IMAGES_OR_VIDEO,
   SMELL_OTHER_INFORMATION
 }
 

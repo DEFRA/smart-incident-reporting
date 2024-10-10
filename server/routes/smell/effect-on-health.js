@@ -10,18 +10,27 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (request, h) => {
-    const onGoingAnswer = request.yar.get(constants.redisKeys.SMELL_ONGOING)
-    const onGoing = onGoingAnswer && onGoingAnswer[0].answerId === questionSets.SMELL.questions.SMELL_ONGOING.answers.yes.answerId
-    return h.view(constants.views.SMELL_EFFECT_ON_HEALTH, {
-      ...getContext(),
-      onGoing
-    })
-  },
+  get: async (_request, h) => h.view(constants.views.SMELL_EFFECT_ON_HEALTH, {
+    ...getContext()
+  }),
   post: async (request, h) => {
-    request.yar.set(constants.redisKeys.SMELL_EFFECT_ON_HEALTH, buildAnswers(request.payload))
+    // get payload
+    let { answerId, somethingElseDetails } = request.payload
 
-    return h.redirect(constants.routes.SMELL_OTHER_INFORMATION)
+    // Convert answer to array if only a single string answer
+    if (!Array.isArray(answerId)) {
+      answerId = [answerId]
+    }
+
+    // set answer in session
+    request.yar.set(constants.redisKeys.SMELL_EFFECT_ON_HEALTH, buildAnswers(answerId, somethingElseDetails))
+
+    const currentAnswer = request.yar.get(constants.redisKeys.SMELL_EFFECT_ON_HEALTH)
+    if (currentAnswer.length === 1 && currentAnswer[0].answerId === question.answers.noneOfthese.answerId) {
+      return h.redirect(constants.routes.SMELL_CONTACT)
+    } else {
+      return h.redirect(constants.routes.SMELL_MEDICAL_HELP)
+    }
   }
 }
 
@@ -31,32 +40,33 @@ const getContext = () => {
   }
 }
 
-const buildAnswers = payload => {
+const buildAnswers = (answerId, somethingElseDetails) => {
   const answers = []
-  let { effect, otherDetails } = payload
+  let somethingElse = false
 
-  if (effect && !Array.isArray(effect)) {
-    effect = [effect]
-  }
-
-  effect?.forEach(item => {
+  // if no answer selected default to None of these
+  if (answerId.length === 1 && !answerId[0]) {
     answers.push({
       ...baseAnswer,
-      answerId: Number(item)
+      answerId: question.answers.noneOfthese.answerId
     })
-    if (Number(item) === question.answers.other.answerId) {
+  } else {
+    answerId.forEach(item => {
+      if (Number(item) === question.answers.somethingElse.answerId) {
+        somethingElse = true
+      }
       answers.push({
         ...baseAnswer,
-        answerId: question.answers.otherDetails.answerId,
-        otherDetails
+        answerId: Number(item)
+      })
+    })
+    if (somethingElse && somethingElseDetails) {
+      answers.push({
+        ...baseAnswer,
+        answerId: question.answers.somethingElseDetails.answerId,
+        otherDetails: somethingElseDetails
       })
     }
-  })
-  if (answers.length === 0) {
-    answers.push({
-      ...baseAnswer,
-      answerId: question.answers.noSymptoms.answerId
-    })
   }
 
   return answers

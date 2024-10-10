@@ -10,56 +10,83 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (request, h) => {
-    const onGoingAnswer = request.yar.get(constants.redisKeys.SMELL_ONGOING)
-    const onGoing = onGoingAnswer && onGoingAnswer[0].answerId === questionSets.SMELL.questions.SMELL_ONGOING.answers.yes.answerId
-    return h.view(constants.views.SMELL_EFFECT_ON_DAILY_LIFE, {
-      ...getContext(),
-      onGoing
-    })
-  },
+  get: async (_request, h) => h.view(constants.views.SMELL_EFFECT_ON_DAILY_LIFE, {
+    ...getContext()
+  }),
   post: async (request, h) => {
-    request.yar.set(constants.redisKeys.SMELL_EFFECT_ON_DAILY_LIFE, buildAnswers(request.payload))
+    // get payload
+    let { answerId, putOffDetails, eventDetails, somethingElseDetails } = request.payload
+
+    // Convert answer to array if only a single string answer
+    if (!Array.isArray(answerId)) {
+      answerId = [answerId]
+    }
+
+    // set answer in session
+    request.yar.set(constants.redisKeys.SMELL_EFFECT_ON_DAILY_LIFE, buildAnswers(answerId, putOffDetails, eventDetails, somethingElseDetails))
 
     return h.redirect(constants.routes.SMELL_EFFECT_ON_HEALTH)
   }
+}
+
+const buildAnswers = (answerId, putOffDetails, eventDetails, somethingElseDetails) => {
+  const answers = []
+  let goingElsewhere = false
+  let cancelEvent = false
+  let somethingElse = false
+
+  // if no answer selected default to None of these
+  if (answerId.length === 1 && !answerId[0]) {
+    answers.push({
+      ...baseAnswer,
+      answerId: question.answers.noImpact.answerId
+    })
+  } else {
+    answerId.forEach(item => {
+      if (Number(item) === question.answers.goingElsewhere.answerId) {
+        goingElsewhere = true
+      }
+      if (Number(item) === question.answers.cancelEvent.answerId) {
+        cancelEvent = true
+      }
+      if (Number(item) === question.answers.somethingElse.answerId) {
+        somethingElse = true
+      }
+      answers.push({
+        ...baseAnswer,
+        answerId: Number(item)
+      })
+    })
+    if (goingElsewhere && putOffDetails) {
+      answers.push({
+        ...baseAnswer,
+        answerId: question.answers.putOffDetails.answerId,
+        otherDetails: putOffDetails
+      })
+    }
+    if (cancelEvent && eventDetails) {
+      answers.push({
+        ...baseAnswer,
+        answerId: question.answers.eventDetails.answerId,
+        otherDetails: eventDetails
+      })
+    }
+    if (somethingElse && somethingElseDetails) {
+      answers.push({
+        ...baseAnswer,
+        answerId: question.answers.somethingElseDetails.answerId,
+        otherDetails: somethingElseDetails
+      })
+    }
+  }
+
+  return answers
 }
 
 const getContext = () => {
   return {
     question
   }
-}
-
-const buildAnswers = payload => {
-  const answers = []
-  let { effect, otherDetails } = payload
-
-  if (effect && !Array.isArray(effect)) {
-    effect = [effect]
-  }
-
-  effect?.forEach(item => {
-    answers.push({
-      ...baseAnswer,
-      answerId: Number(item)
-    })
-    if (Number(item) === question.answers.other.answerId) {
-      answers.push({
-        ...baseAnswer,
-        answerId: question.answers.otherDetails.answerId,
-        otherDetails
-      })
-    }
-  })
-  if (answers.length === 0) {
-    answers.push({
-      ...baseAnswer,
-      answerId: question.answers.noActions.answerId
-    })
-  }
-
-  return answers
 }
 
 export default [

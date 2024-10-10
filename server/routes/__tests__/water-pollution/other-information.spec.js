@@ -122,6 +122,7 @@ describe(url, () => {
       }))
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION)).toEqual(otherInfo)
       expect(new Date(response.request.yar.get(constants.redisKeys.SUBMISSION_TIMESTAMP))).toBeInstanceOf(Date)
+      expect(response.headers.location).toEqual(constants.routes.REPORT_SENT)
     })
     it('Should error if validatePayload fails', async () => {
       const { submitPostRequest } = await import('../../../__test-helpers__/server.js')

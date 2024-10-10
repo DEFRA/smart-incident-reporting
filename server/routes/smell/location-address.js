@@ -18,6 +18,11 @@ const handlers = {
     })
   },
   post: async (request, h) => {
+    // cleanse postcode for special characters https://design-system.service.gov.uk/patterns/addresses/#allow-different-postcode-formats
+    if (request.payload.postcode) {
+      request.payload.postcode = request.payload.postcode.replace(/[^\w\s]/gi, '')
+    }
+
     // validate payload
     const errorSummary = validatePayload(request.payload)
     if (errorSummary.errorList.length > 0) {
@@ -30,7 +35,7 @@ const handlers = {
 
     request.yar.set(constants.redisKeys.SMELL_LOCATION_ADDRESS, buildAnswers(request.payload))
 
-    return h.redirect(constants.routes.SMELL_SOURCE)
+    return h.redirect(constants.routes.SMELL_PREVIOUS)
   }
 }
 
@@ -50,7 +55,7 @@ const validatePayload = payload => {
   }
   if (!payload.townOrCity) {
     errorSummary.errorList.push({
-      text: 'Enter the town or city',
+      text: 'Enter a town or city',
       href: '#townOrCity'
     })
   }
@@ -73,18 +78,11 @@ const validatePayload = payload => {
 const buildAnswers = payload => {
   const answers = []
   Object.keys(payload).forEach(key => {
-    if (key !== 'homeAddress') {
-      answers.push({
-        ...baseAnswer,
-        answerId: question.answers[key].answerId,
-        otherDetails: payload[key]
-      })
-    } else {
-      answers.push({
-        ...baseAnswer,
-        answerId: question.answers[key].answerId
-      })
-    }
+    answers.push({
+      ...baseAnswer,
+      answerId: question.answers[key].answerId,
+      otherDetails: payload[key]
+    })
   })
 
   return answers

@@ -1,8 +1,9 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
+import { getErrorSummary } from '../../utils/helpers.js'
 
-const question = questionSets.SMELL.questions.SMELL_ONGOING
+const sharedYesNo = 'shared/yes-no'
+const question = questionSets.SMELL.questions.SMELL_LOCATION_HOME
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -12,7 +13,7 @@ const baseAnswer = {
 
 const handlers = {
   get: async (_request, h) => {
-    return h.view('smell/yes-no', {
+    return h.view(sharedYesNo, {
       ...getContext()
     })
   },
@@ -22,7 +23,7 @@ const handlers = {
     // validate payload
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
-      return h.view('smell/yes-no', {
+      return h.view(sharedYesNo, {
         ...getContext(),
         errorSummary
       })
@@ -30,9 +31,12 @@ const handlers = {
     // convert answerId to number
     answerId = Number(answerId)
 
-    request.yar.set(constants.redisKeys.SMELL_ONGOING, buildAnswers(answerId))
-
-    return h.redirect(constants.routes.SMELL_STRENGTH)
+    request.yar.set(constants.redisKeys.SMELL_LOCATION_HOME, buildAnswers(answerId))
+    if (answerId === question.answers.yes.answerId) {
+      return h.redirect(constants.routes.SMELL_LOCATION_ADDRESS)
+    } else {
+      return h.redirect(constants.routes.SMELL_LOCATION_OPTION)
+    }
   }
 }
 
@@ -46,7 +50,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select yes if the smell is still there',
+      text: 'Select yes if the smell is affecting you at home',
       href: '#answerId'
     })
   }
@@ -63,12 +67,12 @@ const buildAnswers = answerId => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.SMELL_ONGOING,
+    path: constants.routes.SMELL_LOCATION_HOME,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.SMELL_ONGOING,
+    path: constants.routes.SMELL_LOCATION_HOME,
     handler: handlers.post
   }
 ]

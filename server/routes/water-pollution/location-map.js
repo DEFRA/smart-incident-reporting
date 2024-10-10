@@ -10,7 +10,11 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (_request, h) => h.view(constants.views.WATER_POLLUTION_LOCATION_MAP),
+  get: async (_request, h) => {
+    return h.view(constants.views.WATER_POLLUTION_LOCATION_MAP, {
+      ...getContext()
+    })
+  },
   post: async (request, h) => {
     let { point } = request.payload
 
@@ -18,6 +22,7 @@ const handlers = {
 
     if (!point || point.length === 0) {
       return h.view(constants.views.WATER_POLLUTION_LOCATION_MAP, {
+        ...getContext(),
         noPoint: true
       })
     }
@@ -26,6 +31,12 @@ const handlers = {
 
     // handle redirects
     return h.redirect(constants.routes.WATER_POLLUTION_WHEN)
+  }
+}
+
+const getContext = () => {
+  return {
+    question
   }
 }
 

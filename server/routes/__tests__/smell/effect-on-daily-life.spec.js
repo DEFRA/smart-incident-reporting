@@ -1,10 +1,9 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
-import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
+import { questionSets } from '../../../utils/question-sets.js'
 
 const url = constants.routes.SMELL_EFFECT_ON_DAILY_LIFE
 const question = questionSets.SMELL.questions.SMELL_EFFECT_ON_DAILY_LIFE
-const header = question.text
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
@@ -14,89 +13,114 @@ const baseAnswer = {
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      const sessionData = {
-        'smell/ongoing': [{
-          questionId: questionSets.SMELL.questions.SMELL_ONGOING.questionId,
-          answerId: questionSets.SMELL.questions.SMELL_ONGOING.answers.yes.answerId
-        }]
-      }
-      await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
-    })
-    it(`Should return success response and correct view for ${url}`, async () => {
-      const sessionData = {
-        'smell/ongoing': [{
-          questionId: questionSets.SMELL.questions.SMELL_ONGOING.questionId,
-          answerId: questionSets.SMELL.questions.SMELL_ONGOING.answers.no.answerId
-        }]
-      }
-      await submitGetRequest({ url }, header.replace('?', ', on this occasion?'), constants.statusCodes.OK, sessionData)
+      await submitGetRequest({ url }, baseAnswer.questionAsked)
     })
   })
 
   describe('POST', () => {
-    // Happy:
-    it('Happy accepts any combination of answer and forwards to SMELL_EFFECT_ON_HEALTH', async () => {
+    it('Happy: accepts valid single answerID (non array) and redirects to SMELL_EFFECT_ON_HEALTH', async () => {
+      const answerId = question.answers.leave.answerId.toString()
       const options = {
         url,
         payload: {
-          effect: [
-            question.answers.cover.answerId,
-            question.answers.clothes.answerId
-          ],
-          otherDetail: ''
+          answerId
         }
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.SMELL_EFFECT_ON_HEALTH)
       expect(response.request.yar.get(constants.redisKeys.SMELL_EFFECT_ON_DAILY_LIFE)).toEqual([{
         ...baseAnswer,
-        answerId: question.answers.cover.answerId
-      }, {
-        ...baseAnswer,
-        answerId: question.answers.clothes.answerId
+        answerId: question.answers.leave.answerId
       }])
     })
-    it('Happy accepts other and adds otherdetails to answer and forwards to SMELL_EFFECT_ON_HEALTH', async () => {
+    it('Happy: accepts valid array of answerID and redirects to SMELL_EFFECT_ON_HEALTH', async () => {
+      const answerId = [question.answers.leave.answerId.toString(), question.answers.windows.answerId.toString(), question.answers.goingOutside.answerId.toString()]
       const options = {
         url,
         payload: {
-          effect: [
-            question.answers.cover.answerId,
-            question.answers.clothes.answerId,
-            question.answers.other.answerId
-          ],
-          otherDetails: 'other details'
+          answerId
         }
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.SMELL_EFFECT_ON_HEALTH)
       expect(response.request.yar.get(constants.redisKeys.SMELL_EFFECT_ON_DAILY_LIFE)).toEqual([{
         ...baseAnswer,
-        answerId: question.answers.cover.answerId
+        answerId: question.answers.leave.answerId
       }, {
         ...baseAnswer,
-        answerId: question.answers.clothes.answerId
+        answerId: question.answers.windows.answerId
       }, {
         ...baseAnswer,
-        answerId: question.answers.other.answerId
+        answerId: question.answers.goingOutside.answerId
+      }
+      ])
+    })
+    it('Happy: accepts valid answers with put off doing something and other details and redirects to SMELL_EFFECT_ON_HEALTH', async () => {
+      const answerId = question.answers.goingElsewhere.answerId.toString()
+      const options = {
+        url,
+        payload: {
+          answerId,
+          putOffDetails: 'Put off doing something'
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_EFFECT_ON_HEALTH)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_EFFECT_ON_DAILY_LIFE)).toEqual([{
+        ...baseAnswer,
+        answerId: question.answers.goingElsewhere.answerId
       }, {
         ...baseAnswer,
-        answerId: question.answers.otherDetails.answerId,
-        otherDetails: 'other details'
+        answerId: question.answers.putOffDetails.answerId,
+        otherDetails: 'Put off doing something'
       }])
     })
-    it('Happy no answers and default to none of these and forwards to SMELL_EFFECT_ON_HEALTH', async () => {
+    it('Happy: accepts valid array of answerID and other details and redirects to SMELL_EFFECT_ON_HEALTH', async () => {
+      const answerId = [question.answers.goingElsewhere.answerId.toString(), question.answers.cancelEvent.answerId.toString(), question.answers.somethingElse.answerId.toString()]
       const options = {
         url,
         payload: {
-          otherDetail: ''
+          answerId,
+          putOffDetails: 'Put off doing something',
+          eventDetails: 'Details of the event',
+          somethingElseDetails: 'Details about what happened'
         }
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.SMELL_EFFECT_ON_HEALTH)
       expect(response.request.yar.get(constants.redisKeys.SMELL_EFFECT_ON_DAILY_LIFE)).toEqual([{
         ...baseAnswer,
-        answerId: question.answers.noActions.answerId
+        answerId: question.answers.goingElsewhere.answerId
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.cancelEvent.answerId
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.somethingElse.answerId
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.putOffDetails.answerId,
+        otherDetails: 'Put off doing something'
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.eventDetails.answerId,
+        otherDetails: 'Details of the event'
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.somethingElseDetails.answerId,
+        otherDetails: 'Details about what happened'
+      }])
+    })
+    it('Happy: accepts empty answerId, defaults to none of these and redirects to SMELL_EFFECT_ON_HEALTH', async () => {
+      const options = {
+        url,
+        payload: {}
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_EFFECT_ON_HEALTH)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_EFFECT_ON_DAILY_LIFE)).toEqual([{
+        ...baseAnswer,
+        answerId: question.answers.noImpact.answerId
       }])
     })
   })
