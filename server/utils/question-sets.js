@@ -360,11 +360,11 @@ const questionSets = {
         text: 'Is the smell affecting you at home?',
         answers: {
           yes: {
-            answerId: 3001,
+            answerId: 3101,
             text: 'Yes'
           },
           no: {
-            answerId: 3002,
+            answerId: 3102,
             text: 'No, somewhere else'
           }
         }
