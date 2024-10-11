@@ -1,12 +1,15 @@
 {% extends 'layout.html' %}
+{% set pageTitle = 'Page not found' %}
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 id="pageTitle" class="govuk-heading-l">{{ pageTitle }}</h1>
-
-      <p id="para1" class="govuk-body">If you typed the web address, check it is correct.</p>
-      <p id="para2" class="govuk-body">If you pasted the web address, check you copied the entire address.</p>
+      <h1 class="govuk-heading-l">Page not found</h1>
+      <p class="govuk-body">If you typed the web address, check it is correct.</p>
+      <p class="govuk-body">If you copy and pasted the address, check you copied the full address.</p>
+      <p class="govuk-body">
+        If the web address is correct or you selected a link or button, find other ways to <a href="https://www.gov.uk/report-an-environmental-incident">report an environmental incident</a>.
+      </p>
     </div>
   </div>
 {% endblock %}
