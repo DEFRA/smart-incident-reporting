@@ -31,7 +31,7 @@ const handlers = {
       throw new Error('Invalid payload')
     }
 
-    await sendMessage(payload, '-feedback')
+    await sendMessage(request.logger, payload, '-feedback')
 
     return h.redirect(constants.routes.FEEDBACK_SUCCESS)
   }

@@ -19,16 +19,20 @@ const senderMock = {
   sendMessages: mockSendMessages,
   close: mockClose
 }
+const loggerMock = {
+  info: jest.fn()
+}
 
 describe('service-bus', () => {
   it('Send a message to the service bus', async () => {
     jest.spyOn(ServiceBusClient.prototype, 'createSender').mockImplementation(() => {
       return senderMock
     })
-    await sendMessage(payload)
+    await sendMessage(loggerMock, payload)
     expect(mockSendMessages).toHaveBeenCalledTimes(1)
     expect(mockClose).toHaveBeenCalledTimes(1)
     expect(mockTryAddMessage).toHaveBeenCalledTimes(1)
     expect(mockTryAddMessage).toHaveBeenCalledWith({ body: payload })
+    expect(loggerMock.info).toHaveBeenCalledTimes(1)
   })
 })
