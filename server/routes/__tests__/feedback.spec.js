@@ -40,6 +40,9 @@ describe(url, () => {
       const response = await submitPostRequest(options, 302, session)
       expect(sendMessage).toHaveBeenCalledTimes(1)
       expect(sendMessage).toHaveBeenCalledWith(expect.objectContaining({
+        info: expect.any(Function)
+      }),
+      expect.objectContaining({
         givingFeedbackToAEnvironmentalProblemReport: expect.objectContaining({
           feedbackRating: 'vsatisfied',
           feedbackText: 'This is test feedback',

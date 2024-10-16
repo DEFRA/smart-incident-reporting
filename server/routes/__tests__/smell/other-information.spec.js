@@ -26,6 +26,9 @@ describe(url, () => {
       const response = await submitPostRequest(options, 302, session)
       expect(sendMessage).toHaveBeenCalledTimes(1)
       expect(sendMessage).toHaveBeenCalledWith(expect.objectContaining({
+        info: expect.any(Function)
+      }),
+      expect.objectContaining({
         reportingAnEnvironmentalProblem: expect.objectContaining({
           reportType: 200,
           reporterName: 'John Smith',
