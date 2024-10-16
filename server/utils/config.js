@@ -17,7 +17,7 @@ const schema = Joi.object().keys({
   redisPort: Joi.number().default(defaultRedisPort),
   redisPassword: Joi.string(),
   redisTls: Joi.bool().default(false),
-  logLevel: Joi.string().default('warn'),
+  logLevel: Joi.string().default('info'),
   sessionCookiePassword: Joi.string().default('the-password-must-be-at-least-32-characters-long'),
   authCookiePassword: Joi.string().default('the-password-must-be-at-least-32-characters-long'),
   cookieIsSecure: Joi.bool().default(false),
