@@ -1,0 +1,275 @@
+{% extends 'layout.html' %}
+
+{% set pageTitle = 'Check your answers before sending your report' %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">Check your answers before sending your report</h1>
+      <h2 class="govuk-heading-m">Your details</h2>
+
+      {{ govukSummaryList({
+        classes: "govuk-!-margin-bottom-9",
+        rows: [
+          {
+            key: {
+              text: "Name"
+            },
+            value: {
+              text: reporterName
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "name"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Phone number"
+            },
+            value: {
+              text: reporterPhoneNumber
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "phone number"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Email address"
+            },
+            value: {
+              text: reporterEmailAddress
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "email address"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Images or videos available"
+            },
+            value: {
+              text: "Yes"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "images or videos available"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Location and size of pollution</h2>
+      {{ govukSummaryList({
+        classes: "govuk-!-margin-bottom-9",
+        rows: [
+          {
+            key: {
+              text: "Type of water"
+            },
+            value: {
+              text: "River"
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_WATER_FEATURE,
+                  text: "Change",
+                  visuallyHiddenText: "type of water"
+                }
+              ]
+            }
+          },
+                    {
+            key: {
+              text: "Location"
+            },
+            value: {
+              text: "Map"
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_LOCATION_OPTION,
+                  text: "Change",
+                  visuallyHiddenText: "location"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Less than 10m in size"
+            },
+            value: {
+              text: "No"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "less than 10m in size"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Size (estimated)"
+            },
+            value: {
+              text: "10 to 100 metres"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "size estimated"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">About the pollution</h2>
+
+      {{ govukSummaryList({
+        classes: "govuk-!-margin-bottom-9",
+        rows: [
+          {
+            key: {
+              text: "When did you see the pollution?"
+            },
+            value: {
+              text: "Today at 15:00pm"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "when did you see the pollution?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "What do you think the pollution is?"
+            },
+            value: {
+              html: "Sewage<br>Refuse or rubbish"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "what do you think the pollution is?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "What does the pollution look like?"
+            },
+            value: {
+              html: "A foam or scum<br>Something else – thick dark<br>brown slime"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "what does the pollution look like?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Do you know where the pollution is coming from?"
+            },
+            value: {
+              text: "Yes – nearby farm has been muck spreading"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "do you know where the pollution is coming from?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Have you seen any dead fish or animals?"
+            },
+            value: {
+              text: "Yes – about 5 dead trout"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Have you seen any dead fish or animals?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Is there anything else you'd like to add?"
+            },
+            value: {
+              text: "This is a regular occurance every autumn and something I report on a regular basis"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Is there anything else you'd like to add?"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+    </div>
+  </div>
+
+{% endblock %}
