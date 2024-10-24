@@ -44,7 +44,8 @@ const buildPayload = (request, feedback, otherInfo) => {
       feedbackDateAndTime: (new Date()).toISOString(),
       feedbackRating: feedback,
       feedbackURL: request.yar.get(constants.redisKeys.FEEDBACK).feedbackURL,
-      feedbackText: otherInfo
+      feedbackText: otherInfo,
+      questionSetId: request.yar.get(constants.redisKeys.QUESTION_SET_ID)
     }
   }
 }

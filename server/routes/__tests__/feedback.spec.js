@@ -30,6 +30,7 @@ describe(url, () => {
       session[constants.redisKeys.FEEDBACK] = {
         feedbackURL
       }
+      session[constants.redisKeys.QUESTION_SET_ID] = 100
       const options = {
         url,
         payload: {
@@ -46,6 +47,7 @@ describe(url, () => {
         givingFeedbackToAEnvironmentalProblemReport: expect.objectContaining({
           feedbackRating: 'vsatisfied',
           feedbackText: 'This is test feedback',
+          questionSetId: 100,
           feedbackURL
         })
       }), '-feedback')
