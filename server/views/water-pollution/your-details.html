@@ -1,0 +1,55 @@
+{% extends 'form-layout.html' %}
+{% set pageTitle = 'Your details' %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds"> 
+    <h1 class="govuk-heading-l"> 
+      {{ pageTitle }}
+    </h1> 
+      {{ govukInput({
+        id: "fullName",
+        name: "fullName",
+        value: fullName,
+        autocomplete: "name",
+        classes: "govuk-!-width-two-thirds",
+        spellcheck: false,
+        label: {
+          text: "Your name"
+        },
+        errorMessage: findErrorMessageById(errorSummary, 'fullName')
+      }) }}
+      {{ govukInput({
+        id: "phone",
+        name: "phone",
+        value: phone,
+        type: "tel",
+        autocomplete: "tel",
+        classes: "govuk-!-width-one-third",
+        label: {
+          text: "Phone number"
+        },
+        errorMessage: findErrorMessageById(errorSummary, 'phone')
+      }) }}
+      {{ govukInput({
+        id: "email",
+        name: "email",
+        value: email,
+        type: "email",
+        autocomplete: "email",
+        spellcheck: false,
+        classes: "govuk-!-width-two-thirds",
+        label: {
+          text: "Email address"
+        },
+        errorMessage: findErrorMessageById(errorSummary, 'email')
+      }) }}
+
+    {{ govukButton({ 
+      text: "Continue" 
+    }) }} 
+  </div> 
+
+</div> 
+{% endblock %}
