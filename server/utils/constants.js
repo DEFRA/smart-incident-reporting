@@ -40,6 +40,7 @@ const WATER_POLLUTION_POLLUTION_AREA = 'water-pollution/pollution-area'
 const WATER_POLLUTION_POLLUTION_LENGTH = 'water-pollution/pollution-length'
 const WATER_POLLUTION_EFFECT_ON_WILDLIFE = 'water-pollution/effect-on-wildlife'
 const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
+const WATER_POLLUTION_YOUR_DETAILS = 'water-pollution/your-details'
 
 const SMELL = 'smell'
 const SMELL_LOCATION_HOME = 'smell/location-home'
@@ -97,6 +98,7 @@ const views = {
   WATER_POLLUTION_POLLUTION_LENGTH,
   WATER_POLLUTION_EFFECT_ON_WILDLIFE,
   WATER_POLLUTION_OTHER_INFORMATION,
+  WATER_POLLUTION_YOUR_DETAILS,
   SMELL,
   SMELL_LOCATION_HOME,
   SMELL_LOCATION_ADDRESS,
