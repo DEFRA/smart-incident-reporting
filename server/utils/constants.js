@@ -66,6 +66,7 @@ const SMELL_OTHER_INFORMATION = 'smell/other-information'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
+const QUESTION_SET_ID = 'question-set-id'
 
 const views = {
   API_OS_API_TOKEN,
@@ -131,7 +132,8 @@ for (const [key, value] of Object.entries(views)) {
 
 const redisKeys = {
   ...views,
-  SUBMISSION_TIMESTAMP
+  SUBMISSION_TIMESTAMP,
+  QUESTION_SET_ID
 }
 
 const statusCodes = {

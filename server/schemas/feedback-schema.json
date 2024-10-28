@@ -22,6 +22,9 @@
         },
         "feedbackText": {
           "type": "string"
+        },
+        "questionSetId": {
+          "type": [ "number", "null" ]
         }
       },
       "required": [
@@ -29,7 +32,8 @@
         "feedbackRating",
         "feedbackDateAndTime",
         "feedbackURL",
-        "feedbackText"
+        "feedbackText",
+        "questionSetId"
       ],
       "additionalProperties": false
     }

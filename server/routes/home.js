@@ -2,6 +2,7 @@ import constants from '../utils/constants.js'
 import config from '../utils/config.js'
 import { getErrorSummary, validateEmail } from '../utils/helpers.js'
 import isWorkingHours from '../utils/is-working-hours.js'
+import { questionSets } from '../utils/question-sets.js'
 
 const handlers = {
   get: async (request, h) => {
@@ -45,8 +46,10 @@ const handlers = {
       })
 
       if (accessCode.substring(0, 2).toUpperCase() === 'OD' || accessCode.substring(0, 4).toUpperCase() === 'RPSM') {
+        request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.SMELL.questionSetId)
         return h.redirect(constants.routes.SMELL)
       } else {
+        request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.WATER_POLLUTION.questionSetId)
         return h.redirect(constants.routes.WATER_POLUTION)
       }
     } else {
