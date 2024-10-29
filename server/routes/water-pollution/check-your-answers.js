@@ -20,42 +20,50 @@ const getContext = () => {
   }
 }
 
+// Get answers for 'Your details' section
 const getYourDetails = (request) => {
+  // Get answer for 'Name, Phone number and Email address' questions
   const { reporterName, reporterPhoneNumber, reporterEmailAddress } = request.yar.get(constants.redisKeys.HOME)
 
-  const imagesOrVideosUrl = 'WATER_POLLUTION_IMAGES_OR_VIDEO'
-  const imagesOrVideosAnswer = getData(request, imagesOrVideosUrl)
+  // Get answer for 'Images or videos available' question
+  const imagesOrVideoUrl = 'WATER_POLLUTION_IMAGES_OR_VIDEO'
+  const imagesOrVideoAnswer = getData(request, imagesOrVideoUrl)
 
   return {
     reporterName,
     reporterPhoneNumber,
     reporterEmailAddress,
-    imagesOrVideosAnswer
+    imagesOrVideoAnswer
   }
 }
 
+// Get answers for 'Location and size of pollution' section
 const getLocationAndSizeOfPollution = (request) => {
-  const typeOfWaterUrl = 'WATER_POLLUTION_WATER_FEATURE'
-  const typeOfWaterAnswer = getData(request, typeOfWaterUrl)
+  // Get answer for 'Type of water' question
+  const waterFeatureUrl = 'WATER_POLLUTION_WATER_FEATURE'
+  const waterFeatureAnswer = getData(request, waterFeatureUrl)
 
+  // Get answer for 'Less than 10m in size' question
   const lessThan10MetersUrl = 'WATER_POLLUTION_LESS_THAN_10_METRES'
   const lessThan10MetersAnswer = getData(request, lessThan10MetersUrl)
 
-  const sizeOfPollutionURL = 'WATER_POLLUTION_POLLUTION_LENGTH'
-  const sizeOfPollutionAnswer = getData(request, sizeOfPollutionURL)
+  // get answer for 'Size (estimated)' question
+  const pollutionLengthURL = 'WATER_POLLUTION_POLLUTION_LENGTH'
+  const pollutionLengthAnswer = getData(request, pollutionLengthURL)
 
   return {
-    typeOfWaterAnswer,
+    waterFeatureAnswer,
     lessThan10MetersAnswer,
-    sizeOfPollutionAnswer
+    pollutionLengthAnswer
   }
 }
 
+// Get answers for 'About the pollution' section
 const getAboutThePollution = (request) => {
+  // Get answer for 'When did you see the pollution?' question
   const whenUrl = 'WATER_POLLUTION_WHEN'
   const whenAnswer = request.yar.get(constants.redisKeys[whenUrl])
   let whenAnswerData
-
   const pollutionDateAndTime = new Date(whenAnswer)
 
   if (whenAnswer !== null && whenAnswer) {
@@ -106,12 +114,12 @@ const getAboutThePollution = (request) => {
             return 'th'
         }
       }
-
       const pollutionDate = `${day}${nthNumber(day)} ${month} ${year}`
       whenAnswerData = pollutionDate + ' at ' + pollutionTime
     }
   }
 
+  // Get answer for 'What do you think the pollution is?' question
   const pollutionSubstanceUrl = 'WATER_POLLUTION_POLLUTION_SUBSTANCE'
   const pollutionSubstanceAnswer = getData(request, pollutionSubstanceUrl)
   let pollutionSubstanceAnswerData
@@ -125,6 +133,7 @@ const getAboutThePollution = (request) => {
     pollutionSubstanceAnswerData = pollutionSubstanceAnswer
   }
 
+  // get answer for 'What does the pollution look like?' question
   const pollutionAppearanceUrl = 'WATER_POLLUTION_POLLUTION_APPEARANCE'
   const pollutionAppearanceAnswer = getData(request, pollutionAppearanceUrl)
   let pollutionAppearanceAnswerData
@@ -138,6 +147,7 @@ const getAboutThePollution = (request) => {
     pollutionAppearanceAnswerData = pollutionAppearanceAnswer
   }
 
+  // Get answer for 'Do you know where the pollution is coming from?' question
   const pollutionSourceUrl = 'WATER_POLLUTION_SOURCE'
   const pollutionSourceAnswer = getData(request, pollutionSourceUrl)
   let pollutionSourceAnswerData
@@ -149,6 +159,7 @@ const getAboutThePollution = (request) => {
     pollutionSourceAnswerData = pollutionSourceAnswer
   }
 
+  // Get answer for 'Have you seen any dead fish or animals?' question
   const effectOnWildlifeUrl = 'WATER_POLLUTION_EFFECT_ON_WILDLIFE'
   const effectOnWildlifeAnswer = getData(request, effectOnWildlifeUrl)
   let effectOnWildlifeAnswerData
@@ -160,7 +171,8 @@ const getAboutThePollution = (request) => {
     effectOnWildlifeAnswerData = effectOnWildlifeAnswer
   }
 
-  const otherInformationUrl = 'WATER_POLLUTION_EFFECT_ON_WILDLIFE'
+  // Get answer for 'Is there anything else you'd like to add?' question
+  const otherInformationUrl = 'WATER_POLLUTION_OTHER_INFORMATION'
   const otherInformationAnswer = request.yar.get(constants.redisKeys[otherInformationUrl])
   let otherInformationAnswerData
 
@@ -178,6 +190,7 @@ const getAboutThePollution = (request) => {
   }
 }
 
+// Get data and construct answers for the questions
 const getData = (request, pageUrl) => {
   const recordedAnswer = request.yar.get(constants.redisKeys[pageUrl])
 
