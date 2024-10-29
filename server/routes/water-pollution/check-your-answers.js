@@ -59,30 +59,26 @@ const getAboutThePollution = (request) => {
   const pollutionDateAndTime = new Date(whenAnswer)
 
   if (whenAnswer !== null && whenAnswer) {
-
     const checkIfToday = () => {
       const today = new Date()
-      return pollutionDateAndTime.getDate() == today.getDate() &&
-        pollutionDateAndTime.getMonth() == today.getMonth() &&
-        pollutionDateAndTime.getFullYear() == today.getFullYear()
+      return pollutionDateAndTime.getDate() === today.getDate() &&
+        pollutionDateAndTime.getMonth() === today.getMonth() &&
+        pollutionDateAndTime.getFullYear() === today.getFullYear()
     }
 
     const checkIfYesterday = () => {
       const yesterday = new Date()
       yesterday.setDate(yesterday.getDate() - 1)
-      return pollutionDateAndTime.getDate() == yesterday.getDate() &&
-        pollutionDateAndTime.getMonth() == yesterday.getMonth() &&
-        pollutionDateAndTime.getFullYear() == yesterday.getFullYear()
+      return pollutionDateAndTime.getDate() === yesterday.getDate() &&
+        pollutionDateAndTime.getMonth() === yesterday.getMonth() &&
+        pollutionDateAndTime.getFullYear() === yesterday.getFullYear()
     }
-
-    console.log("Data for isYesterday", checkIfYesterday())
-    console.log("Data for isToday", checkIfToday())
 
     const isToday = checkIfToday()
     const isYesterday = checkIfYesterday()
 
     const date = new Date(pollutionDateAndTime)
-    let pollutionTime = date.toLocaleString([], {
+    const pollutionTime = date.toLocaleString([], {
       hour: '2-digit',
       minute: '2-digit'
     })
@@ -94,30 +90,27 @@ const getAboutThePollution = (request) => {
     } else {
       const dateObj = new Date(pollutionDateAndTime)
       const day = dateObj.getDate()
-      const month = dateObj.toLocaleString("default", { month: "long" })
+      const month = dateObj.toLocaleString('default', { month: 'long' })
       const year = dateObj.getFullYear()
 
       const nthNumber = (number) => {
-        if (number > 3 && number < 21) return "th";
+        if (number > 3 && number < 21) return 'th'
         switch (number % 10) {
           case 1:
-            return "st";
+            return 'st'
           case 2:
-            return "nd";
+            return 'nd'
           case 3:
-            return "rd";
+            return 'rd'
           default:
-            return "th";
+            return 'th'
         }
       }
 
-      const pollutionDate = `${day}${nthNumber(day)} ${month} ${year}`;
+      const pollutionDate = `${day}${nthNumber(day)} ${month} ${year}`
       whenAnswerData = pollutionDate + ' at ' + pollutionTime
     }
   }
-
-  console.log("Data for whenAnswer", whenAnswer)
-  console.log("Data for pollutionDateAndTime", pollutionDateAndTime)
 
   const pollutionSubstanceUrl = 'WATER_POLLUTION_POLLUTION_SUBSTANCE'
   const pollutionSubstanceAnswer = getData(request, pollutionSubstanceUrl)
@@ -193,11 +186,9 @@ const getData = (request, pageUrl) => {
     const answerSet = Object.values(questionSets.WATER_POLLUTION.questions[pageUrl].answers)
     const filterAnswer = answerSet.filter(item => item.answerId === selectedAnswerId)
     const answerText = filterAnswer[0].shortText
-
     return answerText
-
   } else if (recordedAnswer !== null && recordedAnswer.length > 1) {
-    let multiAnswerSet = []
+    const multiAnswerSet = []
     let otherDetailsData
 
     for (let i = 0; i < recordedAnswer.length; i++) {
