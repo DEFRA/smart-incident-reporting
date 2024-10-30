@@ -23,7 +23,7 @@
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: url.WATER_POLLUTION_YOUR_DETAILS,
                   text: "Change",
                   visuallyHiddenText: "name"
                 }
@@ -40,7 +40,7 @@
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: url.WATER_POLLUTION_YOUR_DETAILS,
                   text: "Change",
                   visuallyHiddenText: "phone number"
                 }
@@ -57,7 +57,7 @@
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: url.WATER_POLLUTION_YOUR_DETAILS,
                   text: "Change",
                   visuallyHiddenText: "email address"
                 }
@@ -169,7 +169,7 @@
               text: "When did you see the pollution?"
             },
             value: {
-              text: whenAnswerData
+              text: whenAnswer
             },
             actions: {
               items: [
@@ -186,7 +186,7 @@
               text: "What do you think the pollution is?"
             },
             value: {
-              html: pollutionSubstanceAnswerData
+              html: pollutionSubstanceAnswer
             },
             actions: {
               items: [
@@ -203,7 +203,7 @@
               text: "What does the pollution look like?"
             },
             value: {
-              html: pollutionAppearanceAnswerData
+              html: pollutionAppearanceAnswer
             },
             actions: {
               items: [
@@ -220,7 +220,7 @@
               text: "Do you know where the pollution is coming from?"
             },
             value: {
-              text: pollutionSourceAnswerData
+              text: pollutionSourceAnswer
             },
             actions: {
               items: [
@@ -237,7 +237,7 @@
               text: "Have you seen any dead fish or animals?"
             },
             value: {
-              text: effectOnWildlifeAnswerData
+              text: effectOnWildlifeAnswer
             },
             actions: {
               items: [
@@ -254,7 +254,7 @@
               text: "Is there anything else you'd like to add?"
             },
             value: {
-              text: otherInformationAnswerData
+              text: otherInformationAnswer
             },
             actions: {
               items: [
@@ -267,6 +267,10 @@
             }
           }
         ]
+      }) }}
+
+      {{ govukButton({
+      text: "Finish and send report"
       }) }}
 
     </div>

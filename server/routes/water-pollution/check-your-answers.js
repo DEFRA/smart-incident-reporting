@@ -1,5 +1,7 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
+import { sendMessage } from '../../services/service-bus.js'
+import { validatePayload } from '../../utils/helpers.js'
 
 const url = constants.routes
 
@@ -11,6 +13,21 @@ const handlers = {
       ...getLocationAndSizeOfPollution(request),
       ...getAboutThePollution(request)
     })
+  },
+  post: async (request, h) => {
+    request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
+
+    // Build the payload to send to service bus
+    const payload = buildPayload(request.yar)
+
+    // test the payload against the schema
+    if (!validatePayload(payload)) {
+      throw new Error('Invalid payload')
+    }
+
+    await sendMessage(request.logger, payload)
+
+    return h.redirect(constants.routes.REPORT_SENT)
   }
 }
 
@@ -62,131 +79,40 @@ const getLocationAndSizeOfPollution = (request) => {
 const getAboutThePollution = (request) => {
   // Get answer for 'When did you see the pollution?' question
   const whenUrl = 'WATER_POLLUTION_WHEN'
-  const whenAnswer = request.yar.get(constants.redisKeys[whenUrl])
-  let whenAnswerData
-  const pollutionDateAndTime = new Date(whenAnswer)
-
-  if (whenAnswer !== null && whenAnswer) {
-    const checkIfToday = () => {
-      const today = new Date()
-      return pollutionDateAndTime.getDate() === today.getDate() &&
-        pollutionDateAndTime.getMonth() === today.getMonth() &&
-        pollutionDateAndTime.getFullYear() === today.getFullYear()
-    }
-
-    const checkIfYesterday = () => {
-      const yesterday = new Date()
-      yesterday.setDate(yesterday.getDate() - 1)
-      return pollutionDateAndTime.getDate() === yesterday.getDate() &&
-        pollutionDateAndTime.getMonth() === yesterday.getMonth() &&
-        pollutionDateAndTime.getFullYear() === yesterday.getFullYear()
-    }
-
-    const isToday = checkIfToday()
-    const isYesterday = checkIfYesterday()
-
-    const date = new Date(pollutionDateAndTime)
-    const pollutionTime = date.toLocaleString([], {
-      hour: '2-digit',
-      minute: '2-digit'
-    })
-
-    if (isToday) {
-      whenAnswerData = 'Today at ' + pollutionTime
-    } else if (isYesterday) {
-      whenAnswerData = 'Yesterday at ' + pollutionTime
-    } else {
-      const dateObj = new Date(pollutionDateAndTime)
-      const day = dateObj.getDate()
-      const month = dateObj.toLocaleString('default', { month: 'long' })
-      const year = dateObj.getFullYear()
-
-      const nthNumber = (number) => {
-        if (number > 3 && number < 21) return 'th'
-        switch (number % 10) {
-          case 1:
-            return 'st'
-          case 2:
-            return 'nd'
-          case 3:
-            return 'rd'
-          default:
-            return 'th'
-        }
-      }
-      const pollutionDate = `${day}${nthNumber(day)} ${month} ${year}`
-      whenAnswerData = pollutionDate + ' at ' + pollutionTime
-    }
-  }
+  const whenAnswer = getWhenData(request, whenUrl)
 
   // Get answer for 'What do you think the pollution is?' question
   const pollutionSubstanceUrl = 'WATER_POLLUTION_POLLUTION_SUBSTANCE'
-  const pollutionSubstanceAnswer = getData(request, pollutionSubstanceUrl)
-  let pollutionSubstanceAnswerData
-
-  if (pollutionSubstanceAnswer !== null && pollutionSubstanceAnswer.otherDetails) {
-    const joinData = pollutionSubstanceAnswer.answerText.join('<br>')
-    pollutionSubstanceAnswerData = joinData + ' - ' + pollutionSubstanceAnswer.otherDetails
-  } else if (pollutionSubstanceAnswer.answerText) {
-    pollutionSubstanceAnswerData = pollutionSubstanceAnswer.answerText.join('<br>')
-  } else {
-    pollutionSubstanceAnswerData = pollutionSubstanceAnswer
-  }
+  const pollutionSubstanceAnswer = getDataSet(request, pollutionSubstanceUrl)
 
   // get answer for 'What does the pollution look like?' question
   const pollutionAppearanceUrl = 'WATER_POLLUTION_POLLUTION_APPEARANCE'
-  const pollutionAppearanceAnswer = getData(request, pollutionAppearanceUrl)
-  let pollutionAppearanceAnswerData
-
-  if (pollutionAppearanceAnswer !== null && pollutionAppearanceAnswer.otherDetails) {
-    const joinData = pollutionAppearanceAnswer.answerText.join('<br>')
-    pollutionAppearanceAnswerData = joinData + ' - ' + pollutionAppearanceAnswer.otherDetails
-  } else if (pollutionAppearanceAnswer.answerText) {
-    pollutionAppearanceAnswerData = pollutionAppearanceAnswer.answerText.join('<br>')
-  } else {
-    pollutionAppearanceAnswerData = pollutionAppearanceAnswer
-  }
+  const pollutionAppearanceAnswer = getDataSet(request, pollutionAppearanceUrl)
 
   // Get answer for 'Do you know where the pollution is coming from?' question
   const pollutionSourceUrl = 'WATER_POLLUTION_SOURCE'
-  const pollutionSourceAnswer = getData(request, pollutionSourceUrl)
-  let pollutionSourceAnswerData
-
-  if (pollutionSourceAnswer !== null && pollutionSourceAnswer.otherDetails) {
-    const joinData = pollutionSourceAnswer.answerText.join('<br>')
-    pollutionSourceAnswerData = joinData + ' - ' + pollutionSourceAnswer.otherDetails
-  } else {
-    pollutionSourceAnswerData = pollutionSourceAnswer
-  }
+  const pollutionSourceAnswer = getDataSet(request, pollutionSourceUrl)
 
   // Get answer for 'Have you seen any dead fish or animals?' question
   const effectOnWildlifeUrl = 'WATER_POLLUTION_EFFECT_ON_WILDLIFE'
-  const effectOnWildlifeAnswer = getData(request, effectOnWildlifeUrl)
-  let effectOnWildlifeAnswerData
-
-  if (effectOnWildlifeAnswer !== null && effectOnWildlifeAnswer.otherDetails) {
-    const joinData = effectOnWildlifeAnswer.answerText.join('<br>')
-    effectOnWildlifeAnswerData = joinData + ' - ' + effectOnWildlifeAnswer.otherDetails
-  } else {
-    effectOnWildlifeAnswerData = effectOnWildlifeAnswer
-  }
+  const effectOnWildlifeAnswer = getDataSet(request, effectOnWildlifeUrl)
 
   // Get answer for 'Is there anything else you'd like to add?' question
   const otherInformationUrl = 'WATER_POLLUTION_OTHER_INFORMATION'
-  const otherInformationAnswer = request.yar.get(constants.redisKeys[otherInformationUrl])
-  let otherInformationAnswerData
+  const otherInformationAnswerData = request.yar.get(constants.redisKeys[otherInformationUrl])
+  let otherInformationAnswer
 
-  if (otherInformationAnswer !== null && otherInformationAnswer.otherInfo) {
-    otherInformationAnswerData = otherInformationAnswer.otherInfo
+  if (otherInformationAnswer !== null && otherInformationAnswerData) {
+    otherInformationAnswer = otherInformationAnswerData
   }
 
   return {
-    whenAnswerData,
-    pollutionSubstanceAnswerData,
-    pollutionAppearanceAnswerData,
-    pollutionSourceAnswerData,
-    effectOnWildlifeAnswerData,
-    otherInformationAnswerData
+    whenAnswer,
+    pollutionSubstanceAnswer,
+    pollutionAppearanceAnswer,
+    pollutionSourceAnswer,
+    effectOnWildlifeAnswer,
+    otherInformationAnswer
   }
 }
 
@@ -226,10 +152,120 @@ const getData = (request, pageUrl) => {
   }
 }
 
+// Get data and construct multiple answers for the questions
+const getDataSet = (request, pageUrl) => {
+  const recordedAnswerSet = getData(request, pageUrl)
+  let answerData
+  if (recordedAnswerSet !== null && recordedAnswerSet.otherDetails) {
+    const joinData = recordedAnswerSet.answerText.join('<br>')
+    answerData = joinData + ' - ' + recordedAnswerSet.otherDetails
+  } else if (recordedAnswerSet !== null && recordedAnswerSet.answerText) {
+    answerData = recordedAnswerSet.answerText.join('<br>')
+  } else {
+    answerData = recordedAnswerSet
+  }
+
+  return answerData
+}
+
+// Format date and time data
+const getWhenData = (request, pageUrl) => {
+  const whenAnswerData = request.yar.get(constants.redisKeys[pageUrl])
+  let dateTimeData
+  const pollutionDateAndTime = new Date(whenAnswerData)
+
+  if (whenAnswerData !== null && whenAnswerData) {
+    const checkIfToday = () => {
+      const today = new Date()
+      return pollutionDateAndTime.getDate() === today.getDate() &&
+        pollutionDateAndTime.getMonth() === today.getMonth() &&
+        pollutionDateAndTime.getFullYear() === today.getFullYear()
+    }
+
+    const checkIfYesterday = () => {
+      const yesterday = new Date()
+      yesterday.setDate(yesterday.getDate() - 1)
+      return pollutionDateAndTime.getDate() === yesterday.getDate() &&
+        pollutionDateAndTime.getMonth() === yesterday.getMonth() &&
+        pollutionDateAndTime.getFullYear() === yesterday.getFullYear()
+    }
+
+    const isToday = checkIfToday()
+    const isYesterday = checkIfYesterday()
+
+    const date = new Date(pollutionDateAndTime)
+    const pollutionTime = date.toLocaleString([], {
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+
+    if (isToday) {
+      dateTimeData = 'Today at ' + pollutionTime
+    } else if (isYesterday) {
+      dateTimeData = 'Yesterday at ' + pollutionTime
+    } else {
+      const dateObj = new Date(pollutionDateAndTime)
+      const day = dateObj.getDate()
+      const month = dateObj.toLocaleString('default', { month: 'long' })
+      const year = dateObj.getFullYear()
+
+      const nthNumber = (number) => {
+        if (number > 3 && number < 21) return 'th'
+        switch (number % 10) {
+          case 1:
+            return 'st'
+          case 2:
+            return 'nd'
+          case 3:
+            return 'rd'
+          default:
+            return 'th'
+        }
+      }
+      const pollutionDate = `${day}${nthNumber(day)} ${month} ${year}`
+      dateTimeData = pollutionDate + ' at ' + pollutionTime
+    }
+
+    return dateTimeData
+  }
+}
+
+const buildPayload = (session) => {
+  const reporter = session.get(constants.redisKeys.HOME)
+  return {
+    reportingAnEnvironmentalProblem: {
+      sessionGuid: session.id,
+      reportType: questionSets.WATER_POLLUTION.questionSetId,
+      datetimeObserved: session.get(constants.redisKeys.WATER_POLLUTION_WHEN),
+      datetimeReported: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
+      otherDetails: session.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION),
+      questionSetId: questionSets.WATER_POLLUTION.questionSetId,
+      data: buildAnswerDataset(session, questionSets.WATER_POLLUTION),
+      ...reporter
+    }
+  }
+}
+
+const buildAnswerDataset = (session, questionSet) => {
+  const data = []
+  Object.keys(questionSet.questions).forEach(key => {
+    const answers = session.get(questionSet.questions[key].key)
+    answers?.forEach(item => {
+      data.push(item)
+    })
+  })
+  return data
+}
+
 export default [
   {
     method: 'GET',
     path: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS,
     handler: handlers.get
+  },
+  {
+    method: 'POST',
+    path: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS,
+    handler: handlers.post
   }
 ]

@@ -29,7 +29,7 @@ const handlers = {
     })
 
     // handle redirects
-    return h.redirect('/water-pollution/check-your-answers') // TODO update to constants value when merged into epic with CYA branch
+    return h.redirect(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
   }
 }
 
