@@ -120,7 +120,9 @@ const dropPin = (coordinate) => {
     geometry: point
   })
   vectorSource.addFeature(marker)
-  pointElement.value = JSON.stringify(coordinate)
+  if (pointElement) {
+    pointElement.value = JSON.stringify(coordinate)
+  }  
 }
 
 const panToPoint = (point, extentBuffer = 250) => {
@@ -145,7 +147,7 @@ const panToOSValue = (value) => {
   }
 }
 
-const initialiseMap = () => {
+const initialiseMap = options => {
   (
     async () => {
       await setToken()
@@ -159,35 +161,51 @@ const initialiseMap = () => {
       const oSLayer = new TileLayer({
         source: osSource
       })
+
+      const interactions = options?.disableControls ? [] : defaultInteractions({
+        altShiftDragRotate: false,
+        pinchRotate: false
+      })
+
+      const controls = defaultControls().extend([
+        new ScaleLine({
+          units: 'metric',
+          minWidth: 100
+        })
+      ])
+      
+      const view = new View({
+        projection: OSGB36,
+        showFullExtent: false,
+        extent,
+        center: options?.point || center,
+        zoom: options?.zoom || zoom,
+        maxZoom
+      })
+
+      const layers = [
+        oSLayer,
+        vectorLayer
+      ]
+
       map = new Map({
         target: 'map',
-        interactions: defaultInteractions({
-          altShiftDragRotate: false,
-          pinchRotate: false
-        }),
-        controls: defaultControls().extend([
-          new ScaleLine({
-            units: 'metric',
-            minWidth: 100
-          })
-        ]),
-        layers: [
-          oSLayer,
-          vectorLayer
-        ],
-        view: new View({
-          projection: OSGB36,
-          showFullExtent: false,
-          extent,
-          center,
-          zoom,
-          maxZoom
+        interactions,
+        controls,
+        layers,
+        view
+      })
+
+      if (options?.point) {
+        dropPin(options.point)
+      }
+
+      if (!options?.disableControls) {
+        // add Marker interaction
+        map.on('click', (e) => {
+          dropPin(e.coordinate)
         })
-      })
-      // add Marker interaction
-      map.on('click', (e) => {
-        dropPin(e.coordinate)
-      })
+      }
     }
   )()
 }

@@ -60,6 +60,21 @@ const getLocationAndSizeOfPollution = (request) => {
   const waterFeatureUrl = 'WATER_POLLUTION_WATER_FEATURE'
   const waterFeatureAnswer = getData(request, waterFeatureUrl)
 
+  // Do we need to show map or location description
+  const locationOptionUrl = 'WATER_POLLUTION_LOCATION_OPTION'
+  const locationOptionAnswer = getData(request, locationOptionUrl)
+  let locationAnswer
+  if (locationOptionAnswer === questionSets.WATER_POLLUTION.questions[locationOptionUrl].answers.description.text) {
+    locationAnswer = request.yar.get(constants.redisKeys['WATER_POLLUTION_LOCATION_DESCRIPTION'])[0].otherDetails
+  } else {
+    const location = request.yar.get(constants.redisKeys['WATER_POLLUTION_LOCATION_MAP'])
+    locationAnswer = {
+      point: [Number(location[1].otherDetails), Number(location[2].otherDetails)],
+      disableControls: true,
+      zoom: 10
+    }
+  }
+
   // Get answer for 'Less than 10m in size' question
   const lessThan10MetersUrl = 'WATER_POLLUTION_LESS_THAN_10_METRES'
   const lessThan10MetersAnswer = getData(request, lessThan10MetersUrl)
@@ -70,6 +85,7 @@ const getLocationAndSizeOfPollution = (request) => {
 
   return {
     waterFeatureAnswer,
+    locationAnswer,
     lessThan10MetersAnswer,
     pollutionLengthAnswer
   }
@@ -123,8 +139,7 @@ const getData = (request, pageUrl) => {
     const selectedAnswerId = recordedAnswer[0].answerId
     const answerSet = Object.values(questionSets.WATER_POLLUTION.questions[pageUrl].answers)
     const filterAnswer = answerSet.filter(item => item.answerId === selectedAnswerId)
-    const answerText = filterAnswer[0].shortText
-    return answerText
+    return filterAnswer[0].shortText || filterAnswer[0].text
   } else if (recordedAnswer !== null && recordedAnswer.length > 1) {
     const multiAnswerSet = []
     let otherDetailsData
