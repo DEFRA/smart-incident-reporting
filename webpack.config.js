@@ -9,6 +9,7 @@ const inDev = env === 'development'
 
 export default {
   entry: {
+    checkYourAnswers: './client/js/pages/check-your-answers.js',
     core: './client/js/core.js',
     cookies: './client/js/pages/cookies.js',
     locationMap: './client/js/pages/location-map.js'
