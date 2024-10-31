@@ -65,9 +65,9 @@ const getLocationAndSizeOfPollution = (request) => {
   const locationOptionAnswer = getData(request, locationOptionUrl)
   let locationAnswer
   if (locationOptionAnswer === questionSets.WATER_POLLUTION.questions[locationOptionUrl].answers.description.text) {
-    locationAnswer = request.yar.get(constants.redisKeys['WATER_POLLUTION_LOCATION_DESCRIPTION'])[0].otherDetails
+    locationAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_DESCRIPTION)[0].otherDetails
   } else {
-    const location = request.yar.get(constants.redisKeys['WATER_POLLUTION_LOCATION_MAP'])
+    const location = request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP)
     locationAnswer = {
       point: [Number(location[1].otherDetails), Number(location[2].otherDetails)],
       disableControls: true,

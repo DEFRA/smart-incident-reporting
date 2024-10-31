@@ -122,7 +122,7 @@ const dropPin = (coordinate) => {
   vectorSource.addFeature(marker)
   if (pointElement) {
     pointElement.value = JSON.stringify(coordinate)
-  }  
+  }
 }
 
 const panToPoint = (point, extentBuffer = 250) => {
@@ -162,10 +162,12 @@ const initialiseMap = options => {
         source: osSource
       })
 
-      const interactions = options?.disableControls ? [] : defaultInteractions({
-        altShiftDragRotate: false,
-        pinchRotate: false
-      })
+      const interactions = options?.disableControls
+        ? []
+        : defaultInteractions({
+          altShiftDragRotate: false,
+          pinchRotate: false
+        })
 
       const controls = defaultControls().extend([
         new ScaleLine({
@@ -173,7 +175,7 @@ const initialiseMap = options => {
           minWidth: 100
         })
       ])
-      
+
       const view = new View({
         projection: OSGB36,
         showFullExtent: false,
