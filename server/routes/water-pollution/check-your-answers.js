@@ -62,16 +62,20 @@ const getLocationAndSizeOfPollution = (request) => {
 
   // Do we need to show map or location description
   const locationOptionUrl = 'WATER_POLLUTION_LOCATION_OPTION'
+  console.log('Calling location data')
   const locationOptionAnswer = getData(request, locationOptionUrl)
+  console.log('Data for locationOptionAnswer', locationOptionAnswer)
   let locationAnswer
-  if (locationOptionAnswer === questionSets.WATER_POLLUTION.questions[locationOptionUrl].answers.description.text) {
-    locationAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_DESCRIPTION)[0].otherDetails
-  } else {
-    const location = request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP)
-    locationAnswer = {
-      point: [Number(location[1].otherDetails), Number(location[2].otherDetails)],
-      disableControls: true,
-      zoom: 10
+  if (locationOptionAnswer) {
+    if (locationOptionAnswer === questionSets.WATER_POLLUTION.questions[locationOptionUrl].answers.description.text) {
+      locationAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_DESCRIPTION)[0].otherDetails
+    } else {
+      const location = request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP)
+      locationAnswer = {
+        point: [Number(location[1].otherDetails), Number(location[2].otherDetails)],
+        disableControls: true,
+        zoom: 10
+      }
     }
   }
 
@@ -135,6 +139,7 @@ const getAboutThePollution = (request) => {
 // Get data and construct answers for the questions
 const getData = (request, pageUrl) => {
   const recordedAnswer = request.yar.get(constants.redisKeys[pageUrl])
+  console.log('Data for recorded Answer', recordedAnswer)
   if (recordedAnswer !== null && recordedAnswer.length === 1) {
     const selectedAnswerId = recordedAnswer[0].answerId
     const answerSet = Object.values(questionSets.WATER_POLLUTION.questions[pageUrl].answers)

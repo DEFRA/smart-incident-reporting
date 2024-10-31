@@ -13,8 +13,7 @@ let sessionData = {
     reporterName: 'John Smith',
     reporterPhoneNumber: '012345678910',
     reporterEmailAddress: 'test@test.com'
-  },
-  otherInfo: 'Details of other information'
+  }
 }
 
 describe(url, () => {
