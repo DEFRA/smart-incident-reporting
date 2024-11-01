@@ -68,6 +68,7 @@ const SMELL_OTHER_INFORMATION = 'smell/other-information'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
+const REFERER = 'referer'
 
 const views = {
   API_OS_API_TOKEN,
@@ -135,7 +136,8 @@ for (const [key, value] of Object.entries(views)) {
 
 const redisKeys = {
   ...views,
-  SUBMISSION_TIMESTAMP
+  SUBMISSION_TIMESTAMP,
+  REFERER
 }
 
 const statusCodes = {
@@ -164,6 +166,16 @@ const waterFeatureLabels = {
   507: 'watercourse'
 }
 
+// Pages that set a referrer to return to after next page completion
+const setReferer = [
+  WATER_POLLUTION_CHECK_YOUR_ANSWERS
+]
+
+// Pages that clear a referrer to break the above chain
+const clearReferer = [
+
+]
+
 export default Object.freeze({
   routes,
   views,
@@ -172,5 +184,7 @@ export default Object.freeze({
   redisKeys,
   errorSummary,
   phoneRegex,
-  waterFeatureLabels
+  waterFeatureLabels,
+  setReferer,
+  clearReferer
 })
