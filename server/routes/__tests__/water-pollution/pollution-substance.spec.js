@@ -10,10 +10,34 @@ const baseAnswer = {
   questionResponse: true
 }
 
+const sessionData = {
+  'water-pollution/pollution-substance': [{
+    questionId: baseAnswer.questionId,
+    answerId: question.answers.sewage.answerId
+  }, {
+    questionId: baseAnswer.questionId,
+    answerId: question.answers.chemical.answerId
+  }, {
+    questionId: baseAnswer.questionId,
+    answerId: question.answers.somethingElse.answerId
+  }, {
+    questionId: baseAnswer.questionId,
+    answerId: question.answers.somethingElseDetail.answerId,
+    otherDetails: 'test details'
+  }]
+}
+
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       await submitGetRequest({ url }, baseAnswer.questionAsked)
+    })
+    it(`Should return success response and correct view for ${url} with prior entered values`, async () => {
+      const response = await submitGetRequest({ url }, baseAnswer.questionAsked, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-checkboxes__input" id="answerId" name="answerId" type="checkbox" value="2901" checked>')
+      expect(response.payload).toContain('<input class="govuk-checkboxes__input" id="answerId-2" name="answerId" type="checkbox" value="2902" checked>')
+      expect(response.payload).toContain('<input class="govuk-checkboxes__input" id="answerId-5" name="answerId" type="checkbox" value="2905" checked')
+      expect(response.payload).toContain('value="test details">')
     })
   })
 
