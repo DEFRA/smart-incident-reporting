@@ -87,5 +87,22 @@ describe(url, () => {
         answerId: question.answers.unknown.answerId
       }])
     })
+    it('Happy: Redirects to referer when set', async () => {
+      const answerId = question.answers.sewage.answerId.toString()
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
+      })
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_SUBSTANCE)).toEqual([{
+        ...baseAnswer,
+        answerId: question.answers.sewage.answerId
+      }])
+    })
   })
 })
