@@ -215,7 +215,8 @@ const getWhenData = (request, pageUrl) => {
     const date = new Date(pollutionDateAndTime)
     const pollutionTime = date.toLocaleString([], {
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
+      hour12: true
     })
 
     if (isToday) {

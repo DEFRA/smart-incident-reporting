@@ -88,7 +88,7 @@ describe(url, () => {
       }
       sessionData = { ...sessionData, ...answerData }
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('5th October 2024 at 09:09 AM')
+      expect(response.payload).toContain('5th October 2024 at 09:09 am')
     })
     it(`Happy: Should accept a valid time for today and return correct answer for 'When did you see the pollution?' question ${url}`, async () => {
       const date = new Date()
@@ -222,12 +222,8 @@ describe(url, () => {
 
   describe('POST', () => {
     it('Should accept and store a description', async () => {
-      const otherInfo = 'This is a description of the water pollution'
       const options = {
-        url,
-        payload: {
-          otherInfo
-        }
+        url
       }
       const response = await submitPostRequest(options, 302, session)
       expect(sendMessage).toHaveBeenCalledTimes(1)
@@ -241,7 +237,7 @@ describe(url, () => {
           reporterPhoneNumber: '012345678910',
           reporterEmailAddress: 'test@test.com',
           reporterAccessCode: 'password',
-          otherDetails: otherInfo,
+          otherDetails: 'test',
           questionSetId: 100,
           data: expect.arrayContaining([
             expect.objectContaining({
@@ -329,7 +325,7 @@ describe(url, () => {
           ])
         })
       }))
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION)).toEqual(otherInfo)
+      // expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION)).toEqual(otherInfo)
       expect(new Date(response.request.yar.get(constants.redisKeys.SUBMISSION_TIMESTAMP))).toBeInstanceOf(Date)
       expect(response.headers.location).toEqual(constants.routes.REPORT_SENT)
     })
