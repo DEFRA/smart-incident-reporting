@@ -9,11 +9,7 @@ const getAnswer = (answers, answerId) => {
   if (answer?.otherDetails) {
     return answer.otherDetails
   } else {
-    if (answer) {
-      return true
-    } else {
-      return ''
-    }
+    return answer ? true : ''
   }
 }
 
