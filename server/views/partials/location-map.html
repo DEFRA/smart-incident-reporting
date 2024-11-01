@@ -82,5 +82,8 @@
   {{ super() }}
   <link rel="stylesheet" href="{{ assetPath }}/css/accessible-autocomplete.min.css">
   <script src="{{ assetPath }}/js/locationMap.js"></script>
-
+  <script>
+    const safeMapConfig = {{ locationAnswer | dump | safe }}
+    locationMap.initialiseMap(safeMapConfig)
+  </script>
 {% endblock %}

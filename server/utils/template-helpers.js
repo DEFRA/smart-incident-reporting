@@ -6,7 +6,15 @@ const findErrorMessageById = (errorSummary, id) => {
 
 const getAnswer = (answers, answerId) => {
   const answer = answers?.find(item => item.answerId === answerId)
-  return answer?.otherDetails ? answer.otherDetails : !!answer
+  if (answer?.otherDetails) {
+    return answer.otherDetails
+  } else {
+    if (answer) {
+      return true
+    } else {
+      return ''
+    }
+  }
 }
 
 export {

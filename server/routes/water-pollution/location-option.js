@@ -11,9 +11,9 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (_request, h) => {
+  get: async (request, h) => {
     return h.view(constants.views.WATER_POLLUTION_LOCATION_OPTION, {
-      ...getContext()
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
@@ -23,7 +23,7 @@ const handlers = {
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.WATER_POLLUTION_LOCATION_OPTION, {
-        ...getContext(),
+        ...getContext(request),
         errorSummary
       })
     }
@@ -42,9 +42,11 @@ const handlers = {
   }
 }
 
-const getContext = () => {
+const getContext = request => {
+  const answers = request.yar.get(question.key)
   return {
-    question
+    question,
+    answers
   }
 }
 
