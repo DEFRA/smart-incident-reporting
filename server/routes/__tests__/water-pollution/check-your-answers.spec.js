@@ -88,7 +88,7 @@ describe(url, () => {
       }
       sessionData = { ...sessionData, ...answerData }
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('5th October 2024 at 09:09 am')
+      expect(response.payload).toContain('5th October 2024 at 09:09 AM')
     })
     it(`Happy: Should accept a valid time for today and return correct answer for 'When did you see the pollution?' question ${url}`, async () => {
       const date = new Date()
