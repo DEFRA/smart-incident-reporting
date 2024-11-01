@@ -5,7 +5,7 @@ const findErrorMessageById = (errorSummary, id) => {
 }
 
 const getAnswer = (answers, answerId) => {
-  const answer = answers?.find(answer => answer.answerId === answerId)
+  const answer = answers?.find(item => item.answerId === answerId)
   return answer?.otherDetails ? answer.otherDetails : !!answer
 }
 
