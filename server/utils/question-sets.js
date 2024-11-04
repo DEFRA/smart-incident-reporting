@@ -644,16 +644,16 @@ const questionSets = {
         }
       },
       SMELL_MEDICAL_HELP: {
-        questionId: 2600,
+        questionId: 3300,
         key: constants.redisKeys.SMELL_MEDICAL_HELP,
         text: 'Have you had to get any medical help because of the smell?',
         answers: {
           yes: {
-            answerId: 2601,
+            answerId: 3301,
             text: 'Yes'
           },
           no: {
-            answerId: 2602,
+            answerId: 3302,
             text: 'No'
           }
         }
