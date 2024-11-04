@@ -62,9 +62,7 @@ const getLocationAndSizeOfPollution = (request) => {
 
   // Do we need to show map or location description
   const locationOptionUrl = 'WATER_POLLUTION_LOCATION_OPTION'
-  console.log('Calling location data')
   const locationOptionAnswer = getData(request, locationOptionUrl)
-  console.log('Data for locationOptionAnswer', locationOptionAnswer)
   let locationAnswer
   if (locationOptionAnswer) {
     if (locationOptionAnswer === questionSets.WATER_POLLUTION.questions[locationOptionUrl].answers.description.text) {
