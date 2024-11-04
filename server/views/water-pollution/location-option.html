@@ -16,11 +16,13 @@
       items: [ 
       {
         value: question.answers.map.answerId,
-        text: question.answers.map.text
+        text: question.answers.map.text,
+        checked: getAnswer(answers, question.answers.map.answerId)
       },
       {
         value: question.answers.description.answerId,
-        text: question.answers.description.text
+        text: question.answers.description.text,
+        checked: getAnswer(answers, question.answers.description.answerId)
       }
       ] 
     }) }} 
