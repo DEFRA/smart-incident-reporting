@@ -149,16 +149,16 @@ const getData = (request, pageUrl) => {
     const multiAnswerSet = []
     let otherDetailsData
 
-    for (let i = 0; i < recordedAnswer.length; i++) {
-      const selectedAnswerId = recordedAnswer[i].answerId
+    for (const element of recordedAnswer) {
+      const selectedAnswerId = element.answerId
       const answerSet = Object.values(questionSets.WATER_POLLUTION.questions[pageUrl].answers)
       const filterAnswer = answerSet.filter(item => item.answerId === selectedAnswerId)
       const answerText = filterAnswer[0].shortText
       if (answerText) {
         multiAnswerSet.push(answerText)
       }
-      if (recordedAnswer[i].otherDetails) {
-        otherDetailsData = recordedAnswer[i].otherDetails
+      if (element.otherDetails) {
+        otherDetailsData = element.otherDetails
       }
     }
 
@@ -177,7 +177,7 @@ const getDataSet = (request, pageUrl) => {
   let answerData
   if (recordedAnswerSet !== null && recordedAnswerSet.otherDetails) {
     const joinData = recordedAnswerSet.answerText.join('<br>')
-    answerData = joinData + ' - ' + recordedAnswerSet.otherDetails
+    answerData = `${joinData} - ${recordedAnswerSet.otherDetails}`
   } else if (recordedAnswerSet !== null && recordedAnswerSet.answerText) {
     answerData = recordedAnswerSet.answerText.join('<br>')
   } else {
@@ -220,9 +220,9 @@ const getWhenData = (request, pageUrl) => {
     })
 
     if (isToday) {
-      dateTimeData = 'Today at ' + pollutionTime
+      dateTimeData = `Today at ${pollutionTime}`
     } else if (isYesterday) {
-      dateTimeData = 'Yesterday at ' + pollutionTime
+      dateTimeData = `Yesterday at ${pollutionTime}`
     } else {
       const dateObj = new Date(pollutionDateAndTime)
       const day = dateObj.getDate()
@@ -230,7 +230,11 @@ const getWhenData = (request, pageUrl) => {
       const year = dateObj.getFullYear()
 
       const nthNumber = (number) => {
-        if (number > 3 && number < 21) return 'th'
+        if (number > 3 && number < 21) 
+          {
+            return 'th'
+          }
+          
         switch (number % 10) {
           case 1:
             return 'st'
@@ -243,7 +247,7 @@ const getWhenData = (request, pageUrl) => {
         }
       }
       const pollutionDate = `${day}${nthNumber(day)} ${month} ${year}`
-      dateTimeData = pollutionDate + ' at ' + pollutionTime
+      dateTimeData = `${pollutionDate} at ${pollutionTime}`
     }
 
     return dateTimeData

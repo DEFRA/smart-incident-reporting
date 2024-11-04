@@ -4,6 +4,7 @@ import constants from './constants.js'
 const YOU_DO_NOT_KNOW = 'You do not know'
 const SOMETHING_ELSE = 'Something else'
 const NONE_OF_THESE = 'None of these'
+const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -47,7 +48,7 @@ const questionSets = {
           youDoNotKnow: {
             answerId: 507,
             text: YOU_DO_NOT_KNOW,
-            shortText: 'Don\'t know'
+            shortText: YOU_DO_NOT_KNOW_SHORT
           },
           somethingElseDetails: {
             answerId: 508
@@ -72,7 +73,7 @@ const questionSets = {
           youDoNotKnow: {
             answerId: 703,
             text: YOU_DO_NOT_KNOW,
-            shortText: 'Don\'t know'
+            shortText: YOU_DO_NOT_KNOW_SHORT
           }
         }
       },
@@ -94,7 +95,7 @@ const questionSets = {
           youDoNotKnow: {
             answerId: 803,
             text: YOU_DO_NOT_KNOW,
-            shortText: 'Don\'t know'
+            shortText: YOU_DO_NOT_KNOW_SHORT
           }
         }
       },
@@ -126,7 +127,7 @@ const questionSets = {
           youDoNotKnow: {
             answerId: 405,
             text: YOU_DO_NOT_KNOW,
-            shortText: 'Don\'t know'
+            shortText: YOU_DO_NOT_KNOW_SHORT
           }
         }
       },
@@ -148,7 +149,7 @@ const questionSets = {
           youDoNotKnow: {
             answerId: 303,
             text: YOU_DO_NOT_KNOW,
-            shortText: 'Don\'t know'
+            shortText: YOU_DO_NOT_KNOW_SHORT
           }
         }
       },
@@ -316,7 +317,7 @@ const questionSets = {
           unknown: {
             answerId: 2906,
             text: YOU_DO_NOT_KNOW,
-            shortText: 'Don\'t know'
+            shortText: YOU_DO_NOT_KNOW_SHORT
           },
           somethingElseDetail: {
             answerId: 2907,
