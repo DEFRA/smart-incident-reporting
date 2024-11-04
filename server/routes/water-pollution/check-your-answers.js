@@ -236,12 +236,16 @@ const getWhenData = (request, pageUrl) => {
           return 'th'
         }
 
+        const numPrefixOne = 1
+        const numPrefixTwo = 2
+        const numPrefixThree = 3
+
         switch (number % 10) {
-          case 1:
+          case numPrefixOne:
             return 'st'
-          case 2:
+          case numPrefixTwo:
             return 'nd'
-          case 3:
+          case numPrefixThree:
             return 'rd'
           default:
             return 'th'
@@ -253,6 +257,7 @@ const getWhenData = (request, pageUrl) => {
 
     return dateTimeData
   }
+  return null
 }
 
 const buildPayload = (session) => {
