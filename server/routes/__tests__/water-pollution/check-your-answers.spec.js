@@ -56,6 +56,50 @@ describe(url, () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('River')
     })
+    it(`Happy: Should return correct answer for 'Location - Describe the locaion' question ${url}`, async () => {
+      const answerData = {
+        'water-pollution/location-option': [{
+          questionId: 2600,
+          questionAsked: 'Where did you see the pollution?',
+          questionResponse: true,
+          answerId: 2601
+        }]
+      }
+      const otherData = {
+        'water-pollution/location-description': [{
+          questionId: 900,
+          questionAsked: 'Where is the pollution?',
+          questionResponse: true,
+          answerId: 901,
+          otherDetails: 'Test data for location description'
+        }]
+      }
+      sessionData = { ...sessionData, ...answerData, ...otherData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('Test data for location description')
+    })
+    /* it(`Happy: Should return correct answer for 'Location - Mark the location on an online map' question ${url}`, async () => {
+      const answerData = {
+        'water-pollution/location-option': [{
+          questionId: 2600,
+          questionAsked: 'Where did you see the pollution?',
+          questionResponse: true,
+          answerId: 2602
+        }]
+      }
+      const otherData = {
+        'water-pollution/location-map': [{
+          questionId: 2700,
+          questionAsked: 'Mark the location of the pollution',
+          questionResponse: true,
+          answerId: 2701,
+          otherDetails: 'SU 15526 93163'
+        }]
+      }
+      sessionData = { ...sessionData, ...answerData, ...otherData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('canvas')
+    }) */
     it(`Happy: Should return correct answer for 'Less than 10m in size' question ${url}`, async () => {
       const answerData = {
         'water-pollution/less-than-10-metres': [{
@@ -108,6 +152,38 @@ describe(url, () => {
       sessionData = { ...sessionData, ...answerData }
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Yesterday at')
+    })
+    it(`Happy: Should return correct answer with date suffix 'st' for 'When did you see the pollution?' question ${url}`, async () => {
+      const answerData = {
+        'water-pollution/when': '2024-10-01T08:09:00.000Z'
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('1st October 2024 at 09:09 AM')
+    })
+    it(`Happy: Should return correct answer with date suffix 'nd' for 'When did you see the pollution?' question ${url}`, async () => {
+      const answerData = {
+        'water-pollution/when': '2024-10-02T08:09:00.000Z'
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('2nd October 2024 at 09:09 AM')
+    })
+    it(`Happy: Should return correct answer with date suffix 'rd' for 'When did you see the pollution?' question ${url}`, async () => {
+      const answerData = {
+        'water-pollution/when': '2024-10-03T08:09:00.000Z'
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('3rd October 2024 at 09:09 AM')
+    })
+    it(`Happy: Should return correct answer with date suffix 'th' for 'When did you see the pollution?' question ${url}`, async () => {
+      const answerData = {
+        'water-pollution/when': '2024-10-04T08:09:00.000Z'
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('4th October 2024 at 09:09 AM')
     })
     it(`Happy: Should return correct answer for 'What do you think the pollution is?' question ${url}`, async () => {
       const answerData = {

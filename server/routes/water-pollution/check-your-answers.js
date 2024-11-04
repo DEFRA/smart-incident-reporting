@@ -137,7 +137,6 @@ const getAboutThePollution = (request) => {
 // Get data and construct answers for the questions
 const getData = (request, pageUrl) => {
   const recordedAnswer = request.yar.get(constants.redisKeys[pageUrl])
-  console.log('Data for recorded Answer', recordedAnswer)
   if (recordedAnswer !== null && recordedAnswer.length === 1) {
     const selectedAnswerId = recordedAnswer[0].answerId
     const answerSet = Object.values(questionSets.WATER_POLLUTION.questions[pageUrl].answers)
