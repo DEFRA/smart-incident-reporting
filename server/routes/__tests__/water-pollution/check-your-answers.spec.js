@@ -185,6 +185,14 @@ describe(url, () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('4th October 2024 at 09:09 AM')
     })
+    it(`Happy: Should return correct answer with date suffix default case 'th' for 'When did you see the pollution?' question ${url}`, async () => {
+      const answerData = {
+        'water-pollution/when': '2024-10-25T08:09:00.000Z'
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('25th October 2024 at 09:09 AM')
+    })
     it(`Happy: Should return correct answer for 'What do you think the pollution is?' question ${url}`, async () => {
       const answerData = {
         'water-pollution/pollution-substance': [{
