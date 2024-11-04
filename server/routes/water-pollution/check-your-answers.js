@@ -230,7 +230,9 @@ const getWhenData = (request, pageUrl) => {
       const year = dateObj.getFullYear()
 
       const nthNumber = (number) => {
-        if (number > 3 && number < 21) {
+        const numRangeStart = 3
+        const numRangeEnd = 21
+        if (number > numRangeStart && number < numRangeEnd) {
           return 'th'
         }
 
