@@ -3,6 +3,109 @@
     <h1 class="govuk-heading-l">
       {{ pageTitle }}?
     </h1>
+    {% set todayHtml %}
+    <div class="govuk-form-group{% if getTimeErrors(errorSummary, validateAndError) %} govuk-form-group--error{% endif %}">
+      <fieldset class="govuk-fieldset" role="group" aria-describedby="time-of-incident">
+        <label class="govuk-label govuk-label--m" for="hour-0">
+            Time (approximately)
+        </label>
+        <div id="time-of-incident-hint" class="govuk-hint">
+          For example, 9:30am or 2:55pm.
+        </div>
+        {% if getTimeErrors(errorSummary, validateAndError) %}
+          <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ getTimeErrors(errorSummary, validateAndError)[0].text }}
+          </p>
+        {% endif %}
+        <div class="govuk-date-input">
+          <div class="govuk-time-input__item__separator">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="hour-0">
+                Hour
+              </label>
+              <input class="{{ fieldErrorClasses(validateAndError.hour, 'govuk-input govuk-input--width-2') }}" id="hour-0" name="hour" type="text" inputmode="numeric" value="{{ validateAndError.hour.value }}">
+            </div>
+          </div>
+          <div class="govuk-time-input__item govuk-time-input__item__separator">
+            <label class="govuk-label" for="minute-0">:</label>
+          </div>
+          <div class="govuk-time-input__item">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="minute-0">
+                Minute
+              </label>
+              <input class="{{ fieldErrorClasses(validateAndError.minute, 'govuk-input govuk-input--width-2') }}" id="minute-0" name="minute" type="text" inputmode="numeric" value="{{ validateAndError.minute.value }}">
+            </div>
+          </div>
+          <div class="govuk-time-input__item">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="period-0">
+                am or pm
+              </label>
+              <select class="govuk-select govuk-select--custom-time {% if (validateAndError.period.isEmpty) %}govuk-select--error{% endif %} {% if not validateAndError.period.isValid %}govuk-select--error{% endif %}" id="period-0" name="period">
+                <option value="" selected>&nbsp;</option>
+                <option value="am" {% if validateAndError.period.value === 'am' %}selected{% endif %}>am</option>
+                <option value="pm" {% if validateAndError.period.value === 'pm' %}selected{% endif %}>pm</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    {% endset -%}
+
+    {% set yesterdayHtml %}
+    <div class="govuk-form-group{% if getTimeErrors(errorSummary, validateAndError) %} govuk-form-group--error{% endif %}">
+      <fieldset class="govuk-fieldset" role="group" aria-describedby="time-of-incident">
+        <label class="govuk-label govuk-label--m" for="hour-1">
+            Time (approximately)
+        </label>
+        <div id="time-of-incident-hint" class="govuk-hint">
+          For example, 9:30am or 2:55pm.
+        </div>
+        {% if getTimeErrors(errorSummary, validateAndError) %}
+          <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ getTimeErrors(errorSummary, validateAndError)[0].text }}
+          </p>
+        {% endif %}
+        <div class="govuk-date-input">
+          <div class="govuk-time-input__item__separator">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="hour-1">
+                Hour
+              </label>
+              <input class="{{ fieldErrorClasses(validateAndError.hour, 'govuk-input govuk-input--width-2') }}" id="hour-1" name="hour" type="text" inputmode="numeric" value="{{ validateAndError.hour.value }}">
+            </div>
+          </div>
+          <div class="govuk-time-input__item govuk-time-input__item__separator">
+            <label class="govuk-label" for="minute-1">:</label>
+          </div>
+          <div class="govuk-time-input__item">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="minute-1">
+                Minute
+              </label>
+              <input class="{{ fieldErrorClasses(validateAndError.minute, 'govuk-input govuk-input--width-2') }}" id="minute-1" name="minute" type="text" inputmode="numeric" value="{{ validateAndError.minute.value }}">
+            </div>
+          </div>
+          <div class="govuk-time-input__item">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="period-1">
+                am or pm
+              </label>
+              <select class="govuk-select govuk-select--custom-time {% if (validateAndError.period.isEmpty) %}govuk-select--error{% endif %} {% if not validateAndError.period.isValid %}govuk-select--error{% endif %}" id="period-1" name="period">
+                <option value="" selected>&nbsp;</option>
+                <option value="am" {% if validateAndError.period.value === 'am' %}selected{% endif %}>am</option>
+                <option value="pm" {% if validateAndError.period.value === 'pm' %}selected{% endif %}>pm</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    {% endset -%}
+
+    {% set dateHtml %}
     {{ govukDateInput({
       id: "date",
       namePrefix: "date",
@@ -10,8 +113,7 @@
       fieldset: {
         legend: {
           text: "Date",
-          isPageHeading: false,
-          classes: "govuk-label govuk-label--m"
+          classes: "govuk-fieldset__legend--m"
         }
       },
       items: [
@@ -30,16 +132,13 @@
           name: "year",
           value: validateAndError.year.value
         }
-      ],
-      hint: {
-        text: "For example, 27 1 2024."
-      }
+      ]
     }) }}
     <div class="govuk-form-group{% if getTimeErrors(errorSummary, validateAndError) %} govuk-form-group--error{% endif %}">
       <fieldset class="govuk-fieldset" role="group" aria-describedby="time-of-incident">
-        <legend class="govuk-label govuk-label--m">
+        <label class="govuk-label govuk-label--m" for="hour-2">
             Time (approximately)
-        </legend>
+        </label>
         <div id="time-of-incident-hint" class="govuk-hint">
           For example, 9:30am or 2:55pm.
         </div>
@@ -51,29 +150,29 @@
         <div class="govuk-date-input">
           <div class="govuk-time-input__item__separator">
             <div class="govuk-form-group">
-              <label class="govuk-label" for="hour">
+              <label class="govuk-label" for="hour-2">
                 Hour
               </label>
-              <input class="{{ fieldErrorClasses(validateAndError.hour, 'govuk-input govuk-input--width-2') }}" id="hour" name="hour" type="text" inputmode="numeric" value="{{ validateAndError.hour.value }}">
+              <input class="{{ fieldErrorClasses(validateAndError.hour, 'govuk-input govuk-input--width-2') }}" id="hour-2" name="hour" type="text" inputmode="numeric" value="{{ validateAndError.hour.value }}">
             </div>
           </div>
           <div class="govuk-time-input__item govuk-time-input__item__separator">
-            <label class="govuk-label" for="minute">:</label>
+            <label class="govuk-label" for="minute-2">:</label>
           </div>
           <div class="govuk-time-input__item">
             <div class="govuk-form-group">
-              <label class="govuk-label" for="minute">
+              <label class="govuk-label" for="minute-2">
                 Minute
               </label>
-              <input class="{{ fieldErrorClasses(validateAndError.minute, 'govuk-input govuk-input--width-2') }}" id="minute" name="minute" type="text" inputmode="numeric" value="{{ validateAndError.minute.value }}">
+              <input class="{{ fieldErrorClasses(validateAndError.minute, 'govuk-input govuk-input--width-2') }}" id="minute-2" name="minute" type="text" inputmode="numeric" value="{{ validateAndError.minute.value }}">
             </div>
           </div>
           <div class="govuk-time-input__item">
             <div class="govuk-form-group">
-              <label class="govuk-label" for="period">
+              <label class="govuk-label" for="period-2">
                 am or pm
               </label>
-              <select class="govuk-select govuk-select--custom-time {% if (validateAndError.period.isEmpty) %}govuk-select--error{% endif %} {% if not validateAndError.period.isValid %}govuk-select--error{% endif %}" id="period" name="period">
+              <select class="govuk-select govuk-select--custom-time {% if (validateAndError.period.isEmpty) %}govuk-select--error{% endif %} {% if not validateAndError.period.isValid %}govuk-select--error{% endif %}" id="period-2" name="period">
                 <option value="" selected>&nbsp;</option>
                 <option value="am" {% if validateAndError.period.value === 'am' %}selected{% endif %}>am</option>
                 <option value="pm" {% if validateAndError.period.value === 'pm' %}selected{% endif %}>pm</option>
@@ -82,11 +181,44 @@
           </div>
         </div>
       </fieldset>
-    </div> 
+    </div>
+    {% endset -%}
+
+    {{ govukRadios({
+      classes: "govuk-radios",
+      id: "current",
+      name: "current",
+      errorMessage: findErrorMessageById(errorSummary, "current"),
+      items: [
+        {
+          value: 0,
+          text: "Today",
+          checked: current === '0',
+          conditional: {
+            html: todayHtml
+          }
+        },
+        {
+          value: 1,
+          text: "Yesterday",
+          checked: current === '1',
+          conditional: {
+            html: yesterdayHtml
+          }
+        },
+        {
+          value: 2,
+          text: "Before then",
+          checked: current === '2',
+          conditional: {
+            html: dateHtml
+          }
+        }
+      ]
+    }) }}
 
     {{ govukButton({
       text: "Continue"
     }) }}
-
   </div>
 </div>
