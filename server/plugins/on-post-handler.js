@@ -28,7 +28,6 @@ const handleReferer = request => {
     } else {
       // do nothing for sonarcloud
     }
-    
   } else {
     // If no referer then clear referer key because user has broken the journey
     request.yar.clear(constants.redisKeys.REFERER)
