@@ -60,6 +60,8 @@ const getLocationAndSizeOfPollution = (request) => {
   const waterFeatureUrl = 'WATER_POLLUTION_WATER_FEATURE'
   const waterFeatureAnswer = getDataSet(request, waterFeatureUrl)
 
+  console.log('Data for waterFeatureAnswer', waterFeatureAnswer)
+
   // Do we need to show map or location description
   const locationOptionUrl = 'WATER_POLLUTION_LOCATION_OPTION'
   const locationAnswer = getLocationAnswer(request, locationOptionUrl)
@@ -71,6 +73,8 @@ const getLocationAndSizeOfPollution = (request) => {
   // Get answer for 'Less than 100 square meters in size' question
   const lessThan100SqMetersUrl = 'WATER_POLLUTION_LESS_THAN_100_SQ_METRES'
   const lessThan100SqMetersAnswer = getData(request, lessThan100SqMetersUrl)
+
+  console.log('Data for lessThan100SqMetersAnswer', lessThan100SqMetersAnswer)
 
   // Check if 'Type of water' is measured in area
   const isMeasuredInArea = getIsMeasuredInArea(request)
@@ -156,6 +160,7 @@ const getAboutThePollution = (request) => {
 // Get data and construct answers for the questions
 const getData = (request, pageUrl) => {
   const recordedAnswer = request.yar.get(constants.redisKeys[pageUrl])
+  console.log('Data for recordedAnswer', recordedAnswer)
   if (recordedAnswer !== null && recordedAnswer.length === 1) {
     const selectedAnswerId = recordedAnswer[0].answerId
     const answerSet = Object.values(questionSets.WATER_POLLUTION.questions[pageUrl].answers)

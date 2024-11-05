@@ -91,8 +91,79 @@ describe(url, () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('No')
     })
+    it(`Happy: Should return correct answer for 'Less than 100 square metres in size' question ${url}`, async () => {
+      const answerData = {
+        'water-pollution/less-than-100-sq-metres': [{
+          questionId: 800,
+          questionAsked: 'Does the pollution cover an area less than 100 square metres in size?',
+          questionResponse: true,
+          answerId: 801
+        }]
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('Yes')
+    })
+    it(`Happy: Should return correct question label 'Less than 100 square metres in size' based on the answer for 'Type of water' question ${url}`, async () => {
+      const answerData = {
+        'water-pollution/water-feature': [{
+          questionId: 500,
+          questionAsked: 'In what kind of water is the pollution?',
+          questionResponse: true,
+          answerId: 502
+        }]
+      }
+      const additionalData = {
+        'water-pollution/less-than-100-sq-metres': [{
+          questionId: 800,
+          questionAsked: 'Does the pollution cover an area less than 100 square metres in size?',
+          questionResponse: true,
+          answerId: 801
+        }]
+      }
+      sessionData = { ...sessionData, ...answerData, ...additionalData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('Less than 100 square metres in size')
+    })
+    it(`Happy: Should return correct question label 'Less than 10m in size' based on the answer for 'Type of water' question ${url}`, async () => {
+      const answerData = {
+        'water-pollution/water-feature': [{
+          questionId: 500,
+          questionAsked: 'In what kind of water is the pollution?',
+          questionResponse: true,
+          answerId: 501
+        }]
+      }
+      const additionalData = {
+        'water-pollution/less-than-10-metres': [{
+          questionId: 700,
+          questionAsked: 'Does the pollution spread less than 10 metres along the watercourse?',
+          questionResponse: true,
+          answerId: 701
+        }]
+      }
+      sessionData = { ...sessionData, ...answerData, ...additionalData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('Less than 10m in size')
+    })
     it(`Happy: Should return correct answer for 'Size (estimated)' question ${url}`, async () => {
       const answerData = {
+        'water-pollution/water-feature': [{
+          questionId: 500,
+          questionAsked: 'In what kind of water is the pollution?',
+          questionResponse: true,
+          answerId: 501
+        }]
+      }
+      const additionalData1 = {
+        'water-pollution/less-than-10-metres': [{
+          questionId: 700,
+          questionAsked: 'Does the pollution spread less than 10 metres along the watercourse?',
+          questionResponse: true,
+          answerId: 702
+        }]
+      }
+      const additionalData2 = {
         'water-pollution/pollution-length': [{
           questionId: 400,
           questionAsked: 'How far along the water feature does the pollution spread?',
@@ -100,7 +171,7 @@ describe(url, () => {
           answerId: 402
         }]
       }
-      sessionData = { ...sessionData, ...answerData }
+      sessionData = { ...sessionData, ...answerData, ...additionalData1, ...additionalData2 }
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('100 to 500 metres')
     })
