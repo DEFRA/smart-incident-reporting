@@ -90,7 +90,9 @@ const getLocationAndSizeOfPollution = (request) => {
   // Check if 'Type of water' is measured in area
   let isMeasuredInArea = true
   if (waterFeatureAnswerData !== null && waterFeatureAnswerData) {
-    isMeasuredInArea = waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[waterFeatureUrl].answers.lakeOrReservoir.answerId || waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[waterFeatureUrl].answers.sea.answerId
+    const answerIsLakeorReservoir = waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[waterFeatureUrl].answers.lakeOrReservoir.answerId
+    const answerIsSea = waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[waterFeatureUrl].answers.sea.answerId
+    isMeasuredInArea = answerIsLakeorReservoir || answerIsSea
   }
 
   let lessThanAnswer
@@ -128,7 +130,6 @@ const getLocationAndSizeOfPollution = (request) => {
   } else {
     // do nothing for sonarcloud
   }
-  
 
   return {
     waterFeatureAnswer,
