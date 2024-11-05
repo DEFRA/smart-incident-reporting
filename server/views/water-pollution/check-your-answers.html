@@ -125,14 +125,14 @@
           }
         }%}
       {% endif %}
-      
+
       {% if isMeasuredInArea %}
         {% set lessThanListItem = {
           key: {
               text: "Less than 100 square metres in size"
             },
             value: {
-              text: lessThanAnswer
+              text: lessThanSizeAnswer
             },
             actions: {
               items: [
@@ -145,12 +145,12 @@
             }
         }%}
       {% else %}
-      {% set lessThanListItem = {
+        {% set lessThanListItem = {
           key: {
               text: "Less than 10m in size"
             },
             value: {
-              text: lessThanAnswer
+              text: lessThanSizeAnswer
             },
             actions: {
               items: [
@@ -165,8 +165,27 @@
       {% endif %}
 
       {% if isSizeEstimatedRequired %}
-      {% if isMeasuredInArea %}
-        {% set sizeEsitmatedListItem = {
+        {% if isMeasuredInArea %}
+          {% set sizeEsitmatedListItem = {
+          
+            key: {
+            text: "Size (estimated)"
+            },
+            value: {
+              text: sizeEstimatedAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_POLLUTION_AREA,
+                  text: "Change",
+                  visuallyHiddenText: "size estimated"
+                }
+              ]
+            }
+        }%}
+        {% else %}
+          {% set sizeEsitmatedListItem = {
           key: {
             text: "Size (estimated)"
             },
@@ -177,24 +196,6 @@
               items: [
                 {
                   href: url.WATER_POLLUTION_POLLUTION_LENGTH,
-                  text: "Change",
-                  visuallyHiddenText: "size estimated"
-                }
-              ]
-            }
-        }%}
-        {% else %}
-        {% set sizeEsitmatedListItem = {
-          key: {
-            text: "Size (estimated)"
-            },
-            value: {
-              text: sizeEstimatedAnswer
-            },
-            actions: {
-              items: [
-                {
-                  href: url.WATER_POLLUTION_POLLUTION_AREA,
                   text: "Change",
                   visuallyHiddenText: "size estimated"
                 }
@@ -350,12 +351,12 @@
 {% endblock %}
 
 {% block bodyEnd %}
-    {{ super() }}
-    {% if locationAnswer.point %}
+  {{ super() }}
+  {% if locationAnswer.point %}
     <script src="{{ assetPath }}/js/checkYourAnswers.js"></script>
     <script>
       const safeMapConfig = {{ locationAnswer | dump | safe }}
       checkYourAnswers.initialiseMap(safeMapConfig)
     </script>
-    {% endif %}
+  {% endif %}
 {% endblock %}

@@ -62,20 +62,7 @@ const getLocationAndSizeOfPollution = (request) => {
 
   // Do we need to show map or location description
   const locationOptionUrl = 'WATER_POLLUTION_LOCATION_OPTION'
-  const locationOptionAnswer = getData(request, locationOptionUrl)
-  let locationAnswer
-  if (locationOptionAnswer) {
-    if (locationOptionAnswer === questionSets.WATER_POLLUTION.questions[locationOptionUrl].answers.description.text) {
-      locationAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_DESCRIPTION)[0].otherDetails
-    } else {
-      const location = request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP)
-      locationAnswer = {
-        point: [Number(location[1].otherDetails), Number(location[2].otherDetails)],
-        disableControls: true,
-        zoom: 10
-      }
-    }
-  }
+  const locationAnswer = getLocationAnswer(request, locationOptionUrl)
 
   // Get answer for 'Less than 10m in size' question
   const lessThan10MetersUrl = 'WATER_POLLUTION_LESS_THAN_10_METRES'
@@ -85,56 +72,40 @@ const getLocationAndSizeOfPollution = (request) => {
   const lessThan100SqMetersUrl = 'WATER_POLLUTION_LESS_THAN_100_SQ_METRES'
   const lessThan100SqMetersAnswer = getData(request, lessThan100SqMetersUrl)
 
-  const waterFeatureAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)
-
   // Check if 'Type of water' is measured in area
-  let isMeasuredInArea = true
-  if (waterFeatureAnswerData !== null && waterFeatureAnswerData) {
-    const answerIsLakeorReservoir = waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[waterFeatureUrl].answers.lakeOrReservoir.answerId
-    const answerIsSea = waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[waterFeatureUrl].answers.sea.answerId
-    isMeasuredInArea = answerIsLakeorReservoir || answerIsSea
-  }
-
-  let lessThanAnswer
+  const isMeasuredInArea = getIsMeasuredInArea(request)
+  let lessThanSizeAnswer
   if (isMeasuredInArea) {
-    lessThanAnswer = lessThan100SqMetersAnswer
+    lessThanSizeAnswer = lessThan100SqMetersAnswer
   } else {
-    lessThanAnswer = lessThan10MetersAnswer
+    lessThanSizeAnswer = lessThan10MetersAnswer
   }
 
-  const lessThan10MetersAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES)
-  const lessThan100SqMetersAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
-
-  // Check if 'Size (estimated)' field is required
-  let isSizeEstimatedRequired = true
-  if (lessThan10MetersAnswerData !== null && lessThan10MetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[lessThan10MetersUrl].answers.yes.answerId) {
-    isSizeEstimatedRequired = false
-  } else if (lessThan100SqMetersAnswerData !== null && lessThan100SqMetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[lessThan100SqMetersUrl].answers.yes.answerId) {
-    isSizeEstimatedRequired = false
-  } else {
-    // do nothing for sonarcloud
-  }
+  // Check if 'Size (estimated)' option is required
+  const isSizeEstimatedRequired = getIsSizeEstimatedRequired(request)
+  let sizeEstimatedAnswer
 
   // Get answer for 'Size (estimated)' question
-  const pollutionLengthURL = 'WATER_POLLUTION_POLLUTION_LENGTH'
-  const pollutionLengthAnswer = getData(request, pollutionLengthURL)
+  if (isSizeEstimatedRequired) {
+    const pollutionLengthURL = 'WATER_POLLUTION_POLLUTION_LENGTH'
+    const pollutionLengthAnswer = getData(request, pollutionLengthURL)
 
-  const pollutionAreaURL = 'WATER_POLLUTION_POLLUTION_AREA'
-  const pollutionAreaAnswer = getData(request, pollutionAreaURL)
+    const pollutionAreaURL = 'WATER_POLLUTION_POLLUTION_AREA'
+    const pollutionAreaAnswer = getData(request, pollutionAreaURL)
 
-  let sizeEstimatedAnswer
-  if (isSizeEstimatedRequired && pollutionLengthAnswer !== null && pollutionLengthAnswer) {
-    sizeEstimatedAnswer = pollutionLengthAnswer
-  } else if (isSizeEstimatedRequired && pollutionAreaAnswer !== null && pollutionAreaAnswer) {
-    sizeEstimatedAnswer = pollutionAreaAnswer
-  } else {
-    // do nothing for sonarcloud
+    if (pollutionLengthAnswer !== null && pollutionLengthAnswer) {
+      sizeEstimatedAnswer = pollutionLengthAnswer
+    } else if (pollutionAreaAnswer !== null && pollutionAreaAnswer) {
+      sizeEstimatedAnswer = pollutionAreaAnswer
+    } else {
+      // do nothing for sonarcloud
+    }
   }
 
   return {
     waterFeatureAnswer,
     locationAnswer,
-    lessThanAnswer,
+    lessThanSizeAnswer,
     isMeasuredInArea,
     isSizeEstimatedRequired,
     sizeEstimatedAnswer
@@ -230,6 +201,54 @@ const getDataSet = (request, pageUrl) => {
   }
 
   return answerData
+}
+
+// Get data and construct multiple answers for the questions
+const getLocationAnswer = (request, pageUrl) => {
+  const locationOptionAnswer = getData(request, pageUrl)
+  let locationAnswerData
+  if (locationOptionAnswer) {
+    if (locationOptionAnswer === questionSets.WATER_POLLUTION.questions[pageUrl].answers.description.text) {
+      locationAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_DESCRIPTION)[0].otherDetails
+    } else {
+      const location = request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP)
+      locationAnswerData = {
+        point: [Number(location[1].otherDetails), Number(location[2].otherDetails)],
+        disableControls: true,
+        zoom: 10
+      }
+    }
+  }
+  return locationAnswerData
+}
+
+const getIsMeasuredInArea = (request) => {
+  const waterFeatureAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)
+  let isMeasuredInAreaData = false
+  if (waterFeatureAnswerData !== null && waterFeatureAnswerData) {
+    const answerIsLakeorReservoir = waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_WATER_FEATURE.answers.lakeOrReservoir.answerId
+    const answerIsSea = waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_WATER_FEATURE.answers.sea.answerId
+    isMeasuredInAreaData = answerIsLakeorReservoir || answerIsSea
+  }
+
+  return isMeasuredInAreaData
+}
+
+const getIsSizeEstimatedRequired = (request) => {
+  const lessThan10MetersAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES)
+  const lessThan100SqMetersAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
+
+  // Check if 'Size (estimated)' field is required
+  let isSizeEstimatedRequiredData = false
+  if (lessThan10MetersAnswerData !== null && lessThan10MetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_10_METRES.answers.no.answerId) {
+    isSizeEstimatedRequiredData = true
+  } else if (lessThan100SqMetersAnswerData !== null && lessThan100SqMetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_100_SQ_METRES.answers.no.answerId) {
+    isSizeEstimatedRequiredData = true
+  } else {
+    // do nothing for sonarcloud
+  }
+
+  return isSizeEstimatedRequiredData
 }
 
 // Format date and time data

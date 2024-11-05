@@ -78,28 +78,6 @@ describe(url, () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Test data for location description')
     })
-    /* it(`Happy: Should return correct answer for 'Location - Mark the location on an online map' question ${url}`, async () => {
-      const answerData = {
-        'water-pollution/location-option': [{
-          questionId: 2600,
-          questionAsked: 'Where did you see the pollution?',
-          questionResponse: true,
-          answerId: 2602
-        }]
-      }
-      const otherData = {
-        'water-pollution/location-map': [{
-          questionId: 2700,
-          questionAsked: 'Mark the location of the pollution',
-          questionResponse: true,
-          answerId: 2701,
-          otherDetails: 'SU 15526 93163'
-        }]
-      }
-      sessionData = { ...sessionData, ...answerData, ...otherData }
-      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('canvas')
-    }) */
     it(`Happy: Should return correct answer for 'Less than 10m in size' question ${url}`, async () => {
       const answerData = {
         'water-pollution/less-than-10-metres': [{
@@ -302,6 +280,14 @@ describe(url, () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Details of other information')
     })
+    /* it(`Happy: Should return correct answer 'No' if there is no input for 'Is there anything else you'd like to add?' question ${url}`, async () => {
+      const answerData = {
+        'water-pollution/other-information': ''
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('')
+    }) */
   })
 
   describe('POST', () => {
