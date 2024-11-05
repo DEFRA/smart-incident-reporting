@@ -88,7 +88,10 @@ const getLocationAndSizeOfPollution = (request) => {
   const waterFeatureAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)
 
   // Check if 'Type of water' is measured in area
-  const isMeasuredInArea = waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[waterFeatureUrl].answers.lakeOrReservoir.answerId || waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[waterFeatureUrl].answers.sea.answerId
+  let isMeasuredInArea = true
+  if (waterFeatureAnswerData !== null && waterFeatureAnswerData) {
+    isMeasuredInArea = waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[waterFeatureUrl].answers.lakeOrReservoir.answerId || waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[waterFeatureUrl].answers.sea.answerId
+  }
 
   let lessThanAnswer
   if (isMeasuredInArea) {
