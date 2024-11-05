@@ -121,15 +121,14 @@ const getLocationAndSizeOfPollution = (request) => {
   const pollutionAreaAnswer = getData(request, pollutionAreaURL)
 
   let sizeEstimatedAnswer
-  if (isSizeEstimatedRequired) {
-    if (pollutionLengthAnswer !== null && pollutionLengthAnswer) {
-      sizeEstimatedAnswer = pollutionLengthAnswer
-    } else if (pollutionAreaAnswer !== null && pollutionAreaAnswer) {
-      sizeEstimatedAnswer = pollutionAreaAnswer
-    } else {
-      // do nothing for sonarcloud
-    }
+  if (isSizeEstimatedRequired && pollutionLengthAnswer !== null && pollutionLengthAnswer) {
+    sizeEstimatedAnswer = pollutionLengthAnswer
+  } else if (isSizeEstimatedRequired && pollutionAreaAnswer !== null && pollutionAreaAnswer) {
+    sizeEstimatedAnswer = pollutionAreaAnswer
+  } else {
+    // do nothing for sonarcloud
   }
+  
 
   return {
     waterFeatureAnswer,
