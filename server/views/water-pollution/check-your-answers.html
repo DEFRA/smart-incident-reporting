@@ -125,6 +125,84 @@
           }
         }%}
       {% endif %}
+      
+      {% if isMeasuredInArea %}
+        {% set lessThanListItem = {
+          key: {
+              text: "Less than 100 square metres in size"
+            },
+            value: {
+              text: lessThanAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_LESS_THAN_100_SQ_METRES,
+                  text: "Change",
+                  visuallyHiddenText: "less than 100 square metres in size"
+                }
+              ]
+            }
+        }%}
+      {% else %}
+      {% set lessThanListItem = {
+          key: {
+              text: "Less than 10m in size"
+            },
+            value: {
+              text: lessThanAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_LESS_THAN_10_METRES,
+                  text: "Change",
+                  visuallyHiddenText: "less than 10m in size"
+                }
+              ]
+            }
+        }%}
+      {% endif %}
+
+      {% if isSizeEstimatedRequired %}
+      {% if isMeasuredInArea %}
+        {% set sizeEsitmatedListItem = {
+          key: {
+            text: "Size (estimated)"
+            },
+            value: {
+              text: sizeEstimatedAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_POLLUTION_LENGTH,
+                  text: "Change",
+                  visuallyHiddenText: "size estimated"
+                }
+              ]
+            }
+        }%}
+        {% else %}
+        {% set sizeEsitmatedListItem = {
+          key: {
+            text: "Size (estimated)"
+            },
+            value: {
+              text: sizeEstimatedAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_POLLUTION_AREA,
+                  text: "Change",
+                  visuallyHiddenText: "size estimated"
+                }
+              ]
+            }
+        }%}
+        {% endif %}
+      {% endif %}
 
       {{ govukSummaryList({
         classes: "govuk-!-margin-bottom-9",
@@ -147,40 +225,8 @@
             }
           },
           locationListItem,
-          {
-            key: {
-              text: "Less than 10m in size"
-            },
-            value: {
-              text: lessThan10MetersAnswer
-            },
-            actions: {
-              items: [
-                {
-                  href: url.WATER_POLLUTION_LESS_THAN_10_METRES,
-                  text: "Change",
-                  visuallyHiddenText: "less than 10m in size"
-                }
-              ]
-            }
-          },
-          {
-            key: {
-              text: "Size (estimated)"
-            },
-            value: {
-              text: pollutionLengthAnswer
-            },
-            actions: {
-              items: [
-                {
-                  href: url.WATER_POLLUTION_POLLUTION_LENGTH,
-                  text: "Change",
-                  visuallyHiddenText: "size estimated"
-                }
-              ]
-            }
-          }
+          lessThanListItem,
+          sizeEsitmatedListItem
         ]
       }) }}
 

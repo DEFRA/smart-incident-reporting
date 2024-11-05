@@ -58,7 +58,7 @@ const getYourDetails = (request) => {
 const getLocationAndSizeOfPollution = (request) => {
   // Get answer for 'Type of water' question
   const waterFeatureUrl = 'WATER_POLLUTION_WATER_FEATURE'
-  const waterFeatureAnswer = getData(request, waterFeatureUrl)
+  const waterFeatureAnswer = getDataSet(request, waterFeatureUrl)
 
   // Do we need to show map or location description
   const locationOptionUrl = 'WATER_POLLUTION_LOCATION_OPTION'
@@ -81,15 +81,60 @@ const getLocationAndSizeOfPollution = (request) => {
   const lessThan10MetersUrl = 'WATER_POLLUTION_LESS_THAN_10_METRES'
   const lessThan10MetersAnswer = getData(request, lessThan10MetersUrl)
 
-  // get answer for 'Size (estimated)' question
+  // Get answer for 'Less than 100 square meters in size' question
+  const lessThan100SqMetersUrl = 'WATER_POLLUTION_LESS_THAN_100_SQ_METRES'
+  const lessThan100SqMetersAnswer = getData(request, lessThan100SqMetersUrl)
+
+  const waterFeatureAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)
+
+  // Check if 'Type of water' is measured in area
+  const isMeasuredInArea = waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[waterFeatureUrl].answers.lakeOrReservoir.answerId || waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[waterFeatureUrl].answers.sea.answerId
+
+  let lessThanAnswer
+  if (isMeasuredInArea) {
+    lessThanAnswer = lessThan100SqMetersAnswer
+  } else {
+    lessThanAnswer = lessThan10MetersAnswer
+  }
+
+  const lessThan10MetersAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES)
+  const lessThan100SqMetersAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
+
+  // Check if 'Size (estimated)' field is required
+  let isSizeEstimatedRequired = true
+  if (lessThan10MetersAnswerData !== null && lessThan10MetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[lessThan10MetersUrl].answers.yes.answerId) {
+    isSizeEstimatedRequired = false
+  } else if (lessThan100SqMetersAnswerData !== null && lessThan100SqMetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions[lessThan100SqMetersUrl].answers.yes.answerId) {
+    isSizeEstimatedRequired = false
+  } else {
+    // do nothing for sonarcloud
+  }
+
+  // Get answer for 'Size (estimated)' question
   const pollutionLengthURL = 'WATER_POLLUTION_POLLUTION_LENGTH'
   const pollutionLengthAnswer = getData(request, pollutionLengthURL)
+
+  const pollutionAreaURL = 'WATER_POLLUTION_POLLUTION_AREA'
+  const pollutionAreaAnswer = getData(request, pollutionAreaURL)
+
+  let sizeEstimatedAnswer
+  if (isSizeEstimatedRequired) {
+    if (pollutionLengthAnswer !== null && pollutionLengthAnswer) {
+      sizeEstimatedAnswer = pollutionLengthAnswer
+    } else if (pollutionAreaAnswer !== null && pollutionAreaAnswer) {
+      sizeEstimatedAnswer = pollutionAreaAnswer
+    } else {
+      // do nothing for sonarcloud
+    }
+  }
 
   return {
     waterFeatureAnswer,
     locationAnswer,
-    lessThan10MetersAnswer,
-    pollutionLengthAnswer
+    lessThanAnswer,
+    isMeasuredInArea,
+    isSizeEstimatedRequired,
+    sizeEstimatedAnswer
   }
 }
 
