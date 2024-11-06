@@ -12,6 +12,7 @@
         name: "somethingElseDetail",
         spellcheck: false,
         classes: "govuk-!-width-two-third",
+        value: getAnswer(answers, question.answers.somethingElseDetail.answerId),
         label: {
           text: question.answers.somethingElseDetail.text
         }
@@ -35,19 +36,23 @@
       items: [
         {
           value: question.answers.cloudy.answerId,
-          text: question.answers.cloudy.text
+          text: question.answers.cloudy.text,
+          checked: getAnswer(answers, question.answers.cloudy.answerId)
         },
         {
           value: question.answers.rainbow.answerId,
-          text: question.answers.rainbow.text
+          text: question.answers.rainbow.text,
+          checked: getAnswer(answers, question.answers.rainbow.answerId)
         },
         {
           value: question.answers.scum.answerId,
-          text: question.answers.scum.text
+          text: question.answers.scum.text,
+          checked: getAnswer(answers, question.answers.scum.answerId)
         },
         {
           value: question.answers.somethingElse.answerId,
           text: question.answers.somethingElse.text,
+          checked: getAnswer(answers, question.answers.somethingElse.answerId),
           conditional: {
             html: otherHtml
           }

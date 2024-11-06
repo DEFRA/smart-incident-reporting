@@ -10,10 +10,21 @@ const baseAnswer = {
   questionResponse: true
 }
 
+const sessionData = {
+  'water-pollution/location-option': [{
+    questionId: baseAnswer.questionId,
+    answerId: question.answers.description.answerId
+  }]
+}
+
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       await submitGetRequest({ url }, 'Where did you see the pollution?')
+    })
+    it(`Should return success response and correct view for ${url}`, async () => {
+      const response = await submitGetRequest({ url }, 'Where did you see the pollution?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="2601" checked>')
     })
   })
   describe('POST', () => {
@@ -32,7 +43,7 @@ describe(url, () => {
         answerId
       }])
     })
-    it('Should accept description option and redirect to water-pollution/location-description', async () => {
+    it('Should accept description option and redirect to water-pollution/location-description even with referrer set', async () => {
       const answerId = question.answers.description.answerId
       const options = {
         url,
@@ -40,7 +51,9 @@ describe(url, () => {
           answerId
         }
       }
-      const response = await submitPostRequest(options)
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
+      })
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LOCATION_DESCRIPTION)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_OPTION)).toEqual([{
         ...baseAnswer,

@@ -13,6 +13,7 @@
         name: "somethingElseDetail",
         spellcheck: false,
         classes: "govuk-!-width-two-third",
+        value: getAnswer(answers, question.answers.somethingElseDetail.answerId),
         label: {
           text: questions.answers.somethingElseDetail.text
         }
@@ -33,23 +34,28 @@
       items: [
         {
           value: question.answers.sewage.answerId,
-          text: question.answers.sewage.text
+          text: question.answers.sewage.text,
+          checked: getAnswer(answers, question.answers.sewage.answerId)
         },
         {
           value: question.answers.chemical.answerId,
-          text: question.answers.chemical.text
+          text: question.answers.chemical.text,
+          checked: getAnswer(answers, question.answers.chemical.answerId)
         },
         {
           value: question.answers.rural.answerId,
-          text: question.answers.rural.text
+          text: question.answers.rural.text,
+          checked: getAnswer(answers, question.answers.rural.answerId)
         },
         {
           value: question.answers.refuse.answerId,
-          text: question.answers.refuse.text
+          text: question.answers.refuse.text,
+          checked: getAnswer(answers, question.answers.refuse.answerId)
         },
         {
           value: question.answers.somethingElse.answerId,
           text: question.answers.somethingElse.text,
+          checked: getAnswer(answers, question.answers.somethingElse.answerId),
           conditional: {
               html: otherHtml
             }
@@ -59,7 +65,8 @@
         },
         {
           value: question.answers.unknown.answerId,
-          text: question.answers.unknown.text
+          text: question.answers.unknown.text,
+          checked: getAnswer(answers, question.answers.unknown.answerId)
         }
       ]
     }) }}

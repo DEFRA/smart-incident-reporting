@@ -11,10 +11,26 @@ const baseAnswer = {
   questionResponse: true
 }
 
+const sessionData = {
+  'water-pollution/source': [{
+    questionId: baseAnswer.questionId,
+    answerId: question.answers.yes.answerId
+  }, {
+    questionId: baseAnswer.questionId,
+    answerId: question.answers.yesDetails.answerId,
+    otherDetails: 'test details'
+  }]
+}
+
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       await submitGetRequest({ url }, header)
+    })
+    it(`Should return success response and correct view for ${url}`, async () => {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('value="101" checked')
+      expect(response.payload).toContain('test details</textarea>')
     })
   })
 

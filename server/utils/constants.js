@@ -40,6 +40,7 @@ const WATER_POLLUTION_POLLUTION_AREA = 'water-pollution/pollution-area'
 const WATER_POLLUTION_POLLUTION_LENGTH = 'water-pollution/pollution-length'
 const WATER_POLLUTION_EFFECT_ON_WILDLIFE = 'water-pollution/effect-on-wildlife'
 const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
+const WATER_POLLUTION_CHECK_YOUR_ANSWERS = 'water-pollution/check-your-answers'
 const WATER_POLLUTION_YOUR_DETAILS = 'water-pollution/your-details'
 
 const SMELL = 'smell'
@@ -67,6 +68,7 @@ const SMELL_OTHER_INFORMATION = 'smell/other-information'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
+const REFERER = 'referer'
 const QUESTION_SET_ID = 'question-set-id'
 
 const views = {
@@ -99,6 +101,7 @@ const views = {
   WATER_POLLUTION_POLLUTION_LENGTH,
   WATER_POLLUTION_EFFECT_ON_WILDLIFE,
   WATER_POLLUTION_OTHER_INFORMATION,
+  WATER_POLLUTION_CHECK_YOUR_ANSWERS,
   WATER_POLLUTION_YOUR_DETAILS,
   SMELL,
   SMELL_LOCATION_HOME,
@@ -135,6 +138,7 @@ for (const [key, value] of Object.entries(views)) {
 const redisKeys = {
   ...views,
   SUBMISSION_TIMESTAMP,
+  REFERER,
   QUESTION_SET_ID
 }
 
@@ -164,6 +168,16 @@ const waterFeatureLabels = {
   507: 'watercourse'
 }
 
+// Pages that set a referrer to return to after next page completion
+const setReferer = [
+  WATER_POLLUTION_CHECK_YOUR_ANSWERS
+]
+
+// Pages that clear a referrer to break the above chain
+const clearReferer = [
+
+]
+
 export default Object.freeze({
   routes,
   views,
@@ -172,5 +186,7 @@ export default Object.freeze({
   redisKeys,
   errorSummary,
   phoneRegex,
-  waterFeatureLabels
+  waterFeatureLabels,
+  setReferer,
+  clearReferer
 })
