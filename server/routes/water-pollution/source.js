@@ -11,9 +11,9 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (_request, h) => {
+  get: async (request, h) => {
     return h.view(constants.views.WATER_POLLUTION_SOURCE, {
-      ...getContext()
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
@@ -23,7 +23,7 @@ const handlers = {
     const errorSummary = validatePayload(answerId, yesDetails)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.WATER_POLLUTION_SOURCE, {
-        ...getContext(),
+        ...getContext(request),
         errorSummary,
         yesChecked: Number(answerId) === question.answers.yes.answerId
       })
@@ -32,16 +32,18 @@ const handlers = {
     // convert answerId to number
     answerId = Number(answerId)
 
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_SOURCE, buildAnswers(answerId, yesDetails))
+    request.yar.set(question.key, buildAnswers(answerId, yesDetails))
 
     // handle redirects
-    return h.redirect(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
+    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
   }
 }
 
-const getContext = () => {
+const getContext = request => {
+  const answers = request.yar.get(question.key)
   return {
-    question
+    question,
+    answers
   }
 }
 
