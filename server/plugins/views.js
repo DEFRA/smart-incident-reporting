@@ -5,7 +5,7 @@ import config from '../utils/config.js'
 import constants from '../utils/constants.js'
 import fs from 'fs'
 import dirname from '../../dirname.cjs'
-import { findErrorMessageById } from '../utils/template-helpers.js'
+import { findErrorMessageById, getAnswer } from '../utils/template-helpers.js'
 const { version } = JSON.parse(fs.readFileSync('./package.json'))
 const analyticsAccount = config.analyticsAccount
 
@@ -25,6 +25,7 @@ export default {
           })
           // Add global functions for view templates
           env.addGlobal('findErrorMessageById', findErrorMessageById)
+          env.addGlobal('getAnswer', getAnswer)
           return next()
         }
       }
