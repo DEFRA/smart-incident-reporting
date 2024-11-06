@@ -22,6 +22,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION)).toEqual(otherInfo)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
     })
   })
 })

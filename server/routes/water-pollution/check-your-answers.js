@@ -57,24 +57,16 @@ const getYourDetails = (request) => {
 // Get answers for 'Location and size of pollution' section
 const getLocationAndSizeOfPollution = (request) => {
   // Get answer for 'Type of water' question
-  const waterFeatureUrl = 'WATER_POLLUTION_WATER_FEATURE'
-  const waterFeatureAnswer = getDataSet(request, waterFeatureUrl)
-
-  console.log('Data for waterFeatureAnswer', waterFeatureAnswer)
+  const waterFeatureAnswer = getDataSet(request, 'WATER_POLLUTION_WATER_FEATURE')
 
   // Do we need to show map or location description
-  const locationOptionUrl = 'WATER_POLLUTION_LOCATION_OPTION'
-  const locationAnswer = getLocationAnswer(request, locationOptionUrl)
+  const locationAnswer = getLocationAnswer(request, 'WATER_POLLUTION_LOCATION_OPTION')
 
   // Get answer for 'Less than 10m in size' question
-  const lessThan10MetersUrl = 'WATER_POLLUTION_LESS_THAN_10_METRES'
-  const lessThan10MetersAnswer = getData(request, lessThan10MetersUrl)
+  const lessThan10MetersAnswer = getData(request, 'WATER_POLLUTION_LESS_THAN_10_METRES')
 
   // Get answer for 'Less than 100 square meters in size' question
-  const lessThan100SqMetersUrl = 'WATER_POLLUTION_LESS_THAN_100_SQ_METRES'
-  const lessThan100SqMetersAnswer = getData(request, lessThan100SqMetersUrl)
-
-  console.log('Data for lessThan100SqMetersAnswer', lessThan100SqMetersAnswer)
+  const lessThan100SqMetersAnswer = getData(request, 'WATER_POLLUTION_LESS_THAN_100_SQ_METRES')
 
   // Check if 'Type of water' is measured in area
   const isMeasuredInArea = getIsMeasuredInArea(request)
@@ -91,19 +83,10 @@ const getLocationAndSizeOfPollution = (request) => {
 
   // Get answer for 'Size (estimated)' question
   if (isSizeEstimatedRequired) {
-    const pollutionLengthURL = 'WATER_POLLUTION_POLLUTION_LENGTH'
-    const pollutionLengthAnswer = getData(request, pollutionLengthURL)
+    const pollutionLengthAnswer = getData(request, 'WATER_POLLUTION_POLLUTION_LENGTH')
+    const pollutionAreaAnswer = getData(request, 'WATER_POLLUTION_POLLUTION_AREA')
 
-    const pollutionAreaURL = 'WATER_POLLUTION_POLLUTION_AREA'
-    const pollutionAreaAnswer = getData(request, pollutionAreaURL)
-
-    if (pollutionLengthAnswer !== null && pollutionLengthAnswer) {
-      sizeEstimatedAnswer = pollutionLengthAnswer
-    } else if (pollutionAreaAnswer !== null && pollutionAreaAnswer) {
-      sizeEstimatedAnswer = pollutionAreaAnswer
-    } else {
-      // do nothing for sonarcloud
-    }
+    sizeEstimatedAnswer = pollutionLengthAnswer || pollutionAreaAnswer
   }
 
   return {
@@ -119,33 +102,22 @@ const getLocationAndSizeOfPollution = (request) => {
 // Get answers for 'About the pollution' section
 const getAboutThePollution = (request) => {
   // Get answer for 'When did you see the pollution?' question
-  const whenUrl = 'WATER_POLLUTION_WHEN'
-  const whenAnswer = getWhenData(request, whenUrl)
+  const whenAnswer = getWhenData(request, 'WATER_POLLUTION_WHEN')
 
   // Get answer for 'What do you think the pollution is?' question
-  const pollutionSubstanceUrl = 'WATER_POLLUTION_POLLUTION_SUBSTANCE'
-  const pollutionSubstanceAnswer = getDataSet(request, pollutionSubstanceUrl)
+  const pollutionSubstanceAnswer = getDataSet(request, 'WATER_POLLUTION_POLLUTION_SUBSTANCE')
 
   // get answer for 'What does the pollution look like?' question
-  const pollutionAppearanceUrl = 'WATER_POLLUTION_POLLUTION_APPEARANCE'
-  const pollutionAppearanceAnswer = getDataSet(request, pollutionAppearanceUrl)
+  const pollutionAppearanceAnswer = getDataSet(request, 'WATER_POLLUTION_POLLUTION_APPEARANCE')
 
   // Get answer for 'Do you know where the pollution is coming from?' question
-  const pollutionSourceUrl = 'WATER_POLLUTION_SOURCE'
-  const pollutionSourceAnswer = getDataSet(request, pollutionSourceUrl)
+  const pollutionSourceAnswer = getDataSet(request, 'WATER_POLLUTION_SOURCE')
 
   // Get answer for 'Have you seen any dead fish or animals?' question
-  const effectOnWildlifeUrl = 'WATER_POLLUTION_EFFECT_ON_WILDLIFE'
-  const effectOnWildlifeAnswer = getDataSet(request, effectOnWildlifeUrl)
+  const effectOnWildlifeAnswer = getDataSet(request, 'WATER_POLLUTION_EFFECT_ON_WILDLIFE')
 
   // Get answer for 'Is there anything else you'd like to add?' question
-  const otherInformationUrl = 'WATER_POLLUTION_OTHER_INFORMATION'
-  const otherInformationAnswerData = request.yar.get(constants.redisKeys[otherInformationUrl])
-  let otherInformationAnswer
-
-  if (otherInformationAnswer !== null && otherInformationAnswerData) {
-    otherInformationAnswer = otherInformationAnswerData
-  }
+  const otherInformationAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION)
 
   return {
     whenAnswer,
@@ -160,13 +132,12 @@ const getAboutThePollution = (request) => {
 // Get data and construct answers for the questions
 const getData = (request, pageUrl) => {
   const recordedAnswer = request.yar.get(constants.redisKeys[pageUrl])
-  console.log('Data for recordedAnswer', recordedAnswer)
-  if (recordedAnswer !== null && recordedAnswer.length === 1) {
+  if (recordedAnswer?.length === 1) {
     const selectedAnswerId = recordedAnswer[0].answerId
     const answerSet = Object.values(questionSets.WATER_POLLUTION.questions[pageUrl].answers)
     const filterAnswer = answerSet.filter(item => item.answerId === selectedAnswerId)
     return filterAnswer[0].shortText || filterAnswer[0].text
-  } else if (recordedAnswer !== null && recordedAnswer.length > 1) {
+  } else if (recordedAnswer?.length > 1) {
     const multiAnswerSet = []
     let otherDetailsData
 
@@ -196,10 +167,10 @@ const getData = (request, pageUrl) => {
 const getDataSet = (request, pageUrl) => {
   const recordedAnswerSet = getData(request, pageUrl)
   let answerData
-  if (recordedAnswerSet !== null && recordedAnswerSet.otherDetails) {
+  if (recordedAnswerSet?.otherDetails) {
     const joinData = recordedAnswerSet.answerText.join('<br>')
     answerData = `${joinData} - ${recordedAnswerSet.otherDetails}`
-  } else if (recordedAnswerSet !== null && recordedAnswerSet.answerText) {
+  } else if (recordedAnswerSet?.answerText) {
     answerData = recordedAnswerSet.answerText.join('<br>')
   } else {
     answerData = recordedAnswerSet
@@ -208,7 +179,7 @@ const getDataSet = (request, pageUrl) => {
   return answerData
 }
 
-// Get data and construct multiple answers for the questions
+// Get either map details or location description
 const getLocationAnswer = (request, pageUrl) => {
   const locationOptionAnswer = getData(request, pageUrl)
   let locationAnswerData
@@ -230,7 +201,7 @@ const getLocationAnswer = (request, pageUrl) => {
 const getIsMeasuredInArea = (request) => {
   const waterFeatureAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)
   let isMeasuredInAreaData = false
-  if (waterFeatureAnswerData !== null && waterFeatureAnswerData) {
+  if (waterFeatureAnswerData) {
     const answerIsLakeorReservoir = waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_WATER_FEATURE.answers.lakeOrReservoir.answerId
     const answerIsSea = waterFeatureAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_WATER_FEATURE.answers.sea.answerId
     isMeasuredInAreaData = answerIsLakeorReservoir || answerIsSea
@@ -245,9 +216,9 @@ const getIsSizeEstimatedRequired = (request) => {
 
   // Check if 'Size (estimated)' field is required
   let isSizeEstimatedRequiredData = false
-  if (lessThan10MetersAnswerData !== null && lessThan10MetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_10_METRES.answers.no.answerId) {
+  if (lessThan10MetersAnswerData && lessThan10MetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_10_METRES.answers.no.answerId) {
     isSizeEstimatedRequiredData = true
-  } else if (lessThan100SqMetersAnswerData !== null && lessThan100SqMetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_100_SQ_METRES.answers.no.answerId) {
+  } else if (lessThan100SqMetersAnswerData && lessThan100SqMetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_100_SQ_METRES.answers.no.answerId) {
     isSizeEstimatedRequiredData = true
   } else {
     // do nothing for sonarcloud
@@ -262,7 +233,7 @@ const getWhenData = (request, pageUrl) => {
   let dateTimeData
   const pollutionDateAndTime = new Date(whenAnswerData)
 
-  if (whenAnswerData !== null && whenAnswerData) {
+  if (whenAnswerData) {
     const checkIfToday = () => {
       const today = new Date()
       return pollutionDateAndTime.getDate() === today.getDate() &&
@@ -282,10 +253,11 @@ const getWhenData = (request, pageUrl) => {
     const isYesterday = checkIfYesterday()
 
     const date = new Date(pollutionDateAndTime)
-    const pollutionTime = date.toLocaleString([], {
+    const pollutionTime = date.toLocaleString('en-GB', {
       hour: '2-digit',
       minute: '2-digit',
-      hour12: true
+      hourCycle: 'h12',
+      timeZone: 'Europe/London'
     })
 
     if (isToday) {
