@@ -24,13 +24,15 @@
         {
           value: question.answers.yes.answerId,
           text: question.answers.yes.text,
+          checked: getAnswer(answers, question.answers.yes.answerId),
           conditional: {
             html: contactHtml
           }
         },
         {
           value: question.answers.no.answerId,
-          text: question.answers.no.text
+          text: question.answers.no.text,
+          checked: getAnswer(answers, question.answers.no.answerId)
         }
       ] 
     }) }} 
