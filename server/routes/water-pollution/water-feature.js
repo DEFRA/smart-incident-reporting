@@ -34,8 +34,20 @@ const handlers = {
 
     // set answer in session
     request.yar.set(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE, buildAnswers(answerId, otherSource))
-
-    return h.redirect(constants.routes.WATER_POLLUTION_LOCATION_OPTION)
+    // handle redirects
+    const refValue = request.yar.get(constants.redisKeys.REFERER)
+    console.log('Data for refValue', refValue)
+    if (refValue) {
+      if (answerId === question.answers.lakeOrReservoir.answerId || answerId === question.answers.sea.answerId) {
+        request.yar.clear(constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES)
+        return h.redirect(constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
+      } else {
+        request.yar.clear(constants.redisKeys.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
+        return h.redirect(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
+      }
+    } else {
+      return h.redirect(constants.routes.WATER_POLLUTION_LOCATION_OPTION)
+    }
   }
 }
 

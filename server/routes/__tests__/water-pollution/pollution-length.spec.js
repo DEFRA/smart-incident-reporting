@@ -56,5 +56,22 @@ describe(url, () => {
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Select your estimated length, or that you do not know')
     })
+    it('Happy: For CYA journey, accepts valid answer and redirects to check-your-answers', async () => {
+      const answerId = question.answers.stretches10to100m.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
+      })
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_LENGTH)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
   })
 })
