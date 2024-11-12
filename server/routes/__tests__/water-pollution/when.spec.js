@@ -70,6 +70,68 @@ describe(url, () => {
       expect(response.payload).toContain(`<input class="govuk-input govuk-input--width-2" id="minute-2" name="minute" type="text" inputmode="numeric" value="${context.minute}">`)
       expect(response.payload).toContain(`<option value="${context.period}" selected>${context.period}</option>`)
     })
+    it('Should show earlier date in correct inputs on return to page with an am time in GMT', async () => {
+      const earlier = new Date('2024-11-01T10:00:00.000Z')
+      const session = {
+        'water-pollution/when': earlier.toISOString()
+      }
+
+      // const context = getDateContext(earlier)
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, session)
+      expect(response.payload).toContain('id="date-day" name="date-day" type="text" value="1" inputmode="numeric">')
+      expect(response.payload).toContain('id="date-month" name="date-month" type="text" value="11" inputmode="numeric">')
+      expect(response.payload).toContain('id="date-year" name="date-year" type="text" value="2024" inputmode="numeric">')
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="current-3" name="current" type="radio" value="2" checked data-aria-controls="conditional-current-3">')
+      expect(response.payload).toContain('<input class="govuk-input govuk-input--width-2" id="hour-2" name="hour" type="text" inputmode="numeric" value="10">')
+      expect(response.payload).toContain('<input class="govuk-input govuk-input--width-2" id="minute-2" name="minute" type="text" inputmode="numeric" value="00">')
+      expect(response.payload).toContain('<option value="am" selected>am</option>')
+    })
+    it('Should show earlier date in correct inputs on return to page with a pm time in GMT', async () => {
+      const earlier = new Date('2024-11-01T16:00:00.000Z')
+      const session = {
+        'water-pollution/when': earlier.toISOString()
+      }
+
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, session)
+      expect(response.payload).toContain('id="date-day" name="date-day" type="text" value="1" inputmode="numeric">')
+      expect(response.payload).toContain('id="date-month" name="date-month" type="text" value="11" inputmode="numeric">')
+      expect(response.payload).toContain('id="date-year" name="date-year" type="text" value="2024" inputmode="numeric">')
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="current-3" name="current" type="radio" value="2" checked data-aria-controls="conditional-current-3">')
+      expect(response.payload).toContain('<input class="govuk-input govuk-input--width-2" id="hour-2" name="hour" type="text" inputmode="numeric" value="4">')
+      expect(response.payload).toContain('<input class="govuk-input govuk-input--width-2" id="minute-2" name="minute" type="text" inputmode="numeric" value="00">')
+      expect(response.payload).toContain('<option value="pm" selected>pm</option>')
+    })
+    it('Should show earlier date in correct inputs on return to page with an am time in BST', async () => {
+      const earlier = new Date('2024-07-01T10:00:00.000Z')
+      const session = {
+        'water-pollution/when': earlier.toISOString()
+      }
+
+      // const context = getDateContext(earlier)
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, session)
+      expect(response.payload).toContain('id="date-day" name="date-day" type="text" value="1" inputmode="numeric">')
+      expect(response.payload).toContain('id="date-month" name="date-month" type="text" value="7" inputmode="numeric">')
+      expect(response.payload).toContain('id="date-year" name="date-year" type="text" value="2024" inputmode="numeric">')
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="current-3" name="current" type="radio" value="2" checked data-aria-controls="conditional-current-3">')
+      expect(response.payload).toContain('<input class="govuk-input govuk-input--width-2" id="hour-2" name="hour" type="text" inputmode="numeric" value="11">')
+      expect(response.payload).toContain('<input class="govuk-input govuk-input--width-2" id="minute-2" name="minute" type="text" inputmode="numeric" value="00">')
+      expect(response.payload).toContain('<option value="am" selected>am</option>')
+    })
+    it('Should show earlier date in correct inputs on return to page with a pm time in BST', async () => {
+      const earlier = new Date('2024-07-01T16:00:00.000Z')
+      const session = {
+        'water-pollution/when': earlier.toISOString()
+      }
+
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, session)
+      expect(response.payload).toContain('id="date-day" name="date-day" type="text" value="1" inputmode="numeric">')
+      expect(response.payload).toContain('id="date-month" name="date-month" type="text" value="7" inputmode="numeric">')
+      expect(response.payload).toContain('id="date-year" name="date-year" type="text" value="2024" inputmode="numeric">')
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="current-3" name="current" type="radio" value="2" checked data-aria-controls="conditional-current-3">')
+      expect(response.payload).toContain('<input class="govuk-input govuk-input--width-2" id="hour-2" name="hour" type="text" inputmode="numeric" value="5">')
+      expect(response.payload).toContain('<input class="govuk-input govuk-input--width-2" id="minute-2" name="minute" type="text" inputmode="numeric" value="00">')
+      expect(response.payload).toContain('<option value="pm" selected>pm</option>')
+    })
   })
 
   describe('POST', () => {
