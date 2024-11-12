@@ -233,8 +233,9 @@ const getDateContext = answer => {
       date.getMonth() === yesterday.getMonth() &&
       date.getFullYear() === yesterday.getFullYear()
 
-    // todo here, if we have an answer then get istoday, isyesteday, else
-    // Then get locale date string and get datepart for each field
+    const twelve = 12
+    const thirteen = 13
+
     context = {
       isToday,
       isYesterday,
@@ -242,9 +243,9 @@ const getDateContext = answer => {
       day: date.getDate(),
       month: date.getMonth() + 1,
       year: date.getFullYear(),
-      hour: date.getHours() < 13 ? date.getHours() : date.getHours() - 12,
+      hour: date.getHours() < thirteen ? date.getHours() : date.getHours() - twelve,
       minute: date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes(),
-      period: date.getHours() < 12 ? 'am' : 'pm',
+      period: date.getHours() < twelve ? 'am' : 'pm',
       isPageReturn: true
     }
   }
