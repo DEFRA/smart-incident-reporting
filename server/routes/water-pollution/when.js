@@ -5,16 +5,18 @@ import {
   fieldErrorClasses,
   getDateErrors,
   getTimeErrors,
-  validatePayload
+  validatePayload,
+  getDateContext
 } from '../../utils/date-helpers.js'
 
 const handlers = {
-  get: async (_request, h) => {
+  get: async (request, h) => {
     return h.view(constants.views.WATER_POLLUTION_WHEN, {
       fieldErrorClasses,
       getDateErrors,
       getTimeErrors,
-      validateAndError: dateValidateAndError()
+      validateAndError: dateValidateAndError(),
+      ...getDateContext(request.yar.get(constants.redisKeys.WATER_POLLUTION_WHEN))
     })
   },
   post: async (request, h) => {
@@ -71,7 +73,7 @@ const handlers = {
 
     request.yar.set(constants.redisKeys.WATER_POLLUTION_WHEN, dateTime.toISOString())
 
-    return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
+    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
   }
 }
 

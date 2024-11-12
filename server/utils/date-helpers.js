@@ -216,10 +216,46 @@ const returnError = (errorSummary, validateAndError, text, href, invalidDate, in
   }
 }
 
+const getDateContext = answer => {
+  let context = {}
+  if (answer) {
+    const today = new Date()
+    const yesterday = new Date()
+    yesterday.setDate(yesterday.getDate() - 1)
+
+    const date = new Date(answer)
+
+    const isToday = date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+
+    const isYesterday = date.getDate() === yesterday.getDate() &&
+      date.getMonth() === yesterday.getMonth() &&
+      date.getFullYear() === yesterday.getFullYear()
+
+    // todo here, if we have an answer then get istoday, isyesteday, else
+    // Then get locale date string and get datepart for each field
+    context = {
+      isToday,
+      isYesterday,
+      isEarlier: !(isToday || isYesterday),
+      day: date.getDate(),
+      month: date.getMonth() + 1,
+      year: date.getFullYear(),
+      hour: date.getHours() < 13 ? date.getHours() : date.getHours() - 12,
+      minute: date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes(),
+      period: date.getHours() < 12 ? 'am' : 'pm',
+      isPageReturn: true
+    }
+  }
+  return context
+}
+
 export {
   dateValidateAndError,
   fieldErrorClasses,
   getDateErrors,
   getTimeErrors,
-  validatePayload
+  validatePayload,
+  getDateContext
 }
