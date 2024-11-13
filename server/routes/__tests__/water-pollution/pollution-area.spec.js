@@ -15,6 +15,16 @@ describe(url, () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       await submitGetRequest({ url }, question.text)
     })
+    it(`Should return success response and correct view when 100 to 500 metres is selected for ${url}`, async () => {
+      const sessionData = {
+        'water-pollution/pollution-area': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.over500sqm.answerId
+        }]
+      }
+      const response = await submitGetRequest({ url }, 'How large an area does the pollution cover?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="302" checked>')
+    })
   })
   describe('POST', () => {
     it('Happy: accepts valid answer and redirects to other information', async () => {

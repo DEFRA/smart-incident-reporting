@@ -30,6 +30,25 @@ describe(url, () => {
       sessionData[constants.redisKeys.WATER_POLLUTION_WATER_FEATURE][0].answerId = 505
       await submitGetRequest({ url }, 'How far along the watercourse does the pollution spread?', constants.statusCodes.OK, sessionData)
     })
+    it(`Should return success response and correct view when 100 to 500 metres is selected for ${url}`, async () => {
+      let sessionData = {
+        'water-pollution/pollution-length': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.stretches100to500m.answerId
+        }]
+      }
+      const answerData = {
+        'water-pollution/water-feature': [{
+          questionId: 500,
+          questionAsked: 'In what kind of water is the pollution?',
+          questionResponse: true,
+          answerId: 501
+        }]
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, 'How far along the river does the pollution spread?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="402" checked>')
+    })
   })
   describe('POST', () => {
     it('Happy: accepts valid answer and redirects to width', async () => {
