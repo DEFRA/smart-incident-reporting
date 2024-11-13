@@ -23,7 +23,7 @@
               <label class="govuk-label" for="hour-0">
                 Hour
               </label>
-              <input class="{{ fieldErrorClasses(validateAndError.hour, 'govuk-input govuk-input--width-2') }}" id="hour-0" name="hour" type="text" inputmode="numeric" value="{{ validateAndError.hour.value }}">
+              <input class="{{ fieldErrorClasses(validateAndError.hour, 'govuk-input govuk-input--width-2') }}" id="hour-0" name="hour" type="text" inputmode="numeric" value="{{ hour if isToday else validateAndError.hour.value }}">
             </div>
           </div>
           <div class="govuk-time-input__item govuk-time-input__item__separator">
@@ -34,7 +34,7 @@
               <label class="govuk-label" for="minute-0">
                 Minute
               </label>
-              <input class="{{ fieldErrorClasses(validateAndError.minute, 'govuk-input govuk-input--width-2') }}" id="minute-0" name="minute" type="text" inputmode="numeric" value="{{ validateAndError.minute.value }}">
+              <input class="{{ fieldErrorClasses(validateAndError.minute, 'govuk-input govuk-input--width-2') }}" id="minute-0" name="minute" type="text" inputmode="numeric" value="{{ minute if isToday else validateAndError.minute.value }}">
             </div>
           </div>
           <div class="govuk-time-input__item">
@@ -44,8 +44,8 @@
               </label>
               <select class="govuk-select govuk-select--custom-time {% if (validateAndError.period.isEmpty) %}govuk-select--error{% endif %} {% if not validateAndError.period.isValid %}govuk-select--error{% endif %}" id="period-0" name="period">
                 <option value="" selected>&nbsp;</option>
-                <option value="am" {% if validateAndError.period.value === 'am' %}selected{% endif %}>am</option>
-                <option value="pm" {% if validateAndError.period.value === 'pm' %}selected{% endif %}>pm</option>
+                <option value="am" {% if (isToday and period === 'am') or validateAndError.period.value === 'am' %}selected{% endif %}>am</option>
+                <option value="pm" {% if (isToday and period === 'pm') or validateAndError.period.value === 'pm' %}selected{% endif %}>pm</option>
               </select>
             </div>
           </div>
@@ -74,7 +74,7 @@
               <label class="govuk-label" for="hour-1">
                 Hour
               </label>
-              <input class="{{ fieldErrorClasses(validateAndError.hour, 'govuk-input govuk-input--width-2') }}" id="hour-1" name="hour" type="text" inputmode="numeric" value="{{ validateAndError.hour.value }}">
+              <input class="{{ fieldErrorClasses(validateAndError.hour, 'govuk-input govuk-input--width-2') }}" id="hour-1" name="hour" type="text" inputmode="numeric" value="{{ hour if isYesterday else validateAndError.hour.value }}">
             </div>
           </div>
           <div class="govuk-time-input__item govuk-time-input__item__separator">
@@ -85,7 +85,7 @@
               <label class="govuk-label" for="minute-1">
                 Minute
               </label>
-              <input class="{{ fieldErrorClasses(validateAndError.minute, 'govuk-input govuk-input--width-2') }}" id="minute-1" name="minute" type="text" inputmode="numeric" value="{{ validateAndError.minute.value }}">
+              <input class="{{ fieldErrorClasses(validateAndError.minute, 'govuk-input govuk-input--width-2') }}" id="minute-1" name="minute" type="text" inputmode="numeric" value="{{ minute if isYesterday else validateAndError.minute.value }}">
             </div>
           </div>
           <div class="govuk-time-input__item">
@@ -95,8 +95,8 @@
               </label>
               <select class="govuk-select govuk-select--custom-time {% if (validateAndError.period.isEmpty) %}govuk-select--error{% endif %} {% if not validateAndError.period.isValid %}govuk-select--error{% endif %}" id="period-1" name="period">
                 <option value="" selected>&nbsp;</option>
-                <option value="am" {% if validateAndError.period.value === 'am' %}selected{% endif %}>am</option>
-                <option value="pm" {% if validateAndError.period.value === 'pm' %}selected{% endif %}>pm</option>
+                <option value="am" {% if (isYesterday and period === 'am') or validateAndError.period.value === 'am' %}selected{% endif %}>am</option>
+                <option value="pm" {% if (isYesterday and period === 'pm') or validateAndError.period.value === 'pm' %}selected{% endif %}>pm</option>
               </select>
             </div>
           </div>
@@ -120,17 +120,17 @@
         {
           classes: fieldErrorClasses(validateAndError.day, 'govuk-input--width-2'),
           name: "day",
-          value: validateAndError.day.value
+          value: day if isEarlier else validateAndError.day.value
         },
         {
           classes: fieldErrorClasses(validateAndError.month, 'govuk-input--width-2'),
           name: "month",
-          value: validateAndError.month.value
+          value: month if isEarlier else validateAndError.month.value
         },
         {
           classes: fieldErrorClasses(validateAndError.year, 'govuk-input--width-4'),
           name: "year",
-          value: validateAndError.year.value
+          value: year if isEarlier else validateAndError.year.value
         }
       ]
     }) }}
@@ -153,7 +153,7 @@
               <label class="govuk-label" for="hour-2">
                 Hour
               </label>
-              <input class="{{ fieldErrorClasses(validateAndError.hour, 'govuk-input govuk-input--width-2') }}" id="hour-2" name="hour" type="text" inputmode="numeric" value="{{ validateAndError.hour.value }}">
+              <input class="{{ fieldErrorClasses(validateAndError.hour, 'govuk-input govuk-input--width-2') }}" id="hour-2" name="hour" type="text" inputmode="numeric" value="{{ hour if isEarlier else validateAndError.hour.value }}">
             </div>
           </div>
           <div class="govuk-time-input__item govuk-time-input__item__separator">
@@ -164,7 +164,7 @@
               <label class="govuk-label" for="minute-2">
                 Minute
               </label>
-              <input class="{{ fieldErrorClasses(validateAndError.minute, 'govuk-input govuk-input--width-2') }}" id="minute-2" name="minute" type="text" inputmode="numeric" value="{{ validateAndError.minute.value }}">
+              <input class="{{ fieldErrorClasses(validateAndError.minute, 'govuk-input govuk-input--width-2') }}" id="minute-2" name="minute" type="text" inputmode="numeric" value="{{ minute if isEarlier else validateAndError.minute.value }}">
             </div>
           </div>
           <div class="govuk-time-input__item">
@@ -174,8 +174,8 @@
               </label>
               <select class="govuk-select govuk-select--custom-time {% if (validateAndError.period.isEmpty) %}govuk-select--error{% endif %} {% if not validateAndError.period.isValid %}govuk-select--error{% endif %}" id="period-2" name="period">
                 <option value="" selected>&nbsp;</option>
-                <option value="am" {% if validateAndError.period.value === 'am' %}selected{% endif %}>am</option>
-                <option value="pm" {% if validateAndError.period.value === 'pm' %}selected{% endif %}>pm</option>
+                <option value="am" {% if (isEarlier and period === 'am') or validateAndError.period.value === 'am' %}selected{% endif %}>am</option>
+                <option value="pm" {% if (isEarlier and period === 'pm') or validateAndError.period.value === 'pm' %}selected{% endif %}>pm</option>
               </select>
             </div>
           </div>
@@ -193,7 +193,7 @@
         {
           value: 0,
           text: "Today",
-          checked: current === '0',
+          checked: (current === '0' or isToday),
           conditional: {
             html: todayHtml
           }
@@ -201,7 +201,7 @@
         {
           value: 1,
           text: "Yesterday",
-          checked: current === '1',
+          checked: (current === '1' or isYesterday),
           conditional: {
             html: yesterdayHtml
           }
@@ -209,7 +209,7 @@
         {
           value: 2,
           text: "Before then",
-          checked: current === '2',
+          checked: (current === '2' or isEarlier),
           conditional: {
             html: dateHtml
           }
