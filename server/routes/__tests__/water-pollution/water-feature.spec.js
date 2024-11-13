@@ -16,6 +16,41 @@ describe(url, () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       await submitGetRequest({ url }, header)
     })
+    it(`Should return success response and correct view when a river is selected for ${url}`, async () => {
+      const sessionData = {
+        'water-pollution/water-feature': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.river.answerId
+        }]
+      }
+      const response = await submitGetRequest({ url }, 'In what kind of water is the pollution?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId" name="answerId" type="radio" value="501" checked>')
+    })
+    it(`Should return success response and correct view when the sea is selected for ${url}`, async () => {
+      const sessionData = {
+        'water-pollution/water-feature': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.sea.answerId
+        }]
+      }
+      const response = await submitGetRequest({ url }, 'In what kind of water is the pollution?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-3" name="answerId" type="radio" value="503" checked>')
+    })
+    it(`Should return success response and correct view when something else is selected for ${url}`, async () => {
+      const sessionData = {
+        'water-pollution/water-feature': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.somethingElse.answerId
+        }, {
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.somethingElseDetails.answerId,
+          otherDetails: 'test details'
+        }]
+      }
+      const response = await submitGetRequest({ url }, 'In what kind of water is the pollution?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-6" name="answerId" type="radio" value="506" checked data-aria-controls="conditional-answerId-6">')
+      expect(response.payload).toContain('value="test details">')
+    })
   })
   describe('POST', () => {
     it('Happy: accepts valid answerId of sea or lake/reservoir and redirects to pollution-location', async () => {

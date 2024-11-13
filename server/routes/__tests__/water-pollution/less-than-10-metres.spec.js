@@ -30,6 +30,44 @@ describe(url, () => {
       sessionData[constants.redisKeys.WATER_POLLUTION_WATER_FEATURE][0].answerId = 505
       await submitGetRequest({ url }, 'Does the pollution spread less than 10 metres along the watercourse?', constants.statusCodes.OK, sessionData)
     })
+    it(`Should return success response and correct view when yes is selected for ${url}`, async () => {
+      let sessionData = {
+        'water-pollution/less-than-10-metres': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.yes.answerId
+        }]
+      }
+      const answerData = {
+        'water-pollution/water-feature': [{
+          questionId: 500,
+          questionAsked: 'In what kind of water is the pollution?',
+          questionResponse: true,
+          answerId: 501
+        }]
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, 'Does the pollution spread less than 10 metres along the river?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId" name="answerId" type="radio" value="701" checked>')
+    })
+    it(`Should return success response and correct view when no is selected for ${url}`, async () => {
+      let sessionData = {
+        'water-pollution/less-than-10-metres': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.no.answerId
+        }]
+      }
+      const answerData = {
+        'water-pollution/water-feature': [{
+          questionId: 500,
+          questionAsked: 'In what kind of water is the pollution?',
+          questionResponse: true,
+          answerId: 504
+        }]
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, 'Does the pollution spread less than 10 metres along the canal?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="702" checked>')
+    })
   })
   describe('POST', () => {
     it('Happy: accepts yes and redirects to other information', async () => {

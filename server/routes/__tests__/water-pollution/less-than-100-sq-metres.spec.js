@@ -16,6 +16,26 @@ describe(url, () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       await submitGetRequest({ url }, header)
     })
+    it(`Should return success response and correct view when yes is selected for ${url}`, async () => {
+      const sessionData = {
+        'water-pollution/less-than-100-sq-metres': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.yes.answerId
+        }]
+      }
+      const response = await submitGetRequest({ url }, 'Does the pollution cover an area less than 100 square metres in size?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId" name="answerId" type="radio" value="801" checked>')
+    })
+    it(`Should return success response and correct view when no is selected for ${url}`, async () => {
+      const sessionData = {
+        'water-pollution/less-than-100-sq-metres': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.no.answerId
+        }]
+      }
+      const response = await submitGetRequest({ url }, 'Does the pollution cover an area less than 100 square metres in size?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="802" checked>')
+    })
   })
   describe('POST', () => {
     it('Happy: accepts yes and redirects to other information', async () => {
