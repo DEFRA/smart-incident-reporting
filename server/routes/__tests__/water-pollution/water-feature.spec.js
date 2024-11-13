@@ -50,12 +50,12 @@ describe(url, () => {
     })
     it('Happy: accepts valid answerId of something else with further details ', async () => {
       const answerId = question.answers.somethingElse.answerId
-      const otherSource = 'test other details'
+      const somethingElseDetails = 'test other details'
       const options = {
         url,
         payload: {
           answerId,
-          otherSource
+          somethingElseDetails
         }
       }
       const response = await submitPostRequest(options)
@@ -66,7 +66,7 @@ describe(url, () => {
       }, {
         ...baseAnswer,
         answerId: question.answers.somethingElseDetails.answerId,
-        otherDetails: otherSource
+        otherDetails: somethingElseDetails
       }])
     })
     it('Sad: errors on no answerId', async () => {
