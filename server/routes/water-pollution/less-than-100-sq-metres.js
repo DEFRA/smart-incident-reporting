@@ -11,9 +11,9 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (_request, h) => {
+  get: async (request, h) => {
     return h.view(constants.views.WATER_POLLUTION_LESS_THAN_100_SQ_METRES, {
-      ...getContext()
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
@@ -24,7 +24,7 @@ const handlers = {
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.WATER_POLLUTION_LESS_THAN_100_SQ_METRES, {
         errorSummary,
-        ...getContext()
+        ...getContext(request)
       })
     }
 
@@ -53,9 +53,11 @@ const handlers = {
   }
 }
 
-const getContext = () => {
+const getContext = (request) => {
+  const answers = request.yar.get(question.key)
   return {
-    question
+    question,
+    answers
   }
 }
 

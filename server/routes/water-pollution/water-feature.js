@@ -11,21 +11,21 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (_request, h) => {
+  get: async (request, h) => {
     return h.view(constants.views.WATER_POLLUTION_WATER_FEATURE, {
-      ...getContext()
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
     // get payload
-    let { answerId, otherSource } = request.payload
+    let { answerId, somethingElseDetails } = request.payload
 
     // validate payload for errors
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.WATER_POLLUTION_WATER_FEATURE, {
         errorSummary,
-        ...getContext()
+        ...getContext(request)
       })
     }
 
@@ -33,10 +33,9 @@ const handlers = {
     answerId = Number(answerId)
 
     // set answer in session
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE, buildAnswers(answerId, otherSource))
+    request.yar.set(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE, buildAnswers(answerId, somethingElseDetails))
     // handle redirects
     const refValue = request.yar.get(constants.redisKeys.REFERER)
-    console.log('Data for refValue', refValue)
     if (refValue) {
       if (answerId === question.answers.lakeOrReservoir.answerId || answerId === question.answers.sea.answerId) {
         request.yar.clear(constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES)
@@ -51,27 +50,29 @@ const handlers = {
   }
 }
 
-const buildAnswers = (answerId, otherSource) => {
+const buildAnswers = (answerId, somethingElseDetails) => {
   const answers = []
   answers.push({
     ...baseAnswer,
     answerId
   })
 
-  if (answerId === question.answers.somethingElse.answerId && otherSource) {
+  if (answerId === question.answers.somethingElse.answerId && somethingElseDetails) {
     answers.push({
       ...baseAnswer,
       answerId: question.answers.somethingElseDetails.answerId,
-      otherDetails: otherSource
+      otherDetails: somethingElseDetails
     })
   }
 
   return answers
 }
 
-const getContext = () => {
+const getContext = request => {
+  const answers = request.yar.get(question.key)
   return {
-    question
+    question,
+    answers
   }
 }
 
