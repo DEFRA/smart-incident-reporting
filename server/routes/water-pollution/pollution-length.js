@@ -36,7 +36,7 @@ const handlers = {
     request.yar.set(constants.redisKeys.WATER_POLLUTION_POLLUTION_LENGTH, buildAnswers(answerId))
 
     // handle redirection
-    return h.redirect(constants.routes.WATER_POLLUTION_EFFECT_ON_WILDLIFE)
+    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_EFFECT_ON_WILDLIFE)
   }
 }
 
@@ -51,9 +51,11 @@ const buildAnswers = answerId => {
 
 const getContext = request => {
   const waterFeature = constants.waterFeatureLabels[request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)[0].answerId]
+  const answers = request.yar.get(question.key)
   return {
     question,
-    waterFeature
+    waterFeature,
+    answers
   }
 }
 
