@@ -1,6 +1,7 @@
 import constants from '../../utils/constants.js'
 import bngToNgr from '../../utils/bng-to-ngr.js'
 import { questionSets } from '../../utils/question-sets.js'
+import { oSGBToWGS84 } from '../../utils/transform-point.js'
 
 const question = questionSets.SMELL.questions.SMELL_LOCATION_MAP
 const baseAnswer = {
@@ -27,7 +28,9 @@ const handlers = {
       })
     }
 
-    request.yar.set(constants.redisKeys.SMELL_LOCATION_MAP, buildAnswers(point))
+    const lngLat = oSGBToWGS84(point)
+
+    request.yar.set(constants.redisKeys.SMELL_LOCATION_MAP, buildAnswers(point, lngLat))
 
     // handle redirects
     return h.redirect(constants.routes.SMELL_PREVIOUS)
@@ -40,7 +43,7 @@ const getContext = () => {
   }
 }
 
-const buildAnswers = point => {
+const buildAnswers = (point, lngLat) => {
   const ngr = bngToNgr(point).text
   return [{
     ...baseAnswer,
@@ -54,6 +57,14 @@ const buildAnswers = point => {
     ...baseAnswer,
     answerId: question.answers.northing.answerId,
     otherDetails: Math.floor(point[1]).toString()
+  }, {
+    ...baseAnswer,
+    answerId: question.answers.lng.answerId,
+    otherDetails: lngLat[0].toFixed(6)
+  }, {
+    ...baseAnswer,
+    answerId: question.answers.lat.answerId,
+    otherDetails: lngLat[1].toFixed(6)
   }]
 }
 
