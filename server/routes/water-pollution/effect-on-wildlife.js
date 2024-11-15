@@ -42,7 +42,6 @@ const handlers = {
 
 const getContext = (request) => {
   const answers = request.yar.get(question.key)
-  console.log('Data for answers', answers)
   return {
     question,
     answers
