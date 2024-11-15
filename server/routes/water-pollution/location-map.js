@@ -45,6 +45,7 @@ const getContext = () => {
 
 const buildAnswers = (point, lngLat) => {
   const ngr = bngToNgr(point).text
+  const six = 6
   return [{
     ...baseAnswer,
     answerId: question.answers.nationalGridReference.answerId,
@@ -60,11 +61,11 @@ const buildAnswers = (point, lngLat) => {
   }, {
     ...baseAnswer,
     answerId: question.answers.lng.answerId,
-    otherDetails: lngLat[0].toFixed(6)
+    otherDetails: lngLat[0].toFixed(six)
   }, {
     ...baseAnswer,
     answerId: question.answers.lat.answerId,
-    otherDetails: lngLat[1].toFixed(6)
+    otherDetails: lngLat[1].toFixed(six)
   }]
 }
 
