@@ -26,9 +26,12 @@ const handlers = {
         noPoint: true
       })
     }
+
+    request.yar.set(question.key, buildAnswers(point))
+
     const checkData = buildAnswers(point)
     console.log('Data for checkData', checkData)
-    request.yar.set(question.key, buildAnswers(point))
+
     // handle redirects
     return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_WHEN)
   }
