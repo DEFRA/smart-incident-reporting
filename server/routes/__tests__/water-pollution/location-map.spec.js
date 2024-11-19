@@ -51,10 +51,12 @@ describe(url, () => {
         payload: {
           point
         }
-      }
+      } 
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
         referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
       })
+      const checkData = response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP)
+      console.log('Data for checkData', checkData)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP)).toEqual([{
         ...baseAnswer,
