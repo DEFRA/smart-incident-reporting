@@ -260,6 +260,12 @@ const questionSets = {
           },
           northing: {
             answerId: 2703
+          },
+          lng: {
+            answerId: 2704
+          },
+          lat: {
+            answerId: 2705
           }
         }
       },
@@ -491,6 +497,12 @@ const questionSets = {
           },
           northing: {
             answerId: 2703
+          },
+          lng: {
+            answerId: 2704
+          },
+          lat: {
+            answerId: 2705
           }
         }
       },
