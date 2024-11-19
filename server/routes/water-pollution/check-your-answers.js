@@ -117,7 +117,7 @@ const getAboutThePollution = (request) => {
   const effectOnWildlifeAnswer = getDataSet(request, 'WATER_POLLUTION_EFFECT_ON_WILDLIFE')
 
   // Get answer for 'Is there anything else you'd like to add?' question
-  const otherInformationAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION)
+  const otherInformationAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION) || 'No'
 
   return {
     whenAnswer,

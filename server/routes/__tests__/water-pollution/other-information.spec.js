@@ -9,6 +9,13 @@ describe(url, () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       await submitGetRequest({ url }, header)
     })
+    it(`Should return success response and correct view with prefilled data for ${url}`, async () => {
+      const sessionData = {
+        'water-pollution/other-information': 'Details of other information'
+      }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('Details of other information</textarea')
+    })
   })
 
   describe('POST', () => {
