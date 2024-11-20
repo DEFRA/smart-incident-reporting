@@ -1,6 +1,7 @@
 import constants from '../../utils/constants.js'
 import bngToNgr from '../../utils/bng-to-ngr.js'
 import { questionSets } from '../../utils/question-sets.js'
+import { oSGBToWGS84 } from '../../utils/transform-point.js'
 
 const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LOCATION_MAP
 const baseAnswer = {
@@ -27,7 +28,9 @@ const handlers = {
       })
     }
 
-    request.yar.set(question.key, buildAnswers(point))
+    const lngLat = oSGBToWGS84(point)
+
+    request.yar.set(question.key, buildAnswers(point, lngLat))
 
     // handle redirects
     return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_WHEN)
@@ -47,8 +50,9 @@ const getContext = request => {
   }
 }
 
-const buildAnswers = point => {
+const buildAnswers = (point, lngLat) => {
   const ngr = bngToNgr(point).text
+  const six = 6
   return [{
     ...baseAnswer,
     answerId: question.answers.nationalGridReference.answerId,
@@ -61,6 +65,14 @@ const buildAnswers = point => {
     ...baseAnswer,
     answerId: question.answers.northing.answerId,
     otherDetails: Math.floor(point[1]).toString()
+  }, {
+    ...baseAnswer,
+    answerId: question.answers.lng.answerId,
+    otherDetails: lngLat[0].toFixed(six)
+  }, {
+    ...baseAnswer,
+    answerId: question.answers.lat.answerId,
+    otherDetails: lngLat[1].toFixed(six)
   }]
 }
 

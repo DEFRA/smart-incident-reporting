@@ -41,6 +41,14 @@ describe(url, () => {
         ...baseAnswer,
         answerId: question.answers.northing.answerId,
         otherDetails: '343015'
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.lng.answerId,
+        otherDetails: '-2.511745'
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.lat.answerId,
+        otherDetails: '52.983397'
       }])
     })
     it('Sad: errors on no point provided', async () => {
