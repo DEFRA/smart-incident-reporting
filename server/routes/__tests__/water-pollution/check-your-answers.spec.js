@@ -359,6 +359,14 @@ describe(url, () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Details of other information')
     })
+    it(`Happy: Should return correct answer as No for 'Is there anything else you'd like to add?' question if no data is provided ${url}`, async () => {
+      const answerData = {
+        'water-pollution/other-information': ''
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('No')
+    })
   })
 
   describe('POST', () => {
