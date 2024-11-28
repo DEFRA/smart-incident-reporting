@@ -1,8 +1,10 @@
 import constants from '../utils/constants.js'
 
 const handlers = {
-  get: async (_request, h) => {
+  get: async (request, h) => {
     const context = _getContext()
+    // Clear referer key in case if user restarts the journey before report submission
+    request.yar.clear(constants.redisKeys.REFERER)
     return h.view(constants.views.WATER_POLUTION, {
       ...context
     })
