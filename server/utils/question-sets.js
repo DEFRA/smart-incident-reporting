@@ -665,13 +665,68 @@ const questionSets = {
       }
     }
   },
-  ILLEGAL_FISHING: {
-    questionSetId: 300,
-    questions: {}
-  },
-  FLOODING: {
-    questionSetId: 400,
-    questions: {}
+  CREATE_A_REPORT: {
+    questionSetId: -1,
+    questions: {
+      REPORTED_BY_EMAIL: {
+        questionId: -1,
+        text: 'Reported by email?',
+        answers: {
+          yes: {
+            answerId: -2,
+            text: 'Yes'
+          },
+          no: {
+            answerId: -3,
+            text: 'No'
+          }
+        }
+      },
+      REPORTED_PHOTOS_OR_VIDEOS: {
+        questionId: -1,
+        text: 'Has photos or videos of problem',
+        answers: {
+          yes: {
+            answerId: -2,
+            text: 'Yes'
+          },
+          no: {
+            answerId: -3,
+            text: 'NO'
+          }
+        }
+      },
+      EXTERNAL_ORGANISATION_REPORT: {
+        questionId: -1,
+        text: 'External organisation report',
+        answers: {
+          water: {
+            answerId: -1,
+            text: 'Water company'
+          },
+          other: {
+            answerId: -2,
+            text: 'Public organisation'
+          },
+          name: {
+            answerId: -3,
+            text: 'Name of company or organisation'
+          }
+        }
+      },
+      INCIDENT_LOCATION: {
+        questionId: -1,
+        text: 'Location of incident',
+        answers: {
+          nationalGridReference: {
+            answerId: -1
+          },
+          locationDescription: {
+            answerId: -2
+          }
+        }
+      }
+    }
   }
 }
 
