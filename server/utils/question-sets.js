@@ -666,63 +666,63 @@ const questionSets = {
     }
   },
   CREATE_A_REPORT: {
-    questionSetId: -1,
+    questionSetId: 0,
     questions: {
       REPORTED_BY_EMAIL: {
-        questionId: -1,
+        questionId: 3800,
         text: 'Reported by email?',
         answers: {
           yes: {
-            answerId: -2,
+            answerId: 3801,
             text: 'Yes'
           },
           no: {
-            answerId: -3,
+            answerId: 3802,
             text: 'No'
           }
         }
       },
       REPORTED_PHOTOS_OR_VIDEOS: {
-        questionId: -1,
+        questionId: 3900,
         text: 'Has photos or videos of problem',
         answers: {
           yes: {
-            answerId: -2,
+            answerId: 3901,
             text: 'Yes'
           },
           no: {
-            answerId: -3,
+            answerId: 3902,
             text: 'NO'
           }
         }
       },
       EXTERNAL_ORGANISATION_REPORT: {
-        questionId: -1,
+        questionId: 4000,
         text: 'External organisation report',
         answers: {
           water: {
-            answerId: -1,
+            answerId: 4001,
             text: 'Water company'
           },
           other: {
-            answerId: -2,
+            answerId: 4002,
             text: 'Public organisation'
           },
           name: {
-            answerId: -3,
+            answerId: 4003,
             text: 'Name of company or organisation'
           }
         }
       },
       INCIDENT_LOCATION: {
-        questionId: -1,
+        questionId: 4100,
         text: 'Location of incident',
         answers: {
           nationalGridReference: {
-            answerId: -1
+            answerId: 4101
           },
           locationDescription: {
-            answerId: -2
+            answerId: 4102
           }
         }
       }
