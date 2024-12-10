@@ -39,7 +39,8 @@ const handlers = {
 
 const getContext = () => {
   return {
-    question
+    question,
+    locationAnswer: {}
   }
 }
 

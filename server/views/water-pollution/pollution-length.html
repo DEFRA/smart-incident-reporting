@@ -23,26 +23,31 @@
         items: [
         {
           value: question.answers.stretches10to100m.answerId,
-          text: question.answers.stretches10to100m.text
+          text: question.answers.stretches10to100m.text,
+          checked: getAnswer(answers, question.answers.stretches10to100m.answerId)
         },
         {
           value: question.answers.stretches100to500m.answerId,
-          text: question.answers.stretches100to500m.text
+          text: question.answers.stretches100to500m.text,
+          checked: getAnswer(answers, question.answers.stretches100to500m.answerId)
         },
         {
           value: question.answers.stretches500to1000m.answerId,
-          text: question.answers.stretches500to1000m.text
+          text: question.answers.stretches500to1000m.text,
+          checked: getAnswer(answers, question.answers.stretches500to1000m.answerId)
         },
         {
           value: question.answers.over1km.answerId,
-          text: question.answers.over1km.text
+          text: question.answers.over1km.text,
+          checked: getAnswer(answers, question.answers.over1km.answerId)
         },
           {
             divider: "or"
           },
           {
             value: question.answers.youDoNotKnow.answerId,
-            text: question.answers.youDoNotKnow.text
+            text: question.answers.youDoNotKnow.text,
+            checked: getAnswer(answers, question.answers.youDoNotKnow.answerId)
           }
         ]
       }) }}

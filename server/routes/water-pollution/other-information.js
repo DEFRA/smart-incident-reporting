@@ -1,55 +1,24 @@
 import constants from '../../utils/constants.js'
-import { questionSets } from '../../utils/question-sets.js'
-import { sendMessage } from '../../services/service-bus.js'
-import { validatePayload } from '../../utils/helpers.js'
 
 const handlers = {
-  get: async (_request, h) => h.view(constants.views.WATER_POLLUTION_OTHER_INFORMATION),
+  get: async (request, h) => {
+    return h.view(constants.views.WATER_POLLUTION_OTHER_INFORMATION, {
+      ...getContext(request)
+    })
+  },
   post: async (request, h) => {
     const { otherInfo } = request.payload
 
     request.yar.set(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION, otherInfo)
-    request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
-
-    // Build the payload to send to service bus
-    const payload = buildPayload(request.yar)
-
-    // test the payload against the schema
-    if (!validatePayload(payload)) {
-      throw new Error('Invalid payload')
-    }
-
-    await sendMessage(request.logger, payload)
-
-    return h.redirect(constants.routes.REPORT_SENT)
+    return h.redirect(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
   }
 }
 
-const buildPayload = (session) => {
-  const reporter = session.get(constants.redisKeys.HOME)
+const getContext = request => {
+  const answers = request.yar.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION)
   return {
-    reportingAnEnvironmentalProblem: {
-      sessionGuid: session.id,
-      reportType: questionSets.WATER_POLLUTION.questionSetId,
-      datetimeObserved: session.get(constants.redisKeys.WATER_POLLUTION_WHEN),
-      datetimeReported: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
-      otherDetails: session.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION),
-      questionSetId: questionSets.WATER_POLLUTION.questionSetId,
-      data: buildAnswerDataset(session, questionSets.WATER_POLLUTION),
-      ...reporter
-    }
+    answers
   }
-}
-
-const buildAnswerDataset = (session, questionSet) => {
-  const data = []
-  Object.keys(questionSet.questions).forEach(key => {
-    const answers = session.get(questionSet.questions[key].key)
-    answers?.forEach(item => {
-      data.push(item)
-    })
-  })
-  return data
 }
 
 export default [

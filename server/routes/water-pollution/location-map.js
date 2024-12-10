@@ -11,9 +11,9 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (_request, h) => {
+  get: async (request, h) => {
     return h.view(constants.views.WATER_POLLUTION_LOCATION_MAP, {
-      ...getContext()
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
@@ -23,23 +23,30 @@ const handlers = {
 
     if (!point || point.length === 0) {
       return h.view(constants.views.WATER_POLLUTION_LOCATION_MAP, {
-        ...getContext(),
+        ...getContext(request),
         noPoint: true
       })
     }
 
     const lngLat = oSGBToWGS84(point)
 
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP, buildAnswers(point, lngLat))
+    request.yar.set(question.key, buildAnswers(point, lngLat))
 
     // handle redirects
-    return h.redirect(constants.routes.WATER_POLLUTION_WHEN)
+    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_WHEN)
   }
 }
 
-const getContext = () => {
+const getContext = request => {
+  const location = request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP)
+  const locationAnswer = location && {
+    point: [Number(location[1].otherDetails), Number(location[2].otherDetails)],
+    zoom: 10
+  }
+
   return {
-    question
+    question,
+    locationAnswer
   }
 }
 

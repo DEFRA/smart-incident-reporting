@@ -1,1 +1,33 @@
-{% include "shared/other-information.html" %}
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'Is there anything else you\'d like to add' %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukTextarea({
+      name: "otherInfo",
+      id: "otherInfo",
+      rows: "10",
+      value: answers,
+      label: {
+        text: pageTitle + " (optional)?",
+        classes: "govuk-label--l",
+        isPageHeading: true
+      },
+      hint: {
+        text: "For example, what you think the substance is, or where it is coming from."
+      },
+      errorMessage: findErrorMessageById(errorSummary, 'otherInfo')
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

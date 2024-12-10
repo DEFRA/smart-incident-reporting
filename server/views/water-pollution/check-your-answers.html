@@ -1,0 +1,362 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'Check your answers before sending your report' %}
+
+{% block formContent %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">Check your answers before sending your report</h1>
+      <h2 class="govuk-heading-m">Your details</h2>
+
+      {{ govukSummaryList({
+        classes: "govuk-!-margin-bottom-9",
+        rows: [
+          {
+            key: {
+              text: "Name"
+            },
+            value: {
+              text: reporterName
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_YOUR_DETAILS,
+                  text: "Change",
+                  visuallyHiddenText: "name"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Phone number"
+            },
+            value: {
+              text: reporterPhoneNumber
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_YOUR_DETAILS,
+                  text: "Change",
+                  visuallyHiddenText: "phone number"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Email address"
+            },
+            value: {
+              text: reporterEmailAddress
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_YOUR_DETAILS,
+                  text: "Change",
+                  visuallyHiddenText: "email address"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Images or videos available"
+            },
+            value: {
+              text: imagesOrVideoAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_IMAGES_OR_VIDEO,
+                  text: "Change",
+                  visuallyHiddenText: "images or videos available"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Location and size of pollution</h2>
+      {% if locationAnswer.point %}
+        {% set locationListItem = {
+          key: {
+            classes: "vertical-align-top",
+            text: "Location"
+          },
+          classes: '',
+          value: {
+            html: "<div id=\"map\" class=\"map map--check-your-answers\" tabindex=\"0\"></div>"
+          },
+          actions: {
+            classes: "vertical-align-top",
+            items: [
+              {
+                href: url.WATER_POLLUTION_LOCATION_OPTION,
+                text: "Change",
+                visuallyHiddenText: "location"
+              }
+            ]
+          }
+        }%}
+      {% else %}
+        {% set locationListItem = {
+          key: {
+            text: "Location"
+          },
+          value: {
+            text: locationAnswer
+          },
+          actions: {
+            items: [
+              {
+                href: url.WATER_POLLUTION_LOCATION_OPTION,
+                text: "Change",
+                visuallyHiddenText: "location"
+              }
+            ]
+          }
+        }%}
+      {% endif %}
+
+      {% if isMeasuredInArea %}
+        {% set lessThanListItem = {
+          key: {
+              text: "Less than 100 square metres in size"
+            },
+            value: {
+              text: lessThanSizeAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_LESS_THAN_100_SQ_METRES,
+                  text: "Change",
+                  visuallyHiddenText: "less than 100 square metres in size"
+                }
+              ]
+            }
+        }%}
+      {% else %}
+        {% set lessThanListItem = {
+          key: {
+              text: "Less than 10m in size"
+            },
+            value: {
+              text: lessThanSizeAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_LESS_THAN_10_METRES,
+                  text: "Change",
+                  visuallyHiddenText: "less than 10m in size"
+                }
+              ]
+            }
+        }%}
+      {% endif %}
+
+      {% if isSizeEstimatedRequired %}
+        {% if isMeasuredInArea %}
+          {% set sizeEsitmatedListItem = {
+          
+            key: {
+            text: "Size (estimated)"
+            },
+            value: {
+              text: sizeEstimatedAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_POLLUTION_AREA,
+                  text: "Change",
+                  visuallyHiddenText: "size estimated"
+                }
+              ]
+            }
+        }%}
+        {% else %}
+          {% set sizeEsitmatedListItem = {
+          key: {
+            text: "Size (estimated)"
+            },
+            value: {
+              text: sizeEstimatedAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_POLLUTION_LENGTH,
+                  text: "Change",
+                  visuallyHiddenText: "size estimated"
+                }
+              ]
+            }
+        }%}
+        {% endif %}
+      {% endif %}
+
+      {{ govukSummaryList({
+        classes: "govuk-!-margin-bottom-9",
+        rows: [
+          {
+            key: {
+              text: "Type of water"
+            },
+            value: {
+              text: waterFeatureAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_WATER_FEATURE,
+                  text: "Change",
+                  visuallyHiddenText: "type of water"
+                }
+              ]
+            }
+          },
+          locationListItem,
+          lessThanListItem,
+          sizeEsitmatedListItem
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">About the pollution</h2>
+
+      {{ govukSummaryList({
+        classes: "govuk-!-margin-bottom-9",
+        rows: [
+          {
+            key: {
+              text: "When did you see the pollution?"
+            },
+            value: {
+              text: whenAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_WHEN,
+                  text: "Change",
+                  visuallyHiddenText: "when did you see the pollution?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "What do you think the pollution is?"
+            },
+            value: {
+              html: pollutionSubstanceAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_POLLUTION_SUBSTANCE,
+                  text: "Change",
+                  visuallyHiddenText: "what do you think the pollution is?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "What does the pollution look like?"
+            },
+            value: {
+              html: pollutionAppearanceAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_POLLUTION_APPEARANCE,
+                  text: "Change",
+                  visuallyHiddenText: "what does the pollution look like?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Do you know where the pollution is coming from?"
+            },
+            value: {
+              text: pollutionSourceAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_SOURCE,
+                  text: "Change",
+                  visuallyHiddenText: "do you know where the pollution is coming from?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Have you seen any dead fish or animals?"
+            },
+            value: {
+              text: effectOnWildlifeAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_EFFECT_ON_WILDLIFE,
+                  text: "Change",
+                  visuallyHiddenText: "Have you seen any dead fish or animals?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Is there anything else you'd like to add?"
+            },
+            value: {
+              text: otherInformationAnswer
+            },
+            actions: {
+              items: [
+                {
+                  href: url.WATER_POLLUTION_OTHER_INFORMATION,
+                  text: "Change",
+                  visuallyHiddenText: "Is there anything else you'd like to add?"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+      text: "Finish and send report"
+      }) }}
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  {% if locationAnswer.point %}
+    <script src="{{ assetPath }}/js/checkYourAnswers.js"></script>
+    <script>
+      const safeMapConfig = {{ locationAnswer | dump | safe }}
+      checkYourAnswers.initialiseMap(safeMapConfig)
+    </script>
+  {% endif %}
+{% endblock %}

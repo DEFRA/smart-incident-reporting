@@ -16,6 +16,41 @@ describe(url, () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       await submitGetRequest({ url }, header)
     })
+    it(`Should return success response and correct view when a river is selected for ${url}`, async () => {
+      const sessionData = {
+        'water-pollution/water-feature': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.river.answerId
+        }]
+      }
+      const response = await submitGetRequest({ url }, 'In what kind of water is the pollution?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId" name="answerId" type="radio" value="501" checked>')
+    })
+    it(`Should return success response and correct view when the sea is selected for ${url}`, async () => {
+      const sessionData = {
+        'water-pollution/water-feature': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.sea.answerId
+        }]
+      }
+      const response = await submitGetRequest({ url }, 'In what kind of water is the pollution?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-3" name="answerId" type="radio" value="503" checked>')
+    })
+    it(`Should return success response and correct view when something else is selected for ${url}`, async () => {
+      const sessionData = {
+        'water-pollution/water-feature': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.somethingElse.answerId
+        }, {
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.somethingElseDetails.answerId,
+          otherDetails: 'test details'
+        }]
+      }
+      const response = await submitGetRequest({ url }, 'In what kind of water is the pollution?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-6" name="answerId" type="radio" value="506" checked data-aria-controls="conditional-answerId-6">')
+      expect(response.payload).toContain('value="test details">')
+    })
   })
   describe('POST', () => {
     it('Happy: accepts valid answerId of sea or lake/reservoir and redirects to pollution-location', async () => {
@@ -50,12 +85,12 @@ describe(url, () => {
     })
     it('Happy: accepts valid answerId of something else with further details ', async () => {
       const answerId = question.answers.somethingElse.answerId
-      const otherSource = 'test other details'
+      const somethingElseDetails = 'test other details'
       const options = {
         url,
         payload: {
           answerId,
-          otherSource
+          somethingElseDetails
         }
       }
       const response = await submitPostRequest(options)
@@ -66,7 +101,7 @@ describe(url, () => {
       }, {
         ...baseAnswer,
         answerId: question.answers.somethingElseDetails.answerId,
-        otherDetails: otherSource
+        otherDetails: somethingElseDetails
       }])
     })
     it('Sad: errors on no answerId', async () => {
@@ -77,6 +112,74 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Select a type of watercourse or feature, or you do not know')
+    })
+    it('Happy: For CYA journey, accepts valid answerID for lake/reservoir and redirects to less-than-100-sq-metres', async () => {
+      const answerId = question.answers.lakeOrReservoir.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
+      })
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
+    it('Happy: For CYA journey, accepts valid answerID for sea and redirects to less-than-100-sq-metres', async () => {
+      const answerId = question.answers.sea.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
+      })
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
+    it('Happy: For CYA journey, accepts valid answerID for river and redirects to less-than-10-metres', async () => {
+      const answerId = question.answers.river.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
+      })
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
+    it('Happy: For CYA journey, accepts valid answerID for do not know and redirects to less-than-10-metres', async () => {
+      const answerId = question.answers.youDoNotKnow.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
+      })
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
     })
   })
 })

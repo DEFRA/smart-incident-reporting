@@ -9,8 +9,8 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (_request, h) => h.view(constants.views.WATER_POLLUTION_POLLUTION_SUBSTANCE, {
-    ...getContext()
+  get: async (request, h) => h.view(constants.views.WATER_POLLUTION_POLLUTION_SUBSTANCE, {
+    ...getContext(request)
   }),
   post: async (request, h) => {
     // get payload
@@ -22,9 +22,9 @@ const handlers = {
     }
 
     // set answer in session
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_POLLUTION_SUBSTANCE, buildAnswers(answerId, somethingElseDetail))
+    request.yar.set(question.key, buildAnswers(answerId, somethingElseDetail))
 
-    return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_APPEARANCE)
+    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_POLLUTION_APPEARANCE)
   }
 }
 
@@ -59,9 +59,11 @@ const buildAnswers = (answerId, somethingElseDetail) => {
   return answers
 }
 
-const getContext = () => {
+const getContext = request => {
+  const answers = request.yar.get(question.key)
   return {
-    question
+    question,
+    answers
   }
 }
 

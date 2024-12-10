@@ -9,10 +9,11 @@
 
     {% set otherHtml %}
     {{ govukInput({
-      id: "otherSource",
-      name: "otherSource",
+      id: "somethingElseDetails",
+      name: "somethingElseDetails",
       spellcheck: false,
       classes: "govuk-!-width-two-thirds",
+      value: getAnswer(answers, question.answers.somethingElseDetails.answerId),
       label: {
         text: "Give details"
       }
@@ -33,27 +34,33 @@
       items: [
         {
           value: question.answers.river.answerId,
-          text: question.answers.river.text
+          text: question.answers.river.text,
+          checked: getAnswer(answers, question.answers.river.answerId)
         },
         {
           value: question.answers.lakeOrReservoir.answerId,
-          text: question.answers.lakeOrReservoir.text
+          text: question.answers.lakeOrReservoir.text,
+          checked: getAnswer(answers, question.answers.lakeOrReservoir.answerId)
         },
         {
           value: question.answers.sea.answerId,
-          text: question.answers.sea.text
+          text: question.answers.sea.text,
+          checked: getAnswer(answers, question.answers.sea.answerId)
         },
         {
           value: question.answers.canal.answerId,
-          text: question.answers.canal.text
+          text: question.answers.canal.text,
+          checked: getAnswer(answers, question.answers.canal.answerId)
         },
         {
           value: question.answers.smallWatercourse.answerId,
-          text: question.answers.smallWatercourse.text
+          text: question.answers.smallWatercourse.text,
+          checked: getAnswer(answers, question.answers.smallWatercourse.answerId)
         },
         {
           value: question.answers.somethingElse.answerId,
           text: question.answers.somethingElse.text,
+          checked: getAnswer(answers, question.answers.somethingElse.answerId),
           conditional: {
               html: otherHtml
             }
@@ -63,7 +70,8 @@
         },
         {
           value: question.answers.youDoNotKnow.answerId,
-          text: question.answers.youDoNotKnow.text
+          text: question.answers.youDoNotKnow.text,
+          checked: getAnswer(answers, question.answers.youDoNotKnow.answerId)
         }
       ]
     }) }}

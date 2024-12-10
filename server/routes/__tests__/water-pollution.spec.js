@@ -9,5 +9,12 @@ describe(url, () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       await submitGetRequest({ url }, header)
     })
+    it(`Happy: Reset the CYA journey if user restarts the WP journey before report submission ${url}`, async () => {
+      const sessionData = {
+        referer: '/water-pollution/check-your-answers'
+      }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.request.yar.get(constants.redisKeys.REFERER)).toEqual(null)
+    })
   })
 })

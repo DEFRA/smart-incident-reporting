@@ -12,9 +12,9 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (_request, h) => {
+  get: async (request, h) => {
     return h.view(constants.views.WATER_POLLUTION_LOCATION_DESCRIPTION, {
-      ...getContext()
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
@@ -24,20 +24,22 @@ const handlers = {
     const errorSummary = validatePayload(locationDescription)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.WATER_POLLUTION_LOCATION_DESCRIPTION, {
-        ...getContext(),
+        ...getContext(request),
         errorSummary
       })
     }
 
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_LOCATION_DESCRIPTION, buildAnswers(locationDescription))
+    request.yar.set(question.key, buildAnswers(locationDescription))
 
-    return h.redirect(constants.routes.WATER_POLLUTION_WHEN)
+    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_WHEN)
   }
 }
 
-const getContext = () => {
+const getContext = request => {
+  const answers = request.yar.get(question.key)
   return {
-    question
+    question,
+    answers
   }
 }
 

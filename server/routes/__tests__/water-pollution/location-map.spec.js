@@ -52,6 +52,40 @@ describe(url, () => {
         otherDetails: '52.983397'
       }])
     })
+    it('Happy: accept and store a point as a national grid reference and redirects to referer', async () => {
+      const point = '[365739.764, 343015.986]'
+      const options = {
+        url,
+        payload: {
+          point
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
+      })
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP)).toEqual([{
+        ...baseAnswer,
+        answerId: question.answers.nationalGridReference.answerId,
+        otherDetails: 'SJ 65739 43015'
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.easting.answerId,
+        otherDetails: '365739'
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.northing.answerId,
+        otherDetails: '343015'
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.lng.answerId,
+        otherDetails: '-2.511745'
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.lat.answerId,
+        otherDetails: '52.983397'
+      }])
+    })
     it('Sad: errors on no point provided', async () => {
       const options = {
         url,
