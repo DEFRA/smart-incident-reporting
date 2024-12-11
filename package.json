@@ -63,7 +63,7 @@
     "nunjucks": "^3.2.4",
     "ol": "^10.3.1",
     "postcode-validator": "^3.10.2",
-    "proj4": "^2.14.0",
+    "proj4": "^2.15.0",
     "style-loader": "^4.0.0",
     "webpack": "^5.97.1",
     "webpack-cli": "^5.1.4"
