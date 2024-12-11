@@ -12,10 +12,22 @@ const baseAnswer = {
   answerId: question.answers.locationDetails.answerId
 }
 
+const sessionData = {
+  'water-pollution/location-description': [{
+    questionId: baseAnswer.questionId,
+    answerId: question.answers.locationDetails.answerId,
+    otherDetails: 'test details'
+  }]
+}
+
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       await submitGetRequest({ url }, header)
+    })
+    it(`Should return success response and correct view for ${url}`, async () => {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('test details</textarea>')
     })
   })
 
@@ -30,6 +42,23 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_WHEN)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_DESCRIPTION)).toEqual([{
+        ...baseAnswer,
+        otherDetails: locationDescription
+      }])
+    })
+    it('Happy: accept and store a location description and redirect to referrer', async () => {
+      const locationDescription = 'This is a description of the location of the water pollution'
+      const options = {
+        url,
+        payload: {
+          locationDescription
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
+      })
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_DESCRIPTION)).toEqual([{
         ...baseAnswer,
         otherDetails: locationDescription

@@ -37,18 +37,20 @@ const handlers = {
     // handle redirects
     const waterFeatureAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)
     if (waterFeatureAnswer[0].answerId === waterFeatureQuestion.answers.lakeOrReservoir.answerId || waterFeatureAnswer[0].answerId === waterFeatureQuestion.answers.sea.answerId) {
-      return h.redirect(constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
+      return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
     } else {
-      return h.redirect(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
+      return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
     }
   }
 }
 
 const getContext = (request) => {
   const { reporterEmailAddress } = request.yar.get(constants.redisKeys.HOME)
+  const answers = request.yar.get(question.key)
   return {
     question,
-    reporterEmailAddress
+    reporterEmailAddress,
+    answers
   }
 }
 

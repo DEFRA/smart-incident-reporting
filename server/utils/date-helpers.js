@@ -216,10 +216,47 @@ const returnError = (errorSummary, validateAndError, text, href, invalidDate, in
   }
 }
 
+const getDateContext = answer => {
+  let context = {}
+  if (answer) {
+    const today = new Date()
+    const yesterday = new Date()
+    yesterday.setDate(yesterday.getDate() - 1)
+
+    const date = new Date(answer)
+
+    const isToday = date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+
+    const isYesterday = date.getDate() === yesterday.getDate() &&
+      date.getMonth() === yesterday.getMonth() &&
+      date.getFullYear() === yesterday.getFullYear()
+
+    const twelve = 12
+    const thirteen = 13
+
+    context = {
+      isToday,
+      isYesterday,
+      isEarlier: !(isToday || isYesterday),
+      day: date.getDate(),
+      month: date.getMonth() + 1,
+      year: date.getFullYear(),
+      hour: date.getHours() < thirteen ? date.getHours() : date.getHours() - twelve,
+      minute: date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes(),
+      period: date.getHours() < twelve ? 'am' : 'pm',
+      isPageReturn: true
+    }
+  }
+  return context
+}
+
 export {
   dateValidateAndError,
   fieldErrorClasses,
   getDateErrors,
   getTimeErrors,
-  validatePayload
+  validatePayload,
+  getDateContext
 }

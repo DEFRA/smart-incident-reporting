@@ -23,18 +23,21 @@
         items: [
         {
           value: question.answers.under500sqm.answerId,
-          text: question.answers.under500sqm.text
+          text: question.answers.under500sqm.text,
+          checked: getAnswer(answers, question.answers.under500sqm.answerId)
         },
         {
           value: question.answers.over500sqm.answerId,
-          text: question.answers.over500sqm.text
+          text: question.answers.over500sqm.text,
+          checked: getAnswer(answers, question.answers.over500sqm.answerId)
         },
           {
             divider: "or"
           },
           {
             value: question.answers.youDoNotKnow.answerId,
-            text: question.answers.youDoNotKnow.text
+            text: question.answers.youDoNotKnow.text,
+            checked: getAnswer(answers, question.answers.youDoNotKnow.answerId)
           }
         ]
       }) }}

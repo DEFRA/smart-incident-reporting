@@ -16,11 +16,26 @@ const sessionData = {
   }
 }
 
+const sessionDataWithAnswer = {
+  home: {
+    reporterEmailAddress: 'test@test.com'
+  },
+  'water-pollution/images-or-video': [{
+    questionId: baseAnswer.questionId,
+    answerId: question.answers.yes.answerId
+  }]
+}
+
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the pollution?', constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('We\'ll send a message to <strong>test@test.com</strong> with details on where to send these, if needed.')
+    })
+    it(`Should return success response and correct view for ${url} with pre entered data`, async () => {
+      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the pollution?', constants.statusCodes.OK, sessionDataWithAnswer)
+      expect(response.payload).toContain('We\'ll send a message to <strong>test@test.com</strong> with details on where to send these, if needed.')
+      expect(response.payload).toContain('value="2801" checked')
     })
   })
   describe('POST', () => {
@@ -59,6 +74,48 @@ describe(url, () => {
         }]
       })
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
+    it('Should accept yes option and redirect to WATER_POLLUTION_CHECK_YOUR_ANSWERS if flowing water feature if set in referer', async () => {
+      const answerId = question.answers.yes.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        'water-pollution/water-feature': [{
+          questionId: 500,
+          answerId: 501 // A River
+        }],
+        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
+      })
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
+    it('Should accept no option and  redirects to WATER_POLLUTION_CHECK_YOUR_ANSWERS if static water feature if set in referer', async () => {
+      const answerId = question.answers.yes.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        'water-pollution/water-feature': [{
+          questionId: 500,
+          answerId: 503 // The sea
+        }],
+        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
+      })
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
         answerId

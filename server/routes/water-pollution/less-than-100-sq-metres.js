@@ -11,9 +11,9 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (_request, h) => {
+  get: async (request, h) => {
     return h.view(constants.views.WATER_POLLUTION_LESS_THAN_100_SQ_METRES, {
-      ...getContext()
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
@@ -24,7 +24,7 @@ const handlers = {
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.WATER_POLLUTION_LESS_THAN_100_SQ_METRES, {
         errorSummary,
-        ...getContext()
+        ...getContext(request)
       })
     }
 
@@ -35,7 +35,17 @@ const handlers = {
     request.yar.set(constants.redisKeys.WATER_POLLUTION_LESS_THAN_100_SQ_METRES, buildAnswers(answerId))
 
     // handle redirects
-    if (answerId === question.answers.no.answerId) {
+    const refValue = request.yar.get(constants.redisKeys.REFERER)
+    if (refValue) {
+      if (answerId === question.answers.no.answerId) {
+        request.yar.clear(constants.redisKeys.WATER_POLLUTION_POLLUTION_LENGTH)
+        return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_AREA)
+      } else {
+        request.yar.clear(constants.redisKeys.WATER_POLLUTION_POLLUTION_AREA)
+        request.yar.clear(constants.redisKeys.WATER_POLLUTION_POLLUTION_LENGTH)
+        return h.redirect(request.yar.get(constants.redisKeys.REFERER))
+      }
+    } else if (answerId === question.answers.no.answerId) {
       return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_AREA)
     } else {
       return h.redirect(constants.routes.WATER_POLLUTION_EFFECT_ON_WILDLIFE)
@@ -43,9 +53,11 @@ const handlers = {
   }
 }
 
-const getContext = () => {
+const getContext = (request) => {
+  const answers = request.yar.get(question.key)
   return {
-    question
+    question,
+    answers
   }
 }
 

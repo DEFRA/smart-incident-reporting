@@ -10,26 +10,57 @@ const baseAnswer = {
   questionAsked: question.text,
   questionResponse: true
 }
-
-const payload = {
-  effectOnWildlife: 'yes',
-  yesDetails: 'Further details'
-}
-
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       await submitGetRequest({ url }, header)
     })
+    it(`Should return success response and correct view when yes is selected for ${url}`, async () => {
+      const sessionData = {
+        'water-pollution/effect-on-wildlife': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.yes.answerId
+        }]
+      }
+      const response = await submitGetRequest({ url }, 'Have you seen any dead or distressed fish or animals nearby?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId" name="answerId" type="radio" value="201" checked data-aria-controls="conditional-answerId">')
+    })
+    it(`Should return success response and correct view when no is selected for ${url}`, async () => {
+      const sessionData = {
+        'water-pollution/effect-on-wildlife': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.no.answerId
+        }]
+      }
+      const response = await submitGetRequest({ url }, 'Have you seen any dead or distressed fish or animals nearby?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="202"')
+    })
+    it(`Should return success response and correct view when yes is selected with yesDetails for ${url}`, async () => {
+      const sessionData = {
+        'water-pollution/effect-on-wildlife': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.yes.answerId
+        }, {
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.yesDetails.answerId,
+          otherDetails: 'Further details'
+        }]
+      }
+      const response = await submitGetRequest({ url }, 'Have you seen any dead or distressed fish or animals nearby?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId" name="answerId" type="radio" value="201" checked data-aria-controls="conditional-answerId">')
+      expect(response.payload).toContain('Further details</textarea>')
+    })
   })
 
   describe('POST', () => {
     it('Happy accepts Yes and yes Details and forwards to WATER_POLLUTION_OTHER_INFORMATION', async () => {
+      const answerId = question.answers.yes.answerId
+      const yesDetails = 'Further details'
       const options = {
         url,
         payload: {
-          effectOnWildlife: 'yes',
-          yesDetails: 'Further details'
+          answerId,
+          yesDetails
         }
       }
       const response = await submitPostRequest(options)
@@ -40,14 +71,15 @@ describe(url, () => {
       }, {
         ...baseAnswer,
         answerId: question.answers.yesDetails.answerId,
-        otherDetails: payload.yesDetails
+        otherDetails: yesDetails
       }])
     })
     it('Happy accepts Yes and empty yes details and forwards to WATER_POLLUTION_OTHER_INFORMATION', async () => {
+      const answerId = question.answers.yes.answerId
       const options = {
         url,
         payload: {
-          effectOnWildlife: 'yes'
+          answerId
         }
       }
       const response = await submitPostRequest(options)
@@ -58,10 +90,11 @@ describe(url, () => {
       }])
     })
     it('Happy accepts No and forwards to WATER_POLLUTION_OTHER_INFORMATION', async () => {
+      const answerId = question.answers.no.answerId
       const options = {
         url,
         payload: {
-          effectOnWildlife: 'no'
+          answerId
         }
       }
       const response = await submitPostRequest(options)

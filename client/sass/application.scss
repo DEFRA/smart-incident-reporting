@@ -434,6 +434,27 @@ margin-bottom: 0;
   }
 }
 
+.map--check-your-answers {
+  height: auto;
+
+  .ol-viewport {
+    height: 200px !important;
+  }
+
+  .ol-zoom, .ol-scale-line, .ol-attribution {
+    display: none;
+  }
+
+}
+
+.vertical-align-top {
+  vertical-align: top;
+}
+
+.map--cell {
+  height: 220px;
+}
+
 //////////////////////////////////////////////////
 // OS MAP STYLES END /////////////////////////////
 //////////////////////////////////////////////////

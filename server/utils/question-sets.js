@@ -4,6 +4,7 @@ import constants from './constants.js'
 const YOU_DO_NOT_KNOW = 'You do not know'
 const SOMETHING_ELSE = 'Something else'
 const NONE_OF_THESE = 'None of these'
+const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -16,31 +17,38 @@ const questionSets = {
         answers: {
           river: {
             answerId: 501,
-            text: 'A river'
+            text: 'A river',
+            shortText: 'River'
           },
           lakeOrReservoir: {
             answerId: 502,
-            text: 'A lake or reservoir'
+            text: 'A lake or reservoir',
+            shortText: 'Lake or reservoir'
           },
           sea: {
             answerId: 503,
-            text: 'The sea'
+            text: 'The sea',
+            shortText: 'Sea'
           },
           canal: {
             answerId: 504,
-            text: 'A canal'
+            text: 'A canal',
+            shortText: 'Canal'
           },
           smallWatercourse: {
             answerId: 505,
-            text: 'A smaller stream or watercourse'
+            text: 'A smaller stream or watercourse',
+            shortText: 'Smaller stream or watercourse'
           },
           somethingElse: {
             answerId: 506,
-            text: SOMETHING_ELSE
+            text: SOMETHING_ELSE,
+            shortText: SOMETHING_ELSE
           },
           youDoNotKnow: {
             answerId: 507,
-            text: YOU_DO_NOT_KNOW
+            text: YOU_DO_NOT_KNOW,
+            shortText: YOU_DO_NOT_KNOW_SHORT
           },
           somethingElseDetails: {
             answerId: 508
@@ -54,15 +62,18 @@ const questionSets = {
         answers: {
           yes: {
             answerId: 701,
-            text: 'Yes'
+            text: 'Yes',
+            shortText: 'Yes'
           },
           no: {
             answerId: 702,
-            text: 'No, it is over a longer stretch'
+            text: 'No, it is over a longer stretch',
+            shortText: 'No'
           },
           youDoNotKnow: {
             answerId: 703,
-            text: YOU_DO_NOT_KNOW
+            text: YOU_DO_NOT_KNOW,
+            shortText: YOU_DO_NOT_KNOW_SHORT
           }
         }
       },
@@ -73,15 +84,18 @@ const questionSets = {
         answers: {
           yes: {
             answerId: 801,
-            text: 'Yes'
+            text: 'Yes',
+            shortText: 'Yes'
           },
           no: {
             answerId: 802,
-            text: 'No, it spreads over a larger area'
+            text: 'No, it spreads over a larger area',
+            shortText: 'No'
           },
           youDoNotKnow: {
             answerId: 803,
-            text: YOU_DO_NOT_KNOW
+            text: YOU_DO_NOT_KNOW,
+            shortText: YOU_DO_NOT_KNOW_SHORT
           }
         }
       },
@@ -92,23 +106,28 @@ const questionSets = {
         answers: {
           stretches10to100m: {
             answerId: 401,
-            text: '10 to 100 metres (less than 2 minutes average walk)'
+            text: '10 to 100 metres (less than 2 minutes average walk)',
+            shortText: '10 to 100 metres'
           },
           stretches100to500m: {
             answerId: 402,
-            text: '100 to 500 metres (around 2 to 8 minutes walk)'
+            text: '100 to 500 metres (around 2 to 8 minutes walk)',
+            shortText: '100 to 500 metres'
           },
           stretches500to1000m: {
             answerId: 403,
-            text: '500 metres to a kilometre (around 8 to 16 minutes walk)'
+            text: '500 metres to a kilometre (around 8 to 16 minutes walk)',
+            shortText: '500 metres to a kilometre'
           },
           over1km: {
             answerId: 404,
-            text: 'Over a kilometre'
+            text: 'Over a kilometre',
+            shortText: 'Over a kilometre'
           },
           youDoNotKnow: {
             answerId: 405,
-            text: YOU_DO_NOT_KNOW
+            text: YOU_DO_NOT_KNOW,
+            shortText: YOU_DO_NOT_KNOW_SHORT
           }
         }
       },
@@ -119,15 +138,18 @@ const questionSets = {
         answers: {
           under500sqm: {
             answerId: 301,
-            text: '100 to 500 square metres (sq m)'
+            text: '100 to 500 square metres (sq m)',
+            shortText: '100 to 500 square metres'
           },
           over500sqm: {
             answerId: 302,
-            text: 'More than 500 sq m'
+            text: 'More than 500 sq m',
+            shortText: 'More than 500 square metres'
           },
           youDoNotKnow: {
             answerId: 303,
-            text: YOU_DO_NOT_KNOW
+            text: YOU_DO_NOT_KNOW,
+            shortText: YOU_DO_NOT_KNOW_SHORT
           }
         }
       },
@@ -138,19 +160,23 @@ const questionSets = {
         answers: {
           cloudy: {
             answerId: 1002,
-            text: 'Cloudy or grey water'
+            text: 'Cloudy or grey water',
+            shortText: 'Cloudy or grey water'
           },
           rainbow: {
             answerId: 1001,
-            text: 'A \'rainbow\' film on top of the water'
+            text: 'A \'rainbow\' film on top of the water',
+            shortText: 'A rainbow film'
           },
           scum: {
             answerId: 1003,
-            text: 'A foam or scum'
+            text: 'A foam or scum',
+            shortText: 'Foam or scum'
           },
           somethingElse: {
             answerId: 1004,
-            text: SOMETHING_ELSE
+            text: SOMETHING_ELSE,
+            shortText: SOMETHING_ELSE
           },
           somethingElseDetail: {
             answerId: 1005,
@@ -165,11 +191,13 @@ const questionSets = {
         answers: {
           yes: {
             answerId: 101,
-            text: 'Yes'
+            text: 'Yes',
+            shortText: 'Yes'
           },
           no: {
             answerId: 102,
-            text: 'No'
+            text: 'No',
+            shortText: 'No'
           },
           yesDetails: {
             answerId: 103,
@@ -184,11 +212,13 @@ const questionSets = {
         answers: {
           yes: {
             answerId: 2801,
-            text: 'Yes'
+            text: 'Yes',
+            shortText: 'Yes'
           },
           no: {
             answerId: 2802,
-            text: 'No'
+            text: 'No',
+            shortText: 'No'
           }
         }
       },
@@ -230,6 +260,12 @@ const questionSets = {
           },
           northing: {
             answerId: 2703
+          },
+          lng: {
+            answerId: 2704
+          },
+          lat: {
+            answerId: 2705
           }
         }
       },
@@ -240,11 +276,13 @@ const questionSets = {
         answers: {
           yes: {
             answerId: 201,
-            text: 'Yes'
+            text: 'Yes',
+            shortText: 'Yes'
           },
           no: {
             answerId: 202,
-            text: 'No'
+            text: 'No',
+            shortText: 'No'
           },
           yesDetails: {
             answerId: 203,
@@ -259,27 +297,33 @@ const questionSets = {
         answers: {
           sewage: {
             answerId: 2901,
-            text: 'Sewage'
+            text: 'Sewage',
+            shortText: 'Sewage'
           },
           chemical: {
             answerId: 2902,
-            text: 'Oil or petrol'
+            text: 'Oil or petrol',
+            shortText: 'Oil or petrol'
           },
           rural: {
             answerId: 2903,
-            text: 'Agricultural waste, for example from muck spreading'
+            text: 'Agricultural waste, for example from muck spreading',
+            shortText: 'Agricultural waste'
           },
           refuse: {
             answerId: 2904,
-            text: 'Rubbish or refuse'
+            text: 'Rubbish or refuse',
+            shortText: 'Rubbish or refuse'
           },
           somethingElse: {
             answerId: 2905,
-            text: SOMETHING_ELSE
+            text: SOMETHING_ELSE,
+            shortText: SOMETHING_ELSE
           },
           unknown: {
             answerId: 2906,
-            text: YOU_DO_NOT_KNOW
+            text: YOU_DO_NOT_KNOW,
+            shortText: YOU_DO_NOT_KNOW_SHORT
           },
           somethingElseDetail: {
             answerId: 2907,
@@ -453,6 +497,12 @@ const questionSets = {
           },
           northing: {
             answerId: 2703
+          },
+          lng: {
+            answerId: 2704
+          },
+          lat: {
+            answerId: 2705
           }
         }
       },

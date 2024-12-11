@@ -25,5 +25,6 @@ const getLocation = async () => {
   ]
 }
 
-initialiseMap()
 initialiseLocationSearch()
+
+export { initialiseMap }
