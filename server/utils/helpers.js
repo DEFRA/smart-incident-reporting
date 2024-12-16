@@ -2,9 +2,10 @@ import fs from 'fs'
 import constants from './constants.js'
 import Ajv from 'ajv'
 import addFormats from 'ajv-formats'
+import dirname from '../../dirname.cjs'
 
-const sirpSchema = JSON.parse(fs.readFileSync('./server/schemas/sirp-schema.json'))
-const feedbackSchema = JSON.parse(fs.readFileSync('./server/schemas/feedback-schema.json'))
+const sirpSchema = JSON.parse(fs.readFileSync(`${dirname}/server/schemas/sirp-schema.json`))
+const feedbackSchema = JSON.parse(fs.readFileSync(`${dirname}/server/schemas/feedback-schema.json`))
 
 const getErrorSummary = () => {
   return JSON.parse(JSON.stringify(constants.errorSummary))
