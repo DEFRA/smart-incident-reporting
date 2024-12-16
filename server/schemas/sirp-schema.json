@@ -109,10 +109,6 @@
         "otherDetails": {
           "type": "string"
         },
-        "createAReport": {
-          "type": "boolean",
-          "default": "false"
-        },
         "data": {
           "type": "array",
           "minItems": 0,
