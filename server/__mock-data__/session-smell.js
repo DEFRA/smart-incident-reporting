@@ -60,35 +60,35 @@ const session = JSON.parse(`{
   "smell/location-address": [
     {
       "questionId": 1400,
-      "questionAsked": "Enter the address",
+      "questionAsked": "What is your home address?",
       "questionResponse": true,
       "answerId": 1401,
       "otherDetails": "address 1"
     },
     {
       "questionId": 1400,
-      "questionAsked": "Enter the address",
+      "questionAsked": "What is your home address?",
       "questionResponse": true,
       "answerId": 1402,
       "otherDetails": "address 2"
     },
     {
       "questionId": 1400,
-      "questionAsked": "Enter the address",
+      "questionAsked": "What is your home address?",
       "questionResponse": true,
       "answerId": 1403,
       "otherDetails": "town"
     },
     {
       "questionId": 1400,
-      "questionAsked": "Enter the address",
+      "questionAsked": "What is your home address?",
       "questionResponse": true,
       "answerId": 1404,
       "otherDetails": "county"
     },
     {
       "questionId": 1400,
-      "questionAsked": "Enter the address",
+      "questionAsked": "What is your home address?",
       "questionResponse": true,
       "answerId": 1405,
       "otherDetails": "m11mm"
