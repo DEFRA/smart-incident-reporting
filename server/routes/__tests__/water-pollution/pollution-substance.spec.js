@@ -99,18 +99,6 @@ describe(url, () => {
         otherDetails: 'something else'
       }])
     })
-    it('Happy: accepts empty answerId, defaults to you do not know and redirects to WATER_POLLUTION_POLLUTION_APPEARANCE', async () => {
-      const options = {
-        url,
-        payload: {}
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_APPEARANCE)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_SUBSTANCE)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.unknown.answerId
-      }])
-    })
     it('Happy: Redirects to referer when set', async () => {
       const answerId = question.answers.sewage.answerId.toString()
       const options = {
@@ -127,6 +115,15 @@ describe(url, () => {
         ...baseAnswer,
         answerId: question.answers.sewage.answerId
       }])
+    })
+    it('Sad: errors on no answerId', async () => {
+      const options = {
+        url,
+        payload: {}
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.OK)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain('Select what you think the pollution is, or &#39;you do not know&#39;')
     })
   })
 })
