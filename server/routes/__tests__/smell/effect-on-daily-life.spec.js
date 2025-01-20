@@ -111,17 +111,14 @@ describe(url, () => {
         otherDetails: 'Details about what happened'
       }])
     })
-    it('Happy: accepts empty answerId, defaults to none of these and redirects to SMELL_EFFECT_ON_HEALTH', async () => {
+    it('Sad: errors on no answerId', async () => {
       const options = {
         url,
         payload: {}
       }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_EFFECT_ON_HEALTH)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_EFFECT_ON_DAILY_LIFE)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.noImpact.answerId
-      }])
+      const response = await submitPostRequest(options, constants.statusCodes.OK)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain('Select any of the following you did because of the smell, or &#39;none of these&#39;')
     })
   })
 })

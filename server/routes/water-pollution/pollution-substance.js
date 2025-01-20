@@ -1,6 +1,7 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
+
 const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_POLLUTION_SUBSTANCE
 
 const baseAnswer = {
@@ -41,6 +42,7 @@ const handlers = {
 
 const buildAnswers = (answerId, somethingElseDetail) => {
   const answers = []
+
   answerId.forEach(item => {
     answers.push({
       ...baseAnswer,

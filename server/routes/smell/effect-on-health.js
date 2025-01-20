@@ -1,4 +1,5 @@
 import constants from '../../utils/constants.js'
+import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
 const question = questionSets.SMELL.questions.SMELL_EFFECT_ON_HEALTH
@@ -16,6 +17,16 @@ const handlers = {
   post: async (request, h) => {
     // get payload
     let { answerId, somethingElseDetails } = request.payload
+
+    // validate payload for errors
+    const errorSummary = validatePayload(answerId)
+    if (errorSummary.errorList.length > 0) {
+      request.yar.set(question.key, [])
+      return h.view(constants.views.SMELL_EFFECT_ON_HEALTH, {
+        errorSummary,
+        ...getContext(request)
+      })
+    }
 
     // Convert answer to array if only a single string answer
     if (!Array.isArray(answerId)) {
@@ -44,32 +55,35 @@ const buildAnswers = (answerId, somethingElseDetails) => {
   const answers = []
   let somethingElse = false
 
-  // if no answer selected default to None of these
-  if (answerId.length === 1 && !answerId[0]) {
+  answerId.forEach(item => {
+    if (Number(item) === question.answers.somethingElse.answerId) {
+      somethingElse = true
+    }
     answers.push({
       ...baseAnswer,
-      answerId: question.answers.noneOfthese.answerId
+      answerId: Number(item)
     })
-  } else {
-    answerId.forEach(item => {
-      if (Number(item) === question.answers.somethingElse.answerId) {
-        somethingElse = true
-      }
-      answers.push({
-        ...baseAnswer,
-        answerId: Number(item)
-      })
+  })
+  if (somethingElse && somethingElseDetails) {
+    answers.push({
+      ...baseAnswer,
+      answerId: question.answers.somethingElseDetails.answerId,
+      otherDetails: somethingElseDetails
     })
-    if (somethingElse && somethingElseDetails) {
-      answers.push({
-        ...baseAnswer,
-        answerId: question.answers.somethingElseDetails.answerId,
-        otherDetails: somethingElseDetails
-      })
-    }
   }
 
   return answers
+}
+
+const validatePayload = answerId => {
+  const errorSummary = getErrorSummary()
+  if (!answerId || answerId.length === 0) {
+    errorSummary.errorList.push({
+      text: 'Select any health conditions caused by the smell, or \'none of these\'',
+      href: '#answerId'
+    })
+  }
+  return errorSummary
 }
 
 export default [
