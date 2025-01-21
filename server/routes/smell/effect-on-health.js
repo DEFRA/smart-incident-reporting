@@ -24,7 +24,7 @@ const handlers = {
       request.yar.set(question.key, [])
       return h.view(constants.views.SMELL_EFFECT_ON_HEALTH, {
         errorSummary,
-        ...getContext(request)
+        ...getContext()
       })
     }
 
