@@ -5,6 +5,7 @@ const YOU_DO_NOT_KNOW = 'You do not know'
 const SOMETHING_ELSE = 'Something else'
 const NONE_OF_THESE = 'None of these'
 const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
+const NOT_GIVEN = 'Not given'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -323,7 +324,7 @@ const questionSets = {
           unknown: {
             answerId: 2906,
             text: YOU_DO_NOT_KNOW,
-            shortText: YOU_DO_NOT_KNOW_SHORT
+            shortText: NOT_GIVEN
           },
           somethingElseDetail: {
             answerId: 2907,
