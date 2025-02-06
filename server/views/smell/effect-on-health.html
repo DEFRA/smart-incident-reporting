@@ -21,6 +21,7 @@
       {{ govukCheckboxes({
         name: "answerId",
         id: "answerId",
+        errorMessage: findErrorMessageById(errorSummary, "answerId"),
         fieldset: {
           legend: {
             text: question.text,
@@ -40,6 +41,10 @@
         {
           value: question.answers.sicknessOrNausea.answerId,
           text: question.answers.sicknessOrNausea.text
+        },
+        {
+          value: question.answers.mentalHealthIssues.answerId,
+          text: question.answers.mentalHealthIssues.text
         },
         {
           value: question.answers.vomiting.answerId,
