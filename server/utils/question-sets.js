@@ -625,7 +625,7 @@ const questionSets = {
       SMELL_EFFECT_ON_HEALTH: {
         questionId: 2500,
         key: constants.redisKeys.SMELL_EFFECT_ON_HEALTH,
-        text: 'Did the smell cause any of these health problems?',
+        text: 'Did the smell cause any of these health problems, on this occasion?',
         answers: {
           headache: {
             answerId: 2501,
@@ -645,7 +645,7 @@ const questionSets = {
           },
           somethingElse: {
             answerId: 2505,
-            text: SOMETHING_ELSE
+            text: 'Something else or you\'d prefer not to say'
           },
           noneOfthese: {
             answerId: 2506,
@@ -654,6 +654,10 @@ const questionSets = {
           somethingElseDetails: {
             answerId: 2507,
             text: 'Give details about the health problem'
+          },
+          mentalHealthIssues: {
+            answerId: 2508,
+            text: 'Mental health issues, for example stress'
           }
         }
       },
