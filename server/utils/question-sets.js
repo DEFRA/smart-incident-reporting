@@ -5,6 +5,7 @@ const YOU_DO_NOT_KNOW = 'You do not know'
 const SOMETHING_ELSE = 'Something else'
 const NONE_OF_THESE = 'None of these'
 const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
+const NOT_GIVEN = 'Not given'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -323,7 +324,7 @@ const questionSets = {
           unknown: {
             answerId: 2906,
             text: YOU_DO_NOT_KNOW,
-            shortText: YOU_DO_NOT_KNOW_SHORT
+            shortText: NOT_GIVEN
           },
           somethingElseDetail: {
             answerId: 2907,
@@ -416,7 +417,7 @@ const questionSets = {
       SMELL_LOCATION_ADDRESS: {
         questionId: 1400,
         key: constants.redisKeys.SMELL_LOCATION_ADDRESS,
-        text: 'Enter the address',
+        text: 'What is your home address?',
         answers: {
           addressLine1: {
             answerId: 1401,
@@ -624,7 +625,7 @@ const questionSets = {
       SMELL_EFFECT_ON_HEALTH: {
         questionId: 2500,
         key: constants.redisKeys.SMELL_EFFECT_ON_HEALTH,
-        text: 'Did the smell cause any of these health problems?',
+        text: 'Did the smell cause any of these health problems, on this occasion?',
         answers: {
           headache: {
             answerId: 2501,
@@ -644,7 +645,7 @@ const questionSets = {
           },
           somethingElse: {
             answerId: 2505,
-            text: SOMETHING_ELSE
+            text: 'Something else or you\'d prefer not to say'
           },
           noneOfthese: {
             answerId: 2506,
@@ -653,6 +654,10 @@ const questionSets = {
           somethingElseDetails: {
             answerId: 2507,
             text: 'Give details about the health problem'
+          },
+          mentalHealthIssues: {
+            answerId: 2508,
+            text: 'Mental health issues, for example stress'
           }
         }
       },

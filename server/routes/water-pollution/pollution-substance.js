@@ -1,5 +1,7 @@
 import constants from '../../utils/constants.js'
+import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
+
 const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_POLLUTION_SUBSTANCE
 
 const baseAnswer = {
@@ -16,6 +18,16 @@ const handlers = {
     // get payload
     let { answerId, somethingElseDetail } = request.payload
 
+    // validate payload for errors
+    const errorSummary = validatePayload(answerId)
+    if (errorSummary.errorList.length > 0) {
+      request.yar.set(question.key, [])
+      return h.view(constants.views.WATER_POLLUTION_POLLUTION_SUBSTANCE, {
+        errorSummary,
+        ...getContext(request)
+      })
+    }
+
     // Convert answer to array if only a single string answer
     if (!Array.isArray(answerId)) {
       answerId = [answerId]
@@ -30,30 +42,20 @@ const handlers = {
 
 const buildAnswers = (answerId, somethingElseDetail) => {
   const answers = []
-  let somethingElse = false
-  // if no answer selected default to You do not know
-  if (answerId.length === 1 && !answerId[0]) {
+
+  answerId.forEach(item => {
     answers.push({
       ...baseAnswer,
-      answerId: question.answers.unknown.answerId
+      answerId: Number(item)
     })
-  } else {
-    answerId.forEach(item => {
-      if (Number(item) === question.answers.somethingElse.answerId) {
-        somethingElse = true
-      }
-      answers.push({
-        ...baseAnswer,
-        answerId: Number(item)
-      })
+  })
+
+  if (answerId.indexOf(question.answers.somethingElse.answerId.toString()) > -1 && somethingElseDetail) {
+    answers.push({
+      ...baseAnswer,
+      answerId: question.answers.somethingElseDetail.answerId,
+      otherDetails: somethingElseDetail
     })
-    if (somethingElse && somethingElseDetail) {
-      answers.push({
-        ...baseAnswer,
-        answerId: question.answers.somethingElseDetail.answerId,
-        otherDetails: somethingElseDetail
-      })
-    }
   }
 
   return answers
@@ -65,6 +67,17 @@ const getContext = request => {
     question,
     answers
   }
+}
+
+const validatePayload = answerId => {
+  const errorSummary = getErrorSummary()
+  if (!answerId || answerId.length === 0) {
+    errorSummary.errorList.push({
+      text: 'Select what you think the pollution is, or \'you do not know\'',
+      href: '#answerId'
+    })
+  }
+  return errorSummary
 }
 
 export default [

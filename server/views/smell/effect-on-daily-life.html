@@ -45,6 +45,7 @@
         {{ govukCheckboxes({
           name: "answerId",
           id: "answerId",
+          errorMessage: findErrorMessageById(errorSummary, "answerId"),
           fieldset: {
             legend: {
               text: question.text,
