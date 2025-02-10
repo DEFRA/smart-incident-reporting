@@ -45,7 +45,10 @@ const handlers = {
         reporterAccessCode: accessCode
       })
 
-      if (accessCode.substring(0, 2).toUpperCase() === 'OD' || accessCode.substring(0, 4).toUpperCase() === 'RPSM') {
+      if (accessCode.substring(0, 2).toUpperCase() === 'IF') {
+        request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.ILLEGAL_FISHING.questionSetId)
+        return h.redirect(constants.routes.ILLEGAL_FISHING)
+      } else if (accessCode.substring(0, 2).toUpperCase() === 'OD' || accessCode.substring(0, 4).toUpperCase() === 'RPSM') {
         request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.SMELL.questionSetId)
         return h.redirect(constants.routes.SMELL)
       } else {

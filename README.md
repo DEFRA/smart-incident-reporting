@@ -48,7 +48,7 @@ export REDIS_PORT=6379
 export NODE_ENV=production
 export SERVICE_BUS_QUEUE_NAME=****
 export SERVICE_BUS_CONNECTION_STRING=****
-export AUTH_ACCOUNTS='[{"id":1,"password":"WPINTERNAL"},{"id":2,"password":"ODINTERNAL"}]'
+export AUTH_ACCOUNTS='[{"id":1,"password":"WPINTERNAL"},{"id":2,"password":"ODINTERNAL"},{"id":3,"password":"IFINTERNAL"}]'
 ```
 
 Build the image

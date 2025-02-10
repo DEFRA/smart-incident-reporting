@@ -708,6 +708,56 @@ const questionSets = {
       }
     }
   },
+  ILLEGAL_FISHING: {
+    questionSetId: 300,
+    questions: {
+      ILLEGAL_FISHING_WATER_FEATURE: {
+        questionId: 500,
+        key: constants.redisKeys.WATER_POLLUTION_WATER_FEATURE,
+        text: 'In what kind of water is the pollution?',
+        answers: {
+          river: {
+            answerId: 501,
+            text: 'A river',
+            shortText: 'River'
+          },
+          lakeOrReservoir: {
+            answerId: 502,
+            text: 'A lake or reservoir',
+            shortText: 'Lake or reservoir'
+          },
+          sea: {
+            answerId: 503,
+            text: 'The sea',
+            shortText: 'Sea'
+          },
+          canal: {
+            answerId: 504,
+            text: 'A canal',
+            shortText: 'Canal'
+          },
+          smallWatercourse: {
+            answerId: 505,
+            text: 'A smaller stream or watercourse',
+            shortText: 'Smaller stream or watercourse'
+          },
+          somethingElse: {
+            answerId: 506,
+            text: SOMETHING_ELSE,
+            shortText: SOMETHING_ELSE
+          },
+          youDoNotKnow: {
+            answerId: 507,
+            text: YOU_DO_NOT_KNOW,
+            shortText: YOU_DO_NOT_KNOW_SHORT
+          },
+          somethingElseDetails: {
+            answerId: 508
+          }
+        }
+      }
+    }
+  },
   CREATE_A_REPORT: {
     questionSetId: 0,
     questions: {

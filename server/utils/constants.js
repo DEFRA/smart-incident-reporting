@@ -66,6 +66,9 @@ const SMELL_CONTACT = 'smell/contact'
 const SMELL_IMAGES_OR_VIDEO = 'smell/images-or-video'
 const SMELL_OTHER_INFORMATION = 'smell/other-information'
 
+const ILLEGAL_FISHING = 'illegal-fishing'
+const ILLEGAL_FISHING_WATER_FEATURE = 'illegal-fishing/water-feature'
+
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 const REFERER = 'referer'
@@ -124,7 +127,9 @@ const views = {
   SMELL_MEDICAL_HELP,
   SMELL_CONTACT,
   SMELL_IMAGES_OR_VIDEO,
-  SMELL_OTHER_INFORMATION
+  SMELL_OTHER_INFORMATION,
+  ILLEGAL_FISHING,
+  ILLEGAL_FISHING_WATER_FEATURE
 }
 
 const routes = {
