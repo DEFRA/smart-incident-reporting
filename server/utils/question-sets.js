@@ -713,46 +713,51 @@ const questionSets = {
     questions: {
       ILLEGAL_FISHING_WATER_FEATURE: {
         questionId: 500,
-        key: constants.redisKeys.WATER_POLLUTION_WATER_FEATURE,
-        text: 'In what kind of water is the pollution?',
+        key: constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE,
+        text: 'In what kind of water have you seen illegal fishing?',
         answers: {
           river: {
             answerId: 501,
-            text: 'A river',
-            shortText: 'River'
+            text: 'A river'
           },
-          lakeOrReservoir: {
+          pondLakeOrReservoir: {
             answerId: 502,
-            text: 'A lake or reservoir',
-            shortText: 'Lake or reservoir'
+            text: 'A pond, lake or reservoir'
           },
           sea: {
             answerId: 503,
-            text: 'The sea',
-            shortText: 'Sea'
+            text: 'The sea'
           },
           canal: {
             answerId: 504,
-            text: 'A canal',
-            shortText: 'Canal'
+            text: 'A canal'
           },
-          smallWatercourse: {
+          streamOrWatercourse: {
             answerId: 505,
-            text: 'A smaller stream or watercourse',
-            shortText: 'Smaller stream or watercourse'
+            text: 'A smaller stream or watercourse'
           },
           somethingElse: {
             answerId: 506,
-            text: SOMETHING_ELSE,
-            shortText: SOMETHING_ELSE
+            text: SOMETHING_ELSE
           },
           youDoNotKnow: {
             answerId: 507,
-            text: YOU_DO_NOT_KNOW,
-            shortText: YOU_DO_NOT_KNOW_SHORT
+            text: YOU_DO_NOT_KNOW
           },
           somethingElseDetails: {
             answerId: 508
+          },
+          riverDetails: {
+            answerId: 509
+          },
+          lakeDetails: {
+            answerId: 510
+          },
+          canalDetails: {
+            answerId: 511
+          },
+          streamOrWatercourseDetails: {
+            answerId: 512
           }
         }
       }
