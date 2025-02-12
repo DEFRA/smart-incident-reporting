@@ -76,6 +76,8 @@ const buildAnswers = (answerId, riverDetails, lakeOrReservoirDetails, canalDetai
       answerId: question.answers.somethingElseDetails.answerId,
       otherDetails: somethingElseDetails
     })
+  } else {
+    // do nothing
   }
   return answers
 }
