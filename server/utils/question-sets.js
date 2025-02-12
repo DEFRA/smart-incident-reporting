@@ -720,7 +720,7 @@ const questionSets = {
             answerId: 501,
             text: 'A river'
           },
-          pondLakeOrReservoir: {
+          lakeOrReservoir: {
             answerId: 502,
             text: 'A pond, lake or reservoir'
           },
@@ -750,7 +750,7 @@ const questionSets = {
           riverDetails: {
             answerId: 509
           },
-          lakeDetails: {
+          lakeOrReservoirDetails: {
             answerId: 510
           },
           canalDetails: {

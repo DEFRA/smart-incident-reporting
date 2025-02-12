@@ -68,6 +68,7 @@ const SMELL_OTHER_INFORMATION = 'smell/other-information'
 
 const ILLEGAL_FISHING = 'illegal-fishing'
 const ILLEGAL_FISHING_WATER_FEATURE = 'illegal-fishing/water-feature'
+const ILLEGAL_FISHING_LOCATION_OPTION = 'illegal-fishing/location-option'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -129,7 +130,8 @@ const views = {
   SMELL_IMAGES_OR_VIDEO,
   SMELL_OTHER_INFORMATION,
   ILLEGAL_FISHING,
-  ILLEGAL_FISHING_WATER_FEATURE
+  ILLEGAL_FISHING_WATER_FEATURE,
+  ILLEGAL_FISHING_LOCATION_OPTION
 }
 
 const routes = {
