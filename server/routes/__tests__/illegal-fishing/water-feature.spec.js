@@ -68,6 +68,27 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
+    it('Happy: accepts valid answerId of a river with further and redirects to location-option ', async () => {
+      const answerId = question.answers.river.answerId
+      const riverDetails = 'test other details'
+      const options = {
+        url,
+        payload: {
+          answerId,
+          riverDetails
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_LOCATION_OPTION)
+      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.riverDetails.answerId,
+        otherDetails: riverDetails
+      }])
+    })
     it('Happy: accepts valid answerId of a pond,lake or reservoir with further and redirects to location-option ', async () => {
       const answerId = question.answers.lakeOrReservoir.answerId
       const lakeOrReservoirDetails = 'test other details'
@@ -87,6 +108,27 @@ describe(url, () => {
         ...baseAnswer,
         answerId: question.answers.lakeOrReservoirDetails.answerId,
         otherDetails: lakeOrReservoirDetails
+      }])
+    })
+    it('Happy: accepts valid answerId of a canal with further and redirects to location-option ', async () => {
+      const answerId = question.answers.canal.answerId
+      const canalDetails = 'test other details'
+      const options = {
+        url,
+        payload: {
+          answerId,
+          canalDetails
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_LOCATION_OPTION)
+      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.canalDetails.answerId,
+        otherDetails: canalDetails
       }])
     })
     it('Happy: accepts valid answerId of smaller stream or watercourse with further details and redirects to location-option ', async () => {
