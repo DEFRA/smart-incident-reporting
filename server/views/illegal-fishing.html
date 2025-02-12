@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% set pageTitle = 'Report someone fishing illegally' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+    <p>Use this service to report:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>fishing out of season</li>
+      <li>fishing without a licence</li>
+      <li>the use of illegal equipment to catch fish, for example fixed lines or nets </li>
+      <li>the catching or trapping of protected types of fish</li>
+    </ul>
+    {{ govukWarningText({
+      text: "Dial 999 if people are using explosives, firearms or other dangerous weapons to catch fish.",
+      iconFallbackText: "Warning"
+    }) }}
+    <h2 class="govuk-heading-m">Before you start</h2>
+    <p>You'll need to know:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>where the illegal fishing is taking place</li>
+      <li>why the fishing is illegal, for example what equipment is being used or what type of fish are being caught</li>
+    </ul>
+    <div class="govuk-inset-text">
+      <p>If you're reporting trespassing on private land or theft of privately owned fish stocks, call 101 to report this to the police.</p>
+    </div>
+    <p>You do not have to give your personal details.</p>
+    <p>If you want to send any photos to help explain the problem, you'll need to give an email address.</p>
+    {{ govukButton({
+      text: "Start now",
+      href: startHref,
+      isStartButton: true
+    }) }}
+    <h2 class="govuk-heading-l">If you cannot report online</h2>
+    <p>You can report the problem to the Environment Agency over the phone.</p>
+    <div class="contact">
+      <p>Environment Agency incident hotline<br />
+      Telephone: 0800 80 70 60<br />
+      24 hours</p>
+    </div>
+    <h2 class="govuk-heading-l">Other environmental problems</h2>
+    <p>How you report other problems affecting the environment depends on the type of problem it is and where it's happening. You may have to report it to:
+      <ul class="govuk-list govuk-list--bullet">
+    <li>the Environment Agency</li>
+    <li>your local council</li>
+    <li>your utilities company</li>
+    </ul>
+    <p><a href="https://www.gov.uk/report-an-environmental-incident">Report other environmental problems</a>.</p>
+  </div>
+</div>
+
+{% endblock %}

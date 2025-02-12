@@ -35,7 +35,7 @@ describe(url, () => {
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLUTION)
     })
-    it('Should redirect to /smell if odure login', async () => {
+    it('Should redirect to /smell if odour login', async () => {
       const options = {
         url,
         payload: {
@@ -48,7 +48,7 @@ describe(url, () => {
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.SMELL)
     })
-    it('Should redirect to /smell if odure login', async () => {
+    it('Should redirect to /smell if odour login', async () => {
       const options = {
         url,
         payload: {
@@ -60,6 +60,19 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.SMELL)
+    })
+    it('Should redirect to /illegal-fishing if illegal fishing login', async () => {
+      const options = {
+        url,
+        payload: {
+          fullName: 'John Smith',
+          phone: '#+441234567890',
+          email: 'test@test.com',
+          accessCode: 'IFINTERNAL'
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING)
     })
     // Sad: name, phone, code missing
     it('Should error if all is data missing', async () => {
