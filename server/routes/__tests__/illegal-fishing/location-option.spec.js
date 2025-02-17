@@ -24,7 +24,7 @@ describe(url, () => {
     })
     it(`Should return success response and correct view for ${url}`, async () => {
       const response = await submitGetRequest({ url }, 'How do you want to tell us where you\'ve seen illegal fishing?', constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="1202" checked>')
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="2601" checked>')
     })
   })
   describe('POST', () => {

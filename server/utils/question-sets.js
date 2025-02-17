@@ -764,27 +764,17 @@ const questionSets = {
         }
       },
       ILLEGAL_FISHING_LOCATION_OPTION: {
-        questionId: 1200,
+        questionId: 2600,
         key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_OPTION,
         text: 'How do you want to tell us where you\'ve seen illegal fishing?',
         answers: {
           map: {
-            answerId: 1201,
+            answerId: 2602,
             text: LOCATION_MAP
           },
           description: {
-            answerId: 1202,
+            answerId: 2601,
             text: LOCATION_DESCRIPTION
-          }
-        }
-      },
-      ILLEGAL_FISHING_LOCATION_DESCRIPTION: {
-        questionId: 1500,
-        key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_DESCRIPTION,
-        text: 'Describe the location where you noticed the illegal fishing',
-        answers: {
-          locationDetails: {
-            answerId: 1501
           }
         }
       },
@@ -807,6 +797,16 @@ const questionSets = {
           },
           lat: {
             answerId: 2705
+          }
+        }
+      },
+      ILLEGAL_FISHING_LOCATION_DESCRIPTION: {
+        questionId: 900,
+        key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_DESCRIPTION,
+        text: 'Describe the location where you noticed the illegal fishing',
+        answers: {
+          locationDetails: {
+            answerId: 901
           }
         }
       }
