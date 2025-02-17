@@ -18,7 +18,7 @@ const handlers = {
   },
   post: async (request, h) => {
     // get payload
-    let { answerId, riverDetails, lakeOrReservoirDetails, canalDetails, streamOrWatercourseDetails, somethingElseDetails } = request.payload
+    let { answerId } = request.payload
 
     // validate payload for errors
     const errorSummary = validatePayload(answerId)
@@ -33,52 +33,49 @@ const handlers = {
     answerId = Number(answerId)
 
     // set answer in session
-    request.yar.set(constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE, buildAnswers(answerId, riverDetails, lakeOrReservoirDetails, canalDetails, streamOrWatercourseDetails, somethingElseDetails))
+    request.yar.set(constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE, buildAnswers(answerId, request))
     // handle redirects
     return h.redirect(constants.routes.ILLEGAL_FISHING_LOCATION_OPTION)
   }
 }
 
-const buildAnswers = (answerId, riverDetails, lakeOrReservoirDetails, canalDetails, streamOrWatercourseDetails, somethingElseDetails) => {
-  const answers = []
+const buildAnswers = (answerId, request) => {
+  const { riverDetails, lakeOrReservoirDetails, canalDetails, streamOrWatercourseDetails, somethingElseDetails } = request.payload
+  let answers = []
   answers.push({
     ...baseAnswer,
     answerId
   })
 
   if (answerId === question.answers.river.answerId && riverDetails) {
-    answers.push({
-      ...baseAnswer,
-      answerId: question.answers.riverDetails.answerId,
-      otherDetails: riverDetails
-    })
-  } else if (answerId === question.answers.lakeOrReservoir.answerId && lakeOrReservoirDetails) {
-    answers.push({
-      ...baseAnswer,
-      answerId: question.answers.lakeOrReservoirDetails.answerId,
-      otherDetails: lakeOrReservoirDetails
-    })
-  } else if (answerId === question.answers.canal.answerId && canalDetails) {
-    answers.push({
-      ...baseAnswer,
-      answerId: question.answers.canalDetails.answerId,
-      otherDetails: canalDetails
-    })
-  } else if (answerId === question.answers.streamOrWatercourse.answerId && streamOrWatercourseDetails) {
-    answers.push({
-      ...baseAnswer,
-      answerId: question.answers.streamOrWatercourseDetails.answerId,
-      otherDetails: streamOrWatercourseDetails
-    })
-  } else if (answerId === question.answers.somethingElse.answerId && somethingElseDetails) {
-    answers.push({
-      ...baseAnswer,
-      answerId: question.answers.somethingElseDetails.answerId,
-      otherDetails: somethingElseDetails
-    })
-  } else {
-    // do nothing
+    answers = setAnswers(answers, 'riverDetails', riverDetails)
   }
+  if (answerId === question.answers.lakeOrReservoir.answerId && lakeOrReservoirDetails) {
+    answers = setAnswers(answers, 'lakeOrReservoirDetails', lakeOrReservoirDetails)
+  }
+  if (answerId === question.answers.canal.answerId && canalDetails) {
+    answers = setAnswers(answers, 'canalDetails', canalDetails)
+  }
+  if (answerId === question.answers.streamOrWatercourse.answerId && streamOrWatercourseDetails) {
+    answers = setAnswers(answers, 'streamOrWatercourseDetails', streamOrWatercourseDetails)
+  }
+  answers = getSomethingElseDetails(answerId, answers, somethingElseDetails)
+  return answers
+}
+
+const getSomethingElseDetails = (answerId, answers, somethingElseDetails) => {
+  if (answerId === question.answers.somethingElse.answerId && somethingElseDetails) {
+    answers = setAnswers(answers, 'somethingElseDetails', somethingElseDetails)
+  }
+  return answers
+}
+
+const setAnswers = (answers, waterFeatureData, waterFeatureDetails) => {
+  answers.push({
+    ...baseAnswer,
+    answerId: question.answers[waterFeatureData].answerId,
+    otherDetails: waterFeatureDetails
+  })
   return answers
 }
 
