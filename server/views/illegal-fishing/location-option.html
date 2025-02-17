@@ -1,0 +1,36 @@
+{% extends 'form-layout.html' %}
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds"> 
+    <h1 class="govuk-heading-l"> 
+      {{ question.text }}
+    </h1> 
+    {{ govukRadios({ 
+      classes: "govuk-radios", 
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      items: [ 
+      {
+        value: question.answers.map.answerId,
+        text: question.answers.map.text,
+        checked: getAnswer(answers, question.answers.map.answerId)
+      },
+      {
+        value: question.answers.description.answerId,
+        text: question.answers.description.text,
+        checked: getAnswer(answers, question.answers.description.answerId)
+      }
+      ] 
+    }) }} 
+
+    {{ govukButton({ 
+      text: "Continue" 
+    }) }} 
+  </div> 
+
+</div> 
+{% endblock %}

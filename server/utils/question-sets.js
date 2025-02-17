@@ -6,6 +6,8 @@ const SOMETHING_ELSE = 'Something else'
 const NONE_OF_THESE = 'None of these'
 const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
 const NOT_GIVEN = 'Not given'
+const LOCATION_MAP = 'Mark the location on an online map'
+const LOCATION_DESCRIPTION = 'Describe the location'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -230,11 +232,11 @@ const questionSets = {
         answers: {
           map: {
             answerId: 2602,
-            text: 'Mark the location on an online map'
+            text: LOCATION_MAP
           },
           description: {
             answerId: 2601,
-            text: 'Describe the location'
+            text: LOCATION_DESCRIPTION
           }
         }
       },
@@ -448,11 +450,11 @@ const questionSets = {
         answers: {
           map: {
             answerId: 1201,
-            text: 'Mark the location on an online map'
+            text: LOCATION_MAP
           },
           description: {
             answerId: 1202,
-            text: 'Describe the location'
+            text: LOCATION_DESCRIPTION
           }
         }
       },
@@ -720,7 +722,7 @@ const questionSets = {
             answerId: 501,
             text: 'A river'
           },
-          pondLakeOrReservoir: {
+          lakeOrReservoir: {
             answerId: 502,
             text: 'A pond, lake or reservoir'
           },
@@ -750,7 +752,7 @@ const questionSets = {
           riverDetails: {
             answerId: 509
           },
-          lakeDetails: {
+          lakeOrReservoirDetails: {
             answerId: 510
           },
           canalDetails: {
@@ -758,6 +760,53 @@ const questionSets = {
           },
           streamOrWatercourseDetails: {
             answerId: 512
+          }
+        }
+      },
+      ILLEGAL_FISHING_LOCATION_OPTION: {
+        questionId: 2600,
+        key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_OPTION,
+        text: 'How do you want to tell us where you\'ve seen illegal fishing?',
+        answers: {
+          map: {
+            answerId: 2602,
+            text: LOCATION_MAP
+          },
+          description: {
+            answerId: 2601,
+            text: LOCATION_DESCRIPTION
+          }
+        }
+      },
+      ILLEGAL_FISHING_LOCATION_MAP: {
+        questionId: 2700,
+        key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_MAP,
+        text: 'Mark the location of the illegal fishing',
+        answers: {
+          nationalGridReference: {
+            answerId: 2701
+          },
+          easting: {
+            answerId: 2702
+          },
+          northing: {
+            answerId: 2703
+          },
+          lng: {
+            answerId: 2704
+          },
+          lat: {
+            answerId: 2705
+          }
+        }
+      },
+      ILLEGAL_FISHING_LOCATION_DESCRIPTION: {
+        questionId: 900,
+        key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_DESCRIPTION,
+        text: 'Describe the location where you noticed the illegal fishing',
+        answers: {
+          locationDetails: {
+            answerId: 901
           }
         }
       }
