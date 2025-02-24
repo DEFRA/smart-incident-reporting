@@ -9,7 +9,7 @@ const handlers = {
 export default [
   {
     method: 'GET',
-    path: constants.routes.ILLEGAL_FISHING_LOCATION_DESCRIPTION,
+    path: constants.routes.ILLEGAL_FISHING_PEOPLE_FISHING,
     handler: handlers.get
   }
 ]

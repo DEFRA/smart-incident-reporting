@@ -710,12 +710,12 @@ const questionSets = {
       }
     }
   },
-  ILLEGAL_FISHING: {
+  FISHING: {
     questionSetId: 300,
     questions: {
-      ILLEGAL_FISHING_WATER_FEATURE: {
+      FISHING_WATER_FEATURE: {
         questionId: 500,
-        key: constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE,
+        key: constants.redisKeys.FISHING_WATER_FEATURE,
         text: 'In what kind of water have you seen illegal fishing?',
         answers: {
           river: {
@@ -763,9 +763,9 @@ const questionSets = {
           }
         }
       },
-      ILLEGAL_FISHING_LOCATION_OPTION: {
+      FISHING_LOCATION_OPTION: {
         questionId: 2600,
-        key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_OPTION,
+        key: constants.redisKeys.FISHING_LOCATION_OPTION,
         text: 'How do you want to tell us where you\'ve seen illegal fishing?',
         answers: {
           map: {
@@ -778,9 +778,9 @@ const questionSets = {
           }
         }
       },
-      ILLEGAL_FISHING_LOCATION_MAP: {
+      FISHING_LOCATION_MAP: {
         questionId: 2700,
-        key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_MAP,
+        key: constants.redisKeys.FISHING_LOCATION_MAP,
         text: 'Mark the location of the illegal fishing',
         answers: {
           nationalGridReference: {
@@ -800,10 +800,10 @@ const questionSets = {
           }
         }
       },
-      ILLEGAL_FISHING_LOCATION_DESCRIPTION: {
+      FISHING_LOCATION_DESCRIPTION: {
         questionId: 900,
-        key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_DESCRIPTION,
-        text: 'Describe the location where you noticed the illegal fishing',
+        key: constants.redisKeys.FISHING_LOCATION_DESCRIPTION,
+        text: 'Describe the location where you\'ve seen illegal fishing',
         answers: {
           locationDetails: {
             answerId: 901

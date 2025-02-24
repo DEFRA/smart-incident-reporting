@@ -46,8 +46,8 @@ const handlers = {
       })
 
       if (accessCode.substring(0, 2).toUpperCase() === 'IF' || accessCode.substring(0, 4).toUpperCase() === 'XFAT') {
-        request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.ILLEGAL_FISHING.questionSetId)
-        return h.redirect(constants.routes.ILLEGAL_FISHING)
+        request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.FISHING.questionSetId)
+        return h.redirect(constants.routes.FISHING)
       } else if (accessCode.substring(0, 2).toUpperCase() === 'OD' || accessCode.substring(0, 4).toUpperCase() === 'RPSM') {
         request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.SMELL.questionSetId)
         return h.redirect(constants.routes.SMELL)

@@ -1,0 +1,33 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukTextarea({
+      name: "locationDescription",
+      id: "locationDescription",
+      rows: "10",
+      label: {
+        text: question.text,
+        classes: "govuk-label--l",
+        isPageHeading: true
+      },
+      hint: {
+        html: "Include things like the nearest town, landmarks such as bridges and what side of the water it's on."
+      },
+      errorMessage: findErrorMessageById(errorSummary, 'locationDescription'),
+      value: getAnswer(answers, question.answers.locationDetails.answerId)
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

@@ -66,12 +66,12 @@ const SMELL_CONTACT = 'smell/contact'
 const SMELL_IMAGES_OR_VIDEO = 'smell/images-or-video'
 const SMELL_OTHER_INFORMATION = 'smell/other-information'
 
-const ILLEGAL_FISHING = 'illegal-fishing'
-const ILLEGAL_FISHING_WATER_FEATURE = 'illegal-fishing/water-feature'
-const ILLEGAL_FISHING_LOCATION_OPTION = 'illegal-fishing/location-option'
-const ILLEGAL_FISHING_LOCATION_MAP = 'illegal-fishing/location-map'
-const ILLEGAL_FISHING_LOCATION_DESCRIPTION = 'illegal-fishing/location-description'
-const ILLEGAL_FISHING_CURRENT = 'illegal-fishing/current'
+const FISHING = 'fishing'
+const FISHING_WATER_FEATURE = 'fishing/water-feature'
+const FISHING_LOCATION_OPTION = 'fishing/location-option'
+const FISHING_LOCATION_MAP = 'fishing/location-map'
+const FISHING_LOCATION_DESCRIPTION = 'fishing/location-description'
+const FISHING_PEOPLE_FISHING = 'fishing/people-fishing'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -132,12 +132,12 @@ const views = {
   SMELL_CONTACT,
   SMELL_IMAGES_OR_VIDEO,
   SMELL_OTHER_INFORMATION,
-  ILLEGAL_FISHING,
-  ILLEGAL_FISHING_WATER_FEATURE,
-  ILLEGAL_FISHING_LOCATION_OPTION,
-  ILLEGAL_FISHING_LOCATION_MAP,
-  ILLEGAL_FISHING_LOCATION_DESCRIPTION,
-  ILLEGAL_FISHING_CURRENT
+  FISHING,
+  FISHING_WATER_FEATURE,
+  FISHING_LOCATION_OPTION,
+  FISHING_LOCATION_MAP,
+  FISHING_LOCATION_DESCRIPTION,
+  FISHING_PEOPLE_FISHING
 }
 
 const routes = {

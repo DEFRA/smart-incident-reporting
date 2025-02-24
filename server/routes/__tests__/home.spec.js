@@ -61,7 +61,7 @@ describe(url, () => {
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.SMELL)
     })
-    it('Should redirect to /illegal-fishing if illegal fishing login', async () => {
+    it('Should redirect to /fishing if illegal fishing login', async () => {
       const options = {
         url,
         payload: {
@@ -72,7 +72,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING)
+      expect(response.headers.location).toEqual(constants.routes.FISHING)
     })
     // Sad: name, phone, code missing
     it('Should error if all is data missing', async () => {

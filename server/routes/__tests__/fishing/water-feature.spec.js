@@ -2,9 +2,9 @@ import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/s
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
-const url = constants.routes.ILLEGAL_FISHING_WATER_FEATURE
+const url = constants.routes.FISHING_WATER_FEATURE
 const header = 'In what kind of water have you seen illegal fishing?'
-const question = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_WATER_FEATURE
+const question = questionSets.FISHING.questions.FISHING_WATER_FEATURE
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
@@ -18,7 +18,7 @@ describe(url, () => {
     })
     it(`Should return success response and correct view when a river is selected for ${url}`, async () => {
       const sessionData = {
-        'illegal-fishing/water-feature': [{
+        'fishing/water-feature': [{
           questionId: baseAnswer.questionId,
           answerId: question.answers.river.answerId
         }]
@@ -28,7 +28,7 @@ describe(url, () => {
     })
     it(`Should return success response and correct view when the sea is selected for ${url}`, async () => {
       const sessionData = {
-        'illegal-fishing/water-feature': [{
+        'fishing/water-feature': [{
           questionId: baseAnswer.questionId,
           answerId: question.answers.sea.answerId
         }]
@@ -38,7 +38,7 @@ describe(url, () => {
     })
     it(`Should return success response and correct view when canal is selected with further details for ${url}`, async () => {
       const sessionData = {
-        'illegal-fishing/water-feature': [{
+        'fishing/water-feature': [{
           questionId: baseAnswer.questionId,
           answerId: question.answers.canal.answerId
         }, {
@@ -53,7 +53,7 @@ describe(url, () => {
     })
     it(`Should return success response and correct view when something else is selected with further details for ${url}`, async () => {
       const sessionData = {
-        'illegal-fishing/water-feature': [{
+        'fishing/water-feature': [{
           questionId: baseAnswer.questionId,
           answerId: question.answers.somethingElse.answerId
         }, {
@@ -79,8 +79,8 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_LOCATION_OPTION)
-      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE)).toEqual([{
+      expect(response.headers.location).toEqual(constants.routes.FISHING_LOCATION_OPTION)
+      expect(response.request.yar.get(constants.redisKeys.FISHING_WATER_FEATURE)).toEqual([{
         ...baseAnswer,
         answerId
       }, {
@@ -100,8 +100,8 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_LOCATION_OPTION)
-      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE)).toEqual([{
+      expect(response.headers.location).toEqual(constants.routes.FISHING_LOCATION_OPTION)
+      expect(response.request.yar.get(constants.redisKeys.FISHING_WATER_FEATURE)).toEqual([{
         ...baseAnswer,
         answerId
       }, {
@@ -121,8 +121,8 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_LOCATION_OPTION)
-      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE)).toEqual([{
+      expect(response.headers.location).toEqual(constants.routes.FISHING_LOCATION_OPTION)
+      expect(response.request.yar.get(constants.redisKeys.FISHING_WATER_FEATURE)).toEqual([{
         ...baseAnswer,
         answerId
       }, {
@@ -142,8 +142,8 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_LOCATION_OPTION)
-      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE)).toEqual([{
+      expect(response.headers.location).toEqual(constants.routes.FISHING_LOCATION_OPTION)
+      expect(response.request.yar.get(constants.redisKeys.FISHING_WATER_FEATURE)).toEqual([{
         ...baseAnswer,
         answerId
       }, {
@@ -163,8 +163,8 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_LOCATION_OPTION)
-      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE)).toEqual([{
+      expect(response.headers.location).toEqual(constants.routes.FISHING_LOCATION_OPTION)
+      expect(response.request.yar.get(constants.redisKeys.FISHING_WATER_FEATURE)).toEqual([{
         ...baseAnswer,
         answerId
       }, {
@@ -182,8 +182,8 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_LOCATION_OPTION)
-      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE)).toEqual([{
+      expect(response.headers.location).toEqual(constants.routes.FISHING_LOCATION_OPTION)
+      expect(response.request.yar.get(constants.redisKeys.FISHING_WATER_FEATURE)).toEqual([{
         ...baseAnswer,
         answerId
       }])
