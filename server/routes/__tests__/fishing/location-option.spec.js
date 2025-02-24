@@ -2,8 +2,8 @@ import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/s
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
-const url = constants.routes.ILLEGAL_FISHING_LOCATION_OPTION
-const question = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_LOCATION_OPTION
+const url = constants.routes.FISHING_LOCATION_OPTION
+const question = questionSets.FISHING.questions.FISHING_LOCATION_OPTION
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
@@ -11,7 +11,7 @@ const baseAnswer = {
 }
 
 const sessionData = {
-  'illegal-fishing/location-option': [{
+  'fishing/location-option': [{
     questionId: baseAnswer.questionId,
     answerId: question.answers.description.answerId
   }]
@@ -28,7 +28,7 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Should accept map option and redirect to illegal-fishing/location-map', async () => {
+    it('Should accept map option and redirect to fishing/location-map', async () => {
       const answerId = question.answers.map.answerId
       const options = {
         url,
@@ -37,8 +37,8 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_LOCATION_MAP)
-      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_LOCATION_OPTION)).toEqual([{
+      expect(response.headers.location).toEqual(constants.routes.FISHING_LOCATION_MAP)
+      expect(response.request.yar.get(constants.redisKeys.FISHING_LOCATION_OPTION)).toEqual([{
         ...baseAnswer,
         answerId
       }])

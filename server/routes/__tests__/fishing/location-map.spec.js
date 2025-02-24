@@ -2,8 +2,8 @@ import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/s
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
-const url = constants.routes.ILLEGAL_FISHING_LOCATION_MAP
-const question = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_LOCATION_MAP
+const url = constants.routes.FISHING_LOCATION_MAP
+const question = questionSets.FISHING.questions.FISHING_LOCATION_MAP
 const header = question.text
 const baseAnswer = {
   questionId: question.questionId,
@@ -29,8 +29,8 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_CURRENT)
-      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_LOCATION_MAP)).toEqual([{
+      expect(response.headers.location).toEqual(constants.routes.FISHING_PEOPLE_FISHING)
+      expect(response.request.yar.get(constants.redisKeys.FISHING_LOCATION_MAP)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.nationalGridReference.answerId,
         otherDetails: 'SJ 65739 43015'

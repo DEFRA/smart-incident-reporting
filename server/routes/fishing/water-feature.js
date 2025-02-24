@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 
-const question = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_WATER_FEATURE
+const question = questionSets.FISHING.questions.FISHING_WATER_FEATURE
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -12,7 +12,7 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => {
-    return h.view(constants.views.ILLEGAL_FISHING_WATER_FEATURE, {
+    return h.view(constants.views.FISHING_WATER_FEATURE, {
       ...getContext(request)
     })
   },
@@ -23,7 +23,7 @@ const handlers = {
     // validate payload for errors
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.ILLEGAL_FISHING_WATER_FEATURE, {
+      return h.view(constants.views.FISHING_WATER_FEATURE, {
         errorSummary,
         ...getContext(request)
       })
@@ -33,9 +33,9 @@ const handlers = {
     answerId = Number(answerId)
 
     // set answer in session
-    request.yar.set(constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE, buildAnswers(answerId, request))
+    request.yar.set(constants.redisKeys.FISHING_WATER_FEATURE, buildAnswers(answerId, request))
     // handle redirects
-    return h.redirect(constants.routes.ILLEGAL_FISHING_LOCATION_OPTION)
+    return h.redirect(constants.routes.FISHING_LOCATION_OPTION)
   }
 }
 
@@ -101,12 +101,12 @@ const validatePayload = answerId => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.ILLEGAL_FISHING_WATER_FEATURE,
+    path: constants.routes.FISHING_WATER_FEATURE,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.ILLEGAL_FISHING_WATER_FEATURE,
+    path: constants.routes.FISHING_WATER_FEATURE,
     handler: handlers.post
   }
 ]

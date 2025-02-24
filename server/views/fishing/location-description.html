@@ -1,0 +1,27 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">
+      {{ pageTitle }}
+    </h1>
+    {{ govukTextarea({
+      name: "locationDescription",
+      id: "locationDescription",
+      rows: "10",
+      hint: {
+        html: "Include things like the nearest town, landmarks such as bridges and what side of the water it's on."
+      }
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+  </div>
+</div>
+
+{% endblock %}

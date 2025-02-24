@@ -1,7 +1,7 @@
 import { submitGetRequest } from '../../__test-helpers__/server.js'
 import constants from '../../utils/constants.js'
 
-const url = constants.routes.ILLEGAL_FISHING
+const url = constants.routes.FISHING
 const header = 'Report someone fishing illegally'
 
 describe(url, () => {
