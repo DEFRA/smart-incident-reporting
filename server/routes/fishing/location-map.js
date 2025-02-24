@@ -3,7 +3,7 @@ import bngToNgr from '../../utils/bng-to-ngr.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { oSGBToWGS84 } from '../../utils/transform-point.js'
 
-const question = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_LOCATION_MAP
+const question = questionSets.FISHING.questions.FISHING_LOCATION_MAP
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
@@ -12,7 +12,7 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => {
-    return h.view(constants.views.ILLEGAL_FISHING_LOCATION_MAP, {
+    return h.view(constants.views.FISHING_LOCATION_MAP, {
       ...getContext(request)
     })
   },
@@ -22,7 +22,7 @@ const handlers = {
     point = point && JSON.parse(point)
 
     if (!point || point.length === 0) {
-      return h.view(constants.views.ILLEGAL_FISHING_LOCATION_MAP, {
+      return h.view(constants.views.FISHING_LOCATION_MAP, {
         ...getContext(request),
         noPoint: true
       })
@@ -33,12 +33,12 @@ const handlers = {
     request.yar.set(question.key, buildAnswers(point, lngLat))
 
     // handle redirects
-    return h.redirect(constants.routes.ILLEGAL_FISHING_CURRENT)
+    return h.redirect(constants.routes.FISHING_PEOPLE_FISHING)
   }
 }
 
 const getContext = request => {
-  const location = request.yar.get(constants.redisKeys.ILLEGAL_FISHING_LOCATION_MAP)
+  const location = request.yar.get(constants.redisKeys.FISHING_LOCATION_MAP)
   const locationAnswer = location && {
     point: [Number(location[1].otherDetails), Number(location[2].otherDetails)],
     zoom: 10
@@ -79,12 +79,12 @@ const buildAnswers = (point, lngLat) => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.ILLEGAL_FISHING_LOCATION_MAP,
+    path: constants.routes.FISHING_LOCATION_MAP,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.ILLEGAL_FISHING_LOCATION_MAP,
+    path: constants.routes.FISHING_LOCATION_MAP,
     handler: handlers.post
   }
 ]

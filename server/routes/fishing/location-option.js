@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
-const question = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_LOCATION_OPTION
+const question = questionSets.FISHING.questions.FISHING_LOCATION_OPTION
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -12,7 +12,7 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => {
-    return h.view(constants.views.ILLEGAL_FISHING_LOCATION_OPTION, {
+    return h.view(constants.views.FISHING_LOCATION_OPTION, {
       ...getContext(request)
     })
   },
@@ -22,7 +22,7 @@ const handlers = {
     // validate payload
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.ILLEGAL_FISHING_LOCATION_OPTION, {
+      return h.view(constants.views.FISHING_LOCATION_OPTION, {
         ...getContext(request),
         errorSummary
       })
@@ -31,13 +31,13 @@ const handlers = {
     // convert answerId to number
     answerId = Number(answerId)
 
-    request.yar.set(constants.redisKeys.ILLEGAL_FISHING_LOCATION_OPTION, buildAnswers(answerId))
+    request.yar.set(constants.redisKeys.FISHING_LOCATION_OPTION, buildAnswers(answerId))
 
     // handle redirects
     if (answerId === question.answers.map.answerId) {
-      return h.redirect(constants.routes.ILLEGAL_FISHING_LOCATION_MAP)
+      return h.redirect(constants.routes.FISHING_LOCATION_MAP)
     } else {
-      return h.redirect(constants.routes.ILLEGAL_FISHING_LOCATION_DESCRIPTION)
+      return h.redirect(constants.routes.FISHING_LOCATION_DESCRIPTION)
     }
   }
 }
@@ -71,12 +71,12 @@ const buildAnswers = answerId => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.ILLEGAL_FISHING_LOCATION_OPTION,
+    path: constants.routes.FISHING_LOCATION_OPTION,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.ILLEGAL_FISHING_LOCATION_OPTION,
+    path: constants.routes.FISHING_LOCATION_OPTION,
     handler: handlers.post
   }
 ]

@@ -3,7 +3,7 @@ import constants from '../utils/constants.js'
 const handlers = {
   get: async (_request, h) => {
     const context = _getContext()
-    return h.view(constants.views.ILLEGAL_FISHING, {
+    return h.view(constants.views.FISHING, {
       ...context
     })
   }
@@ -12,14 +12,14 @@ const handlers = {
 const _getContext = () => {
   return {
     hideBackLink: true,
-    startHref: constants.routes.ILLEGAL_FISHING_WATER_FEATURE
+    startHref: constants.routes.FISHING_WATER_FEATURE
   }
 }
 
 export default [
   {
     method: 'GET',
-    path: constants.routes.ILLEGAL_FISHING,
+    path: constants.routes.FISHING,
     handler: handlers.get
   }
 ]
