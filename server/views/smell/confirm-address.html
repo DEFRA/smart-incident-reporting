@@ -1,0 +1,36 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'Confirm address' %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% call govukFieldset({
+      legend: {
+        text: "Confirm address",
+        classes: "govuk-fieldset__legend--l",
+        isPageHeading: true
+      }
+    }) %}
+
+    {% endcall %}
+    <div class="govuk-inset-text">{{ addressLine1 }}<br>{{ townOrCity }}<br>{{ postcode }}</div>
+
+
+    {{ govukButton({
+      text: "Use this address",
+      isStartButton: false
+    }) }}
+
+    <p class="govuk-body">
+      <a href="{{ differentAddress }}" class="govuk-link">Selecte a different address</a>
+    </p>
+    <p class="govuk-body">
+      <a href="{{ enterAddress }}" class="govuk-link">Enter address manually</a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div
+      class="govuk-form-group {% if findErrorMessageById(errorSummary, 'answerId-1') %}govuk-form-group--error{% endif %}">
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">
+            Choose an address
+          </h1>
+        </legend>
+        <p class="govuk-body">
+          {{ resultlength }} addresses found for {{ buildingDetails }} and {{ postcode }}
+        </p>
+        <p class="govuk-body">
+          <a href="{{ findAddress }}" class="govuk-link">Change search</a>
+        </p>
+        <div class="govuk-radios" data-module="govuk-radios">
+          {% for result in resultsData %}
+          {% set counter = ( counter | default(0) ) + 1 %}
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="answerId-{{ counter }}" name="answerId" type="radio"
+              value="{{ result.uprn }}">
+            <label class="govuk-label govuk-radios__label" for="answerId-{{ counter }}">
+              {{ result.address }}
+            </label>
+          </div>
+          {% endfor %}
+        </div>
+      </fieldset>
+    </div>
+
+    {{ govukButton({
+    text: "Use this address",
+    isStartButton: false
+    }) }}
+
+    <p class="govuk-body">
+      <a href="{{ enterAddress }}" class="govuk-link">Enter address manually</a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

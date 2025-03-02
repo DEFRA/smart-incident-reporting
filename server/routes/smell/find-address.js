@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
-const question = questionSets.SMELL.questions.SMELL_LOCATION_ADDRESS
+const question = questionSets.SMELL.questions.SMELL_FIND_ADDRESS
 const postcodeRegExp = /^([A-Za-z][A-Ha-hJ-Yj-y]?\d[A-Za-z0-9]? ?\d[A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/ // https://stackoverflow.com/a/51885364
 
 const baseAnswer = {
@@ -13,7 +13,7 @@ const baseAnswer = {
 
 const handlers = {
   get: async (_request, h) => {
-    return h.view(constants.views.SMELL_LOCATION_ADDRESS, {
+    return h.view(constants.views.SMELL_FIND_ADDRESS, {
       ...getContext()
     })
   },
@@ -26,42 +26,39 @@ const handlers = {
     // validate payload
     const errorSummary = validatePayload(request.payload)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.SMELL_LOCATION_ADDRESS, {
+      return h.view(constants.views.SMELL_FIND_ADDRESS, {
         ...getContext(),
         errorSummary,
         ...request.payload
       })
     }
 
-    request.yar.set(constants.redisKeys.SMELL_LOCATION_ADDRESS, buildAnswers(request.payload))
+    request.yar.set(constants.redisKeys.SMELL_FIND_ADDRESS, buildAnswers(request.payload))
 
-    return h.redirect(constants.routes.SMELL_PREVIOUS)
+    return h.redirect(constants.routes.SMELL_CHOOSE_ADDRESS)
   }
 }
 
 const getContext = () => {
   return {
-    question
+    question,
+    enterAddress: constants.routes.SMELL_LOCATION_ADDRESS
   }
 }
 
 const validatePayload = payload => {
   const errorSummary = getErrorSummary()
-  if (!payload.addressLine1) {
+
+  /* if (!payload.buildingDetails) {
     errorSummary.errorList.push({
-      text: 'Enter the first line of the address, for example house number and street',
-      href: '#addressLine1'
+      text: 'Enter a building number or name',
+      href: '#buildingDetails'
     })
-  }
-  if (!payload.townOrCity) {
-    errorSummary.errorList.push({
-      text: 'Enter a town or city',
-      href: '#townOrCity'
-    })
-  }
+  } */
+
   if (!payload.postcode) {
     errorSummary.errorList.push({
-      text: 'Enter a postcode',
+      text: 'Enter an postcode',
       href: '#postcode'
     })
   } else if (!postcodeRegExp.test(payload.postcode)) {
@@ -76,29 +73,27 @@ const validatePayload = payload => {
 }
 
 const buildAnswers = payload => {
-  const answers = []
-  Object.keys(payload).forEach(key => {
-    answers.push({
-      ...baseAnswer,
-      answerId: question.answers[key].answerId,
-      otherDetails: payload[key]
-    })
-  })
-
-  console.log('Data for answers', answers)
-
-  return answers
+  return [{
+    ...baseAnswer,
+    answerId: question.answers.buildingDetails.answerId,
+    otherDetails: payload.buildingDetails
+  },
+  {
+    ...baseAnswer,
+    answerId: question.answers.postcode.answerId,
+    otherDetails: payload.postcode
+  }]
 }
 
 export default [
   {
     method: 'GET',
-    path: constants.routes.SMELL_LOCATION_ADDRESS,
+    path: constants.routes.SMELL_FIND_ADDRESS,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.SMELL_LOCATION_ADDRESS,
+    path: constants.routes.SMELL_FIND_ADDRESS,
     handler: handlers.post
   }
 ]
