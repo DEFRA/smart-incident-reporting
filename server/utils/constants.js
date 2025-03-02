@@ -72,6 +72,8 @@ const FISHING_LOCATION_OPTION = 'fishing/location-option'
 const FISHING_LOCATION_MAP = 'fishing/location-map'
 const FISHING_LOCATION_DESCRIPTION = 'fishing/location-description'
 const FISHING_PEOPLE_FISHING = 'fishing/people-fishing'
+const FISHING_NUMBER_OF_PEOPLE = 'fishing/number-of-people'
+const FISHING_PEOPLE_DESCRIPTION = 'fishing/people-description'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -137,7 +139,9 @@ const views = {
   FISHING_LOCATION_OPTION,
   FISHING_LOCATION_MAP,
   FISHING_LOCATION_DESCRIPTION,
-  FISHING_PEOPLE_FISHING
+  FISHING_PEOPLE_FISHING,
+  FISHING_NUMBER_OF_PEOPLE,
+  FISHING_PEOPLE_DESCRIPTION
 }
 
 const routes = {
