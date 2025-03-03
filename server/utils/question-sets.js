@@ -809,6 +809,44 @@ const questionSets = {
             answerId: 901
           }
         }
+      },
+      FISHING_PEOPLE_FISHING: {
+        questionId: 4200,
+        key: constants.redisKeys.FISHING_PEOPLE_FISHING,
+        text: 'Are people fishing here now?',
+        answers: {
+          yes: {
+            answerId: 4201,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 4202,
+            text: 'No'
+          },
+          youDoNotKnow: {
+            answerId: 4203,
+            text: YOU_DO_NOT_KNOW
+          }
+        }
+      },
+      FISHING_NUMBER_OF_PEOPLE: {
+        questionId: 4210,
+        key: constants.redisKeys.FISHING_NUMBER_OF_PEOPLE,
+        text: 'How many people are there?',
+        answers: {
+          one: {
+            answerId: 4211,
+            text: 'One'
+          },
+          two: {
+            answerId: 4212,
+            text: 'Two'
+          },
+          threeOrMore: {
+            answerId: 4213,
+            text: 'Three or more'
+          }
+        }
       }
     }
   },
