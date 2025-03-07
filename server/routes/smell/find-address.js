@@ -12,7 +12,12 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (_request, h) => {
+  get: async (request, h) => {
+    const count = request.yar.get(constants.redisKeys.COUNTER)
+    if (!count) {
+      console.log('inside counter function')
+      request.yar.set(constants.redisKeys.COUNTER, 0)
+    }
     return h.view(constants.views.SMELL_FIND_ADDRESS, {
       ...getContext()
     })
@@ -33,9 +38,16 @@ const handlers = {
       })
     }
 
-    request.yar.set(constants.redisKeys.SMELL_FIND_ADDRESS, buildAnswers(request.payload))
+    const count = request.yar.get(constants.redisKeys.COUNTER)
+    request.yar.set(constants.redisKeys.COUNTER, count + 1)
+    console.log('Data for count', count)
 
-    return h.redirect(constants.routes.SMELL_CHOOSE_ADDRESS)
+    if (count > 50) {
+      return h.redirect(constants.routes.SMELL_EXCEEDED_ATTEMPTS)
+    } else {
+      request.yar.set(constants.redisKeys.SMELL_FIND_ADDRESS, buildAnswers(request.payload))
+      return h.redirect(constants.routes.SMELL_CHOOSE_ADDRESS)
+    }
   }
 }
 
@@ -48,13 +60,12 @@ const getContext = () => {
 
 const validatePayload = payload => {
   const errorSummary = getErrorSummary()
-
-  /* if (!payload.buildingDetails) {
+  if (!payload.buildingDetails) {
     errorSummary.errorList.push({
       text: 'Enter a building number or name',
       href: '#buildingDetails'
     })
-  } */
+  }
 
   if (!payload.postcode) {
     errorSummary.errorList.push({
@@ -82,6 +93,9 @@ const buildAnswers = payload => {
     ...baseAnswer,
     answerId: question.answers.postcode.answerId,
     otherDetails: payload.postcode
+  },
+  {
+    searchCount: 1
   }]
 }
 

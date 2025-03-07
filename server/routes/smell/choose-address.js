@@ -14,6 +14,7 @@ const baseAnswer = {
 const handlers = {
   get: async (request, h) => {
     const result = await find(request)
+    console.log('Data for resultsFinal', result)
     request.yar.set(constants.redisKeys.SMELL_CHOOSE_ADDRESS, result)
     return h.view(constants.views.SMELL_CHOOSE_ADDRESS, {
       ...getContext(),
@@ -52,13 +53,13 @@ const getContext = () => {
 }
 
 const processPayload = (results, payload, buildingData) => {
-  let allItems
-  if (buildingData) {
-    allItems = payload.results.map(item => item.DPA ? item.DPA : item.LPI).filter(item => item.BUILDING_NUMBER === buildingData)
-  } else {
+  let allItems = payload.results.map(item => item.DPA ? item.DPA : item.LPI).filter(item => filterResults(item.ADDRESS, buildingData))
+
+  if (allItems.length === 0) {
+    console.log('Inside allItems full result')
     allItems = payload.results.map(item => item.DPA ? item.DPA : item.LPI)
   }
-  // const allItems = payload.results.map(item => item.DPA ? item.DPA : item.LPI).filter(item => item.BUILDING_NUMBER === buildingData)
+  console.log('Data for allItems', allItems)
   allItems.forEach((item) => {
     if (!(results.find(result => result.UPRN === item.UPRN))) {
       results.push(item)
@@ -79,9 +80,15 @@ const find = async (request) => {
 
   while (totalresults > (maxresults + offset)) {
     offset += maxresults
-    const payload2 = await findLocation.findByPostcode(postcode)
-    const payload = payload2.payload
-    console.log('Data for payload2', payload)
+    const { payload } = await findLocation.findByPostcode(postcode)
+    console.log('Data for payloadERROR', payload)
+    if (payload.statuscode === 400) {
+      return {
+        resultsFound: false,
+        buildingDetails: postcodeData[0].otherDetails,
+        postcode: postcodeData[1].otherDetails
+      }
+    }
     processPayload(results, payload, buildingData)
     maxresults = payload.header.maxresults
     totalresults = payload.header.totalresults
@@ -101,6 +108,7 @@ const find = async (request) => {
   console.log('Data for resultsData', resultsData)
   console.log('Data for resultsData length', resultsData.length)
   return {
+    resultsFound: true,
     resultsData,
     resultlength: resultsData.length,
     buildingDetails: postcodeData[0].otherDetails,
@@ -127,6 +135,23 @@ const capitaliseAddress = (address) => {
   return capitalisedAddress
 }
 
+const filterResults = (address, buildingData) => {
+  console.log('Data for address', address.toLowerCase().split(', '))
+  const addressSplit = address.toLowerCase().split(', ')
+
+  const n = 2;
+  const rem = (addressSplit, n) => {
+    return addressSplit.filter((_, index) => index < addressSplit.length - n);
+  };
+  const res = rem(addressSplit, n);
+  console.log('Data for res', res)
+  const buildingData2 = buildingData.toLowerCase()
+  const search = res.includes(buildingData2)
+
+  return search
+
+}
+
 const validatePayload = payload => {
   const errorSummary = getErrorSummary()
   console.log('Data for payload', payload)
@@ -144,7 +169,7 @@ const validatePayload = payload => {
 const buildAnswers = (request, answerId) => {
   const { resultsData } = request.yar.get(constants.redisKeys.SMELL_CHOOSE_ADDRESS)
   const selectedAddress = resultsData.filter(item => Number(item.uprn) === answerId)
-  console.log('Data for resultsData', resultsData)
+  //console.log('Data for resultsData', resultsData)
   console.log('Data for selectedAddress', selectedAddress)
   return {
     selectedAddress

@@ -1,6 +1,6 @@
 import { getJson } from './util.js'
 
-const apiKey = '*** API Key ***'
+const apiKey = '***API Key***'
 export default {
   findByPostcode: async postcode => {
     try {
@@ -16,7 +16,9 @@ export default {
       console.log('Error occurred while calling os data hub api' + e)
 
       return {
-        ADDRESS: 'No results'
+        payload : {
+          statuscode: 400 
+        }
       }
     }
   }
