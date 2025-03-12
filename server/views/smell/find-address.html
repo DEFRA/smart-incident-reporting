@@ -15,33 +15,33 @@
       }
     }) %}
 
-      {{ govukInput({
-        errorMessage: findErrorMessageById(errorSummary, "buildingDetails"),
-        label: {
-          text: question.answers.buildingDetails.text,
-          classes: "govuk-label"
-        },
-        hint: {
-          text: "For example, 15 or Prospect Cottage"
-        },
-        classes: "govuk-!-width-two-thirds",
-        id: "buildingDetails",
-        name: "buildingDetails",
-        value: buildingDetails
-      }) }}
+    {{ govukInput({
+      errorMessage: findErrorMessageById(errorSummary, "buildingDetails"),
+      label: {
+        text: question.answers.buildingDetails.text,
+        classes: "govuk-label"
+      },
+      hint: {
+        text: "For example, 15 or Prospect Cottage"
+      },
+      classes: "govuk-!-width-two-thirds",
+      id: "buildingDetails",
+      name: "buildingDetails",
+      value: buildingDetails
+    }) }}
 
-      {{ govukInput({
-        errorMessage: findErrorMessageById(errorSummary, "postcode"),
-        label: {
-          text: question.answers.postcode.text,
-          classes: "govuk-label"
-        },
-        classes: "govuk-input--width-10",
-        id: "postcode",
-        name: "postcode",
-        autocomplete: "postal-code",
-        value: postcode
-      }) }}
+    {{ govukInput({
+      errorMessage: findErrorMessageById(errorSummary, "postcode"),
+      label: {
+        text: question.answers.postcode.text,
+        classes: "govuk-label"
+      },
+      classes: "govuk-input--width-10",
+      id: "postcode",
+      name: "postcode",
+      autocomplete: "postal-code",
+      value: postcode
+    }) }}
 
     {% endcall %}
 

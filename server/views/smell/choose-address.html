@@ -15,7 +15,7 @@
         </h1>
       </legend>
       <p class="govuk-body">
-        We could not find an address that matches {{ buildingDetails }} and {{ postcode }}.
+        We could not find an address that matches <b>{{ buildingDetails }}</b> and <b>{{ postcode }}</b>.
       </p>
       <p class="govuk-body">
         Check you have entered the correct postcode.
@@ -24,6 +24,7 @@
         <a href="{{ findAddress }}" class="govuk-link">Change search</a>
       </p>
       {% endif %}
+
       {% if resultsFound === true %}
       <fieldset class="govuk-fieldset">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -31,12 +32,24 @@
             Choose an address
           </h1>
         </legend>
+        {% if showFullResults === false %}
         <p class="govuk-body">
-          {{ resultlength }} addresses found for {{ buildingDetails }} and {{ postcode }}
+          {{ resultlength }} {% if resultlength === 1 %}address{% else %}addresses{% endif %} found for <b>{{ buildingDetails }}</b> and <b>{{ postcode }}</b>
         </p>
+        {% endif %}
+        {% if showFullResults === true %}
+        <p class="govuk-body">
+          We could not find an address that matches <b>{{ buildingDetails }}</b> and <b>{{ postcode }}</b>
+        </p>
+        <p class="govuk-body">
+          {{ resultlength }} {% if resultlength === 1 %}address{% else %}addresses{% endif %} found for <b>{{ postcode }}</b>
+        </p>
+        {% endif %}
+
         <p class="govuk-body">
           <a href="{{ findAddress }}" class="govuk-link">Change search</a>
         </p>
+        
         <div class="govuk-radios" data-module="govuk-radios">
           {% for result in resultsData %}
           {% set counter = ( counter | default(0) ) + 1 %}

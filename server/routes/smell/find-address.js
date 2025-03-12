@@ -5,17 +5,12 @@ import { questionSets } from '../../utils/question-sets.js'
 const question = questionSets.SMELL.questions.SMELL_FIND_ADDRESS
 const postcodeRegExp = /^([A-Za-z][A-Ha-hJ-Yj-y]?\d[A-Za-z0-9]? ?\d[A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/ // https://stackoverflow.com/a/51885364
 
-const baseAnswer = {
-  questionId: question.questionId,
-  questionAsked: question.text,
-  questionResponse: true
-}
-
 const handlers = {
   get: async (request, h) => {
-    const count = request.yar.get(constants.redisKeys.COUNTER)
-    if (!count) {
-      console.log('inside counter function')
+    const counterVal = request.yar.get(constants.redisKeys.COUNTER)
+
+    // set counterValvalue to zero on first page load
+    if (!counterVal) {
       request.yar.set(constants.redisKeys.COUNTER, 0)
     }
     return h.view(constants.views.SMELL_FIND_ADDRESS, {
@@ -23,13 +18,15 @@ const handlers = {
     })
   },
   post: async (request, h) => {
+    let { buildingDetails, postcode } = request.payload
+
     // cleanse postcode for special characters https://design-system.service.gov.uk/patterns/addresses/#allow-different-postcode-formats
-    if (request.payload.postcode) {
-      request.payload.postcode = request.payload.postcode.replace(/[^\w\s]/gi, '')
+    if (postcode) {
+      postcode = postcode.replace(/[^\w\s]/gi, '')
     }
 
     // validate payload
-    const errorSummary = validatePayload(request.payload)
+    const errorSummary = validatePayload(buildingDetails, postcode)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.SMELL_FIND_ADDRESS, {
         ...getContext(),
@@ -38,14 +35,15 @@ const handlers = {
       })
     }
 
-    const count = request.yar.get(constants.redisKeys.COUNTER)
-    request.yar.set(constants.redisKeys.COUNTER, count + 1)
-    console.log('Data for count', count)
+    const counterVal = request.yar.get(constants.redisKeys.COUNTER)
+    request.yar.set(constants.redisKeys.COUNTER, counterVal + 1)
+    console.log('Data for counterVal', counterVal)
 
-    if (count > 50) {
+    // handle redirects
+    if (counterVal > 10) {
       return h.redirect(constants.routes.SMELL_EXCEEDED_ATTEMPTS)
     } else {
-      request.yar.set(constants.redisKeys.SMELL_FIND_ADDRESS, buildAnswers(request.payload))
+      request.yar.set(constants.redisKeys.SMELL_FIND_ADDRESS, buildAnswers(buildingDetails, postcode))
       return h.redirect(constants.routes.SMELL_CHOOSE_ADDRESS)
     }
   }
@@ -58,21 +56,21 @@ const getContext = () => {
   }
 }
 
-const validatePayload = payload => {
+const validatePayload = (buildingDetails, postcode) => {
   const errorSummary = getErrorSummary()
-  if (!payload.buildingDetails) {
+  if (!buildingDetails) {
     errorSummary.errorList.push({
       text: 'Enter a building number or name',
       href: '#buildingDetails'
     })
   }
 
-  if (!payload.postcode) {
+  if (!postcode) {
     errorSummary.errorList.push({
       text: 'Enter an postcode',
       href: '#postcode'
     })
-  } else if (!postcodeRegExp.test(payload.postcode)) {
+  } else if (!postcodeRegExp.test(postcode)) {
     errorSummary.errorList.push({
       text: 'Enter a full postcode, for example W1 8QS',
       href: '#postcode'
@@ -83,20 +81,11 @@ const validatePayload = payload => {
   return errorSummary
 }
 
-const buildAnswers = payload => {
-  return [{
-    ...baseAnswer,
-    answerId: question.answers.buildingDetails.answerId,
-    otherDetails: payload.buildingDetails
-  },
-  {
-    ...baseAnswer,
-    answerId: question.answers.postcode.answerId,
-    otherDetails: payload.postcode
-  },
-  {
-    searchCount: 1
-  }]
+const buildAnswers = (buildingDetails, postcode) => {
+  return {
+    buildingDetails,
+    postcode
+  }
 }
 
 export default [

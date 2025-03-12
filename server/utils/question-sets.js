@@ -707,51 +707,24 @@ const questionSets = {
         }
       },
       SMELL_FIND_ADDRESS: {
-        questionId: 3600,
         key: constants.redisKeys.SMELL_FIND_ADDRESS,
         text: 'Find your address',
         answers: {
           buildingDetails: {
-            answerId: 3601,
             text: 'Building number or name'
           },
           postcode: {
-            answerId: 3602,
             text: 'Postcode'
           }
         }
       },
       SMELL_CHOOSE_ADDRESS: {
-        questionId: 3700,
         key: constants.redisKeys.SMELL_CHOOSE_ADDRESS,
-        text: 'Choose an address',
-        answers: {
-          easting: {
-            answerId: 3701
-          },
-          northing: {
-            answerId: 3702
-          },
-          gridRef: {
-            answerId: 3703
-          }
-        }
+        text: 'Choose an address'
       },
       SMELL_CONFIRM_ADDRESS: {
-        questionId: 3800,
         key: constants.redisKeys.SMELL_CONFIRM_ADDRESS,
-        text: 'Confirm address',
-        answers: {
-          easting: {
-            answerId: 3701
-          },
-          northing: {
-            answerId: 3702
-          },
-          gridRef: {
-            answerId: 3703
-          }
-        }
+        text: 'Confirm address'
       }
     }
   },

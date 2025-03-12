@@ -26,7 +26,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_LOCATION_ADDRESS)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_FIND_ADDRESS)
       expect(response.request.yar.get(constants.redisKeys.SMELL_LOCATION_HOME)).toEqual([{
         ...baseAnswer,
         answerId

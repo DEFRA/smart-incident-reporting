@@ -1,6 +1,6 @@
 {% extends 'form-layout.html' %}
 
-{% set pageTitle = 'Confirm address' %}
+{% set pageTitle = question.text.replace('?', '') %}
 
 {% block formContent %}
 
@@ -15,6 +15,7 @@
       }
     }) %}
     {% endcall %}
+    
     <div class="govuk-inset-text">{{ addressLine1 }}<br>{{ townOrCity }}<br>{{ postcode }}</div>
 
     {{ govukButton({
@@ -23,7 +24,7 @@
     }) }}
 
     <p class="govuk-body">
-      <a href="{{ differentAddress }}" class="govuk-link">Selecte a different address</a>
+      <a href="{{ differentAddress }}" class="govuk-link">Select a different address</a>
     </p>
     <p class="govuk-body">
       <a href="{{ enterAddress }}" class="govuk-link">Enter address manually</a>

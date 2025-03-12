@@ -21,8 +21,6 @@ const handlers = {
 
     point = point && JSON.parse(point)
 
-    console.log('Data for point', point)
-
     if (!point || point.length === 0) {
       return h.view(constants.views.WATER_POLLUTION_LOCATION_MAP, {
         ...getContext(request),

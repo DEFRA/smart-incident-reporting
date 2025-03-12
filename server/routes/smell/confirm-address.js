@@ -1,13 +1,9 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
 import bngToNgr from '../../utils/bng-to-ngr.js'
+import { oSGBToWGS84 } from '../../utils/transform-point.js'
 
-const question = questionSets.SMELL.questions.SMELL_LOCATION_ADDRESS
-const baseAnswer = {
-  questionId: question.questionId,
-  questionAsked: question.text,
-  questionResponse: true
-}
+const question = questionSets.SMELL.questions.SMELL_CONFIRM_ADDRESS
 
 const handlers = {
   get: async (request, h) => {
@@ -17,12 +13,11 @@ const handlers = {
   },
   post: async (request, h) => {
     const { selectedAddress } = request.yar.get(constants.redisKeys.SMELL_CHOOSE_ADDRESS)
-    const point = [ selectedAddress[0].x, selectedAddress[0].y ]
-    console.log('Data for point', point)
-    const ngr = bngToNgr(point).text
-    console.log('Data for ngr', ngr)
-    request.yar.set(constants.redisKeys.SMELL_CONFIRM_ADDRESS, ngr)
-    request.yar.set(constants.redisKeys.SMELL_LOCATION_MAP, buildAnswers(selectedAddress))
+    console.log('Data for selectedAddress', selectedAddress)
+    const point = [selectedAddress[0].x, selectedAddress[0].y]
+    request.yar.set(constants.redisKeys.SMELL_LOCATION_ADDRESS, buildAddressAnswers(selectedAddress))
+    request.yar.set(constants.redisKeys.SMELL_LOCATION_MAP, buildLocationAnswers(point))
+
     // handle redirects
     return h.redirect(constants.routes.SMELL_PREVIOUS)
   }
@@ -45,11 +40,11 @@ const getContext = (request) => {
 
 const formatAddress = (address) => {
   const addressParts = address.split(',')
-  const n = 2;
+  const n = 2
   const rem = (addressParts, n) => {
-    return addressParts.filter((_, index) => index < addressParts.length - n);
-  };
-  const res = rem(addressParts, n);
+    return addressParts.filter((_, index) => index < addressParts.length - n)
+  }
+  const res = rem(addressParts, n)
   console.log('Data for addressParts', addressParts)
   console.log('Data for res', res)
   const addressLine1 = res.join()
@@ -63,11 +58,17 @@ const formatAddress = (address) => {
   }
 }
 
-const buildAnswers = (selectedAddress) => {
+const buildAddressAnswers = (selectedAddress) => {
+  const question = questionSets.SMELL.questions.SMELL_LOCATION_ADDRESS
+  const baseAnswer = {
+    questionId: question.questionId,
+    questionAsked: question.text,
+    questionResponse: true
+  }
   const addressData = selectedAddress[0].address
   console.log('Data for selectedAddressFinal', addressData)
   const { addressLine1, townOrCity, postcode } = formatAddress(addressData)
-  return [{
+  const answer1 = [{
     ...baseAnswer,
     answerId: question.answers.addressLine1.answerId,
     otherDetails: addressLine1
@@ -88,6 +89,44 @@ const buildAnswers = (selectedAddress) => {
     answerId: question.answers.postcode.answerId,
     otherDetails: postcode
   }]
+  console.log('Data for answer1', answer1)
+  return answer1
+}
+
+const buildLocationAnswers = (point) => {
+  const question = questionSets.SMELL.questions.SMELL_LOCATION_MAP
+  const baseAnswer = {
+    questionId: question.questionId,
+    questionAsked: question.text,
+    questionResponse: true
+  }
+
+  const ngr = bngToNgr(point).text
+  const lngLat = oSGBToWGS84(point)
+  const six = 6
+  const answer2 = [{
+    ...baseAnswer,
+    answerId: question.answers.nationalGridReference.answerId,
+    otherDetails: ngr
+  }, {
+    ...baseAnswer,
+    answerId: question.answers.easting.answerId,
+    otherDetails: Math.floor(point[0]).toString()
+  }, {
+    ...baseAnswer,
+    answerId: question.answers.northing.answerId,
+    otherDetails: Math.floor(point[1]).toString()
+  }, {
+    ...baseAnswer,
+    answerId: question.answers.lng.answerId,
+    otherDetails: lngLat[0].toFixed(six)
+  }, {
+    ...baseAnswer,
+    answerId: question.answers.lat.answerId,
+    otherDetails: lngLat[1].toFixed(six)
+  }]
+  console.log('Data for answer2', answer2)
+  return answer2
 }
 
 export default [
