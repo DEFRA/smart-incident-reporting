@@ -13,7 +13,6 @@ const handlers = {
   },
   post: async (request, h) => {
     const { selectedAddress } = request.yar.get(constants.redisKeys.SMELL_CHOOSE_ADDRESS)
-    console.log('Data for selectedAddress', selectedAddress)
     const point = [selectedAddress[0].x, selectedAddress[0].y]
     request.yar.set(constants.redisKeys.SMELL_LOCATION_ADDRESS, buildAddressAnswers(selectedAddress))
     request.yar.set(constants.redisKeys.SMELL_LOCATION_MAP, buildLocationAnswers(point))
@@ -26,7 +25,6 @@ const handlers = {
 const getContext = (request) => {
   const { selectedAddress } = request.yar.get(constants.redisKeys.SMELL_CHOOSE_ADDRESS)
   const addressData = selectedAddress[0].address
-  console.log('Data for selectedAddressFinal', addressData)
   const { addressLine1, townOrCity, postcode } = formatAddress(addressData)
   return {
     question,
@@ -45,11 +43,9 @@ const formatAddress = (address) => {
     return addressParts.filter((_, index) => index < addressParts.length - n)
   }
   const res = rem(addressParts, n)
-  console.log('Data for addressParts', addressParts)
-  console.log('Data for res', res)
   const addressLine1 = res.join()
-  const townOrCity = addressParts[addressParts.length - 2]
-  const postcode = addressParts[addressParts.length - 1]
+  const townOrCity = addressParts[addressParts.length - 2].trimStart()
+  const postcode = addressParts[addressParts.length - 1].trimStart()
 
   return {
     addressLine1,
@@ -66,9 +62,8 @@ const buildAddressAnswers = (selectedAddress) => {
     questionResponse: true
   }
   const addressData = selectedAddress[0].address
-  console.log('Data for selectedAddressFinal', addressData)
   const { addressLine1, townOrCity, postcode } = formatAddress(addressData)
-  const answer1 = [{
+  return [{
     ...baseAnswer,
     answerId: question.answers.addressLine1.answerId,
     otherDetails: addressLine1
@@ -89,8 +84,6 @@ const buildAddressAnswers = (selectedAddress) => {
     answerId: question.answers.postcode.answerId,
     otherDetails: postcode
   }]
-  console.log('Data for answer1', answer1)
-  return answer1
 }
 
 const buildLocationAnswers = (point) => {
@@ -104,7 +97,7 @@ const buildLocationAnswers = (point) => {
   const ngr = bngToNgr(point).text
   const lngLat = oSGBToWGS84(point)
   const six = 6
-  const answer2 = [{
+  return [{
     ...baseAnswer,
     answerId: question.answers.nationalGridReference.answerId,
     otherDetails: ngr
@@ -125,8 +118,6 @@ const buildLocationAnswers = (point) => {
     answerId: question.answers.lat.answerId,
     otherDetails: lngLat[1].toFixed(six)
   }]
-  console.log('Data for answer2', answer2)
-  return answer2
 }
 
 export default [

@@ -22,6 +22,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(sessionData)
       expect(response.headers.location).toEqual(constants.routes.SMELL_CHOOSE_ADDRESS)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_FIND_ADDRESS)).toEqual({ buildingDetails: 'Building Name', postcode: 'WA4 1HT' })
     })
     it('Sad: errors on no fields provided', async () => {
       const options = {

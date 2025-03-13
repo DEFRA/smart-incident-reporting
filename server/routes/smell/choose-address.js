@@ -1,14 +1,13 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
-import { findByPostcode } from '../../utils/find-location.js'
+import { findByPostcode } from '../../services/find-location.js'
 
 const question = questionSets.SMELL.questions.SMELL_CHOOSE_ADDRESS
 
 const handlers = {
   get: async (request, h) => {
     const result = await find(request)
-    console.log('Data for resultsFinal', result)
     request.yar.set(constants.redisKeys.SMELL_CHOOSE_ADDRESS, result)
     return h.view(constants.views.SMELL_CHOOSE_ADDRESS, {
       ...getContext(),
@@ -17,10 +16,9 @@ const handlers = {
   },
   post: async (request, h) => {
     let { answerId } = request.payload
+
     // convert answerId to number
     answerId = Number(answerId)
-
-    console.log('Data for answerId', answerId)
 
     // validate payload
     const errorSummary = validatePayload(request.payload)
@@ -52,7 +50,7 @@ const find = async (request) => {
   const { buildingDetails, postcode } = request.yar.get(constants.redisKeys.SMELL_FIND_ADDRESS)
   const { payload } = await findByPostcode(postcode)
 
-  if (payload.statuscode === 400 || payload.header.totalresults === 0) {
+  if (payload.header.totalresults === 0) {
     return {
       resultsFound: false,
       buildingDetails,
@@ -71,8 +69,7 @@ const find = async (request) => {
         y: item.Y_COORDINATE
       }
     })
-  console.log('Data for resultsData', resultsData)
-  console.log('Data for resultsData length', resultsData.length)
+
   return {
     resultsFound: true,
     buildingDetails,
@@ -86,10 +83,10 @@ const find = async (request) => {
 const processPayload = (payload, buildingDetails) => {
   const results = []
   let fullResults = false
-  let allItems = payload.results.map(item => item.DPA ? item.DPA : item.LPI).filter(item => filterResults(item.ADDRESS, buildingDetails))
+  let allItems = payload.results.map(item => item.DPA).filter(item => filterResults(item.ADDRESS, buildingDetails))
 
   if (allItems.length === 0) {
-    allItems = payload.results.map(item => item.DPA ? item.DPA : item.LPI)
+    allItems = payload.results.map(item => item.DPA)
     fullResults = true
   }
 
@@ -106,15 +103,12 @@ const processPayload = (payload, buildingDetails) => {
 }
 
 const filterResults = (address, buildingDetails) => {
-  console.log('Data for address', address.toLowerCase().split(', '))
   const addressSplit = address.toLowerCase().split(', ')
-
   const n = 2
   const rem = (addressSplit, n) => {
     return addressSplit.filter((_, index) => index < addressSplit.length - n)
   }
   const res = rem(addressSplit, n)
-  console.log('Data for res', res)
   const buildingData = buildingDetails.toLowerCase()
   const search = res.includes(buildingData)
 
@@ -142,8 +136,6 @@ const capitaliseAddress = (address) => {
 
 const validatePayload = payload => {
   const errorSummary = getErrorSummary()
-  console.log('Data for payload', payload)
-
   if (!payload.answerId) {
     errorSummary.errorList.push({
       text: 'Select an address',
@@ -157,7 +149,6 @@ const validatePayload = payload => {
 const buildAnswers = (request, answerId) => {
   const { resultsData } = request.yar.get(constants.redisKeys.SMELL_CHOOSE_ADDRESS)
   const selectedAddress = resultsData.filter(item => Number(item.uprn) === answerId)
-  console.log('Data for selectedAddress', selectedAddress)
   return {
     selectedAddress
   }

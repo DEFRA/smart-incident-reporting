@@ -40,7 +40,7 @@ const handlers = {
     console.log('Data for counterVal', counterVal)
 
     // handle redirects
-    if (counterVal > 10) {
+    if (counterVal > 50) {
       return h.redirect(constants.routes.SMELL_EXCEEDED_ATTEMPTS)
     } else {
       request.yar.set(constants.redisKeys.SMELL_FIND_ADDRESS, buildAnswers(buildingDetails, postcode))
