@@ -37,10 +37,9 @@ const handlers = {
 
     const counterVal = request.yar.get(constants.redisKeys.COUNTER)
     request.yar.set(constants.redisKeys.COUNTER, counterVal + 1)
-    console.log('Data for counterVal', counterVal)
 
     // handle redirects
-    if (counterVal > 50) {
+    if (counterVal > 10) {
       return h.redirect(constants.routes.SMELL_EXCEEDED_ATTEMPTS)
     } else {
       request.yar.set(constants.redisKeys.SMELL_FIND_ADDRESS, buildAnswers(buildingDetails, postcode))

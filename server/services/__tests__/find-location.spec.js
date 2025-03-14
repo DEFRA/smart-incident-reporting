@@ -96,7 +96,7 @@ describe('OrdnanceService', () => {
       expect(util.getJson).toHaveBeenCalledWith('https://api.os.uk/search/places/v1/postcode?postcode=BA1 1UB&key=testKey&lr=EN&fq=logical_status_code:1 logical_status_code:6&dataset=DPA&offset=0&maxresults=100', true)
     })
 
-    it('should return default status code for an invalid postcode', async () => {
+    it('should return default response for an invalid postcode', async () => {
       // Mock the util.getJson function to throw an error
       util.getJson.mockRejectedValueOnce(new Error('Invalid postcode'))
 
@@ -105,7 +105,9 @@ describe('OrdnanceService', () => {
 
       const expectedResults = {
         payload: {
-          statuscode: 400
+          header: {
+            totalresults: 0
+          }
         }
       }
 

@@ -125,6 +125,8 @@ describe(url, () => {
       expect(response.payload).toContain(question.text)
       expect(response.payload).toContain('1 address found for <b>32</b> and <b>BA1 1UB</b>')
       expect(response.payload).toContain('Carpenter House, 32, Broad Quay, Bath, BA1 1UB')
+      expect(response.payload).toContain('<a href="/smell/find-address" class="govuk-link">Change search</a>')
+      expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
     })
     it(`Happy: Should return success response and correct view with 2 matching addresses from the postcode ${url}`, async () => {
       const sessionData = {
@@ -139,6 +141,8 @@ describe(url, () => {
       expect(response.payload).toContain('2 addresses found for <b>Carpenter House</b> and <b>BA1 1UB</b>')
       expect(response.payload).toContain('Carpenter House, 32, Broad Quay, Bath, BA1 1UB')
       expect(response.payload).toContain('Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB')
+      expect(response.payload).toContain('<a href="/smell/find-address" class="govuk-link">Change search</a>')
+      expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
     })
     it(`Happy: Should return all the addresses for the postcode since there is no building name or number match ${url}`, async () => {
       const sessionData = {
@@ -155,6 +159,8 @@ describe(url, () => {
       expect(response.payload).toContain('Carpenter House, 32, Broad Quay, Bath, BA1 1UB')
       expect(response.payload).toContain('Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB')
       expect(response.payload).toContain('Horizon House, Broad Quay, Bath, BA1 1UB')
+      expect(response.payload).toContain('<a href="/smell/find-address" class="govuk-link">Change search</a>')
+      expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
     })
     it(`Sad: Should return No address found message for incorrect postcode ${url}`, async () => {
       const sessionData = {
@@ -169,6 +175,8 @@ describe(url, () => {
       expect(response.payload).toContain('No address found')
       expect(response.payload).toContain('We could not find an address that matches <b>House</b> and <b>BA1 1UC</b>')
       expect(response.payload).toContain('Check you have entered the correct postcode.')
+      expect(response.payload).toContain('<a href="/smell/find-address" class="govuk-link">Change search</a>')
+      expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
     })
   })
   describe('POST', () => {
