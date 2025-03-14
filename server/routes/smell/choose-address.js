@@ -103,16 +103,12 @@ const processPayload = (payload, buildingDetails) => {
 }
 
 const filterResults = (address, buildingDetails) => {
-  const addressSplit = address.toLowerCase().split(', ')
-  const n = 2
-  const rem = (addressSplit, n) => {
-    return addressSplit.filter((_, index) => index < addressSplit.length - n)
-  }
-  const res = rem(addressSplit, n)
+  const addressParts = address.toLowerCase().split(', ')
+  const addressLine1 = addressParts.slice(0, -2)
   const buildingData = buildingDetails.toLowerCase()
-  const search = res.includes(buildingData)
+  const searchResults = addressLine1.includes(buildingData)
 
-  return search
+  return searchResults
 }
 
 const capitaliseAddress = (address) => {
