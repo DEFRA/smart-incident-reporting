@@ -3,8 +3,6 @@ import { questionSets } from '../../utils/question-sets.js'
 import bngToNgr from '../../utils/bng-to-ngr.js'
 import { oSGBToWGS84 } from '../../utils/transform-point.js'
 
-const question = questionSets.SMELL.questions.SMELL_CONFIRM_ADDRESS
-
 const handlers = {
   get: async (request, h) => {
     return h.view(constants.views.SMELL_CONFIRM_ADDRESS, {
@@ -23,6 +21,7 @@ const handlers = {
 }
 
 const getContext = (request) => {
+  const question = questionSets.SMELL.questions.SMELL_CONFIRM_ADDRESS
   const { selectedAddress } = request.yar.get(constants.redisKeys.SMELL_CHOOSE_ADDRESS)
   const addressData = selectedAddress[0].address
   const { addressLine1, townOrCity, postcode } = formatAddress(addressData)

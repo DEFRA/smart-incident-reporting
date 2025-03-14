@@ -63,7 +63,7 @@ const find = async (request) => {
     .map(item => {
       return {
         uprn: item.UPRN,
-        postcode: item.POSTCODE ? item.POSTCODE : item.POSTCODE_LOCATOR,
+        postcode: item.POSTCODE,
         address: capitaliseAddress(item.ADDRESS),
         x: item.X_COORDINATE,
         y: item.Y_COORDINATE
