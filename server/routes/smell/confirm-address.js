@@ -37,7 +37,8 @@ const getContext = (request) => {
 
 const formatAddress = (address) => {
   const addressParts = address.split(',')
-  const addressLine1 = addressParts.slice(0, -2).join()
+  const n = 2
+  const addressLine1 = addressParts.slice(0, -n).join()
   console.log('Data for addressLine1', addressLine1)
   const townOrCity = addressParts[addressParts.length - 2].trimStart()
   const postcode = addressParts[addressParts.length - 1].trimStart()

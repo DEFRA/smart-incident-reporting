@@ -104,7 +104,8 @@ const processPayload = (payload, buildingDetails) => {
 
 const filterResults = (address, buildingDetails) => {
   const addressParts = address.toLowerCase().split(', ')
-  const addressLine1 = addressParts.slice(0, -2)
+  const n = 2
+  const addressLine1 = addressParts.slice(0, -n)
   const buildingData = buildingDetails.toLowerCase()
   const searchResults = addressLine1.includes(buildingData)
 
