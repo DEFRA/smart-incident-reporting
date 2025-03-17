@@ -21,12 +21,10 @@ const handlers = {
 }
 
 const getContext = (request) => {
-  const question = questionSets.SMELL.questions.SMELL_CONFIRM_ADDRESS
   const { selectedAddress } = request.yar.get(constants.redisKeys.SMELL_CHOOSE_ADDRESS)
   const addressData = selectedAddress[0].address
   const { addressLine1, townOrCity, postcode } = formatAddress(addressData)
   return {
-    question,
     addressLine1,
     townOrCity,
     postcode,
@@ -39,7 +37,6 @@ const formatAddress = (address) => {
   const addressParts = address.split(',')
   const n = 2
   const addressLine1 = addressParts.slice(0, -n).join()
-  console.log('Data for addressLine1', addressLine1)
   const townOrCity = addressParts[addressParts.length - 2].trimStart()
   const postcode = addressParts[addressParts.length - 1].trimStart()
 

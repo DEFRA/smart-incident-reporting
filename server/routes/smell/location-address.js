@@ -85,8 +85,6 @@ const buildAnswers = payload => {
     })
   })
 
-  console.log('Data for answers', answers)
-
   return answers
 }
 

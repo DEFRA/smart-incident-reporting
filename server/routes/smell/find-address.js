@@ -1,8 +1,6 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
-import { questionSets } from '../../utils/question-sets.js'
 
-const question = questionSets.SMELL.questions.SMELL_FIND_ADDRESS
 const postcodeRegExp = /^([A-Za-z][A-Ha-hJ-Yj-y]?\d[A-Za-z0-9]? ?\d[A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/ // https://stackoverflow.com/a/51885364
 
 const handlers = {
@@ -50,7 +48,6 @@ const handlers = {
 
 const getContext = () => {
   return {
-    question,
     enterAddress: constants.routes.SMELL_LOCATION_ADDRESS
   }
 }

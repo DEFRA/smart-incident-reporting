@@ -1,17 +1,15 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
-import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.SMELL_FIND_ADDRESS
-const question = questionSets.SMELL.questions.SMELL_FIND_ADDRESS
 
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, question.text)
+      await submitGetRequest({ url }, 'Find your address')
     })
     it(`Happy: Should return success response and correct view when counter value is 5 for ${url}`, async () => {
-      const response = await submitGetRequest({ url }, question.text, constants.statusCodes.OK, {
+      const response = await submitGetRequest({ url }, 'Find your address', constants.statusCodes.OK, {
         counter: 5
       })
       expect(response.payload).toContain('Find your address')
@@ -19,7 +17,7 @@ describe(url, () => {
       expect(response.payload).toContain('For example, 15 or Prospect Cottage')
     })
     it(`Happy: Should return success response with navigation links ${url}`, async () => {
-      const response = await submitGetRequest({ url }, question.text, constants.statusCodes.OK)
+      const response = await submitGetRequest({ url }, 'Find your address', constants.statusCodes.OK)
       expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
     })
   })

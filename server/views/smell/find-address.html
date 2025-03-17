@@ -1,6 +1,6 @@
 {% extends 'form-layout.html' %}
 
-{% set pageTitle = question.text.replace('?', '') %}
+{% set pageTitle = 'Find your address' %}
 
 {% block formContent %}
 
@@ -18,7 +18,7 @@
     {{ govukInput({
       errorMessage: findErrorMessageById(errorSummary, "buildingDetails"),
       label: {
-        text: question.answers.buildingDetails.text,
+        text: "Building number or name",
         classes: "govuk-label"
       },
       hint: {
@@ -33,7 +33,7 @@
     {{ govukInput({
       errorMessage: findErrorMessageById(errorSummary, "postcode"),
       label: {
-        text: question.answers.postcode.text,
+        text: "Postcode",
         classes: "govuk-label"
       },
       classes: "govuk-input--width-10",

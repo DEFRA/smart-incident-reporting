@@ -705,26 +705,6 @@ const questionSets = {
             text: 'No'
           }
         }
-      },
-      SMELL_FIND_ADDRESS: {
-        key: constants.redisKeys.SMELL_FIND_ADDRESS,
-        text: 'Find your address',
-        answers: {
-          buildingDetails: {
-            text: 'Building number or name'
-          },
-          postcode: {
-            text: 'Postcode'
-          }
-        }
-      },
-      SMELL_CHOOSE_ADDRESS: {
-        key: constants.redisKeys.SMELL_CHOOSE_ADDRESS,
-        text: 'Choose an address'
-      },
-      SMELL_CONFIRM_ADDRESS: {
-        key: constants.redisKeys.SMELL_CONFIRM_ADDRESS,
-        text: 'Confirm address'
       }
     }
   },

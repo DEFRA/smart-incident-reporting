@@ -1,9 +1,6 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
-import { questionSets } from '../../utils/question-sets.js'
 import { findByPostcode } from '../../services/find-location.js'
-
-const question = questionSets.SMELL.questions.SMELL_CHOOSE_ADDRESS
 
 const handlers = {
   get: async (request, h) => {
@@ -40,7 +37,6 @@ const handlers = {
 
 const getContext = () => {
   return {
-    question,
     enterAddress: constants.routes.SMELL_LOCATION_ADDRESS,
     findAddress: constants.routes.SMELL_FIND_ADDRESS
   }
