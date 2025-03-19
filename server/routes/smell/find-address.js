@@ -7,7 +7,7 @@ const handlers = {
   get: async (request, h) => {
     const counterVal = request.yar.get(constants.redisKeys.COUNTER)
 
-    // set counterValvalue to zero on first page load
+    // set counterVal value to zero on first page load
     if (!counterVal) {
       request.yar.set(constants.redisKeys.COUNTER, 0)
     }
