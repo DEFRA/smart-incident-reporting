@@ -197,7 +197,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, 302, postSessionData)
       expect(response.headers.location).toEqual(constants.routes.SMELL_CONFIRM_ADDRESS)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_CHOOSE_ADDRESS)).toEqual({
+      expect(response.request.yar.get(constants.redisKeys.SMELL_CONFIRM_ADDRESS)).toEqual({
         selectedAddress: [
           {
             uprn: '10001142725',

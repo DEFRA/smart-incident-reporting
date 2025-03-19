@@ -74,6 +74,7 @@ const SMELL_EXCEEDED_ATTEMPTS = 'smell/exceeded-attempts'
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 const REFERER = 'referer'
 const COUNTER = 'counter'
+const POSTCODE_DETAILS = 'postcode-details'
 const QUESTION_SET_ID = 'question-set-id'
 
 const views = {
@@ -149,6 +150,7 @@ const redisKeys = {
   SUBMISSION_TIMESTAMP,
   REFERER,
   COUNTER,
+  POSTCODE_DETAILS,
   QUESTION_SET_ID
 }
 

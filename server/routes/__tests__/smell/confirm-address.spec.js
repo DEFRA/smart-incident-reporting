@@ -5,7 +5,7 @@ import constants from '../../../utils/constants.js'
 const url = constants.routes.SMELL_CONFIRM_ADDRESS
 const header = 'Confirm address'
 const session = {
-  'smell/choose-address': {
+  'smell/confirm-address': {
     selectedAddress: [
       {
         uprn: '10001142725',

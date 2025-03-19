@@ -7,8 +7,8 @@ const handlers = {
     const result = await find(request)
     request.yar.set(constants.redisKeys.SMELL_CHOOSE_ADDRESS, result)
     return h.view(constants.views.SMELL_CHOOSE_ADDRESS, {
-      ...getContext(),
-      ...result
+      ...result,
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
@@ -22,57 +22,90 @@ const handlers = {
     if (errorSummary.errorList.length > 0) {
       const result = request.yar.get(constants.redisKeys.SMELL_CHOOSE_ADDRESS)
       return h.view(constants.views.SMELL_CHOOSE_ADDRESS, {
-        ...getContext(),
         ...result,
+        ...getContext(request),
         errorSummary
       })
     }
 
-    request.yar.set(constants.redisKeys.SMELL_CHOOSE_ADDRESS, buildAnswers(request, answerId))
+    request.yar.set(constants.redisKeys.SMELL_CONFIRM_ADDRESS, buildAnswers(request, answerId))
 
     // handle redirects
     return h.redirect(constants.routes.SMELL_CONFIRM_ADDRESS)
   }
 }
 
-const getContext = () => {
+const getContext = (request) => {
+  const selectedOption = request.yar.get(constants.redisKeys.SMELL_CONFIRM_ADDRESS)
+  let answer
+  if (selectedOption) {
+    const { selectedAddress } = selectedOption
+    answer = selectedAddress[0].uprn
+  }
+
   return {
+    answer,
     enterAddress: constants.routes.SMELL_LOCATION_ADDRESS,
     findAddress: constants.routes.SMELL_FIND_ADDRESS
   }
 }
 
 const find = async (request) => {
+  const cachedResult = request.yar.get(constants.redisKeys.SMELL_CHOOSE_ADDRESS)
   const { buildingDetails, postcode } = request.yar.get(constants.redisKeys.SMELL_FIND_ADDRESS)
-  const { payload } = await findByPostcode(postcode)
 
-  if (payload.header.totalresults === 0) {
-    return {
-      resultsFound: false,
-      buildingDetails,
-      postcode
-    }
+  let isCachedBuildingDetails
+  let isCachedPostcode
+  if (cachedResult) {
+    isCachedBuildingDetails = cachedResult.buildingDetails === buildingDetails
+    isCachedPostcode = cachedResult.postcode === postcode
   }
 
-  const { results, fullResults } = processPayload(payload, buildingDetails)
-  const resultsData = results
-    .map(item => {
-      return {
-        uprn: item.UPRN,
-        postcode: item.POSTCODE,
-        address: capitaliseAddress(item.ADDRESS),
-        x: item.X_COORDINATE,
-        y: item.Y_COORDINATE
-      }
-    })
+  // call API only if cachedResult is null or if postcode is new
+  if (!cachedResult || !isCachedBuildingDetails || !isCachedPostcode) {
+    request.yar.clear(constants.redisKeys.SMELL_CONFIRM_ADDRESS)
+    let payload
 
-  return {
-    resultsFound: true,
-    buildingDetails,
-    postcode,
-    showFullResults: fullResults,
-    resultsData,
-    resultlength: resultsData.length
+    if (isCachedPostcode && !isCachedBuildingDetails) {
+      // use the cached postcode data for updated building details
+      payload = request.yar.get(constants.redisKeys.POSTCODE_DETAILS)
+    } else {
+      // calling API for fresh search or updated postcode
+      const apiResults = await findByPostcode(postcode)
+      payload = apiResults.payload
+      request.yar.set(constants.redisKeys.POSTCODE_DETAILS, payload)
+    }
+
+    if (payload.header.totalresults === 0) {
+      return {
+        resultsFound: false,
+        buildingDetails,
+        postcode
+      }
+    }
+
+    const { results, fullResults } = processPayload(payload, buildingDetails)
+    const resultsData = results
+      .map(item => {
+        return {
+          uprn: item.UPRN,
+          postcode: item.POSTCODE,
+          address: capitaliseAddress(item.ADDRESS),
+          x: item.X_COORDINATE,
+          y: item.Y_COORDINATE
+        }
+      })
+
+    return {
+      resultsFound: true,
+      buildingDetails,
+      postcode,
+      showFullResults: fullResults,
+      resultsData,
+      resultlength: resultsData.length
+    }
+  } else {
+    return cachedResult
   }
 }
 

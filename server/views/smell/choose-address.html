@@ -59,8 +59,7 @@
           {% for result in resultsData %}
           {% set counter = ( counter | default(0) ) + 1 %}
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="answerId-{{ counter }}" name="answerId" type="radio"
-              value="{{ result.uprn }}">
+            <input class="govuk-radios__input" id="answerId-{{ counter }}" name="answerId" type="radio" value="{{ result.uprn }}" {% if answer === result.uprn %}checked{% endif %}>
             <label class="govuk-label govuk-radios__label" for="answerId-{{ counter }}">
               {{ result.address }}
             </label>
@@ -71,7 +70,7 @@
     </div>
 
     {{ govukButton({
-    text: "Use this address",
+    text: "Continue",
     isStartButton: false
     }) }}
 

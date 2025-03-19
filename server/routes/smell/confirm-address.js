@@ -10,7 +10,7 @@ const handlers = {
     })
   },
   post: async (request, h) => {
-    const { selectedAddress } = request.yar.get(constants.redisKeys.SMELL_CHOOSE_ADDRESS)
+    const { selectedAddress } = request.yar.get(constants.redisKeys.SMELL_CONFIRM_ADDRESS)
     const point = [selectedAddress[0].x, selectedAddress[0].y]
     request.yar.set(constants.redisKeys.SMELL_LOCATION_ADDRESS, buildAddressAnswers(selectedAddress))
     request.yar.set(constants.redisKeys.SMELL_LOCATION_MAP, buildLocationAnswers(point))
@@ -21,7 +21,7 @@ const handlers = {
 }
 
 const getContext = (request) => {
-  const { selectedAddress } = request.yar.get(constants.redisKeys.SMELL_CHOOSE_ADDRESS)
+  const { selectedAddress } = request.yar.get(constants.redisKeys.SMELL_CONFIRM_ADDRESS)
   const addressData = selectedAddress[0].address
   const { addressLine1, townOrCity, postcode } = formatAddress(addressData)
   return {
@@ -29,7 +29,7 @@ const getContext = (request) => {
     townOrCity,
     postcode,
     enterAddress: constants.routes.SMELL_LOCATION_ADDRESS,
-    differentAddress: constants.routes.SMELL_FIND_ADDRESS
+    chooseAddress: constants.routes.SMELL_CHOOSE_ADDRESS
   }
 }
 

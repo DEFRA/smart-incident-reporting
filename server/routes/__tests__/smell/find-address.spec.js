@@ -2,14 +2,15 @@ import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/s
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.SMELL_FIND_ADDRESS
+const header = 'Find your address'
 
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, 'Find your address')
+      await submitGetRequest({ url }, header)
     })
     it(`Happy: Should return success response and correct view when counter value is 5 for ${url}`, async () => {
-      const response = await submitGetRequest({ url }, 'Find your address', constants.statusCodes.OK, {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, {
         counter: 5
       })
       expect(response.payload).toContain('Find your address')
@@ -17,8 +18,19 @@ describe(url, () => {
       expect(response.payload).toContain('For example, 15 or Prospect Cottage')
     })
     it(`Happy: Should return success response with navigation links ${url}`, async () => {
-      const response = await submitGetRequest({ url }, 'Find your address', constants.statusCodes.OK)
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK)
       expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
+    })
+    it(`Should return success response and correct view with prefilled data for ${url}`, async () => {
+      const sessionData = {
+        'smell/find-address': {
+          buildingDetails: 'Building Name',
+          postcode: 'WA4 1HT'
+        }
+      }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('value="Building Name"')
+      expect(response.payload).toContain('value="WA4 1HT"')
     })
   })
   describe('POST', () => {

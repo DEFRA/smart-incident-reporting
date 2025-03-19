@@ -12,7 +12,7 @@ const handlers = {
       request.yar.set(constants.redisKeys.COUNTER, 0)
     }
     return h.view(constants.views.SMELL_FIND_ADDRESS, {
-      ...getContext()
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
@@ -27,7 +27,7 @@ const handlers = {
     const errorSummary = validatePayload(buildingDetails, postcode)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.SMELL_FIND_ADDRESS, {
-        ...getContext(),
+        ...getContext(request),
         errorSummary,
         ...request.payload
       })
@@ -46,8 +46,10 @@ const handlers = {
   }
 }
 
-const getContext = () => {
+const getContext = (request) => {
+  const answers = request.yar.get(constants.redisKeys.SMELL_FIND_ADDRESS)
   return {
+    answers,
     enterAddress: constants.routes.SMELL_LOCATION_ADDRESS
   }
 }
