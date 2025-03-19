@@ -54,19 +54,18 @@ const find = async (request) => {
   const cachedResult = request.yar.get(constants.redisKeys.SMELL_CHOOSE_ADDRESS)
   const { buildingDetails, postcode } = request.yar.get(constants.redisKeys.SMELL_FIND_ADDRESS)
 
-  let isCachedBuildingDetails
-  let isCachedPostcode
+  let isBuildingDetailsCached = false
+  let isPostcodeCached = false
   if (cachedResult) {
-    isCachedBuildingDetails = cachedResult.buildingDetails === buildingDetails
-    isCachedPostcode = cachedResult.postcode === postcode
+    isBuildingDetailsCached = cachedResult.buildingDetails === buildingDetails
+    isPostcodeCached = cachedResult.postcode === postcode
   }
 
   // call API only if cachedResult is null or if postcode is new
-  if (!cachedResult || !isCachedBuildingDetails || !isCachedPostcode) {
+  if (!cachedResult || !isBuildingDetailsCached || !isPostcodeCached) {
     request.yar.clear(constants.redisKeys.SMELL_CONFIRM_ADDRESS)
     let payload
-
-    if (isCachedPostcode && !isCachedBuildingDetails) {
+    if (isPostcodeCached && !isBuildingDetailsCached) {
       // use the cached postcode data for updated building details
       payload = request.yar.get(constants.redisKeys.POSTCODE_DETAILS)
     } else {

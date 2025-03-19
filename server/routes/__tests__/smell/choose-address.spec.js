@@ -72,7 +72,7 @@ const incorrectPostcodeResponse = {
   }
 }
 
-const postSessionData = {
+const postSessionData1 = {
   'smell/choose-address': {
     resultsFound: true,
     buildingDetails: 'Capitol House',
@@ -102,6 +102,134 @@ const postSessionData = {
       }
     ],
     resultlength: 3
+  }
+}
+
+const postSessionData2 = {
+  'smell/choose-address': {
+    resultsFound: true,
+    buildingDetails: 'Capitol House',
+    postcode: 'BA1 1UB',
+    showFullResults: true,
+    resultsData: [
+      {
+        uprn: '10001142725',
+        postcode: 'BA1 1UB',
+        address: 'Carpenter House, 32, Broad Quay, Bath, BA1 1UB',
+        x: 374999,
+        y: 164393
+      },
+      {
+        uprn: '10001142726',
+        postcode: 'BA1 1UB',
+        address: 'Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB',
+        x: 374999,
+        y: 164393
+      },
+      {
+        uprn: '10001142727',
+        postcode: 'BA1 1UB',
+        address: 'Horizon House, Broad Quay, Bath, BA1 1UB',
+        x: 374999,
+        y: 164393
+      }
+    ],
+    resultlength: 3
+  }
+}
+
+const postSessionData3 = {
+  'smell/choose-address': {
+    resultsFound: true,
+    buildingDetails: 'Broad Quay',
+    postcode: 'BA1 1UB',
+    showFullResults: false,
+    resultsData: [
+      {
+        uprn: '10001142725',
+        postcode: 'BA1 1UB',
+        address: 'Carpenter House, 32, Broad Quay, Bath, BA1 1UB',
+        x: 374999,
+        y: 164393
+      },
+      {
+        uprn: '10001142726',
+        postcode: 'BA1 1UB',
+        address: 'Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB',
+        x: 374999,
+        y: 164393
+      },
+      {
+        uprn: '10001142727',
+        postcode: 'BA1 1UB',
+        address: 'Horizon House, Broad Quay, Bath, BA1 1UB',
+        x: 374999,
+        y: 164393
+      }
+    ],
+    resultlength: 3
+  }
+}
+
+const cachedPostcodeDetails = {
+  'postcode-details': {
+    header: {
+      uri: 'https://api.os.uk/search/places/v1/postcode?postcode=BA1%201UB&lr=EN&fq=logical_status_code%3A1%20logical_status_code%3A6&dataset=DPA&offset=0&maxresults=100',
+      query: 'postcode=BA1 1UB',
+      offset: 0,
+      totalresults: 2,
+      format: 'JSON',
+      dataset: 'DPA',
+      lr: 'EN',
+      maxresults: 100,
+      epoch: '115',
+      lastupdate: '2025-03-12',
+      filter: 'fq=logical_status_code:1 logical_status_code:6',
+      output_srs: 'EPSG:27700'
+    },
+    results: [
+      {
+        DPA: {
+          UPRN: '10001142725',
+          ADDRESS: 'CARPENTER HOUSE, 32, BROAD QUAY, BATH, BA1 1UB',
+          POSTCODE: 'BA1 1UB',
+          X_COORDINATE: 374999.0,
+          Y_COORDINATE: 164393.0
+        }
+      },
+      {
+        DPA: {
+          UPRN: '10001142726',
+          ADDRESS: 'CARPENTER HOUSE, BROAD QUAY, CITY CENTRE, BATH, BATH AND NORTH EAST SOMERSET, BA1 1UB',
+          POSTCODE: 'BA1 1UB',
+          X_COORDINATE: 374999.0,
+          Y_COORDINATE: 164393.0
+        }
+      },
+      {
+        DPA: {
+          UPRN: '10001142727',
+          ADDRESS: 'HORIZON HOUSE, BROAD QUAY, BATH, BA1 1UB',
+          POSTCODE: 'BA1 1UB',
+          X_COORDINATE: 374999.0,
+          Y_COORDINATE: 164393.0
+        }
+      }
+    ]
+  }
+}
+
+const selectedOption = {
+  'smell/confirm-address': {
+    selectedAddress: [
+      {
+        uprn: '10001142727',
+        postcode: 'BA1 1UB',
+        address: 'Horizon House, Broad Quay, Bath, BA1 1UB',
+        x: 374999,
+        y: 164393
+      }
+    ]
   }
 }
 
@@ -160,6 +288,73 @@ describe(url, () => {
       expect(response.payload).toContain('<a href="/smell/find-address" class="govuk-link">Change search</a>')
       expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
     })
+    it(`Happy: Should return success response and correct view with 1 matching address from the cached postcode details ${url}`, async () => {
+      const answerData = {
+        'smell/find-address': {
+          buildingDetails: 'City Centre',
+          postcode: 'BA1 1UB'
+        }
+      }
+      const sessionData = { ...answerData, ...postSessionData2, ...cachedPostcodeDetails }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('Choose an address')
+      expect(response.payload).toContain('1 address found for <b>City Centre</b> and <b>BA1 1UB</b>')
+      expect(response.payload).toContain('Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB')
+      expect(response.payload).toContain('<a href="/smell/find-address" class="govuk-link">Change search</a>')
+      expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
+    })
+    it(`Happy: Should return success response and correct view with 2 matching addresses from the cached postcode details ${url}`, async () => {
+      const answerData = {
+        'smell/find-address': {
+          buildingDetails: 'Carpenter House',
+          postcode: 'BA1 1UB'
+        }
+      }
+      const sessionData = { ...answerData, ...postSessionData2, ...cachedPostcodeDetails }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('Choose an address')
+      expect(response.payload).toContain('2 addresses found for <b>Carpenter House</b> and <b>BA1 1UB</b>')
+      expect(response.payload).toContain('Carpenter House, 32, Broad Quay, Bath, BA1 1UB')
+      expect(response.payload).toContain('Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB')
+      expect(response.payload).toContain('<a href="/smell/find-address" class="govuk-link">Change search</a>')
+      expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
+    })
+    it(`Happy: Should return all the addresses for the postcode from the cached postcode details since there is no building name or number match ${url}`, async () => {
+      const answerData = {
+        'smell/find-address': {
+          buildingDetails: 'House',
+          postcode: 'BA1 1UB'
+        }
+      }
+      const sessionData = { ...answerData, ...postSessionData2, ...cachedPostcodeDetails }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('Choose an address')
+      expect(response.payload).toContain('We could not find an address that matches <b>House</b> and <b>BA1 1UB</b>')
+      expect(response.payload).toContain('3 addresses found for <b>BA1 1UB</b>')
+      expect(response.payload).toContain('Carpenter House, 32, Broad Quay, Bath, BA1 1UB')
+      expect(response.payload).toContain('Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB')
+      expect(response.payload).toContain('Horizon House, Broad Quay, Bath, BA1 1UB')
+      expect(response.payload).toContain('<a href="/smell/find-address" class="govuk-link">Change search</a>')
+      expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
+    })
+    it(`Happy: Should return success response and correct view with preselected radio option ${url}`, async () => {
+      const answerData = {
+        'smell/find-address': {
+          buildingDetails: 'Broad Quay',
+          postcode: 'BA1 1UB'
+        }
+      }
+      const sessionData = { ...answerData, ...selectedOption, ...postSessionData3, ...cachedPostcodeDetails }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('Choose an address')
+      expect(response.payload).toContain('3 addresses found for <b>Broad Quay</b> and <b>BA1 1UB</b>')
+      expect(response.payload).toContain('Carpenter House, 32, Broad Quay, Bath, BA1 1UB')
+      expect(response.payload).toContain('Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB')
+      expect(response.payload).toContain('Horizon House, Broad Quay, Bath, BA1 1UB')
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-3" name="answerId" type="radio" value="10001142727" checked>')
+      expect(response.payload).toContain('<a href="/smell/find-address" class="govuk-link">Change search</a>')
+      expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
+    })
     it(`Sad: Should return No address found message for incorrect postcode ${url}`, async () => {
       const sessionData = {
         'smell/find-address': {
@@ -183,7 +378,7 @@ describe(url, () => {
         url,
         payload: {}
       }
-      const response = await submitPostRequest(options, constants.statusCodes.OK, postSessionData)
+      const response = await submitPostRequest(options, constants.statusCodes.OK, postSessionData1)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Select an address')
     })
@@ -195,7 +390,7 @@ describe(url, () => {
           answerId
         }
       }
-      const response = await submitPostRequest(options, 302, postSessionData)
+      const response = await submitPostRequest(options, 302, postSessionData1)
       expect(response.headers.location).toEqual(constants.routes.SMELL_CONFIRM_ADDRESS)
       expect(response.request.yar.get(constants.redisKeys.SMELL_CONFIRM_ADDRESS)).toEqual({
         selectedAddress: [
