@@ -33,15 +33,15 @@
         </legend>
         {% if showFullResults === false %}
         <p class="govuk-body">
-          {{ resultlength }} {% if resultlength === 1 %}address{% else %}addresses{% endif %} found for <b>{{ buildingDetails }}</b> and <b>{{ postcode }}</b>
+          {{ resultlength }} {% if resultlength === 1 %}address{% else %}addresses{% endif %} found for <b>{{ buildingDetails }}</b> and <b>{{ postcode }}</b>.
         </p>
         {% endif %}
         {% if showFullResults === true %}
         <p class="govuk-body">
-          We could not find an address that matches <b>{{ buildingDetails }}</b> and <b>{{ postcode }}</b>
+          We could not find an address that matches <b>{{ buildingDetails }}</b> and <b>{{ postcode }}</b>.
         </p>
         <p class="govuk-body">
-          {{ resultlength }} {% if resultlength === 1 %}address{% else %}addresses{% endif %} found for <b>{{ postcode }}</b>
+          {{ resultlength }} {% if resultlength === 1 %}address{% else %}addresses{% endif %} found for <b>{{ postcode }}</b>.
         </p>
         {% endif %}
 
