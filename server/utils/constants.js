@@ -42,6 +42,8 @@ const WATER_POLLUTION_EFFECT_ON_WILDLIFE = 'water-pollution/effect-on-wildlife'
 const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 const WATER_POLLUTION_CHECK_YOUR_ANSWERS = 'water-pollution/check-your-answers'
 const WATER_POLLUTION_YOUR_DETAILS = 'water-pollution/your-details'
+const WATER_POLLUTION_CONTACT = 'water-pollution/contact'
+const WATER_POLLUTION_CONTACT_DETAILS = 'water-pollution/contact-details'
 
 const SMELL = 'smell'
 const SMELL_LOCATION_HOME = 'smell/location-home'
@@ -65,6 +67,7 @@ const SMELL_SOURCE_DETAILS = 'smell/source-details'
 const SMELL_CONTACT = 'smell/contact'
 const SMELL_IMAGES_OR_VIDEO = 'smell/images-or-video'
 const SMELL_OTHER_INFORMATION = 'smell/other-information'
+// const SMELL_CONTACT_DETAILS = 'smell/contact-details'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -103,6 +106,8 @@ const views = {
   WATER_POLLUTION_OTHER_INFORMATION,
   WATER_POLLUTION_CHECK_YOUR_ANSWERS,
   WATER_POLLUTION_YOUR_DETAILS,
+  WATER_POLLUTION_CONTACT,
+  WATER_POLLUTION_CONTACT_DETAILS,
   SMELL,
   SMELL_LOCATION_HOME,
   SMELL_LOCATION_ADDRESS,
@@ -125,6 +130,7 @@ const views = {
   SMELL_CONTACT,
   SMELL_IMAGES_OR_VIDEO,
   SMELL_OTHER_INFORMATION
+  // SMELL_CONTACT_DETAILS
 }
 
 const routes = {

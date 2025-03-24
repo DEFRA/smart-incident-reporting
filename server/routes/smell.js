@@ -1,15 +1,17 @@
 import constants from '../utils/constants.js'
 
 const handlers = {
-  get: async (_request, h) => {
-    const context = _getContext()
+  get: async (request, h) => {
+    const context = getContext(request)
     return h.view(constants.views.SMELL, {
       ...context
     })
   }
 }
 
-const _getContext = () => {
+const getContext = (request) => {
+  request.yar.reset()
+  request.cookieAuth.clear()
   return {
     hideBackLink: true,
     startHref: constants.routes.SMELL_SOURCE

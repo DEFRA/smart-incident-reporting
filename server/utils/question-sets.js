@@ -331,6 +331,21 @@ const questionSets = {
             text: 'Give details of what you think is in the water'
           }
         }
+      },
+      WATER_POLLUTION_CONTACT: {
+        questionId: 3000,
+        key: constants.redisKeys.WATER_POLLUTION_CONTACT,
+        text: 'Can we contact you for more information if needed?',
+        answers: {
+          yes: {
+            answerId: 3001,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3002,
+            text: 'No'
+          }
+        }
       }
     }
   },
