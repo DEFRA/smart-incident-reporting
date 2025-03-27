@@ -31,6 +31,7 @@ const handlers = {
 
     // Find account by accessCode
     const account = config.accounts.find(item => item.password === accessCode)
+    console.log('Data for account', account)
     if (account) {
       request.cookieAuth.set({
         ...account,

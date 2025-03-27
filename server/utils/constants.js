@@ -67,7 +67,7 @@ const SMELL_SOURCE_DETAILS = 'smell/source-details'
 const SMELL_CONTACT = 'smell/contact'
 const SMELL_IMAGES_OR_VIDEO = 'smell/images-or-video'
 const SMELL_OTHER_INFORMATION = 'smell/other-information'
-// const SMELL_CONTACT_DETAILS = 'smell/contact-details'
+const SMELL_CONTACT_DETAILS = 'smell/contact-details'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -129,8 +129,8 @@ const views = {
   SMELL_MEDICAL_HELP,
   SMELL_CONTACT,
   SMELL_IMAGES_OR_VIDEO,
-  SMELL_OTHER_INFORMATION
-  // SMELL_CONTACT_DETAILS
+  SMELL_OTHER_INFORMATION,
+  SMELL_CONTACT_DETAILS
 }
 
 const routes = {

@@ -33,7 +33,18 @@ const handlers = {
 
     request.yar.set(constants.redisKeys.SMELL_CONTACT, buildAnswers(answerId))
 
-    return h.redirect(constants.routes.SMELL_IMAGES_OR_VIDEO)
+    // handle redirects
+    if (answerId === question.answers.yes.answerId) {
+      return h.redirect(constants.routes.SMELL_CONTACT_DETAILS)
+    } else {
+      request.yar.clear(constants.redisKeys.SMELL_CONTACT_DETAILS)
+      request.yar.set(constants.redisKeys.SMELL_CONTACT_DETAILS, {
+        reporterName: '',
+        reporterPhoneNumber: '',
+        reporterEmailAddress: ''
+      })
+      return h.redirect(constants.routes.SMELL_IMAGES_OR_VIDEO)
+    }
   }
 }
 

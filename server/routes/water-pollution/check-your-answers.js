@@ -40,16 +40,20 @@ const getContext = () => {
 // Get answers for 'Your details' section
 const getYourDetails = (request) => {
   // Get answer for 'Name, Phone number and Email address' questions
-  const { reporterName, reporterPhoneNumber, reporterEmailAddress } = request.yar.get(constants.redisKeys.HOME)
+  const { reporterName, reporterPhoneNumber, reporterEmailAddress } = request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS)
+
+  const name = reporterName.length > 0 ? reporterName : 'Not given'
+  const phoneNumber = reporterPhoneNumber.length > 0 ? reporterPhoneNumber : 'Not given'
+  const emailAddress = reporterEmailAddress.length > 0 ? reporterEmailAddress : 'Not given'
 
   // Get answer for 'Images or videos available' question
   const imagesOrVideoUrl = 'WATER_POLLUTION_IMAGES_OR_VIDEO'
   const imagesOrVideoAnswer = getData(request, imagesOrVideoUrl)
 
   return {
-    reporterName,
-    reporterPhoneNumber,
-    reporterEmailAddress,
+    name,
+    phoneNumber,
+    emailAddress,
     imagesOrVideoAnswer
   }
 }
@@ -302,7 +306,7 @@ const getWhenData = (request, pageUrl) => {
 }
 
 const buildPayload = (session) => {
-  const reporter = session.get(constants.redisKeys.HOME)
+  const reporter = session.get(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS)
   return {
     reportingAnEnvironmentalProblem: {
       sessionGuid: session.id,

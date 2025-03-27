@@ -38,6 +38,11 @@ const handlers = {
       return h.redirect(constants.routes.WATER_POLLUTION_CONTACT_DETAILS)
     } else {
       request.yar.clear(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS)
+      request.yar.set(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS, {
+        reporterName: '',
+        reporterPhoneNumber: '',
+        reporterEmailAddress: ''
+      })
       return h.redirect(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
     }
   }

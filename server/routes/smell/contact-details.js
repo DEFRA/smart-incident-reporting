@@ -3,7 +3,7 @@ import { getErrorSummary, validateEmail } from '../../utils/helpers.js'
 
 const handlers = {
   get: async (request, h) => {
-    return h.view(constants.views.WATER_POLLUTION_CONTACT_DETAILS, {
+    return h.view(constants.views.SMELL_CONTACT_DETAILS, {
       ...getContext(request)
     })
   },
@@ -13,25 +13,25 @@ const handlers = {
 
     // Validation error so return view in Error state
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.WATER_POLLUTION_CONTACT_DETAILS, {
+      return h.view(constants.views.SMELL_CONTACT_DETAILS, {
         errorSummary,
         ...request.payload
       })
     }
 
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS, {
+    request.yar.set(constants.redisKeys.SMELL_CONTACT_DETAILS, {
       reporterName: fullName,
       reporterPhoneNumber: phone,
       reporterEmailAddress: email
     })
 
     // handle redirects
-    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
+    return h.redirect(constants.routes.SMELL_IMAGES_OR_VIDEO)
   }
 }
 
 const getContext = request => {
-  const contactDetails = request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS)
+  const contactDetails = request.yar.get(constants.redisKeys.SMELL_CONTACT_DETAILS)
   const fullName = contactDetails?.reporterName || ''
   const phone = contactDetails?.reporterPhoneNumber || ''
   const email = contactDetails?.reporterEmailAddress || ''
@@ -76,12 +76,12 @@ const validatePayload = (fullName, phone, email) => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.WATER_POLLUTION_CONTACT_DETAILS,
+    path: constants.routes.SMELL_CONTACT_DETAILS,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.WATER_POLLUTION_CONTACT_DETAILS,
+    path: constants.routes.SMELL_CONTACT_DETAILS,
     handler: handlers.post
   }
 ]
