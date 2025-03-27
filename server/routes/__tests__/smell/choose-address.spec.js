@@ -172,7 +172,7 @@ const postSessionData3 = {
 }
 
 const cachedPostcodeDetails = {
-  'postcode-details': {
+  'smell-postcode-details': {
     header: {
       uri: 'https://api.os.uk/search/places/v1/postcode?postcode=BA1%201UB&lr=EN&fq=logical_status_code%3A1%20logical_status_code%3A6&dataset=DPA&offset=0&maxresults=100',
       query: 'postcode=BA1 1UB',

@@ -3,3 +3,5 @@
 /node_modules/
 coverage
 server/public
+server/.DS_Store
+server/__mock-data__/.DS_Store

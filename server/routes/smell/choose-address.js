@@ -4,7 +4,7 @@ import { findByPostcode } from '../../services/find-location.js'
 
 const handlers = {
   get: async (request, h) => {
-    const result = await find(request)
+    const result = await findAddresses(request)
     request.yar.set(constants.redisKeys.SMELL_CHOOSE_ADDRESS, result)
     return h.view(constants.views.SMELL_CHOOSE_ADDRESS, {
       ...result,
@@ -50,7 +50,7 @@ const getContext = (request) => {
   }
 }
 
-const find = async (request) => {
+const findAddresses = async (request) => {
   const cachedResult = request.yar.get(constants.redisKeys.SMELL_CHOOSE_ADDRESS)
   const { buildingDetails, postcode } = request.yar.get(constants.redisKeys.SMELL_FIND_ADDRESS)
 
@@ -67,12 +67,12 @@ const find = async (request) => {
     let payload
     if (isPostcodeCached && !isBuildingDetailsCached) {
       // use the cached postcode data for updated building details
-      payload = request.yar.get(constants.redisKeys.POSTCODE_DETAILS)
+      payload = request.yar.get(constants.redisKeys.SMELL_POSTCODE_DETAILS)
     } else {
       // calling API for fresh search or updated postcode
       const apiResults = await findByPostcode(postcode)
       payload = apiResults.payload
-      request.yar.set(constants.redisKeys.POSTCODE_DETAILS, payload)
+      request.yar.set(constants.redisKeys.SMELL_POSTCODE_DETAILS, payload)
     }
 
     if (payload.header.totalresults === 0) {
@@ -110,14 +110,9 @@ const find = async (request) => {
 
 const processPayload = (payload, buildingDetails) => {
   const results = []
-  let fullResults = false
-  let allItems = payload.results.map(item => item.DPA).filter(item => filterResults(item.ADDRESS, buildingDetails))
-
-  if (allItems.length === 0) {
-    allItems = payload.results.map(item => item.DPA)
-    fullResults = true
-  }
-
+  const filteredItems = payload.results.map(item => item.DPA).filter(item => filterResults(item.ADDRESS, buildingDetails))
+  const fullResults = filteredItems.length === 0
+  const allItems = fullResults ? payload.results.map(item => item.DPA) : filteredItems
   allItems.forEach((item) => {
     if (!(results.find(result => result.UPRN === item.UPRN))) {
       results.push(item)
