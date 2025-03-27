@@ -79,12 +79,10 @@ const validatePayload = (buildingDetails, postcode) => {
   return errorSummary
 }
 
-const buildAnswers = (buildingDetails, postcode) => {
-  return {
-    buildingDetails,
-    postcode
-  }
-}
+const buildAnswers = (buildingDetails, postcode) => ({
+  buildingDetails,
+  postcode
+})
 
 export default [
   {
