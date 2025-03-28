@@ -33,8 +33,11 @@ const handlers = {
 
     request.yar.set(constants.redisKeys.SMELL_LOCATION_HOME, buildAnswers(answerId))
     if (answerId === question.answers.yes.answerId) {
-      return h.redirect(constants.routes.SMELL_LOCATION_ADDRESS)
+      return h.redirect(constants.routes.SMELL_FIND_ADDRESS)
     } else {
+      request.yar.clear(constants.redisKeys.SMELL_LOCATION_ADDRESS)
+      request.yar.clear(constants.redisKeys.SMELL_LOCATION_MAP)
+
       return h.redirect(constants.routes.SMELL_LOCATION_OPTION)
     }
   }

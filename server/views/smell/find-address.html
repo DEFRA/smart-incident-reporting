@@ -1,0 +1,60 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'Find your address' %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% call govukFieldset({
+      legend: {
+        text: "Find your address",
+        classes: "govuk-fieldset__legend--l",
+        isPageHeading: true
+      }
+    }) %}
+
+    {{ govukInput({
+      errorMessage: findErrorMessageById(errorSummary, "buildingDetails"),
+      label: {
+        text: "Building number or name",
+        classes: "govuk-label"
+      },
+      hint: {
+        text: "For example, 15 or Prospect Cottage"
+      },
+      classes: "govuk-!-width-two-thirds",
+      id: "buildingDetails",
+      name: "buildingDetails",
+      value: answers.buildingDetails
+    }) }}
+
+    {{ govukInput({
+      errorMessage: findErrorMessageById(errorSummary, "postcode"),
+      label: {
+        text: "Postcode",
+        classes: "govuk-label"
+      },
+      classes: "govuk-input--width-10",
+      id: "postcode",
+      name: "postcode",
+      autocomplete: "postal-code",
+      value: answers.postcode
+    }) }}
+
+    {% endcall %}
+
+
+    {{ govukButton({
+      text: "Find address",
+      isStartButton: false
+    }) }}
+
+    <p class="govuk-body">
+      <a href="{{ enterAddress }}" class="govuk-link">Enter address manually</a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

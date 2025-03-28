@@ -417,7 +417,7 @@ const questionSets = {
       SMELL_LOCATION_ADDRESS: {
         questionId: 1400,
         key: constants.redisKeys.SMELL_LOCATION_ADDRESS,
-        text: 'What is your home address?',
+        text: 'Enter your address',
         answers: {
           addressLine1: {
             answerId: 1401,
