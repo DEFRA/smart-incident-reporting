@@ -26,7 +26,7 @@ const handlers = {
 }
 
 const buildPayload = (session) => {
-  const reporter = session.get(constants.redisKeys.HOME)
+  const reporter = session.get(constants.redisKeys.SMELL_CONTACT_DETAILS)
   return {
     reportingAnEnvironmentalProblem: {
       sessionGuid: session.id,

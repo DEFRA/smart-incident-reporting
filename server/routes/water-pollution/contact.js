@@ -3,7 +3,7 @@ import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
 const sharedYesNo = 'shared/yes-no'
-const question = questionSets.SMELL.questions.SMELL_CONTACT
+const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_CONTACT
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -31,19 +31,19 @@ const handlers = {
     // convert answerId to number
     answerId = Number(answerId)
 
-    request.yar.set(constants.redisKeys.SMELL_CONTACT, buildAnswers(answerId))
+    request.yar.set(constants.redisKeys.WATER_POLLUTION_CONTACT, buildAnswers(answerId))
 
     // handle redirects
     if (answerId === question.answers.yes.answerId) {
-      return h.redirect(constants.routes.SMELL_CONTACT_DETAILS)
+      return h.redirect(constants.routes.WATER_POLLUTION_CONTACT_DETAILS)
     } else {
-      request.yar.clear(constants.redisKeys.SMELL_CONTACT_DETAILS)
-      request.yar.set(constants.redisKeys.SMELL_CONTACT_DETAILS, {
+      request.yar.clear(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS)
+      request.yar.set(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS, {
         reporterName: '',
         reporterPhoneNumber: '',
         reporterEmailAddress: ''
       })
-      return h.redirect(constants.routes.SMELL_IMAGES_OR_VIDEO)
+      return h.redirect(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
     }
   }
 }
@@ -75,12 +75,12 @@ const buildAnswers = answerId => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.SMELL_CONTACT,
+    path: constants.routes.WATER_POLLUTION_CONTACT,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.SMELL_CONTACT,
+    path: constants.routes.WATER_POLLUTION_CONTACT,
     handler: handlers.post
   }
 ]

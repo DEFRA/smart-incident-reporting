@@ -1,9 +1,9 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary } from '../../utils/helpers.js'
+import { getErrorSummary, validateEmail } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
 const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO
-const waterFeatureQuestion = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_WATER_FEATURE
+
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -13,48 +13,63 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => {
+    const emailRequired = checkAnswer(request)
     return h.view(constants.views.WATER_POLLUTION_IMAGES_OR_VIDEO, {
-      ...getContext(request)
+      ...getContext(request),
+      emailRequired
     })
   },
   post: async (request, h) => {
+    const emailRequired = checkAnswer(request)
     let { answerId } = request.payload
-
-    // validate payload
-    const errorSummary = validatePayload(answerId)
-    if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.WATER_POLLUTION_IMAGES_OR_VIDEO, {
-        ...getContext(request),
-        errorSummary
-      })
-    }
 
     // convert answerId to number
     answerId = Number(answerId)
 
+    // validate payload
+    const errorSummary = validatePayload(request, answerId, emailRequired)
+    if (errorSummary.errorList.length > 0) {
+      return h.view(constants.views.WATER_POLLUTION_IMAGES_OR_VIDEO, {
+        ...getContext(request),
+        errorSummary,
+        emailRequired
+      })
+    }
+
+    if (emailRequired && (answerId === question.answers.yes.answerId)) {
+      request.yar.set(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS, {
+        reporterName: '',
+        reporterPhoneNumber: '',
+        reporterEmailAddress: request.payload.email
+      })
+    } else if (emailRequired && (answerId === question.answers.no.answerId)) {
+      request.yar.set(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS, {
+        reporterName: '',
+        reporterPhoneNumber: '',
+        reporterEmailAddress: ''
+      })
+    } else {
+      // do nothing
+    }
     request.yar.set(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO, buildAnswers(answerId))
 
     // handle redirects
-    const waterFeatureAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)
-    if (waterFeatureAnswer[0].answerId === waterFeatureQuestion.answers.lakeOrReservoir.answerId || waterFeatureAnswer[0].answerId === waterFeatureQuestion.answers.sea.answerId) {
-      return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
-    } else {
-      return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
-    }
+    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
   }
 }
 
 const getContext = (request) => {
-  const { reporterEmailAddress } = request.yar.get(constants.redisKeys.HOME)
+  const { reporterEmailAddress } = request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS)
   const answers = request.yar.get(question.key)
+
   return {
     question,
-    reporterEmailAddress,
-    answers
+    answers,
+    email: reporterEmailAddress
   }
 }
 
-const validatePayload = answerId => {
+const validatePayload = (request, answerId, emailRequired) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
@@ -62,7 +77,30 @@ const validatePayload = answerId => {
       href: '#answerId'
     })
   }
+
+  if ((answerId === question.answers.yes.answerId) && emailRequired) {
+    if (!request.payload.email) {
+      errorSummary.errorList.push({
+        text: 'Enter an email address',
+        href: '#email'
+      })
+    } else if (!validateEmail(request.payload.email)) {
+      errorSummary.errorList.push({
+        text: 'Enter an email address in the correct format, like name@example.com',
+        href: '#email'
+      })
+    } else {
+      // do nothing
+    }
+  }
+
   return errorSummary
+}
+
+const checkAnswer = request => {
+  const contactQuestion = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_CONTACT
+  const contactAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT)
+  return contactAnswer[0].answerId === contactQuestion.answers.no.answerId
 }
 
 const buildAnswers = answerId => {
