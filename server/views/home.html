@@ -58,7 +58,6 @@
         },
         errorMessage: findErrorMessageById(errorSummary, 'email')
       }) }}
-      {% endcall %}
       {{ govukInput({
         id: "accessCode",
         name: "accessCode",
@@ -70,6 +69,7 @@
         },
         errorMessage: findErrorMessageById(errorSummary, 'accessCode')
       }) }}
+      {% endcall %}
       {{ govukButton({
         text: "Sign in"
       }) }}

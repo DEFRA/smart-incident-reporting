@@ -5,9 +5,13 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds"> 
-    <h1 class="govuk-heading-l"> 
-      {{ pageTitle }}
-    </h1> 
+    {% call govukFieldset({
+      legend: {
+        text: pageTitle,
+        classes: "govuk-fieldset__legend--l",
+        isPageHeading: true
+      }
+    }) %}
       {{ govukInput({
         id: "fullName",
         name: "fullName",
@@ -45,6 +49,7 @@
         },
         errorMessage: findErrorMessageById(errorSummary, 'email')
       }) }}
+      {% endcall %}
 
     {{ govukButton({ 
       text: "Continue" 

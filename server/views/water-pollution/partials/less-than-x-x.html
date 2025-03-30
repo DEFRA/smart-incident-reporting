@@ -11,6 +11,13 @@
     {{ govukRadios({
       name: "answerId",
       id: "answerId",
+      fieldset: {
+        legend: {
+          text: pageHeader,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
       errorMessage: findErrorMessageById(errorSummary, "answerId"),
       items: [
         {
