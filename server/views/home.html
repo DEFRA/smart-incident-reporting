@@ -14,7 +14,7 @@
     <form class="form" action="index" method="post">
       {% from "dist/govuk/components/input/macro.njk" import govukInput %}
       {% from "dist/govuk/components/fieldset/macro.njk" import govukFieldset %}
-      {% call govukFieldset({
+<!--       {% call govukFieldset({
         legend: {
           text: "Your details",
           classes: "govuk-fieldset__legend--m"
@@ -58,7 +58,7 @@
         },
         errorMessage: findErrorMessageById(errorSummary, 'email')
       }) }}
-      {% endcall %}
+      {% endcall %} -->
       {{ govukInput({
         id: "accessCode",
         name: "accessCode",

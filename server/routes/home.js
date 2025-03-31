@@ -16,23 +16,27 @@ const handlers = {
     }
   },
   post: async (request, h) => {
-    const { fullName, phone, accessCode, email } = request.payload
-    const errorSummary = validatePayload(fullName, phone, email, accessCode)
+    const { accessCode } = request.payload
+    // const { fullName, phone, accessCode, email } = request.payload
+    // const errorSummary = validatePayload(fullName, phone, email, accessCode)
 
     // Validation error so return view in Error state
-    if (errorSummary.errorList.length > 0) {
+    /* if (errorSummary.errorList.length > 0) {
       request.yar.reset()
       request.cookieAuth.clear()
       return h.view(constants.views.HOME, {
         errorSummary,
         ...request.payload
       })
-    }
+    } */
 
     // Find account by accessCode
     const account = config.accounts.find(item => item.password === accessCode)
     if (account) {
       request.cookieAuth.set({
+        ...account
+      })
+      /* request.cookieAuth.set({
         ...account,
         fullName,
         phone,
@@ -43,7 +47,7 @@ const handlers = {
         reporterPhoneNumber: phone,
         reporterEmailAddress: email,
         reporterAccessCode: accessCode
-      })
+      }) */
 
       if (accessCode.substring(0, 2).toUpperCase() === 'OD' || accessCode.substring(0, 4).toUpperCase() === 'RPSM') {
         request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.SMELL.questionSetId)
@@ -70,7 +74,7 @@ const handlers = {
   }
 }
 
-const validatePayload = (fullName, phone, email, accessCode) => {
+/* const validatePayload = (fullName, phone, email, accessCode) => {
   const errorSummary = getErrorSummary()
   if (!fullName) {
     errorSummary.errorList.push({
@@ -104,7 +108,7 @@ const validatePayload = (fullName, phone, email, accessCode) => {
     })
   }
   return errorSummary
-}
+} */
 
 export default [
   {

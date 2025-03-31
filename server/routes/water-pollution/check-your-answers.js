@@ -45,6 +45,8 @@ const getYourDetails = (request) => {
   const name = reporterName.length > 0 ? reporterName : 'Not given'
   const phoneNumber = reporterPhoneNumber.length > 0 ? reporterPhoneNumber : 'Not given'
   const emailAddress = reporterEmailAddress.length > 0 ? reporterEmailAddress : 'Not given'
+  const emailRequired = checkContactAnswer(request)
+  const emailUrl = emailRequired ? url.WATER_POLLUTION_IMAGES_OR_VIDEO : url.WATER_POLLUTION_CONTACT_DETAILS
 
   // Get answer for 'Images or videos available' question
   const imagesOrVideoUrl = 'WATER_POLLUTION_IMAGES_OR_VIDEO'
@@ -54,6 +56,7 @@ const getYourDetails = (request) => {
     name,
     phoneNumber,
     emailAddress,
+    emailUrl,
     imagesOrVideoAnswer
   }
 }
@@ -303,6 +306,12 @@ const getWhenData = (request, pageUrl) => {
     return dateTimeData
   }
   return null
+}
+
+const checkContactAnswer = (request) => {
+  const contactQuestion = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_CONTACT
+  const contactAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT)
+  return contactAnswer[0].answerId === contactQuestion.answers.no.answerId
 }
 
 const buildPayload = (session) => {
