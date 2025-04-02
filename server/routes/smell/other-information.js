@@ -9,7 +9,8 @@ const handlers = {
     const { otherInfo } = request.payload
 
     request.yar.set(constants.redisKeys.SMELL_OTHER_INFORMATION, otherInfo)
-    request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
+    const nowUtc = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+    request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, nowUtc.toISOString())
 
     // Build the payload to send to service bus
     const payload = buildPayload(request.yar)

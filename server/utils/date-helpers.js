@@ -144,7 +144,7 @@ const validatePayload = (payload, validateAndError) => {
   } else {
     // parse the date
     const dateString = `${payload.year}-${payload.month.padStart(2, '0')}-${payload.day.padStart(2, '0')} ${payload.hour.padStart(2, '0')}:${payload.minute.padStart(2, '0')} ${payload.period}`
-    dateTime = moment(dateString, 'YYYY-MM-DD hh:mm a')
+    dateTime = moment.utc(dateString, 'YYYY-MM-DD hh:mm a')
     if (!dateTime.isValid()) {
       return returnError(getErrorSummary(), validateAndError, 'The date entered must be a real date', '#date-day', true, false)
     }

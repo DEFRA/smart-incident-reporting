@@ -38,10 +38,11 @@ const handlers = {
 }
 
 const buildPayload = (request, feedback, otherInfo) => {
+  const nowUtc = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
   return {
     givingFeedbackToAEnvironmentalProblemReport: {
       sessionGuid: request.yar.id,
-      feedbackDateAndTime: (new Date()).toISOString(),
+      feedbackDateAndTime: nowUtc.toISOString(),
       feedbackRating: feedback,
       feedbackURL: request.yar.get(constants.redisKeys.FEEDBACK).feedbackURL,
       feedbackText: otherInfo,
