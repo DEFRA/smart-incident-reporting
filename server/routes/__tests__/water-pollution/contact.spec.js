@@ -2,8 +2,8 @@ import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/s
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
-const url = constants.routes.SMELL_CONTACT
-const question = questionSets.SMELL.questions.SMELL_CONTACT
+const url = constants.routes.WATER_POLLUTION_CONTACT
+const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_CONTACT
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
@@ -17,7 +17,7 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Should accept yes option and redirect to smell/images-or-video', async () => {
+    it('Should accept yes option and redirect to water-pollution/contact-details', async () => {
       const answerId = question.answers.yes.answerId
       const options = {
         url,
@@ -26,13 +26,13 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_IMAGES_OR_VIDEO)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_CONTACT)).toEqual([{
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CONTACT_DETAILS)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    it('Should accept no and redirect to smell/images-or-video', async () => {
+    it('Should accept no and redirect to water-pollution/images-or-video', async () => {
       const answerId = question.answers.no.answerId
       const options = {
         url,
@@ -41,11 +41,18 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_IMAGES_OR_VIDEO)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_CONTACT)).toEqual([{
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT)).toEqual([{
         ...baseAnswer,
         answerId
       }])
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS)).toEqual(
+        {
+          reporterName: '',
+          reporterPhoneNumber: '',
+          reporterEmailAddress: ''
+        }
+      )
     })
     it('Sad: no radio selected, returns error state', async () => {
       const options = {

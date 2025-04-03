@@ -100,9 +100,6 @@
         "reporterEmailAddress": {
           "type": "string"
         },
-        "reporterAccessCode": {
-          "type": "string"
-        },
         "questionSetId": {
           "type": "number"
         },

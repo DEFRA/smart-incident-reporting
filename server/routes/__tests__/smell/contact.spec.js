@@ -17,7 +17,7 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Should accept yes option and redirect to smell/images-or-video', async () => {
+    it('Should accept yes option and redirect to smell/contact-details', async () => {
       const answerId = question.answers.yes.answerId
       const options = {
         url,
@@ -26,7 +26,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_IMAGES_OR_VIDEO)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_CONTACT_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.SMELL_CONTACT)).toEqual([{
         ...baseAnswer,
         answerId
@@ -46,6 +46,13 @@ describe(url, () => {
         ...baseAnswer,
         answerId
       }])
+      expect(response.request.yar.get(constants.redisKeys.SMELL_CONTACT_DETAILS)).toEqual(
+        {
+          reporterName: '',
+          reporterPhoneNumber: '',
+          reporterEmailAddress: ''
+        }
+      )
     })
     it('Sad: no radio selected, returns error state', async () => {
       const options = {

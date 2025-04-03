@@ -1,12 +1,12 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
-const url = constants.routes.WATER_POLLUTION_CONTACT_DETAILS
+const url = constants.routes.SMELL_CONTACT_DETAILS
 const phoneEmptyError = 'Enter a phone number'
 const phoneError = 'Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192'
 const emailError = 'Enter an email address in the correct format, like name@example.com'
 
-let sessionData = {
-  'water-pollution/contact-details': {
+const sessionData = {
+  'smell/contact-details': {
     reporterName: 'test name',
     reporterPhoneNumber: '012345678910',
     reporterEmailAddress: 'test@test.com'
@@ -24,7 +24,7 @@ describe(url, () => {
   })
   describe('POST', () => {
     // Happy: All valid with correct accessCode
-    it('Should redirect to WATER_POLLUTION_IMAGES_OR_VIDEO', async () => {
+    it('Should redirect to SMELL_IMAGES_OR_VIDEO', async () => {
       const options = {
         url,
         payload: {
@@ -34,29 +34,8 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS)).toEqual({
-        reporterName: 'John Smith',
-        reporterPhoneNumber: '#+441234567890',
-        reporterEmailAddress: 'test@test.com'
-      })
-    })
-    it('For CYA journey, accepts valid answers and redirects to check-your-answers', async () => {
-      const options = {
-        url,
-        payload: {
-          fullName: 'John Smith',
-          phone: '#+441234567890',
-          email: 'test@test.com'
-        }
-      }
-      const answerData = {
-        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
-      }
-      sessionData = { ...sessionData, ...answerData }
-      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS)).toEqual({
+      expect(response.headers.location).toEqual(constants.routes.SMELL_IMAGES_OR_VIDEO)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_CONTACT_DETAILS)).toEqual({
         reporterName: 'John Smith',
         reporterPhoneNumber: '#+441234567890',
         reporterEmailAddress: 'test@test.com'

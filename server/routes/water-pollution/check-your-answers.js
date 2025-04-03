@@ -310,8 +310,9 @@ const getWhenData = (request, pageUrl) => {
 
 const checkContactAnswer = (request) => {
   const contactQuestion = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_CONTACT
-  const contactAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT)
-  return contactAnswer[0].answerId === contactQuestion.answers.no.answerId
+  const contactAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT)
+  const contactAnswer = contactAnswerData ? contactAnswerData[0].answerId : 'No answer'
+  return contactAnswer === contactQuestion.answers.no.answerId
 }
 
 const buildPayload = (session) => {

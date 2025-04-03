@@ -4,7 +4,6 @@ import { questionSets } from '../../utils/question-sets.js'
 
 const question = questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO
 
-
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,

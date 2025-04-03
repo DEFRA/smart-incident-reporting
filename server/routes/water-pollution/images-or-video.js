@@ -4,7 +4,6 @@ import { questionSets } from '../../utils/question-sets.js'
 
 const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO
 
-
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
@@ -99,8 +98,9 @@ const validatePayload = (request, answerId, emailRequired) => {
 
 const checkAnswer = request => {
   const contactQuestion = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_CONTACT
-  const contactAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT)
-  return contactAnswer[0].answerId === contactQuestion.answers.no.answerId
+  const contactAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT)
+  const contactAnswer = contactAnswerData ? contactAnswerData[0].answerId : ''
+  return contactAnswer === contactQuestion.answers.no.answerId
 }
 
 const buildAnswers = answerId => {

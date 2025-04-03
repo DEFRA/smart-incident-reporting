@@ -5,11 +5,10 @@ const yesterday = moment().seconds(0).milliseconds(0).subtract(1, 'days')
 const today = moment().seconds(0).milliseconds(0)
 
 const session = JSON.parse(`{
-  "home": {
+  "smell/contact-details": {
     "reporterName": "John Smith",
     "reporterPhoneNumber": "012345678910",
-    "reporterEmailAddress": "test@test.com",
-    "reporterAccessCode": "password"
+    "reporterEmailAddress": "test@test.com"
   },
   "smell/source": [
     {
