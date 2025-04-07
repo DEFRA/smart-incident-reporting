@@ -1,5 +1,4 @@
 {% from "dist/govuk/components/cookie-banner/macro.njk" import govukCookieBanner %}
-{% from "dist/govuk/components/skip-link/macro.njk" import govukSkipLink %}
 {% set description = "Cookies on the " + serviceName + " service" %}
 
 <noscript>
@@ -90,10 +89,5 @@
         ]
       }
     ]
-  }) }}
-
-  {{ govukSkipLink({
-    text: "Skip to main content 02",
-    href: "#main-content"
   }) }}
 </div>
