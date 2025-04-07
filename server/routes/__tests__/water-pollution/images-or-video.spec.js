@@ -13,23 +13,23 @@ const baseAnswer = {
 const contactQuestion = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_CONTACT
 
 let sessionData = {
-  'water-pollution/contact-details': {
-    reporterEmailAddress: 'test@test.com'
-  },
-  'water-pollution/contact': [{
-    questionId: contactQuestion.questionId,
-    answerId: contactQuestion.answers.yes.answerId
-  }]
-}
-
-const sessionDataWithAnswer = {
-  'water-pollution/contact-details': {
-    reporterEmailAddress: 'test@test.com'
-  },
   'water-pollution/contact': [{
     questionId: contactQuestion.questionId,
     answerId: contactQuestion.answers.yes.answerId
   }],
+  'water-pollution/contact-details': {
+    reporterEmailAddress: 'test@test.com'
+  }
+}
+
+const sessionDataWithAnswer = {
+  'water-pollution/contact': [{
+    questionId: contactQuestion.questionId,
+    answerId: contactQuestion.answers.yes.answerId
+  }],
+  'water-pollution/contact-details': {
+    reporterEmailAddress: 'test@test.com'
+  },
   'water-pollution/images-or-video': [{
     questionId: baseAnswer.questionId,
     answerId: question.answers.yes.answerId
@@ -37,23 +37,23 @@ const sessionDataWithAnswer = {
 }
 
 const sessionDataWithYes = {
-  'water-pollution/contact-details': {
-    reporterEmailAddress: 'test@test.com'
-  },
   'water-pollution/contact': [{
     questionId: contactQuestion.questionId,
     answerId: contactQuestion.answers.yes.answerId
-  }]
+  }],
+  'water-pollution/contact-details': {
+    reporterEmailAddress: 'test@test.com'
+  }
 }
 
 const sessionDataWithNo = {
-  'water-pollution/contact-details': {
-    reporterEmailAddress: ''
-  },
   'water-pollution/contact': [{
     questionId: contactQuestion.questionId,
     answerId: contactQuestion.answers.no.answerId
-  }]
+  }],
+  'water-pollution/contact-details': {
+    reporterEmailAddress: ''
+  }
 }
 
 describe(url, () => {
@@ -114,7 +114,7 @@ describe(url, () => {
         reporterEmailAddress: 'test@test.com'
       })
     })
-    it('Happy: Should accept no option and redirect to WATER_POLLUTION_OTHER_INFORMATION', async () => {
+    it('Happy: Should accept no option when selected yes for WATER_POLLUTION_CONTACT and redirect to WATER_POLLUTION_OTHER_INFORMATION', async () => {
       const answerId = question.answers.no.answerId
       const options = {
         url,
@@ -122,7 +122,34 @@ describe(url, () => {
           answerId
         }
       }
-      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithYes)
+      const sessionData1 = {
+        'water-pollution/contact': [{
+          questionId: contactQuestion.questionId,
+          answerId: contactQuestion.answers.yes.answerId
+        }]
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData1)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
+    it('Happy: Should accept no option when selected no for WATER_POLLUTION_CONTACT and redirect to WATER_POLLUTION_OTHER_INFORMATION', async () => {
+      const answerId = question.answers.no.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const sessionData2 = {
+        'water-pollution/contact': [{
+          questionId: contactQuestion.questionId,
+          answerId: contactQuestion.answers.no.answerId
+        }]
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData2)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
@@ -156,6 +183,49 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Select yes if you want to send us any images or videos')
+    })
+    it('Sad: Should error for an empty email address', async () => {
+      const answerId = question.answers.yes.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const sessionData3 = {
+        'water-pollution/contact': [{
+          questionId: contactQuestion.questionId,
+          answerId: contactQuestion.answers.no.answerId
+        }],
+        'water-pollution/contact-details': {
+          reporterEmailAddress: ''
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData3)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain('Enter an email address')
+    })
+    it('Sad: Should error for an invalid email address', async () => {
+      const answerId = question.answers.yes.answerId
+      const options = {
+        url,
+        payload: {
+          answerId,
+          email: 'sdfdsf'
+        }
+      }
+      const sessionData4 = {
+        'water-pollution/contact': [{
+          questionId: contactQuestion.questionId,
+          answerId: contactQuestion.answers.no.answerId
+        }],
+        'water-pollution/contact-details': {
+          reporterEmailAddress: ''
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData4)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain('Enter an email address in the correct format, like name@example.com')
     })
   })
 })

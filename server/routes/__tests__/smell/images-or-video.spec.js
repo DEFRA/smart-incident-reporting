@@ -13,23 +13,23 @@ const baseAnswer = {
 const contactQuestion = questionSets.SMELL.questions.SMELL_CONTACT
 
 const sessionData = {
-  'smell/contact-details': {
-    reporterEmailAddress: 'test@test.com'
-  },
-  'smell/contact': [{
-    questionId: contactQuestion.questionId,
-    answerId: contactQuestion.answers.yes.answerId
-  }]
-}
-
-const sessionDataWithAnswer = {
-  'smell/contact-details': {
-    reporterEmailAddress: 'test@test.com'
-  },
   'smell/contact': [{
     questionId: contactQuestion.questionId,
     answerId: contactQuestion.answers.yes.answerId
   }],
+  'smell/contact-details': {
+    reporterEmailAddress: 'test@test.com'
+  }
+}
+
+const sessionDataWithAnswer = {
+  'smell/contact': [{
+    questionId: contactQuestion.questionId,
+    answerId: contactQuestion.answers.yes.answerId
+  }],
+  'smell/contact-details': {
+    reporterEmailAddress: 'test@test.com'
+  },
   'smell/images-or-video': [{
     questionId: baseAnswer.questionId,
     answerId: question.answers.yes.answerId
@@ -37,23 +37,23 @@ const sessionDataWithAnswer = {
 }
 
 const sessionDataWithYes = {
-  'smell/contact-details': {
-    reporterEmailAddress: 'test@test.com'
-  },
   'smell/contact': [{
     questionId: contactQuestion.questionId,
     answerId: contactQuestion.answers.yes.answerId
-  }]
+  }],
+  'smell/contact-details': {
+    reporterEmailAddress: 'test@test.com'
+  }
 }
 
 const sessionDataWithNo = {
-  'smell/contact-details': {
-    reporterEmailAddress: ''
-  },
   'smell/contact': [{
     questionId: contactQuestion.questionId,
     answerId: contactQuestion.answers.no.answerId
-  }]
+  }],
+  'smell/contact-details': {
+    reporterEmailAddress: ''
+  }
 }
 
 describe(url, () => {
@@ -114,7 +114,7 @@ describe(url, () => {
         reporterEmailAddress: 'test@test.com'
       })
     })
-    it('Happy: Should accept no option and redirect to SMELL_OTHER_INFORMATION', async () => {
+    it('Happy: Should accept no option when selected yes for SMELL_CONTACT and redirect to SMELL_OTHER_INFORMATION', async () => {
       const answerId = question.answers.no.answerId
       const options = {
         url,
@@ -122,7 +122,34 @@ describe(url, () => {
           answerId
         }
       }
-      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithYes)
+      const sessionData1 = {
+        'smell/contact': [{
+          questionId: contactQuestion.questionId,
+          answerId: contactQuestion.answers.yes.answerId
+        }]
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData1)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_OTHER_INFORMATION)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_IMAGES_OR_VIDEO)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
+    it('Happy: Should accept no option when selected no for SMELL_CONTACT and redirect to SMELL_OTHER_INFORMATION', async () => {
+      const answerId = question.answers.no.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const sessionData2 = {
+        'smell/contact': [{
+          questionId: contactQuestion.questionId,
+          answerId: contactQuestion.answers.no.answerId
+        }]
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData2)
       expect(response.headers.location).toEqual(constants.routes.SMELL_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.SMELL_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
@@ -137,6 +164,49 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Select yes if you want to send us any images or videos')
+    })
+    it('Sad: Should error for an empty email address', async () => {
+      const answerId = question.answers.yes.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const sessionData3 = {
+        'smell/contact': [{
+          questionId: contactQuestion.questionId,
+          answerId: contactQuestion.answers.no.answerId
+        }],
+        'smell/contact-details': {
+          reporterEmailAddress: ''
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData3)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain('Enter an email address')
+    })
+    it('Sad: Should error for an invalid email address', async () => {
+      const answerId = question.answers.yes.answerId
+      const options = {
+        url,
+        payload: {
+          answerId,
+          email: 'sdfdsf'
+        }
+      }
+      const sessionData4 = {
+        'smell/contact': [{
+          questionId: contactQuestion.questionId,
+          answerId: contactQuestion.answers.no.answerId
+        }],
+        'smell/contact-details': {
+          reporterEmailAddress: ''
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData4)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain('Enter an email address in the correct format, like name@example.com')
     })
   })
 })
