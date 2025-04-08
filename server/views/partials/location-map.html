@@ -20,7 +20,22 @@
 </div>
 {% endif %}
 
-<div class="govuk-grid-row">
+<noscript>
+  <style type="text/css">
+    #map-and-search-container {display:none}
+  </style>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-visually-hidden">Interactive map of the United Kingdom</span>
+      <h1 class="govuk-heading-xl">You need JavaScript enabled on your browser to use the map</h1>
+      <p class="govuk-body">
+        If you cannot or do not want to enable JavaScript then you can go back from this screen and choose to 'give a description' of the location instead.
+      </p>
+    </div>
+  </div>
+</noscript>
+
+<div id="map-and-search-container" class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <div class="govuk-form-group {% if noPoint %}govuk-form-group--error{% endif %}">
       <h1 class="govuk-label-wrapper">
@@ -49,13 +64,11 @@
               </button>
             </div>
         </div>
-
-        <div id="map" class="map" tabindex="0"></div>
+        <div id="map" class="map" aria-label="Map, tap or click on the map to drop a pin. Use the buttons to zoom in or out of map" tabindex="0"></div>
         <!--This hidden field holds the OSGB coordinate for the marker placed on the map-->
         <input type="hidden" id="point" name="point" value="[]">
       </div>
       
-
        <!-- Sticky button -->
       <div class="sticky-container">
         <div class="govuk-!-padding-bottom-2"></div>
@@ -70,9 +83,6 @@
         }) }}
         <div class="govuk-!-padding-bottom-2"></div>
       </div> 
-
-
-
   </div>
 </div>
 
