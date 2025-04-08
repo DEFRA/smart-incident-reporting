@@ -415,6 +415,12 @@ $govuk-global-styles: true;
   font-size: 1.5em !important;
 }
 
+.ol-control {
+  background-color: rgba(98, 106, 110, 0.5) !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
 .ol-zoom .ol-zoom-in {
   border-radius: 2px 2px 0 0;
 }
