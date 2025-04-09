@@ -24,7 +24,8 @@ const REPORT_SENT = 'report-sent'
 const FEEDBACK = 'feedback'
 const FEEDBACK_SUCCESS = 'feedback-success'
 
-const WATER_POLUTION = 'water-pollution'
+const WATER_POLLUTION_START = 'water-pollution-start'
+const WATER_POLLUTION = 'water-pollution'
 const WATER_POLLUTION_WATER_FEATURE = 'water-pollution/water-feature'
 const WATER_POLLUTION_LOCATION_OPTION = 'water-pollution/location-option'
 const WATER_POLLUTION_LOCATION_MAP = 'water-pollution/location-map'
@@ -44,6 +45,7 @@ const WATER_POLLUTION_CHECK_YOUR_ANSWERS = 'water-pollution/check-your-answers'
 const WATER_POLLUTION_CONTACT = 'water-pollution/contact'
 const WATER_POLLUTION_CONTACT_DETAILS = 'water-pollution/contact-details'
 
+const SMELL_START = 'smell-start'
 const SMELL = 'smell'
 const SMELL_LOCATION_HOME = 'smell/location-home'
 const SMELL_LOCATION_ADDRESS = 'smell/location-address'
@@ -93,7 +95,8 @@ const views = {
   FEEDBACK,
   FEEDBACK_SUCCESS,
   REPORT_SENT,
-  WATER_POLUTION,
+  WATER_POLLUTION_START,
+  WATER_POLLUTION,
   WATER_POLLUTION_WATER_FEATURE,
   WATER_POLLUTION_LOCATION_OPTION,
   WATER_POLLUTION_LOCATION_MAP,
@@ -112,6 +115,7 @@ const views = {
   WATER_POLLUTION_CHECK_YOUR_ANSWERS,
   WATER_POLLUTION_CONTACT,
   WATER_POLLUTION_CONTACT_DETAILS,
+  SMELL_START,
   SMELL,
   SMELL_LOCATION_HOME,
   SMELL_LOCATION_ADDRESS,

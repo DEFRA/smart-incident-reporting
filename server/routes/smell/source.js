@@ -1,7 +1,6 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary } from '../../utils/helpers.js'
-import isWorkingHours from '../../utils/is-working-hours.js'
 
 const question = questionSets.SMELL.questions.SMELL_SOURCE
 
@@ -12,16 +11,10 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (request, h) => {
-    if (await isWorkingHours()) {
-      request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.SMELL.questionSetId)
-      return h.view(constants.views.SMELL_SOURCE, {
-        ...getContext()
-      })
-    } else {
-      // request.logger.warn('Service unavailable outside of working hours')
-      return h.redirect(constants.routes.SERVICE_UNAVAILABLE)
-    }
+  get: async (_request, h) => {
+    return h.view(constants.views.SMELL_SOURCE, {
+      ...getContext()
+    })
   },
   post: async (request, h) => {
     // get payload

@@ -1,7 +1,6 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary } from '../../utils/helpers.js'
-import isWorkingHours from '../../utils/is-working-hours.js'
 
 const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_WATER_FEATURE
 
@@ -13,15 +12,9 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => {
-    if (await isWorkingHours()) {
-      request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.WATER_POLLUTION.questionSetId)
-      return h.view(constants.views.WATER_POLLUTION_WATER_FEATURE, {
-        ...getContext(request)
-      })
-    } else {
-      // request.logger.warn('Service unavailable outside of working hours')
-      return h.redirect(constants.routes.SERVICE_UNAVAILABLE)
-    }
+    return h.view(constants.views.WATER_POLLUTION_WATER_FEATURE, {
+      ...getContext(request)
+    })
   },
   post: async (request, h) => {
     // get payload
