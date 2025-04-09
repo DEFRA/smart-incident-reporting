@@ -1,7 +1,7 @@
 import constants from '../utils/constants.js'
 
 const handlers = {
-  get: async (request, h) => {
+  get: async (_request, h) => {
     const context = _getContext()
     return h.view(constants.views.WATER_POLLUTION_START, {
       ...context
