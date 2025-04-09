@@ -1,7 +1,7 @@
 import { submitGetRequest } from '../../__test-helpers__/server.js'
 import constants from '../../utils/constants.js'
 
-const url = constants.routes.SMELL
+const url = constants.routes.SMELL_START
 const header = 'Report a smell'
 
 describe(url, () => {
