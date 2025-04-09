@@ -1,5 +1,10 @@
 {% extends 'form-layout.html' %}
+
+{% if noPoint %}
+{% set pageTitle = 'Error: ' + question.text %}
+{% else %}
 {% set pageTitle = question.text %}
+{% endif %}
 
 {% block formContent %}
 
@@ -40,7 +45,7 @@
     <div class="govuk-form-group {% if noPoint %}govuk-form-group--error{% endif %}">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="location">
-          {{ pageTitle }}
+          {{ question.text }}
         </label>
       </h1>
       <p class="govuk-body">Tap or click on the map to drop a pin.</p>
