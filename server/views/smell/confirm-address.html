@@ -6,23 +6,12 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-
-    {% call govukFieldset({
-      legend: {
-        text: "Confirm address",
-        classes: "govuk-fieldset__legend--l",
-        isPageHeading: true
-      }
-    }) %}
-    {% endcall %}
-    
+    <h1 class="govuk-heading-l">Confirm address</h1>
     <div class="govuk-inset-text">{{ addressLine1 }}<br>{{ townOrCity }}<br>{{ postcode }}</div>
-
     {{ govukButton({
       text: "Use this address",
       isStartButton: false
     }) }}
-
     <p class="govuk-body">
       <a href="{{ chooseAddress }}" class="govuk-link">Choose a different address</a>
     </p>

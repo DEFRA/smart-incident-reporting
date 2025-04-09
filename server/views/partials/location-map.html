@@ -1,5 +1,10 @@
 {% extends 'form-layout.html' %}
+
+{% if noPoint %}
+{% set pageTitle = 'Error: ' + question.text %}
+{% else %}
 {% set pageTitle = question.text %}
+{% endif %}
 
 {% block formContent %}
 
@@ -20,12 +25,27 @@
 </div>
 {% endif %}
 
-<div class="govuk-grid-row">
+<noscript>
+  <style type="text/css">
+    #map-and-search-container {display:none}
+  </style>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-visually-hidden">Interactive map of the United Kingdom</span>
+      <h1 class="govuk-heading-xl">You need JavaScript enabled on your browser to use the map</h1>
+      <p class="govuk-body">
+        If you cannot or do not want to enable JavaScript then you can go back from this screen and choose to 'give a description' of the location instead.
+      </p>
+    </div>
+  </div>
+</noscript>
+
+<div id="map-and-search-container" class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <div class="govuk-form-group {% if noPoint %}govuk-form-group--error{% endif %}">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="location">
-          {{ pageTitle }}
+          {{ question.text }}
         </label>
       </h1>
       <p class="govuk-body">Tap or click on the map to drop a pin.</p>
@@ -41,7 +61,7 @@
           <p><a href="#" id="current-location">Use your current location</a></p>
             <div class="search-box-and-button">
               <div id="location-container"></div>
-              <button class="govuk-button" id="search-location">
+              <button class="govuk-button" id="search-location" aria-label="Search">
                 <svg aria-hidden="true" focusable="true" width="20" height="20" viewbox="0 0 20 20" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
                   <rect x="0" y="0" width="50" height="50" style="fill:none;"/>
                   <path d="M12.316,14.791c-1.242,0.79 -2.716,1.248 -4.296,1.248c-4.426,0 -8.02,-3.593 -8.02,-8.019c0,-4.426 3.594,-8.02 8.02,-8.02c4.426,0 8.019,3.594 8.019,8.02c0,1.58 -0.458,3.054 -1.248,4.296l5.209,5.209l-2.475,2.475l-5.209,-5.209Zm-4.296,-12.771c3.311,0 6,2.688 6,6c0,3.311 -2.689,6 -6,6c-3.312,0 -6,-2.689 -6,-6c0,-3.312 2.688,-6 6,-6Z" style="fill:currentColor;"/>
@@ -49,13 +69,11 @@
               </button>
             </div>
         </div>
-
-        <div id="map" class="map" tabindex="0"></div>
+        <div id="map" class="map" aria-label="Map, tap or click on the map to drop a pin. Use the buttons to zoom in or out of map" tabindex="0"></div>
         <!--This hidden field holds the OSGB coordinate for the marker placed on the map-->
         <input type="hidden" id="point" name="point" value="[]">
       </div>
       
-
        <!-- Sticky button -->
       <div class="sticky-container">
         <div class="govuk-!-padding-bottom-2"></div>
@@ -70,9 +88,6 @@
         }) }}
         <div class="govuk-!-padding-bottom-2"></div>
       </div> 
-
-
-
   </div>
 </div>
 
