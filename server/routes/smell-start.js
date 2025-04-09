@@ -2,14 +2,14 @@ import constants from '../utils/constants.js'
 
 const handlers = {
   get: async (_request, h) => {
-    const context = _getContext()
+    const context = getContext()
     return h.view(constants.views.SMELL_START, {
       ...context
     })
   }
 }
 
-const _getContext = () => {
+const getContext = () => {
   return {
     hideBackLink: true,
     startHref: constants.routes.SMELL
