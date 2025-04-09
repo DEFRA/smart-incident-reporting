@@ -65,10 +65,16 @@ const SMELL_SOURCE_DETAILS = 'smell/source-details'
 const SMELL_CONTACT = 'smell/contact'
 const SMELL_IMAGES_OR_VIDEO = 'smell/images-or-video'
 const SMELL_OTHER_INFORMATION = 'smell/other-information'
+const SMELL_FIND_ADDRESS = 'smell/find-address'
+const SMELL_CHOOSE_ADDRESS = 'smell/choose-address'
+const SMELL_CONFIRM_ADDRESS = 'smell/confirm-address'
+const SMELL_EXCEEDED_ATTEMPTS = 'smell/exceeded-attempts'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 const REFERER = 'referer'
+const COUNTER = 'counter'
+const SMELL_POSTCODE_DETAILS = 'smell-postcode-details'
 const QUESTION_SET_ID = 'question-set-id'
 
 const views = {
@@ -124,7 +130,11 @@ const views = {
   SMELL_MEDICAL_HELP,
   SMELL_CONTACT,
   SMELL_IMAGES_OR_VIDEO,
-  SMELL_OTHER_INFORMATION
+  SMELL_OTHER_INFORMATION,
+  SMELL_FIND_ADDRESS,
+  SMELL_CHOOSE_ADDRESS,
+  SMELL_CONFIRM_ADDRESS,
+  SMELL_EXCEEDED_ATTEMPTS
 }
 
 const routes = {
@@ -139,6 +149,8 @@ const redisKeys = {
   ...views,
   SUBMISSION_TIMESTAMP,
   REFERER,
+  COUNTER,
+  SMELL_POSTCODE_DETAILS,
   QUESTION_SET_ID
 }
 

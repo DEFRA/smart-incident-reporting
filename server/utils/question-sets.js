@@ -5,6 +5,7 @@ const YOU_DO_NOT_KNOW = 'You do not know'
 const SOMETHING_ELSE = 'Something else'
 const NONE_OF_THESE = 'None of these'
 const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
+const NOT_GIVEN = 'Not given'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -323,7 +324,7 @@ const questionSets = {
           unknown: {
             answerId: 2906,
             text: YOU_DO_NOT_KNOW,
-            shortText: YOU_DO_NOT_KNOW_SHORT
+            shortText: NOT_GIVEN
           },
           somethingElseDetail: {
             answerId: 2907,
@@ -416,7 +417,7 @@ const questionSets = {
       SMELL_LOCATION_ADDRESS: {
         questionId: 1400,
         key: constants.redisKeys.SMELL_LOCATION_ADDRESS,
-        text: 'Enter the address',
+        text: 'Enter your address',
         answers: {
           addressLine1: {
             answerId: 1401,
@@ -624,7 +625,7 @@ const questionSets = {
       SMELL_EFFECT_ON_HEALTH: {
         questionId: 2500,
         key: constants.redisKeys.SMELL_EFFECT_ON_HEALTH,
-        text: 'Did the smell cause any of these health problems?',
+        text: 'Did the smell cause any of these health problems, on this occasion?',
         answers: {
           headache: {
             answerId: 2501,
@@ -644,7 +645,7 @@ const questionSets = {
           },
           somethingElse: {
             answerId: 2505,
-            text: SOMETHING_ELSE
+            text: 'Something else or you\'d prefer not to say'
           },
           noneOfthese: {
             answerId: 2506,
@@ -653,6 +654,10 @@ const questionSets = {
           somethingElseDetails: {
             answerId: 2507,
             text: 'Give details about the health problem'
+          },
+          mentalHealthIssues: {
+            answerId: 2508,
+            text: 'Mental health issues, for example stress'
           }
         }
       },
@@ -703,13 +708,68 @@ const questionSets = {
       }
     }
   },
-  ILLEGAL_FISHING: {
-    questionSetId: 300,
-    questions: {}
-  },
-  FLOODING: {
-    questionSetId: 400,
-    questions: {}
+  CREATE_A_REPORT: {
+    questionSetId: 0,
+    questions: {
+      REPORTED_BY_EMAIL: {
+        questionId: 3800,
+        text: 'Reported by email?',
+        answers: {
+          yes: {
+            answerId: 3801,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3802,
+            text: 'No'
+          }
+        }
+      },
+      REPORTED_PHOTOS_OR_VIDEOS: {
+        questionId: 3900,
+        text: 'Has photos or videos of problem',
+        answers: {
+          yes: {
+            answerId: 3901,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3902,
+            text: 'NO'
+          }
+        }
+      },
+      EXTERNAL_ORGANISATION_REPORT: {
+        questionId: 4000,
+        text: 'External organisation report',
+        answers: {
+          water: {
+            answerId: 4001,
+            text: 'Water company'
+          },
+          other: {
+            answerId: 4002,
+            text: 'Public organisation'
+          },
+          name: {
+            answerId: 4003,
+            text: 'Name of company or organisation'
+          }
+        }
+      },
+      INCIDENT_LOCATION: {
+        questionId: 4100,
+        text: 'Location of incident',
+        answers: {
+          nationalGridReference: {
+            answerId: 4101
+          },
+          locationDescription: {
+            answerId: 4102
+          }
+        }
+      }
+    }
   }
 }
 
