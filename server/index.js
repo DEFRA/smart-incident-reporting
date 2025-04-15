@@ -8,7 +8,6 @@ import views from './plugins/views.js'
 import cache from './plugins/cache.js'
 import logging from './plugins/logging.js'
 import session from './plugins/session.js'
-import auth from './plugins/auth.js'
 import onPostHandler from './plugins/on-post-handler.js'
 
 const createServer = async options => {
@@ -41,7 +40,6 @@ const init = async server => {
 const _registerPlugins = async server => {
   await server.register(logging)
   await server.register(session)
-  await server.register(auth)
   await server.register(errorPages)
   await server.register(inert)
   await server.register(await router())

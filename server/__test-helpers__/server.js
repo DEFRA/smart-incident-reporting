@@ -25,18 +25,6 @@ const submitPostRequest = async (options, expectedResponseCode = constants.statu
 }
 
 const submitRequest = async (options, expectedResponseCode) => {
-  // tests can pass in their own auth object
-  if (!Object.hasOwn(options, 'auth')) {
-    // Add in some default credentials to pass authentication on routes
-    options.auth = {
-      strategy: 'session-auth',
-      credentials: {
-        id: 1,
-        fullName: 'John Smith',
-        phone: '012345678910'
-      }
-    }
-  }
   const response = await getServer().inject(options)
   expect(response.statusCode).toBe(expectedResponseCode)
   return response

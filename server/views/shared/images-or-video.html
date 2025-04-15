@@ -9,7 +9,25 @@
       {{ question.text }}
     </h1> 
     {% set contactHtml %}
-      <p>We'll send a message to <strong>{{ reporterEmailAddress }}</strong> with details on where to send these, if needed.</p>
+    {% if emailRequired === true %}
+    <p>We need your email to send you instructions on how to share images and videos, after you send your report.</p>
+    {{ govukInput({
+      id: "email",
+      name: "email",
+      value: email,
+      type: "email",
+      autocomplete: "email",
+      spellcheck: false,
+      classes: "govuk-!-width-two-thirds",
+      label: {
+        text: "Email address"
+      },
+      errorMessage: findErrorMessageById(errorSummary, 'email')
+    }) }}
+    {% endif %}
+    {% if emailRequired === false %}
+    <p>We'll send a message to <strong>{{ email }}</strong> with details on where to send these, if needed.</p>
+    {% endif %}
     {% endset -%}
 
     {{ govukRadios({ 
