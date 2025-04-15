@@ -333,16 +333,16 @@ const questionSets = {
         }
       },
       WATER_POLLUTION_CONTACT: {
-        questionId: 3000,
+        questionId: 3400,
         key: constants.redisKeys.WATER_POLLUTION_CONTACT,
         text: 'Can we contact you for more information if needed?',
         answers: {
           yes: {
-            answerId: 3001,
+            answerId: 3401,
             text: 'Yes'
           },
           no: {
-            answerId: 3002,
+            answerId: 3402,
             text: 'No'
           }
         }
