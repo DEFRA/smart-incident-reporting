@@ -6,13 +6,15 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">
-      {{ pageTitle }}
-    </h1>
     {{ govukTextarea({
       name: "locationDescription",
       id: "locationDescription",
       rows: "10",
+      label: {
+        text: question.text,
+        classes: "govuk-label--l",
+        isPageHeading: true
+      },
       hint: {
         html: "Include things like the nearest town or any landmarks. You can also include things like <a href='http://www.what3words.com' target='_new'>what3words (opens new tab)</a> or map references."
       }

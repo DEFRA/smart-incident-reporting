@@ -24,8 +24,11 @@
 
 {% endblock %}
 
-{% block header %}
+{% block bodyStart %}
   {% include "cookie-banner.html" %}
+{% endblock %}
+
+{% block header %}
   {{ govukHeader({
     homepageUrl: govUkHome,
     containerClasses: "govuk-width-container",
@@ -35,7 +38,7 @@
 {% endblock %}
 
 {% block pageTitle %}
-  {% if err %} Error: {% endif %} {{ pageTitle }} {{ titleSuffix }}
+  {% if errorSummary %} Error: {% endif %} {{ pageTitle }} {{ titleSuffix }}
 {% endblock %}
 
 {% block beforeContent %}
