@@ -6,7 +6,7 @@
       {{ govukErrorSummary(errorSummary) }}
   {% endif %}
 
-  <form method="post" novalidate="novalidate">
+  <form method="post" novalidate="novalidate" action="#">
     {% block formContent %}
     {% endblock %}
   </form>

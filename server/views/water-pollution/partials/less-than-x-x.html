@@ -1,10 +1,13 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-label-wrapper">
-      <label class="govuk-label govuk-label--l" for="location">
-        {{ pageHeader }}
-      </label>
-    </h1>
+
+    {% call govukFieldset({
+      legend: {
+        text: pageHeader,
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    }) %}
 
     {{ helpHtml | safe }}
     
@@ -34,9 +37,11 @@
       ]
     }) }}
 
-      {{ govukButton({
-        text: "Continue"
-      }) }}
+    {% endcall %}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
 
   </div>
 </div>
