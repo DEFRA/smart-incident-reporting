@@ -4,43 +4,57 @@
 {% block formContent %}
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <fieldset class="govuk-fieldset">
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-        <h1 class="govuk-fieldset__heading">
-          {{ question.text }}
-        </h1>
-      </legend>
-      {% set contactHtml %}
-        <p>We'll send a message to <strong>{{ reporterEmailAddress }}</strong> with details on where to send these, if needed.</p>
-      {% endset -%}
+  <div class="govuk-grid-column-two-thirds"> 
+    <h1 class="govuk-heading-l"> 
+      {{ question.text }}
+    </h1> 
+    {% set contactHtml %}
+    {% if emailRequired === true %}
+    <p>We need your email to send you instructions on how to share images and videos, after you send your report.</p>
+    {{ govukInput({
+      id: "email",
+      name: "email",
+      value: email,
+      type: "email",
+      autocomplete: "email",
+      spellcheck: false,
+      classes: "govuk-!-width-two-thirds",
+      label: {
+        text: "Email address"
+      },
+      errorMessage: findErrorMessageById(errorSummary, 'email')
+    }) }}
+    {% endif %}
+    {% if emailRequired === false %}
+    <p>We'll send a message to <strong>{{ email }}</strong> with details on where to send these, if needed.</p>
+    {% endif %}
+    {% endset -%}
 
-      {{ govukRadios({ 
-        classes: "govuk-radios", 
-        name: "answerId",
-        id: "answerId",
-        errorMessage: findErrorMessageById(errorSummary, "answerId"),
-        hint: {
-          text: "You must be able to send these to us by email."
-        },
-        items: [ 
-          {
-            value: question.answers.yes.answerId,
-            text: question.answers.yes.text,
-            checked: getAnswer(answers, question.answers.yes.answerId),
-            conditional: {
-              html: contactHtml
-            }
-          },
-          {
-            value: question.answers.no.answerId,
-            text: question.answers.no.text,
-            checked: getAnswer(answers, question.answers.no.answerId)
+    {{ govukRadios({ 
+      classes: "govuk-radios", 
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      hint: {
+        text: "You must be able to send these to us by email."
+      },
+      items: [ 
+        {
+          value: question.answers.yes.answerId,
+          text: question.answers.yes.text,
+          checked: getAnswer(answers, question.answers.yes.answerId),
+          conditional: {
+            html: contactHtml
           }
-        ] 
-      }) }}
-    </fieldset>
-    
+        },
+        {
+          value: question.answers.no.answerId,
+          text: question.answers.no.text,
+          checked: getAnswer(answers, question.answers.no.answerId)
+        }
+      ] 
+    }) }} 
+
     {{ govukButton({ 
       text: "Continue" 
     }) }} 

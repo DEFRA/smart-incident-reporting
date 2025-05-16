@@ -1,6 +1,6 @@
 {% extends 'form-layout.html' %}
 
-{% set pageTitle = 'Sign in' %}
+{% set pageTitle = 'Smart Incident Reporting' %}
 {% set hideBackLink = true %}
 
 {% block formContent %}
@@ -8,76 +8,14 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">
-      {{ pageTitle }}
+      Smart Incident Reporting
     </h1>
-    <div class="govuk-inset-text">This service is in 'private beta'. This means we limit the number of people using it, so we can test it and make improvements, before it's available to everyone.</div>
-    <form class="form" action="index" method="post">
-      {% from "dist/govuk/components/input/macro.njk" import govukInput %}
-      {% from "dist/govuk/components/fieldset/macro.njk" import govukFieldset %}
-      {% call govukFieldset({
-        legend: {
-          text: "Your details",
-          classes: "govuk-fieldset__legend--m"
-        }
-      }) %}
-      <p class="govuk-hint">We will only use these to contact you if there is a problem. We will not give your details to anyone else.</p>
-      {{ govukInput({
-        id: "fullName",
-        name: "fullName",
-        value: fullName,
-        autocomplete: "name",
-        classes: "govuk-!-width-two-thirds",
-        spellcheck: false,
-        label: {
-          text: "Your name"
-        },
-        errorMessage: findErrorMessageById(errorSummary, 'fullName')
-      }) }}
-      {{ govukInput({
-        id: "phone",
-        name: "phone",
-        value: phone,
-        type: "tel",
-        autocomplete: "tel",
-        classes: "govuk-!-width-one-third",
-        label: {
-          text: "Phone number"
-        },
-        errorMessage: findErrorMessageById(errorSummary, 'phone')
-      }) }}
-      {{ govukInput({
-        id: "email",
-        name: "email",
-        value: email,
-        type: "email",
-        autocomplete: "email",
-        spellcheck: false,
-        classes: "govuk-!-width-two-thirds",
-        label: {
-          text: "Email address"
-        },
-        errorMessage: findErrorMessageById(errorSummary, 'email')
-      }) }}
-      {{ govukInput({
-        id: "accessCode",
-        name: "accessCode",
-        value: accessCode,
-        spellcheck: false,
-        classes: "govuk-!-width-one-third",
-        label: {
-          text: "Access code"
-        },
-        errorMessage: findErrorMessageById(errorSummary, 'accessCode')
-      }) }}
-      {% endcall %}
-      {{ govukButton({
-        text: "Sign in"
-      }) }}
-    </form>
-    <p>If you do not have an access code or it does not work, check with the person who gave you this link.</p>
-    <p>If you were not directly given this link or want to report your problem by phone, you can <a href="https://www.gov.uk/report-an-environmental-incident">report an environmental incident</a> on GOV.UK.</p>
-
-
+    <p class="govuk-body">
+      <a href="/water-pollution-start" class="govuk-link">Water Pollution</a>
+    </p>
+    <p class="govuk-body">
+      <a href="/smell-start" class="govuk-link">Odour</a>
+    </p>
   </div>
 </div>
 

@@ -35,7 +35,7 @@ describe(url, () => {
   })
 
   describe('POST', () => {
-    it('Happy accepts Yes and yes Details and forwards to WATER_POLLUTION_IMAGES_OR_VIDEO', async () => {
+    it('Happy: accepts Yes and yes details and redirects to WATER_POLLUTION_LESS_THAN_10_METRES if flowing water feature', async () => {
       const options = {
         url,
         payload: {
@@ -43,8 +43,13 @@ describe(url, () => {
           yesDetails: 'Further details'
         }
       }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        'water-pollution/water-feature': [{
+          questionId: 500,
+          answerId: 501 // A River
+        }]
+      })
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_SOURCE)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.yes.answerId
@@ -54,15 +59,63 @@ describe(url, () => {
         otherDetails: 'Further details'
       }])
     })
-    it('Happy accepts No and forwards to WATER_POLLUTION_IMAGES_OR_VIDEO', async () => {
+    it('Happy: accepts Yes and yes details and redirects to WATER_POLLUTION_LESS_THAN_100_SQ_METRES if static water feature', async () => {
+      const options = {
+        url,
+        payload: {
+          answerId: question.answers.yes.answerId,
+          yesDetails: 'Further details'
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        'water-pollution/water-feature': [{
+          questionId: 500,
+          answerId: 503 // The sea
+        }]
+      })
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_SOURCE)).toEqual([{
+        ...baseAnswer,
+        answerId: question.answers.yes.answerId
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.yesDetails.answerId,
+        otherDetails: 'Further details'
+      }])
+    })
+    it('Happy accepts No and forwards to WATER_POLLUTION_LESS_THAN_10_METRES if flowing water feature', async () => {
       const options = {
         url,
         payload: {
           answerId: question.answers.no.answerId
         }
       }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        'water-pollution/water-feature': [{
+          questionId: 500,
+          answerId: 501 // A River
+        }]
+      })
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_SOURCE)).toEqual([{
+        ...baseAnswer,
+        answerId: question.answers.no.answerId
+      }])
+    })
+    it('Happy accepts No and forwards to WATER_POLLUTION_LESS_THAN_100_SQ_METRES if static water feature', async () => {
+      const options = {
+        url,
+        payload: {
+          answerId: question.answers.no.answerId
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
+        'water-pollution/water-feature': [{
+          questionId: 500,
+          answerId: 503 // The sea
+        }]
+      })
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_SOURCE)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.no.answerId

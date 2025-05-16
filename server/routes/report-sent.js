@@ -5,7 +5,6 @@ const handlers = {
     const questionSetID = request.yar.get(constants.redisKeys.QUESTION_SET_ID)
     request.yar.reset()
     request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSetID)
-    request.cookieAuth.clear()
     const context = _getContext()
     return h.view(constants.views.REPORT_SENT, {
       ...context

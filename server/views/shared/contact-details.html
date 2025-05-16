@@ -1,0 +1,67 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'Enter your contact details' %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">
+      {{ pageTitle }}
+    </h1>
+    <form class="form" action="index" method="post">
+      {% from "dist/govuk/components/input/macro.njk" import govukInput %}
+      {% from "dist/govuk/components/fieldset/macro.njk" import govukFieldset %}
+      {% call govukFieldset({
+        legend: {
+          text: "Your details",
+          classes: "govuk-fieldset__legend--m"
+        }
+      }) %}
+      <p class="govuk-body">Enter your name and an email, phone number or both.</p>
+      {{ govukInput({
+        id: "fullName",
+        name: "fullName",
+        value: fullName,
+        autocomplete: "name",
+        classes: "govuk-!-width-two-thirds",
+        spellcheck: false,
+        label: {
+          text: "Your name"
+        },
+        errorMessage: findErrorMessageById(errorSummary, 'fullName')
+      }) }}
+      {{ govukInput({
+        id: "email",
+        name: "email",
+        value: email,
+        type: "email",
+        autocomplete: "email",
+        spellcheck: false,
+        classes: "govuk-!-width-two-thirds",
+        label: {
+          text: "Email address"
+        },
+        errorMessage: findErrorMessageById(errorSummary, 'email')
+      }) }}
+      {{ govukInput({
+        id: "phone",
+        name: "phone",
+        value: phone,
+        type: "tel",
+        autocomplete: "tel",
+        classes: "govuk-!-width-one-third",
+        label: {
+          text: "Phone number"
+        },
+        errorMessage: findErrorMessageById(errorSummary, 'phone')
+      }) }}
+      {% endcall %}
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+  </div>
+</div>
+
+{% endblock %}

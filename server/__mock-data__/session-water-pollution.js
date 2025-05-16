@@ -5,11 +5,10 @@ const today = moment().seconds(0).milliseconds(0)
 const pollutionSubstance = 'What do you think the pollution is?'
 
 const session = JSON.parse(`{
-  "home": {
+  "water-pollution/contact-details": {
     "reporterName": "John Smith",
     "reporterPhoneNumber": "012345678910",
-    "reporterEmailAddress": "test@test.com",
-    "reporterAccessCode": "password"
+    "reporterEmailAddress": "test@test.com"
   },
   "water-pollution/water-feature": [ 
     {
@@ -131,7 +130,6 @@ const payload =
     reporterName: 'John Smith',
     reporterPhoneNumber: '012345678910',
     reporterEmailAddress: 'test@test.com',
-    reporterAccessCode: 'password',
     otherDetails: 'test',
     questionSetId: 100,
     data: [{
