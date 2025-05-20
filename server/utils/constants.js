@@ -81,6 +81,19 @@ const COUNTER = 'counter'
 const SMELL_POSTCODE_DETAILS = 'smell-postcode-details'
 const QUESTION_SET_ID = 'question-set-id'
 
+// Configs to add additional home/start pages on non-production environments
+let isViewsExtraRequired = true
+if (process.env.WEB_SERVER === 'sir-prod') {
+  isViewsExtraRequired = false
+}
+
+const viewsExtra = {
+  HOME,
+  SERVICE_UNAVAILABLE,
+  WATER_POLLUTION_START,
+  SMELL_START
+}
+
 const views = {
   API_OS_API_TOKEN,
   API_LOCATION,
@@ -90,12 +103,9 @@ const views = {
   PRIVACY_NOTICE,
   ERROR,
   PUBLIC,
-  HOME,
-  SERVICE_UNAVAILABLE,
   FEEDBACK,
   FEEDBACK_SUCCESS,
   REPORT_SENT,
-  WATER_POLLUTION_START,
   WATER_POLLUTION,
   WATER_POLLUTION_WATER_FEATURE,
   WATER_POLLUTION_LOCATION_OPTION,
@@ -115,7 +125,6 @@ const views = {
   WATER_POLLUTION_CHECK_YOUR_ANSWERS,
   WATER_POLLUTION_CONTACT,
   WATER_POLLUTION_CONTACT_DETAILS,
-  SMELL_START,
   SMELL,
   SMELL_LOCATION_HOME,
   SMELL_LOCATION_ADDRESS,
@@ -142,7 +151,8 @@ const views = {
   SMELL_FIND_ADDRESS,
   SMELL_CHOOSE_ADDRESS,
   SMELL_CONFIRM_ADDRESS,
-  SMELL_EXCEEDED_ATTEMPTS
+  SMELL_EXCEEDED_ATTEMPTS,
+  ...(isViewsExtraRequired && { ...viewsExtra })
 }
 
 const routes = {
