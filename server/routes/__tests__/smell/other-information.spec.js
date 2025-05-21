@@ -33,7 +33,6 @@ describe(url, () => {
           reportType: 200,
           reporterName: 'John Smith',
           reporterPhoneNumber: '012345678910',
-          reporterAccessCode: 'password',
           reporterEmailAddress: 'test@test.com',
           otherDetails: otherInfo,
           questionSetId: 200,

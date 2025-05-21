@@ -19,12 +19,12 @@ const PRIVACY_NOTICE = 'privacy-notice'
 const ERROR = 'error'
 const PUBLIC = 'public'
 const HOME = 'home'
-const SERVICE_UNAVAILABLE = 'service-unavailable'
 const REPORT_SENT = 'report-sent'
 const FEEDBACK = 'feedback'
 const FEEDBACK_SUCCESS = 'feedback-success'
 
-const WATER_POLUTION = 'water-pollution'
+const WATER_POLLUTION_START = 'water-pollution-start'
+const WATER_POLLUTION = 'water-pollution'
 const WATER_POLLUTION_WATER_FEATURE = 'water-pollution/water-feature'
 const WATER_POLLUTION_LOCATION_OPTION = 'water-pollution/location-option'
 const WATER_POLLUTION_LOCATION_MAP = 'water-pollution/location-map'
@@ -41,8 +41,10 @@ const WATER_POLLUTION_POLLUTION_LENGTH = 'water-pollution/pollution-length'
 const WATER_POLLUTION_EFFECT_ON_WILDLIFE = 'water-pollution/effect-on-wildlife'
 const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 const WATER_POLLUTION_CHECK_YOUR_ANSWERS = 'water-pollution/check-your-answers'
-const WATER_POLLUTION_YOUR_DETAILS = 'water-pollution/your-details'
+const WATER_POLLUTION_CONTACT = 'water-pollution/contact'
+const WATER_POLLUTION_CONTACT_DETAILS = 'water-pollution/contact-details'
 
+const SMELL_START = 'smell-start'
 const SMELL = 'smell'
 const SMELL_LOCATION_HOME = 'smell/location-home'
 const SMELL_LOCATION_ADDRESS = 'smell/location-address'
@@ -63,6 +65,7 @@ const SMELL_REPORT_LOCAL_COUNCIL = 'smell/report-local-council'
 const SMELL_CONTACT_LOCAL_COUNCIL = 'smell/contact-local-council'
 const SMELL_SOURCE_DETAILS = 'smell/source-details'
 const SMELL_CONTACT = 'smell/contact'
+const SMELL_CONTACT_DETAILS = 'smell/contact-details'
 const SMELL_IMAGES_OR_VIDEO = 'smell/images-or-video'
 const SMELL_OTHER_INFORMATION = 'smell/other-information'
 const SMELL_FIND_ADDRESS = 'smell/find-address'
@@ -77,6 +80,16 @@ const COUNTER = 'counter'
 const SMELL_POSTCODE_DETAILS = 'smell-postcode-details'
 const QUESTION_SET_ID = 'question-set-id'
 
+// Configs to add additional home/start pages on non-production environments
+let viewsExtra = {}
+if (process.env.REGISTER_START_ROUTES === 'true') {
+  viewsExtra = {
+    HOME,
+    WATER_POLLUTION_START,
+    SMELL_START
+  }
+}
+
 const views = {
   API_OS_API_TOKEN,
   API_LOCATION,
@@ -86,12 +99,10 @@ const views = {
   PRIVACY_NOTICE,
   ERROR,
   PUBLIC,
-  HOME,
-  SERVICE_UNAVAILABLE,
   FEEDBACK,
   FEEDBACK_SUCCESS,
   REPORT_SENT,
-  WATER_POLUTION,
+  WATER_POLLUTION,
   WATER_POLLUTION_WATER_FEATURE,
   WATER_POLLUTION_LOCATION_OPTION,
   WATER_POLLUTION_LOCATION_MAP,
@@ -108,7 +119,8 @@ const views = {
   WATER_POLLUTION_EFFECT_ON_WILDLIFE,
   WATER_POLLUTION_OTHER_INFORMATION,
   WATER_POLLUTION_CHECK_YOUR_ANSWERS,
-  WATER_POLLUTION_YOUR_DETAILS,
+  WATER_POLLUTION_CONTACT,
+  WATER_POLLUTION_CONTACT_DETAILS,
   SMELL,
   SMELL_LOCATION_HOME,
   SMELL_LOCATION_ADDRESS,
@@ -129,12 +141,14 @@ const views = {
   SMELL_EFFECT_ON_HEALTH,
   SMELL_MEDICAL_HELP,
   SMELL_CONTACT,
+  SMELL_CONTACT_DETAILS,
   SMELL_IMAGES_OR_VIDEO,
   SMELL_OTHER_INFORMATION,
   SMELL_FIND_ADDRESS,
   SMELL_CHOOSE_ADDRESS,
   SMELL_CONFIRM_ADDRESS,
-  SMELL_EXCEEDED_ATTEMPTS
+  SMELL_EXCEEDED_ATTEMPTS,
+  ...viewsExtra
 }
 
 const routes = {

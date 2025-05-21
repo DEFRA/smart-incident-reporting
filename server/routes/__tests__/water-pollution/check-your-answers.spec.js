@@ -9,9 +9,25 @@ const url = constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
 const header = 'Check your answers before sending your report'
 
 let sessionData = {
-  home: {
+  'water-pollution/contact-details': {
     reporterName: 'John Smith',
     reporterPhoneNumber: '012345678910',
+    reporterEmailAddress: 'test@test.com'
+  }
+}
+
+const sessionDataWithoutAnswers = {
+  'water-pollution/contact-details': {
+    reporterName: '',
+    reporterPhoneNumber: '',
+    reporterEmailAddress: ''
+  }
+}
+
+const sessionDataWithEmail = {
+  'water-pollution/contact-details': {
+    reporterName: '',
+    reporterPhoneNumber: '',
     reporterEmailAddress: 'test@test.com'
   }
 }
@@ -24,10 +40,19 @@ describe(url, () => {
       expect(response.payload).toContain('Location and size of pollution')
       expect(response.payload).toContain('About the pollution')
     })
-    it(`Happy: Should return correct view for your details section ${url}`, async () => {
+    it(`Happy: Should return correct view for your details section with contact-details ${url}`, async () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('John Smith')
       expect(response.payload).toContain('012345678910')
+      expect(response.payload).toContain('test@test.com')
+    })
+    it(`Happy: Should return correct view for your details section without contact-details ${url}`, async () => {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionDataWithoutAnswers)
+      expect(response.payload).toContain('Not given')
+    })
+    it(`Happy: Should return correct view for your details section with only email in contact-details ${url}`, async () => {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionDataWithEmail)
+      expect(response.payload).toContain('Not given')
       expect(response.payload).toContain('test@test.com')
     })
     it(`Happy: Should return correct answer for 'Images or videos available question' ${url}`, async () => {
@@ -385,7 +410,6 @@ describe(url, () => {
           reporterName: 'John Smith',
           reporterPhoneNumber: '012345678910',
           reporterEmailAddress: 'test@test.com',
-          reporterAccessCode: 'password',
           otherDetails: 'test',
           questionSetId: 100,
           data: expect.arrayContaining([

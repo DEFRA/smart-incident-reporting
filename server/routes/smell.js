@@ -1,18 +1,11 @@
 import constants from '../utils/constants.js'
+import { questionSets } from '../utils/question-sets.js'
 
 const handlers = {
-  get: async (_request, h) => {
-    const context = _getContext()
-    return h.view(constants.views.SMELL, {
-      ...context
-    })
-  }
-}
-
-const _getContext = () => {
-  return {
-    hideBackLink: true,
-    startHref: constants.routes.SMELL_SOURCE
+  get: async (request, h) => {
+    request.yar.reset()
+    request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.SMELL.questionSetId)
+    return h.redirect(constants.routes.SMELL_SOURCE)
   }
 }
 

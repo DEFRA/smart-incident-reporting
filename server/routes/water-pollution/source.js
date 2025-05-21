@@ -3,6 +3,7 @@ import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
 const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_SOURCE
+const waterFeatureQuestion = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_WATER_FEATURE
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -35,7 +36,12 @@ const handlers = {
     request.yar.set(question.key, buildAnswers(answerId, yesDetails))
 
     // handle redirects
-    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
+    const waterFeatureAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)
+    if (waterFeatureAnswer[0].answerId === waterFeatureQuestion.answers.lakeOrReservoir.answerId || waterFeatureAnswer[0].answerId === waterFeatureQuestion.answers.sea.answerId) {
+      return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
+    } else {
+      return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
+    }
   }
 }
 

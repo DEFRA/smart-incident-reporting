@@ -25,10 +25,6 @@ const schema = Joi.object().keys({
   osKey: Joi.string(),
   serviceBusConnectionString: Joi.string().required(),
   serviceBusQueueName: Joi.string().required(),
-  accounts: Joi.array().items(Joi.object().keys({
-    id: Joi.number(),
-    password: Joi.string()
-  })).required(),
   serviceAvailableCron: Joi.string().default('* * * * * *')
 })
 
@@ -48,7 +44,6 @@ const config = {
   osKey: process.env.OS_KEY,
   serviceBusConnectionString: process.env.SERVICE_BUS_CONNECTION_STRING,
   serviceBusQueueName: process.env.SERVICE_BUS_QUEUE_NAME,
-  accounts: JSON.parse(process.env.AUTH_ACCOUNTS),
   serviceAvailableCron: process.env.SERVICE_AVAILABLE_CRON
 }
 

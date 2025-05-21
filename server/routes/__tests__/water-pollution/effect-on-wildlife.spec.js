@@ -64,7 +64,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CONTACT)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_EFFECT_ON_WILDLIFE)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.yes.answerId
@@ -74,7 +74,7 @@ describe(url, () => {
         otherDetails: yesDetails
       }])
     })
-    it('Happy accepts Yes and empty yes details and forwards to WATER_POLLUTION_OTHER_INFORMATION', async () => {
+    it('Happy accepts Yes and empty yes details and forwards to WATER_POLLUTION_CONTACT', async () => {
       const answerId = question.answers.yes.answerId
       const options = {
         url,
@@ -83,13 +83,13 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CONTACT)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_EFFECT_ON_WILDLIFE)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.yes.answerId
       }])
     })
-    it('Happy accepts No and forwards to WATER_POLLUTION_OTHER_INFORMATION', async () => {
+    it('Happy accepts No and forwards to WATER_POLLUTION_CONTACT', async () => {
       const answerId = question.answers.no.answerId
       const options = {
         url,
@@ -98,7 +98,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CONTACT)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_EFFECT_ON_WILDLIFE)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.no.answerId
