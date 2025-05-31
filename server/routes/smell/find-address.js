@@ -1,7 +1,9 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
+import config from '../../utils/config.js'
 
 const postcodeRegExp = /^([A-Za-z][A-Ha-hJ-Yj-y]?\d[A-Za-z0-9]? ?\d[A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/ // https://stackoverflow.com/a/51885364
+const captchaSiteKey = config.captchaSiteKey
 
 const handlers = {
   get: async (request, h) => {
@@ -13,7 +15,8 @@ const handlers = {
     }
     return h.view(constants.views.SMELL_FIND_ADDRESS, {
       ...getContext(request),
-      enterAddress: constants.routes.SMELL_LOCATION_ADDRESS
+      enterAddress: constants.routes.SMELL_LOCATION_ADDRESS,
+      captchaSiteKey
     })
   },
   post: async (request, h) => {
@@ -30,7 +33,8 @@ const handlers = {
       return h.view(constants.views.SMELL_FIND_ADDRESS, {
         errorSummary,
         ...request.payload,
-        enterAddress: constants.routes.SMELL_LOCATION_ADDRESS
+        enterAddress: constants.routes.SMELL_LOCATION_ADDRESS,
+        captchaSiteKey
       })
     }
 

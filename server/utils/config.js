@@ -25,8 +25,13 @@ const schema = Joi.object().keys({
   osKey: Joi.string(),
   serviceBusConnectionString: Joi.string().required(),
   serviceBusQueueName: Joi.string().required(),
-  serviceAvailableCron: Joi.string().default('* * * * * *')
+  serviceAvailableCron: Joi.string().default('* * * * * *'),
+  captchaEnabled: Joi.bool().default(false),
+  captchaApiKey: Joi.string(),
+  captchaSiteKey: Joi.string()
 })
+
+const captchaEnabled = getBoolean(process.env.CAPTCHA_ENABLED)
 
 // Build config
 const config = {
@@ -44,7 +49,10 @@ const config = {
   osKey: process.env.OS_KEY,
   serviceBusConnectionString: process.env.SERVICE_BUS_CONNECTION_STRING,
   serviceBusQueueName: process.env.SERVICE_BUS_QUEUE_NAME,
-  serviceAvailableCron: process.env.SERVICE_AVAILABLE_CRON
+  serviceAvailableCron: process.env.SERVICE_AVAILABLE_CRON,
+  captchaEnabled,
+  captchaApiKey: captchaEnabled ? process.env.CAPTCHA_API_KEY : '',
+  captchaSiteKey: captchaEnabled ? process.env.CAPTCHA_SITE_KEY : ''
 }
 
 // Validate config

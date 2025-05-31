@@ -41,10 +41,10 @@
       name: "postcode",
       autocomplete: "postal-code",
       value: postcode
-    }) }}
-
+    }) }}    
     {% endcall %}
 
+    <div style="margin-bottom: 20px;" class="frc-captcha" data-sitekey="{{captchaSiteKey}}"></div>
 
     {{ govukButton({
       text: "Find address",
@@ -56,5 +56,9 @@
     </p>
   </div>
 </div>
+{% endblock %}
 
+{% block bodyEndExtended %}
+<script type="module" src="{{ assetPath }}/js/site.min.js" async defer></script>
+<script nomodule src="{{ assetPath }}/js/site.compat.min.js" async defer></script>
 {% endblock %}
