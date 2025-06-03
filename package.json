@@ -16,7 +16,7 @@
     "copy:static": "bin/copy-static.sh",
     "debug": "nodemon --inspect index.js",
     "watch:css": "nodemon -e scss -x 'npm run build:css'",
-    "watch:nodejs": "nodemon --delay 1000ms --signal SIGTERM index.js",
+    "watch:nodejs": "nodemon --delay 1000ms --signal SIGTERM -r dotenv/config index.js",
     "dev": "concurrently 'npm:watch:css' 'npm:watch:nodejs'",
     "lint": "standard",
     "unit-test": "jest --runInBand --verbose",
