@@ -4,7 +4,7 @@ const urls = {
     'https://www.gov.uk/report-an-environmental-incident'
 }
 
-const phoneRegex = /^[\d-+()#]*$/
+const phoneRegex = /^[\s\d-+()#]*$/
 
 // API
 const API_OS_API_TOKEN = 'api/os-api-token'
