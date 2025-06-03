@@ -4,3 +4,4 @@
 coverage
 server/public
 .DS_Store
+.env

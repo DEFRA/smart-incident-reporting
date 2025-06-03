@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:22.16-alpine3.22
 
 LABEL author="DEFRA"
 ARG GA_ID
