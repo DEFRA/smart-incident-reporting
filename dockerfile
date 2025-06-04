@@ -9,6 +9,7 @@ WORKDIR /usr/src
 COPY . smart-incident-reporting
 WORKDIR /usr/src/smart-incident-reporting
 RUN npm ci
+RUN npm build
 
 EXPOSE $PORT
 
