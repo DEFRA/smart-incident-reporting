@@ -27,11 +27,10 @@ const schema = Joi.object().keys({
   serviceBusQueueName: Joi.string().required(),
   serviceAvailableCron: Joi.string().default('* * * * * *'),
   captchaEnabled: Joi.bool().default(false),
-  captchaApiKey: Joi.string(),
-  captchaSiteKey: Joi.string()
+  captchaApiKey: Joi.string().allow(''),
+  captchaSiteKey: Joi.string().allow('')
 })
 
-// FIXME: if API key or Site key are missing then set this to false
 const captchaEnabled = getBoolean(process.env.CAPTCHA_ENABLED)
 
 // Build config

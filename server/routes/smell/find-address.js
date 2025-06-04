@@ -4,11 +4,9 @@ import config from '../../utils/config.js'
 import { post as postRequest } from '../../utils/util.js'
 
 const postcodeRegExp = /^([A-Za-z][A-Ha-hJ-Yj-y]?\d[A-Za-z0-9]? ?\d[A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/ // https://stackoverflow.com/a/51885364
-const captchaSiteKey = config.captchaSiteKey
-
-// Put these somewhere more sensible
 const captchaVerifyUrl = 'https://global.frcapi.com/api/v2/captcha/siteverify'
-const friendlyCaptchaEnabled = true // FIXME
+const captchaEnabled = config.captchaEnabled
+const captchaSiteKey = config.captchaSiteKey
 
 const handlers = {
   get: async (request, h) => {
@@ -22,46 +20,44 @@ const handlers = {
       ...getContext(request),
       enterAddress: constants.routes.SMELL_LOCATION_ADDRESS,
       captchaSiteKey,
-      friendlyCaptchaEnabled
+      captchaEnabled
     })
   },
   post: async (request, h) => {
-    console.log('---CAPTCHA---')
-    const captchaResponse = request.payload['frc-captcha-response']
-    let captchaSuccess = true // FIXME this needed as the else in the following if, find a nicer way
-
-    if (captchaResponse) {
-      console.log(`Captcha response: ${captchaResponse}`)
-      console.log('Verifying response with external API ...')
-
-      const captchaVerifyResponse = await postRequest(
-        captchaVerifyUrl,
-        {
-          headers: {
-            'X-API-Key': config.captchaApiKey,
-            'Content-Type': 'application/json',
-            Accept: 'application/json'
-          },
-          payload: {
-            response: captchaResponse,
-            sitekey: config.captchaSiteKey
-          },
-          json: true
-        }
-      )
-
-      captchaSuccess = captchaVerifyResponse.success
-      console.log(`Success: ${captchaVerifyResponse.success}`)
-    } else {
-      console.log('No response from Captcha, ignoring')
-    }
-    console.log('---END CAPTCHA---')
-
     let { buildingDetails, postcode } = request.payload
 
     // cleanse postcode for special characters https://design-system.service.gov.uk/patterns/addresses/#allow-different-postcode-formats
     if (postcode) {
       postcode = postcode.replace(/[^\w\s]/gi, '')
+    }
+
+    const captchaResponse = request.payload['frc-captcha-response']
+    let captchaSuccess = true
+
+    if (captchaResponse) {
+      try {
+        const captchaVerifyResponse = await postRequest(
+          captchaVerifyUrl,
+          {
+            headers: {
+              'X-API-Key': config.captchaApiKey,
+              'Content-Type': 'application/json',
+              Accept: 'application/json'
+            },
+            payload: {
+              response: captchaResponse,
+              sitekey: config.captchaSiteKey
+            },
+            json: true
+          }
+        )
+        captchaSuccess = captchaVerifyResponse.success
+      } catch (error) {
+        // If we are unable to validate the captcha response, leave captchaSuccess as true so
+        // that we don't stop the user from progressing in the case where the external API is down
+        console.log('Error: failed to validate captcha against API')
+        console.log(error)
+      }
     }
 
     // validate payload
@@ -72,7 +68,7 @@ const handlers = {
         ...request.payload,
         enterAddress: constants.routes.SMELL_LOCATION_ADDRESS,
         captchaSiteKey,
-        friendlyCaptchaEnabled
+        captchaEnabled
       })
     }
 
@@ -80,7 +76,7 @@ const handlers = {
     request.yar.set(constants.redisKeys.COUNTER, counterVal + 1)
 
     // handle redirects
-    const counterLimit = 100000 // FIXME: CORRECT THIS, for debugging
+    const counterLimit = 10
 
     if (counterVal > counterLimit) {
       return h.redirect(constants.routes.SMELL_EXCEEDED_ATTEMPTS)
@@ -105,8 +101,8 @@ const validatePayload = (buildingDetails, postcode, captchaSuccess) => {
   const errorSummary = getErrorSummary()
   if (!captchaSuccess) {
     errorSummary.errorList.push({
-      text: 'Failed Captcha check',
-      href: '#' // FIXME: add this
+      text: 'You cannot continue until Friendly Captcha has checked that you\'re not a robot',
+      href: '#friendly-captcha'
     })
   }
 
