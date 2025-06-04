@@ -8,6 +8,7 @@ const captchaSiteKey = config.captchaSiteKey
 
 // Put these somewhere more sensible
 const captchaVerifyUrl = 'https://global.frcapi.com/api/v2/captcha/siteverify'
+const friendlyCaptchaEnabled = true // FIXME
 
 const handlers = {
   get: async (request, h) => {
@@ -20,7 +21,8 @@ const handlers = {
     return h.view(constants.views.SMELL_FIND_ADDRESS, {
       ...getContext(request),
       enterAddress: constants.routes.SMELL_LOCATION_ADDRESS,
-      captchaSiteKey
+      captchaSiteKey,
+      friendlyCaptchaEnabled
     })
   },
   post: async (request, h) => {
@@ -69,7 +71,8 @@ const handlers = {
         errorSummary,
         ...request.payload,
         enterAddress: constants.routes.SMELL_LOCATION_ADDRESS,
-        captchaSiteKey
+        captchaSiteKey,
+        friendlyCaptchaEnabled
       })
     }
 

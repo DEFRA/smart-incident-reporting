@@ -31,6 +31,7 @@ const schema = Joi.object().keys({
   captchaSiteKey: Joi.string()
 })
 
+// FIXME: if API key or Site key are missing then set this to false
 const captchaEnabled = getBoolean(process.env.CAPTCHA_ENABLED)
 
 // Build config
