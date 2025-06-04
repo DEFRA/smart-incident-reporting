@@ -4,8 +4,12 @@ $govuk-images-path: '#{$govuk-assets-path}images/';
 $govuk-fonts-path: '#{$govuk-assets-path}fonts/';
 $govuk-global-styles: true;
 
-@use 'govuk-frontend/dist/govuk/all.scss';
+@use 'govuk-frontend/dist/govuk/index.scss';
 @use 'govuk-frontend/dist/govuk/settings/colours-applied.scss';
+
+p {
+  @extend %govuk-body-m;
+}
 
 // Add extra styles here
 .contact {
