@@ -4,6 +4,11 @@ import constants from '../../../utils/constants.js'
 const url = constants.routes.SMELL_FIND_ADDRESS
 const header = 'Find your address'
 
+// Should not include the friendly captcha div when enabled
+// Should call the validation API (need to mock)
+// Should show error message if captcha check fails
+// Should allow continue to next page if API check try block fails
+
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
@@ -32,6 +37,17 @@ describe(url, () => {
       expect(response.payload).toContain('value="Building Name"')
       expect(response.payload).toContain('value="WA4 1HT"')
     })
+    it('Should return success response and render captcha div when captcha enabled', async () => {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK)
+      expect(response.payload).toContain('id="friendly-captcha"')
+      expect(response.payload).toContain('data-sitekey="abcd"')
+    })
+    // it.only('Should return success response and not render captcha div when captcha disabled', async () => {
+    //   process.env.CAPTCHA_ENABLED = 'false'
+    //   const response = await submitGetRequest({ url }, header, constants.statusCodes.OK)
+    //   expect(response.payload).not.toContain('id="friendly-captcha"')
+    //   expect(response.payload).not.toContain('data-sitekey="abcd"')
+    // })
   })
   describe('POST', () => {
     it('Happy: accepts valid answers and redirects to SMELL_CHOOSE_ADDRESS', async () => {
