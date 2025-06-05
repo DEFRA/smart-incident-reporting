@@ -1,10 +1,9 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import config from '../../utils/config.js'
-import { post as postRequest } from '../../utils/util.js'
+import captchaCheck from '../../services/captchaCheck.js'
 
 const postcodeRegExp = /^([A-Za-z][A-Ha-hJ-Yj-y]?\d[A-Za-z0-9]? ?\d[A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/ // https://stackoverflow.com/a/51885364
-const captchaVerifyUrl = 'https://global.frcapi.com/api/v2/captcha/siteverify'
 const captchaEnabled = config.captchaEnabled
 const captchaSiteKey = config.captchaSiteKey
 
@@ -25,40 +24,14 @@ const handlers = {
   },
   post: async (request, h) => {
     let { buildingDetails, postcode } = request.payload
+    const captchaResponse = request.payload['frc-captcha-response']
 
     // cleanse postcode for special characters https://design-system.service.gov.uk/patterns/addresses/#allow-different-postcode-formats
     if (postcode) {
       postcode = postcode.replace(/[^\w\s]/gi, '')
     }
 
-    const captchaResponse = request.payload['frc-captcha-response']
-    let captchaSuccess = true
-
-    if (captchaResponse) {
-      try {
-        const captchaVerifyResponse = await postRequest(
-          captchaVerifyUrl,
-          {
-            headers: {
-              'X-API-Key': config.captchaApiKey,
-              'Content-Type': 'application/json',
-              Accept: 'application/json'
-            },
-            payload: {
-              response: captchaResponse,
-              sitekey: config.captchaSiteKey
-            },
-            json: true
-          }
-        )
-        captchaSuccess = captchaVerifyResponse.success
-      } catch (error) {
-        // If we are unable to validate the captcha response, leave captchaSuccess as true so
-        // that we don't stop the user from progressing in the case where the external API is down
-        console.log('Error: failed to validate captcha against API')
-        console.log(error)
-      }
-    }
+    const captchaSuccess = await captchaCheck.validate(captchaResponse)
 
     // validate payload
     const errorSummary = validatePayload(buildingDetails, postcode, captchaSuccess)
