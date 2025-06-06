@@ -39,7 +39,7 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Happy: accepts valid answerId now and redirects to smell/current', async () => {
+    it('Happy: accepts valid answerId now and redirects to smell/smell-strength', async () => {
       const answerId = 1
       const options = {
         url,
@@ -48,7 +48,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_CURRENT)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_SMELL_STRENGTH)
       expect(new Date(response.request.yar.get(constants.redisKeys.SMELL_START_DATE_TIME))).toBeInstanceOf(Date)
     })
     it('Happy: accepts valid answerId of earlier today and redirects to smell/earlier-today', async () => {

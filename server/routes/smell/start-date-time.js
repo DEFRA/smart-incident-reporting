@@ -33,7 +33,7 @@ const handlers = {
     const optionFour = 4
     if (answerId === optionOne) {
       request.yar.set(constants.redisKeys.SMELL_START_DATE_TIME, (new Date()).toISOString())
-      return h.redirect(constants.routes.SMELL_CURRENT)
+      return h.redirect(constants.routes.SMELL_SMELL_STRENGTH)
     } else if (answerId === optionTwo) {
       return h.redirect(constants.routes.SMELL_EARLIER_TODAY)
     } else if (answerId === optionThree) {
