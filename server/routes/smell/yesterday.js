@@ -2,8 +2,8 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import moment from 'moment'
 
-const timeRegExp = /^(0?[1-9]|1[012])(:[0-5]?[\d])(am|pm|AM|PM)$/
-const invalidTimeRegExp = /^(0?[1-9]|1[012])(:[6-9][\d])(am|pm|AM|PM)$/
+const timeRegExp = /^(0?[1-9]|1[012])(:[0-5]?\d)(am|pm|AM|PM)$/
+const invalidTimeRegExp = /^(0?[1-9]|1[012])(:[6-9]\d)(am|pm|AM|PM)$/
 
 const handlers = {
   get: async (request, h) => {
