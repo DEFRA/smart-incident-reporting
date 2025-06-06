@@ -46,7 +46,6 @@ const handlers = {
 
     return null
   }
-  
 }
 
 const getContext = request => {
