@@ -1,6 +1,7 @@
 import { fileURLToPath } from 'url'
 import path from 'path'
 import webpack from 'webpack'
+import CopyPlugin from 'copy-webpack-plugin'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -37,6 +38,12 @@ export default {
   plugins: [
     new webpack.EnvironmentPlugin({
       GA_ID: '' // use '' unless process.env.GA_ID is defined
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: 'node_modules/@friendlycaptcha/sdk/site.min.js' },
+        { from: 'node_modules/@friendlycaptcha/sdk/site.compat.min.js' }
+      ]
     })
   ]
 }

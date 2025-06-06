@@ -15,6 +15,8 @@ export default {
       '/public/js/core.js',
       '/public/js/cookies.js',
       '/public/js/locationMap.js',
+      '/public/js/site.min.js',
+      '/public/js/site.compat.min.js',
       '/public/govuk-frontend.min.js',
       '/public/images/favicon.svg',
       '/public/images/favicon.ico',

@@ -1,8 +1,13 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
+import captchaCheck from '../../../services/captchaCheck.js'
 
 const url = constants.routes.SMELL_FIND_ADDRESS
 const header = 'Find your address'
+
+jest.mock('../../../services/captchaCheck.js', () => ({
+  validate: jest.fn()
+}))
 
 describe(url, () => {
   describe('GET', () => {
@@ -32,6 +37,11 @@ describe(url, () => {
       expect(response.payload).toContain('value="Building Name"')
       expect(response.payload).toContain('value="WA4 1HT"')
     })
+    it('Should return success response and render captcha div when captcha enabled', async () => {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK)
+      expect(response.payload).toContain('id="friendly-captcha"')
+      expect(response.payload).toContain('data-sitekey="abcd"')
+    })
   })
   describe('POST', () => {
     it('Happy: accepts valid answers and redirects to SMELL_CHOOSE_ADDRESS', async () => {
@@ -39,9 +49,12 @@ describe(url, () => {
         url,
         payload: {
           buildingDetails: 'Building Name',
-          postcode: 'WA4 1HT'
+          postcode: 'WA4 1HT',
+          'frc-captcha-response': 'test123'
         }
       }
+
+      captchaCheck.validate.mockResolvedValueOnce(true)
       const response = await submitPostRequest(sessionData)
       expect(response.headers.location).toEqual(constants.routes.SMELL_CHOOSE_ADDRESS)
       expect(response.request.yar.get(constants.redisKeys.SMELL_FIND_ADDRESS)).toEqual({ buildingDetails: 'Building Name', postcode: 'WA4 1HT' })
@@ -61,9 +74,11 @@ describe(url, () => {
         url,
         payload: {
           buildingDetails: 'Building Name',
-          postcode: 'WA4 1H'
+          postcode: 'WA4 1H',
+          'frc-captcha-response': 'test123'
         }
       }
+      captchaCheck.validate.mockResolvedValueOnce(true)
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Enter a full postcode, for example W1 8QS')
@@ -73,13 +88,29 @@ describe(url, () => {
         url,
         payload: {
           buildingDetails: 'Building Name',
-          postcode: 'WA4 1HT'
+          postcode: 'WA4 1HT',
+          'frc-captcha-response': 'test123'
         }
       }
+      captchaCheck.validate.mockResolvedValueOnce(true)
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
         counter: 20
       })
       expect(response.headers.location).toEqual(constants.routes.SMELL_EXCEEDED_ATTEMPTS)
+    })
+    it('If captcha check returns false show appropriate error', async () => {
+      const options = {
+        url,
+        payload: {
+          buildingDetails: 'Building Name',
+          postcode: 'WA4 1HT',
+          'frc-captcha-response': 'test123'
+        }
+      }
+      captchaCheck.validate.mockResolvedValueOnce(false)
+      const response = await submitPostRequest(options, constants.statusCodes.OK)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain('You cannot continue until Friendly Captcha')
     })
   })
 })

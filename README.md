@@ -189,7 +189,9 @@ The build of the webapp requires an environment variable GA_ID if google analyti
 | 	AUTH_ACCOUNTS	 | 	JSON string of auth accounts and access codes	 | 	Y	 |		 |
 | 	SERVICE_AVAILABLE_CRON	 | 	Cron for when service is available in office hours	 | 	N	 |	* * * * * *	 |
 |   GA_ID   |   Google tag manager ID   |   N   |   |
-
+|   CAPTCHA_ENABLED   |   Turn on/off captcha   |   Y   |      |   
+|   CAPTCHA_API_KEY   |   API key for captcha validation   |   if captcha enabled   |      |
+|   CAPTCHA_SITE_KEY   |   Site key for captcha validation   |   if captcha enabled   |      |
 
 # Private beta authentication
 
