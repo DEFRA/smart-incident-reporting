@@ -25,16 +25,23 @@ const handlers = {
 
     // set answer in session
     request.yar.set(constants.redisKeys.DATE_TIME_OPTION, answerId)
+
     // handle redirects
-    if (answerId === 1) {
+    const optionOne = 1
+    const optionTwo = 2
+    const optionThree = 3
+    const optionFour = 4
+    if (answerId === optionOne) {
       request.yar.set(constants.redisKeys.WATER_POLLUTION_WHEN, (new Date()).toISOString())
       return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
-    } else if (answerId === 2) {
+    } else if (answerId === optionTwo) {
       return h.redirect(constants.routes.WATER_POLLUTION_EARLIER_TODAY)
-    } else if (answerId === 3) {
+    } else if (answerId === optionThree) {
       return h.redirect(constants.routes.WATER_POLLUTION_YESTERDAY)
-    } else if (answerId === 4) {
+    } else if (answerId === optionFour) {
       return h.redirect(constants.routes.WATER_POLLUTION_DATE_BEFORE_YESTERDAY)
+    } else {
+      // do nothing
     }
   }
 }

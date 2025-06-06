@@ -22,15 +22,26 @@ const handlers = {
 
     // convert answerId to number
     answerId = Number(answerId)
-    if (answerId === 1) {
+
+    // set answer in session
+    request.yar.set(constants.redisKeys.DATE_TIME_OPTION, answerId)
+
+    // handle redirects
+    const optionOne = 1
+    const optionTwo = 2
+    const optionThree = 3
+    const optionFour = 4
+    if (answerId === optionOne) {
       request.yar.set(constants.redisKeys.SMELL_START_DATE_TIME, (new Date()).toISOString())
       return h.redirect(constants.routes.SMELL_CURRENT)
-    } else if (answerId === 2) {
+    } else if (answerId === optionTwo) {
       return h.redirect(constants.routes.SMELL_EARLIER_TODAY)
-    } else if (answerId === 3) {
+    } else if (answerId === optionThree) {
       return h.redirect(constants.routes.SMELL_YESTERDAY)
-    } else if (answerId === 4) {
+    } else if (answerId === optionFour) {
       return h.redirect(constants.routes.SMELL_DATE_BEFORE_YESTERDAY)
+    } else {
+      // do nothing
     }
   }
 }
