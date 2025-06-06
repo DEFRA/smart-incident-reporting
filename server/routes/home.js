@@ -1,9 +1,6 @@
-import constants from '../utils/constants.js'
-
 const handlers = {
   get: async (request, h) => {
-    request.yar.reset()
-    return h.view(constants.views.HOME)
+    return h.redirect('https://gov.uk').permanent()
   }
 }
 

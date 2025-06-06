@@ -80,15 +80,7 @@ const COUNTER = 'counter'
 const SMELL_POSTCODE_DETAILS = 'smell-postcode-details'
 const QUESTION_SET_ID = 'question-set-id'
 
-// Configs to add additional home/start pages on non-production environments
-let viewsExtra = {}
-if (process.env.REGISTER_START_ROUTES === 'true') {
-  viewsExtra = {
-    HOME,
-    WATER_POLLUTION_START,
-    SMELL_START
-  }
-}
+// FIXME: remove WATER_POLLUTION_START and SMELL_START
 
 const views = {
   API_OS_API_TOKEN,
@@ -148,7 +140,7 @@ const views = {
   SMELL_CHOOSE_ADDRESS,
   SMELL_CONFIRM_ADDRESS,
   SMELL_EXCEEDED_ATTEMPTS,
-  ...viewsExtra
+  HOME
 }
 
 const routes = {

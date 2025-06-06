@@ -183,7 +183,6 @@ The build of the webapp requires an environment variable GA_ID if google analyti
 | 	COOKIE_IS_SECURE	 | 	Cookie secure boolean	 | 	N	 |	FALSE	 |
 | 	OS_SECRET	 | 	OS API secret	 | 	Y	 |		 |
 | 	OS_KEY	 | 	OS API key	 | 	Y	 |		 |
-|   REGISTER_START_ROUTES	 | 	Config to add home/start pages on non-production environments	 | 	N	 |		 |
 | 	SERVICE_BUS_CONNECTION_STRING	 | 	Service bus connection string	 | 	Y	 |		 |
 | 	SERVICE_BUS_QUEUE_NAME	 | 	Service bus queue name	 | 	Y	 |		 |
 | 	AUTH_ACCOUNTS	 | 	JSON string of auth accounts and access codes	 | 	Y	 |		 |
