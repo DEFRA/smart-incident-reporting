@@ -1,9 +1,8 @@
 import moment from 'moment'
 import { getErrorSummary } from './helpers.js'
 const zero = 0
-const monthsOrHours = 12
+const months = 12
 const maxDays = 31
-const maxMinutes = 59
 const firstValidYear = 1900
 const latestYear = 3000
 
@@ -24,7 +23,7 @@ const dateValidateAndError = () => {
       id: '#date-month',
       isDatePart: true,
       validate: (val) => {
-        return (val > zero && val <= monthsOrHours)
+        return (val > zero && val <= months)
       },
       emptyError: 'Date must include a month',
       validateError: 'Date must include a month using numbers 1 to 12',
@@ -60,7 +59,6 @@ const getDateErrors = (errorSummary, validateAndError) => {
       dateErrors.push(item)
     }
   })
-  console.log('DATA FOR dateErrors', dateErrors)
   return dateErrors.length > 0 ? dateErrors : undefined
 }
 
@@ -152,46 +150,9 @@ const returnError = (errorSummary, validateAndError, text, href, invalidDate) =>
   }
 }
 
-const getDateContext = answer => {
-  let context = {}
-  if (answer) {
-    const today = new Date()
-    const yesterday = new Date()
-    yesterday.setDate(yesterday.getDate() - 1)
-
-    const date = new Date(answer)
-
-    const isToday = date.getDate() === today.getDate() &&
-      date.getMonth() === today.getMonth() &&
-      date.getFullYear() === today.getFullYear()
-
-    const isYesterday = date.getDate() === yesterday.getDate() &&
-      date.getMonth() === yesterday.getMonth() &&
-      date.getFullYear() === yesterday.getFullYear()
-
-    const twelve = 12
-    const thirteen = 13
-
-    context = {
-      isToday,
-      isYesterday,
-      isEarlier: !(isToday || isYesterday),
-      day: date.getDate(),
-      month: date.getMonth() + 1,
-      year: date.getFullYear(),
-      hour: date.getHours() < thirteen ? date.getHours() : date.getHours() - twelve,
-      minute: date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes(),
-      period: date.getHours() < twelve ? 'am' : 'pm',
-      isPageReturn: true
-    }
-  }
-  return context
-}
-
 export {
   dateValidateAndError,
   fieldErrorClasses,
   getDateErrors,
-  validatePayload,
-  getDateContext
+  validatePayload
 }

@@ -5,7 +5,6 @@ import moment from 'moment'
 const timeRegExp = /^(0?[1-9]|1[012])(:[0-5]?[0-9])(am|pm|AM|PM)$/
 const invalidTimeRegExp = /^(0?[1-9]|1[012])(:[6-9][0-9])(am|pm|AM|PM)$/
 
-
 const handlers = {
   get: async (request, h) => {
     return h.view(constants.views.WATER_POLLUTION_YESTERDAY, {
@@ -14,7 +13,7 @@ const handlers = {
   },
   post: async (request, h) => {
     // get payload
-    let { time } = request.payload
+    const { time } = request.payload
 
     // validate payload for errors
     const errorSummary = validatePayload(time)

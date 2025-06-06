@@ -5,25 +5,24 @@ import moment from 'moment'
 const timeRegExp = /^(0?[1-9]|1[012])(:[0-5]?[0-9])(am|pm|AM|PM)$/
 const invalidTimeRegExp = /^(0?[1-9]|1[012])(:[6-9][0-9])(am|pm|AM|PM)$/
 
-
 const handlers = {
   get: async (request, h) => {
-    const { dateWordString } = request.yar.get(constants.redisKeys.WATER_POLLUTION_DATE_BEFORE_YESTERDAY)
     return h.view(constants.views.WATER_POLLUTION_TIME_BEFORE_YESTERDAY, {
-      dateWordString,
       ...getContext(request)
     })
   },
   post: async (request, h) => {
     // get payload
-    let { time } = request.payload
+    const { time } = request.payload
     const { dateString } = request.yar.get(constants.redisKeys.WATER_POLLUTION_DATE_BEFORE_YESTERDAY)
 
     // validate payload for errors
     const errorSummary = validatePayload(dateString, time)
     if (errorSummary.errorList.length > 0) {
+      const { dateWordString } = request.yar.get(constants.redisKeys.WATER_POLLUTION_DATE_BEFORE_YESTERDAY)
       return h.view(constants.views.WATER_POLLUTION_TIME_BEFORE_YESTERDAY, {
         errorSummary,
+        dateWordString,
         ...request.payload
       })
     }
@@ -65,8 +64,10 @@ const validatePayload = (dateString, time) => {
 
 const getContext = request => {
   const time = request.yar.get(constants.redisKeys.WATER_POLLUTION_TIME_BEFORE_YESTERDAY)
+  const { dateWordString } = request.yar.get(constants.redisKeys.WATER_POLLUTION_DATE_BEFORE_YESTERDAY)
   return {
-    time
+    time,
+    dateWordString
   }
 }
 

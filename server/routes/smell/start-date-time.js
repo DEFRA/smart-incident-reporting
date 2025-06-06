@@ -2,8 +2,10 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 
 const handlers = {
-  get: async (_request, h) => {
-    return h.view(constants.views.SMELL_START_DATE_TIME)
+  get: async (request, h) => {
+    return h.view(constants.views.SMELL_START_DATE_TIME, {
+      ...getContext(request)
+    })
   },
   post: async (request, h) => {
     // get payload
@@ -13,7 +15,8 @@ const handlers = {
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.SMELL_START_DATE_TIME, {
-        errorSummary
+        errorSummary,
+        ...getContext(request)
       })
     }
 
@@ -29,6 +32,13 @@ const handlers = {
     } else if (answerId === 4) {
       return h.redirect(constants.routes.SMELL_DATE_BEFORE_YESTERDAY)
     }
+  }
+}
+
+const getContext = request => {
+  const answer = request.yar.get(constants.redisKeys.DATE_TIME_OPTION)
+  return {
+    answer
   }
 }
 
