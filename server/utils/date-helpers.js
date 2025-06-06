@@ -78,7 +78,7 @@ const validatePayload = (payload, validateAndError) => {
   // Check for mandatory fields
   if (issues.emptyDateCount > 0) {
     const text = issues.emptyDateCount === 1 ? issues.emptyDateError : 'Enter a date'
-    returnError(emptyErrorSummary, validateAndError, text, issues.emptyDateId, false, false)
+    returnError(emptyErrorSummary, validateAndError, text, issues.emptyDateId, false)
   }
 
   if (emptyErrorSummary.errorList.length > 0) {
@@ -94,7 +94,7 @@ const validatePayload = (payload, validateAndError) => {
     const dateString = `${payload.year}-${payload.month.padStart(2, '0')}-${payload.day.padStart(2, '0')}`
     date = moment(dateString, 'YYYY-MM-DD')
     if (!date.isValid()) {
-      return returnError(getErrorSummary(), validateAndError, 'The date entered must be a real date', '#date-day', true, false)
+      return returnError(getErrorSummary(), validateAndError, 'The date entered must be a real date', '#date-day', true)
     }
   }
 

@@ -62,6 +62,7 @@ const getContext = request => {
 }
 
 const getDateTime = (time) => {
+  const minusTwo = -2
   const date = new Date()
   date.setDate(date.getDate() - 1)
   const day = date.getDate().toString()
@@ -69,8 +70,8 @@ const getDateTime = (time) => {
   const year = date.getFullYear().toString()
   const timeParts = time.split(':')
   const hour = timeParts[0]
-  const minute = timeParts[1].slice(0, -2)
-  const period = timeParts[1].slice(-2)
+  const minute = timeParts[1].slice(0, minusTwo)
+  const period = timeParts[1].slice(minusTwo)
   const dateTimeString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')} ${hour.padStart(2, '0')}:${minute.padStart(2, '0')} ${period.toLowerCase()}`
   const dateTime = moment(dateTimeString, 'YYYY-MM-DD hh:mm a')
 
