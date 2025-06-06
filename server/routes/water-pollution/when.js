@@ -43,6 +43,8 @@ const handlers = {
     } else {
       // do nothing
     }
+
+    return null
   }
 }
 

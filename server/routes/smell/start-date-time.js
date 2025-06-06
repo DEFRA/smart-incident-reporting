@@ -43,7 +43,10 @@ const handlers = {
     } else {
       // do nothing
     }
+
+    return null
   }
+  
 }
 
 const getContext = request => {
