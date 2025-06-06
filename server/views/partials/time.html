@@ -1,0 +1,39 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% call govukFieldset({
+      legend: {
+      text: pageTitle + "?",
+      classes: "govuk-fieldset__legend--l",
+      isPageHeading: true
+    }
+    }) %}
+
+    <p class="govuk-body govuk-!-margin-bottom-6">
+    If you do not know the exact time, enter a rough or estimated time.
+    </p>
+
+    {{ govukInput({
+      errorMessage: findErrorMessageById(errorSummary, "time"),
+      label: {
+        text: "Time",
+        classes: "govuk-label--m"
+      },
+      hint: {
+        text: "For example, 11:35am or 2:35pm"
+      },
+      classes: "govuk-input--width-5",
+      id: "time",
+      name: "time",
+      value: time
+    }) }}
+
+    {% endcall %}
+
+
+    {{ govukButton({
+      text: "Continue",
+      isStartButton: false
+    }) }}
+  </div>
+</div>

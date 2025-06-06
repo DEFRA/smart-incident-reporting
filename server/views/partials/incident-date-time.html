@@ -1,0 +1,43 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukRadios({
+      classes: "govuk-radios",
+      id: "answerId",
+      name: "answerId",
+      fieldset: {
+        legend: {
+          text: pageTitle + "?",
+          classes: "govuk-fieldset__legend--l",
+          isPageHeading: true
+        }
+      },
+      items: [
+        {
+          value: 1,
+          text: "Now",
+          checked: (answer === 1)
+        },
+        {
+          value: 2,
+          text: "Earlier today",
+          checked: (answer === 2)
+        },
+        {
+          value: 3,
+          text: "Yesterday",
+          checked: (answer === 3)
+        },
+        {
+          value: 4,
+          text: "Before yesterday",
+          checked: (answer === 4)
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>

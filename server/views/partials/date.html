@@ -1,0 +1,40 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukDateInput({
+      id: "date",
+      namePrefix: "date",
+      errorMessage: getDateErrors(errorSummary, validateAndError)[0],
+      fieldset: {
+        legend: {
+          text: pageTitle + "?",
+          classes: "govuk-fieldset__legend--l",
+          isPageHeading: true
+        }
+      },
+      hint: {
+        text: "For example, 27 3 2024"
+      },
+      items: [
+        {
+          classes: fieldErrorClasses(validateAndError.day, 'govuk-input--width-2'),
+          name: "day",
+          value: day
+        },
+        {
+          classes: fieldErrorClasses(validateAndError.month, 'govuk-input--width-2'),
+          name: "month",
+          value: month
+        },
+        {
+          classes: fieldErrorClasses(validateAndError.year, 'govuk-input--width-4'),
+          name: "year",
+          value: year
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+  </div>
+</div>

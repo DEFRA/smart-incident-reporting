@@ -1,91 +1,69 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
-import { questionSets } from '../../utils/question-sets.js'
-import {
-  dateValidateAndError,
-  fieldErrorClasses,
-  getDateErrors,
-  getTimeErrors,
-  validatePayload
-} from '../../utils/date-helpers.js'
-
-const question = questionSets.SMELL.questions.SMELL_PREVIOUS
 
 const handlers = {
   get: async (request, h) => {
     return h.view(constants.views.SMELL_START_DATE_TIME, {
-      fieldErrorClasses,
-      getDateErrors,
-      getTimeErrors,
-      validateAndError: dateValidateAndError(),
       ...getContext(request)
     })
   },
   post: async (request, h) => {
-    const validateAndError = dateValidateAndError()
-    if (!request.payload.current) {
-      const errors = getErrorSummary()
-      errors.errorList.push({
-        text: 'Select when the smell started',
-        href: '#current'
-      })
+    // get payload
+    let { answerId } = request.payload
+
+    // validate payload for errors
+    const errorSummary = validatePayload(answerId)
+    if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.SMELL_START_DATE_TIME, {
-        errorSummary: errors,
-        validateAndError,
-        fieldErrorClasses,
-        getDateErrors,
-        getTimeErrors,
+        errorSummary,
         ...getContext(request)
       })
     }
 
-    const payload = {
-      day: request.payload.current === '2' ? request.payload['date-day'] : undefined,
-      month: request.payload.current === '2' ? request.payload['date-month'] : undefined,
-      year: request.payload.current === '2' ? request.payload['date-year'] : undefined,
-      hour: request.payload.hour[Number(request.payload.current)],
-      minute: request.payload.minute[Number(request.payload.current)],
-      period: request.payload.period[Number(request.payload.current)]
-    }
-    // Fill in today or yesterday dates
-    if (request.payload.current !== '2') {
-      const date = new Date()
-      if (request.payload.current === '1') {
-        date.setDate(date.getDate() - 1)
-      }
-      payload.day = date.getDate().toString()
-      payload.month = (date.getMonth() + 1).toString()
-      payload.year = date.getFullYear().toString()
+    // convert answerId to number
+    answerId = Number(answerId)
+
+    // set answer in session
+    request.yar.set(constants.redisKeys.DATE_TIME_OPTION, answerId)
+
+    // handle redirects
+    const optionOne = 1
+    const optionTwo = 2
+    const optionThree = 3
+    const optionFour = 4
+    if (answerId === optionOne) {
+      request.yar.set(constants.redisKeys.SMELL_START_DATE_TIME, (new Date()).toISOString())
+      return h.redirect(constants.routes.SMELL_SMELL_STRENGTH)
+    } else if (answerId === optionTwo) {
+      return h.redirect(constants.routes.SMELL_EARLIER_TODAY)
+    } else if (answerId === optionThree) {
+      return h.redirect(constants.routes.SMELL_YESTERDAY)
+    } else if (answerId === optionFour) {
+      return h.redirect(constants.routes.SMELL_DATE_BEFORE_YESTERDAY)
+    } else {
+      // do nothing
     }
 
-    // validate payload for errors
-    const { errorSummary, dateTime } = validatePayload(payload, validateAndError)
-    if (errorSummary.errorList.length > 0) {
-      errorSummary.errorList.forEach(item => {
-        item.href = item.href.indexOf('date') === -1 ? `${item.href}-${request.payload.current}` : item.href
-      })
-      return h.view(constants.views.SMELL_START_DATE_TIME, {
-        errorSummary,
-        validateAndError,
-        fieldErrorClasses,
-        getDateErrors,
-        getTimeErrors,
-        ...getContext(request),
-        current: request.payload.current
-      })
-    }
-
-    request.yar.set(constants.redisKeys.SMELL_START_DATE_TIME, dateTime.toISOString())
-    return h.redirect(constants.routes.SMELL_CURRENT)
+    return null
   }
 }
 
 const getContext = request => {
-  const recurringProblem = request.yar.get(constants.redisKeys.SMELL_PREVIOUS)
-  const onThisOccasion = (recurringProblem && recurringProblem[0].answerId !== question.answers.no.answerId)
+  const answer = request.yar.get(constants.redisKeys.DATE_TIME_OPTION)
   return {
-    onThisOccasion
+    answer
   }
+}
+
+const validatePayload = answerId => {
+  const errorSummary = getErrorSummary()
+  if (!answerId) {
+    errorSummary.errorList.push({
+      text: 'Select when you noticed the smell',
+      href: '#answerId'
+    })
+  }
+  return errorSummary
 }
 
 export default [
