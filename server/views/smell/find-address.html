@@ -3,58 +3,92 @@
 {% set pageTitle = 'Find your address' %}
 
 {% block formContent %}
+<div id="address-page">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+      {% call govukFieldset({
+        legend: {
+          text: "Find your address",
+          classes: "govuk-fieldset__legend--l",
+          isPageHeading: true
+        }
+      }) %}
 
-    {% call govukFieldset({
-      legend: {
-        text: "Find your address",
-        classes: "govuk-fieldset__legend--l",
-        isPageHeading: true
-      }
-    }) %}
+      {{ govukInput({
+        errorMessage: findErrorMessageById(errorSummary, "buildingDetails"),
+        label: {
+          text: "Building number or name",
+          classes: "govuk-label"
+        },
+        hint: {
+          text: "For example, 15 or Prospect Cottage"
+        },
+        classes: "govuk-!-width-two-thirds",
+        id: "buildingDetails",
+        name: "buildingDetails",
+        value: buildingDetails
+      }) }}
 
-    {{ govukInput({
-      errorMessage: findErrorMessageById(errorSummary, "buildingDetails"),
-      label: {
-        text: "Building number or name",
-        classes: "govuk-label"
-      },
-      hint: {
-        text: "For example, 15 or Prospect Cottage"
-      },
-      classes: "govuk-!-width-two-thirds",
-      id: "buildingDetails",
-      name: "buildingDetails",
-      value: buildingDetails
-    }) }}
+      {{ govukInput({
+        errorMessage: findErrorMessageById(errorSummary, "postcode"),
+        label: {
+          text: "Postcode",
+          classes: "govuk-label"
+        },
+        classes: "govuk-input--width-10",
+        id: "postcode",
+        name: "postcode",
+        autocomplete: "postal-code",
+        value: postcode
+      }) }}    
+      {% endcall %}
 
-    {{ govukInput({
-      errorMessage: findErrorMessageById(errorSummary, "postcode"),
-      label: {
-        text: "Postcode",
-        classes: "govuk-label"
-      },
-      classes: "govuk-input--width-10",
-      id: "postcode",
-      name: "postcode",
-      autocomplete: "postal-code",
-      value: postcode
-    }) }}
+      {% if captchaEnabled %}
+        <div style="margin-bottom: 20px;" id="friendly-captcha" class="govuk-body frc-captcha" data-sitekey="{{captchaSiteKey}}"></div>
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            <p class="govuk-body govuk-hint">
+              Friendly Captcha checks that you aren't a robot. Find out how to use it in our <a href="/privacy-notice" class="govuk-link">privacy notice</a>
+            </p>
+          </div>
+        </div>
+        {% endif %}    
 
-    {% endcall %}
+      {{ govukButton({
+        text: "Find address",
+        isStartButton: false
+      }) }}
 
-
-    {{ govukButton({
-      text: "Find address",
-      isStartButton: false
-    }) }}
-
-    <p class="govuk-body">
-      <a href="{{ enterAddress }}" class="govuk-link">Enter address manually</a>
-    </p>
+      <p class="govuk-body">
+        <a href="{{ enterAddress }}" class="govuk-link">Enter address manually</a>
+      </p>
+    </div>
   </div>
 </div>
+
+{% if captchaEnabled %}
+<noscript>
+  <style type="text/css">
+    #address-page {display:none}
+  </style>
+  <div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Find your address</h1>
+        <p class="govuk-body">
+          Please turn on JavaScript in your browser to find your address using a postcode look-up.
+        </p>
+        <p class="govuk-body">
+          Alternatively you can <a href="{{ enterAddress }}" class="govuk-link">enter your address manually</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</noscript>
+
+<script type="module" src="{{ assetPath }}/js/site.min.js" async defer></script>
+<script nomodule src="{{ assetPath }}/js/site.compat.min.js" async defer></script>
+{% endif %}
 
 {% endblock %}
