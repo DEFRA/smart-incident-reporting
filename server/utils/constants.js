@@ -84,7 +84,6 @@ const QUESTION_SET_ID = 'question-set-id'
 let viewsExtra = {}
 if (process.env.REGISTER_START_ROUTES === 'true') {
   viewsExtra = {
-    HOME,
     WATER_POLLUTION_START,
     SMELL_START
   }
@@ -148,6 +147,7 @@ const views = {
   SMELL_CHOOSE_ADDRESS,
   SMELL_CONFIRM_ADDRESS,
   SMELL_EXCEEDED_ATTEMPTS,
+  HOME,
   ...viewsExtra
 }
 
