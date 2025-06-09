@@ -1,7 +1,6 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
 const url = constants.routes.WATER_POLLUTION_CONTACT_DETAILS
-const phoneEmptyError = 'Enter a phone number'
 const phoneError = 'Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192'
 const emailError = 'Enter an email address in the correct format, like name@example.com'
 
@@ -16,15 +15,14 @@ let sessionData = {
 describe(url, () => {
   describe('GET', () => {
     it('Should display contact-details view', async () => {
-      const response = await submitGetRequest({ url }, 'Enter your contact details', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, 'Your contact details', constants.statusCodes.OK, sessionData)
       expect(response.result).toContain('value="test name"')
       expect(response.result).toContain('value="012345678910"')
       expect(response.result).toContain('value="test@test.com"')
     })
   })
   describe('POST', () => {
-    // Happy: All valid with correct accessCode
-    it('Should redirect to WATER_POLLUTION_IMAGES_OR_VIDEO', async () => {
+    it('Happy: Accepts valid answers and redirects to WATER_POLLUTION_IMAGES_OR_VIDEO', async () => {
       const options = {
         url,
         payload: {
@@ -62,20 +60,7 @@ describe(url, () => {
         reporterEmailAddress: 'test@test.com'
       })
     })
-    // Sad: name, phone, code missing
-    it('Should error if all is data missing', async () => {
-      const options = {
-        url,
-        payload: {}
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Enter your name')
-      expect(response.payload).toContain(phoneEmptyError)
-      expect(response.payload).toContain(emailError)
-    })
-    // Sad: invalid phone format
-    it('Should error with if invalid phone number', async () => {
+    it('Sad: Should error with if invalid phone number', async () => {
       const options = {
         url,
         payload: {
@@ -87,8 +72,7 @@ describe(url, () => {
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain(phoneError)
     })
-    // Sad: invalid email format
-    it('Should error with if invalid email address', async () => {
+    it('Sad: Should error with if invalid email address', async () => {
       const options = {
         url,
         payload: {

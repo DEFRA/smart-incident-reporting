@@ -9,7 +9,7 @@ const handlers = {
   },
   post: async (request, h) => {
     const { fullName, phone, email } = request.payload
-    const errorSummary = validatePayload(fullName, phone, email)
+    const errorSummary = validatePayload(phone, email)
 
     // Validation error so return view in Error state
     if (errorSummary.errorList.length > 0) {
@@ -43,28 +43,16 @@ const getContext = request => {
   }
 }
 
-const validatePayload = (fullName, phone, email) => {
+const validatePayload = (phone, email) => {
   const errorSummary = getErrorSummary()
-  if (!fullName) {
-    errorSummary.errorList.push({
-      text: 'Enter your name',
-      href: '#fullName'
-    })
-  }
-  if (!phone) {
-    errorSummary.errorList.push({
-      text: 'Enter a phone number',
-      href: '#phone'
-    })
-  } else if (!constants.phoneRegex.test(phone)) {
+  if ((phone?.length > 0) && !constants.phoneRegex.test(phone)) {
     errorSummary.errorList.push({
       text: 'Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192',
       href: '#phone'
     })
-  } else {
-    // do nothing; sonarcloud has lost the plot.
   }
-  if (!validateEmail(email)) {
+
+  if ((email?.length > 0) && !validateEmail(email)) {
     errorSummary.errorList.push({
       text: 'Enter an email address in the correct format, like name@example.com',
       href: '#email'

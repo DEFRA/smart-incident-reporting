@@ -36,24 +36,18 @@ const handlers = {
     }
 
     if (emailRequired && (answerId === question.answers.yes.answerId)) {
+      const { reporterName, reporterPhoneNumber } = request.yar.get(constants.redisKeys.SMELL_CONTACT_DETAILS)
       request.yar.set(constants.redisKeys.SMELL_CONTACT_DETAILS, {
-        reporterName: '',
-        reporterPhoneNumber: '',
+        reporterName,
+        reporterPhoneNumber,
         reporterEmailAddress: request.payload.email
       })
-    } else if (emailRequired && (answerId === question.answers.no.answerId)) {
-      request.yar.set(constants.redisKeys.SMELL_CONTACT_DETAILS, {
-        reporterName: '',
-        reporterPhoneNumber: '',
-        reporterEmailAddress: ''
-      })
-    } else {
-      // do nothing
     }
+
     request.yar.set(constants.redisKeys.SMELL_IMAGES_OR_VIDEO, buildAnswers(answerId))
 
     // handle redirects
-    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.SMELL_OTHER_INFORMATION)
+    return h.redirect(constants.routes.SMELL_OTHER_INFORMATION)
   }
 }
 
@@ -97,9 +91,8 @@ const validatePayload = (request, answerId, emailRequired) => {
 }
 
 const checkAnswer = request => {
-  const contactQuestion = questionSets.SMELL.questions.SMELL_CONTACT
-  const contactAnswer = request.yar.get(constants.redisKeys.SMELL_CONTACT)
-  return contactAnswer[0].answerId === contactQuestion.answers.no.answerId
+  const { reporterEmailAddress } = request.yar.get(constants.redisKeys.SMELL_CONTACT_DETAILS)
+  return reporterEmailAddress.length === 0
 }
 
 const buildAnswers = answerId => {

@@ -1,80 +1,69 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
-import {
-  dateValidateAndError,
-  fieldErrorClasses,
-  getDateErrors,
-  getTimeErrors,
-  validatePayload,
-  getDateContext
-} from '../../utils/date-helpers.js'
 
 const handlers = {
   get: async (request, h) => {
     return h.view(constants.views.WATER_POLLUTION_WHEN, {
-      fieldErrorClasses,
-      getDateErrors,
-      getTimeErrors,
-      validateAndError: dateValidateAndError(),
-      ...getDateContext(request.yar.get(constants.redisKeys.WATER_POLLUTION_WHEN))
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
-    const validateAndError = dateValidateAndError()
-    if (!request.payload.current) {
-      const errors = getErrorSummary()
-      errors.errorList.push({
-        text: 'Select when you saw the pollution',
-        href: '#current'
-      })
-      return h.view(constants.views.WATER_POLLUTION_WHEN, {
-        errorSummary: errors,
-        validateAndError,
-        fieldErrorClasses,
-        getDateErrors,
-        getTimeErrors
-      })
-    }
-
-    const payload = {
-      day: request.payload.current === '2' ? request.payload['date-day'] : undefined,
-      month: request.payload.current === '2' ? request.payload['date-month'] : undefined,
-      year: request.payload.current === '2' ? request.payload['date-year'] : undefined,
-      hour: request.payload.hour[Number(request.payload.current)],
-      minute: request.payload.minute[Number(request.payload.current)],
-      period: request.payload.period[Number(request.payload.current)]
-    }
-    // Fill in today or yesterday dates
-    if (request.payload.current !== '2') {
-      const date = new Date()
-      if (request.payload.current === '1') {
-        date.setDate(date.getDate() - 1)
-      }
-      payload.day = date.getDate().toString()
-      payload.month = (date.getMonth() + 1).toString()
-      payload.year = date.getFullYear().toString()
-    }
+    // get payload
+    let { answerId } = request.payload
 
     // validate payload for errors
-    const { errorSummary, dateTime } = validatePayload(payload, validateAndError)
+    const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
-      errorSummary.errorList.forEach(item => {
-        item.href = item.href.indexOf('date') === -1 ? `${item.href}-${request.payload.current}` : item.href
-      })
       return h.view(constants.views.WATER_POLLUTION_WHEN, {
         errorSummary,
-        validateAndError,
-        fieldErrorClasses,
-        getDateErrors,
-        getTimeErrors,
-        current: request.payload.current
+        ...getContext(request)
       })
     }
 
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_WHEN, dateTime.toISOString())
+    // convert answerId to number
+    answerId = Number(answerId)
 
-    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
+    // set answer in session
+    request.yar.set(constants.redisKeys.DATE_TIME_OPTION, answerId)
+
+    // handle redirects
+    const optionOne = 1
+    const optionTwo = 2
+    const optionThree = 3
+    const optionFour = 4
+    if (answerId === optionOne) {
+      request.yar.set(constants.redisKeys.WATER_POLLUTION_WHEN, (new Date()).toISOString())
+      return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
+    } else if (answerId === optionTwo) {
+      return h.redirect(constants.routes.WATER_POLLUTION_EARLIER_TODAY)
+    } else if (answerId === optionThree) {
+      return h.redirect(constants.routes.WATER_POLLUTION_YESTERDAY)
+    } else if (answerId === optionFour) {
+      return h.redirect(constants.routes.WATER_POLLUTION_DATE_BEFORE_YESTERDAY)
+    } else {
+      // do nothing
+    }
+
+    return null
   }
+}
+
+const getContext = request => {
+  const answer = request.yar.get(constants.redisKeys.DATE_TIME_OPTION)
+  return {
+    answer
+  }
+}
+
+const validatePayload = answerId => {
+  const errorSummary = getErrorSummary()
+  if (!answerId) {
+    errorSummary.errorList.push({
+      text: 'Select when you saw the pollution',
+      href: '#answerId'
+    })
+  }
+  return errorSummary
 }
 
 export default [

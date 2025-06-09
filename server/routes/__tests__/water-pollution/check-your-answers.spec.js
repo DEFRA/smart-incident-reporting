@@ -32,6 +32,14 @@ const sessionDataWithEmail = {
   }
 }
 
+const sessionDataWithoutEmail = {
+  'water-pollution/contact-details': {
+    reporterName: 'John Smith',
+    reporterPhoneNumber: '012345678910',
+    reporterEmailAddress: ''
+  }
+}
+
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
@@ -54,6 +62,16 @@ describe(url, () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionDataWithEmail)
       expect(response.payload).toContain('Not given')
       expect(response.payload).toContain('test@test.com')
+    })
+    it(`Happy: Reset answer for 'Images or videos available question' to no if email is not available in contact-details ${url}`, async () => {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionDataWithoutEmail)
+      expect(response.payload).toContain('Not given')
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)).toEqual([{
+        questionId: 2800,
+        questionAsked: 'Do you want to send us any images or videos of the pollution?',
+        questionResponse: true,
+        answerId: 2802
+      }])
     })
     it(`Happy: Should return correct answer for 'Images or videos available question' ${url}`, async () => {
       const answerData = {
