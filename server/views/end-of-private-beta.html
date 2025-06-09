@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block pageTitle %}
+  The pilot for this service has closed – {{ serviceName }} - GOV.UK 
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">The pilot for this service has closed</h1>
+      <p class="govuk-body">Thank you to anyone who used the 'private beta' version of the report an environmental problem service.</p>
+      <p class="govuk-body">This helped us test the service and make improvements before making it available to everyone.</p>
+      <p class="govuk-body">You can now visit GOV.UK to:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li><a href="https://www.gov.uk/report-water-pollution">report water pollution in England</a></li>
+        <li><a href="https://www.gov.uk/report-smell">report a smell from a waste facility, industrial site or farm in England</a></li>
+      </ul>
+      <p>Find out how to <a href="https://www.gov.uk/report-environmental-problem ">report other environmental problems</a>.</p>
+    </div>
+  </div>
+{% endblock %}
