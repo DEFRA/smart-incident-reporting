@@ -17,7 +17,7 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Should accept yes option and redirect to SMELL_CONTACT', async () => {
+    it('Should accept yes option and redirect to SMELL_CONTACT_DETAILS', async () => {
       const answerId = question.answers.yes.answerId
       const options = {
         url,
@@ -26,13 +26,13 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_CONTACT)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_CONTACT_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.SMELL_MEDICAL_HELP)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    it('Should accept no and redirect to SMELL_CONTACT', async () => {
+    it('Should accept no and redirect to SMELL_CONTACT_DETAILS', async () => {
       const answerId = question.answers.no.answerId
       const options = {
         url,
@@ -41,7 +41,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_CONTACT)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_CONTACT_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.SMELL_MEDICAL_HELP)).toEqual([{
         ...baseAnswer,
         answerId

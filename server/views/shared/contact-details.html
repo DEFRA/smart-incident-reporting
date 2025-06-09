@@ -1,24 +1,26 @@
 {% extends 'form-layout.html' %}
 
-{% set pageTitle = 'Enter your contact details' %}
+{% set pageTitle = 'Your contact details' %}
 
 {% block formContent %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">
-      {{ pageTitle }}
-    </h1>
     <form class="form" action="index" method="post">
-      {% from "dist/govuk/components/input/macro.njk" import govukInput %}
-      {% from "dist/govuk/components/fieldset/macro.njk" import govukFieldset %}
       {% call govukFieldset({
         legend: {
-          text: "Your details",
-          classes: "govuk-fieldset__legend--m"
+          text: pageTitle,
+          classes: "govuk-fieldset__legend--l",
+          isPageHeading: true
         }
       }) %}
-      <p class="govuk-body">Enter your name and an email, phone number or both.</p>
+      <p class="govuk-body">We will only use your email and phone number to:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>send you confirmation of your report, including a reference number</li>
+        <li>ask for more information about the problem, if needed</li>
+      </ul>
+      <p class="govuk-body">You do not have to give any details, but we cannot send you a reference number without an email.</p>
+      <p class="govuk-body"><a href="../privacy-notice">Find out how we use your personal data</a>.</p>
       {{ govukInput({
         id: "fullName",
         name: "fullName",
@@ -27,9 +29,8 @@
         classes: "govuk-!-width-two-thirds",
         spellcheck: false,
         label: {
-          text: "Your name"
-        },
-        errorMessage: findErrorMessageById(errorSummary, 'fullName')
+          text: "Your name (optional)"
+        }
       }) }}
       {{ govukInput({
         id: "email",
@@ -40,7 +41,10 @@
         spellcheck: false,
         classes: "govuk-!-width-two-thirds",
         label: {
-          text: "Email address"
+          text: "Email address (optional)"
+        },
+        hint: {
+          text: "We will send your reference number to this email"
         },
         errorMessage: findErrorMessageById(errorSummary, 'email')
       }) }}
@@ -52,11 +56,13 @@
         autocomplete: "tel",
         classes: "govuk-!-width-one-third",
         label: {
-          text: "Phone number"
+          text: "Phone number (optional)"
         },
         errorMessage: findErrorMessageById(errorSummary, 'phone')
       }) }}
+
       {% endcall %}
+
       {{ govukButton({
         text: "Continue"
       }) }}
