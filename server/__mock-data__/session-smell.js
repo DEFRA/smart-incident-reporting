@@ -125,14 +125,6 @@ const session = JSON.parse(`{
       "answerId": 3001
     }
   ],
-  "smell/contact": [
-    {
-      "questionId": 3400,
-      "questionAsked": "Can we contact you for more information if needed?",
-      "questionResponse": true,
-      "answerId": 3401
-    }
-  ],
   "smell/images-or-video": [
     {
       "questionId": 3500,

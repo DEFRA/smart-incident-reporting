@@ -34,7 +34,7 @@ const handlers = {
     request.yar.set(constants.redisKeys.SMELL_MEDICAL_HELP, buildAnswers(answerId))
 
     // handle redirects
-    return h.redirect(constants.routes.SMELL_CONTACT)
+    return h.redirect(constants.routes.SMELL_CONTACT_DETAILS)
   }
 }
 
