@@ -68,18 +68,12 @@ const resetImagesOrVideoAnswer = (request) => {
   const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO
   const answerId = question.answers.no.answerId
   request.yar.clear(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)
-  const baseAnswer = {
+  request.yar.set(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO, [{
     questionId: question.questionId,
     questionAsked: question.text,
-    questionResponse: true
-  }
-  const buildAnswers = answerId => {
-    return [{
-      ...baseAnswer,
-      answerId
-    }]
-  }
-  request.yar.set(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO, buildAnswers(answerId))
+    questionResponse: true,
+    answerId
+  }])
 }
 
 // Get answers for 'Location and size of pollution' section
