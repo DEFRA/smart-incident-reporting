@@ -1,6 +1,8 @@
+import constants from "../utils/constants.js"
+
 const handlers = {
   get: (_request, h) => {
-    return h.redirect('https://www.gov.uk/report-environmental-problem').permanent()
+    return h.redirect(constants.urls.GOV_UK_SERVICE_HOME).permanent()
   }
 }
 
