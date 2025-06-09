@@ -41,12 +41,14 @@ const getContext = () => {
 const getYourDetails = (request) => {
   // Get answer for 'Name, Phone number and Email address' questions
   const { reporterName, reporterPhoneNumber, reporterEmailAddress } = request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS)
+  if (reporterEmailAddress.length === 0) {
+    resetImagesOrVideoAnswer(request)
+  }
 
   const name = reporterName.length > 0 ? reporterName : 'Not given'
   const phoneNumber = reporterPhoneNumber.length > 0 ? reporterPhoneNumber : 'Not given'
   const emailAddress = reporterEmailAddress.length > 0 ? reporterEmailAddress : 'Not given'
-  const emailRequired = checkContactAnswer(request)
-  const emailUrl = emailRequired ? url.WATER_POLLUTION_IMAGES_OR_VIDEO : url.WATER_POLLUTION_CONTACT_DETAILS
+  const emailUrl = url.WATER_POLLUTION_CONTACT_DETAILS
 
   // Get answer for 'Images or videos available' question
   const imagesOrVideoUrl = 'WATER_POLLUTION_IMAGES_OR_VIDEO'
@@ -59,6 +61,25 @@ const getYourDetails = (request) => {
     emailUrl,
     imagesOrVideoAnswer
   }
+}
+
+// Reset answer for 'Send images or videos' as no if email is not available
+const resetImagesOrVideoAnswer = (request) => {
+  const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO
+  const answerId = question.answers.no.answerId
+  request.yar.clear(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)
+  const baseAnswer = {
+    questionId: question.questionId,
+    questionAsked: question.text,
+    questionResponse: true
+  }
+  const buildAnswers = answerId => {
+    return [{
+      ...baseAnswer,
+      answerId
+    }]
+  }
+  request.yar.set(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO, buildAnswers(answerId))
 }
 
 // Get answers for 'Location and size of pollution' section
@@ -306,13 +327,6 @@ const getWhenData = (request, pageUrl) => {
     return dateTimeData
   }
   return null
-}
-
-const checkContactAnswer = (request) => {
-  const contactQuestion = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_CONTACT
-  const contactAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT)
-  const contactAnswer = contactAnswerData ? contactAnswerData[0].answerId : 'No answer'
-  return contactAnswer === contactQuestion.answers.no.answerId
 }
 
 const buildPayload = (session) => {

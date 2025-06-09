@@ -10,23 +10,21 @@ const baseAnswer = {
   questionResponse: true
 }
 
-const contactQuestion = questionSets.SMELL.questions.SMELL_CONTACT
-
-const sessionData = {
-  'smell/contact': [{
-    questionId: contactQuestion.questionId,
-    answerId: contactQuestion.answers.yes.answerId
-  }],
+const sessionDataWithEmail = {
   'smell/contact-details': {
     reporterEmailAddress: 'test@test.com'
   }
 }
 
-const sessionDataWithAnswer = {
-  'smell/contact': [{
-    questionId: contactQuestion.questionId,
-    answerId: contactQuestion.answers.yes.answerId
-  }],
+const sessionDataWithoutEmail = {
+  'smell/contact-details': {
+    reporterName: 'test name',
+    reporterPhoneNumber: '012345678910',
+    reporterEmailAddress: ''
+  }
+}
+
+const sessionDataYes = {
   'smell/contact-details': {
     reporterEmailAddress: 'test@test.com'
   },
@@ -35,46 +33,36 @@ const sessionDataWithAnswer = {
     answerId: question.answers.yes.answerId
   }]
 }
-
-const sessionDataWithYes = {
-  'smell/contact': [{
-    questionId: contactQuestion.questionId,
-    answerId: contactQuestion.answers.yes.answerId
-  }],
+const sessionDataNo = {
   'smell/contact-details': {
     reporterEmailAddress: 'test@test.com'
-  }
-}
-
-const sessionDataWithNo = {
-  'smell/contact': [{
-    questionId: contactQuestion.questionId,
-    answerId: contactQuestion.answers.no.answerId
-  }],
-  'smell/contact-details': {
-    reporterEmailAddress: ''
-  }
+  },
+  'smell/images-or-video': [{
+    questionId: baseAnswer.questionId,
+    answerId: question.answers.no.answerId
+  }]
 }
 
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('We\'ll send a message to <strong>test@test.com</strong> with details on where to send these, if needed.')
-    })
-    it(`Should return success response and correct view for ${url} with pre entered data`, async () => {
-      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataWithAnswer)
-      expect(response.payload).toContain('We\'ll send a message to <strong>test@test.com</strong> with details on where to send these, if needed.')
-      expect(response.payload).toContain('value="3501" checked')
-    })
-    it(`Should return success response and correct view for ${url} with options and pre entered data`, async () => {
-      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataWithYes)
+      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataWithEmail)
       expect(response.payload).toContain('We\'ll send a message to <strong>test@test.com</strong> with details on where to send these, if needed.')
     })
     it(`Should return success response and correct view for ${url} with email text field`, async () => {
-      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataWithNo)
+      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataWithoutEmail)
       expect(response.payload).toContain('We need your email to send you instructions on how to share images and videos, after you send your report.')
       expect(response.payload).toContain('Email address')
+    })
+    it(`Should return success response and correct view for ${url} with pre selected yes option`, async () => {
+      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataYes)
+      expect(response.payload).toContain('We\'ll send a message to <strong>test@test.com</strong> with details on where to send these, if needed.')
+      expect(response.payload).toContain('value="3501" checked')
+    })
+    it(`Should return success response and correct view for ${url} with pre selected no option`, async () => {
+      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataNo)
+      expect(response.payload).toContain('We\'ll send a message to <strong>test@test.com</strong> with details on where to send these, if needed.')
+      expect(response.payload).toContain('value="3502" checked')
     })
   })
   describe('POST', () => {
@@ -86,7 +74,7 @@ describe(url, () => {
           answerId
         }
       }
-      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithYes)
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithEmail)
       expect(response.headers.location).toEqual(constants.routes.SMELL_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.SMELL_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
@@ -102,19 +90,19 @@ describe(url, () => {
           email: 'test@test.com'
         }
       }
-      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithNo)
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithoutEmail)
       expect(response.headers.location).toEqual(constants.routes.SMELL_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.SMELL_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
         answerId
       }])
       expect(response.request.yar.get(constants.redisKeys.SMELL_CONTACT_DETAILS)).toEqual({
-        reporterName: '',
-        reporterPhoneNumber: '',
+        reporterName: 'test name',
+        reporterPhoneNumber: '012345678910',
         reporterEmailAddress: 'test@test.com'
       })
     })
-    it('Happy: Should accept no option when selected yes for SMELL_CONTACT and redirect to SMELL_OTHER_INFORMATION', async () => {
+    it('Happy: Should accept no option with email data and redirect to SMELL_OTHER_INFORMATION', async () => {
       const answerId = question.answers.no.answerId
       const options = {
         url,
@@ -122,20 +110,14 @@ describe(url, () => {
           answerId
         }
       }
-      const sessionData1 = {
-        'smell/contact': [{
-          questionId: contactQuestion.questionId,
-          answerId: contactQuestion.answers.yes.answerId
-        }]
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData1)
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithEmail)
       expect(response.headers.location).toEqual(constants.routes.SMELL_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.SMELL_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    it('Happy: Should accept no option when selected no for SMELL_CONTACT and redirect to SMELL_OTHER_INFORMATION', async () => {
+    it('Happy: Should accept no option without email data and redirect to SMELL_OTHER_INFORMATION', async () => {
       const answerId = question.answers.no.answerId
       const options = {
         url,
@@ -143,13 +125,7 @@ describe(url, () => {
           answerId
         }
       }
-      const sessionData2 = {
-        'smell/contact': [{
-          questionId: contactQuestion.questionId,
-          answerId: contactQuestion.answers.no.answerId
-        }]
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData2)
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithoutEmail)
       expect(response.headers.location).toEqual(constants.routes.SMELL_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.SMELL_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
@@ -161,7 +137,7 @@ describe(url, () => {
         url,
         payload: {}
       }
-      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
+      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionDataWithEmail)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Select yes if you want to send us any images or videos')
     })
@@ -174,10 +150,6 @@ describe(url, () => {
         }
       }
       const sessionData3 = {
-        'smell/contact': [{
-          questionId: contactQuestion.questionId,
-          answerId: contactQuestion.answers.no.answerId
-        }],
         'smell/contact-details': {
           reporterEmailAddress: ''
         }
@@ -196,10 +168,6 @@ describe(url, () => {
         }
       }
       const sessionData4 = {
-        'smell/contact': [{
-          questionId: contactQuestion.questionId,
-          answerId: contactQuestion.answers.no.answerId
-        }],
         'smell/contact-details': {
           reporterEmailAddress: ''
         }

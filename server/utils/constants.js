@@ -45,7 +45,6 @@ const WATER_POLLUTION_POLLUTION_LENGTH = 'water-pollution/pollution-length'
 const WATER_POLLUTION_EFFECT_ON_WILDLIFE = 'water-pollution/effect-on-wildlife'
 const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 const WATER_POLLUTION_CHECK_YOUR_ANSWERS = 'water-pollution/check-your-answers'
-const WATER_POLLUTION_CONTACT = 'water-pollution/contact'
 const WATER_POLLUTION_CONTACT_DETAILS = 'water-pollution/contact-details'
 
 const SMELL_START = 'smell-start'
@@ -72,7 +71,6 @@ const SMELL_SOURCE = 'smell/source'
 const SMELL_REPORT_LOCAL_COUNCIL = 'smell/report-local-council'
 const SMELL_CONTACT_LOCAL_COUNCIL = 'smell/contact-local-council'
 const SMELL_SOURCE_DETAILS = 'smell/source-details'
-const SMELL_CONTACT = 'smell/contact'
 const SMELL_CONTACT_DETAILS = 'smell/contact-details'
 const SMELL_IMAGES_OR_VIDEO = 'smell/images-or-video'
 const SMELL_OTHER_INFORMATION = 'smell/other-information'
@@ -132,7 +130,6 @@ const views = {
   WATER_POLLUTION_EFFECT_ON_WILDLIFE,
   WATER_POLLUTION_OTHER_INFORMATION,
   WATER_POLLUTION_CHECK_YOUR_ANSWERS,
-  WATER_POLLUTION_CONTACT,
   WATER_POLLUTION_CONTACT_DETAILS,
   SMELL,
   SMELL_LOCATION_HOME,
@@ -157,7 +154,6 @@ const views = {
   SMELL_EFFECT_ON_DAILY_LIFE,
   SMELL_EFFECT_ON_HEALTH,
   SMELL_MEDICAL_HELP,
-  SMELL_CONTACT,
   SMELL_CONTACT_DETAILS,
   SMELL_IMAGES_OR_VIDEO,
   SMELL_OTHER_INFORMATION,
