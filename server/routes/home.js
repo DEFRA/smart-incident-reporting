@@ -1,5 +1,5 @@
 const handlers = {
-  get: (request, h) => {
+  get: (_request, h) => {
     return h.redirect('https://www.gov.uk/report-environmental-problem').permanent()
   }
 }
