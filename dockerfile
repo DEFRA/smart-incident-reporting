@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:22.16-alpine3.22
 
 LABEL author="DEFRA"
 ARG GA_ID
@@ -9,6 +9,7 @@ WORKDIR /usr/src
 COPY . smart-incident-reporting
 WORKDIR /usr/src/smart-incident-reporting
 RUN npm ci
+RUN npm run build
 
 EXPOSE $PORT
 

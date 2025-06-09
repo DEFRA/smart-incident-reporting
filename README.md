@@ -8,7 +8,7 @@
 
 # Prerequisites
 
-NodeJS v18 needs to be installed locally along with npm.
+NodeJS v22 needs to be installed locally along with npm.
 
 # Getting started
 
