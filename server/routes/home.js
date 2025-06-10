@@ -1,7 +1,7 @@
 import constants from '../utils/constants.js'
 
 const handlers = {
-  get: (_request, h) => {
+  get: (request, h) => {
     if (process.env.REGISTER_START_ROUTES === 'true') {
       request.yar.reset()
       return h.view(constants.views.HOME)
