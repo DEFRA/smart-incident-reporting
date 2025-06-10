@@ -7,7 +7,7 @@ const handlers = {
       return h.view(constants.views.HOME)
     } else {
       return h.redirect(constants.urls.GOV_UK_SERVICE_HOME).permanent()
-    }    
+    }
   }
 }
 
