@@ -1,5 +1,3 @@
-import constants from '../utils/constants.js'
-
 const handlers = {
   get: async (request, h) => {
     request.yar.reset()
