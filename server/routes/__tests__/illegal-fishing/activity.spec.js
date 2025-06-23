@@ -110,7 +110,7 @@ describe(url, () => {
         otherDetails: somethingElseDetails
       }])
     })
-    it('Happy: accepts valid answerIds of \'Fishing without a rod licence\' and \'Fishing without a rod licence\' and redirects to illegal-fishing/location-option', async () => {
+    it('Happy: accepts valid answerIds of \'Fishing without permission of the owner or club\' and \'Fishing without a rod licence\' and redirects to illegal-fishing/rod-licence', async () => {
       const answerId = [
         question.answers.withoutPermission.answerId.toString(),
         question.answers.withoutRodLicense.answerId.toString()
@@ -122,13 +122,38 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_LOCATION_OPTION)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_ROD_LICENCE)
       expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_ACTIVITY)).toEqual([{
         ...baseAnswer,
         answerId: Number(answerId[0])
       }, {
         ...baseAnswer,
         answerId: Number(answerId[1])
+      }])
+    })
+    it('Happy: accepts valid answerIds of \'Fishing without a rod licence\', \'Use of illegal fishing equipment\' and \'Fishing for protected species (including seasonal)\' and redirects to illegal-fishing/rod-licence', async () => {
+      const answerId = [
+        question.answers.withoutRodLicense.answerId.toString(),
+        question.answers.illegalFishingEquipment.answerId.toString(),
+        question.answers.protectedSpecies.answerId.toString()
+      ]
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_ROD_LICENCE)
+      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_ACTIVITY)).toEqual([{
+        ...baseAnswer,
+        answerId: Number(answerId[0])
+      }, {
+        ...baseAnswer,
+        answerId: Number(answerId[1])
+      }, {
+        ...baseAnswer,
+        answerId: Number(answerId[2])
       }])
     })
     it('Happy: accepts valid answerIds of \'Fishing out of season\', \'Use of illegal fishing equipment\' and \'Fishing for protected species (including seasonal)\' and redirects to illegal-fishing/location-option', async () => {

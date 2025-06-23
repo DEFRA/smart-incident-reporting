@@ -36,12 +36,14 @@ const handlers = {
     request.yar.set(question.key, buildAnswers(answerId, somethingElseDetails))
 
     // handle redirects
-    if (answerId.length === 1 && Number(answerId[0]) === question.answers.withoutPermission.answerId) {
+    const selectedAnswers = answerId.map(Number)
+    if (selectedAnswers.length === 1 && selectedAnswers[0] === question.answers.withoutPermission.answerId) {
       return h.redirect(constants.routes.ILLEGAL_FISHING_CONTACT_OWNER_OR_POLICE)
-    } else if (answerId.length === 1 && Number(answerId[0]) === question.answers.withoutRodLicense.answerId) {
+    } else if (selectedAnswers.length === 1 && selectedAnswers[0] === question.answers.withoutRodLicense.answerId) {
+      return h.redirect(constants.routes.ILLEGAL_FISHING_ROD_LICENCE)
+    } else if (selectedAnswers.includes(question.answers.withoutRodLicense.answerId)) {
       return h.redirect(constants.routes.ILLEGAL_FISHING_ROD_LICENCE)
     } else {
-      console.log('Inside option')
       return h.redirect(constants.routes.ILLEGAL_FISHING_LOCATION_OPTION)
     }
   }
