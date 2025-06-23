@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% set pageTitle = 'Report someone fishing illegally' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-xl">
+      Report someone fishing illegally
+    </h1>
+    <p>Use this service to report:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>fishing out of season</li>
+      <li>fishing without a rod licence</li>
+      <li>the use of illegal equipment to catch fish, for example fixed lines or nets </li>
+      <li>the catching or trapping of protected types of fish</li>
+    </ul>
+    {{ govukWarningText({
+    text: "Dial 999 if people are using explosives, firearms or other dangerous weapons to catch fish.",
+    iconFallbackText: "Warning"
+    }) }}
+    <h2 class="govuk-heading-m">Before you start</h2>
+    <p>You'll need to know:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>where the illegal fishing is taking place, including the name of the watercourse if known</li>
+      <li>why the fishing is illegal, for example the equipment being used or the type of fish being caught</li>
+    </ul>
+    <div class="govuk-inset-text">
+      If you're reporting trespassing on private land or stealing privately-owned fish stocks, call 101 to report this
+      to the police.
+    </div>
+    <p>You only need to give your personal details if you're happy to be contacted for more information.</p>
+    <p>If you want to send photos, you'll need to give an email address.</p>
+      {{ govukButton({
+      text: "Start now",
+      href: startHref,
+      isStartButton: true
+      }) }}
+    <h2 class="govuk-heading-m">Report illegal fishing by phone</h2>
+    <p>If you're unable to use the online service you can call the Environment Agency.</p>
+    <div class="contact">
+      <p>Environment Agency incident hotline<br>
+        Telephone: 0800 80 70 60<br>
+        24-hour service<br>
+        <a href="https://www.gov.uk/call-charges">Find out about call charges</a>
+      </p>
+    </div>
+    <h2 class="govuk-heading-m">After you make your report</h2>
+    <p>The Environment Agency will review your report and decide if any action is needed.</p>
+    <p>You will not get updates on your report.</p>
+    <h2 class="govuk-heading-m">Report other problems with your environment</h2>
+    <p>How you report other environmental problems depends on the type of issue and where it is. You may have to report
+      it to:
+    </p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>the Environment Agency</li>
+      <li>your local council</li>
+      <li>your utilities company</li>
+    </ul>
+    <p><a href="https://www.gov.uk/report-environmental-problem">Find out how to report other problems with your environment</a></p>
+  </div>
+</div>
+
+{% endblock %}

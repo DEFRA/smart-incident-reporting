@@ -1,0 +1,29 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukInput({
+      errorMessage: findErrorMessageById(errorSummary, "noRodLicenceDescription"),
+      label: {
+        text: question.text,
+        classes: "govuk-label--l",
+        isPageHeading: true
+      },
+      hint: {
+        html: "For example, they may have told you they have not got one, or you're a club bailiff and you've asked to see it"
+      },
+      id: "noRodLicenceDescription",
+      name: "noRodLicenceDescription"
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+  </div>
+</div>
+
+{% endblock %}

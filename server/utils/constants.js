@@ -79,6 +79,14 @@ const SMELL_CHOOSE_ADDRESS = 'smell/choose-address'
 const SMELL_CONFIRM_ADDRESS = 'smell/confirm-address'
 const SMELL_EXCEEDED_ATTEMPTS = 'smell/exceeded-attempts'
 
+const ILLEGAL_FISHING_START = 'illegal-fishing-start'
+const ILLEGAL_FISHING = 'illegal-fishing'
+const ILLEGAL_FISHING_WATER_FEATURE = 'illegal-fishing/water-feature'
+const ILLEGAL_FISHING_ACTIVITY = 'illegal-fishing/activity'
+const ILLEGAL_FISHING_CONTACT_OWNER_OR_POLICE = 'illegal-fishing/contact-owner-or-police'
+const ILLEGAL_FISHING_ROD_LICENCE = 'illegal-fishing/rod-licence'
+const ILLEGAL_FISHING_LOCATION_OPTION = 'illegal-fishing/location-option'
+
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 const REFERER = 'referer'
@@ -92,11 +100,14 @@ let viewsExtra = {}
 if (process.env.REGISTER_START_ROUTES === 'true') {
   viewsExtra = {
     WATER_POLLUTION_START,
-    SMELL_START
+    SMELL_START,
+    ILLEGAL_FISHING_START
   }
 }
 
 const views = {
+  HOME,
+  ...viewsExtra,
   API_OS_API_TOKEN,
   API_LOCATION,
   API_LOCATION_SUGGESTIONS,
@@ -160,8 +171,12 @@ const views = {
   SMELL_CHOOSE_ADDRESS,
   SMELL_CONFIRM_ADDRESS,
   SMELL_EXCEEDED_ATTEMPTS,
-  HOME,
-  ...viewsExtra
+  ILLEGAL_FISHING,
+  ILLEGAL_FISHING_WATER_FEATURE,
+  ILLEGAL_FISHING_ACTIVITY,
+  ILLEGAL_FISHING_CONTACT_OWNER_OR_POLICE,
+  ILLEGAL_FISHING_ROD_LICENCE,
+  ILLEGAL_FISHING_LOCATION_OPTION
 }
 
 const routes = {

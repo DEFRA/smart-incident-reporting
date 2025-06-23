@@ -693,6 +693,106 @@ const questionSets = {
       }
     }
   },
+  ILLEGAL_FISHING: {
+    questionSetId: 300,
+    questions: {
+      ILLEGAL_FISHING_WATER_FEATURE: {
+        questionId: 500,
+        key: constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE,
+        text: 'In what kind of water have you seen illegal fishing?',
+        answers: {
+          river: {
+            answerId: 501,
+            text: 'A river'
+          },
+          lakeOrReservoir: {
+            answerId: 502,
+            text: 'A pond, lake or reservoir'
+          },
+          sea: {
+            answerId: 503,
+            text: 'The sea'
+          },
+          canal: {
+            answerId: 504,
+            text: 'A canal'
+          },
+          streamOrWatercourse: {
+            answerId: 505,
+            text: 'A smaller stream or watercourse'
+          },
+          somethingElse: {
+            answerId: 506,
+            text: SOMETHING_ELSE
+          },
+          youDoNotKnow: {
+            answerId: 507,
+            text: YOU_DO_NOT_KNOW
+          },
+          somethingElseDetails: {
+            answerId: 508
+          },
+          riverDetails: {
+            answerId: 509
+          },
+          lakeOrReservoirDetails: {
+            answerId: 510
+          },
+          canalDetails: {
+            answerId: 511
+          },
+          streamOrWatercourseDetails: {
+            answerId: 512
+          }
+        }
+      },
+      ILLEGAL_FISHING_ACTIVITY: {
+        questionId: 4200,
+        key: constants.redisKeys.ILLEGAL_FISHING_ACTIVITY,
+        text: 'What illegal fishing activity do you want to report?',
+        answers: {
+          withoutPermission: {
+            answerId: 4201,
+            text: 'Fishing without permission of the owner or club'
+          },
+          withoutRodLicense: {
+            answerId: 4202,
+            text: 'Fishing without a rod licence'
+          },
+          outOfSeason: {
+            answerId: 4203,
+            text: 'Fishing out of season'
+          },
+          illegalFishingEquipment: {
+            answerId: 4204,
+            text: 'Use of illegal fishing equipment'
+          },
+          protectedSpecies: {
+            answerId: 4205,
+            text: 'Fishing for protected species (including seasonal)'
+          },
+          somethingElse: {
+            answerId: 4206,
+            text: SOMETHING_ELSE
+          },
+          somethingElseDetails: {
+            answerId: 4207,
+            text: 'Give details of the activity'
+          }
+        }
+      },
+      ILLEGAL_FISHING_ROD_LICENCE: {
+        questionId: 4210,
+        key: constants.redisKeys.ILLEGAL_FISHING_ROD_LICENCE,
+        text: 'How do you know the people fishing do not have a rod licence?',
+        answers: {
+          noRodLicenceDetails: {
+            answerId: 4211
+          }
+        }
+      }
+    }
+  },
   CREATE_A_REPORT: {
     questionSetId: 0,
     questions: {
