@@ -23,8 +23,8 @@ const questionSets = {
           },
           lakeOrReservoir: {
             answerId: 502,
-            text: 'A lake or reservoir',
-            shortText: 'Lake or reservoir'
+            text: 'A pond, lake or reservoir',
+            shortText: 'Pond, lake or reservoir'
           },
           sea: {
             answerId: 503,
