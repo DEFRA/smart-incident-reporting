@@ -1,8 +1,8 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
+import { getErrorSummary } from '../../utils/helpers.js'
 
-const question = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_LOCATION_OPTION
+const question = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_PEOPLE_DESCRIPTION
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -11,9 +11,9 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (request, h) => {
-    return h.view(constants.views.ILLEGAL_FISHING_LOCATION_OPTION, {
-      ...getContext(request)
+  get: async (_request, h) => {
+    return h.view(constants.views.ILLEGAL_FISHING_PEOPLE_DESCRIPTION, {
+      ...getContext()
     })
   },
   post: async (request, h) => {
@@ -22,31 +22,26 @@ const handlers = {
     // validate payload
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.ILLEGAL_FISHING_LOCATION_OPTION, {
-        ...getContext(request),
+      return h.view(constants.views.ILLEGAL_FISHING_PEOPLE_DESCRIPTION, {
+        ...getContext(),
         errorSummary
       })
     }
-
     // convert answerId to number
     answerId = Number(answerId)
 
-    request.yar.set(constants.redisKeys.ILLEGAL_FISHING_LOCATION_OPTION, buildAnswers(answerId))
-
-    // handle redirects
-    if (answerId === question.answers.map.answerId) {
-      return h.redirect(constants.routes.ILLEGAL_FISHING_LOCATION_MAP)
+    request.yar.set(constants.redisKeys.ILLEGAL_FISHING_PEOPLE_DESCRIPTION, buildAnswers(answerId))
+    if (answerId === question.answers.yes.answerId) {
+      return h.redirect(constants.routes.ILLEGAL_FISHING_DESCRIPTION_DETAILS)
     } else {
-      return h.redirect(constants.routes.ILLEGAL_FISHING_LOCATION_DESCRIPTION)
+      return h.redirect(constants.routes.ILLEGAL_FISHING_DESCRIPTION_DETAILS)
     }
   }
 }
 
-const getContext = request => {
-  const answers = request.yar.get(question.key)
+const getContext = () => {
   return {
-    question,
-    answers
+    question
   }
 }
 
@@ -54,7 +49,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select how you\'d prefer to give the location',
+      text: 'Select \'yes\' if you can describe anyone involved',
       href: '#answerId'
     })
   }
@@ -71,12 +66,12 @@ const buildAnswers = answerId => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.ILLEGAL_FISHING_LOCATION_OPTION,
+    path: constants.routes.ILLEGAL_FISHING_PEOPLE_DESCRIPTION,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.ILLEGAL_FISHING_LOCATION_OPTION,
+    path: constants.routes.ILLEGAL_FISHING_PEOPLE_DESCRIPTION,
     handler: handlers.post
   }
 ]

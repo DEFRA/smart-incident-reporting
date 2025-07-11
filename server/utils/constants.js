@@ -86,6 +86,19 @@ const ILLEGAL_FISHING_ACTIVITY = 'illegal-fishing/activity'
 const ILLEGAL_FISHING_CONTACT_OWNER_OR_POLICE = 'illegal-fishing/contact-owner-or-police'
 const ILLEGAL_FISHING_ROD_LICENCE = 'illegal-fishing/rod-licence'
 const ILLEGAL_FISHING_LOCATION_OPTION = 'illegal-fishing/location-option'
+const ILLEGAL_FISHING_LOCATION_MAP = 'illegal-fishing/location-map'
+const ILLEGAL_FISHING_LOCATION_DESCRIPTION = 'illegal-fishing/location-description'
+const ILLEGAL_FISHING_WHEN = 'illegal-fishing/when'
+const ILLEGAL_FISHING_EARLIER_TODAY = 'illegal-fishing/earlier-today'
+const ILLEGAL_FISHING_YESTERDAY = 'illegal-fishing/yesterday'
+const ILLEGAL_FISHING_DATE_BEFORE_YESTERDAY = 'illegal-fishing/date-before-yesterday'
+const ILLEGAL_FISHING_TIME_BEFORE_YESTERDAY = 'illegal-fishing/time-before-yesterday'
+const ILLEGAL_FISHING_PEOPLE_FISHING = 'illegal-fishing/people-fishing'
+const ILLEGAL_FISHING_NUMBER_OF_PEOPLE = 'illegal-fishing/number-of-people'
+const ILLEGAL_FISHING_PEOPLE_DESCRIPTION = 'illegal-fishing/people-description'
+const ILLEGAL_FISHING_DESCRIPTION_DETAILS = 'illegal-fishing/description-details'
+const ILLEGAL_FISHING_ILLEGAL_EQUIPMENT = 'illegal-fishing/illegal-equipment'
+
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -176,7 +189,19 @@ const views = {
   ILLEGAL_FISHING_ACTIVITY,
   ILLEGAL_FISHING_CONTACT_OWNER_OR_POLICE,
   ILLEGAL_FISHING_ROD_LICENCE,
-  ILLEGAL_FISHING_LOCATION_OPTION
+  ILLEGAL_FISHING_LOCATION_OPTION,
+  ILLEGAL_FISHING_LOCATION_MAP,
+  ILLEGAL_FISHING_LOCATION_DESCRIPTION,
+  ILLEGAL_FISHING_WHEN,
+  ILLEGAL_FISHING_EARLIER_TODAY,
+  ILLEGAL_FISHING_YESTERDAY,
+  ILLEGAL_FISHING_DATE_BEFORE_YESTERDAY,
+  ILLEGAL_FISHING_TIME_BEFORE_YESTERDAY,
+  ILLEGAL_FISHING_PEOPLE_FISHING,
+  ILLEGAL_FISHING_NUMBER_OF_PEOPLE,
+  ILLEGAL_FISHING_PEOPLE_DESCRIPTION,
+  ILLEGAL_FISHING_DESCRIPTION_DETAILS,
+  ILLEGAL_FISHING_ILLEGAL_EQUIPMENT
 }
 
 const routes = {

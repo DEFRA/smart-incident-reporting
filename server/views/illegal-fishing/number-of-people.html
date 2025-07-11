@@ -1,0 +1,24 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% set items = [
+  {
+    value: question.answers.one.answerId,
+    text: question.answers.one.text
+  },
+  {
+    value: question.answers.two.answerId,
+    text: question.answers.two.text
+  },
+  {
+    value: question.answers.threeOrMore.answerId,
+    text: question.answers.threeOrMore.text
+  }
+]%}
+
+{% block formContent %}
+
+  {% include "partials/radios.html" %} 
+
+{% endblock %}

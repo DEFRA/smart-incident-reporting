@@ -790,6 +790,110 @@ const questionSets = {
             answerId: 4211
           }
         }
+      },
+      ILLEGAL_FISHING_LOCATION_OPTION: {
+        questionId: 2600,
+        key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_OPTION,
+        text: 'Where did you see the pollution?',
+        answers: {
+          map: {
+            answerId: 2602,
+            text: 'Mark the location on an online map'
+          },
+          description: {
+            answerId: 2601,
+            text: 'Describe the location'
+          }
+        }
+      },
+      ILLEGAL_FISHING_LOCATION_DESCRIPTION: {
+        questionId: 900,
+        key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_DESCRIPTION,
+        text: 'Where is the pollution?',
+        answers: {
+          locationDetails: {
+            answerId: 901
+          }
+        }
+      },
+      ILLEGAL_FISHING_LOCATION_MAP: {
+        questionId: 2700,
+        key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_MAP,
+        text: 'Mark the location of the pollution',
+        answers: {
+          nationalGridReference: {
+            answerId: 2701
+          },
+          easting: {
+            answerId: 2702
+          },
+          northing: {
+            answerId: 2703
+          },
+          lng: {
+            answerId: 2704
+          },
+          lat: {
+            answerId: 2705
+          }
+        }
+      },
+      ILLEGAL_FISHING_PEOPLE_FISHING: {
+        questionId: 4200,
+        key: constants.redisKeys.ILLEGAL_FISHING_PEOPLE_FISHING,
+        text: 'Are people fishing here now?',
+        answers: {
+          yes: {
+            answerId: 4201,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 4202,
+            text: 'No'
+          },
+          youDoNotKnow: {
+            answerId: 4203,
+            text: YOU_DO_NOT_KNOW
+          }
+        }
+      },
+      ILLEGAL_FISHING_NUMBER_OF_PEOPLE: {
+        questionId: 4210,
+        key: constants.redisKeys.ILLEGAL_FISHING_NUMBER_OF_PEOPLE,
+        text: 'How many people are there?',
+        answers: {
+          one: {
+            answerId: 4211,
+            text: 'One'
+          },
+          two: {
+            answerId: 4212,
+            text: 'Two'
+          },
+          threeOrMore: {
+            answerId: 4213,
+            text: 'Three or more'
+          }
+        }
+      },
+      ILLEGAL_FISHING_PEOPLE_DESCRIPTION: {
+        questionId: 4200,
+        key: constants.redisKeys.ILLEGAL_FISHING_PEOPLE_DESCRIPTION,
+        text: 'Can you describe anyone involved?',
+        answers: {
+          yes: {
+            answerId: 4501,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 4502,
+            text: 'No'
+          },
+          doNotPrefer: {
+            answerId: 4503,
+            text: 'You would prefer not to'
+          }
+        }
       }
     }
   },
