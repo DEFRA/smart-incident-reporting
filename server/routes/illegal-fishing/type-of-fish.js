@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
-const question = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT
+const question = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_TYPE_OF_FISH
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -11,18 +11,18 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (request, h) => h.view(constants.views.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT, {
+  get: async (request, h) => h.view(constants.views.ILLEGAL_FISHING_TYPE_OF_FISH, {
     ...getContext(request)
   }),
   post: async (request, h) => {
     // get payload
-    let { answerId, somethingElseDetail } = request.payload
+    let { answerId, otherFishDetail } = request.payload
 
     // validate payload for errors
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
       request.yar.set(question.key, [])
-      return h.view(constants.views.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT, {
+      return h.view(constants.views.ILLEGAL_FISHING_TYPE_OF_FISH, {
         errorSummary,
         ...getContext(request)
       })
@@ -34,13 +34,13 @@ const handlers = {
     }
 
     // set answer in session
-    request.yar.set(question.key, buildAnswers(answerId, somethingElseDetail))
+    request.yar.set(question.key, buildAnswers(answerId, otherFishDetail))
 
-    return h.redirect(constants.routes.ILLEGAL_FISHING_TYPE_OF_FISH)
+    return h.redirect(constants.routes.ILLEGAL_FISHING_FISH_TAKEN)
   }
 }
 
-const buildAnswers = (answerId, somethingElseDetail) => {
+const buildAnswers = (answerId, otherFishDetail) => {
   const answers = []
 
   answerId.forEach(item => {
@@ -50,11 +50,11 @@ const buildAnswers = (answerId, somethingElseDetail) => {
     })
   })
 
-  if (answerId.indexOf(question.answers.somethingElse.answerId.toString()) > -1 && somethingElseDetail) {
+  if (answerId.indexOf(question.answers.otherFish.answerId.toString()) > -1 && otherFishDetail) {
     answers.push({
       ...baseAnswer,
-      answerId: question.answers.somethingElseDetail.answerId,
-      otherDetails: somethingElseDetail
+      answerId: question.answers.otherFishDetail.answerId,
+      otherDetails: otherFishDetail
     })
   }
 
@@ -73,7 +73,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId || answerId.length === 0) {
     errorSummary.errorList.push({
-      text: 'Select what equipment is being used or \'you do not know\'',
+      text: 'Select the type of fish or \'you do not know\'',
       href: '#answerId'
     })
   }
@@ -83,12 +83,12 @@ const validatePayload = answerId => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT,
+    path: constants.routes.ILLEGAL_FISHING_TYPE_OF_FISH,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT,
+    path: constants.routes.ILLEGAL_FISHING_TYPE_OF_FISH,
     handler: handlers.post
   }
 ]

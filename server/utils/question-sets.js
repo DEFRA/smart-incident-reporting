@@ -894,6 +894,143 @@ const questionSets = {
             text: 'You would prefer not to'
           }
         }
+      },
+      ILLEGAL_FISHING_DESCRIPTION_DETAILS: {
+        questionId: 4260,
+        key: constants.redisKeys.ILLEGAL_FISHING_DESCRIPTION_DETAILS,
+        text: 'Describe the people involved?',
+        answers: {
+          descriptionDetails: {
+            answerId: 4261
+          },
+          vehicleRegistration: {
+            answerId: 4262,
+            text: 'Vehicle registration (if known)'
+          }
+        }
+      },
+      ILLEGAL_FISHING_ILLEGAL_EQUIPMENT: {
+        questionId: 4240,
+        key: constants.redisKeys.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT,
+        text: 'What illegal equipment is being used?',
+        answers: {
+          netsOrTraps: {
+            answerId: 4241,
+            text: 'Nets or traps'
+          },
+          fixedLines: {
+            answerId: 4242,
+            text: 'Fixed lines',
+          },
+          illegalRodOrTackle: {
+            answerId: 4243,
+            text: 'Illegal rod or tackle',
+          },
+          electricStunDevices: {
+            answerId: 4247,
+            text: 'Electric \'stun\' devices'
+          },
+          somethingElse: {
+            answerId: 4248,
+            text: SOMETHING_ELSE
+          },
+          unknown: {
+            answerId: 4249,
+            text: YOU_DO_NOT_KNOW
+          },
+          somethingElseDetail: {
+            answerId: 4239,
+            text: 'Give details of the equipment'
+          }
+        }
+      },
+      ILLEGAL_FISHING_TYPE_OF_FISH: {
+        questionId: 4230,
+        key: constants.redisKeys.ILLEGAL_FISHING_TYPE_OF_FISH,
+        text: 'What type of fish are being caught or targeted?',
+        answers: {
+          salmon: {
+            answerId: 4231,
+            text: 'Salmon'
+          },
+          lampreyOrEel: {
+            answerId: 4232,
+            text: 'Lamprey or eel',
+          },
+          seaTrout: {
+            answerId: 4233,
+            text: 'Sea trout',
+          },
+          freshwaterFish: {
+            answerId: 4234,
+            text: 'Freshwater fish'
+          },
+          crayfish: {
+            answerId: 4235,
+            text: 'Crayfish'
+          },
+          otherFish: {
+            answerId: 4236,
+            text: 'Other fish'
+          },
+          unknown: {
+            answerId: 4237,
+            text: YOU_DO_NOT_KNOW
+          },
+          otherFishDetail: {
+            answerId: 4238,
+            text: 'Give details of the type of fish'
+          }
+        }
+      },
+      ILLEGAL_FISHING_FISH_TAKEN: {
+        questionId: 4215,
+        key: constants.redisKeys.ILLEGAL_FISHING_FISH_TAKEN,
+        text: 'Did you see fish being \'taken\'?',
+        answers: {
+          yes: {
+            answerId: 4216,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 4217,
+            text: 'No'
+          }
+        }
+      },
+      ILLEGAL_FISHING_NUMBER_OF_FISH: {
+        questionId: 4220,
+        key: constants.redisKeys.ILLEGAL_FISHING_NUMBER_OF_FISH,
+        text: 'In what kind of water have you seen illegal fishing?',
+        answers: {
+          fiveOrMore: {
+            answerId: 4221,
+            text: '5 or move'
+          },
+          lessThanFive: {
+            answerId: 4222,
+            text: 'Less than 5'
+          },
+          youDoNotKnow: {
+            answerId: 4223,
+            text: YOU_DO_NOT_KNOW
+          }
+        }
+      },
+      ILLEGAL_FISHING_IMAGES_OR_VIDEO: {
+        questionId: 2800,
+        key: constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO,
+        text: 'Do you want to send us any images or videos of the problem?',
+        answers: {
+          yes: {
+            answerId: 2801,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 2802,
+            text: 'No'
+          }
+        }
       }
     }
   },

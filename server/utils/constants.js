@@ -98,6 +98,13 @@ const ILLEGAL_FISHING_NUMBER_OF_PEOPLE = 'illegal-fishing/number-of-people'
 const ILLEGAL_FISHING_PEOPLE_DESCRIPTION = 'illegal-fishing/people-description'
 const ILLEGAL_FISHING_DESCRIPTION_DETAILS = 'illegal-fishing/description-details'
 const ILLEGAL_FISHING_ILLEGAL_EQUIPMENT = 'illegal-fishing/illegal-equipment'
+const ILLEGAL_FISHING_TYPE_OF_FISH = 'illegal-fishing/type-of-fish'
+const ILLEGAL_FISHING_FISH_TAKEN = 'illegal-fishing/fish-taken'
+const ILLEGAL_FISHING_NUMBER_OF_FISH = 'illegal-fishing/number-of-fish'
+const ILLEGAL_FISHING_CONTACT_DETAILS = 'illegal-fishing/contact-details'
+const ILLEGAL_FISHING_IMAGES_OR_VIDEO = 'illegal-fishing/images-or-video'
+const ILLEGAL_FISHING_OTHER_INFORMATION = 'illegal-fishing/other-information'
+
 
 
 // Meta data
@@ -201,7 +208,13 @@ const views = {
   ILLEGAL_FISHING_NUMBER_OF_PEOPLE,
   ILLEGAL_FISHING_PEOPLE_DESCRIPTION,
   ILLEGAL_FISHING_DESCRIPTION_DETAILS,
-  ILLEGAL_FISHING_ILLEGAL_EQUIPMENT
+  ILLEGAL_FISHING_ILLEGAL_EQUIPMENT,
+  ILLEGAL_FISHING_TYPE_OF_FISH,
+  ILLEGAL_FISHING_FISH_TAKEN,
+  ILLEGAL_FISHING_NUMBER_OF_FISH,
+  ILLEGAL_FISHING_CONTACT_DETAILS,
+  ILLEGAL_FISHING_IMAGES_OR_VIDEO,
+  ILLEGAL_FISHING_OTHER_INFORMATION
 }
 
 const routes = {

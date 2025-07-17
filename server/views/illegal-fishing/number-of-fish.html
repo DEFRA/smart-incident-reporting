@@ -1,0 +1,47 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    {{ govukRadios({
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      fieldset: {
+        legend: {
+          text: question.text,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: question.answers.fiveOrMore.answerId,
+          text: question.answers.fiveOrMore.text
+        },
+        {
+          value: question.answers.lessThanFive.answerId,
+          text: question.answers.lessThanFive.text
+        },
+        {
+          divider: "or"
+        },
+        {
+          value: question.answers.youDoNotKnow.answerId,
+          text: question.answers.youDoNotKnow.text
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}
