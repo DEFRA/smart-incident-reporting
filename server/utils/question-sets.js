@@ -1005,7 +1005,7 @@ const questionSets = {
         answers: {
           fiveOrMore: {
             answerId: 4221,
-            text: '5 or move'
+            text: '5 or more'
           },
           lessThanFive: {
             answerId: 4222,
