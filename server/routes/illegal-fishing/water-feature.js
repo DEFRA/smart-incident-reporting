@@ -91,7 +91,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select a type of watercourse or feature, or \'you do not know\'',
+      text: 'Select a type of watercourse or feature, or you do not know',
       href: '#answerId'
     })
   }

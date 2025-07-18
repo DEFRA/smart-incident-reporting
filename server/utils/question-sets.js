@@ -794,7 +794,7 @@ const questionSets = {
       ILLEGAL_FISHING_LOCATION_OPTION: {
         questionId: 2600,
         key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_OPTION,
-        text: 'Where did you see the pollution?',
+        text: 'How do you want to tell us where you\'ve seen illegal fishing?',
         answers: {
           map: {
             answerId: 2602,
@@ -809,7 +809,7 @@ const questionSets = {
       ILLEGAL_FISHING_LOCATION_DESCRIPTION: {
         questionId: 900,
         key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_DESCRIPTION,
-        text: 'Where is the pollution?',
+        text: 'Describe the location where you\'ve seen illegal fishing',
         answers: {
           locationDetails: {
             answerId: 901
@@ -819,7 +819,7 @@ const questionSets = {
       ILLEGAL_FISHING_LOCATION_MAP: {
         questionId: 2700,
         key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_MAP,
-        text: 'Mark the location of the pollution',
+        text: 'Mark the location of the illegal fishing?',
         answers: {
           nationalGridReference: {
             answerId: 2701
@@ -920,11 +920,11 @@ const questionSets = {
           },
           fixedLines: {
             answerId: 4242,
-            text: 'Fixed lines',
+            text: 'Fixed lines'
           },
           illegalRodOrTackle: {
             answerId: 4243,
-            text: 'Illegal rod or tackle',
+            text: 'Illegal rod or tackle'
           },
           electricStunDevices: {
             answerId: 4247,
@@ -955,11 +955,11 @@ const questionSets = {
           },
           lampreyOrEel: {
             answerId: 4232,
-            text: 'Lamprey or eel',
+            text: 'Lamprey or eel'
           },
           seaTrout: {
             answerId: 4233,
-            text: 'Sea trout',
+            text: 'Sea trout'
           },
           freshwaterFish: {
             answerId: 4234,

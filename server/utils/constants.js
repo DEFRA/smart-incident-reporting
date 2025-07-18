@@ -105,8 +105,6 @@ const ILLEGAL_FISHING_CONTACT_DETAILS = 'illegal-fishing/contact-details'
 const ILLEGAL_FISHING_IMAGES_OR_VIDEO = 'illegal-fishing/images-or-video'
 const ILLEGAL_FISHING_OTHER_INFORMATION = 'illegal-fishing/other-information'
 
-
-
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 const REFERER = 'referer'

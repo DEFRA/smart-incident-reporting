@@ -54,7 +54,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select how you\'d prefer to give the location',
+      text: 'Select how you want to give the location',
       href: '#answerId'
     })
   }
