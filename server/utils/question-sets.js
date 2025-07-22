@@ -1001,7 +1001,7 @@ const questionSets = {
       ILLEGAL_FISHING_NUMBER_OF_FISH: {
         questionId: 4220,
         key: constants.redisKeys.ILLEGAL_FISHING_NUMBER_OF_FISH,
-        text: 'In what kind of water have you seen illegal fishing?',
+        text: 'How many fish?',
         answers: {
           fiveOrMore: {
             answerId: 4221,
