@@ -5,7 +5,7 @@ const phoneError = 'Enter a phone number, like 01632 960 001, 07700 900 982 or +
 const emailError = 'Enter an email address in the correct format, like name@example.com'
 
 const sessionData = {
-  'smell/contact-details': {
+  'illegal-fishing/contact-details': {
     reporterName: 'test name',
     reporterPhoneNumber: '012345678910',
     reporterEmailAddress: 'test@test.com'
