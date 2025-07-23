@@ -879,20 +879,20 @@ const questionSets = {
         }
       },
       ILLEGAL_FISHING_PEOPLE_DESCRIPTION: {
-        questionId: 4200,
+        questionId: 4250,
         key: constants.redisKeys.ILLEGAL_FISHING_PEOPLE_DESCRIPTION,
         text: 'Can you describe anyone involved?',
         answers: {
           yes: {
-            answerId: 4501,
+            answerId: 4251,
             text: 'Yes'
           },
           no: {
-            answerId: 4502,
+            answerId: 4252,
             text: 'No'
           },
           doNotPrefer: {
-            answerId: 4503,
+            answerId: 4253,
             text: 'You would prefer not to'
           }
         }
