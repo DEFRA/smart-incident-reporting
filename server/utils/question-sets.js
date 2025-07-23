@@ -6,6 +6,8 @@ const SOMETHING_ELSE = 'Something else'
 const NONE_OF_THESE = 'None of these'
 const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
 const NOT_GIVEN = 'Not given'
+const MARK_LOCATION_ON_MAP = 'Mark the location on an online map'
+const DESCRIBE_THE_LOCATION = 'Describe the location'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -230,11 +232,11 @@ const questionSets = {
         answers: {
           map: {
             answerId: 2602,
-            text: 'Mark the location on an online map'
+            text: MARK_LOCATION_ON_MAP
           },
           description: {
             answerId: 2601,
-            text: 'Describe the location'
+            text: DESCRIBE_THE_LOCATION
           }
         }
       },
@@ -448,11 +450,11 @@ const questionSets = {
         answers: {
           map: {
             answerId: 1201,
-            text: 'Mark the location on an online map'
+            text: MARK_LOCATION_ON_MAP
           },
           description: {
             answerId: 1202,
-            text: 'Describe the location'
+            text: DESCRIBE_THE_LOCATION
           }
         }
       },
@@ -798,11 +800,11 @@ const questionSets = {
         answers: {
           map: {
             answerId: 2602,
-            text: 'Mark the location on an online map'
+            text: MARK_LOCATION_ON_MAP
           },
           description: {
             answerId: 2601,
-            text: 'Describe the location'
+            text: DESCRIBE_THE_LOCATION
           }
         }
       },
