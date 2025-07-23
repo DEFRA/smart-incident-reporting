@@ -79,6 +79,32 @@ const SMELL_CHOOSE_ADDRESS = 'smell/choose-address'
 const SMELL_CONFIRM_ADDRESS = 'smell/confirm-address'
 const SMELL_EXCEEDED_ATTEMPTS = 'smell/exceeded-attempts'
 
+const ILLEGAL_FISHING_START = 'illegal-fishing-start'
+const ILLEGAL_FISHING = 'illegal-fishing'
+const ILLEGAL_FISHING_WATER_FEATURE = 'illegal-fishing/water-feature'
+const ILLEGAL_FISHING_ACTIVITY = 'illegal-fishing/activity'
+const ILLEGAL_FISHING_CONTACT_OWNER_OR_POLICE = 'illegal-fishing/contact-owner-or-police'
+const ILLEGAL_FISHING_ROD_LICENCE = 'illegal-fishing/rod-licence'
+const ILLEGAL_FISHING_LOCATION_OPTION = 'illegal-fishing/location-option'
+const ILLEGAL_FISHING_LOCATION_MAP = 'illegal-fishing/location-map'
+const ILLEGAL_FISHING_LOCATION_DESCRIPTION = 'illegal-fishing/location-description'
+const ILLEGAL_FISHING_WHEN = 'illegal-fishing/when'
+const ILLEGAL_FISHING_EARLIER_TODAY = 'illegal-fishing/earlier-today'
+const ILLEGAL_FISHING_YESTERDAY = 'illegal-fishing/yesterday'
+const ILLEGAL_FISHING_DATE_BEFORE_YESTERDAY = 'illegal-fishing/date-before-yesterday'
+const ILLEGAL_FISHING_TIME_BEFORE_YESTERDAY = 'illegal-fishing/time-before-yesterday'
+const ILLEGAL_FISHING_PEOPLE_FISHING = 'illegal-fishing/people-fishing'
+const ILLEGAL_FISHING_NUMBER_OF_PEOPLE = 'illegal-fishing/number-of-people'
+const ILLEGAL_FISHING_PEOPLE_DESCRIPTION = 'illegal-fishing/people-description'
+const ILLEGAL_FISHING_DESCRIPTION_DETAILS = 'illegal-fishing/description-details'
+const ILLEGAL_FISHING_ILLEGAL_EQUIPMENT = 'illegal-fishing/illegal-equipment'
+const ILLEGAL_FISHING_TYPE_OF_FISH = 'illegal-fishing/type-of-fish'
+const ILLEGAL_FISHING_FISH_TAKEN = 'illegal-fishing/fish-taken'
+const ILLEGAL_FISHING_NUMBER_OF_FISH = 'illegal-fishing/number-of-fish'
+const ILLEGAL_FISHING_CONTACT_DETAILS = 'illegal-fishing/contact-details'
+const ILLEGAL_FISHING_IMAGES_OR_VIDEO = 'illegal-fishing/images-or-video'
+const ILLEGAL_FISHING_OTHER_INFORMATION = 'illegal-fishing/other-information'
+
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 const REFERER = 'referer'
@@ -92,11 +118,14 @@ let viewsExtra = {}
 if (process.env.REGISTER_START_ROUTES === 'true') {
   viewsExtra = {
     WATER_POLLUTION_START,
-    SMELL_START
+    SMELL_START,
+    ILLEGAL_FISHING_START
   }
 }
 
 const views = {
+  HOME,
+  ...viewsExtra,
   API_OS_API_TOKEN,
   API_LOCATION,
   API_LOCATION_SUGGESTIONS,
@@ -160,8 +189,30 @@ const views = {
   SMELL_CHOOSE_ADDRESS,
   SMELL_CONFIRM_ADDRESS,
   SMELL_EXCEEDED_ATTEMPTS,
-  HOME,
-  ...viewsExtra
+  ILLEGAL_FISHING,
+  ILLEGAL_FISHING_WATER_FEATURE,
+  ILLEGAL_FISHING_ACTIVITY,
+  ILLEGAL_FISHING_CONTACT_OWNER_OR_POLICE,
+  ILLEGAL_FISHING_ROD_LICENCE,
+  ILLEGAL_FISHING_LOCATION_OPTION,
+  ILLEGAL_FISHING_LOCATION_MAP,
+  ILLEGAL_FISHING_LOCATION_DESCRIPTION,
+  ILLEGAL_FISHING_WHEN,
+  ILLEGAL_FISHING_EARLIER_TODAY,
+  ILLEGAL_FISHING_YESTERDAY,
+  ILLEGAL_FISHING_DATE_BEFORE_YESTERDAY,
+  ILLEGAL_FISHING_TIME_BEFORE_YESTERDAY,
+  ILLEGAL_FISHING_PEOPLE_FISHING,
+  ILLEGAL_FISHING_NUMBER_OF_PEOPLE,
+  ILLEGAL_FISHING_PEOPLE_DESCRIPTION,
+  ILLEGAL_FISHING_DESCRIPTION_DETAILS,
+  ILLEGAL_FISHING_ILLEGAL_EQUIPMENT,
+  ILLEGAL_FISHING_TYPE_OF_FISH,
+  ILLEGAL_FISHING_FISH_TAKEN,
+  ILLEGAL_FISHING_NUMBER_OF_FISH,
+  ILLEGAL_FISHING_CONTACT_DETAILS,
+  ILLEGAL_FISHING_IMAGES_OR_VIDEO,
+  ILLEGAL_FISHING_OTHER_INFORMATION
 }
 
 const routes = {

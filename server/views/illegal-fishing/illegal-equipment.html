@@ -1,0 +1,82 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% set otherHtml %}
+      {{ govukInput({
+        id: "somethingElseDetail",
+        name: "somethingElseDetail",
+        spellcheck: false,
+        classes: "govuk-!-width-two-third",
+        label: {
+          text: question.answers.somethingElseDetail.text
+        }
+      }) }}
+      {% endset -%}
+
+    {{ govukCheckboxes({
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      fieldset: {
+        legend: {
+          text:  pageTitle + "?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: question.answers.netsOrTraps.answerId,
+          text: question.answers.netsOrTraps.text
+        },
+        {
+          value: question.answers.fixedLines.answerId,
+          text: question.answers.fixedLines.text
+        },
+        {
+          value: question.answers.illegalRodOrTackle.answerId,
+          text: question.answers.illegalRodOrTackle.text
+        },
+        {
+          value: question.answers.electricStunDevices.answerId,
+          text: question.answers.electricStunDevices.text
+        },
+        {
+          value: question.answers.somethingElse.answerId,
+          text: question.answers.somethingElse.text,
+          conditional: {
+              html: otherHtml
+            }
+        },
+        {
+          divider: "or"
+        },
+        {
+          value: question.answers.unknown.answerId,
+          text: question.answers.unknown.text,
+          behaviour: "exclusive",
+          checked: getAnswer(answers, question.answers.unknown.answerId)
+        }
+      ]
+    }) }}
+ 
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+    {{ govukWarningText({
+    text: "Dial 999 if you think anyone is in immediate danger.",
+    iconFallbackText: "Warning"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}
