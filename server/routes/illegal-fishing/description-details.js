@@ -24,6 +24,7 @@ const handlers = {
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.ILLEGAL_FISHING_DESCRIPTION_DETAILS, {
         ...getContext(),
+        ...request.payload,
         errorSummary
       })
     }
