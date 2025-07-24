@@ -41,7 +41,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_FISH_TAKEN)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT)
       expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_PEOPLE_DESCRIPTION)).toEqual([{
         ...baseAnswer,
         answerId
@@ -56,7 +56,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_FISH_TAKEN)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT)
       expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_PEOPLE_DESCRIPTION)).toEqual([{
         ...baseAnswer,
         answerId
