@@ -44,7 +44,7 @@ const validatePayload = descriptionDetails => {
   const errorSummary = getErrorSummary()
   if (!descriptionDetails) {
     errorSummary.errorList.push({
-      text: 'Enter a description of people involved',
+      text: 'Enter a description of the people involved',
       href: '#descriptionDetails'
     })
   }
