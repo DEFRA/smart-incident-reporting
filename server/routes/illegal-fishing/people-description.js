@@ -37,18 +37,16 @@ const handlers = {
     const activityAnswer = request.yar.get(constants.redisKeys.ILLEGAL_FISHING_ACTIVITY)
     const illegalEquipmentSelected = activityAnswer.some(answer => Object.values(answer).includes(activityQuestion.answers.illegalFishingEquipment.answerId))
     const protectedSpeciesSelected = activityAnswer.some(answer => Object.values(answer).includes(activityQuestion.answers.protectedSpecies.answerId))
-    console.log('Data for activityAnswer', activityAnswer)
+    const yesAnswer = answerId === question.answers.yes.answerId
 
-    if (answerId === question.answers.yes.answerId) {
+    if (yesAnswer) {
       return h.redirect(constants.routes.ILLEGAL_FISHING_DESCRIPTION_DETAILS)
+    } else if (!yesAnswer && illegalEquipmentSelected) {
+      return h.redirect(constants.routes.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT)
+    } else if (!yesAnswer && protectedSpeciesSelected) {
+      return h.redirect(constants.routes.ILLEGAL_FISHING_TYPE_OF_FISH)
     } else {
-      if (illegalEquipmentSelected) {
-        return h.redirect(constants.routes.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT)
-      } else if (protectedSpeciesSelected) {
-        return h.redirect(constants.routes.ILLEGAL_FISHING_TYPE_OF_FISH)
-      } else {
-        return h.redirect(constants.routes.ILLEGAL_FISHING_FISH_TAKEN)
-      }
+      return h.redirect(constants.routes.ILLEGAL_FISHING_FISH_TAKEN)
     }
   }
 }
