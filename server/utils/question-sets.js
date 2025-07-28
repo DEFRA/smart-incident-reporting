@@ -860,20 +860,20 @@ const questionSets = {
         }
       },
       ILLEGAL_FISHING_NUMBER_OF_PEOPLE: {
-        questionId: 4210,
+        questionId: 4275,
         key: constants.redisKeys.ILLEGAL_FISHING_NUMBER_OF_PEOPLE,
         text: 'How many people are there?',
         answers: {
           one: {
-            answerId: 4211,
+            answerId: 4276,
             text: 'One'
           },
           two: {
-            answerId: 4212,
+            answerId: 4277,
             text: 'Two'
           },
           threeOrMore: {
-            answerId: 4213,
+            answerId: 4278,
             text: 'Three or more'
           }
         }
