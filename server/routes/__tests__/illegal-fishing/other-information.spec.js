@@ -30,12 +30,12 @@ describe(url, () => {
       }),
       expect.objectContaining({
         reportingAnEnvironmentalProblem: expect.objectContaining({
-          reportType: 300,
+          reportType: 1800,
           reporterName: 'John Smith',
           reporterPhoneNumber: '012345678910',
           reporterEmailAddress: 'test@test.com',
           otherDetails: otherInfo,
-          questionSetId: 300,
+          questionSetId: 1800,
           data: expect.arrayContaining([
             expect.objectContaining({ questionId: 500, questionAsked: 'In what kind of water have you seen illegal fishing?', questionResponse: true, answerId: 501 }),
             expect.objectContaining({ questionId: 500, questionAsked: 'In what kind of water have you seen illegal fishing?', questionResponse: true, answerId: 509, otherDetails: 'test' }),
@@ -50,8 +50,8 @@ describe(url, () => {
             expect.objectContaining({ questionId: 4260, questionAsked: 'Describe the people involved?', questionResponse: true, answerId: 4261, otherDetails: 'test' }),
             expect.objectContaining({ questionId: 4240, questionAsked: 'What illegal equipment is being used?', questionResponse: true, answerId: 4241 }),
             expect.objectContaining({ questionId: 4240, questionAsked: 'What illegal equipment is being used?', questionResponse: true, answerId: 4243 }),
-            expect.objectContaining({ questionId: 4240, questionAsked: 'What illegal equipment is being used?', questionResponse: true, answerId: 4248 }),
-            expect.objectContaining({ questionId: 4240, questionAsked: 'What illegal equipment is being used?', questionResponse: true, answerId: 4239, otherDetails: 'test' }),
+            expect.objectContaining({ questionId: 4240, questionAsked: 'What illegal equipment is being used?', questionResponse: true, answerId: 4245 }),
+            expect.objectContaining({ questionId: 4240, questionAsked: 'What illegal equipment is being used?', questionResponse: true, answerId: 4247, otherDetails: 'test' }),
             expect.objectContaining({ questionId: 4230, questionAsked: 'What type of fish are being caught or targeted?', questionResponse: true, answerId: 4231 }),
             expect.objectContaining({ questionId: 4230, questionAsked: 'What type of fish are being caught or targeted?', questionResponse: true, answerId: 4233 }),
             expect.objectContaining({ questionId: 4230, questionAsked: 'What type of fish are being caught or targeted?', questionResponse: true, answerId: 4235 }),

@@ -696,7 +696,7 @@ const questionSets = {
     }
   },
   ILLEGAL_FISHING: {
-    questionSetId: 300,
+    questionSetId: 1800,
     questions: {
       ILLEGAL_FISHING_WATER_FEATURE: {
         questionId: 500,
@@ -904,10 +904,16 @@ const questionSets = {
         answers: {
           descriptionDetails: {
             answerId: 4261
-          },
+          }
+        }
+      },
+      ILLEGAL_FISHING_VEHICLE_REGISTERATION_DETAILS: {
+        questionId: 4265,
+        key: constants.redisKeys.ILLEGAL_FISHING_VEHICLE_REGISTERATION_DETAILS,
+        text: 'Vehicle registration (if known)',
+        answers: {
           vehicleRegistration: {
-            answerId: 4262,
-            text: 'Vehicle registration (if known)'
+            answerId: 4266
           }
         }
       },
@@ -929,19 +935,19 @@ const questionSets = {
             text: 'Illegal rod or tackle'
           },
           electricStunDevices: {
-            answerId: 4247,
+            answerId: 4244,
             text: 'Electric \'stun\' devices'
           },
           somethingElse: {
-            answerId: 4248,
+            answerId: 4245,
             text: SOMETHING_ELSE
           },
           unknown: {
-            answerId: 4249,
+            answerId: 4246,
             text: YOU_DO_NOT_KNOW
           },
           somethingElseDetail: {
-            answerId: 4239,
+            answerId: 4247,
             text: 'Give details of the equipment'
           }
         }

@@ -112,13 +112,13 @@ const session = JSON.parse(`{
       "questionId": 4240,
       "questionAsked": "What illegal equipment is being used?",
       "questionResponse": true,
-      "answerId": 4248
+      "answerId": 4245
     },
     {
       "questionId": 4240,
       "questionAsked": "What illegal equipment is being used?",
       "questionResponse": true,
-      "answerId": 4239,
+      "answerId": 4247,
       "otherDetails": "test"
     }
   ],

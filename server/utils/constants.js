@@ -110,6 +110,7 @@ const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 const REFERER = 'referer'
 const COUNTER = 'counter'
 const SMELL_POSTCODE_DETAILS = 'smell-postcode-details'
+const ILLEGAL_FISHING_VEHICLE_REGISTERATION_DETAILS = 'illegal-fishing-vehicle-registeration-details'
 const DATE_TIME_OPTION = 'date-time-option'
 const QUESTION_SET_ID = 'question-set-id'
 
@@ -229,6 +230,7 @@ const redisKeys = {
   REFERER,
   COUNTER,
   SMELL_POSTCODE_DETAILS,
+  ILLEGAL_FISHING_VEHICLE_REGISTERATION_DETAILS,
   DATE_TIME_OPTION,
   QUESTION_SET_ID
 }
