@@ -53,7 +53,8 @@ const validatePayload = descriptionDetails => {
 }
 
 const buildAnswers = (descriptionDetails, vehicleRegistration) => {
-  return [{
+  if (vehicleRegistration) {
+    return [{
     ...baseAnswer,
     answerId: question.answers.descriptionDetails.answerId,
     otherDetails: descriptionDetails
@@ -63,6 +64,13 @@ const buildAnswers = (descriptionDetails, vehicleRegistration) => {
     answerId: question.answers.vehicleRegistration.answerId,
     otherDetails: vehicleRegistration
   }]
+  } else {
+    return [{
+    ...baseAnswer,
+    answerId: question.answers.descriptionDetails.answerId,
+    otherDetails: descriptionDetails
+  }]
+  }
 }
 
 export default [
