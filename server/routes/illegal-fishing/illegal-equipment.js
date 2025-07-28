@@ -36,7 +36,16 @@ const handlers = {
     // set answer in session
     request.yar.set(question.key, buildAnswers(answerId, somethingElseDetail))
 
-    return h.redirect(constants.routes.ILLEGAL_FISHING_TYPE_OF_FISH)
+    // handle routes based on fishing activity
+    const activityQuestion = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_ACTIVITY
+    const activityAnswer = request.yar.get(constants.redisKeys.ILLEGAL_FISHING_ACTIVITY)
+    const protectedSpeciesSelected = activityAnswer.some(answer => Object.values(answer).includes(activityQuestion.answers.protectedSpecies.answerId))
+
+    if (protectedSpeciesSelected) {
+      return h.redirect(constants.routes.ILLEGAL_FISHING_TYPE_OF_FISH)
+    } else {
+      return h.redirect(constants.routes.ILLEGAL_FISHING_FISH_TAKEN)
+    }
   }
 }
 

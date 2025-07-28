@@ -9,6 +9,54 @@ const baseAnswer = {
   questionAsked: question.text,
   questionResponse: true
 }
+const sessionData01 = {
+  'illegal-fishing/activity': [
+    {
+      questionId: 4200,
+      questionAsked: 'What illegal fishing activity do you want to report?',
+      questionResponse: true,
+      answerId: 4202
+    }
+  ]
+}
+const sessionData02 = {
+  'illegal-fishing/activity': [
+    {
+      questionId: 4200,
+      questionAsked: 'What illegal fishing activity do you want to report?',
+      questionResponse: true,
+      answerId: 4202
+    },
+    {
+      questionId: 4200,
+      questionAsked: 'What illegal fishing activity do you want to report?',
+      questionResponse: true,
+      answerId: 4204
+    },
+    {
+      questionId: 4200,
+      questionAsked: 'What illegal fishing activity do you want to report?',
+      questionResponse: true,
+      answerId: 4205
+    }
+  ]
+}
+const sessionData03 = {
+  'illegal-fishing/activity': [
+    {
+      questionId: 4200,
+      questionAsked: 'What illegal fishing activity do you want to report?',
+      questionResponse: true,
+      answerId: 4202
+    },
+    {
+      questionId: 4200,
+      questionAsked: 'What illegal fishing activity do you want to report?',
+      questionResponse: true,
+      answerId: 4205
+    }
+  ]
+}
 
 describe(url, () => {
   describe('GET', () => {
@@ -17,7 +65,7 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Happy accepts yes and redirects to illegal-fishing/description-details', async () => {
+    it('Happy: Accepts yes and redirects to illegal-fishing/description-details', async () => {
       const answerId = question.answers.yes.answerId
       const options = {
         url,
@@ -25,14 +73,14 @@ describe(url, () => {
           answerId
         }
       }
-      const response = await submitPostRequest(options)
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData01)
       expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_DESCRIPTION_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_PEOPLE_DESCRIPTION)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    it('Happy accepts no and redirects to illegal-fishing/fish-taken', async () => {
+    it('Happy: Accepts no and check if illegal-fishing/activity is use of illegal fishing equipment or fishing for protected species and redirects to illegal-fishing/fish-taken', async () => {
       const answerId = question.answers.no.answerId
       const options = {
         url,
@@ -40,14 +88,44 @@ describe(url, () => {
           answerId
         }
       }
-      const response = await submitPostRequest(options)
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData01)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_FISH_TAKEN)
+      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_PEOPLE_DESCRIPTION)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
+    it('Happy: Accepts no and check if illegal-fishing/activity is use of illegal fishing equipment and redirects to illegal-fishing/illegal-equipment', async () => {
+      const answerId = question.answers.no.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData02)
       expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT)
       expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_PEOPLE_DESCRIPTION)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    it('Happy accepts You do not know and redirects to illegal-fishing/fish-taken', async () => {
+    it('Happy: Accepts no and check if illegal-fishing/activity is fishing for protected species and redirects to illegal-fishing/type-of-fish', async () => {
+      const answerId = question.answers.no.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData03)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_TYPE_OF_FISH)
+      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_PEOPLE_DESCRIPTION)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
+    it('Happy: Accepts You would prefer not to and check if illegal-fishing/activity is use of illegal fishing equipment or fishing for protected species and redirects to illegal-fishing/fish-taken', async () => {
       const answerId = question.answers.doNotPrefer.answerId
       const options = {
         url,
@@ -55,8 +133,38 @@ describe(url, () => {
           answerId
         }
       }
-      const response = await submitPostRequest(options)
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData01)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_FISH_TAKEN)
+      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_PEOPLE_DESCRIPTION)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
+    it('Happy: Accepts You would prefer not to and check if illegal-fishing/activity is use of illegal fishing equipment and redirects to illegal-fishing/illegal-equipment', async () => {
+      const answerId = question.answers.no.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData02)
       expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT)
+      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_PEOPLE_DESCRIPTION)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
+    it('Happy: Accepts You would prefer not to and check if illegal-fishing/activity is fishing for protected species and redirects to illegal-fishing/type-of-fish', async () => {
+      const answerId = question.answers.no.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData03)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_TYPE_OF_FISH)
       expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_PEOPLE_DESCRIPTION)).toEqual([{
         ...baseAnswer,
         answerId

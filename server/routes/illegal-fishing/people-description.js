@@ -31,10 +31,24 @@ const handlers = {
     answerId = Number(answerId)
 
     request.yar.set(constants.redisKeys.ILLEGAL_FISHING_PEOPLE_DESCRIPTION, buildAnswers(answerId))
+
+    // handle routes based on fishing activity
+    const activityQuestion = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_ACTIVITY
+    const activityAnswer = request.yar.get(constants.redisKeys.ILLEGAL_FISHING_ACTIVITY)
+    const illegalEquipmentSelected = activityAnswer.some(answer => Object.values(answer).includes(activityQuestion.answers.illegalFishingEquipment.answerId))
+    const protectedSpeciesSelected = activityAnswer.some(answer => Object.values(answer).includes(activityQuestion.answers.protectedSpecies.answerId))
+    console.log('Data for activityAnswer', activityAnswer)
+
     if (answerId === question.answers.yes.answerId) {
       return h.redirect(constants.routes.ILLEGAL_FISHING_DESCRIPTION_DETAILS)
     } else {
-      return h.redirect(constants.routes.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT)
+      if (illegalEquipmentSelected) {
+        return h.redirect(constants.routes.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT)
+      } else if (protectedSpeciesSelected) {
+        return h.redirect(constants.routes.ILLEGAL_FISHING_TYPE_OF_FISH)
+      } else {
+        return h.redirect(constants.routes.ILLEGAL_FISHING_FISH_TAKEN)
+      }
     }
   }
 }

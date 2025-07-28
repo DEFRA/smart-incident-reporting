@@ -10,6 +10,54 @@ const baseAnswer = {
   questionAsked: question.text,
   questionResponse: true
 }
+const sessionData01 = {
+  'illegal-fishing/activity': [
+    {
+      questionId: 4200,
+      questionAsked: 'What illegal fishing activity do you want to report?',
+      questionResponse: true,
+      answerId: 4202
+    }
+  ]
+}
+const sessionData02 = {
+  'illegal-fishing/activity': [
+    {
+      questionId: 4200,
+      questionAsked: 'What illegal fishing activity do you want to report?',
+      questionResponse: true,
+      answerId: 4202
+    },
+    {
+      questionId: 4200,
+      questionAsked: 'What illegal fishing activity do you want to report?',
+      questionResponse: true,
+      answerId: 4204
+    },
+    {
+      questionId: 4200,
+      questionAsked: 'What illegal fishing activity do you want to report?',
+      questionResponse: true,
+      answerId: 4205
+    }
+  ]
+}
+const sessionData03 = {
+  'illegal-fishing/activity': [
+    {
+      questionId: 4200,
+      questionAsked: 'What illegal fishing activity do you want to report?',
+      questionResponse: true,
+      answerId: 4202
+    },
+    {
+      questionId: 4200,
+      questionAsked: 'What illegal fishing activity do you want to report?',
+      questionResponse: true,
+      answerId: 4205
+    }
+  ]
+}
 
 describe(url, () => {
   describe('GET', () => {
@@ -19,7 +67,7 @@ describe(url, () => {
   })
 
   describe('POST', () => {
-    it('Happy: accept and store the description details', async () => {
+    it('Happy: Accepts answers and check if illegal-fishing/activity is use of illegal fishing equipment or fishing for protected species and redirects to illegal-fishing/fish-taken', async () => {
       const descriptionDetails = 'This is a description of the people involved'
       const vehicleRegistration = 'Vehicle REG'
       const options = {
@@ -29,8 +77,54 @@ describe(url, () => {
           vehicleRegistration
         }
       }
-      const response = await submitPostRequest(options)
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData01)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_FISH_TAKEN)
+      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_DESCRIPTION_DETAILS)).toEqual([{
+        ...baseAnswer,
+        answerId: question.answers.descriptionDetails.answerId,
+        otherDetails: descriptionDetails
+      },
+      {
+        ...baseAnswer,
+        answerId: question.answers.vehicleRegistration.answerId,
+        otherDetails: vehicleRegistration
+      }])
+    })
+    it('Happy: Accepts answers and check if illegal-fishing/activity is use of illegal fishing equipment and redirects to illegal-fishing/illegal-equipment', async () => {
+      const descriptionDetails = 'This is a description of the people involved'
+      const vehicleRegistration = 'Vehicle REG'
+      const options = {
+        url,
+        payload: {
+          descriptionDetails,
+          vehicleRegistration
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData02)
       expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT)
+      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_DESCRIPTION_DETAILS)).toEqual([{
+        ...baseAnswer,
+        answerId: question.answers.descriptionDetails.answerId,
+        otherDetails: descriptionDetails
+      },
+      {
+        ...baseAnswer,
+        answerId: question.answers.vehicleRegistration.answerId,
+        otherDetails: vehicleRegistration
+      }])
+    })
+    it('Happy: Accepts answers and check if illegal-fishing/activity is fishing for protected species and redirects to illegal-fishing/type-of-fish', async () => {
+      const descriptionDetails = 'This is a description of the people involved'
+      const vehicleRegistration = 'Vehicle REG'
+      const options = {
+        url,
+        payload: {
+          descriptionDetails,
+          vehicleRegistration
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData03)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_TYPE_OF_FISH)
       expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_DESCRIPTION_DETAILS)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.descriptionDetails.answerId,
