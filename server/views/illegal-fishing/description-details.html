@@ -1,6 +1,6 @@
 {% extends 'form-layout.html' %}
 
-{% set pageTitle = question01.text.replace('?', '') %}
+{% set pageTitle = question.text.replace('?', '') %}
 
 {% block formContent %}
 
@@ -11,7 +11,7 @@
       id: "descriptionDetails",
       rows: "5",
       label: {
-        text: question01.text,
+        text: question.text,
         classes: "govuk-label--l",
         isPageHeading: true
       },
@@ -24,7 +24,7 @@
         value: vehicleRegistration,
         classes: "govuk-!-width-one-third",
         label: {
-          text: question02.text
+          text: "Vehicle registration (if known)"
         }
       }) }}
 

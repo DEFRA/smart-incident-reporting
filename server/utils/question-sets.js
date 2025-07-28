@@ -904,6 +904,10 @@ const questionSets = {
         answers: {
           descriptionDetails: {
             answerId: 4261
+          },
+          vehicleRegistration: {
+            answerId: 4262,
+            text: 'Vehicle registration (if known)'
           }
         }
       },

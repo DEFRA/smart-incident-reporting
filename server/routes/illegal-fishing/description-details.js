@@ -2,8 +2,13 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
-const question01 = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_DESCRIPTION_DETAILS
-const question02 = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_VEHICLE_REGISTERATION_DETAILS
+const question = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_DESCRIPTION_DETAILS
+
+const baseAnswer = {
+  questionId: question.questionId,
+  questionAsked: question.text,
+  questionResponse: true
+}
 
 const handlers = {
   get: async (_request, h) => {
@@ -24,20 +29,7 @@ const handlers = {
       })
     }
 
-    request.yar.set(constants.redisKeys.ILLEGAL_FISHING_DESCRIPTION_DETAILS, [{
-      questionId: question01.questionId,
-      questionAsked: question01.text,
-      questionResponse: true,
-      answerId: question01.answers.descriptionDetails.answerId,
-      otherDetails: descriptionDetails
-    }])
-    request.yar.set(constants.redisKeys.ILLEGAL_FISHING_VEHICLE_REGISTERATION_DETAILS, [{
-      questionId: question02.questionId,
-      questionAsked: question02.text,
-      questionResponse: true,
-      answerId: question02.answers.vehicleRegistration.answerId,
-      otherDetails: vehicleRegistration
-    }])
+    request.yar.set(constants.redisKeys.ILLEGAL_FISHING_DESCRIPTION_DETAILS, buildAnswers(descriptionDetails, vehicleRegistration))
 
     return h.redirect(constants.routes.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT)
   }
@@ -45,8 +37,7 @@ const handlers = {
 
 const getContext = () => {
   return {
-    question01,
-    question02
+    question
   }
 }
 
@@ -59,6 +50,19 @@ const validatePayload = descriptionDetails => {
     })
   }
   return errorSummary
+}
+
+const buildAnswers = (descriptionDetails, vehicleRegistration) => {
+  return [{
+    ...baseAnswer,
+    answerId: question.answers.descriptionDetails.answerId,
+    otherDetails: descriptionDetails
+  },
+  {
+    ...baseAnswer,
+    answerId: question.answers.vehicleRegistration.answerId,
+    otherDetails: vehicleRegistration
+  }]
 }
 
 export default [

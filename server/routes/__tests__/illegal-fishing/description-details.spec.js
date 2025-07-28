@@ -3,9 +3,13 @@ import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.ILLEGAL_FISHING_DESCRIPTION_DETAILS
-const question01 = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_DESCRIPTION_DETAILS
-const question02 = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_VEHICLE_REGISTERATION_DETAILS
-const header = question01.text
+const question = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_DESCRIPTION_DETAILS
+const header = question.text
+const baseAnswer = {
+  questionId: question.questionId,
+  questionAsked: question.text,
+  questionResponse: true
+}
 
 describe(url, () => {
   describe('GET', () => {
@@ -15,7 +19,7 @@ describe(url, () => {
   })
 
   describe('POST', () => {
-    it('Happy: accept and store a location description', async () => {
+    it('Happy: accept and store the description details', async () => {
       const descriptionDetails = 'This is a description of the people involved'
       const vehicleRegistration = 'Vehicle REG'
       const options = {
@@ -28,17 +32,13 @@ describe(url, () => {
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT)
       expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_DESCRIPTION_DETAILS)).toEqual([{
-        questionId: question01.questionId,
-        questionAsked: question01.text,
-        questionResponse: true,
-        answerId: question01.answers.descriptionDetails.answerId,
+        ...baseAnswer,
+        answerId: question.answers.descriptionDetails.answerId,
         otherDetails: descriptionDetails
-      }])
-      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_VEHICLE_REGISTERATION_DETAILS)).toEqual([{
-        questionId: question02.questionId,
-        questionAsked: question02.text,
-        questionResponse: true,
-        answerId: question02.answers.vehicleRegistration.answerId,
+      },
+      {
+        ...baseAnswer,
+        answerId: question.answers.vehicleRegistration.answerId,
         otherDetails: vehicleRegistration
       }])
     })
