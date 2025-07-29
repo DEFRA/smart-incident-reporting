@@ -841,20 +841,20 @@ const questionSets = {
         }
       },
       ILLEGAL_FISHING_PEOPLE_FISHING: {
-        questionId: 4200,
+        questionId: 4270,
         key: constants.redisKeys.ILLEGAL_FISHING_PEOPLE_FISHING,
         text: 'Are people fishing here now?',
         answers: {
           yes: {
-            answerId: 4201,
+            answerId: 4271,
             text: 'Yes'
           },
           no: {
-            answerId: 4202,
+            answerId: 4272,
             text: 'No'
           },
           youDoNotKnow: {
-            answerId: 4203,
+            answerId: 4273,
             text: YOU_DO_NOT_KNOW
           }
         }
