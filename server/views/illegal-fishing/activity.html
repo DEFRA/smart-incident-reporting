@@ -1,0 +1,78 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% set otherHtml %}
+      {{ govukInput({
+        id: "somethingElseDetails",
+        name: "somethingElseDetails",
+        spellcheck: false,
+        classes: "govuk-!-width-two-third",
+        value: getAnswer(answers, question.answers.somethingElseDetails.answerId),
+        label: {
+          text: question.answers.somethingElseDetails.text
+        }
+      }) }}
+    {% endset -%}
+
+    {{ govukCheckboxes({
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      fieldset: {
+        legend: {
+          text:  pageTitle,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: question.answers.withoutPermission.answerId,
+          text: question.answers.withoutPermission.text,
+          checked: getAnswer(answers, question.answers.withoutPermission.answerId)
+        },
+        {
+          value: question.answers.withoutRodLicense.answerId,
+          text: question.answers.withoutRodLicense.text,
+          checked: getAnswer(answers, question.answers.withoutRodLicense.answerId)
+        },
+        {
+          value: question.answers.outOfSeason.answerId,
+          text: question.answers.outOfSeason.text,
+          checked: getAnswer(answers, question.answers.outOfSeason.answerId)
+        },
+        {
+          value: question.answers.illegalFishingEquipment.answerId,
+          text: question.answers.illegalFishingEquipment.text,
+          checked: getAnswer(answers, question.answers.illegalFishingEquipment.answerId)
+        },
+        {
+          value: question.answers.protectedSpecies.answerId,
+          text: question.answers.protectedSpecies.text,
+          checked: getAnswer(answers, question.answers.protectedSpecies.answerId)
+        },
+        {
+          value: question.answers.somethingElse.answerId,
+          text: question.answers.somethingElse.text,
+          checked: getAnswer(answers, question.answers.somethingElse.answerId),
+          conditional: {
+            html: otherHtml
+          }
+        }
+      ]
+    }) }}
+ 
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

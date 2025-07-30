@@ -1,8 +1,8 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
+import { getErrorSummary } from '../../utils/helpers.js'
 
-const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LOCATION_OPTION
+const question = questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_NUMBER_OF_FISH
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -12,34 +12,40 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => {
-    return h.view(constants.views.WATER_POLLUTION_LOCATION_OPTION, {
+    return h.view(constants.views.ILLEGAL_FISHING_NUMBER_OF_FISH, {
       ...getContext(request)
     })
   },
   post: async (request, h) => {
+    // get payload
     let { answerId } = request.payload
 
-    // validate payload
+    // validate payload for errors
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.WATER_POLLUTION_LOCATION_OPTION, {
-        ...getContext(request),
-        errorSummary
+      return h.view(constants.views.ILLEGAL_FISHING_NUMBER_OF_FISH, {
+        errorSummary,
+        ...getContext(request)
       })
     }
 
     // convert answerId to number
     answerId = Number(answerId)
 
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_LOCATION_OPTION, buildAnswers(answerId))
-
-    // handle redirects
-    if (answerId === question.answers.map.answerId) {
-      return h.redirect(constants.routes.WATER_POLLUTION_LOCATION_MAP)
-    } else {
-      return h.redirect(constants.routes.WATER_POLLUTION_LOCATION_DESCRIPTION)
-    }
+    // set answer in session
+    request.yar.set(constants.redisKeys.ILLEGAL_FISHING_NUMBER_OF_FISH, buildAnswers(answerId))
+    return h.redirect(constants.routes.ILLEGAL_FISHING_CONTACT_DETAILS)
   }
+}
+
+const buildAnswers = (answerId) => {
+  const answers = []
+  answers.push({
+    ...baseAnswer,
+    answerId
+  })
+
+  return answers
 }
 
 const getContext = request => {
@@ -54,29 +60,22 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select how you want to give the location',
+      text: 'Select how many fish or \'you do not know\'',
       href: '#answerId'
     })
   }
   return errorSummary
 }
 
-const buildAnswers = answerId => {
-  return [{
-    ...baseAnswer,
-    answerId
-  }]
-}
-
 export default [
   {
     method: 'GET',
-    path: constants.routes.WATER_POLLUTION_LOCATION_OPTION,
+    path: constants.routes.ILLEGAL_FISHING_NUMBER_OF_FISH,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.WATER_POLLUTION_LOCATION_OPTION,
+    path: constants.routes.ILLEGAL_FISHING_NUMBER_OF_FISH,
     handler: handlers.post
   }
 ]

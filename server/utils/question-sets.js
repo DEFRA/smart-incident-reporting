@@ -6,6 +6,8 @@ const SOMETHING_ELSE = 'Something else'
 const NONE_OF_THESE = 'None of these'
 const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
 const NOT_GIVEN = 'Not given'
+const MARK_LOCATION_ON_MAP = 'Mark the location on an online map'
+const DESCRIBE_THE_LOCATION = 'Describe the location'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -23,8 +25,8 @@ const questionSets = {
           },
           lakeOrReservoir: {
             answerId: 502,
-            text: 'A lake or reservoir',
-            shortText: 'Lake or reservoir'
+            text: 'A pond, lake or reservoir',
+            shortText: 'Pond, lake or reservoir'
           },
           sea: {
             answerId: 503,
@@ -230,11 +232,11 @@ const questionSets = {
         answers: {
           map: {
             answerId: 2602,
-            text: 'Mark the location on an online map'
+            text: MARK_LOCATION_ON_MAP
           },
           description: {
             answerId: 2601,
-            text: 'Describe the location'
+            text: DESCRIBE_THE_LOCATION
           }
         }
       },
@@ -448,11 +450,11 @@ const questionSets = {
         answers: {
           map: {
             answerId: 1201,
-            text: 'Mark the location on an online map'
+            text: MARK_LOCATION_ON_MAP
           },
           description: {
             answerId: 1202,
-            text: 'Describe the location'
+            text: DESCRIBE_THE_LOCATION
           }
         }
       },
@@ -687,6 +689,357 @@ const questionSets = {
           },
           no: {
             answerId: 3502,
+            text: 'No'
+          }
+        }
+      }
+    }
+  },
+  ILLEGAL_FISHING: {
+    questionSetId: 1800,
+    questions: {
+      ILLEGAL_FISHING_WATER_FEATURE: {
+        questionId: 500,
+        key: constants.redisKeys.ILLEGAL_FISHING_WATER_FEATURE,
+        text: 'In what kind of water have you seen illegal fishing?',
+        answers: {
+          river: {
+            answerId: 501,
+            text: 'A river'
+          },
+          lakeOrReservoir: {
+            answerId: 502,
+            text: 'A pond, lake or reservoir'
+          },
+          sea: {
+            answerId: 503,
+            text: 'The sea'
+          },
+          canal: {
+            answerId: 504,
+            text: 'A canal'
+          },
+          streamOrWatercourse: {
+            answerId: 505,
+            text: 'A smaller stream or watercourse'
+          },
+          somethingElse: {
+            answerId: 506,
+            text: SOMETHING_ELSE
+          },
+          youDoNotKnow: {
+            answerId: 507,
+            text: YOU_DO_NOT_KNOW
+          },
+          somethingElseDetails: {
+            answerId: 508
+          },
+          riverDetails: {
+            answerId: 509
+          },
+          lakeOrReservoirDetails: {
+            answerId: 510
+          },
+          canalDetails: {
+            answerId: 511
+          },
+          streamOrWatercourseDetails: {
+            answerId: 512
+          }
+        }
+      },
+      ILLEGAL_FISHING_ACTIVITY: {
+        questionId: 4200,
+        key: constants.redisKeys.ILLEGAL_FISHING_ACTIVITY,
+        text: 'What illegal fishing activity do you want to report?',
+        answers: {
+          withoutPermission: {
+            answerId: 4201,
+            text: 'Fishing without permission of the owner or club'
+          },
+          withoutRodLicense: {
+            answerId: 4202,
+            text: 'Fishing without a rod licence'
+          },
+          outOfSeason: {
+            answerId: 4203,
+            text: 'Fishing out of season'
+          },
+          illegalFishingEquipment: {
+            answerId: 4204,
+            text: 'Use of illegal fishing equipment'
+          },
+          protectedSpecies: {
+            answerId: 4205,
+            text: 'Fishing for protected species (including seasonal)'
+          },
+          somethingElse: {
+            answerId: 4206,
+            text: SOMETHING_ELSE
+          },
+          somethingElseDetails: {
+            answerId: 4207,
+            text: 'Give details of the activity'
+          }
+        }
+      },
+      ILLEGAL_FISHING_ROD_LICENCE: {
+        questionId: 4210,
+        key: constants.redisKeys.ILLEGAL_FISHING_ROD_LICENCE,
+        text: 'How do you know the people fishing do not have a rod licence?',
+        answers: {
+          noRodLicenceDetails: {
+            answerId: 4211
+          }
+        }
+      },
+      ILLEGAL_FISHING_LOCATION_OPTION: {
+        questionId: 2600,
+        key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_OPTION,
+        text: 'How do you want to tell us where you\'ve seen illegal fishing?',
+        answers: {
+          map: {
+            answerId: 2602,
+            text: MARK_LOCATION_ON_MAP
+          },
+          description: {
+            answerId: 2601,
+            text: DESCRIBE_THE_LOCATION
+          }
+        }
+      },
+      ILLEGAL_FISHING_LOCATION_DESCRIPTION: {
+        questionId: 900,
+        key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_DESCRIPTION,
+        text: 'Describe the location where you\'ve seen illegal fishing',
+        answers: {
+          locationDetails: {
+            answerId: 901
+          }
+        }
+      },
+      ILLEGAL_FISHING_LOCATION_MAP: {
+        questionId: 2700,
+        key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_MAP,
+        text: 'Mark the location of the illegal fishing?',
+        answers: {
+          nationalGridReference: {
+            answerId: 2701
+          },
+          easting: {
+            answerId: 2702
+          },
+          northing: {
+            answerId: 2703
+          },
+          lng: {
+            answerId: 2704
+          },
+          lat: {
+            answerId: 2705
+          }
+        }
+      },
+      ILLEGAL_FISHING_PEOPLE_FISHING: {
+        questionId: 4270,
+        key: constants.redisKeys.ILLEGAL_FISHING_PEOPLE_FISHING,
+        text: 'Are people fishing here now?',
+        answers: {
+          yes: {
+            answerId: 4271,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 4272,
+            text: 'No'
+          },
+          youDoNotKnow: {
+            answerId: 4273,
+            text: YOU_DO_NOT_KNOW
+          }
+        }
+      },
+      ILLEGAL_FISHING_NUMBER_OF_PEOPLE: {
+        questionId: 4275,
+        key: constants.redisKeys.ILLEGAL_FISHING_NUMBER_OF_PEOPLE,
+        text: 'How many people are there?',
+        answers: {
+          one: {
+            answerId: 4276,
+            text: 'One'
+          },
+          two: {
+            answerId: 4277,
+            text: 'Two'
+          },
+          threeOrMore: {
+            answerId: 4278,
+            text: 'Three or more'
+          }
+        }
+      },
+      ILLEGAL_FISHING_PEOPLE_DESCRIPTION: {
+        questionId: 4250,
+        key: constants.redisKeys.ILLEGAL_FISHING_PEOPLE_DESCRIPTION,
+        text: 'Can you describe anyone involved?',
+        answers: {
+          yes: {
+            answerId: 4251,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 4252,
+            text: 'No'
+          },
+          doNotPrefer: {
+            answerId: 4253,
+            text: 'You would prefer not to'
+          }
+        }
+      },
+      ILLEGAL_FISHING_DESCRIPTION_DETAILS: {
+        questionId: 4260,
+        key: constants.redisKeys.ILLEGAL_FISHING_DESCRIPTION_DETAILS,
+        text: 'Describe the people involved?',
+        answers: {
+          descriptionDetails: {
+            answerId: 4261
+          },
+          vehicleRegistration: {
+            answerId: 4262,
+            text: 'Vehicle registration (if known)'
+          }
+        }
+      },
+      ILLEGAL_FISHING_VEHICLE_REGISTERATION_DETAILS: {
+        questionId: 4265,
+        key: constants.redisKeys.ILLEGAL_FISHING_VEHICLE_REGISTERATION_DETAILS,
+        text: 'Vehicle registration (if known)',
+        answers: {
+          vehicleRegistration: {
+            answerId: 4266
+          }
+        }
+      },
+      ILLEGAL_FISHING_ILLEGAL_EQUIPMENT: {
+        questionId: 4240,
+        key: constants.redisKeys.ILLEGAL_FISHING_ILLEGAL_EQUIPMENT,
+        text: 'What illegal equipment is being used?',
+        answers: {
+          netsOrTraps: {
+            answerId: 4241,
+            text: 'Nets or traps'
+          },
+          fixedLines: {
+            answerId: 4242,
+            text: 'Fixed lines'
+          },
+          illegalRodOrTackle: {
+            answerId: 4243,
+            text: 'Illegal rod or tackle'
+          },
+          electricStunDevices: {
+            answerId: 4244,
+            text: 'Electric \'stun\' devices'
+          },
+          somethingElse: {
+            answerId: 4245,
+            text: SOMETHING_ELSE
+          },
+          unknown: {
+            answerId: 4246,
+            text: YOU_DO_NOT_KNOW
+          },
+          somethingElseDetail: {
+            answerId: 4247,
+            text: 'Give details of the equipment'
+          }
+        }
+      },
+      ILLEGAL_FISHING_TYPE_OF_FISH: {
+        questionId: 4230,
+        key: constants.redisKeys.ILLEGAL_FISHING_TYPE_OF_FISH,
+        text: 'What type of fish are being caught or targeted?',
+        answers: {
+          salmon: {
+            answerId: 4231,
+            text: 'Salmon'
+          },
+          lampreyOrEel: {
+            answerId: 4232,
+            text: 'Lamprey or eel'
+          },
+          seaTrout: {
+            answerId: 4233,
+            text: 'Sea trout'
+          },
+          freshwaterFish: {
+            answerId: 4234,
+            text: 'Freshwater fish'
+          },
+          crayfish: {
+            answerId: 4235,
+            text: 'Crayfish'
+          },
+          otherFish: {
+            answerId: 4236,
+            text: 'Other fish'
+          },
+          unknown: {
+            answerId: 4237,
+            text: YOU_DO_NOT_KNOW
+          },
+          otherFishDetail: {
+            answerId: 4238,
+            text: 'Give details of the type of fish'
+          }
+        }
+      },
+      ILLEGAL_FISHING_FISH_TAKEN: {
+        questionId: 4215,
+        key: constants.redisKeys.ILLEGAL_FISHING_FISH_TAKEN,
+        text: 'Did you see fish being \'taken\'?',
+        answers: {
+          yes: {
+            answerId: 4216,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 4217,
+            text: 'No'
+          }
+        }
+      },
+      ILLEGAL_FISHING_NUMBER_OF_FISH: {
+        questionId: 4220,
+        key: constants.redisKeys.ILLEGAL_FISHING_NUMBER_OF_FISH,
+        text: 'How many fish?',
+        answers: {
+          fiveOrMore: {
+            answerId: 4221,
+            text: '5 or more'
+          },
+          lessThanFive: {
+            answerId: 4222,
+            text: 'Less than 5'
+          },
+          youDoNotKnow: {
+            answerId: 4223,
+            text: YOU_DO_NOT_KNOW
+          }
+        }
+      },
+      ILLEGAL_FISHING_IMAGES_OR_VIDEO: {
+        questionId: 2800,
+        key: constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO,
+        text: 'Do you want to send us any images or videos of the problem?',
+        answers: {
+          yes: {
+            answerId: 2801,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 2802,
             text: 'No'
           }
         }

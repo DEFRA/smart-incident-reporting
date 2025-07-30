@@ -1,0 +1,37 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukTextarea({
+      name: "descriptionDetails",
+      id: "descriptionDetails",
+      rows: "5",
+      label: {
+        text: question.text,
+        classes: "govuk-label--l",
+        isPageHeading: true
+      },
+      errorMessage: findErrorMessageById(errorSummary, 'descriptionDetails')
+    }) }}
+
+    {{ govukInput({
+        id: "vehicleRegistration",
+        name: "vehicleRegistration",
+        value: vehicleRegistration,
+        classes: "govuk-!-width-one-third",
+        label: {
+          text: "Vehicle registration (if known)"
+        }
+      }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+  </div>
+</div>
+
+{% endblock %}

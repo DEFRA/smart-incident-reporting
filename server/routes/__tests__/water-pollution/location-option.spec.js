@@ -67,7 +67,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select how you&#39;d prefer to give the location')
+      expect(response.payload).toContain('Select how you want to give the location')
     })
   })
 })

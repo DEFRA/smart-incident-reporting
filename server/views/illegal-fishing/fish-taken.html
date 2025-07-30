@@ -1,0 +1,22 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% set items = [
+  {
+    value: question.answers.yes.answerId,
+    text: question.answers.yes.text
+  },
+  {
+    value: question.answers.no.answerId,
+    text: question.answers.no.text
+  }
+]%}
+
+{% set hintHtml = "This means you saw fish removed from the water and do not think they will be released" %}
+
+{% block formContent %}
+
+  {% include "partials/radios.html" %} 
+
+{% endblock %}
