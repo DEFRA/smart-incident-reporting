@@ -27,6 +27,7 @@ export default [{
         'server/public/build',
         'server/public/js',
         'node_modules/govuk-frontend/dist/govuk',
+        'node_modules/govuk-frontend/dist/govuk/assets/rebrand',
         'node_modules/govuk-frontend/dist/govuk/assets',
         'node_modules/ispinner.css'
       ]

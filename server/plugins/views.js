@@ -24,6 +24,7 @@ export default {
             watch: false
           })
           // Add global functions for view templates
+          env.addGlobal('govukRebrand', true)
           env.addGlobal('findErrorMessageById', findErrorMessageById)
           env.addGlobal('getAnswer', getAnswer)
           return next()
