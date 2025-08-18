@@ -1077,7 +1077,7 @@ const questionSets = {
           }
         }
       },
-      EXTERNAL_ORGANISATION_REPORT: {
+      TYPE_OF_REPORTER: {
         questionId: 4000,
         text: 'External organisation report',
         answers: {
@@ -1096,6 +1096,10 @@ const questionSets = {
           public: {
             answerId: 4004,
             text: 'Member of public'
+          },
+          role: {
+            answerId: 4005,
+            text: 'Reporter role or job title (optional)'
           }
         }
       },
