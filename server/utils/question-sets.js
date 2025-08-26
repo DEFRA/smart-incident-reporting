@@ -1079,7 +1079,7 @@ const questionSets = {
       },
       TYPE_OF_REPORTER: {
         questionId: 4000,
-        text: 'External organisation report',
+        text: 'Type of reporter',
         answers: {
           water: {
             answerId: 4001,
@@ -1100,6 +1100,10 @@ const questionSets = {
           role: {
             answerId: 4005,
             text: 'Reporter role or job title (optional)'
+          },
+          anonymous: {
+            answerId: 4006,
+            text: 'Anonymous'
           }
         }
       },
