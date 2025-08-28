@@ -71,7 +71,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Enter a description of where the pollution is')
+      expect(response.payload).toContain('Enter a description of where you&#39;ve seen pollution')
     })
   })
 })

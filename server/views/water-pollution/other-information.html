@@ -13,14 +13,10 @@
       rows: "10",
       value: answers,
       label: {
-        text: pageTitle + " (optional)?",
+        text: pageTitle + "?",
         classes: "govuk-label--l",
         isPageHeading: true
-      },
-      hint: {
-        text: "For example, what you think the substance is, or where it is coming from."
-      },
-      errorMessage: findErrorMessageById(errorSummary, 'otherInfo')
+      }
     }) }}
 
     {{ govukButton({
