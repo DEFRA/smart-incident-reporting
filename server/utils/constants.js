@@ -78,6 +78,7 @@ const SMELL_FIND_ADDRESS = 'smell/find-address'
 const SMELL_CHOOSE_ADDRESS = 'smell/choose-address'
 const SMELL_CONFIRM_ADDRESS = 'smell/confirm-address'
 const SMELL_EXCEEDED_ATTEMPTS = 'smell/exceeded-attempts'
+const SMELL_DESCRIPTION = 'smell/description'
 
 const ILLEGAL_FISHING_START = 'illegal-fishing-start'
 const ILLEGAL_FISHING = 'illegal-fishing'
@@ -189,6 +190,7 @@ const views = {
   SMELL_CHOOSE_ADDRESS,
   SMELL_CONFIRM_ADDRESS,
   SMELL_EXCEEDED_ATTEMPTS,
+  SMELL_DESCRIPTION,
   ILLEGAL_FISHING,
   ILLEGAL_FISHING_WATER_FEATURE,
   ILLEGAL_FISHING_ACTIVITY,
