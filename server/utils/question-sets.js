@@ -38,7 +38,7 @@ const questionSets = {
             text: 'A canal',
             shortText: 'Canal'
           },
-          smallWatercourse: {
+          streamOrWatercourse: {
             answerId: 505,
             text: 'A smaller stream or watercourse',
             shortText: 'Smaller stream or watercourse'
@@ -55,6 +55,18 @@ const questionSets = {
           },
           somethingElseDetails: {
             answerId: 508
+          },
+          riverDetails: {
+            answerId: 509
+          },
+          lakeOrReservoirDetails: {
+            answerId: 510
+          },
+          canalDetails: {
+            answerId: 511
+          },
+          streamOrWatercourseDetails: {
+            answerId: 512
           }
         }
       },

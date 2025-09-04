@@ -1,13 +1,65 @@
 {% extends 'form-layout.html' %}
 
-{% set pageTitle = 'In what kind of water is the pollution' %}
+{% set pageTitle = question.text %}
 
 {% block formContent %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    
+    {% set otherHtmlRiverDetails %}
+    {{ govukInput({
+      id: "riverDetails",
+      name: "riverDetails",
+      spellcheck: false,
+      classes: "govuk-!-width-two-thirds",
+      value: getAnswer(answers, question.answers.riverDetails.answerId),
+      label: {
+        text: "Name of river (if known)"
+      }
+    }) }}
+    {% endset %}
 
-    {% set otherHtml %}
+    {% set otherHtmlLakeOrReservoirDetails %}
+    {{ govukInput({
+      id: "lakeOrReservoirDetails",
+      name: "lakeOrReservoirDetails",
+      spellcheck: false,
+      classes: "govuk-!-width-two-thirds",
+      value: getAnswer(answers, question.answers.lakeOrReservoirDetails.answerId),
+      label: {
+        text: "Name of water (if known)"
+      }
+    }) }}
+    {% endset %}
+
+    {% set otherHtmlCanalDetails %}
+    {{ govukInput({
+      id: "canalDetails",
+      name: "canalDetails",
+      spellcheck: false,
+      classes: "govuk-!-width-two-thirds",
+      value: getAnswer(answers, question.answers.canalDetails.answerId),
+      label: {
+        text: "Name of canal (if known)"
+      }
+    }) }}
+    {% endset %}
+
+    {% set otherHtmlStreamOrWatercourseDetails %}
+    {{ govukInput({
+      id: "streamOrWatercourseDetails",
+      name: "streamOrWatercourseDetails",
+      spellcheck: false,
+      classes: "govuk-!-width-two-thirds",
+      value: getAnswer(answers, question.answers.streamOrWatercourseDetails.answerId),
+      label: {
+        text: "Name of stream or watercourse (if known)"
+      }
+    }) }}
+    {% endset %}
+    
+    {% set otherHtmlSomethingElseDetails %}
     {{ govukInput({
       id: "somethingElseDetails",
       name: "somethingElseDetails",
@@ -15,7 +67,7 @@
       classes: "govuk-!-width-two-thirds",
       value: getAnswer(answers, question.answers.somethingElseDetails.answerId),
       label: {
-        text: "Give details"
+        text: "Give details of the type of water"
       }
     }) }}
     {% endset %}
@@ -35,12 +87,18 @@
         {
           value: question.answers.river.answerId,
           text: question.answers.river.text,
-          checked: getAnswer(answers, question.answers.river.answerId)
+          checked: getAnswer(answers, question.answers.river.answerId),
+          conditional: {
+            html: otherHtmlRiverDetails
+          }
         },
         {
           value: question.answers.lakeOrReservoir.answerId,
           text: question.answers.lakeOrReservoir.text,
-          checked: getAnswer(answers, question.answers.lakeOrReservoir.answerId)
+          checked: getAnswer(answers, question.answers.lakeOrReservoir.answerId),
+          conditional: {
+            html: otherHtmlLakeOrReservoirDetails
+          }
         },
         {
           value: question.answers.sea.answerId,
@@ -50,20 +108,26 @@
         {
           value: question.answers.canal.answerId,
           text: question.answers.canal.text,
-          checked: getAnswer(answers, question.answers.canal.answerId)
+          checked: getAnswer(answers, question.answers.canal.answerId),
+          conditional: {
+            html: otherHtmlCanalDetails
+          }
         },
         {
-          value: question.answers.smallWatercourse.answerId,
-          text: question.answers.smallWatercourse.text,
-          checked: getAnswer(answers, question.answers.smallWatercourse.answerId)
+          value: question.answers.streamOrWatercourse.answerId,
+          text: question.answers.streamOrWatercourse.text,
+          checked: getAnswer(answers, question.answers.streamOrWatercourse.answerId),
+          conditional: {
+            html: otherHtmlStreamOrWatercourseDetails
+          }
         },
         {
           value: question.answers.somethingElse.answerId,
           text: question.answers.somethingElse.text,
           checked: getAnswer(answers, question.answers.somethingElse.answerId),
           conditional: {
-              html: otherHtml
-            }
+            html: otherHtmlSomethingElseDetails
+          }
         },
         {
           divider: "or"
