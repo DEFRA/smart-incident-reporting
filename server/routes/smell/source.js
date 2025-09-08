@@ -36,10 +36,8 @@ const handlers = {
     request.yar.set(constants.redisKeys.SMELL_SOURCE, buildAnswers(answerId))
 
     // handle redirects
-    if (answerId === question.answers.local.answerId || answerId === question.answers.neighbour.answerId || answerId === question.answers.rubbish.answerId) {
+    if (answerId === question.answers.local.answerId || answerId === question.answers.neighbour.answerId || answerId === question.answers.rubbish.answerId || answerId === question.answers.unknown.answerId) {
       return h.redirect(constants.routes.SMELL_REPORT_LOCAL_COUNCIL)
-    } else if (answerId === question.answers.unknown.answerId) {
-      return h.redirect(constants.routes.SMELL_CONTACT_LOCAL_COUNCIL)
     } else {
       return h.redirect(constants.routes.SMELL_SOURCE_DETAILS)
     }
