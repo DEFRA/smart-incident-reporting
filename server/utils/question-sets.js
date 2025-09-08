@@ -386,7 +386,7 @@ const questionSets = {
           },
           unknown: {
             answerId: 1608,
-            text: YOU_DO_NOT_KNOW
+            text: 'Something else or you do not know'
           }
         }
       },
