@@ -35,7 +35,7 @@ const handlers = {
     // set answer in session
     request.yar.set(question.key, buildAnswers(answerId, somethingElseDetail))
 
-    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_SOURCE)
+    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_SMELL_DESCRIPTION)
   }
 }
 

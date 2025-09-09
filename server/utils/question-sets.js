@@ -345,6 +345,27 @@ const questionSets = {
             text: 'Give details of what you think is in the water'
           }
         }
+      },
+      WATER_POLLUTION_SMELL_DESCRIPTION: {
+        questionId: 100,
+        key: constants.redisKeys.WATER_POLLUTION_SMELL_DESCRIPTION,
+        text: 'Is there a smell?',
+        answers: {
+          yes: {
+            answerId: 101,
+            text: 'Yes',
+            shortText: 'Yes'
+          },
+          no: {
+            answerId: 102,
+            text: 'No',
+            shortText: 'No'
+          },
+          yesDetails: {
+            answerId: 103,
+            text: 'Describe the smell'
+          }
+        }
       }
     }
   },

@@ -46,6 +46,7 @@ const WATER_POLLUTION_EFFECT_ON_WILDLIFE = 'water-pollution/effect-on-wildlife'
 const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 const WATER_POLLUTION_CHECK_YOUR_ANSWERS = 'water-pollution/check-your-answers'
 const WATER_POLLUTION_CONTACT_DETAILS = 'water-pollution/contact-details'
+const WATER_POLLUTION_SMELL_DESCRIPTION = 'water-pollution/smell-description'
 
 const SMELL_START = 'smell-start'
 const SMELL = 'smell'
@@ -160,6 +161,7 @@ const views = {
   WATER_POLLUTION_OTHER_INFORMATION,
   WATER_POLLUTION_CHECK_YOUR_ANSWERS,
   WATER_POLLUTION_CONTACT_DETAILS,
+  WATER_POLLUTION_SMELL_DESCRIPTION,
   SMELL,
   SMELL_LOCATION_HOME,
   SMELL_LOCATION_ADDRESS,
