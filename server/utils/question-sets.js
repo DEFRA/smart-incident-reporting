@@ -347,22 +347,22 @@ const questionSets = {
         }
       },
       WATER_POLLUTION_SMELL_DESCRIPTION: {
-        questionId: 100,
+        questionId: 1025,
         key: constants.redisKeys.WATER_POLLUTION_SMELL_DESCRIPTION,
         text: 'Is there a smell?',
         answers: {
           yes: {
-            answerId: 101,
+            answerId: 1026,
             text: 'Yes',
             shortText: 'Yes'
           },
           no: {
-            answerId: 102,
+            answerId: 1027,
             text: 'No',
             shortText: 'No'
           },
           yesDetails: {
-            answerId: 103,
+            answerId: 1028,
             text: 'Describe the smell'
           }
         }
