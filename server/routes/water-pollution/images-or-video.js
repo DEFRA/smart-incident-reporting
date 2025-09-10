@@ -31,7 +31,8 @@ const handlers = {
       return h.view(constants.views.WATER_POLLUTION_IMAGES_OR_VIDEO, {
         ...getContext(request),
         errorSummary,
-        emailRequired
+        emailRequired,
+        yesChecked: answerId === question.answers.yes.answerId
       })
     }
 

@@ -34,7 +34,7 @@
         {
           value: question.answers.yes.answerId,
           text: question.answers.yes.text,
-          checked: getAnswer(answers, question.answers.yes.answerId),
+          checked: yesChecked or getAnswer(answers, question.answers.yes.answerId),
           conditional: {
             html: yesDetailsHtml
           }

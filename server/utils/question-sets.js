@@ -763,7 +763,7 @@ const questionSets = {
             answerId: 1708
           }
         }
-      },
+      }
     }
   },
   ILLEGAL_FISHING: {

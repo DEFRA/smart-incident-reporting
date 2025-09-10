@@ -115,6 +115,20 @@ const session = JSON.parse(`{
       "otherDetails": "other details"
     }
   ],
+  "water-pollution/smell-description": [
+    {
+      "questionId": 1025,
+      "questionAsked": "Is there a smell?",
+      "questionResponse": true,
+      "answerId": 1026
+    }, {
+      "questionId": 1025,
+      "questionAsked": "Is there a smell?",
+      "questionResponse": true,
+      "answerId": 1028,
+      "otherDetails": "smell details"
+    }
+  ],
   "water-pollution/other-information": "test",
   "water-pollution/when": "${yesterday.toISOString()}",
   "submission-timestamp": "${today.toISOString()}"
@@ -206,6 +220,17 @@ const payload =
       questionResponse: true,
       answerId: 103,
       otherDetails: 'other details'
+    }, {
+      questionId: 1025,
+      questionAsked: 'Is there a smell?',
+      questionResponse: true,
+      answerId: 1026
+    }, {
+      questionId: 1025,
+      questionAsked: 'Is there a smell?',
+      questionResponse: true,
+      answerId: 1028,
+      otherDetails: 'smell details'
     }]
   }
 }

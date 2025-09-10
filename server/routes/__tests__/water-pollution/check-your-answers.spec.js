@@ -354,6 +354,26 @@ describe(url, () => {
       expect(response.payload).toContain('Foam or scum')
       expect(response.payload).toContain('Something else - Something else data for pollution appearance')
     })
+    it(`Happy: Should return correct answer for 'Is there a smell?' question ${url}`, async () => {
+      const answerData = {
+        'water-pollution/smell-description': [{
+          questionId: 1025,
+          questionAsked: 'Is there a smell?',
+          questionResponse: true,
+          answerId: 1026
+        },
+        {
+          questionId: 1025,
+          questionAsked: 'Is there a smell?',
+          questionResponse: true,
+          answerId: 1028,
+          otherDetails: 'Test data for smell description'
+        }]
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('Yes - Test data for smell description')
+    })
     it(`Happy: Should return correct answer for 'Do you know where the pollution is coming from?' question ${url}`, async () => {
       const answerData = {
         'water-pollution/source': [{

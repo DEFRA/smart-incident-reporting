@@ -20,18 +20,18 @@ const handlers = {
   post: async (request, h) => {
     let { answerId, yesDetails } = request.payload
 
+    // convert answerId to number
+    answerId = Number(answerId)
+
     // validate payload
     const errorSummary = validatePayload(answerId, yesDetails)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.WATER_POLLUTION_SOURCE, {
         ...getContext(request),
         errorSummary,
-        yesChecked: Number(answerId) === question.answers.yes.answerId
+        yesChecked: answerId === question.answers.yes.answerId
       })
     }
-
-    // convert answerId to number
-    answerId = Number(answerId)
 
     request.yar.set(question.key, buildAnswers(answerId, yesDetails))
 

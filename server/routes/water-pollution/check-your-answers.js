@@ -132,6 +132,9 @@ const getAboutThePollution = (request) => {
   // get answer for 'What does the pollution look like?' question
   const pollutionAppearanceAnswer = getDataSet(request, 'WATER_POLLUTION_POLLUTION_APPEARANCE')
 
+  // Get answer for 'Is there a smell?' question
+  const smellDescriptionAnswer = getDataSet(request, 'WATER_POLLUTION_SMELL_DESCRIPTION')
+
   // Get answer for 'Do you know where the pollution is coming from?' question
   const pollutionSourceAnswer = getDataSet(request, 'WATER_POLLUTION_SOURCE')
 
@@ -145,6 +148,7 @@ const getAboutThePollution = (request) => {
     whenAnswer,
     pollutionSubstanceAnswer,
     pollutionAppearanceAnswer,
+    smellDescriptionAnswer,
     pollutionSourceAnswer,
     effectOnWildlifeAnswer,
     otherInformationAnswer

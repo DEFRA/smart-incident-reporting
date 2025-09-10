@@ -31,7 +31,8 @@ const handlers = {
       return h.view(constants.views.ILLEGAL_FISHING_IMAGES_OR_VIDEO, {
         ...getContext(request),
         errorSummary,
-        emailRequired
+        emailRequired,
+        yesChecked: answerId === question.answers.yes.answerId
       })
     }
 
