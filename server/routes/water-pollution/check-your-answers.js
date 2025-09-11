@@ -7,6 +7,10 @@ const url = constants.routes
 
 const handlers = {
   get: async (request, h) => {
+    // request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
+    // const payload = buildPayload(request.yar)
+    // console.log(JSON.stringify(payload, null, 2))
+
     return h.view(constants.views.WATER_POLLUTION_CHECK_YOUR_ANSWERS, {
       ...getContext(),
       ...getYourDetails(request),
@@ -25,7 +29,8 @@ const handlers = {
       throw new Error('Invalid payload')
     }
 
-    await sendMessage(request.logger, payload)
+    // await sendMessage(request.logger, payload)
+    console.log(`SUBMIT WITH ID: ${payload.reportingAnEnvironmentalProblem.sessionGuid}`)
 
     return h.redirect(constants.routes.REPORT_SENT)
   }

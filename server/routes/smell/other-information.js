@@ -13,6 +13,7 @@ const handlers = {
 
     // Build the payload to send to service bus
     const payload = buildPayload(request.yar)
+    console.log(payload)
 
     // test the payload against the schema
     if (!validatePayload(payload)) {

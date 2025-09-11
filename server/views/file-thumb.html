@@ -1,0 +1,20 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'Smart Incident Reporting' %}
+{% set hideBackLink = true %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">
+      File thumbnail test
+    </h1>
+    <!-- <img src="img_girl.jpg" alt="Girl in a jacket" width="500" height="600"> -->
+     <img src="{{ thumbnailLocation }}" width="200">
+     <br /><br />
+     <p class="govuk-body">This has been uploaded to <strong>{{ uploadLocation }}</strong></p>
+  </div>
+</div>
+
+{% endblock %}

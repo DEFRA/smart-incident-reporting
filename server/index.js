@@ -6,9 +6,10 @@ import inert from './plugins/inert.js'
 import router from './plugins/router.js'
 import views from './plugins/views.js'
 import cache from './plugins/cache.js'
-import logging from './plugins/logging.js'
+// import logging from './plugins/logging.js'
 import session from './plugins/session.js'
 import onPostHandler from './plugins/on-post-handler.js'
+import mediaCache from './utils/media-id-cache.js'
 
 const createServer = async options => {
   // Create the hapi server
@@ -35,10 +36,12 @@ const createServer = async options => {
 const init = async server => {
   await _registerPlugins(server)
   await server.start()
+
+  mediaCache.init(server)
 }
 
 const _registerPlugins = async server => {
-  await server.register(logging)
+  // await server.register(logging)
   await server.register(session)
   await server.register(errorPages)
   await server.register(inert)

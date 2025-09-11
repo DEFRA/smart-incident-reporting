@@ -15,7 +15,8 @@ const errorPages = {
         }
 
         // Log the error
-        request.log('error', {
+        // request.log('error', {
+        console.log({
           statusCode,
           message: response.message,
           stack: response.data ? response.data.stack : response.stack

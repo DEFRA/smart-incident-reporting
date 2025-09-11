@@ -1,0 +1,37 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'Media upload' %}
+{% set hideBackLink = true %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">
+      Upload photos
+    </h1>
+
+    {% if idVerified %}
+      <p class="govuk-body">
+        You can now add up to five photos to your report of water pollution at <strong>{{ location }}</strong>.      
+      </p>
+      <p class="govuk-body">
+        You made this report to the Environment Agency at <strong>{{ dateTime }}</strong>.
+      </p>
+
+      {{ govukInsetText({
+        text: "You must upload all your photos together. If you do not have all the photos you want to add available on this device, come back later."
+      }) }}    
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    {% else %}
+      <p class="govuk-body">
+        Link not recognised. Computer says "no". Developers shouldn't write content.
+      </p>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

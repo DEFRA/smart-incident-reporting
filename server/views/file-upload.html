@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% from "dist/govuk/components/file-upload/macro.njk" import govukFileUpload %}
+
+{% set hideBackLink = true %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">
+      File upload test
+    </h1>
+    <form method="post" action="/file-upload" novalidate="novalidate" enctype="multipart/form-data">
+      {{ govukFileUpload({
+        id: "file-upload-1",
+        name: "fileUpload1",
+        multiple: true,
+        label: {
+          text: "Upload a file"
+        },
+        javascript: true
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -22,6 +22,9 @@ const HOME = 'home'
 const REPORT_SENT = 'report-sent'
 const FEEDBACK = 'feedback'
 const FEEDBACK_SUCCESS = 'feedback-success'
+const FILE_UPLOAD = 'file-upload'
+const FILE_THUMB = 'file-thumb'
+const MEDIA_UPLOAD = 'media-upload'
 
 const WATER_POLLUTION_START = 'water-pollution-start'
 const WATER_POLLUTION = 'water-pollution'
@@ -105,6 +108,8 @@ const ILLEGAL_FISHING_CONTACT_DETAILS = 'illegal-fishing/contact-details'
 const ILLEGAL_FISHING_IMAGES_OR_VIDEO = 'illegal-fishing/images-or-video'
 const ILLEGAL_FISHING_OTHER_INFORMATION = 'illegal-fishing/other-information'
 
+const TEST_SESSION_WATER_POLLUTION = 'test-session-water-pollution'
+
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 const REFERER = 'referer'
@@ -125,6 +130,9 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
 
 const views = {
   HOME,
+  FILE_UPLOAD,
+  FILE_THUMB,
+  MEDIA_UPLOAD,
   ...viewsExtra,
   API_OS_API_TOKEN,
   API_LOCATION,
@@ -212,7 +220,8 @@ const views = {
   ILLEGAL_FISHING_NUMBER_OF_FISH,
   ILLEGAL_FISHING_CONTACT_DETAILS,
   ILLEGAL_FISHING_IMAGES_OR_VIDEO,
-  ILLEGAL_FISHING_OTHER_INFORMATION
+  ILLEGAL_FISHING_OTHER_INFORMATION,
+  TEST_SESSION_WATER_POLLUTION
 }
 
 const routes = {
