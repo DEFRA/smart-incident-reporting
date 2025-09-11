@@ -35,7 +35,7 @@ const handlers = {
     request.yar.set(question.key, buildAnswers(answerId, yesDetails))
 
     // handle redirection
-    return h.redirect(constants.routes.WATER_POLLUTION_SOURCE)
+    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_SOURCE)
   }
 }
 
