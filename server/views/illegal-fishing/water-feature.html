@@ -1,6 +1,6 @@
 {% extends 'form-layout.html' %}
 
-{% set pageTitle = question.text %}
+{% set pageTitle = question.text.replace('?', '') %}
 
 {% block formContent %}
 
