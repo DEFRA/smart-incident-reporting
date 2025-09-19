@@ -31,12 +31,12 @@ const formatTime = (input) => {
       ? hours + 12
       : hours
 
-  const hh = String(hours).padStart(2, '0')
+  const hh = String(hours % 12 || 12).padStart(2, '0')
   const mm = String(minutes).padStart(2, '0')
 
-  return `${hours % 12 || 12}:${mm}${hours < 12 ? 'am' : 'pm'}`
+  return `${hh}:${mm}${hours < 12 ? 'am' : 'pm'}`
 }
 
 export {
-formatTime
+  formatTime
 }

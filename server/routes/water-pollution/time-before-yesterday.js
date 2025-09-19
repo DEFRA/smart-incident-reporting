@@ -24,7 +24,7 @@ const handlers = {
         ...request.payload
       })
     }
-    
+
     const formattedTime = formatTime(time)
     const dateTime = getDateTime(dateString, formattedTime)
     request.yar.set(constants.redisKeys.WATER_POLLUTION_TIME_BEFORE_YESTERDAY, formattedTime)
