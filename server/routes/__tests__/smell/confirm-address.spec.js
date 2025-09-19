@@ -43,7 +43,7 @@ describe(url, () => {
         url
       }
       const response = await submitPostRequest(options, 302, session)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_PREVIOUS)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_DESCRIPTION)
       expect(response.request.yar.get(constants.redisKeys.SMELL_LOCATION_ADDRESS)).toEqual([{
         ...baseAnswer1,
         answerId: question1.answers.addressLine1.answerId,

@@ -24,7 +24,7 @@ describe(url, () => {
         }]
       }
       const response = await submitGetRequest({ url }, 'In what kind of water is the pollution?', constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId" name="answerId" type="radio" value="501" checked>')
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId" name="answerId" type="radio" value="501" checked data-aria-controls="conditional-answerId">')
     })
     it(`Should return success response and correct view when the sea is selected for ${url}`, async () => {
       const sessionData = {

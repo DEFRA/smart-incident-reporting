@@ -20,10 +20,10 @@ const sessionData = {
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, 'Where did you see the pollution?')
+      await submitGetRequest({ url }, 'How do you want to tell us where you\'ve seen water pollution?')
     })
     it(`Should return success response and correct view for ${url}`, async () => {
-      const response = await submitGetRequest({ url }, 'Where did you see the pollution?', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, 'How do you want to tell us where you\'ve seen water pollution?', constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="2601" checked>')
     })
   })

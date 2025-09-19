@@ -279,12 +279,14 @@ const getWhenData = (request, pageUrl) => {
     const isYesterday = checkIfYesterday()
 
     const date = new Date(pollutionDateAndTime)
-    const pollutionTime = date.toLocaleString('en-GB', {
+    const timeParts = date.toLocaleString('en-GB', {
       hour: '2-digit',
       minute: '2-digit',
       hourCycle: 'h12',
       timeZone: 'Europe/London'
-    })
+    }).split(' ')
+
+    const pollutionTime = timeParts[0] + timeParts[1].toLowerCase()
 
     if (isToday) {
       dateTimeData = `Today at ${pollutionTime}`
