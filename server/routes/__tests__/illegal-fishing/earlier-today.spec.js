@@ -63,7 +63,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(sessionData)
       expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_PEOPLE_DESCRIPTION)
-      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_EARLIER_TODAY)).toEqual(pastTimeCaps)
+      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_EARLIER_TODAY)).toEqual(pastTime)
       expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_WHEN)).toEqual(dateTime.toISOString())
     })
     it('Sad: errors on no fields provided', async () => {
@@ -85,7 +85,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Enter a time using the 12-hour clock, for example 11:35am or 2:35pm')
+      expect(response.payload).toContain('Enter a real time, for example 11:35am or 2:35pm')
     })
     it('Sad: minutes must be between 0 and 59', async () => {
       const time = '10:75am'

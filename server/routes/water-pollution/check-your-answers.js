@@ -280,7 +280,7 @@ const getWhenData = (request, pageUrl) => {
 
     const date = new Date(pollutionDateAndTime)
     const timeParts = date.toLocaleString('en-GB', {
-      hour: '2-digit',
+      hour: 'numeric',
       minute: '2-digit',
       hourCycle: 'h12',
       timeZone: 'Europe/London'
