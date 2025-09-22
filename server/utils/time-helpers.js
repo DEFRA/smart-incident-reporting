@@ -1,6 +1,6 @@
 const INVALID = 'INVALID_TIME_FORMAT'
 
-// ---- Constants (no magic numbers) ----
+// ---- Constants (avoid magic numbers) ----
 const HOUR_12 = 12
 const MINUTES_MAX = 59
 const HOUR_24_MAX = 23
@@ -15,51 +15,55 @@ const specials = new Map([
   ['12midnight', { h: 0, m: 0 }]
 ])
 
-// ---- Normalise separators: ., , ;, - , h  -> ':' ----
-// Also: digit space digit -> colon (e.g., '5 15' -> '5:15')
-// Then remove remaining spaces
+// ---- Normalise separators ----
+// Converts ".", ",", ";", "-", "h", spaces into ":" consistently
 const normalizeSeparators = (str) => {
   return str
-    // Remove trailing 'hr/hrs/hour/hours' (cosmetic)
-    .replace(/\b(hours?|hrs?)\b\s*$/i, '')
-    .replace(/[.,;-]/g, ':')
-    .replace(/h/gi, ':')
-    .replace(/(\d)\s+(\d)/g, '$1:$2')
-    .replace(/\s+/g, '')
+    .replace(/\b(hours?|hrs?)\b\s*$/i, '') // Remove "hours/hrs" suffix
+    .replace(/[.,;-]/g, ':') // Replace separators with ":"
+    .replace(/h/gi, ':') // Replace h/H with ":"
+    .replace(/(\d)\s+(\d)/g, '$1:$2') // Convert "5 15" → "5:15"
+    .replace(/\s+/g, '') // Remove remaining spaces
 }
 
-// ---- Parse special keywords (e.g., noon, midnight) ----
+// ---- Parse special keywords (noon, midnight etc.) ----
 const parseSpecialKeyword = (str, format) => {
   const key = str.replace(/\s+/g, '')
-  if (!specials.has(key)) return null
+  if (!specials.has(key)) {
+    return null
+  }
 
   const { h, m } = specials.get(key)
   const hh = String(h).padStart(2, '0')
   const minutesStr = String(m).padStart(2, '0')
 
-  if (format === '24hr') return `${hh}:${minutesStr}`
+  if (format === '24hr') {
+    return `${hh}:${minutesStr}`
+  }
 
   const h12 = h % HOUR_12 || HOUR_12
   const specialSuffix = h < HOUR_12 ? 'am' : 'pm'
   return `${h12}:${minutesStr}${specialSuffix}`
 }
 
-// ---- Extract AM/PM (am, a.m., a m, .am, etc.) at the end ----
-// Allow punctuation/spaces right before suffix but disallow real time separators
+// ---- Extract AM/PM (am, a.m., a m, etc.) ----
 const extractAmPm = (str) => {
   const match = /([ap])\s{0,3}\.?\s{0,3}m\.?\s*$/i.exec(str)
-  if (!match) return { ampm: null, timePart: str }
+  if (!match) {
+    return { ampm: null, timePart: str }
+  }
 
   const ampm = match[1].toLowerCase() === 'a' ? 'am' : 'pm'
   const before = str.slice(0, match.index)
 
-  // Reject if before ends with true time separator, meaning minutes missing
-  if (/[h:]\s*$/i.test(before)) return { ampm: null, timePart: null }
+  // Reject if before ends with a true time separator, meaning minutes missing
+  if (/[h:]\s*$/i.test(before)) {
+    return { ampm: null, timePart: null }
+  }
 
-  // Trim cosmetic punctuation/spaces before suffix
+  // Trim punctuation/spaces before suffix
   const timePart = before.replace(/[.,;\-\s]{1,10}$/g, '')
   if (!timePart) {
-    // e.g., '.am' or '- pm' with no time
     return { ampm: null, timePart: null }
   }
 
@@ -67,38 +71,51 @@ const extractAmPm = (str) => {
 }
 
 // ---- Hour/minute parsing helpers ----
+
+// Parse hour-only input like "09" or "5"
 const parseHourOnly = (str, ampm) => {
   const hours = Number.parseInt(str, 10)
   const minutes = 0
 
-  if (ampm) return { hours, minutes }
+  if (ampm) {
+    return { hours, minutes }
+  }
 
-  // Ambiguity rule: without AM/PM, a 1–2 digit hour must be clearly 24-hour
-  if (str.length === 1) return null
+  if (str.length === 1) {
+    return null
+  }
+
   if (str.length === 2) {
     const leadingZero = str.startsWith('0')
-    if (!leadingZero && hours < 10) return null
+    if (!leadingZero && hours < 10) {
+      return null
+    }
   }
+
   return { hours, minutes }
 }
 
-const parseFourDigit = (str) => ({
-  // Compact HHMM (24-hour)
-  hours: Number.parseInt(str.slice(0, 2), 10),
-  minutes: Number.parseInt(str.slice(2), 10)
-})
+// Parse compact 4-digit HHMM
+const parseFourDigit = (str) => {
+  return {
+    hours: Number.parseInt(str.slice(0, 2), 10),
+    minutes: Number.parseInt(str.slice(2), 10)
+  }
+}
 
+// Parse compact 3-digit HMM (only valid with AM/PM)
 const parseThreeDigit = (str, ampm) => {
-  // Compact HMM -> ONLY with AM/PM
-  if (!ampm) return null
+  if (!ampm) {
+    return null
+  }
   return {
     hours: Number.parseInt(str[0], 10),
     minutes: Number.parseInt(str.slice(1), 10)
   }
 }
 
+// Parse input with colon separator (H:M)
 const parseWithColon = (str) => {
-  // With a separator (e.g., 5:30, 12:05)
   const [h, m] = str.split(':')
   return {
     hours: Number.parseInt(h, 10),
@@ -108,34 +125,67 @@ const parseWithColon = (str) => {
 
 // ---- Parse into hours/minutes ----
 const parseHourMinute = (str, ampm) => {
-  if (/^\d{1,2}$/.test(str)) return parseHourOnly(str, ampm)
-  if (/^\d{4}$/.test(str)) return parseFourDigit(str)
-  if (/^\d{3}$/.test(str)) return parseThreeDigit(str, ampm)
-  if (/^\d{1,2}:\d{1,2}$/.test(str)) return parseWithColon(str)
+  if (/^\d{1,2}$/.test(str)) {
+    return parseHourOnly(str, ampm)
+  }
+
+  if (/^\d{4}$/.test(str)) {
+    return parseFourDigit(str)
+  }
+
+  if (/^\d{3}$/.test(str)) {
+    return parseThreeDigit(str, ampm)
+  }
+
+  if (/^\d{1,2}:\d{1,2}$/.test(str)) {
+    return parseWithColon(str)
+  }
+
   return null
 }
 
 // ---- Validate numeric ranges ----
-// Always returns either { hours, minutes } or null
+
+// Validate AM/PM style times
 const validateAmPmTime = (hours, minutes, ampm) => {
-  if (hours < 1 || hours > HOUR_12) return null
+  if (hours < 1 || hours > HOUR_12) {
+    return null
+  }
 
   let validHours = hours
-  if (ampm === 'am' && hours === HOUR_12) validHours = 0 // 12:xx AM -> 00:xx
-  if (ampm === 'pm' && hours < HOUR_12) validHours += HOUR_12 // 1..11 PM -> 13..23
+  if (ampm === 'am' && hours === HOUR_12) {
+    validHours = 0
+  }
+  if (ampm === 'pm' && hours < HOUR_12) {
+    validHours += HOUR_12
+  }
 
   return { hours: validHours, minutes }
 }
 
+// Validate 24-hour style times
 const validate24HrTime = (hours, minutes) => {
-  if (hours < 0 || hours > HOUR_24_MAX) return null
+  if (hours < 0 || hours > HOUR_24_MAX) {
+    return null
+  }
   return { hours, minutes }
 }
 
+// Combined validator
 const validateTime = (hours, minutes, ampm) => {
-  if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return null
-  if (minutes < 0 || minutes > MINUTES_MAX) return null
-  return ampm ? validateAmPmTime(hours, minutes, ampm) : validate24HrTime(hours, minutes)
+  if (!Number.isFinite(hours) || !Number.isFinite(minutes)) {
+    return null
+  }
+
+  if (minutes < 0 || minutes > MINUTES_MAX) {
+    return null
+  }
+
+  if (ampm) {
+    return validateAmPmTime(hours, minutes, ampm)
+  }
+
+  return validate24HrTime(hours, minutes)
 }
 
 // ---- Format output ----
@@ -146,7 +196,9 @@ const formatOutput = (hours, minutes, format) => {
 
   const minutesStr = String(minutes).padStart(2, '0')
 
-  if (format === '24hr') return `${hh}:${minutesStr}`
+  if (format === '24hr') {
+    return `${hh}:${minutesStr}`
+  }
 
   const timeSuffix = hours < HOUR_12 ? 'am' : 'pm'
   return `${hh}:${minutesStr}${timeSuffix}`
@@ -155,30 +207,40 @@ const formatOutput = (hours, minutes, format) => {
 // ---- Main entry ----
 const formatTime = (input, format = '12hr') => {
   const raw = String(input).trim()
-  if (!raw) return INVALID
+  if (!raw) {
+    return INVALID
+  }
 
   const lower = raw.toLowerCase()
 
-  // ---- Special keywords ----
+  // Step 1: check for special keywords
   const special = parseSpecialKeyword(lower, format)
-  if (special) return special
+  if (special) {
+    return special
+  }
 
-  // ---- Extract AM/PM ----
+  // Step 2: extract AM/PM
   const { ampm, timePart } = extractAmPm(lower)
-  if (timePart === null) return INVALID
+  if (timePart === null) {
+    return INVALID
+  }
 
-  // ---- Normalise separators ----
+  // Step 3: normalize separators
   const normal = normalizeSeparators(timePart)
 
-  // ---- Parse into hours/minutes ----
+  // Step 4: parse into hours/minutes
   const parsed = parseHourMinute(normal, ampm)
-  if (!parsed) return INVALID
+  if (!parsed) {
+    return INVALID
+  }
 
-  // ---- Validate numeric ranges ----
+  // Step 5: validate ranges
   const validated = validateTime(parsed.hours, parsed.minutes, ampm)
-  if (!validated) return INVALID
+  if (!validated) {
+    return INVALID
+  }
 
-  // ---- Format output ----
+  // Step 6: format result
   return formatOutput(validated.hours, validated.minutes, format)
 }
 
