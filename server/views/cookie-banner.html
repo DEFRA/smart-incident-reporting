@@ -1,23 +1,6 @@
 {% from "dist/govuk/components/cookie-banner/macro.njk" import govukCookieBanner %}
 {% set description = "Cookies on the " + serviceName + " service" %}
 
-<noscript>
-  {{ govukCookieBanner({
-  ariaLabel: serviceName,
-  messages: [
-    {
-      headingText: description,
-      actions: [
-        {
-          text: "View cookies",
-          href: "/cookies"
-        }
-      ],
-      text: "We use cookies to make this service work and collect analytics information. To accept or reject cookies, turn on JavaScript in your browser settings or reload this page."
-    }
-  ]
-}) }}
-</noscript>
 <div class="js-cookie-banner-container defra-js-show" hidden>
   {% set html %}
   <p>We use some essential cookies to make this service work.</p>
