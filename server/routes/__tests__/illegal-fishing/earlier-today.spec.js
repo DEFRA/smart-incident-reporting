@@ -5,7 +5,7 @@ import moment from 'moment'
 const url = constants.routes.ILLEGAL_FISHING_EARLIER_TODAY
 const header = 'What time today?'
 
-const pastTime = moment().subtract(15, 'm').format('hh:mma')
+const pastTime = moment().subtract(15, 'm').format('h:mma')
 const pastTimeCaps = moment().subtract(15, 'm').format('hh:mmA')
 const futureTime = moment().add(15, 'm').format('hh:mma')
 
@@ -18,7 +18,7 @@ const getDateTime = (time) => {
   const hour = timeParts[0]
   const minute = timeParts[1].slice(0, -2)
   const period = timeParts[1].slice(-2)
-  const dateTimeString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')} ${hour.padStart(2, '0')}:${minute.padStart(2, '0')} ${period.toLowerCase()}`
+  const dateTimeString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')} ${hour}:${minute.padStart(2, '0')} ${period.toLowerCase()}`
   const dateTime = moment(dateTimeString, 'YYYY-MM-DD hh:mm a')
 
   return dateTime

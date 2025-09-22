@@ -67,7 +67,7 @@ const getDateTime = (time) => {
   const hour = timeParts[0]
   const minute = timeParts[1].slice(0, minusTwo)
   const period = timeParts[1].slice(minusTwo)
-  const dateTimeString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')} ${hour.padStart(2, '0')}:${minute.padStart(2, '0')} ${period.toLowerCase()}`
+  const dateTimeString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')} ${hour}:${minute.padStart(2, '0')} ${period.toLowerCase()}`
   const dateTime = moment(dateTimeString, 'YYYY-MM-DD hh:mm a')
 
   return dateTime
