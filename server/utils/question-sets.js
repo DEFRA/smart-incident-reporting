@@ -8,6 +8,7 @@ const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
 const NOT_GIVEN = 'Not given'
 const MARK_LOCATION_ON_MAP = 'Mark the location on an online map'
 const DESCRIBE_THE_LOCATION = 'Describe the location'
+const RUBBISH_OR_REFUSE = 'Rubbish or refuse'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -327,8 +328,8 @@ const questionSets = {
           },
           refuse: {
             answerId: 2904,
-            text: 'Rubbish or refuse',
-            shortText: 'Rubbish or refuse'
+            text: RUBBISH_OR_REFUSE,
+            shortText: RUBBISH_OR_REFUSE
           },
           somethingElse: {
             answerId: 2905,
@@ -737,7 +738,7 @@ const questionSets = {
           },
           rubbishOrRefuse: {
             answerId: 1702,
-            text: 'Rubbish or refuse'
+            text: RUBBISH_OR_REFUSE
           },
           burningOrSmoke: {
             answerId: 1703,
