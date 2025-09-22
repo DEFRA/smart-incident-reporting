@@ -28,7 +28,7 @@ const formatTime = (input, format = '12hr') => {
 
   // ---- Extract AM/PM (am, a.m., a m, .am, etc.) at the end ----
   // Allow punctuation/spaces right before suffix but disallow real time separators
-  const suffixMatch = /([ap])\s*\.?\s*m\.?\s*$/i.exec(str)
+  const suffixMatch = /([ap])\s{0,3}\.?\s{0,3}m\.?\s*$/i.exec(str)
   let ampm = null
 
   if (suffixMatch !== null) {
@@ -39,7 +39,7 @@ const formatTime = (input, format = '12hr') => {
     if (/[h:]\s*$/i.test(before)) return 'INVALID_TIME_FORMAT'
 
     // Trim cosmetic punctuation/spaces before suffix
-    str = before.replace(/[.,;\-\s]+$/g, '')
+    str = before.replace(/[.,;\-\s]{1,10}$/g, '')
     if (!str) return 'INVALID_TIME_FORMAT' // e.g., '.am' or '- pm' with no time
   }
 
