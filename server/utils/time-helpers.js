@@ -1,40 +1,117 @@
-const formatTime = (input) => {
-  const cleanInput = input.toString().trim().toLowerCase().replace(/\s+/g, '')
-  const ampmMatch = cleanInput.match(/(am|pm)$/)
-  const ampm = ampmMatch ? ampmMatch[1] : null
-  const stripped = ampm ? cleanInput.slice(0, -ampm.length) : cleanInput
-  const normalised = stripped.replace(/[.,;\-h]/g, ':')
+const formatTime = (input, format = '12hr') => {
+  const raw = String(input).trim()
+  if (!raw) return 'INVALID_TIME_FORMAT'
+  let str = raw.toLowerCase()
 
-  const parseParts = (str) => {
-    if (/^\d{3,4}$/.test(str)) {
-      return str.length === 3
-        ? [parseInt(str[0], 10), parseInt(str.slice(1), 10)]
-        : [parseInt(str.slice(0, 2), 10), parseInt(str.slice(2), 10)]
+  // ---- Special words (handled first) ----
+  const specials = new Map([
+    ['noon', { h: 12, m: 0 }],
+    ['midday', { h: 12, m: 0 }],
+    ['12noon', { h: 12, m: 0 }],
+    ['12midday', { h: 12, m: 0 }],
+    ['midnight', { h: 0, m: 0 }],
+    ['12midnight', { h: 0, m: 0 }]
+  ])
+
+  {
+    const key = str.replace(/\s+/g, '')
+    if (specials.has(key)) {
+      const { h, m } = specials.get(key)
+      const hh = String(h).padStart(2, '0')
+      const mm = String(m).padStart(2, '0')
+      if (format === '24hr') return `${hh}:${mm}`
+      const h12 = (h % 12) || 12
+      const suffix = h < 12 ? 'am' : 'pm'
+      return `${h12}:${mm}${suffix}`
     }
-    if (str.includes(':')) {
-      const [h, m] = str.split(':')
-      return [parseInt(h, 10), parseInt(m, 10)]
-    }
-    return [NaN, NaN]
   }
 
-  let [hours, minutes] = parseParts(normalised)
+  // ---- Extract AM/PM (am, a.m., a m, .am, etc.) at the end ----
+  // Allow punctuation/spaces right before suffix but disallow real time separators
+  const suffixMatch = /([ap])\s*\.?\s*m\.?\s*$/i.exec(str)
+  let ampm = null
 
-  if (
-    isNaN(hours) || isNaN(minutes) ||
-    hours > 23 || minutes > 59
-  ) return 'INVALID'
+  if (suffixMatch !== null) {
+    ampm = suffixMatch[1].toLowerCase() === 'a' ? 'am' : 'pm'
+    const before = str.slice(0, suffixMatch.index)
 
-  hours = ampm === 'am' && hours === 12
-    ? 0
-    : ampm === 'pm' && hours < 12
-      ? hours + 12
-      : hours
+    // Reject if before ends with true time separator, meaning minutes missing
+    if (/[h:]\s*$/i.test(before)) return 'INVALID_TIME_FORMAT'
 
-  const hh = String(hours % 12 || 12)
+    // Trim cosmetic punctuation/spaces before suffix
+    str = before.replace(/[.,;\-\s]+$/g, '')
+    if (!str) return 'INVALID_TIME_FORMAT' // e.g., '.am' or '- pm' with no time
+  }
+
+  // ---- Remove trailing 'hr/hrs/hour/hours' (cosmetic) ----
+  str = str.replace(/\b(hours?|hrs?)\b\s*$/i, '')
+
+  // ---- Normalise separators: ., , ;, - , h  -> ':' ----
+  str = str.replace(/[.,;-]/g, ':').replace(/h/gi, ':')
+
+  // Digit space digit -> colon (e.g., '5 15' -> '5:15'); then remove remaining spaces
+  str = str.replace(/(\d)\s+(\d)/g, '$1:$2').replace(/\s+/g, '')
+
+  // ---- Parse into hours/minutes ----
+  let hours
+  let minutes
+
+  if (/^\d{1,2}$/.test(str)) {
+    // Hour only
+    hours = Number.parseInt(str, 10)
+    minutes = 0
+
+    // Ambiguity rule: without AM/PM, a 1–2 digit hour must be clearly 24-hour
+    if (!ampm) {
+      if (str.length === 1) return 'INVALID_TIME_FORMAT'
+      if (str.length === 2) {
+        const leadingZero = str[0] === '0'
+        if (!(leadingZero || hours >= 10)) return 'INVALID_TIME_FORMAT'
+      }
+    }
+  } else if (/^\d{4}$/.test(str)) {
+    // Compact HHMM (24-hour)
+    hours = Number.parseInt(str.slice(0, 2), 10)
+    minutes = Number.parseInt(str.slice(2), 10)
+  } else if (/^\d{3}$/.test(str)) {
+    // Compact HMM -> ONLY with AM/PM
+    if (!ampm) return 'INVALID_TIME_FORMAT'
+    hours = Number.parseInt(str[0], 10)
+    minutes = Number.parseInt(str.slice(1), 10)
+  } else if (/^\d{1,2}:\d{1,2}$/.test(str)) {
+    // With a separator
+    const [h, mi] = str.split(':')
+    hours = Number.parseInt(h, 10)
+    minutes = Number.parseInt(mi, 10)
+  } else {
+    return 'INVALID_TIME_FORMAT'
+  }
+
+  // ---- Validate numeric ranges ----
+  if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return 'INVALID_TIME_FORMAT'
+  if (minutes < 0 || minutes > 59) return 'INVALID_TIME_FORMAT'
+
+  if (ampm) {
+    // 12-hour range
+    if (hours < 1 || hours > 12) return 'INVALID_TIME_FORMAT'
+    if (ampm === 'am' && hours === 12) hours = 0 // 12:xx AM -> 00:xx
+    if (ampm === 'pm' && hours < 12) hours += 12 // 1..11 PM -> 13..23
+  } else {
+    // 24-hour range
+    if (hours < 0 || hours > 23) return 'INVALID_TIME_FORMAT'
+  }
+
+  // ---- Format output ----
+  if (format === '24hr') {
+    const hh = String(hours).padStart(2, '0')
+    const mm = String(minutes).padStart(2, '0')
+    return `${hh}:${mm}`
+  }
+
+  const hh12 = String(hours % 12 || 12)
   const mm = String(minutes).padStart(2, '0')
-
-  return `${hh}:${mm}${hours < 12 ? 'am' : 'pm'}`
+  const suffix = hours < 12 ? 'am' : 'pm'
+  return `${hh12}:${mm}${suffix}`
 }
 
 export {

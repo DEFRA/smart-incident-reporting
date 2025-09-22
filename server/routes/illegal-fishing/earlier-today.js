@@ -38,12 +38,12 @@ const validatePayload = (time) => {
       text: 'Enter a time',
       href: '#time'
     })
-  } else if (formattedTime === 'INVALID') {
+  } else if (formattedTime === 'INVALID_TIME_FORMAT') {
     errorSummary.errorList.push({
       text: 'Enter a real time, for example 11:35am or 2:35pm',
       href: '#time'
     })
-  } else if (formattedTime !== 'INVALID' && !isPastTime(formattedTime)) {
+  } else if (formattedTime !== 'INVALID_TIME_FORMAT' && !isPastTime(formattedTime)) {
     errorSummary.errorList.push({
       text: 'Enter a time in the past',
       href: '#time'
