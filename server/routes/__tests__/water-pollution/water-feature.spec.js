@@ -119,6 +119,27 @@ describe(url, () => {
         answerId
       }])
     })
+    it('Happy: accepts valid answerId of a pond,lake or reservoir with further and redirects to location-option ', async () => {
+      const answerId = question.answers.lakeOrReservoir.answerId
+      const lakeOrReservoirDetails = 'test other details'
+      const options = {
+        url,
+        payload: {
+          answerId,
+          lakeOrReservoirDetails
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LOCATION_OPTION)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.lakeOrReservoirDetails.answerId,
+        otherDetails: lakeOrReservoirDetails
+      }])
+    })
     it('Happy: accepts valid answerId of a canal with further and redirects to location-option ', async () => {
       const answerId = question.answers.canal.answerId
       const canalDetails = 'test other details'

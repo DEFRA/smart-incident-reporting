@@ -92,4 +92,25 @@ describe('formatTime', () => {
     expect(formatTime('99pm')).toBe('INVALID_TIME_FORMAT')
     expect(formatTime('1260')).toBe('INVALID_TIME_FORMAT')
   })
+
+  // ---- Edge cases ----
+  it('Should trim spaces and lowercase input', () => {
+    expect(formatTime(' NOON ')).toBe('12:00pm')
+  })
+
+  it('Should handle single digit hour with leading zero', () => {
+    expect(formatTime('07:05am')).toBe('7:05am')
+  })
+
+  it('Should reject invalid separator "/"', () => {
+    expect(formatTime('12/30pm')).toBe('INVALID_TIME_FORMAT')
+  })
+
+  it('Should reject "am" without an hour', () => {
+    expect(formatTime('am')).toBe('INVALID_TIME_FORMAT')
+  })
+
+  it('Should reject "pm" without an hour', () => {
+    expect(formatTime('pm')).toBe('INVALID_TIME_FORMAT')
+  })
 })
