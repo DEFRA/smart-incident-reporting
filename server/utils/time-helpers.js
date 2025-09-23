@@ -103,11 +103,8 @@ const parseFourDigit = (str) => {
   }
 }
 
-// Parse compact 3-digit HMM (only valid with AM/PM)
-const parseThreeDigit = (str, ampm) => {
-  if (!ampm) {
-    return null
-  }
+// Parse compact 3-digit HMM (now valid with or without AM/PM)
+const parseThreeDigit = (str) => {
   return {
     hours: Number.parseInt(str[0], 10),
     minutes: Number.parseInt(str.slice(1), 10)
@@ -134,7 +131,7 @@ const parseHourMinute = (str, ampm) => {
   }
 
   if (/^\d{3}$/.test(str)) {
-    return parseThreeDigit(str, ampm)
+    return parseThreeDigit(str) // no longer requires ampm
   }
 
   if (/^\d{1,2}:\d{1,2}$/.test(str)) {

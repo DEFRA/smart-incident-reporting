@@ -61,10 +61,6 @@ describe('formatTime', () => {
     expect(formatTime('915pm')).toBe('9:15pm')
   })
 
-  it('Should reject compact HMM without AM/PM', () => {
-    expect(formatTime('915')).toBe('INVALID_TIME_FORMAT')
-  })
-
   // ---- Separators ----
   it('Should normalize different separators', () => {
     expect(formatTime('5.30pm')).toBe('5:30pm')
@@ -112,5 +108,23 @@ describe('formatTime', () => {
 
   it('Should reject "pm" without an hour', () => {
     expect(formatTime('pm')).toBe('INVALID_TIME_FORMAT')
+  })
+
+  // ---- Additional unit tests cases ----
+
+  it('Converts 515 to 05:15 in 24hr format', () => {
+    expect(formatTime('515', '24hr')).toBe('05:15')
+  })
+
+  it('Converts 515 to 5:15am in 12hr format', () => {
+    expect(formatTime('515', '12hr')).toBe('5:15am')
+  })
+
+  it('Converts 945 to 09:45 in 24hr format', () => {
+    expect(formatTime('945', '24hr')).toBe('09:45')
+  })
+
+  it('Converts 945 to 9:45am in 12hr format', () => {
+    expect(formatTime('945', '12hr')).toBe('9:45am')
   })
 })
