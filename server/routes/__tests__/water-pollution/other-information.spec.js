@@ -2,7 +2,7 @@ import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/s
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.WATER_POLLUTION_OTHER_INFORMATION
-const header = 'Is there anything else you\'d like to add (optional)?'
+const header = 'Is there anything else you\'d like to add?'
 
 describe(url, () => {
   describe('GET', () => {

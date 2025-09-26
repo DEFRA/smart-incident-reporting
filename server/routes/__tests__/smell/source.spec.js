@@ -123,7 +123,7 @@ describe(url, () => {
         answerId
       }])
     })
-    it('Happy: accepts valid answerId of unknown and redirects to smell/contact-local-council', async () => {
+    it('Happy: accepts valid answerId of unknown and redirects to smell/report-local-council', async () => {
       const answerId = question.answers.unknown.answerId
       const options = {
         url,
@@ -132,7 +132,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_CONTACT_LOCAL_COUNCIL)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_REPORT_LOCAL_COUNCIL)
       expect(response.request.yar.get(constants.redisKeys.SMELL_SOURCE)).toEqual([{
         ...baseAnswer,
         answerId

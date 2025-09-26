@@ -36,13 +36,13 @@
       id: "answerId",
       errorMessage: findErrorMessageById(errorSummary, "answerId"),
       hint: {
-        text: "You must be able to send these to us by email."
+        text: hintHtml
       },
       items: [ 
         {
           value: question.answers.yes.answerId,
           text: question.answers.yes.text,
-          checked: getAnswer(answers, question.answers.yes.answerId),
+          checked: yesChecked or getAnswer(answers, question.answers.yes.answerId),
           conditional: {
             html: contactHtml
           }

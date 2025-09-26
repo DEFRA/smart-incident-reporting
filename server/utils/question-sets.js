@@ -8,6 +8,7 @@ const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
 const NOT_GIVEN = 'Not given'
 const MARK_LOCATION_ON_MAP = 'Mark the location on an online map'
 const DESCRIBE_THE_LOCATION = 'Describe the location'
+const RUBBISH_OR_REFUSE = 'Rubbish or refuse'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -38,7 +39,7 @@ const questionSets = {
             text: 'A canal',
             shortText: 'Canal'
           },
-          smallWatercourse: {
+          streamOrWatercourse: {
             answerId: 505,
             text: 'A smaller stream or watercourse',
             shortText: 'Smaller stream or watercourse'
@@ -55,6 +56,18 @@ const questionSets = {
           },
           somethingElseDetails: {
             answerId: 508
+          },
+          riverDetails: {
+            answerId: 509
+          },
+          lakeOrReservoirDetails: {
+            answerId: 510
+          },
+          canalDetails: {
+            answerId: 511
+          },
+          streamOrWatercourseDetails: {
+            answerId: 512
           }
         }
       },
@@ -228,7 +241,7 @@ const questionSets = {
       WATER_POLLUTION_LOCATION_OPTION: {
         questionId: 2600,
         key: constants.redisKeys.WATER_POLLUTION_LOCATION_OPTION,
-        text: 'Where did you see the pollution?',
+        text: 'How do you want to tell us where you\'ve seen water pollution?',
         answers: {
           map: {
             answerId: 2602,
@@ -243,7 +256,7 @@ const questionSets = {
       WATER_POLLUTION_LOCATION_DESCRIPTION: {
         questionId: 900,
         key: constants.redisKeys.WATER_POLLUTION_LOCATION_DESCRIPTION,
-        text: 'Where is the pollution?',
+        text: 'Location description',
         answers: {
           locationDetails: {
             answerId: 901
@@ -315,8 +328,8 @@ const questionSets = {
           },
           refuse: {
             answerId: 2904,
-            text: 'Rubbish or refuse',
-            shortText: 'Rubbish or refuse'
+            text: RUBBISH_OR_REFUSE,
+            shortText: RUBBISH_OR_REFUSE
           },
           somethingElse: {
             answerId: 2905,
@@ -331,6 +344,27 @@ const questionSets = {
           somethingElseDetail: {
             answerId: 2907,
             text: 'Give details of what you think is in the water'
+          }
+        }
+      },
+      WATER_POLLUTION_SMELL_DESCRIPTION: {
+        questionId: 1025,
+        key: constants.redisKeys.WATER_POLLUTION_SMELL_DESCRIPTION,
+        text: 'Is there a smell?',
+        answers: {
+          yes: {
+            answerId: 1026,
+            text: 'Yes',
+            shortText: 'Yes'
+          },
+          no: {
+            answerId: 1027,
+            text: 'No',
+            shortText: 'No'
+          },
+          yesDetails: {
+            answerId: 1028,
+            text: 'Describe the smell'
           }
         }
       }
@@ -374,7 +408,7 @@ const questionSets = {
           },
           unknown: {
             answerId: 1608,
-            text: YOU_DO_NOT_KNOW
+            text: 'Something else or you do not know'
           }
         }
       },
@@ -690,6 +724,44 @@ const questionSets = {
           no: {
             answerId: 3502,
             text: 'No'
+          }
+        }
+      },
+      SMELL_DESCRIPTION: {
+        questionId: 1700,
+        key: constants.redisKeys.SMELL_DESCRIPTION,
+        text: 'How would you describe the smell?',
+        answers: {
+          sewage: {
+            answerId: 1701,
+            text: 'Sewage'
+          },
+          rubbishOrRefuse: {
+            answerId: 1702,
+            text: RUBBISH_OR_REFUSE
+          },
+          burningOrSmoke: {
+            answerId: 1703,
+            text: 'Burning or smoke'
+          },
+          gasOrPetrol: {
+            answerId: 1704,
+            text: 'Gas or petrol'
+          },
+          agriculture: {
+            answerId: 1705,
+            text: 'Agriculture'
+          },
+          somethingElse: {
+            answerId: 1706,
+            text: SOMETHING_ELSE
+          },
+          cannotDescribe: {
+            answerId: 1707,
+            text: 'You cannot describe it'
+          },
+          somethingElseDetails: {
+            answerId: 1708
           }
         }
       }

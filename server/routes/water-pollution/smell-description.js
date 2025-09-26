@@ -2,8 +2,7 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
-const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_SOURCE
-const waterFeatureQuestion = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_WATER_FEATURE
+const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_SMELL_DESCRIPTION
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -13,7 +12,7 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => {
-    return h.view(constants.views.WATER_POLLUTION_SOURCE, {
+    return h.view(constants.views.WATER_POLLUTION_SMELL_DESCRIPTION, {
       ...getContext(request)
     })
   },
@@ -26,7 +25,7 @@ const handlers = {
     // validate payload
     const errorSummary = validatePayload(answerId, yesDetails)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.WATER_POLLUTION_SOURCE, {
+      return h.view(constants.views.WATER_POLLUTION_SMELL_DESCRIPTION, {
         ...getContext(request),
         errorSummary,
         yesChecked: answerId === question.answers.yes.answerId
@@ -35,13 +34,8 @@ const handlers = {
 
     request.yar.set(question.key, buildAnswers(answerId, yesDetails))
 
-    // handle redirects
-    const waterFeatureAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)
-    if (waterFeatureAnswer[0].answerId === waterFeatureQuestion.answers.lakeOrReservoir.answerId || waterFeatureAnswer[0].answerId === waterFeatureQuestion.answers.sea.answerId) {
-      return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
-    } else {
-      return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_LESS_THAN_10_METRES)
-    }
+    // handle redirection
+    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_SOURCE)
   }
 }
 
@@ -57,12 +51,12 @@ const validatePayload = (answerId, yesDetails) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Answer yes if you know where the pollution is coming from',
+      text: 'Select \'yes\' if there is a smell',
       href: '#answerId'
     })
   } else if (Number(answerId) === question.answers.yes.answerId && !yesDetails) {
     errorSummary.errorList.push({
-      text: 'Enter details about where the pollution is coming from',
+      text: 'Enter a description of the smell',
       href: '#yesDetails'
     })
   } else {
@@ -90,12 +84,12 @@ const buildAnswers = (answerId, yesDetails) => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.WATER_POLLUTION_SOURCE,
+    path: constants.routes.WATER_POLLUTION_SMELL_DESCRIPTION,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.WATER_POLLUTION_SOURCE,
+    path: constants.routes.WATER_POLLUTION_SMELL_DESCRIPTION,
     handler: handlers.post
   }
 ]

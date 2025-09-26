@@ -35,7 +35,7 @@ const handlers = {
 
     request.yar.set(constants.redisKeys.SMELL_LOCATION_ADDRESS, buildAnswers(request.payload))
 
-    return h.redirect(constants.routes.SMELL_PREVIOUS)
+    return h.redirect(constants.routes.SMELL_DESCRIPTION)
   }
 }
 

@@ -5,7 +5,7 @@ import { session } from '../../../__mock-data__/session-illegal-fishing.js'
 jest.mock('../../../services/service-bus.js')
 
 const url = constants.routes.ILLEGAL_FISHING_OTHER_INFORMATION
-const header = 'Is there anything else you\'d like to add (optional)?'
+const header = 'Is there anything else you\'d like to add?'
 
 describe(url, () => {
   describe('GET', () => {

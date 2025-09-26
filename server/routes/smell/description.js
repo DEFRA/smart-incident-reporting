@@ -1,7 +1,7 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
-const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_POLLUTION_APPEARANCE
+const question = questionSets.SMELL.questions.SMELL_DESCRIPTION
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -10,18 +10,18 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (request, h) => h.view(constants.views.WATER_POLLUTION_POLLUTION_APPEARANCE, {
+  get: async (request, h) => h.view(constants.views.SMELL_DESCRIPTION, {
     ...getContext(request)
   }),
   post: async (request, h) => {
     // get payload
-    let { answerId, somethingElseDetail } = request.payload
+    let { answerId, somethingElseDetails } = request.payload
 
     // validate payload for errors
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
       request.yar.set(question.key, [])
-      return h.view(constants.views.WATER_POLLUTION_POLLUTION_APPEARANCE, {
+      return h.view(constants.views.SMELL_DESCRIPTION, {
         errorSummary,
         ...getContext(request)
       })
@@ -33,13 +33,14 @@ const handlers = {
     }
 
     // set answer in session
-    request.yar.set(question.key, buildAnswers(answerId, somethingElseDetail))
+    request.yar.set(question.key, buildAnswers(answerId, somethingElseDetails))
 
-    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_SMELL_DESCRIPTION)
+    // handle redirects
+    return h.redirect(constants.routes.SMELL_PREVIOUS)
   }
 }
 
-const buildAnswers = (answerId, somethingElseDetail) => {
+const buildAnswers = (answerId, somethingElseDetails) => {
   const answers = []
   answerId.forEach(item => {
     answers.push({
@@ -48,11 +49,11 @@ const buildAnswers = (answerId, somethingElseDetail) => {
     })
   })
 
-  if (answerId.indexOf(question.answers.somethingElse.answerId.toString()) > -1 && somethingElseDetail) {
+  if (answerId.indexOf(question.answers.somethingElse.answerId.toString()) > -1 && somethingElseDetails) {
     answers.push({
       ...baseAnswer,
-      answerId: question.answers.somethingElseDetail.answerId,
-      otherDetails: somethingElseDetail
+      answerId: question.answers.somethingElseDetails.answerId,
+      otherDetails: somethingElseDetails
     })
   }
 
@@ -71,7 +72,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId || answerId.length === 0) {
     errorSummary.errorList.push({
-      text: 'Select what the pollution looks like',
+      text: 'Select the description of the smell',
       href: '#answerId'
     })
   }
@@ -81,12 +82,12 @@ const validatePayload = answerId => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.WATER_POLLUTION_POLLUTION_APPEARANCE,
+    path: constants.routes.SMELL_DESCRIPTION,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.WATER_POLLUTION_POLLUTION_APPEARANCE,
+    path: constants.routes.SMELL_DESCRIPTION,
     handler: handlers.post
   }
 ]

@@ -28,7 +28,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_PREVIOUS)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_DESCRIPTION)
       expect(response.request.yar.get(constants.redisKeys.SMELL_LOCATION_MAP)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.nationalGridReference.answerId,

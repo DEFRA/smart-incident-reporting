@@ -132,6 +132,9 @@ const getAboutThePollution = (request) => {
   // get answer for 'What does the pollution look like?' question
   const pollutionAppearanceAnswer = getDataSet(request, 'WATER_POLLUTION_POLLUTION_APPEARANCE')
 
+  // Get answer for 'Is there a smell?' question
+  const smellDescriptionAnswer = getDataSet(request, 'WATER_POLLUTION_SMELL_DESCRIPTION')
+
   // Get answer for 'Do you know where the pollution is coming from?' question
   const pollutionSourceAnswer = getDataSet(request, 'WATER_POLLUTION_SOURCE')
 
@@ -145,6 +148,7 @@ const getAboutThePollution = (request) => {
     whenAnswer,
     pollutionSubstanceAnswer,
     pollutionAppearanceAnswer,
+    smellDescriptionAnswer,
     pollutionSourceAnswer,
     effectOnWildlifeAnswer,
     otherInformationAnswer
@@ -275,12 +279,14 @@ const getWhenData = (request, pageUrl) => {
     const isYesterday = checkIfYesterday()
 
     const date = new Date(pollutionDateAndTime)
-    const pollutionTime = date.toLocaleString('en-GB', {
-      hour: '2-digit',
+    const timeParts = date.toLocaleString('en-GB', {
+      hour: 'numeric',
       minute: '2-digit',
       hourCycle: 'h12',
       timeZone: 'Europe/London'
-    })
+    }).split(' ')
+
+    const pollutionTime = timeParts[0] + timeParts[1].toLowerCase()
 
     if (isToday) {
       dateTimeData = `Today at ${pollutionTime}`

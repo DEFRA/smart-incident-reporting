@@ -47,7 +47,7 @@ const validatePayload = locationDescription => {
   const errorSummary = getErrorSummary()
   if (!locationDescription) {
     errorSummary.errorList.push({
-      text: 'Enter a description of where the pollution is',
+      text: 'Enter a description of where you\'ve seen pollution',
       href: '#locationDescription'
     })
   }

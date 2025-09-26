@@ -6,17 +6,24 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Location description</h1>
+    <p>Enter as detailed a description of the location where you've seen pollution as you can.</p>
+    <p>You could include:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>the nearest town or village</li>
+      <li>landmarks, such as bridges</li>
+      <li>a postcode or address</li>
+      <li><a href="http://www.what3words.co.uk">what3words</a> or map references, if you have them</li>
+    </ul>
+    
     {{ govukTextarea({
       name: "locationDescription",
       id: "locationDescription",
       rows: "10",
       label: {
-        text: question.text,
-        classes: "govuk-label--l",
-        isPageHeading: true
-      },
-      hint: {
-        html: "Include things like the name of the watercourse and nearest town or landmarks. You can also include things like <a href='http://www.what3words.com' target='_new'>what3words (opens new tab)</a> or map references."
+        text: "Describe where you've seen pollution",
+        classes: "govuk-label--m",
+        isPageHeading: false
       },
       errorMessage: findErrorMessageById(errorSummary, 'locationDescription'),
       value: getAnswer(answers, question.answers.locationDetails.answerId)

@@ -1,9 +1,7 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
+import { formatTime } from '../../utils/time-helpers.js'
 import moment from 'moment'
-
-const timeRegExp = /^(0?[1-9]|1[012])(:[0-5]?\d)(am|pm|AM|PM)$/
-const invalidTimeRegExp = /^(0?[1-9]|1[012])(:[6-9]\d)(am|pm|AM|PM)$/
 
 const handlers = {
   get: async (request, h) => {
@@ -24,8 +22,9 @@ const handlers = {
       })
     }
 
-    const dateTime = getDateTime(time)
-    request.yar.set(constants.redisKeys.SMELL_YESTERDAY, time)
+    const formattedTime = formatTime(time)
+    const dateTime = getDateTime(formattedTime)
+    request.yar.set(constants.redisKeys.SMELL_YESTERDAY, formattedTime)
     request.yar.set(constants.redisKeys.SMELL_START_DATE_TIME, dateTime.toISOString())
     return h.redirect(constants.routes.SMELL_CURRENT)
   }
@@ -33,19 +32,15 @@ const handlers = {
 
 const validatePayload = (time) => {
   const errorSummary = getErrorSummary()
+  const formattedTime = formatTime(time)
   if (!time) {
     errorSummary.errorList.push({
       text: 'Enter a time',
       href: '#time'
     })
-  } else if (invalidTimeRegExp.test(time)) {
+  } else if (formattedTime === 'INVALID_TIME_FORMAT') {
     errorSummary.errorList.push({
       text: 'Enter a real time, for example 11:35am or 2:35pm',
-      href: '#time'
-    })
-  } else if (!timeRegExp.test(time)) {
-    errorSummary.errorList.push({
-      text: 'Enter a time using the 12-hour clock, for example 11:35am or 2:35pm',
       href: '#time'
     })
   } else {
@@ -72,7 +67,7 @@ const getDateTime = (time) => {
   const hour = timeParts[0]
   const minute = timeParts[1].slice(0, minusTwo)
   const period = timeParts[1].slice(minusTwo)
-  const dateTimeString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')} ${hour.padStart(2, '0')}:${minute.padStart(2, '0')} ${period.toLowerCase()}`
+  const dateTimeString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')} ${hour}:${minute.padStart(2, '0')} ${period.toLowerCase()}`
   const dateTime = moment(dateTimeString, 'YYYY-MM-DD hh:mm a')
 
   return dateTime

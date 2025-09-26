@@ -28,15 +28,15 @@ describe(url, () => {
     })
     it(`Should return success response and correct view with prefilled data for ${url}`, async () => {
       const sessionData = {
-        'water-pollution/yesterday': '09:30am'
+        'water-pollution/yesterday': '9:30am'
       }
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('value="09:30am"')
+      expect(response.payload).toContain('value="9:30am"')
     })
   })
   describe('POST', () => {
     it('Happy: accepts valid answers and redirects to water-pollution/pollution-substance', async () => {
-      const time = '09:30am'
+      const time = '9:30am'
       const dateTime = getDateTime(time)
       const sessionData = {
         url,
@@ -46,7 +46,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(sessionData)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_YESTERDAY)).toEqual('09:30am')
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_YESTERDAY)).toEqual('9:30am')
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WHEN)).toEqual(dateTime.toISOString())
     })
     it('Happy: accepts valid answers with single digit time and redirects to water-pollution/pollution-substance', async () => {
@@ -60,7 +60,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(sessionData)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_YESTERDAY)).toEqual('1:5am')
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_YESTERDAY)).toEqual('1:05am')
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WHEN)).toEqual(dateTime.toISOString())
     })
     it('Happy: accepts valid answers with all caps period and redirects to water-pollution/pollution-substance', async () => {
@@ -74,7 +74,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(sessionData)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_YESTERDAY)).toEqual('12:30AM')
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_YESTERDAY)).toEqual('12:30am')
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WHEN)).toEqual(dateTime.toISOString())
     })
     it('Sad: errors on no fields provided', async () => {
@@ -96,7 +96,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Enter a time using the 12-hour clock, for example 11:35am or 2:35pm')
+      expect(response.payload).toContain('Enter a real time, for example 11:35am or 2:35pm')
     })
     it('Sad: minutes must be between 0 and 59', async () => {
       const time = '10:75am'
@@ -111,7 +111,7 @@ describe(url, () => {
       expect(response.payload).toContain('Enter a real time, for example 11:35am or 2:35pm')
     })
     it('Happy: For CYA journey, accepts valid time for now and redirects to water-pollution/check-your-answers', async () => {
-      const time = '07:00am'
+      const time = '7:00am'
       const dateTime = getDateTime(time)
       const options = {
         url,
@@ -122,7 +122,7 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
         referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
       })
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_YESTERDAY)).toEqual('07:00am')
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_YESTERDAY)).toEqual('7:00am')
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WHEN)).toEqual(dateTime.toISOString())
     })
   })

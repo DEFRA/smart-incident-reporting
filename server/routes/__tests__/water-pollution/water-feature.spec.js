@@ -24,7 +24,7 @@ describe(url, () => {
         }]
       }
       const response = await submitGetRequest({ url }, 'In what kind of water is the pollution?', constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId" name="answerId" type="radio" value="501" checked>')
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId" name="answerId" type="radio" value="501" checked data-aria-controls="conditional-answerId">')
     })
     it(`Should return success response and correct view when the sea is selected for ${url}`, async () => {
       const sessionData = {
@@ -35,6 +35,21 @@ describe(url, () => {
       }
       const response = await submitGetRequest({ url }, 'In what kind of water is the pollution?', constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-3" name="answerId" type="radio" value="503" checked>')
+    })
+    it(`Should return success response and correct view when canal is selected with further details for ${url}`, async () => {
+      const sessionData = {
+        'water-pollution/water-feature': [{
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.canal.answerId
+        }, {
+          questionId: baseAnswer.questionId,
+          answerId: question.answers.canalDetails.answerId,
+          otherDetails: 'test details'
+        }]
+      }
+      const response = await submitGetRequest({ url }, 'In what kind of water is the pollution?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-4" name="answerId" type="radio" value="504" checked data-aria-controls="conditional-answerId-4">')
+      expect(response.payload).toContain('value="test details">')
     })
     it(`Should return success response and correct view when something else is selected for ${url}`, async () => {
       const sessionData = {
@@ -53,6 +68,42 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
+    it('Happy: accepts valid answerId of river and redirects to pollution-location', async () => {
+      const answerId = question.answers.river.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LOCATION_OPTION)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
+    it('Happy: accepts valid answerId of a river with further details and redirects to pollution-location', async () => {
+      const answerId = question.answers.river.answerId
+      const riverDetails = 'test other details'
+      const options = {
+        url,
+        payload: {
+          answerId,
+          riverDetails
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LOCATION_OPTION)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.riverDetails.answerId,
+        otherDetails: riverDetails
+      }])
+    })
     it('Happy: accepts valid answerId of sea or lake/reservoir and redirects to pollution-location', async () => {
       const answerId = question.answers.sea.answerId
       const options = {
@@ -68,12 +119,14 @@ describe(url, () => {
         answerId
       }])
     })
-    it('Happy: accepts valid answerId of not sea/lake/reservoir and redirects to pollution-location', async () => {
-      const answerId = question.answers.river.answerId
+    it('Happy: accepts valid answerId of a pond,lake or reservoir with further and redirects to location-option ', async () => {
+      const answerId = question.answers.lakeOrReservoir.answerId
+      const lakeOrReservoirDetails = 'test other details'
       const options = {
         url,
         payload: {
-          answerId
+          answerId,
+          lakeOrReservoirDetails
         }
       }
       const response = await submitPostRequest(options)
@@ -81,6 +134,52 @@ describe(url, () => {
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
         ...baseAnswer,
         answerId
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.lakeOrReservoirDetails.answerId,
+        otherDetails: lakeOrReservoirDetails
+      }])
+    })
+    it('Happy: accepts valid answerId of a canal with further and redirects to location-option ', async () => {
+      const answerId = question.answers.canal.answerId
+      const canalDetails = 'test other details'
+      const options = {
+        url,
+        payload: {
+          answerId,
+          canalDetails
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LOCATION_OPTION)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.canalDetails.answerId,
+        otherDetails: canalDetails
+      }])
+    })
+    it('Happy: accepts valid answerId of smaller stream or watercourse with further details and redirects to location-option ', async () => {
+      const answerId = question.answers.streamOrWatercourse.answerId
+      const streamOrWatercourseDetails = 'test other details'
+      const options = {
+        url,
+        payload: {
+          answerId,
+          streamOrWatercourseDetails
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_LOCATION_OPTION)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_WATER_FEATURE)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }, {
+        ...baseAnswer,
+        answerId: question.answers.streamOrWatercourseDetails.answerId,
+        otherDetails: streamOrWatercourseDetails
       }])
     })
     it('Happy: accepts valid answerId of something else with further details ', async () => {

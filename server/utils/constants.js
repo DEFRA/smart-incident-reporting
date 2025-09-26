@@ -46,6 +46,7 @@ const WATER_POLLUTION_EFFECT_ON_WILDLIFE = 'water-pollution/effect-on-wildlife'
 const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 const WATER_POLLUTION_CHECK_YOUR_ANSWERS = 'water-pollution/check-your-answers'
 const WATER_POLLUTION_CONTACT_DETAILS = 'water-pollution/contact-details'
+const WATER_POLLUTION_SMELL_DESCRIPTION = 'water-pollution/smell-description'
 
 const SMELL_START = 'smell-start'
 const SMELL = 'smell'
@@ -78,6 +79,7 @@ const SMELL_FIND_ADDRESS = 'smell/find-address'
 const SMELL_CHOOSE_ADDRESS = 'smell/choose-address'
 const SMELL_CONFIRM_ADDRESS = 'smell/confirm-address'
 const SMELL_EXCEEDED_ATTEMPTS = 'smell/exceeded-attempts'
+const SMELL_DESCRIPTION = 'smell/description'
 
 const ILLEGAL_FISHING_START = 'illegal-fishing-start'
 const ILLEGAL_FISHING = 'illegal-fishing'
@@ -159,6 +161,7 @@ const views = {
   WATER_POLLUTION_OTHER_INFORMATION,
   WATER_POLLUTION_CHECK_YOUR_ANSWERS,
   WATER_POLLUTION_CONTACT_DETAILS,
+  WATER_POLLUTION_SMELL_DESCRIPTION,
   SMELL,
   SMELL_LOCATION_HOME,
   SMELL_LOCATION_ADDRESS,
@@ -189,6 +192,7 @@ const views = {
   SMELL_CHOOSE_ADDRESS,
   SMELL_CONFIRM_ADDRESS,
   SMELL_EXCEEDED_ATTEMPTS,
+  SMELL_DESCRIPTION,
   ILLEGAL_FISHING,
   ILLEGAL_FISHING_WATER_FEATURE,
   ILLEGAL_FISHING_ACTIVITY,
