@@ -16,6 +16,9 @@ const handlers = {
 
       console.log(photoUploadDetails)
 
+      // FIXME: might not want to visually expose the session ID so we should
+      // generate a different GUID to use as the query string param and store
+      // that as the key in Redis
       await mediaCache.set(request.yar.id, photoUploadDetails)
     } else {
       console.log('No photos')

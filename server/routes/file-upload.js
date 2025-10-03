@@ -29,13 +29,25 @@ async function createThumbnail (filename) {
     const jjj = containerClient.getBlockBlobClient(filename)
     const imgBuf = await jjj.downloadToBuffer()
     const thumbnail = await imageThumbnail(imgBuf)
-    const localUploadLocation = filename.replace('/', '-')
+
+    const fileLocBits = filename.split('/')
+    const folder = fileLocBits[0]
+    const imgNameBits = fileLocBits[1].split('.')
+    const thumbName = `${imgNameBits[0]}-thumbnail.${imgNameBits[1]}`
+
+    console.log(folder)
+    console.log(thumbName)
+
+    const blockBlobClient = containerClient.getBlockBlobClient(`${folder}/${thumbName}`)
+    await blockBlobClient.uploadData(thumbnail)
+
+    const localUploadLocation = `${folder}-${thumbName}`
     const thumbLocation = `${dirname}/server/public/build/thumbnails/${localUploadLocation}`
     console.log(`Moving thumbnail to ${thumbLocation}`)
     fs.writeFileSync(thumbLocation, thumbnail)
 
-    const tags = await jjj.getTags()
-    console.log(tags)
+    // const tags = await jjj.getTags()
+    // console.log(tags)
 
     return localUploadLocation
   } catch (error) {
