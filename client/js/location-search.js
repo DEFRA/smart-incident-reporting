@@ -22,6 +22,7 @@ const searchLocation = async () => {
   const response = await fetch(`/api/location?location=${locationString}`)
   const data = await response.json()
   if (data?.GAZETTEER_ENTRY) {
+    hideError()
     if (data.GAZETTEER_ENTRY.MBR_XMIN) {
       return panToBbox([data.GAZETTEER_ENTRY.MBR_XMIN, data.GAZETTEER_ENTRY.MBR_YMIN, data.GAZETTEER_ENTRY.MBR_XMAX, data.GAZETTEER_ENTRY.MBR_YMAX])
     } else {
@@ -72,6 +73,15 @@ const showError = (message) => {
   document.getElementsByClassName('govuk-error-summary')[0].focus()
 }
 
+const hideError = () => {
+  const errorSummaryElement = document.querySelector('.govuk-error-summary')
+  const errorElement = document.getElementById('current-location-error')
+  if (errorSummaryElement && errorElement) {
+    errorSummaryElement.remove()
+    errorElement.remove()
+  }
+}
+
 const getLocationName = (value) => {
   let location = ''
   if (value?.GAZETTEER_ENTRY.NAME1) {
@@ -116,11 +126,12 @@ const initialiseLocationSearch = () => {
       populateResults(englandmatches)
     },
     onConfirm: (value) => {
-      if (!value) {
-        panToOSValue(autoCompleteValue)
+      if (value) {
+        panToOSValue(value)
       } else {
         autoCompleteValue = value
       }
+      hideError()
     }
   })
 
