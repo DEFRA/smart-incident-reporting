@@ -231,6 +231,22 @@ const formatTime = (input, format = '12hr') => {
     return INVALID
   }
 
+  // ---- Ambiguity check: only for 12hr format without AM/PM ----
+  const singleDigitWithoutLeadingZero = /^[1-9]$/.test(timePart)
+
+  if (!ampm && format === '12hr') {
+    if (parsed.hours >= 1 && parsed.hours <= 11) {
+      if (singleDigitWithoutLeadingZero) {
+        return INVALID
+      }
+      if (parsed.minutes !== 0) {
+        return INVALID
+      }
+      // Hour-only 1–11 without AM/PM is ambiguous
+      return INVALID
+    }
+  }
+
   // Step 5: validate ranges
   const validated = validateTime(parsed.hours, parsed.minutes, ampm)
   if (!validated) {
