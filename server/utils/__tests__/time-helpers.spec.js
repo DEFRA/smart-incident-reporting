@@ -154,6 +154,10 @@ describe('formatTime', () => {
     expect(formatTime('0515', '24hr')).toBe('05:15')
   })
 
+  it('Should convert 0515 (compact 4-digit) in 12hr format', () => {
+    expect(formatTime('0515')).toBe('5:15am')
+  })
+
   it('Should reject 945 without AM/PM as ambiguous', () => {
     expect(formatTime('945')).toBe('INVALID_TIME_FORMAT')
   })

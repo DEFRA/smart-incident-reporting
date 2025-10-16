@@ -18,14 +18,8 @@ let token, map
 
 const OSGB36 = 'EPSG:27700'
 const extent = [0, 0, 700000, 1300000]
-
-// Mobile zoom layout
-const isMobile = window.innerWidth < 768
-const zoom = isMobile ? 4 : 1
-const center = isMobile
-  ? [530000, 180000] // London (OSGB36)
-  : [360589, 175650] // National view
-
+const center = [360589, 175650]
+const zoom = 1
 const maxZoom = 13
 const pointElement = document.getElementById('point')
 const premiumTileMatrix = [10, 11, 12, 13]
