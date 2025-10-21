@@ -563,21 +563,29 @@ const questionSets = {
         key: constants.redisKeys.SMELL_SMELL_STRENGTH,
         text: 'How strong is the smell?',
         answers: {
-          faint: {
-            answerId: 2201,
-            text: 'Faint - a smell you notice occasionally or on the wind'
+          veryWeak: {
+            answerId: 2211,
+            text: 'Very weak'
+          },
+          weak: {
+            answerId: 2212,
+            text: 'Weak'
           },
           distinct: {
-            answerId: 2202,
-            text: 'Distinct - a smell you can notice when breathing normally'
+            answerId: 2213,
+            text: 'Distinct'
           },
           strong: {
-            answerId: 2203,
-            text: 'Strong - a smell that\'s noticeable all the time, you cannot ignore it'
+            answerId: 2214,
+            text: 'Strong'
           },
           veryStrong: {
-            answerId: 2204,
-            text: 'Very strong - an unbearable smell you need to get away from'
+            answerId: 2215,
+            text: 'Very strong'
+          },
+          extremelyStrong: {
+            answerId: 2216,
+            text: 'Extremely strong'
           }
         }
       },

@@ -114,7 +114,7 @@ const session = JSON.parse(`{
       "questionId": 2200,
       "questionAsked": "How strong is the smell?",
       "questionResponse": true,
-      "answerId": 2203
+      "answerId": 2214
     }
   ],
   "smell/indoors": [
