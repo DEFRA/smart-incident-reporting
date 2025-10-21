@@ -3,6 +3,7 @@ import { panToOSValue, panToPoint, panToBbox } from './map.js'
 
 let autoCompleteValue
 const locationSearchButton = document.getElementById('search-location')
+const currentLocationErrorId = 'current-location-error'
 
 /// // Events
 locationSearchButton.addEventListener('click', async (e) => {
@@ -46,8 +47,8 @@ const showError = (message) => {
   if (errorMessage) {
     errorMessage.innerText = message
     errorMessage.href = '#location'
-    if (document.getElementById('current-location-error')) {
-      document.getElementById('current-location-error').remove()
+    if (document.getElementById(currentLocationErrorId)) {
+      document.getElementById(currentLocationErrorId).remove()
     }
   } else {
     const formElement = document.getElementsByTagName('form')[0]
@@ -75,7 +76,7 @@ const showError = (message) => {
 
 const hideError = () => {
   const errorSummaryElement = document.querySelector('.govuk-error-summary')
-  const errorElement = document.getElementById('current-location-error')
+  const errorElement = document.getElementById(currentLocationErrorId)
   if (errorSummaryElement && errorElement) {
     errorSummaryElement.remove()
     errorElement.remove()
