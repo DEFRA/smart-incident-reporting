@@ -2,6 +2,7 @@ const INVALID = 'INVALID_TIME_FORMAT'
 
 // ---- Constants (avoid magic numbers) ----
 const HOUR_12 = 12
+const HOUR_12_MAX = 11
 const MINUTES_MAX = 59
 const HOUR_24_MAX = 23
 
@@ -201,6 +202,15 @@ const formatOutput = (hours, minutes, format) => {
   return `${hh}:${minutesStr}${timeSuffix}`
 }
 
+// ---- Helper to check ambiguity ----
+const isAmbiguousWithoutAmPm = (hours, timePart) => {
+  return (
+    hours >= 1 &&
+    hours <= HOUR_12_MAX &&
+    !(/^\d{4}$/.test(timePart) && timePart.startsWith('0'))
+  )
+}
+
 // ---- Main entry ----
 const formatTime = (input, format = '12hr') => {
   const raw = String(input).trim()
@@ -228,6 +238,11 @@ const formatTime = (input, format = '12hr') => {
   // Step 4: parse into hours/minutes
   const parsed = parseHourMinute(normal, ampm)
   if (!parsed) {
+    return INVALID
+  }
+
+  // ---- Ambiguity check: only for 12hr format without AM/PM ----
+  if (!ampm && format === '12hr' && isAmbiguousWithoutAmPm(parsed.hours, timePart)) {
     return INVALID
   }
 
