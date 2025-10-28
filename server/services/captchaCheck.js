@@ -4,7 +4,7 @@ import config from '../utils/config.js'
 const captchaVerifyUrl = 'https://global.frcapi.com/api/v2/captcha/siteverify'
 
 const validate = async captchaResponse => {
-  let captchaSuccess = true
+  let captchaSuccess = false
 
   if (captchaResponse) {
     try {
@@ -28,6 +28,7 @@ const validate = async captchaResponse => {
     } catch (error) {
       // If we are unable to validate the captcha response, leave captchaSuccess as true so
       // that we don't stop the user from progressing in the case where the external API is down
+      captchaSuccess = true
       console.log('Error: failed to validate captcha against API')
       console.log(error)
     }
