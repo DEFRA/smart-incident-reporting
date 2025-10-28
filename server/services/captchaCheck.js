@@ -4,6 +4,7 @@ import config from '../utils/config.js'
 const captchaVerifyUrl = 'https://global.frcapi.com/api/v2/captcha/siteverify'
 
 const validate = async captchaResponse => {
+  // Default to false in case captchaResponse is not in the payload
   let captchaSuccess = false
 
   if (captchaResponse) {
