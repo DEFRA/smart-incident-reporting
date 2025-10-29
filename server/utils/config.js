@@ -29,7 +29,7 @@ const schema = Joi.object().keys({
   captchaEnabled: Joi.bool().default(false),
   captchaApiKey: Joi.string().allow(''),
   captchaSiteKey: Joi.string().allow(''),
-  captchaBypassKey: Joi.string().allow('')
+  captchaBypassKey: Joi.string()
 })
 
 const captchaEnabled = getBoolean(process.env.CAPTCHA_ENABLED)
