@@ -192,6 +192,7 @@ The build of the webapp requires an environment variable GA_ID if google analyti
 |   CAPTCHA_ENABLED   |   Turn on/off captcha   |   Y   |      |   
 |   CAPTCHA_API_KEY   |   API key for captcha validation   |   if captcha enabled   |      |
 |   CAPTCHA_SITE_KEY   |   Site key for captcha validation   |   if captcha enabled   |      |
+|   CAPTCHA_BYPASS_KEY   |   Bypass key for captcha validation to allow for testing  |   if captcha bypass required   |      |
 
 # Private beta authentication
 

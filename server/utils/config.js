@@ -28,7 +28,8 @@ const schema = Joi.object().keys({
   serviceAvailableCron: Joi.string().default('* * * * * *'),
   captchaEnabled: Joi.bool().default(false),
   captchaApiKey: Joi.string().allow(''),
-  captchaSiteKey: Joi.string().allow('')
+  captchaSiteKey: Joi.string().allow(''),
+  captchaBypassKey: Joi.string()
 })
 
 const captchaEnabled = getBoolean(process.env.CAPTCHA_ENABLED)
@@ -52,7 +53,8 @@ const config = {
   serviceAvailableCron: process.env.SERVICE_AVAILABLE_CRON,
   captchaEnabled,
   captchaApiKey: captchaEnabled ? process.env.CAPTCHA_API_KEY : '',
-  captchaSiteKey: captchaEnabled ? process.env.CAPTCHA_SITE_KEY : ''
+  captchaSiteKey: captchaEnabled ? process.env.CAPTCHA_SITE_KEY : '',
+  captchaBypassKey: process.env.CAPTCHA_BYPASS_KEY
 }
 
 // Validate config

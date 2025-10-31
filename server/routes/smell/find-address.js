@@ -23,15 +23,19 @@ const handlers = {
     })
   },
   post: async (request, h) => {
-    let { buildingDetails, postcode } = request.payload
-    const captchaResponse = request.payload['frc-captcha-response']
+    let { postcode } = request.payload
+    const {
+      buildingDetails,
+      captchaBypassKey,
+      'frc-captcha-response': captchaResponse
+    } = request.payload
 
     // cleanse postcode for special characters https://design-system.service.gov.uk/patterns/addresses/#allow-different-postcode-formats
     if (postcode) {
       postcode = postcode.replace(/[^\w\s]/gi, '')
     }
 
-    const captchaSuccess = await captchaCheck.validate(captchaResponse)
+    const captchaSuccess = await captchaCheck.validate(captchaResponse, captchaBypassKey)
 
     // validate payload
     const errorSummary = validatePayload(buildingDetails, postcode, captchaSuccess)
