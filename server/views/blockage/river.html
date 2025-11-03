@@ -1,0 +1,33 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text %}
+
+{% block formContent %}
+
+{{ govukRadios({
+name: "todo",
+id: "todo",
+errorMessage: findErrorMessageById(errorSummary, "todo"),
+fieldset: {
+legend: {
+text: "Is the blockage in a river?",
+isPageHeading: true,
+classes: "govuk-fieldset__legend--l"
+}
+},
+hint: {
+text: "This can change who's responsible for clearing the blockage and who may need to know about it."
+},
+items: [
+{
+value: 'todo1',
+text: 'Blah 1'
+},
+{
+value: 'todo2',
+text: 'Blah 2'
+}
+]
+}) }}
+
+{% endblock %}

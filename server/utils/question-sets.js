@@ -1126,6 +1126,11 @@ const questionSets = {
       }
     }
   },
+  BLOCKAGE: {
+    questionSetId: 10000,
+    questions: {
+    }
+  },
   CREATE_A_REPORT: {
     questionSetId: 0,
     questions: {
