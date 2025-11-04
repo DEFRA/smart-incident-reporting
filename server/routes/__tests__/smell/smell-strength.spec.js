@@ -35,35 +35,21 @@ describe(url, () => {
   })
 
   describe('POST', () => {
-    it('Happy: Weak and continues to SMELL_INDOORS', async () => {
+    it('Happy Faint and continues to SMELL_INDOORS', async () => {
       const options = {
         url,
         payload: {
-          answerId: question.answers.weak.answerId
+          answerId: question.answers.faint.answerId
         }
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.SMELL_INDOORS)
       expect(response.request.yar.get(constants.redisKeys.SMELL_SMELL_STRENGTH)).toEqual([{
         ...baseAnswer,
-        answerId: question.answers.weak.answerId
+        answerId: question.answers.faint.answerId
       }])
     })
-    it('Happy: Very weak and continues to SMELL_INDOORS', async () => {
-      const options = {
-        url,
-        payload: {
-          answerId: question.answers.veryWeak.answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_INDOORS)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_SMELL_STRENGTH)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.veryWeak.answerId
-      }])
-    })
-    it('Happy: Distinct and continues to SMELL_INDOORS', async () => {
+    it('Happy distinct and continues to SMELL_INDOORS', async () => {
       const options = {
         url,
         payload: {
@@ -77,7 +63,7 @@ describe(url, () => {
         answerId: question.answers.distinct.answerId
       }])
     })
-    it('Happy: Strong and continues to SMELL_INDOORS', async () => {
+    it('Happy strong and continues to SMELL_INDOORS', async () => {
       const options = {
         url,
         payload: {
@@ -91,7 +77,7 @@ describe(url, () => {
         answerId: question.answers.strong.answerId
       }])
     })
-    it('Happy: Very strong and continues to SMELL_INDOORS', async () => {
+    it('Happy very strong and continues to SMELL_INDOORS', async () => {
       const options = {
         url,
         payload: {
@@ -103,20 +89,6 @@ describe(url, () => {
       expect(response.request.yar.get(constants.redisKeys.SMELL_SMELL_STRENGTH)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.veryStrong.answerId
-      }])
-    })
-    it('Happy: Extermely strong and continues to SMELL_INDOORS', async () => {
-      const options = {
-        url,
-        payload: {
-          answerId: question.answers.extremelyStrong.answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_INDOORS)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_SMELL_STRENGTH)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.extremelyStrong.answerId
       }])
     })
     it('Sad rejects empty payload with current smell', async () => {

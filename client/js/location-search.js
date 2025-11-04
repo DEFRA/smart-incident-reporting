@@ -3,7 +3,6 @@ import { panToOSValue, panToPoint, panToBbox } from './map.js'
 
 let autoCompleteValue
 const locationSearchButton = document.getElementById('search-location')
-const currentLocationErrorId = 'current-location-error'
 
 /// // Events
 locationSearchButton.addEventListener('click', async (e) => {
@@ -23,7 +22,6 @@ const searchLocation = async () => {
   const response = await fetch(`/api/location?location=${locationString}`)
   const data = await response.json()
   if (data?.GAZETTEER_ENTRY) {
-    hideError()
     if (data.GAZETTEER_ENTRY.MBR_XMIN) {
       return panToBbox([data.GAZETTEER_ENTRY.MBR_XMIN, data.GAZETTEER_ENTRY.MBR_YMIN, data.GAZETTEER_ENTRY.MBR_XMAX, data.GAZETTEER_ENTRY.MBR_YMAX])
     } else {
@@ -47,8 +45,8 @@ const showError = (message) => {
   if (errorMessage) {
     errorMessage.innerText = message
     errorMessage.href = '#location'
-    if (document.getElementById(currentLocationErrorId)) {
-      document.getElementById(currentLocationErrorId).remove()
+    if (document.getElementById('current-location-error')) {
+      document.getElementById('current-location-error').remove()
     }
   } else {
     const formElement = document.getElementsByTagName('form')[0]
@@ -72,15 +70,6 @@ const showError = (message) => {
   </p>`)
   window.scrollTo({ top: 0 })
   document.getElementsByClassName('govuk-error-summary')[0].focus()
-}
-
-const hideError = () => {
-  const errorSummaryElement = document.querySelector('.govuk-error-summary')
-  const errorElement = document.getElementById(currentLocationErrorId)
-  if (errorSummaryElement && errorElement) {
-    errorSummaryElement.remove()
-    errorElement.remove()
-  }
 }
 
 const getLocationName = (value) => {
@@ -127,12 +116,11 @@ const initialiseLocationSearch = () => {
       populateResults(englandmatches)
     },
     onConfirm: (value) => {
-      if (value) {
-        panToOSValue(value)
+      if (!value) {
+        panToOSValue(autoCompleteValue)
       } else {
         autoCompleteValue = value
       }
-      hideError()
     }
   })
 

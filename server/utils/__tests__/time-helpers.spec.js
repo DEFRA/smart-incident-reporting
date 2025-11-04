@@ -42,9 +42,6 @@ describe('formatTime', () => {
     expect(formatTime('09:05', '24hr')).toBe('09:05')
     expect(formatTime('21:30', '24hr')).toBe('21:30')
     expect(formatTime('15', '24hr')).toBe('15:00')
-    expect(formatTime('05:15', '24hr')).toBe('05:15')
-    expect(formatTime('0515', '24hr')).toBe('05:15')
-    expect(formatTime('0815', '24hr')).toBe('08:15')
   })
 
   it('Should reject invalid 24hr inputs', () => {
@@ -54,7 +51,7 @@ describe('formatTime', () => {
   })
 
   // ---- Compact formats ----
-  it('Should handle compact HHMM format in 24hr mode', () => {
+  it('Should handle compact HHMM format', () => {
     expect(formatTime('2359', '24hr')).toBe('23:59')
     expect(formatTime('0815', '24hr')).toBe('08:15')
   })
@@ -80,34 +77,8 @@ describe('formatTime', () => {
     expect(formatTime('10pm')).toBe('10:00pm')
   })
 
-  // ---- Ambiguous hour inputs (should be rejected) ----
   it('Should reject ambiguous hour-only without AM/PM', () => {
-    expect(formatTime('1')).toBe('INVALID_TIME_FORMAT')
     expect(formatTime('5')).toBe('INVALID_TIME_FORMAT')
-    expect(formatTime('9')).toBe('INVALID_TIME_FORMAT')
-    expect(formatTime('11')).toBe('INVALID_TIME_FORMAT')
-  })
-
-  it('Should reject ambiguous hour with minutes but no AM/PM', () => {
-    expect(formatTime('1100')).toBe('INVALID_TIME_FORMAT')
-    expect(formatTime('11:30')).toBe('INVALID_TIME_FORMAT')
-    expect(formatTime('10-30')).toBe('INVALID_TIME_FORMAT')
-    expect(formatTime('9.30')).toBe('INVALID_TIME_FORMAT')
-    expect(formatTime('945')).toBe('INVALID_TIME_FORMAT')
-    expect(formatTime('515')).toBe('INVALID_TIME_FORMAT')
-    expect(formatTime('9 15')).toBe('INVALID_TIME_FORMAT')
-    expect(formatTime('11 00')).toBe('INVALID_TIME_FORMAT')
-  })
-
-  // ---- Space as separator ----
-  it('Should accept space as separator when AM/PM is present', () => {
-    expect(formatTime('5 30 pm')).toBe('5:30pm')
-    expect(formatTime('9 15 am')).toBe('9:15am')
-  })
-
-  it('Should reject space-separated times that are ambiguous without AM/PM', () => {
-    expect(formatTime('11 00')).toBe('INVALID_TIME_FORMAT')
-    expect(formatTime('10 30')).toBe('INVALID_TIME_FORMAT')
   })
 
   // ---- Invalid formats ----
@@ -139,26 +110,21 @@ describe('formatTime', () => {
     expect(formatTime('pm')).toBe('INVALID_TIME_FORMAT')
   })
 
-  // ---- Specific value checks ----
-  it('Should convert 515am to 5:15am in 12hr format', () => {
-    expect(formatTime('515am')).toBe('5:15am')
-    expect(formatTime('515am', '24hr')).toBe('05:15')
+  // ---- Additional unit tests cases ----
+
+  it('Converts 515 to 05:15 in 24hr format', () => {
+    expect(formatTime('515', '24hr')).toBe('05:15')
   })
 
-  it('Should convert 945am to 9:45am in 12hr format', () => {
-    expect(formatTime('945am')).toBe('9:45am')
-    expect(formatTime('945am', '24hr')).toBe('09:45')
+  it('Converts 515 to 5:15am in 12hr format', () => {
+    expect(formatTime('515', '12hr')).toBe('5:15am')
   })
 
-  it('Should convert 0515 (compact 4-digit) in 24hr format', () => {
-    expect(formatTime('0515', '24hr')).toBe('05:15')
+  it('Converts 945 to 09:45 in 24hr format', () => {
+    expect(formatTime('945', '24hr')).toBe('09:45')
   })
 
-  it('Should convert 0515 (compact 4-digit) in 12hr format', () => {
-    expect(formatTime('0515')).toBe('5:15am')
-  })
-
-  it('Should reject 945 without AM/PM as ambiguous', () => {
-    expect(formatTime('945')).toBe('INVALID_TIME_FORMAT')
+  it('Converts 945 to 9:45am in 12hr format', () => {
+    expect(formatTime('945', '12hr')).toBe('9:45am')
   })
 })

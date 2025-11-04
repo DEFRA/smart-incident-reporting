@@ -50,7 +50,7 @@ describe(url, () => {
             expect.objectContaining({ questionId: 1400, questionAsked: 'Enter your address', questionResponse: true, answerId: 1405, otherDetails: 'm11mm' }),
             expect.objectContaining({ questionId: 1900, questionAsked: 'Has this smell caused you problems before?', questionResponse: true, answerId: 1901 }),
             expect.objectContaining({ questionId: 2100, questionAsked: 'Is the smell still there?', questionResponse: true, answerId: 2101 }),
-            expect.objectContaining({ questionId: 2200, questionAsked: 'How strong is the smell?', questionResponse: true, answerId: 2214 }),
+            expect.objectContaining({ questionId: 2200, questionAsked: 'How strong is the smell?', questionResponse: true, answerId: 2203 }),
             expect.objectContaining({ questionId: 3000, questionAsked: 'Is the smell noticeable indoors?', questionResponse: true, answerId: 3001 }),
             expect.objectContaining({ questionId: 3500, questionAsked: 'Do you want to send us any images or videos of the problem?', questionResponse: true, answerId: 3501 }),
             expect.objectContaining({ questionId: 3600, questionAsked: 'Does the smell stick to your clothing or hair?', questionResponse: true, answerId: 3601 }),
