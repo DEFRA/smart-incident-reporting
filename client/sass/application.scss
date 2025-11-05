@@ -439,16 +439,6 @@ p {
   display: none;
 }
 
-@media (max-width: 40.0625em) {
-  .sticky-container {
-    background-color: white;
-    margin-top: 1rem;
-    position: sticky;
-    bottom: 0;
-    z-index: 2;
-  }
-}
-
 .map--check-your-answers {
   height: auto;
 

@@ -1,15 +1,23 @@
 {% extends 'form-layout.html' %}
 
-{% if noPoint %}
-{% set pageTitle = 'Error: ' + question.text %}
+{% if showCurrentLocation %}
+  {% if noPoint %}
+    {% set pageTitle = 'Error: ' + 'Check the location' %}
+  {% else %}
+    {% set pageTitle = 'Check the location' %}
+  {% endif %}
 {% else %}
-{% set pageTitle = question.text %}
+  {% if noPoint %}
+    {% set pageTitle = 'Error: ' + 'Mark the location' %}
+  {% else %}
+    {% set pageTitle = 'Mark the location' %}
+  {% endif %}
 {% endif %}
 
 {% block formContent %}
 
 {% if noPoint %}
-<div class="govuk-error-summary" data-module="govuk-error-summary">
+<div class="govuk-error-summary map-desktop-only" data-module="govuk-error-summary">
   <div role="alert">
     <h2 class="govuk-error-summary__title">
       There is a problem
@@ -43,25 +51,65 @@
 <div id="map-and-search-container" class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <div class="govuk-form-group {% if noPoint %}govuk-form-group--error{% endif %}">
+      <div class="exit-map-container">
+      {% if (not hideBackLink) %}
+        {{ govukBackLink({
+            text: "Exit map",
+            href: "#",
+            classes: "exit-map-link",
+            attributes: {
+                id: "exit-map-link",
+                onclick: "window.history.go(-1); return false;"
+            }
+        }) }}
+      {% endif %}
+      </div>
+      {% if noPoint %}
+      <div class="govuk-error-summary map-mobile-only" data-module="govuk-error-summary">
+        <div role="alert">
+          <h2 class="govuk-error-summary__title">
+            There is a problem
+          </h2>
+          <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                <li>
+                  <a href="#map" id="error-message">Tap the map to mark the location</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endif %}
       <h1 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--l" for="location">
-          {{ question.text }}
+        <label class="govuk-label govuk-label--l heading map-desktop-only" for="location">
+          {% if showCurrentLocation %}
+          Check the location
+          {% else %}
+          Mark the location
+          {% endif %}
+        </label>
+        <label class="govuk-label govuk-label--l heading map-mobile-only {% if noPoint %}hide-error{% endif %}" for="location">
+          {% if showCurrentLocation %}
+          Check the location
+          {% else %}
+          Mark the location
+          {% endif %}
         </label>
       </h1>
-      <p class="govuk-body">Tap or click on the map to drop a pin.</p>
+      <p class="govuk-body map-desktop-only">Tap or click on the map to drop a pin.</p>
       {% if noPoint %}
-        <p class="govuk-error-message" id="point-error">
+        <p class="govuk-error-message map-desktop-only" id="point-error">
           <span class="govuk-visually-hidden">Error:</span> Mark a location by clicking or tapping the map
         </p>
       {% endif %}
     </div>
       <div class="map-and-search-group">
         <div class="search-group">
-          <label for="location" class="govuk-label">Search for a town, city or postcode in England</label>
-          <p><a href="#" id="current-location">Use your current location</a></p>
+          <label for="location" class="govuk-label map-desktop-only">Search for a town, city or postcode in England</label>
+          <p class="map-desktop-only"><a href="#" id="current-location">Use your current location</a></p>
             <div class="search-box-and-button">
               <div id="location-container"></div>
-              <button class="govuk-button" id="search-location" aria-label="Search">
+              <button class="govuk-button map-desktop-only" id="search-location" aria-label="Search">
                 <svg aria-hidden="true" focusable="true" width="20" height="20" viewbox="0 0 20 20" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
                   <rect x="0" y="0" width="50" height="50" style="fill:none;"/>
                   <path d="M12.316,14.791c-1.242,0.79 -2.716,1.248 -4.296,1.248c-4.426,0 -8.02,-3.593 -8.02,-8.019c0,-4.426 3.594,-8.02 8.02,-8.02c4.426,0 8.019,3.594 8.019,8.02c0,1.58 -0.458,3.054 -1.248,4.296l5.209,5.209l-2.475,2.475l-5.209,-5.209Zm-4.296,-12.771c3.311,0 6,2.688 6,6c0,3.311 -2.689,6 -6,6c-3.312,0 -6,-2.689 -6,-6c0,-3.312 2.688,-6 6,-6Z" style="fill:currentColor;"/>
@@ -69,16 +117,18 @@
               </button>
             </div>
         </div>
-        <div id="map" class="map" aria-label="Map, tap or click on the map to drop a pin. Use the buttons to zoom in or out of map" tabindex="0"></div>
+        <div class="mobile-map">
+          <div id="map" class="map" aria-label="Map, tap or click on the map to drop a pin. Use the buttons to zoom in or out of map" tabindex="0"></div>
+        </div>
         <!--This hidden field holds the OSGB coordinate for the marker placed on the map-->
         <input type="hidden" id="point" name="point" value="[]">
       </div>
       
        <!-- Sticky button -->
       <div class="sticky-container">
-        <div class="govuk-!-padding-bottom-2"></div>
+        <div class="govuk-!-padding-bottom-2 map-desktop-only"></div>
         {{ govukButton({
-          text: "Continue",
+          html: "<span class=\"map-desktop-only\">Continue</span><span class=\"map-mobile-only\">Confirm location</span>",
           classes: "govuk-!-margin-bottom-0",
           attributes: {
             id: "continue",
@@ -86,7 +136,7 @@
             "data-testid": "continue"
             }
         }) }}
-        <div class="govuk-!-padding-bottom-2"></div>
+        <div class="govuk-!-padding-bottom-2 map-desktop-only"></div>
       </div> 
   </div>
 </div>
@@ -96,9 +146,18 @@
 {% block bodyEnd %}
   {{ super() }}
   <link rel="stylesheet" href="{{ assetPath }}/css/accessible-autocomplete.min.css">
-  <script src="{{ assetPath }}/js/locationMap.js"></script>
-  <script>
-    const safeMapConfig = {{ locationAnswer | dump | safe }}
-    locationMap.initialiseMap(safeMapConfig)
-  </script>
+  <link href="{{ assetPath }}/stylesheets/mobile-map.css" rel="stylesheet" />
+  {% if showCurrentLocation %}
+    <script src="{{ assetPath }}/js/locationMapGps.js"></script>
+    <script>
+      const safeMapConfig = {{ locationAnswer | dump | safe }}
+      locationMapGps.initialiseMap(safeMapConfig)
+    </script>
+  {% else %}
+    <script src="{{ assetPath }}/js/locationMap.js"></script>
+    <script>
+      const safeMapConfig = {{ locationAnswer | dump | safe }}
+      locationMap.initialiseMap(safeMapConfig)
+    </script>
+  {% endif %}
 {% endblock %}

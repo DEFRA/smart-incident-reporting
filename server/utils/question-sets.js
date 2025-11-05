@@ -6,6 +6,7 @@ const SOMETHING_ELSE = 'Something else'
 const NONE_OF_THESE = 'None of these'
 const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
 const NOT_GIVEN = 'Not given'
+const USE_CURRENT_LOCATION = 'Use your current location'
 const MARK_LOCATION_ON_MAP = 'Mark the location on an online map'
 const DESCRIBE_THE_LOCATION = 'Describe the location'
 const RUBBISH_OR_REFUSE = 'Rubbish or refuse'
@@ -243,6 +244,10 @@ const questionSets = {
         key: constants.redisKeys.WATER_POLLUTION_LOCATION_OPTION,
         text: 'How do you want to tell us where you\'ve seen water pollution?',
         answers: {
+          gps: {
+            answerId:2603,
+            text: USE_CURRENT_LOCATION
+          },
           map: {
             answerId: 2602,
             text: MARK_LOCATION_ON_MAP
@@ -878,6 +883,10 @@ const questionSets = {
         key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_OPTION,
         text: 'How do you want to tell us where you\'ve seen illegal fishing?',
         answers: {
+          gps: {
+            answerId:2603,
+            text: USE_CURRENT_LOCATION
+          },
           map: {
             answerId: 2602,
             text: MARK_LOCATION_ON_MAP

@@ -1,0 +1,151 @@
+#exit-map-link {
+  display: none;
+}
+
+.search-box-and-button {
+  input::placeholder {
+    opacity: 0;
+  }
+}
+
+.map-mobile-only {
+  display: none;
+}
+
+@media (max-width: 40.0625em) {
+  header.govuk-header, footer.govuk-footer, .govuk-phase-banner {
+    display: none;
+  }
+  #back-link {
+    display: none;
+  }
+  .map-desktop-only {
+    display: none !important;
+  }
+
+  .map-mobile-only {
+    display: block;
+  }
+  .map-mobile-only.hide-error {
+    display: none;
+  }
+  .map-mobile-only.govuk-error-summary {
+    margin-left: .6rem;
+    margin-right: .6rem;
+  }
+  .govuk-form-group.govuk-form-group--error {
+    padding-left: 0;
+    border-left: none;
+  }
+  .govuk-error-summary {
+    margin-bottom: 0;
+  }
+
+  #map-and-search-container {
+    display: block;
+  }
+
+  @supports (height: 101dvh) {
+    #map-and-search-container {
+      display: block;
+      -ms-content-zooming:none;  
+      touch-action: none;
+      overflow-y: hidden;
+      overflow-x: hidden; 
+      overflow-y: none; 
+      overflow-x: none;
+    }
+  }
+
+  .exit-map-container {
+    margin-left: 0.6rem;
+    margin-top: 5px !important;
+
+    #exit-map-link.govuk-back-link.exit-map-link {
+      display: block;
+      font-size: 16px;
+      margin-top: 0;
+    }
+  }
+  .govuk-form-group {
+    margin-bottom: 0;
+  }
+
+  .heading {
+    font-size: 1.125rem;
+    line-height: 1.1111111111;
+    font-weight: 700;
+    padding-left: .6rem;
+    padding-right: .6rem;
+    margin-bottom: 0;
+  }
+  .govuk-main-wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .govuk-grid-column-full {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 101vh;
+    height: 101dvh;
+  }
+
+  .govuk-form-group {
+    flex-grow: 0;
+  }
+
+  .map-and-search-group {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    .search-group {
+      position: absolute;
+      z-index: 3;
+      padding-top: 0;
+      padding-left: .6rem;
+      padding-right: .6rem;
+      padding-bottom: 5px;
+      left: 0;
+      right: 0;
+      
+      .search-box-and-button {
+        input::placeholder {
+          opacity: 1;
+        }
+      }
+    }
+    .mobile-map {
+      height: 100%;
+      position: relative;
+      width: 100%;
+      margin-bottom: -1.45em;
+      margin-top: 60px;
+    }
+    .map {
+      height: 100%;
+      position: relative;
+      width: 100%;
+      margin-bottom: -1.45em;
+      &:focus {
+        outline: 0 !important;
+      }
+      .ol-control {
+      display: none;
+      }
+    }
+  }
+
+  .sticky-container {
+    background-color: white;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: .6rem;
+    padding-right: .6rem;
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+  }
+}

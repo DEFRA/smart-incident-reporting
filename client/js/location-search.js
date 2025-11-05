@@ -83,6 +83,13 @@ const hideError = () => {
   }
 }
 
+const blurLocationInput = () => {
+  // closes the mobile keyboard
+  const locationinput = document.getElementById('location')
+  locationinput.blur()
+  console.log('inside blur function')
+}
+
 const getLocationName = (value) => {
   let location = ''
   if (value?.GAZETTEER_ENTRY.NAME1) {
@@ -102,6 +109,7 @@ const initialiseLocationSearch = () => {
   accessibleAutocomplete({
     element: document.querySelector('#location-container'),
     id: 'location',
+    placeholder: 'Search for a place in England',
     minLength: 3,
     autoselect: false,
     showNoOptionsFound: true,
@@ -128,6 +136,7 @@ const initialiseLocationSearch = () => {
     },
     onConfirm: (value) => {
       if (value) {
+        blurLocationInput()
         panToOSValue(value)
       } else {
         autoCompleteValue = value
