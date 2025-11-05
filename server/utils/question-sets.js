@@ -9,6 +9,9 @@ const NOT_GIVEN = 'Not given'
 const MARK_LOCATION_ON_MAP = 'Mark the location on an online map'
 const DESCRIBE_THE_LOCATION = 'Describe the location'
 const RUBBISH_OR_REFUSE = 'Rubbish or refuse'
+const YES = 'Yes'
+const NO_OTHER_WATER = 'No, it\'s some other kind of water'
+const YOU_ARE_NOT_SURE = 'You\'re not sure'
 
 const questionSets = {
   WATER_POLLUTION: {
