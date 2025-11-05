@@ -1147,7 +1147,7 @@ const questionSets = {
           },
           youAreNotSure: {
             answerId: 100004,
-            text: YOU_ARE_NOT_SURE            
+            text: YOU_ARE_NOT_SURE
           }
         }
       }

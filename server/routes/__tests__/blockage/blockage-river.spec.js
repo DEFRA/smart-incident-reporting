@@ -28,38 +28,38 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-     it('Should accept yes option and redirect to blockage/river-name', async () => {
-       const answerId = question.answers.yes.answerId
-       const options = {
-         url,
-         payload: {
-           answerId
-         }
-       }
-       const response = await submitPostRequest(options)
-       console.log(baseAnswer)
-       console.log(answerId)
-       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_RIVER_NAME)
-       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual([{
-         ...baseAnswer,
-         answerId
-       }])
-     })
+    it('Should accept yes option and redirect to blockage/river-name', async () => {
+      const answerId = question.answers.yes.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options)
+      console.log(baseAnswer)
+      console.log(answerId)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_RIVER_NAME)
+      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
     it('Should accept you are not sure option and redirect to blockage/report-local-council', async () => {
-       const answerId = question.answers.youAreNotSure.answerId
-       const options = {
-         url,
-         payload: {
-           answerId
-         }
-       }
-       const response = await submitPostRequest(options)
-       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_REPORT_LOCAL_COUNCIL)
-       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual([{
-         ...baseAnswer,
-         answerId
-       }])
-     })
+      const answerId = question.answers.youAreNotSure.answerId
+      const options = {
+        url,
+        payload: {
+          answerId
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_REPORT_LOCAL_COUNCIL)
+      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual([{
+        ...baseAnswer,
+        answerId
+      }])
+    })
     it('Sad: no radio selected, returns error state', async () => {
       const options = {
         url,
