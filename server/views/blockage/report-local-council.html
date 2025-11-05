@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% set pageTitle = 'Report the smell to your local council' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">
+      Report the blockage directly
+      <p>It's quicker to report blockages in some watercourses or systems directly to your council, utility company or the property owner.</p>
+    </h1>
+
+    <h2 class="govuk-heading-m">Public sewers and water mains</h2>
+    <p> Contact your <a href="https://www.water.org.uk/customers/find-your-supplier">local water company</a>to report:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>blocked sewers</li>
+      <li>leaking or burst water mains</li>     
+    </ul>    
+
+    <h2 class="govuk-heading-m">Minor rivers and streams, or drains</h2>
+    <p> Contact your local council to report:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li><a href="https://www.gov.uk/find-local-council">blockages in minor rivers, brooks or streams</a></li>
+      <li><a href="https://www.gov.uk/report-blocked-drain">blocked public drains</a></li>     
+    </ul>    
+
+    <h2 class="govuk-heading-m">Private watercourses and sewage systems</h2>
+    <p> Contact the property owner if you know who they are, otherwise <a href="https://www.gov.uk/find-local-council">contact your local council</a>.</p>    
+  </div>
+</div>
+
+{% endblock %}
