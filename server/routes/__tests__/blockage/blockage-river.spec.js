@@ -37,8 +37,6 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      console.log(baseAnswer)
-      console.log(answerId)
       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_RIVER_NAME)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual([{
         ...baseAnswer,
