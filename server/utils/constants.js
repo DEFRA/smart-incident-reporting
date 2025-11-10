@@ -107,6 +107,12 @@ const ILLEGAL_FISHING_CONTACT_DETAILS = 'illegal-fishing/contact-details'
 const ILLEGAL_FISHING_IMAGES_OR_VIDEO = 'illegal-fishing/images-or-video'
 const ILLEGAL_FISHING_OTHER_INFORMATION = 'illegal-fishing/other-information'
 
+const BLOCKAGE_START = 'blockage-start'
+const BLOCKAGE = 'blockage'
+const BLOCKAGE_RIVER = 'blockage/river'
+const BLOCKAGE_RIVER_NAME = 'blockage/river-name'
+const BLOCKAGE_REPORT_LOCAL_COUNCIL = 'blockage/report-local-council'
+
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 const REFERER = 'referer'
@@ -121,7 +127,8 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
   viewsExtra = {
     WATER_POLLUTION_START,
     SMELL_START,
-    ILLEGAL_FISHING_START
+    ILLEGAL_FISHING_START,
+    BLOCKAGE_START
   }
 }
 
@@ -216,7 +223,12 @@ const views = {
   ILLEGAL_FISHING_NUMBER_OF_FISH,
   ILLEGAL_FISHING_CONTACT_DETAILS,
   ILLEGAL_FISHING_IMAGES_OR_VIDEO,
-  ILLEGAL_FISHING_OTHER_INFORMATION
+  ILLEGAL_FISHING_OTHER_INFORMATION,
+  BLOCKAGE,
+  BLOCKAGE_START,
+  BLOCKAGE_RIVER,
+  BLOCKAGE_RIVER_NAME,
+  BLOCKAGE_REPORT_LOCAL_COUNCIL
 }
 
 const routes = {
