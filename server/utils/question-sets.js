@@ -12,6 +12,9 @@ const RUBBISH_OR_REFUSE = 'Rubbish or refuse'
 const YES = 'Yes'
 const NO_OTHER_WATER = 'No, it\'s some other kind of water'
 const YOU_ARE_NOT_SURE = 'You\'re not sure'
+const YES = 'Yes'
+const NO_OTHER_WATER = 'No, it\'s some other kind of water'
+const YOU_ARE_NOT_SURE = 'You\'re not sure'
 
 const questionSets = {
   WATER_POLLUTION: {
