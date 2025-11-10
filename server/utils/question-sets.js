@@ -9,9 +9,6 @@ const NOT_GIVEN = 'Not given'
 const MARK_LOCATION_ON_MAP = 'Mark the location on an online map'
 const DESCRIBE_THE_LOCATION = 'Describe the location'
 const RUBBISH_OR_REFUSE = 'Rubbish or refuse'
-const YES = 'Yes'
-const NO_OTHER_WATER = 'No, it\'s some other kind of water'
-const YOU_ARE_NOT_SURE = 'You\'re not sure'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -1130,24 +1127,24 @@ const questionSets = {
     }
   },
   BLOCKAGE: {
-    questionSetId: 10000,
+    questionSetId: 300,
     questions: {
       BLOCKAGE_IN_RIVER: {
-        questionId: 10001,
+        questionId: 5000,
         key: constants.redisKeys.BLOCKAGE_RIVER,
         text: 'Is the blockage in a river?',
         answers: {
           yes: {
-            answerId: 100002,
-            text: YES
+            answerId: 5001,
+            text: 'Yes'
           },
           noOtherWater: {
-            answerId: 100003,
-            text: NO_OTHER_WATER
+            answerId: 5002,
+            text: 'No, it\'s some other kind of water'
           },
           youAreNotSure: {
-            answerId: 100004,
-            text: YOU_ARE_NOT_SURE
+            answerId: 5003,
+            text: 'You\'re not sure'
           }
         }
       }
