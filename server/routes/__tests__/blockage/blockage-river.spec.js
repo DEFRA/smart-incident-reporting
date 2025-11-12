@@ -52,7 +52,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_REPORT_LOCAL_COUNCIL)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_REPORT_DIRECTLY)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual([{
         ...baseAnswer,
         answerId

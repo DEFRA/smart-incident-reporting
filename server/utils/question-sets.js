@@ -1147,6 +1147,40 @@ const questionSets = {
             text: 'You\'re not sure'
           }
         }
+      },
+      BLOCKAGE_TYPE: {
+        questionId: 110,
+        key: constants.redisKeys.BLOCKAGE_TYPE,
+        text: 'what is blocking the river?',
+        answers: {
+          fallenTree: {
+            answerId: 111,
+            text: 'A fallen tree or other vegetation'
+          },
+          vehicle: {
+            answerId: 112,
+            text: 'A vehicle'
+          },
+          rubbish: {
+            answerId: 113,
+            text: 'A build up of material, such as rubbish, soil or stone'
+          },
+          deliberate: {
+            answerId: 114,
+            text: 'Someone deliberately blocking the river, for example with a temporary structure'
+          },
+          somethingElse: {
+            answerId: 115,
+            text: SOMETHING_ELSE
+          },
+          youDoNotKnow: {
+            answerId: 116,
+            text: YOU_DO_NOT_KNOW
+          },
+          somethingElseDetails: {
+            answerId: 117
+          }
+        }
       }
     }
   },

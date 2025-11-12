@@ -37,7 +37,7 @@ const handlers = {
     if (answerId === question.answers.yes.answerId) {
       return h.redirect(constants.routes.BLOCKAGE_RIVER_NAME)
     } else {
-      return h.redirect(constants.routes.BLOCKAGE_REPORT_LOCAL_COUNCIL)
+      return h.redirect(constants.routes.BLOCKAGE_REPORT_DIRECTLY)
     }
   }
 }
