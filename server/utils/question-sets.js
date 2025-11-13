@@ -245,7 +245,7 @@ const questionSets = {
         text: 'How do you want to tell us where you\'ve seen water pollution?',
         answers: {
           gps: {
-            answerId:2603,
+            answerId: 2603,
             text: USE_CURRENT_LOCATION
           },
           map: {
@@ -271,7 +271,7 @@ const questionSets = {
       WATER_POLLUTION_LOCATION_MAP: {
         questionId: 2700,
         key: constants.redisKeys.WATER_POLLUTION_LOCATION_MAP,
-        text: 'Mark the location of the pollution',
+        text: 'Mark the location',
         answers: {
           nationalGridReference: {
             answerId: 2701
@@ -529,7 +529,7 @@ const questionSets = {
       SMELL_LOCATION_MAP: {
         questionId: 2700,
         key: constants.redisKeys.SMELL_LOCATION_MAP,
-        text: 'Mark the location of the smell',
+        text: 'Mark the location',
         answers: {
           nationalGridReference: {
             answerId: 2701
@@ -884,7 +884,7 @@ const questionSets = {
         text: 'How do you want to tell us where you\'ve seen illegal fishing?',
         answers: {
           gps: {
-            answerId:2603,
+            answerId: 2603,
             text: USE_CURRENT_LOCATION
           },
           map: {
@@ -910,7 +910,7 @@ const questionSets = {
       ILLEGAL_FISHING_LOCATION_MAP: {
         questionId: 2700,
         key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_MAP,
-        text: 'Mark the location of the illegal fishing',
+        text: 'Mark the location',
         answers: {
           nationalGridReference: {
             answerId: 2701

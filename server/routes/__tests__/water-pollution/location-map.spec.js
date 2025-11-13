@@ -12,10 +12,17 @@ const baseAnswer = {
   answerId: question.answers.nationalGridReference.answerId
 }
 
+const sessionData = {
+  'water-pollution/location-option': [{
+    questionId: 2600,
+    answerId: 2602
+  }]
+}
+
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, header)
+      await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
     })
   })
 

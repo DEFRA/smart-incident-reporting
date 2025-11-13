@@ -113,6 +113,7 @@ const initialiseLocationSearch = () => {
     minLength: 3,
     autoselect: false,
     showNoOptionsFound: true,
+    displayMenu: 'overlay',
     templates: {
       suggestion: getLocationName,
       inputValue: (value) => {
