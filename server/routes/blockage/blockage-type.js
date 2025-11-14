@@ -18,10 +18,10 @@ const handlers = {
   },
   post: async (request, h) => {
     // get payload
-    let { answerId } = request.payload
+    let { answerId, somethingElseDetails } = request.payload
 
     // validate payload for errors
-    const errorSummary = validatePayload(answerId)
+    const errorSummary = validatePayload(answerId, somethingElseDetails)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.BLOCKAGE_TYPE, {
         errorSummary,
@@ -75,12 +75,19 @@ const getContext = request => {
   }
 }
 
-const validatePayload = answerId => {
+const validatePayload = (answerId, somethingElseDetails) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
       text: 'Select what is blocking the river or you do not know',
       href: '#answerId'
+    })
+  }
+  // If something else option is selected , something details  feild should not be empty
+  if ((Number(answerId) === question.answers.somethingElse.answerId) && (!somethingElseDetails)) {
+    errorSummary.errorList.push({
+      text: 'Enter details of what is blocking the river',
+      href: '#somethingElseDetails'
     })
   }
   return errorSummary

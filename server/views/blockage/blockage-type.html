@@ -12,11 +12,12 @@
       id: "somethingElseDetails",
       name: "somethingElseDetails",
       spellcheck: false,
-      classes: "govuk-!-width-two-thirds",
+      classes: "govuk-!-width-two-thirds",      
       value: getAnswer(answers, question.answers.somethingElseDetails.answerId),
       label: {
         text: "Give details about what is blocking the river"
-      }
+      },
+      errorMessage: findErrorMessageById(errorSummary, "somethingElseDetails")
     }) }}
     {% endset %}
 
