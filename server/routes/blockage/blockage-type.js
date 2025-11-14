@@ -20,6 +20,12 @@ const handlers = {
     // get payload
     let { answerId, somethingElseDetails } = request.payload
 
+    // convert answerId to number
+    answerId = Number(answerId)
+
+    // set answer in session
+    request.yar.set(constants.redisKeys.BLOCKAGE_TYPE, buildAnswers(answerId, request))
+
     // validate payload for errors
     const errorSummary = validatePayload(answerId, somethingElseDetails)
     if (errorSummary.errorList.length > 0) {
@@ -29,11 +35,6 @@ const handlers = {
       })
     }
 
-    // convert answerId to number
-    answerId = Number(answerId)
-
-    // set answer in session
-    request.yar.set(constants.redisKeys.BLOCKAGE_TYPE, buildAnswers(answerId, request))
     // handle redirects
     return h.redirect(constants.routes.BLOCKAGE_LOCATION_OPTION)
   }
