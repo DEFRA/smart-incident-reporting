@@ -163,5 +163,19 @@ describe(url, () => {
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Select what is blocking the river or you do not know')
     })
+    it('Sad: Somethingelse option is selected and no somethingelse details added ', async () => {
+      const answerId = question.answers.somethingElse.answerId
+      const somethingElseDetails = ''
+      const options = {
+        url,
+        payload: {
+          answerId,
+          somethingElseDetails
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.OK)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain('Enter details of what is blocking the river')
+    })
   })
 })
