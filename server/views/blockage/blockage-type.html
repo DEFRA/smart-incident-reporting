@@ -1,12 +1,81 @@
-{% extends 'layout.html' %}
+{% extends 'form-layout.html' %}
 
-{% set pageTitle = 'Whats blocking the river?' %}
+{% set pageTitle = question.text %}
 
-{% block content %}
+{% block formContent %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>    
+  
+    {% set otherHtmlSomethingElseDetails %}
+    {{ govukInput({
+      id: "somethingElseDetails",
+      name: "somethingElseDetails",
+      spellcheck: false,
+      classes: "govuk-!-width-two-thirds",      
+      value: getAnswer(answers, question.answers.somethingElseDetails.answerId),
+      label: {
+        text: "Give details about what is blocking the river"
+      },
+      errorMessage: findErrorMessageById(errorSummary, "somethingElseDetails")
+    }) }}
+    {% endset %}
+
+    {{ govukRadios({
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      fieldset: {
+        legend: {
+          text: question.text,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: question.answers.fallenTree.answerId,
+          text: question.answers.fallenTree.text,
+          checked: getAnswer(answers, question.answers.fallenTree.answerId)          
+        },
+        {
+          value: question.answers.vehicle.answerId,
+          text: question.answers.vehicle.text,
+          checked: getAnswer(answers, question.answers.vehicle.answerId)
+        },
+        {
+          value: question.answers.rubbish.answerId,
+          text: question.answers.rubbish.text,
+          checked: getAnswer(answers, question.answers.rubbish.answerId)
+        },        
+        {
+          value: question.answers.deliberate.answerId,
+          text: question.answers.deliberate.text,
+          checked: getAnswer(answers, question.answers.deliberate.answerId)
+        },  
+        {
+          value: question.answers.somethingElse.answerId,
+          text: question.answers.somethingElse.text,
+          checked: getAnswer(answers, question.answers.somethingElse.answerId),
+          conditional: {
+            html: otherHtmlSomethingElseDetails
+          }
+        },
+        {
+          divider: "or"
+        },
+        {
+          value: question.answers.youDoNotKnow.answerId,
+          text: question.answers.youDoNotKnow.text,
+          checked: getAnswer(answers, question.answers.youDoNotKnow.answerId)
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
   </div>
 </div>
 

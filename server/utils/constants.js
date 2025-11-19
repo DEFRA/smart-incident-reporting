@@ -111,8 +111,9 @@ const BLOCKAGE_START = 'blockage-start'
 const BLOCKAGE = 'blockage'
 const BLOCKAGE_RIVER = 'blockage/river'
 const BLOCKAGE_RIVER_NAME = 'blockage/river-name'
-const BLOCKAGE_REPORT_LOCAL_COUNCIL = 'blockage/report-local-council'
+const BLOCKAGE_REPORT_DIRECTLY = 'blockage/report-directly'
 const BLOCKAGE_TYPE = 'blockage/blockage-type'
+const BLOCKAGE_LOCATION_OPTION = 'blockage/location-option'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -229,8 +230,9 @@ const views = {
   BLOCKAGE_START,
   BLOCKAGE_RIVER,
   BLOCKAGE_RIVER_NAME,
-  BLOCKAGE_REPORT_LOCAL_COUNCIL,
-  BLOCKAGE_TYPE
+  BLOCKAGE_REPORT_DIRECTLY,
+  BLOCKAGE_TYPE,
+  BLOCKAGE_LOCATION_OPTION
 }
 
 const routes = {
