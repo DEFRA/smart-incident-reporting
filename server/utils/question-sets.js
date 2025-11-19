@@ -1164,6 +1164,9 @@ const questionSets = {
           yesDetails: {
             answerId: 509,
             text: 'Name of the river'
+          }
+        }
+      },
       BLOCKAGE_TYPE: {
         questionId: 110,
         key: constants.redisKeys.BLOCKAGE_TYPE,
