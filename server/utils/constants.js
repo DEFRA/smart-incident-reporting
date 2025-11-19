@@ -114,6 +114,8 @@ const BLOCKAGE_RIVER_NAME = 'blockage/river-name'
 const BLOCKAGE_REPORT_DIRECTLY = 'blockage/report-directly'
 const BLOCKAGE_TYPE = 'blockage/blockage-type'
 const BLOCKAGE_LOCATION_OPTION = 'blockage/location-option'
+const BLOCKAGE_LOCATION_MAP = 'blockage/location-map'
+const BLOCKAGE_LOCATION_DESCRIPTION = 'blockage/location-description'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -232,7 +234,10 @@ const views = {
   BLOCKAGE_RIVER_NAME,
   BLOCKAGE_REPORT_DIRECTLY,
   BLOCKAGE_TYPE,
-  BLOCKAGE_LOCATION_OPTION
+  BLOCKAGE_LOCATION_OPTION,
+  BLOCKAGE_LOCATION_MAP,
+  BLOCKAGE_LOCATION_DESCRIPTION
+
 }
 
 const routes = {
