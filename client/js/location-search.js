@@ -5,7 +5,7 @@ let autoCompleteValue
 const locationSearchButton = document.getElementById('search-location')
 const currentLocationErrorId = 'current-location-error'
 
-/// // Events
+// Events
 locationSearchButton.addEventListener('click', async (e) => {
   e.preventDefault()
   if (autoCompleteValue) {
@@ -178,6 +178,12 @@ const initialiseLocationSearch = () => {
     e.preventDefault()
     if (!autoCompleteValue && e.key === 'Enter') {
       await searchLocation()
+    }
+  })
+
+  locationTextBox.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      blurLocationInput()
     }
   })
 }
