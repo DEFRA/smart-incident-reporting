@@ -1200,6 +1200,16 @@ const questionSets = {
             text: DESCRIBE_THE_LOCATION
           }
         }
+      },
+      BLOCKAGE_LOCATION_DESCRIPTION: {
+        questionId: 900,
+        key: constants.redisKeys.BLOCKAGE_LOCATION_DESCRIPTION,
+        text: 'Location description',
+        answers: {
+          locationDetails: {
+            answerId: 901
+          }
+        }
       }
     }
   },

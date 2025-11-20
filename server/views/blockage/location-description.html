@@ -1,12 +1,37 @@
-{% extends 'layout.html' %}
+{% extends 'form-layout.html' %}
 
-{% set pageTitle = 'Location Description-TODO' %}
+{% set pageTitle = question.text.replace('?', '') %}
 
-{% block content %}
+{% block formContent %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>    
+    <h1 class="govuk-heading-l">Location description</h1>
+    <p>Enter as detailed a description of the location where you've seen pollution as you can.</p>
+    <p>You could include:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>the nearest town or village</li>
+      <li>landmarks, such as bridges</li>
+      <li>a postcode or address</li>
+      <li><a href="http://www.what3words.co.uk">what3words</a> or map references, if you have them</li>
+    </ul>
+    
+    {{ govukTextarea({
+      name: "locationDescription",
+      id: "locationDescription",
+      rows: "10",
+      label: {
+        text: "Describe where you've seen pollution",
+        classes: "govuk-label--m",
+        isPageHeading: false
+      },
+      errorMessage: findErrorMessageById(errorSummary, 'locationDescription'),
+      value: getAnswer(answers, question.answers.locationDetails.answerId)
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
   </div>
 </div>
 
