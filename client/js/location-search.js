@@ -37,7 +37,7 @@ const searchLocation = async () => {
 const showError = (message) => {
   const currentLocation = document.getElementById('current-location')
   const errorMessage = document.getElementById('error-message')
-  // Clear out point error if present
+
   if (document.getElementById('point-error')) {
     document.getElementById('point-error').remove()
   }
@@ -84,10 +84,8 @@ const hideError = () => {
 }
 
 const blurLocationInput = () => {
-  // closes the mobile keyboard
   const locationinput = document.getElementById('location')
   locationinput.blur()
-  console.log('inside blur function')
 }
 
 const getLocationName = (value) => {
@@ -98,8 +96,6 @@ const getLocationName = (value) => {
       location += ` | ${value.GAZETTEER_ENTRY.COUNTY_UNITARY}`
     } else if (value.GAZETTEER_ENTRY.REGION) {
       location += ` | ${value.GAZETTEER_ENTRY.REGION}`
-    } else {
-      // do nothing for sonarcloud
     }
   }
   return location
@@ -123,15 +119,12 @@ const initialiseLocationSearch = () => {
     source: async (query, populateResults) => {
       autoCompleteValue = null
       const response = await fetch(`/api/location-suggestions?location=${query}`)
-      // Filter results to exact string matches
       const data = await response.json()
-      if (!data || data.length === 0) {
-        console.log('No location results found')
-      }
 
-      // Strip out any non England results
       const englandmatches = data.filter(item => {
-        return (item.GAZETTEER_ENTRY.COUNTRY === 'England' && item.GAZETTEER_ENTRY.NAME1.toLowerCase().replaceAll(' ', '').includes(query.toLowerCase().replaceAll(' ', '')))
+        return (item.GAZETTEER_ENTRY.COUNTRY === 'England' &&
+          item.GAZETTEER_ENTRY.NAME1.toLowerCase().replaceAll(' ', '')
+            .includes(query.toLowerCase().replaceAll(' ', '')))
       })
       populateResults(englandmatches)
     },
@@ -145,6 +138,40 @@ const initialiseLocationSearch = () => {
       hideError()
     }
   })
+
+  setTimeout(() => {
+    const wrapper = document.querySelector('.location-input-wrapper')
+    const input = document.getElementById('location')
+    if (!wrapper || !input) return
+
+    const clearBtn = document.createElement('button')
+    clearBtn.type = 'button'
+    clearBtn.className = 'clear-input-button'
+    clearBtn.setAttribute('aria-label', 'Clear search input')
+    clearBtn.innerHTML = `<svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+    <path d="M10,8.6L15.6,3L17,4.4L11.4,10L17,15.6L15.6,17L10,11.4L4.4,17L3,15.6L8.6,10L3,4.4L4.4,3L10,8.6Z" style="fill: currentcolor; stroke-width: 0;">
+    </path>
+    </svg>`
+
+    wrapper.appendChild(clearBtn)
+
+    const toggleClear = () => {
+      clearBtn.style.display = input.value ? 'block' : 'none'
+    }
+
+    input.addEventListener('input', toggleClear)
+
+    clearBtn.addEventListener('click', () => {
+      input.value = ''
+      input.dispatchEvent(new Event('input'))
+      autoCompleteValue = null
+      hideError()
+      input.focus()
+      toggleClear()
+    })
+
+    toggleClear()
+  }, 0)
 
   const locationTextBox = document.getElementById('location')
   locationTextBox.addEventListener('keyup', async (e) => {
