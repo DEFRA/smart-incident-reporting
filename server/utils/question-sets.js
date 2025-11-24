@@ -483,16 +483,20 @@ const questionSets = {
         }
       },
       SMELL_LOCATION_OPTION: {
-        questionId: 1200,
+        questionId: 2600,
         key: constants.redisKeys.SMELL_LOCATION_OPTION,
         text: 'How do you want to tell us where you\'ve noticed the smell?',
         answers: {
+          gps: {
+            answerId: 2603,
+            text: USE_CURRENT_LOCATION
+          },
           map: {
-            answerId: 1201,
+            answerId: 2602,
             text: MARK_LOCATION_ON_MAP
           },
           description: {
-            answerId: 1202,
+            answerId: 2601,
             text: DESCRIBE_THE_LOCATION
           }
         }

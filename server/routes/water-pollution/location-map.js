@@ -39,7 +39,7 @@ const handlers = {
 
 const getContext = request => {
   const locationOption = request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_OPTION)
-  const showCurrentLocation = locationOption[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LOCATION_OPTION.answers.gps.answerId
+  const showCurrentLocation = locationOption?.[0]?.answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LOCATION_OPTION.answers.gps.answerId
   const location = request.yar.get(constants.redisKeys.WATER_POLLUTION_LOCATION_MAP)
   const locationAnswer = location && {
     point: [Number(location[1].otherDetails), Number(location[2].otherDetails)],
