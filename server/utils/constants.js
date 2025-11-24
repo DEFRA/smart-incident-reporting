@@ -116,6 +116,7 @@ const BLOCKAGE_TYPE = 'blockage/blockage-type'
 const BLOCKAGE_LOCATION_OPTION = 'blockage/location-option'
 const BLOCKAGE_LOCATION_MAP = 'blockage/location-map'
 const BLOCKAGE_LOCATION_DESCRIPTION = 'blockage/location-description'
+const BLOCKAGE_OTHER_LOCATION_INFORMATION = 'blockage/other-location-information'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -236,7 +237,8 @@ const views = {
   BLOCKAGE_TYPE,
   BLOCKAGE_LOCATION_OPTION,
   BLOCKAGE_LOCATION_MAP,
-  BLOCKAGE_LOCATION_DESCRIPTION
+  BLOCKAGE_LOCATION_DESCRIPTION,
+  BLOCKAGE_OTHER_LOCATION_INFORMATION
 
 }
 

@@ -80,14 +80,14 @@ const validatePayload = (answerId, somethingElseDetails) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select what is blocking the river or you do not know',
+      text: 'Select what\'s blocking the river or you do not know',
       href: '#answerId'
     })
   }
   // If something else option is selected , something details  feild should not be empty
   if ((Number(answerId) === question.answers.somethingElse.answerId) && (!somethingElseDetails)) {
     errorSummary.errorList.push({
-      text: 'Enter details of what is blocking the river',
+      text: 'Enter details of what\'s blocking the river',
       href: '#somethingElseDetails'
     })
   }
