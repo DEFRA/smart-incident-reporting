@@ -1148,6 +1148,25 @@ const questionSets = {
           }
         }
       },
+      BLOCKAGE_RIVER_NAME: {
+        questionId: 500,
+        key: constants.redisKeys.BLOCKAGE_RIVER_NAME,
+        text: 'Do you know the name of the river?',
+        answers: {
+          yes: {
+            answerId: 501,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 502,
+            text: 'No'
+          },
+          yesDetails: {
+            answerId: 509,
+            text: 'Name of the river'
+          }
+        }
+      },
       BLOCKAGE_TYPE: {
         questionId: 110,
         key: constants.redisKeys.BLOCKAGE_TYPE,
