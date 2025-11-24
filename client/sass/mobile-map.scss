@@ -165,13 +165,13 @@
         all: unset;
         display: none; /* toggled by JS */
         position: absolute;
-        right: 0.6rem;
+        right: 0.2rem;
         top: 50%;
-        padding-top: 5px;
+        padding: 11px;
         transform: translateY(-50%);
         cursor: pointer;
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
         z-index: 3;
         color: #000000;
         background: none;
