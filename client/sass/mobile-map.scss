@@ -112,8 +112,8 @@
 
   /* Heading styles */
   .heading {
-    font-size: 1.125rem;
-    line-height: 1.11;
+    font-size: 1.5rem;
+    line-height: 1.0416666667;
     font-weight: 700;
     margin-bottom: 0;
     padding-inline: 0.6rem;
@@ -165,12 +165,13 @@
         all: unset;
         display: none; /* toggled by JS */
         position: absolute;
-        right: 0.5rem;
+        right: 0.6rem;
         top: 50%;
+        padding-top: 5px;
         transform: translateY(-50%);
         cursor: pointer;
-        width: 20px;
-        height: 20px;
+        width: 25px;
+        height: 25px;
         z-index: 3;
         color: #000000;
         background: none;
@@ -201,6 +202,7 @@
     position: relative;
     width: 100%;
     height: 100%;
+    margin-top: 6px;
     margin-bottom: -1.45em;
 
     &:focus {
@@ -232,5 +234,11 @@
     width: 100%;
     padding-right: 2.6rem;
     box-sizing: border-box;
+    height: 46px;
+  }
+
+  /* Additional styles */
+  .autocomplete__hint, .autocomplete__option {
+    padding: 8px;
   }
 }

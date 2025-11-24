@@ -5,7 +5,7 @@ let autoCompleteValue
 const locationSearchButton = document.getElementById('search-location')
 const currentLocationErrorId = 'current-location-error'
 
-// Handle desktop search button click (also triggered on mobile Enter)
+// Handle desktop search button click
 locationSearchButton.addEventListener('click', async (e) => {
   e.preventDefault()
   await handleSearchButtonClick()
@@ -15,7 +15,7 @@ locationSearchButton.addEventListener('click', async (e) => {
 const handleSearchButtonClick = async () => {
   const inputValue = document.getElementById('location').value
 
-  // No input - show error immediately
+  // No input
   if (!inputValue) {
     return setTimeout(() => showError('Enter a search term, for example a nearby town, city or postcode'), 50)
   }
