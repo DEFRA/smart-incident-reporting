@@ -1200,6 +1200,25 @@ const questionSets = {
             answerId: 117
           }
         }
+      },
+      BLOCKAGE_LOCATION_OPTION: {
+        questionId: 2600,
+        key: constants.redisKeys.BLOCKAGE_LOCATION_OPTION,
+        text: 'How do you want to tell us where the blockage is?',
+        answers: {
+          currentLocation: {
+            answerId: 2603,
+            text: 'Use the current location'
+          },
+          map: {
+            answerId: 2602,
+            text: MARK_LOCATION_ON_MAP
+          },
+          description: {
+            answerId: 2601,
+            text: DESCRIBE_THE_LOCATION
+          }
+        }
       }
     }
   },
