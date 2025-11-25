@@ -9,6 +9,7 @@ const NOT_GIVEN = 'Not given'
 const USE_CURRENT_LOCATION = 'Use your current location'
 const MARK_LOCATION_ON_MAP = 'Mark the location on an online map'
 const DESCRIBE_THE_LOCATION = 'Describe the location'
+const MARK_THE_LOCATION = 'Mark the location'
 const RUBBISH_OR_REFUSE = 'Rubbish or refuse'
 
 const questionSets = {
@@ -271,7 +272,7 @@ const questionSets = {
       WATER_POLLUTION_LOCATION_MAP: {
         questionId: 2700,
         key: constants.redisKeys.WATER_POLLUTION_LOCATION_MAP,
-        text: 'Mark the location',
+        text: MARK_THE_LOCATION,
         answers: {
           nationalGridReference: {
             answerId: 2701
@@ -533,7 +534,7 @@ const questionSets = {
       SMELL_LOCATION_MAP: {
         questionId: 2700,
         key: constants.redisKeys.SMELL_LOCATION_MAP,
-        text: 'Mark the location',
+        text: MARK_THE_LOCATION,
         answers: {
           nationalGridReference: {
             answerId: 2701
@@ -914,7 +915,7 @@ const questionSets = {
       ILLEGAL_FISHING_LOCATION_MAP: {
         questionId: 2700,
         key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_MAP,
-        text: 'Mark the location',
+        text: MARK_THE_LOCATION,
         answers: {
           nationalGridReference: {
             answerId: 2701
