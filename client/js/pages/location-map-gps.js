@@ -39,14 +39,14 @@ currentLocationButton.addEventListener('click', async (e) => {
   await handleCurrentLocation()
 })
 
-// Initialise the map depending on whether cached data exists
+
 window.addEventListener('DOMContentLoaded', async () => {
   try {
-    // safeMapConfig is injected server-side via template:
+    // safeMapConfig is injected server-side via template
     // e.g. { coordinates: [lng, lat], zoom: 12 }
     const config = window.safeMapConfig
 
-    if (config && config.coordinates) {
+    if (config?.coordinates) {
       // Use cached location if available
       const transformed = transformPoint(config.coordinates)
       panToPoint(transformed, 1000)
