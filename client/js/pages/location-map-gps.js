@@ -39,7 +39,6 @@ currentLocationButton.addEventListener('click', async (e) => {
   await handleCurrentLocation()
 })
 
-
 window.addEventListener('DOMContentLoaded', async () => {
   try {
     // safeMapConfig is injected server-side via template

@@ -43,7 +43,6 @@ const getSearchInputValue = () => {
   return document.getElementById('location')?.value?.trim() || ''
 }
 
-
 // Search for a location based on manual input
 const searchLocation = async () => {
   const locationString = getSearchInputValue()
@@ -79,7 +78,7 @@ const showError = (message) => {
   formGroup.classList.remove('govuk-form-group--error')
 
   // Desktop summary
-  let desktopSummary = document.querySelector('.govuk-error-summary.map-desktop-only')
+  const desktopSummary = document.querySelector('.govuk-error-summary.map-desktop-only')
   if (!desktopSummary) {
     const formElement = document.querySelector('form')
     formElement.insertAdjacentHTML('beforebegin', `
@@ -100,7 +99,7 @@ const showError = (message) => {
 
   // Mobile summary
   const labelWrapper = document.querySelector('.govuk-label-wrapper')
-  let mobileSummary = document.querySelector('.govuk-error-summary.map-mobile-only')
+  const mobileSummary = document.querySelector('.govuk-error-summary.map-mobile-only')
   if (!mobileSummary) {
     labelWrapper.insertAdjacentHTML('beforebegin', `
       <div class="govuk-error-summary map-mobile-only" data-module="govuk-error-summary">
