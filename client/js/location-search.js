@@ -219,7 +219,7 @@ const initialiseLocationSearch = () => {
   setTimeout(() => {
     const wrapper = document.querySelector('.location-input-wrapper')
     const input = document.getElementById('location')
-    
+
     if (!wrapper || !input) {
       return
     }
