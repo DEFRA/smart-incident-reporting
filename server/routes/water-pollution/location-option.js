@@ -34,7 +34,7 @@ const handlers = {
     request.yar.set(constants.redisKeys.WATER_POLLUTION_LOCATION_OPTION, buildAnswers(answerId))
 
     // handle redirects
-    if (answerId === question.answers.map.answerId) {
+    if (answerId === question.answers.gps.answerId || answerId === question.answers.map.answerId) {
       return h.redirect(constants.routes.WATER_POLLUTION_LOCATION_MAP)
     } else {
       return h.redirect(constants.routes.WATER_POLLUTION_LOCATION_DESCRIPTION)
