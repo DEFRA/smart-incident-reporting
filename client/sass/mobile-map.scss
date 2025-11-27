@@ -1,0 +1,244 @@
+/* =============== Map Page Styles =============== */
+
+/* ---------- Base Styles ---------- */
+
+#exit-map-link {
+  display: none;
+}
+
+.search-box-and-button {
+  display: table;
+  width: 66%;
+
+  input::placeholder {
+    opacity: 0;
+  }
+}
+
+.map-mobile-only {
+  display: none;
+}
+
+.location-input-wrapper {
+  display: table-cell;
+  width: 100%;
+  vertical-align: top;
+}
+
+.location-input-wrapper #location-container {
+  width: 100%;
+  display: block; /* block inside table-cell */
+}
+
+#location-container input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ---------- Only desktop (>= 640px / 40.0625em) ---------- */
+@media (min-width: 40.0625em) {
+  .clear-input-button {
+  display: none !important;
+}
+}
+
+/* ---------- Mobile (<= 640px / 40.0625em) ---------- */
+@media (max-width: 40.0625em) {
+  /* Hide standard GOV.UK elements */
+  header.govuk-header,
+  footer.govuk-footer,
+  .govuk-phase-banner,
+  #back-link {
+    display: none;
+  }
+
+  /* Visibility control */
+  .map-desktop-only {
+    display: none !important;
+  }
+
+  .map-mobile-only {
+    display: block;
+
+    &.hide-error {
+      display: none;
+    }
+
+    &.govuk-error-summary {
+      margin-inline: 0.6rem;
+    }
+  }
+
+  .hide-mobile {
+    display: none !important;
+  }
+
+  /* Form and error adjustments */
+  .govuk-form-group {
+    margin-bottom: 0;
+
+    &.govuk-form-group--error {
+      padding-left: 0;
+      border-left: none;
+    }
+  }
+
+  .govuk-error-summary {
+    margin-bottom: 0;
+  }
+
+  /* ---------- Map and Layout ---------- */
+  #map-and-search-container {
+    display: block;
+
+    @supports (height: 101dvh) {
+      display: block;
+      -ms-content-zooming: none;
+      touch-action: none;
+      overflow: hidden;
+    }
+  }
+
+  /* Exit link positioning */
+  .exit-map-container {
+    margin: 5px 0 0 0.6rem;
+
+    #exit-map-link.govuk-back-link.exit-map-link {
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 0;
+    }
+  }
+
+  /* Heading styles */
+  .heading {
+    font-size: 1.5rem;
+    line-height: 1.0416666667;
+    font-weight: 700;
+    margin-bottom: 0;
+    padding-inline: 0.6rem;
+  }
+
+  /* GOV.UK layout adjustments */
+  .govuk-main-wrapper {
+    padding-block: 0;
+  }
+
+  .govuk-grid-column-full {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 101vh;
+    height: 101dvh;
+  }
+
+  /* ---------- Map and Search Group ---------- */
+  .map-and-search-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    border: none;
+
+    .search-group {
+      position: absolute;
+      z-index: 3;
+      left: 0;
+      right: 0;
+      padding: 0 0.6rem 5px;
+
+      .search-box-and-button {
+        width: 100%;
+        input::placeholder {
+          opacity: 1;
+        }
+      }
+
+      /* ---------- Mobile Input Wrapper ---------- */
+      .location-input-wrapper {
+        position: relative;
+        width: 100%;
+      }
+
+      /* Mobile clear button */
+      .clear-input-button {
+        all: unset;
+        display: none; /* toggled by JS */
+        position: absolute;
+        right: 0.2rem;
+        top: 50%;
+        padding: 11px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        z-index: 3;
+        color: #000000;
+        background: none;
+        border: none;
+      }
+
+      .clear-input-button:hover {
+        color: #000;
+      }
+
+      .clear-input-button svg {
+        pointer-events: none;
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+      }
+    }
+  }
+
+  .mobile-map {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 60px 0 -1.45em;
+  }
+
+  .map {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-top: 6px;
+    margin-bottom: -1.45em;
+
+    &:focus {
+      outline: none !important;
+    }
+
+    .ol-control {
+      display: none;
+    }
+  }
+
+  /* ---------- Sticky Button Container ---------- */
+  .sticky-container {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    background-color: white;
+    margin-block: 1rem;
+    padding-inline: 0.6rem;
+  }
+
+  /* Force autocomplete input full width on mobile */
+  #location-container {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  #location-container input {
+    width: 100%;
+    padding-right: 2.6rem;
+    box-sizing: border-box;
+    height: 46px;
+  }
+
+  /* Additional styles */
+  .autocomplete__hint, .autocomplete__input, .autocomplete__option {
+    padding: 8px;
+  }
+}

@@ -6,8 +6,10 @@ const SOMETHING_ELSE = 'Something else'
 const NONE_OF_THESE = 'None of these'
 const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
 const NOT_GIVEN = 'Not given'
+const USE_CURRENT_LOCATION = 'Use your current location'
 const MARK_LOCATION_ON_MAP = 'Mark the location on an online map'
 const DESCRIBE_THE_LOCATION = 'Describe the location'
+const MARK_THE_LOCATION = 'Mark the location'
 const RUBBISH_OR_REFUSE = 'Rubbish or refuse'
 
 const questionSets = {
@@ -243,6 +245,10 @@ const questionSets = {
         key: constants.redisKeys.WATER_POLLUTION_LOCATION_OPTION,
         text: 'How do you want to tell us where you\'ve seen water pollution?',
         answers: {
+          gps: {
+            answerId: 2603,
+            text: USE_CURRENT_LOCATION
+          },
           map: {
             answerId: 2602,
             text: MARK_LOCATION_ON_MAP
@@ -266,7 +272,7 @@ const questionSets = {
       WATER_POLLUTION_LOCATION_MAP: {
         questionId: 2700,
         key: constants.redisKeys.WATER_POLLUTION_LOCATION_MAP,
-        text: 'Mark the location of the pollution',
+        text: MARK_THE_LOCATION,
         answers: {
           nationalGridReference: {
             answerId: 2701
@@ -478,16 +484,20 @@ const questionSets = {
         }
       },
       SMELL_LOCATION_OPTION: {
-        questionId: 1200,
+        questionId: 2600,
         key: constants.redisKeys.SMELL_LOCATION_OPTION,
         text: 'How do you want to tell us where you\'ve noticed the smell?',
         answers: {
+          gps: {
+            answerId: 2603,
+            text: USE_CURRENT_LOCATION
+          },
           map: {
-            answerId: 1201,
+            answerId: 2602,
             text: MARK_LOCATION_ON_MAP
           },
           description: {
-            answerId: 1202,
+            answerId: 2601,
             text: DESCRIBE_THE_LOCATION
           }
         }
@@ -524,7 +534,7 @@ const questionSets = {
       SMELL_LOCATION_MAP: {
         questionId: 2700,
         key: constants.redisKeys.SMELL_LOCATION_MAP,
-        text: 'Mark the location of the smell',
+        text: MARK_THE_LOCATION,
         answers: {
           nationalGridReference: {
             answerId: 2701
@@ -878,6 +888,10 @@ const questionSets = {
         key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_OPTION,
         text: 'How do you want to tell us where you\'ve seen illegal fishing?',
         answers: {
+          gps: {
+            answerId: 2603,
+            text: USE_CURRENT_LOCATION
+          },
           map: {
             answerId: 2602,
             text: MARK_LOCATION_ON_MAP
@@ -901,7 +915,7 @@ const questionSets = {
       ILLEGAL_FISHING_LOCATION_MAP: {
         questionId: 2700,
         key: constants.redisKeys.ILLEGAL_FISHING_LOCATION_MAP,
-        text: 'Mark the location of the illegal fishing',
+        text: MARK_THE_LOCATION,
         answers: {
           nationalGridReference: {
             answerId: 2701
