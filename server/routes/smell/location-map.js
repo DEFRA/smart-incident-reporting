@@ -11,9 +11,9 @@ const baseAnswer = {
 }
 
 const handlers = {
-  get: async (_request, h) => {
+  get: async (request, h) => {
     return h.view(constants.views.SMELL_LOCATION_MAP, {
-      ...getContext()
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
@@ -23,7 +23,7 @@ const handlers = {
 
     if (!point || point.length === 0) {
       return h.view(constants.views.SMELL_LOCATION_MAP, {
-        ...getContext(),
+        ...getContext(request),
         noPoint: true
       })
     }
@@ -37,10 +37,19 @@ const handlers = {
   }
 }
 
-const getContext = () => {
+const getContext = request => {
+  const locationOption = request.yar.get(constants.redisKeys.SMELL_LOCATION_OPTION)
+  const showCurrentLocation = locationOption?.[0]?.answerId === questionSets.SMELL.questions.SMELL_LOCATION_OPTION.answers.gps.answerId
+  const location = request.yar.get(constants.redisKeys.SMELL_LOCATION_MAP)
+  const locationAnswer = location && {
+    point: [Number(location[1].otherDetails), Number(location[2].otherDetails)],
+    zoom: 10
+  }
+
   return {
     question,
-    locationAnswer: {}
+    showCurrentLocation,
+    locationAnswer
   }
 }
 

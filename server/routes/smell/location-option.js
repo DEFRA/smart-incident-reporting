@@ -32,7 +32,7 @@ const handlers = {
 
     request.yar.set(constants.redisKeys.SMELL_LOCATION_OPTION, buildAnswers(answerId))
 
-    if (answerId === question.answers.map.answerId) {
+    if (answerId === question.answers.gps.answerId || answerId === question.answers.map.answerId) {
       return h.redirect(constants.routes.SMELL_LOCATION_MAP)
     } else {
       return h.redirect(constants.routes.SMELL_LOCATION_DESCRIPTION)

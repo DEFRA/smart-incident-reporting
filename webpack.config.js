@@ -13,7 +13,8 @@ export default {
     checkYourAnswers: './client/js/pages/check-your-answers.js',
     core: './client/js/core.js',
     cookies: './client/js/pages/cookies.js',
-    locationMap: './client/js/pages/location-map.js'
+    locationMap: './client/js/pages/location-map.js',
+    locationMapGps: './client/js/pages/location-map-gps.js'
   },
   output: {
     path: path.resolve(__dirname, 'server/public/build/js'),
