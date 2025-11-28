@@ -110,6 +110,6 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Enter a time in the past')
-    })   
+    })
   })
 })

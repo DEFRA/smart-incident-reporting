@@ -109,6 +109,6 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Enter a real time, for example 11:35am or 2:35pm')
-    })    
+    })   
   })
 })

@@ -133,7 +133,7 @@ describe(url, () => {
     it('Happy: For CYA journey, accepts valid time for now and redirects to next page', async () => {
       const time = '7:00am'
       const dateTime = getDateTime(dateString, time)
-      let sessionData = {
+      const sessionData = {
         'blockage/date-before-yesterday': { dateString, dateWordString }
       }
       const options = {
@@ -141,7 +141,7 @@ describe(url, () => {
         payload: {
           time
         }
-      }     
+      }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_TIME_BEFORE_YESTERDAY)).toEqual('7:00am')
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WHEN)).toEqual(dateTime.toISOString())
