@@ -1184,7 +1184,7 @@ const questionSets = {
       BLOCKAGE_TYPE: {
         questionId: 110,
         key: constants.redisKeys.BLOCKAGE_TYPE,
-        text: 'what is blocking the river?',
+        text: 'What\'s blocking the river?',
         answers: {
           fallenTree: {
             answerId: 111,
@@ -1196,7 +1196,7 @@ const questionSets = {
           },
           rubbish: {
             answerId: 113,
-            text: 'A build up of material, such as rubbish, soil or stone'
+            text: 'A build-up of material, such as rubbish, soil or stone'
           },
           deliberate: {
             answerId: 114,

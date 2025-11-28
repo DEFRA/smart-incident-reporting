@@ -41,7 +41,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_OTHER_LOCATION_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_LOCATION_DESCRIPTION)).toEqual([{
         ...baseAnswer,
         otherDetails: locationDescription
@@ -58,7 +58,7 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
         referer: constants.routes.BLOCKAGE_START
       })
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_OTHER_LOCATION_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_LOCATION_DESCRIPTION)).toEqual([{
         ...baseAnswer,
         otherDetails: locationDescription
