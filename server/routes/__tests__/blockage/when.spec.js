@@ -92,6 +92,6 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Select when you saw this')
-    })   
+    })
   })
 })
