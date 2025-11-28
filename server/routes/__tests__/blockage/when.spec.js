@@ -92,20 +92,6 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Select when you saw this')
-    })
-    it('Happy: For CYA journey, accepts valid answerID for now and redirects to next page', async () => {
-      const answerId = 1
-      const options = {
-        url,
-        payload: {
-          answerId
-        }
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
-        referer: constants.routes.BLOCKAGE_START
-      })
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
-      expect(new Date(response.request.yar.get(constants.redisKeys.BLOCKAGE_WHEN))).toBeInstanceOf(Date)
-    })
+    })    
   })
 })

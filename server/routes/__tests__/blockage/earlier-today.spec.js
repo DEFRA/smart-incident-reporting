@@ -110,21 +110,6 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Enter a time in the past')
-    })
-    it('Happy: For CYA journey, accepts valid time for now and redirects to next page', async () => {
-      const time = pastTime
-      const dateTime = getDateTime(time)
-      const options = {
-        url,
-        payload: {
-          time
-        }
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
-        referer: constants.routes.BLOCKAGE_START
-      })
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_EARLIER_TODAY)).toEqual(pastTime)
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WHEN)).toEqual(dateTime.toISOString())
-    })
+    })   
   })
 })

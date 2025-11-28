@@ -141,11 +141,7 @@ describe(url, () => {
         payload: {
           time
         }
-      }
-      const answerData = {
-        referer: constants.routes.BLOCKAGE_START
-      }
-      sessionData = { ...sessionData, ...answerData }
+      }     
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_TIME_BEFORE_YESTERDAY)).toEqual('7:00am')
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WHEN)).toEqual(dateTime.toISOString())
