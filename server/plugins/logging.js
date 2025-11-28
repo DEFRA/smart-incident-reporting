@@ -12,9 +12,11 @@ export default {
     },
     ignorePaths: [
       '/public/stylesheets/application.css',
+      '/public/stylesheets/mobile-map.css',
       '/public/js/core.js',
       '/public/js/cookies.js',
       '/public/js/locationMap.js',
+      '/public/js/locationMapGps.js',
       '/public/js/site.min.js',
       '/public/js/site.compat.min.js',
       '/public/govuk-frontend.min.js',

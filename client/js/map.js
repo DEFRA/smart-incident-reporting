@@ -34,7 +34,7 @@ const vectorLayer = new VectorLayer({
       anchor: [0.5, 53],
       anchorXUnits: 'fraction',
       anchorYUnits: 'pixels',
-      src: '/public/images/marker-black.png'
+      src: '/public/images/marker-pin.svg'
     })
   })
 })
