@@ -47,6 +47,7 @@ const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 const WATER_POLLUTION_CHECK_YOUR_ANSWERS = 'water-pollution/check-your-answers'
 const WATER_POLLUTION_CONTACT_DETAILS = 'water-pollution/contact-details'
 const WATER_POLLUTION_SMELL_DESCRIPTION = 'water-pollution/smell-description'
+const BLOCKAGE_WHEN = 'blockage/when'
 
 const SMELL_START = 'smell-start'
 const SMELL = 'smell'
@@ -117,6 +118,10 @@ const BLOCKAGE_LOCATION_OPTION = 'blockage/location-option'
 const BLOCKAGE_LOCATION_MAP = 'blockage/location-map'
 const BLOCKAGE_LOCATION_DESCRIPTION = 'blockage/location-description'
 const BLOCKAGE_OTHER_LOCATION_INFORMATION = 'blockage/other-location-information'
+const BLOCKAGE_EARLIER_TODAY = 'blockage/earlier-today'
+const BLOCKAGE_YESTERDAY = 'blockage/yesterday'
+const BLOCKAGE_DATE_BEFORE_YESTERDAY = 'blockage/date-before-yesterday'
+const BLOCKAGE_TIME_BEFORE_YESTERDAY = 'blockage/time-before-yesterday'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -238,7 +243,12 @@ const views = {
   BLOCKAGE_LOCATION_OPTION,
   BLOCKAGE_LOCATION_MAP,
   BLOCKAGE_LOCATION_DESCRIPTION,
-  BLOCKAGE_OTHER_LOCATION_INFORMATION
+  BLOCKAGE_OTHER_LOCATION_INFORMATION,
+  BLOCKAGE_WHEN,
+  BLOCKAGE_EARLIER_TODAY,
+  BLOCKAGE_YESTERDAY,
+  BLOCKAGE_DATE_BEFORE_YESTERDAY,
+  BLOCKAGE_TIME_BEFORE_YESTERDAY
 
 }
 
