@@ -3,7 +3,7 @@ import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.BLOCKAGE_TYPE
-const header = 'What\'s blocking the river?'
+const header = questionSets.BLOCKAGE.questions.BLOCKAGE_TYPE
 const question = questionSets.BLOCKAGE.questions.BLOCKAGE_TYPE
 const baseAnswer = {
   questionId: question.questionId,
@@ -14,7 +14,7 @@ const baseAnswer = {
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, header)
+      await submitGetRequest({ url }, header.text)
     })
     it(`Should return success response and correct view when a fallenTree is selected for ${url}`, async () => {
       const sessionData = {
@@ -23,7 +23,7 @@ describe(url, () => {
           answerId: question.answers.fallenTree.answerId
         }]
       }
-      const response = await submitGetRequest({ url }, 'What\'s blocking the river?', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, question.text, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId" name="answerId" type="radio" value="111" checked>')
     })
     it(`Should return success response and correct view when the vehicle is selected for ${url}`, async () => {
@@ -33,7 +33,7 @@ describe(url, () => {
           answerId: question.answers.vehicle.answerId
         }]
       }
-      const response = await submitGetRequest({ url }, 'What\'s blocking the river?', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, question.text, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="112" checked>')
     })
     it(`Should return success response and correct view when rubbish is selected  for ${url}`, async () => {
@@ -43,7 +43,7 @@ describe(url, () => {
           answerId: question.answers.rubbish.answerId
         }]
       }
-      const response = await submitGetRequest({ url }, 'What\'s blocking the river?', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, question.text, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-3" name="answerId" type="radio" value="113" checked>')
     })
     it(`Should return success response and correct view when deliberate is selected  for ${url}`, async () => {
@@ -53,7 +53,7 @@ describe(url, () => {
           answerId: question.answers.deliberate.answerId
         }]
       }
-      const response = await submitGetRequest({ url }, 'What\'s blocking the river?', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, question.text, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-4" name="answerId" type="radio" value="114" checked>')
     })
     it(`Should return success response and correct view when something else is selected for ${url}`, async () => {
@@ -67,7 +67,7 @@ describe(url, () => {
           otherDetails: 'test details'
         }]
       }
-      const response = await submitGetRequest({ url }, 'What\'s blocking the river?', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, question.text, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-5" name="answerId" type="radio" value="115" checked data-aria-controls="conditional-answerId-5">')
       expect(response.payload).toContain('value="test details">')
     })
