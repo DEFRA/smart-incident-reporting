@@ -28,14 +28,14 @@ describe(url, () => {
     })
     it(`Should return success response and correct view with prefilled data for ${url}`, async () => {
       const sessionData = {
-        'water-pollution/yesterday': '9:30am'
+        'blockage/yesterday': '9:30am'
       }
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('value="9:30am"')
     })
   })
   describe('POST', () => {
-    it('Happy: accepts valid answers and redirects to water-pollution/pollution-substance', async () => {
+    it('Happy: accepts valid answers and redirects to next page', async () => {
       const time = '9:30am'
       const dateTime = getDateTime(time)
       const sessionData = {
@@ -45,11 +45,11 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(sessionData)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_YESTERDAY)).toEqual('9:30am')
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WHEN)).toEqual(dateTime.toISOString())
     })
-    it('Happy: accepts valid answers with single digit time and redirects to water-pollution/pollution-substance', async () => {
+    it('Happy: accepts valid answers with single digit time and redirects to next page', async () => {
       const time = '1:5am'
       const dateTime = getDateTime(time)
       const sessionData = {
@@ -59,11 +59,11 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(sessionData)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_YESTERDAY)).toEqual('1:05am')
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WHEN)).toEqual(dateTime.toISOString())
     })
-    it('Happy: accepts valid answers with all caps period and redirects to water-pollution/pollution-substance', async () => {
+    it('Happy: accepts valid answers with all caps period and redirects to next page', async () => {
       const time = '12:30AM'
       const dateTime = getDateTime(time)
       const sessionData = {
@@ -73,7 +73,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(sessionData)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_YESTERDAY)).toEqual('12:30am')
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WHEN)).toEqual(dateTime.toISOString())
     })
@@ -110,7 +110,7 @@ describe(url, () => {
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Enter a real time, for example 11:35am or 2:35pm')
     })
-    it('Happy: For CYA journey, accepts valid time for now and redirects to water-pollution/check-your-answers', async () => {
+    it('Happy: For CYA journey, accepts valid time for now and redirects to next page', async () => {
       const time = '7:00am'
       const dateTime = getDateTime(time)
       const options = {
@@ -120,7 +120,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
-        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
+        referer: constants.routes.BLOCKAGE_START
       })
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_YESTERDAY)).toEqual('7:00am')
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WHEN)).toEqual(dateTime.toISOString())

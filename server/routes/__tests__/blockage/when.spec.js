@@ -2,7 +2,7 @@ import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/s
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.BLOCKAGE_WHEN
-const header = 'When did you see this?'
+const header = 'When did you notice this?'
 
 describe(url, () => {
   describe('GET', () => {
@@ -13,33 +13,33 @@ describe(url, () => {
       const sessionData = {
         'date-time-option': 1
       }
-      const response = await submitGetRequest({ url }, 'When did you see this?', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId" name="answerId" type="radio" value="1" checked>')
     })
     it(`Should return success response and correct view when 'Earlier today' is selected for ${url}`, async () => {
       const sessionData = {
         'date-time-option': 2
       }
-      const response = await submitGetRequest({ url }, 'When did you see this?', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="2" checked>')
     })
     it(`Should return success response and correct view when 'Yesterday' is selected for ${url}`, async () => {
       const sessionData = {
         'date-time-option': 3
       }
-      const response = await submitGetRequest({ url }, 'When did you see this?', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-3" name="answerId" type="radio" value="3" checked>')
     })
     it(`Should return success response and correct view when 'Before yesterday' is selected for ${url}`, async () => {
       const sessionData = {
         'date-time-option': 4
       }
-      const response = await submitGetRequest({ url }, 'When did you see this?', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-4" name="answerId" type="radio" value="4" checked>')
     })
   })
   describe('POST', () => {
-    it('Happy: accepts valid answerId now and redirects to water-pollution/pollution-substance', async () => {
+    it('Happy: accepts valid answerId now and redirects to next page', async () => {
       const answerId = 1
       const options = {
         url,
@@ -48,7 +48,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
       expect(new Date(response.request.yar.get(constants.redisKeys.BLOCKAGE_WHEN))).toBeInstanceOf(Date)
     })
     it('Happy: accepts valid answerId of earlier today and redirects to blockage/earlier-today', async () => {
@@ -93,7 +93,7 @@ describe(url, () => {
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Select when you saw this')
     })
-    it('Happy: For CYA journey, accepts valid answerID for now and redirects to water-pollution/check-your-answers', async () => {
+    it('Happy: For CYA journey, accepts valid answerID for now and redirects to next page', async () => {
       const answerId = 1
       const options = {
         url,
@@ -102,9 +102,9 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
-        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
+        referer: constants.routes.BLOCKAGE_START
       })
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
       expect(new Date(response.request.yar.get(constants.redisKeys.BLOCKAGE_WHEN))).toBeInstanceOf(Date)
     })
   })

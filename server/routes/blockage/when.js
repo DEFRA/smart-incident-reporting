@@ -33,7 +33,7 @@ const handlers = {
     const optionFour = 4
     if (answerId === optionOne) {
       request.yar.set(constants.redisKeys.BLOCKAGE_WHEN, (new Date()).toISOString())
-      return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
+      return h.redirect(constants.routes.BLOCKAGE_START)
     } else if (answerId === optionTwo) {
       return h.redirect(constants.routes.BLOCKAGE_EARLIER_TODAY)
     } else if (answerId === optionThree) {
@@ -59,7 +59,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select when you saw the pollution',
+      text: 'Select when you saw this',
       href: '#answerId'
     })
   }

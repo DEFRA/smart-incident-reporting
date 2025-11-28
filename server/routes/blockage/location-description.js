@@ -31,7 +31,7 @@ const handlers = {
 
     request.yar.set(question.key, buildAnswers(locationDescription))
 
-    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.BLOCKAGE_OTHER_LOCATION_INFORMATION)
+    return h.redirect(constants.routes.BLOCKAGE_WHEN)
   }
 }
 

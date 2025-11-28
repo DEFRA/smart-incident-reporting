@@ -26,7 +26,7 @@ const handlers = {
     const dateTime = getDateTime(formattedTime)
     request.yar.set(constants.redisKeys.BLOCKAGE_EARLIER_TODAY, formattedTime)
     request.yar.set(constants.redisKeys.BLOCKAGE_WHEN, dateTime.toISOString())
-    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_POLLUTION_SUBSTANCE)
+    return h.redirect(constants.routes.BLOCKAGE_START)
   }
 }
 
