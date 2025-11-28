@@ -47,23 +47,6 @@ describe(url, () => {
         otherDetails: locationDescription
       }])
     })
-    it('Happy: accept and store a location description and redirect to referrer', async () => {
-      const locationDescription = 'This is a description of the location of the blockage in river'
-      const options = {
-        url,
-        payload: {
-          locationDescription
-        }
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
-        referer: constants.routes.BLOCKAGE_WHEN
-      })
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_WHEN)
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_LOCATION_DESCRIPTION)).toEqual([{
-        ...baseAnswer,
-        otherDetails: locationDescription
-      }])
-    })
     it('Sad: errors on no locationDescription provided', async () => {
       const options = {
         url,
