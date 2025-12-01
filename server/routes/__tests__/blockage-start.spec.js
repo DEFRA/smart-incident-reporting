@@ -2,7 +2,7 @@ import { submitGetRequest } from '../../__test-helpers__/server.js'
 import constants from '../../utils/constants.js'
 
 const url = constants.routes.BLOCKAGE_START
-const header = 'Report blockage in a river'
+const header = 'Report blockage in a river in England'
 
 describe(url, () => {
   describe('GET', () => {
