@@ -1104,7 +1104,7 @@ const questionSets = {
           }
         }
       },
-      ILLEGAL_FISHING_NUMBER_OF_FISH: {
+        ILLEGAL_FISHING_NUMBER_OF_FISH: {
         questionId: 4220,
         key: constants.redisKeys.ILLEGAL_FISHING_NUMBER_OF_FISH,
         text: 'How many fish?',
@@ -1241,6 +1241,29 @@ const questionSets = {
         answers: {
           locationDetails: {
             answerId: 901
+          }
+        }
+      },
+      BLOCKAGE_HISTORY: {
+        questionId: 120,
+        key: constants.redisKeys.BLOCKAGE_HISTORY,
+        text: 'Has the blockage been here for some time?',
+        answers: {
+          yes: {
+            answerId: 121,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 122,
+            text: 'No'
+          },
+          youDoNotKnow: {
+            answerId: 123,
+            text: YOU_DO_NOT_KNOW
+          },
+          yesDetails: {
+          answerId: 124,
+          text: 'Give details about how long the blockage has been here'
           }
         }
       }
