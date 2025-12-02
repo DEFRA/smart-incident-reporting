@@ -45,7 +45,7 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
         'blockage/history': [{
           questionId: 120,
-          answerId: 121 //yes
+          answerId: 121
         }]
       })
       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
@@ -68,7 +68,7 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
         'blockage/history': [{
           questionId: 120,
-          answerId: 122 // no
+          answerId: 122
         }]
       })
       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
@@ -87,7 +87,7 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
         'blockage/history': [{
           questionId: 120,
-          answerId: 123 // you dont know
+          answerId: 123
         }]
       })
       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
@@ -103,7 +103,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select whether the blockage has been here for some time or \‘you do not know\’')
+      expect(response.payload).toContain('Select whether the blockage has been here for some time or you do not know')
     })
     it('Sad rejects yes answer with no further details', async () => {
       const options = {

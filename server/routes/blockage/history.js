@@ -32,10 +32,10 @@ const handlers = {
       })
     }
     request.yar.set(question.key, buildAnswers(answerId, yesDetails))
-    // handle redirects    
+    // handle redirects
     return h.redirect(constants.routes.BLOCKAGE_START)
   }
-  }
+}
 const getContext = request => {
   const answers = request.yar.get(question.key)
   return {
