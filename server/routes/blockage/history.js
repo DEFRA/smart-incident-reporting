@@ -31,13 +31,11 @@ const handlers = {
         yesChecked: answerId === question.answers.yes.answerId
       })
     }
-   
     request.yar.set(question.key, buildAnswers(answerId, yesDetails))
     // handle redirects    
     return h.redirect(constants.routes.BLOCKAGE_START)
   }
   }
-
 const getContext = request => {
   const answers = request.yar.get(question.key)
   return {
@@ -50,7 +48,7 @@ const validatePayload = (answerId, yesDetails) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select whether the blockage has been here for some time or \‘you do not know\’',
+      text: 'Select whether the blockage has been here for some time or you do not know',
       href: '#answerId'
     })
   } else if (Number(answerId) === question.answers.yes.answerId && !yesDetails) {

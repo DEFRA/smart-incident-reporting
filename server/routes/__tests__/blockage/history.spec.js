@@ -24,7 +24,7 @@ const sessionData = {
 
 describe(url, () => {
   describe('GET', () => {
-    it(`Should return success response and correct view for ${url}`, async () => {        
+    it(`Should return success response and correct view for ${url}`, async () => {     
       await submitGetRequest({ url }, header)
     })
     it(`Should return success response and correct view for ${url}`, async () => {
@@ -33,7 +33,6 @@ describe(url, () => {
       expect(response.payload).toContain('test details')
     })
   })
-
   describe('POST', () => {
     it('Happy: accepts Yes and yes details and redirects to blockage/start', async () => {
       const options = {
@@ -59,7 +58,6 @@ describe(url, () => {
         otherDetails: 'test details'
       }])
     })
-  
     it('Happy accepts No and forwards to blockage start', async () => {
       const options = {
         url,
@@ -79,7 +77,6 @@ describe(url, () => {
         answerId: question.answers.no.answerId
       }])
     })
-    
     it('Happy accepts you dont know and forwards to blockage start', async () => {
       const options = {
         url,
@@ -99,7 +96,6 @@ describe(url, () => {
         answerId: question.answers.youDoNotKnow.answerId
       }])
     })
-
     it('Sad rejects empty payload', async () => {
       const options = {
         url,

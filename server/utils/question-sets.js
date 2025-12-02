@@ -1104,7 +1104,7 @@ const questionSets = {
           }
         }
       },
-        ILLEGAL_FISHING_NUMBER_OF_FISH: {
+      ILLEGAL_FISHING_NUMBER_OF_FISH: {
         questionId: 4220,
         key: constants.redisKeys.ILLEGAL_FISHING_NUMBER_OF_FISH,
         text: 'How many fish?',
@@ -1262,8 +1262,8 @@ const questionSets = {
             text: YOU_DO_NOT_KNOW
           },
           yesDetails: {
-          answerId: 124,
-          text: 'Give details about how long the blockage has been here'
+            answerId: 124,
+            text: 'Give details about how long the blockage has been here'
           }
         }
       }
