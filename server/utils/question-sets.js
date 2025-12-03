@@ -1268,24 +1268,24 @@ const questionSets = {
         }
       },
       BLOCKAGE_EXTENT: {
-        questionId: 1100,
+        questionId: 130,
         key: constants.redisKeys.BLOCKAGE_EXTENT,
         text: 'How much of the river is blocked?',
         answers: {
           full: {
-            answerId: 1111,
+            answerId: 131,
             text: 'The full width(from bank to bank)'
           },
           moreThanHalf: {
-            answerId: 1112,
+            answerId: 132,
             text: 'More than half the width'
           },
           lessThanHalf: {
-            answerId: 1113,
+            answerId: 133,
             text: 'Less than half the width'
           },
           youDoNotKnow: {
-            answerId: 1116,
+            answerId: 134,
             text: YOU_DO_NOT_KNOW
           }
         }
