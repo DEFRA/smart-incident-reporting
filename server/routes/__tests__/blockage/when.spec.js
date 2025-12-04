@@ -48,7 +48,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_EXTENT)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_HISTORY)
       expect(new Date(response.request.yar.get(constants.redisKeys.BLOCKAGE_WHEN))).toBeInstanceOf(Date)
     })
     it('Happy: accepts valid answerId of earlier today and redirects to blockage/earlier-today', async () => {

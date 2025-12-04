@@ -48,7 +48,7 @@ describe(url, () => {
           answerId: 121
         }]
       })
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_EXTENT)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_HISTORY)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.yes.answerId
@@ -71,7 +71,7 @@ describe(url, () => {
           answerId: 122
         }]
       })
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_EXTENT)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_HISTORY)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.no.answerId
@@ -90,7 +90,7 @@ describe(url, () => {
           answerId: 123
         }]
       })
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_EXTENT)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_HISTORY)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.youDoNotKnow.answerId

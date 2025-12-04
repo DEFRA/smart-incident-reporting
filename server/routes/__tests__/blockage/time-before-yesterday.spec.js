@@ -50,7 +50,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_EXTENT)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_HISTORY)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_TIME_BEFORE_YESTERDAY)).toEqual('9:30am')
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WHEN)).toEqual(dateTime.toISOString())
     })
@@ -67,7 +67,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_EXTENT)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_HISTORY)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_TIME_BEFORE_YESTERDAY)).toEqual('1:05am')
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WHEN)).toEqual(dateTime.toISOString())
     })
@@ -84,7 +84,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_EXTENT)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_HISTORY)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_TIME_BEFORE_YESTERDAY)).toEqual('12:30am')
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WHEN)).toEqual(dateTime.toISOString())
     })
