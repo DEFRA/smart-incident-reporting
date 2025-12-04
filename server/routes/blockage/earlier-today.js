@@ -26,7 +26,7 @@ const handlers = {
     const dateTime = getDateTime(formattedTime)
     request.yar.set(constants.redisKeys.BLOCKAGE_EARLIER_TODAY, formattedTime)
     request.yar.set(constants.redisKeys.BLOCKAGE_WHEN, dateTime.toISOString())
-    return h.redirect(constants.routes.BLOCKAGE_START)
+    return h.redirect(constants.routes.BLOCKAGE_HISTORY)
   }
 }
 

@@ -33,7 +33,7 @@ const handlers = {
     const optionFour = 4
     if (answerId === optionOne) {
       request.yar.set(constants.redisKeys.BLOCKAGE_WHEN, (new Date()).toISOString())
-      return h.redirect(constants.routes.BLOCKAGE_START)
+      return h.redirect(constants.routes.BLOCKAGE_HISTORY)
     } else if (answerId === optionTwo) {
       return h.redirect(constants.routes.BLOCKAGE_EARLIER_TODAY)
     } else if (answerId === optionThree) {
