@@ -117,7 +117,7 @@ const BLOCKAGE_TYPE = 'blockage/blockage-type'
 const BLOCKAGE_LOCATION_OPTION = 'blockage/location-option'
 const BLOCKAGE_LOCATION_MAP = 'blockage/location-map'
 const BLOCKAGE_LOCATION_DESCRIPTION = 'blockage/location-description'
-const BLOCKAGE_OTHER_LOCATION_INFORMATION = 'blockage/other-location-information'
+const BLOCKAGE_LOCATION_DESCRIPTION_OPTIONAL = 'blockage/location-description-optional'
 const BLOCKAGE_EARLIER_TODAY = 'blockage/earlier-today'
 const BLOCKAGE_YESTERDAY = 'blockage/yesterday'
 const BLOCKAGE_DATE_BEFORE_YESTERDAY = 'blockage/date-before-yesterday'
@@ -149,7 +149,7 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
     BLOCKAGE_LOCATION_OPTION,
     BLOCKAGE_LOCATION_MAP,
     BLOCKAGE_LOCATION_DESCRIPTION,
-    BLOCKAGE_OTHER_LOCATION_INFORMATION,
+    BLOCKAGE_LOCATION_DESCRIPTION_OPTIONAL,
     BLOCKAGE_WHEN,
     BLOCKAGE_EARLIER_TODAY,
     BLOCKAGE_YESTERDAY,
