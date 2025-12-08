@@ -1274,7 +1274,7 @@ const questionSets = {
         answers: {
           full: {
             answerId: 131,
-            text: 'The full width(from bank to bank)'
+            text: 'The full width (from bank to bank)'
           },
           moreThanHalf: {
             answerId: 132,
