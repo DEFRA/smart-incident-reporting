@@ -122,6 +122,7 @@ const BLOCKAGE_EARLIER_TODAY = 'blockage/earlier-today'
 const BLOCKAGE_YESTERDAY = 'blockage/yesterday'
 const BLOCKAGE_DATE_BEFORE_YESTERDAY = 'blockage/date-before-yesterday'
 const BLOCKAGE_TIME_BEFORE_YESTERDAY = 'blockage/time-before-yesterday'
+const BLOCKAGE_HISTORY = 'blockage/history'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -152,7 +153,8 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
     BLOCKAGE_EARLIER_TODAY,
     BLOCKAGE_YESTERDAY,
     BLOCKAGE_DATE_BEFORE_YESTERDAY,
-    BLOCKAGE_TIME_BEFORE_YESTERDAY
+    BLOCKAGE_TIME_BEFORE_YESTERDAY,
+    BLOCKAGE_HISTORY
   }
 }
 
