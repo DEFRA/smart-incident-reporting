@@ -1266,6 +1266,29 @@ const questionSets = {
             text: 'Give details about how long the blockage has been here'
           }
         }
+      },
+      BLOCKAGE_EXTENT: {
+        questionId: 130,
+        key: constants.redisKeys.BLOCKAGE_EXTENT,
+        text: 'How much of the river is blocked?',
+        answers: {
+          full: {
+            answerId: 131,
+            text: 'The full width(from bank to bank)'
+          },
+          moreThanHalf: {
+            answerId: 132,
+            text: 'More than half the width'
+          },
+          lessThanHalf: {
+            answerId: 133,
+            text: 'Less than half the width'
+          },
+          youDoNotKnow: {
+            answerId: 134,
+            text: YOU_DO_NOT_KNOW
+          }
+        }
       }
     }
   },

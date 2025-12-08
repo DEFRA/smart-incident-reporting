@@ -1,7 +1,7 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
 
-const url = constants.routes.BLOCKAGE_OTHER_LOCATION_INFORMATION
+const url = constants.routes.BLOCKAGE_LOCATION_DESCRIPTION_OPTIONAL
 const header = 'Other location information(optional)'
 
 describe(url, () => {
@@ -11,7 +11,7 @@ describe(url, () => {
     })
     it(`Should return success response and correct view with prefilled data for ${url}`, async () => {
       const sessionData = {
-        'blockage/other-location-information': 'Details of other location information'
+        'blockage/location-description-optional': 'Details of other location information'
       }
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Details of other location information</textarea')
@@ -28,8 +28,8 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_OTHER_LOCATION_INFORMATION)).toEqual(otherLocationInfo)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_LOCATION_DESCRIPTION_OPTIONAL)).toEqual(otherLocationInfo)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_WHEN)
     })
   })
 })

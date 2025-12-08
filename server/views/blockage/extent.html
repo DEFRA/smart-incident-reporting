@@ -1,0 +1,54 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+     {{ govukRadios({
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      fieldset: {
+        legend: {
+          text: question.text,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: question.answers.full.answerId,
+          text: question.answers.full.text,
+          checked: getAnswer(answers, question.answers.full.answerId)          
+        },
+        {
+          value: question.answers.moreThanHalf.answerId,
+          text: question.answers.moreThanHalf.text,
+          checked: getAnswer(answers, question.answers.moreThanHalf.answerId)
+        },
+        {
+          value: question.answers.lessThanHalf.answerId,
+          text: question.answers.lessThanHalf.text,
+          checked: getAnswer(answers, question.answers.lessThanHalf.answerId)
+        },
+        {
+          divider: "or"
+        },
+        {
+          value: question.answers.youDoNotKnow.answerId,
+          text: question.answers.youDoNotKnow.text,
+          checked: getAnswer(answers, question.answers.youDoNotKnow.answerId)
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}
