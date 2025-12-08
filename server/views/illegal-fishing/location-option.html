@@ -21,6 +21,7 @@
       {
         value: question.answers.gps.answerId,
         text: question.answers.gps.text,
+        checked: getAnswer(answers, question.answers.gps.answerId),
         hint: {
           text: "This will show you your current location on a map, use this if you're at the location now"
         }
