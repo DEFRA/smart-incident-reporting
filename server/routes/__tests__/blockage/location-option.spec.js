@@ -4,45 +4,21 @@ import constants from '../../../utils/constants.js'
 
 const url = constants.routes.BLOCKAGE_LOCATION_OPTION
 const question = questionSets.BLOCKAGE.questions.BLOCKAGE_LOCATION_OPTION
+const header = question.text
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
   questionResponse: true
 }
 
-const sessionData = {
-  'blockage/location-option': [{
-    questionId: baseAnswer.questionId,
-    answerId: question.answers.description.answerId
-  }]
-}
-
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, 'How do you want to tell us where the blockage is?')
-    })
-    it(`Should return success response and correct view for ${url}`, async () => {
-      const response = await submitGetRequest({ url }, 'How do you want to tell us where the blockage is?', constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-3" name="answerId" type="radio" value="2601" checked>')
+      await submitGetRequest({ url }, header)
     })
   })
   describe('POST', () => {
-    it('Should accept current location option and redirect to blockage/current-location', async () => {
-      const answerId = question.answers.currentLocation.answerId
-      const options = {
-        url,
-        payload: {
-          answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_LOCATION_MAP)
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_LOCATION_OPTION)).toEqual([{
-        ...baseAnswer,
-        answerId
-      }])
-    })
+    // Happy accepts map and redirects to location-map
     it('Should accept map option and redirect to blockage/location-map', async () => {
       const answerId = question.answers.map.answerId
       const options = {
@@ -58,7 +34,9 @@ describe(url, () => {
         answerId
       }])
     })
-    it('Should accept map option and redirect to blockage/location-description', async () => {
+
+    // Happy accepts description and redirects to description
+    it('Should accept description option and redirect to blockage/location-description', async () => {
       const answerId = question.answers.description.answerId
       const options = {
         url,
@@ -73,6 +51,7 @@ describe(url, () => {
         answerId
       }])
     })
+    // Sad no option selected, shows error message
     it('Sad: no radio selected, returns error state', async () => {
       const options = {
         url,

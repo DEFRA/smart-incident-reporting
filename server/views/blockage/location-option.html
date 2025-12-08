@@ -17,15 +17,15 @@
         }
       },
       errorMessage: findErrorMessageById(errorSummary, "answerId"),
-      items: [ 
+      items: [
       {
-        value: question.answers.currentLocation.answerId,
-        text: question.answers.currentLocation.text,
-        checked: getAnswer(answers, question.answers.currentLocation.answerId),
+        value: question.answers.gps.answerId,
+        text: question.answers.gps.text,
+        checked: getAnswer(answers, question.answers.gps.answerId),
         hint: {
-            text: "This will show you your current location on a map, use this if you're at the location now"
-          }
-      }, 
+          text: "This will show you your current location on a map, use this if you're at the location now"
+        }
+      },
       {
         value: question.answers.map.answerId,
         text: question.answers.map.text,
