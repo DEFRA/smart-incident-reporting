@@ -19,19 +19,14 @@
       },
       items: [
         {
-          value: question.answers.full.answerId,
-          text: question.answers.full.text,
-          checked: getAnswer(answers, question.answers.full.answerId)          
+          value: question.answers.yes.answerId,
+          text: question.answers.yes.text,
+          checked: getAnswer(answers, question.answers.yes.answerId)          
         },
         {
-          value: question.answers.moreThanHalf.answerId,
-          text: question.answers.moreThanHalf.text,
-          checked: getAnswer(answers, question.answers.moreThanHalf.answerId)
-        },
-        {
-          value: question.answers.lessThanHalf.answerId,
-          text: question.answers.lessThanHalf.text,
-          checked: getAnswer(answers, question.answers.lessThanHalf.answerId)
+          value: question.answers.no.answerId,
+          text: question.answers.no.text,
+          checked: getAnswer(answers, question.answers.no.answerId)
         },
         {
           value: question.answers.youDoNotKnow.answerId,
