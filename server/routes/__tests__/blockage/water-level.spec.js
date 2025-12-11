@@ -37,7 +37,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_FLOOD_RISK)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WATER_LEVEL)).toEqual([{
         ...baseAnswer,
         answerId
@@ -52,7 +52,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_FLOOD_RISK)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WATER_LEVEL)).toEqual([{
         ...baseAnswer,
         answerId
@@ -67,7 +67,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_FLOOD_RISK)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WATER_LEVEL)).toEqual([{
         ...baseAnswer,
         answerId
