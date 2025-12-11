@@ -29,11 +29,11 @@ describe(url, () => {
     })
     it(`Should pre-select saved answer from session for ${url}`, async () => {
       const response = await submitGetRequest({ url }, question.text, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="142" checked>')
+      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="152" checked>')
     })
   })
   describe('POST', () => {
-    //update redirectTo
+    // update redirectTo
     it.each([
       { answer: 'alreadyFlooding', description: 'already flooding', redirectTo: constants.routes.BLOCKAGE_START },
       { answer: 'yes', description: 'yes', redirectTo: constants.routes.BLOCKAGE_START },
