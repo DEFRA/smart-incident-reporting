@@ -1372,7 +1372,48 @@ const questionSets = {
             text: 'Yes details'
           }
         }
-      }
+      },
+      BLOCKAGE_FLOOD_RISK_DANGER: {
+        questionId: 29000,
+        key: constants.redisKeys.BLOCKAGE_FLOOD_RISK_DANGER,
+        text: 'What is at risk from any flooding?',
+        answers: {
+          residential: {
+            answerId: 29001,
+            text: 'Residential Property'            
+          },
+          commercial: {
+            answerId: 29002,
+            text: 'Commercial or public buildings, for example shops or businesses'            
+          },
+          road: {
+            answerId: 29003,
+            text: 'Road, railways,powelines or similar'
+          },
+          farmland: {
+            answerId: 29004,
+            text: 'Farmland or countryside'
+          },
+          animal: {
+            answerId: 29005,
+            text: 'Animals,for example cattle or horses'
+          },          
+          somethingElse: {
+            answerId: 29006,
+            text: SOMETHING_ELSE,
+            shortText: SOMETHING_ELSE
+          },
+          unknown: {
+            answerId: 29007,
+            text: YOU_DO_NOT_KNOW,
+            shortText: NOT_GIVEN
+          },
+          somethingElseDetail: {
+            answerId: 29008,
+            text: 'Give details of what you think is in the water'
+          }
+        }
+      },
     }
   },
   CREATE_A_REPORT: {
