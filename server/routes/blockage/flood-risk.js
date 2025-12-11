@@ -33,6 +33,8 @@ const handlers = {
 
     request.yar.set(constants.redisKeys.BLOCKAGE_FLOOD_RISK, buildAnswers(answerId))
 
+    return h.redirect(constants.routes.BLOCKAGE_START)
+
     // handle redirects
     if (answerId === question.answers.alreadyFlooding.answerId || answerId === question.answers.yes.answerId) {
       // to update
