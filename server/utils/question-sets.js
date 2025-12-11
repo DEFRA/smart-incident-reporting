@@ -1311,6 +1311,29 @@ const questionSets = {
             text: YOU_DO_NOT_KNOW
           }
         }
+      },
+      BLOCKAGE_FLOOD_RISK: {
+        questionId: 140,
+        key: constants.redisKeys.BLOCKAGE_FLOOD_RISK,
+        text: 'Will the blockage cause a flood if it is not removed?',
+        answers: {
+          alreadyFlooding: {
+            answerId: 141,
+            text: "There's already flooding"
+          },
+          yes: {
+            answerId: 142,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 143,
+            text: 'No'
+          },
+          youDoNotKnow: {
+            answerId: 144,
+            text: YOU_DO_NOT_KNOW
+          }
+        }
       }
     }
   },

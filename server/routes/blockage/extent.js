@@ -34,7 +34,8 @@ const handlers = {
     request.yar.set(constants.redisKeys.BLOCKAGE_EXTENT, buildAnswers(answerId))
 
     // handle redirects
-    return h.redirect(constants.routes.BLOCKAGE_START)
+    // update too water level
+    return h.redirect(constants.routes.BLOCKAGE_FLOOD_RISK)
   }
 }
 
