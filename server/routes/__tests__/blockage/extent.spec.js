@@ -28,8 +28,7 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    // update too water level
-    it('Should accept full option and redirect to blockage/flood-risk', async () => {
+    it('Should accept full option and redirect to blockage/water-level', async () => {
       const answerId = question.answers.full.answerId
       const options = {
         url,
@@ -38,14 +37,13 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_FLOOD_RISK)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_WATER_LEVEL)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_EXTENT)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    // update too water level
-    it('Should accept more than half and redirect to blockage/flood-risk', async () => {
+    it('Should accept more than half and redirect to blockage/water-level', async () => {
       const answerId = question.answers.moreThanHalf.answerId
       const options = {
         url,
@@ -54,14 +52,13 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_FLOOD_RISK)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_WATER_LEVEL)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_EXTENT)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    // update too water level
-    it('Should accept less than half and redirect to blockage/flood-risk', async () => {
+    it('Should accept less than half and redirect to blockage/water-level', async () => {
       const answerId = question.answers.lessThanHalf.answerId
       const options = {
         url,
@@ -70,14 +67,13 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_FLOOD_RISK)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_WATER_LEVEL)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_EXTENT)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    // update too water level
-    it('Should accept you dont know and redirect to blockage/flood-risk', async () => {
+    it('Should accept you dont know and redirect to blockage/water-level', async () => {
       const answerId = question.answers.youDoNotKnow.answerId
       const options = {
         url,
@@ -86,7 +82,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_FLOOD_RISK)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_WATER_LEVEL)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_EXTENT)).toEqual([{
         ...baseAnswer,
         answerId

@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
-const question = questionSets.BLOCKAGE.questions.BLOCKAGE_EXTENT
+const question = questionSets.BLOCKAGE.questions.BLOCKAGE_WATER_LEVEL
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -12,7 +12,7 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => {
-    return h.view(constants.views.BLOCKAGE_EXTENT, {
+    return h.view(constants.views.BLOCKAGE_WATER_LEVEL, {
       ...getContext(request)
     })
   },
@@ -22,7 +22,7 @@ const handlers = {
     // validate payload
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.BLOCKAGE_EXTENT, {
+      return h.view(constants.views.BLOCKAGE_WATER_LEVEL, {
         ...getContext(request),
         errorSummary
       })
@@ -31,10 +31,10 @@ const handlers = {
     // convert answerId to number
     answerId = Number(answerId)
 
-    request.yar.set(constants.redisKeys.BLOCKAGE_EXTENT, buildAnswers(answerId))
+    request.yar.set(constants.redisKeys.BLOCKAGE_WATER_LEVEL, buildAnswers(answerId))
 
     // handle redirects
-    return h.redirect(constants.routes.BLOCKAGE_WATER_LEVEL)
+    return h.redirect(constants.routes.BLOCKAGE_START)
   }
 }
 
@@ -50,7 +50,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select how much of the river is blocked or ’you do not know’',
+      text: 'Select ‘yes’ if water is building up behind the blockage',
       href: '#answerId'
     })
   }
@@ -67,12 +67,12 @@ const buildAnswers = answerId => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.BLOCKAGE_EXTENT,
+    path: constants.routes.BLOCKAGE_WATER_LEVEL,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.BLOCKAGE_EXTENT,
+    path: constants.routes.BLOCKAGE_WATER_LEVEL,
     handler: handlers.post
   }
 ]

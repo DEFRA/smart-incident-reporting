@@ -124,6 +124,7 @@ const BLOCKAGE_DATE_BEFORE_YESTERDAY = 'blockage/date-before-yesterday'
 const BLOCKAGE_TIME_BEFORE_YESTERDAY = 'blockage/time-before-yesterday'
 const BLOCKAGE_HISTORY = 'blockage/history'
 const BLOCKAGE_EXTENT = 'blockage/extent'
+const BLOCKAGE_WATER_LEVEL = 'blockage/water-level'
 const BLOCKAGE_FLOOD_RISK = 'blockage/flood-risk'
 
 // Meta data
@@ -158,6 +159,7 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
     BLOCKAGE_TIME_BEFORE_YESTERDAY,
     BLOCKAGE_HISTORY,
     BLOCKAGE_EXTENT,
+    BLOCKAGE_WATER_LEVEL,
     BLOCKAGE_FLOOD_RISK
   }
 }

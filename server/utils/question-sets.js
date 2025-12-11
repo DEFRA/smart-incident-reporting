@@ -1312,6 +1312,25 @@ const questionSets = {
           }
         }
       },
+      BLOCKAGE_WATER_LEVEL: {
+        questionId: 140,
+        key: constants.redisKeys.BLOCKAGE_WATER_LEVEL,
+        text: 'Is the water building up behind the blockage?',
+        answers: {
+          yes: {
+            answerId: 141,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 142,
+            text: 'No'
+          },
+          youDoNotKnow: {
+            answerId: 143,
+            text: YOU_DO_NOT_KNOW
+          }
+        }
+      },
       BLOCKAGE_FLOOD_RISK: {
         questionId: 150,
         key: constants.redisKeys.BLOCKAGE_FLOOD_RISK,
