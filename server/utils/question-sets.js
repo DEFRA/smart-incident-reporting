@@ -1311,6 +1311,48 @@ const questionSets = {
             text: YOU_DO_NOT_KNOW
           }
         }
+      },
+      BLOCKAGE_WATER_LEVEL: {
+        questionId: 140,
+        key: constants.redisKeys.BLOCKAGE_WATER_LEVEL,
+        text: 'Is the water building up behind the blockage?',
+        answers: {
+          yes: {
+            answerId: 141,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 142,
+            text: 'No'
+          },
+          youDoNotKnow: {
+            answerId: 143,
+            text: YOU_DO_NOT_KNOW
+          }
+        }
+      },
+      BLOCKAGE_FLOOD_RISK: {
+        questionId: 150,
+        key: constants.redisKeys.BLOCKAGE_FLOOD_RISK,
+        text: 'Will the blockage cause a flood if it is not removed?',
+        answers: {
+          alreadyFlooding: {
+            answerId: 151,
+            text: "There's already flooding"
+          },
+          yes: {
+            answerId: 152,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 153,
+            text: 'No'
+          },
+          youDoNotKnow: {
+            answerId: 154,
+            text: YOU_DO_NOT_KNOW
+          }
+        }
       }
     }
   },
