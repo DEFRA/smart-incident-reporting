@@ -20,7 +20,12 @@ const sessionData = {
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, question.text)
+      const response = await submitGetRequest({ url }, question.text)
+      expect(response.statusCode).toBe(constants.statusCodes.OK)
+    })
+    it(`Should display correct question text for ${url}`, async () => {
+      const response = await submitGetRequest({ url }, question.text)
+      expect(response.payload).toContain(question.text)
     })
     it(`Should return success response and correct view for ${url}`, async () => {
       const response = await submitGetRequest({ url }, question.text, constants.statusCodes.OK, sessionData)
@@ -28,8 +33,13 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Should accept YES option and redirect to next page', async () => {
-      const answerId = question.answers.yes.answerId
+    // update redirectTo
+    it.each([
+      { answer: 'yes', description: 'yes', redirectTo: constants.routes.BLOCKAGE_FLOOD_RISK },
+      { answer: 'no', description: 'no', redirectTo: constants.routes.BLOCKAGE_FLOOD_RISK },
+      { answer: 'youDoNotKnow', description: 'you dont know', redirectTo: constants.routes.BLOCKAGE_FLOOD_RISK }
+    ])('Should redirect to blockage/flood-risk when $water-level selected', async ({ answer, redirectTo }) => {
+      const answerId = question.answers[answer].answerId
       const options = {
         url,
         payload: {
@@ -37,14 +47,14 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WATER_LEVEL)).toEqual([{
-        ...baseAnswer,
-        answerId
-      }])
+      expect(response.headers.location).toEqual(redirectTo)
     })
-    it('Should accept NO and redirect to next page', async () => {
-      const answerId = question.answers.no.answerId
+    it.each([
+      { answer: 'yes', description: 'yes' },
+      { answer: 'no', description: 'no' },
+      { answer: 'youDoNotKnow', description: 'you dont know' }
+    ])('Should save $water-level answer to session', async ({ answer }) => {
+      const answerId = question.answers[answer].answerId
       const options = {
         url,
         payload: {
@@ -52,34 +62,25 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WATER_LEVEL)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    it('Should accept you dont know and redirect to next page', async () => {
-      const answerId = question.answers.youDoNotKnow.answerId
-      const options = {
-        url,
-        payload: {
-          answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_WATER_LEVEL)).toEqual([{
-        ...baseAnswer,
-        answerId
-      }])
-    })
-    it('Sad: no radio selected, returns error state', async () => {
+    it('Should return error when no radio selected', async () => {
       const options = {
         url,
         payload: {}
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
+    })
+    it('Should display correct error message when no radio selected', async () => {
+      const options = {
+        url,
+        payload: {}
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('Select ‘yes’ if water is building up behind the blockage')
     })
   })
