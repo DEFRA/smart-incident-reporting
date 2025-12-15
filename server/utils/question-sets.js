@@ -1374,46 +1374,56 @@ const questionSets = {
         }
       },
       BLOCKAGE_FLOOD_RISK_DANGER: {
-        questionId: 29000,
+        questionId: 160,
         key: constants.redisKeys.BLOCKAGE_FLOOD_RISK_DANGER,
-        text: 'What is at risk from any flooding?',
+        text: 'What is at risk from flooding?',
         answers: {
-          residential: {
-            answerId: 29001,
-            text: 'Residential Property'            
+          yourHome: {
+            answerId: 161,
+            text: 'Your home or parts of it, including your garage if attached'
           },
-          commercial: {
-            answerId: 29002,
-            text: 'Commercial or public buildings, for example shops or businesses'            
+          yourOtherProperty: {
+            answerId: 162,
+            text: 'Other property you own, for example your garden, sheds or a detached garage'
+          },
+          otherPeopleHome: {
+            answerId: 163,
+            text: 'Other people\'s homes'
+          },
+          commercialProperty: {
+            answerId: 164,
+            text: 'Commercial or public buildings, for example shops or businesses'
           },
           road: {
-            answerId: 29003,
-            text: 'Road, railways,powelines or similar'
+            answerId: 165,
+            text: 'Roads, railways, powerlines or similar'
           },
           farmland: {
-            answerId: 29004,
+            answerId: 166,
             text: 'Farmland or countryside'
           },
           animal: {
-            answerId: 29005,
-            text: 'Animals,for example cattle or horses'
-          },          
+            answerId: 167,
+            text: 'Animals, for example cattle or horses'
+          },
           somethingElse: {
-            answerId: 29006,
-            text: SOMETHING_ELSE,
-            shortText: SOMETHING_ELSE
+            answerId: 168,
+            text: SOMETHING_ELSE
           },
           unknown: {
-            answerId: 29007,
-            text: YOU_DO_NOT_KNOW,
-            shortText: NOT_GIVEN
+            answerId: 169,
+            text: YOU_DO_NOT_KNOW
+          },
+          commercialPropertyDetail: {
+            answerId: 170,
+            text: 'Give details about type of building at risk from flooding'
           },
           somethingElseDetail: {
-            answerId: 29008,
-            text: 'Give details of what you think is in the water'
+            answerId: 171,
+            text: 'Give details about what\'s at risk from flooding'
           }
         }
-      },
+      }
     }
   },
   CREATE_A_REPORT: {

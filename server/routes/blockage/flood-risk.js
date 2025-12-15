@@ -38,7 +38,7 @@ const handlers = {
     // handle redirects
     if (answerId === question.answers.alreadyFlooding.answerId || answerId === question.answers.yes.answerId) {
       // to update
-      return h.redirect(constants.routes.BLOCKAGE_START)
+      return h.redirect(constants.routes.BLOCKAGE_FLOOD_RISK_DANGER)
     } else {
       return h.redirect(constants.routes.BLOCKAGE_OWNER)
     }
