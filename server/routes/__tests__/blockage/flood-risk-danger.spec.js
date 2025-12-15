@@ -52,7 +52,7 @@ describe(url, () => {
       { answer: 'otherPeopleHome', description: 'Other people\'s homes', redirectTo: constants.routes.BLOCKAGE_START },
       { answer: 'yourHome', description: 'Your home or parts of it, including your garage if attached', redirectTo: constants.routes.BLOCKAGE_START },
       { answer: 'yourOtherProperty', description: 'Other property you own, for example your garden, sheds or a detached garage', redirectTo: constants.routes.BLOCKAGE_START }
- ])('Should redirect to blockage/start when $description selected', async ({ answer, redirectTo }) => {
+    ])('Should redirect to blockage/start when $description selected', async ({ answer, redirectTo }) => {
       const answerId = question.answers[answer].answerId
       const options = {
         url,
@@ -63,7 +63,7 @@ describe(url, () => {
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(redirectTo)
     })
-   it('Happy: accepts valid array of answerID and redirects to BLOCKAGE_START', async () => {
+    it('Happy: accepts valid array of answerID and redirects to BLOCKAGE_START', async () => {
       const answerId = [question.answers.yourHome.answerId.toString(), question.answers.yourOtherProperty.answerId.toString(), question.answers.animal.answerId.toString()]
       const options = {
         url,
@@ -124,7 +124,7 @@ describe(url, () => {
         answerId: question.answers.commercialPropertyDetail.answerId,
         otherBuildingDetail: 'Commercial details'
       }])
-    })  
+    })
     it('Should return error when no checkbox is selected', async () => {
       const options = {
         url,
@@ -140,14 +140,15 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('Select what is at risk from flooding, or &#39;you do not know&#39;')
-    }) 
+    })
     it('Should return error when commercial property  is selected and no text is entered', async () => {
       const answerId = question.answers.commercialProperty.answerId.toString()
       const options = {
         url,
-        payload: {          
+        payload: {
           answerId,
-          commercialPropertyDetail: ''}
+          commercialPropertyDetail: ''
+        }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
@@ -156,9 +157,10 @@ describe(url, () => {
       const answerId = question.answers.commercialProperty.answerId.toString()
       const options = {
         url,
-        payload: {          
+        payload: {
           answerId,
-          commercialPropertyDetail: ''}
+          commercialPropertyDetail: ''
+        }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('Enter details about the type of buildings at risk from flooding')
@@ -167,9 +169,10 @@ describe(url, () => {
       const answerId = question.answers.somethingElse.answerId.toString()
       const options = {
         url,
-        payload: {          
+        payload: {
           answerId,
-          otherDetails: ''}
+          otherDetails: ''
+        }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
@@ -178,12 +181,13 @@ describe(url, () => {
       const answerId = question.answers.somethingElse.answerId.toString()
       const options = {
         url,
-        payload: {          
+        payload: {
           answerId,
-          otherDetails: ''}
+          otherDetails: ''
+        }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('Enter details about what is at risk from flooding')
-    })                     
-  })  
+    })
+  })
 })
