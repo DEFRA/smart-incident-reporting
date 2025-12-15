@@ -92,6 +92,8 @@ const validatePayload = (answerId, somethingElseDetail, commercialPropertyDetail
       text: 'Enter details about the type of buildings at risk from flooding',
       href: '#answerId'
     })
+  }else {
+    // do nothing (sonarcloud made me do this)
   }
   return errorSummary
 }
