@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% set hideBackLink = true %}
-{% set pageTitle = 'Report received' %}
+{% set pageTitle = 'Report sent' %}
 
 {% block content %}
 
@@ -14,19 +14,28 @@
     <h2 class="govuk-heading-m">
       What happens next
     </h2>
-    <p>An agent will look into the problem. This may include:
+    <p>The Environment Agency will look into the problem. This involves:</p>
     <ul class="govuk-list govuk-list--bullet">
       <li>checking for similar reports in the area</li>
-      <li>sending someone to investigate if needed</li>
-      <li>passing details of the problem to a local team or another organisation who can help</li>
+      <li>deciding how much danger to the environment there is</li>
+      <li>deciding how best to deal with the problem</li>
     </ul>
+    <p>We may:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>send people to investigate</li>
+      <li>contact any people or organisations involved</li>
+      <li>pass details of the problem to local teams or other organisations</li>
+    </ul>
+    <p>If you gave an email address, check your email for:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>confirmation of your report and a reference number</li>
+      <li>how to send us photos to add to your report, if you said you had any and we need to see them</li>
+    </ul>
+    <p>Otherwise, we will only contact you if we need more information about the problem - you do not need to call us.</p>
     {{ govukInsetText({
-      text: "Do not contact the Environment Agency - they cannot give updates about your report."
+      text: "The Environment Agency incident hotline cannot give updates on your report."
     }) }}
-    <p>The online service is monitored from 9am to 5pm, Monday to Friday, not including bank holidays. See how to <a href="https://www.gov.uk/report-an-environmental-incident">report environmental problems</a> outside these times.</p>
-
-    <p><a href="/">Make another report</a>.</p>
-    <p><a href="/feedback">Give feedback</a> on the service to help improve it.</p>
+    <p><a href="/feedback ">Give feedback</a> on the service to help improve it.</p>
   </div>
 </div>
 
