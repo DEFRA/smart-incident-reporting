@@ -17,10 +17,10 @@ const handlers = {
     })
   },
   post: async (request, h) => {
-    const { answerId: answerIdRaw } = request.payload
+    let { answerId } = request.payload
 
     // validate payload
-    const errorSummary = validatePayload(answerIdRaw)
+    const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.BLOCKAGE_FLOOD_RISK, {
         ...getContext(request),
@@ -29,18 +29,17 @@ const handlers = {
     }
 
     // convert answerId to number
-    const answerId = Number(answerIdRaw)
+    answerId = Number(answerId)
 
     request.yar.set(constants.redisKeys.BLOCKAGE_FLOOD_RISK, buildAnswers(answerId))
 
-    return h.redirect(constants.routes.BLOCKAGE_START)
-
     // handle redirects
-    // if (answerId === question.answers.alreadyFlooding.answerId || answerId === question.answers.yes.answerId) {
-    //   return h.redirect(constants.routes.BLOCKAGE_AT_RISK_OF_FLOOD)
-    // } else {
-    //   return h.redirect(constants.routes.BLOCKAGE_YOUR_DETAILS)
-    // }
+    if (answerId === question.answers.alreadyFlooding.answerId || answerId === question.answers.yes.answerId) {
+      // to update
+      return h.redirect(constants.routes.BLOCKAGE_START)
+    } else {
+      return h.redirect(constants.routes.BLOCKAGE_OWNER)
+    }
   }
 }
 
