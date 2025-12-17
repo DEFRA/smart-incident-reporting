@@ -1,0 +1,64 @@
+{% extends "form-layout.html" %}
+{% set pageTitle = "Your details" %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">Your details</h1>
+
+    <p class="govuk-body">We will only use your email and phone number to:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>email your report confirmation and reference number</li>
+      <li>ask for more information, if needed to help investigate the problem</li>
+    </ul>
+
+    <p class="govuk-body">
+      You do not have to give any details you do not want to.
+      <a href="../privacy-notice" class="govuk-link">Find out how we use your personal data</a>.
+    </p>
+
+    {{ govukInput({
+      id: "name",
+      name: "name",
+      value: name,
+      label: {
+        text: "Your name (optional)"
+      }
+    }) }}
+
+    {{ govukInput({
+      id: "email",
+      name: "email",
+      type: "email",
+      value: email,
+      label: {
+        text: "Email (optional)"
+      },
+      hint: {
+        text: "You will not get a reference number if you leave email blank"
+      },
+      errorMessage: findErrorMessageById(errorSummary, "email")
+    }) }}
+
+    {{ govukInput({
+      id: "phone",
+      name: "phone",
+      type: "tel",
+      value: phone,
+      label: {
+        text: "Phone (optional)"
+      },
+      errorMessage: findErrorMessageById(errorSummary, "phone")
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}
