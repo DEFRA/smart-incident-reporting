@@ -36,7 +36,7 @@ const handlers = {
     // set answer in session
     request.yar.set(question.key, buildAnswers(answerId, somethingElseDetail, commercialPropertyDetail))
 
-    return h.redirect(constants.routes.BLOCKAGE_START)
+    return h.redirect(constants.routes.BLOCKAGE_OWNER)
   }
 }
 
