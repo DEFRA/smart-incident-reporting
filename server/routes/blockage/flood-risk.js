@@ -33,14 +33,13 @@ const handlers = {
 
     request.yar.set(constants.redisKeys.BLOCKAGE_FLOOD_RISK, buildAnswers(answerId))
 
-    return h.redirect(constants.routes.BLOCKAGE_START)
-
     // handle redirects
-    // if (answerId === question.answers.alreadyFlooding.answerId || answerId === question.answers.yes.answerId) {
-    //   return h.redirect(constants.routes.BLOCKAGE_AT_RISK_OF_FLOOD)
-    // } else {
-    //   return h.redirect(constants.routes.BLOCKAGE_YOUR_DETAILS)
-    // }
+    if (answerId === question.answers.alreadyFlooding.answerId || answerId === question.answers.yes.answerId) {
+      // to update
+      return h.redirect(constants.routes.BLOCKAGE_START)
+    } else {
+      return h.redirect(constants.routes.BLOCKAGE_OWNER)
+    }
   }
 }
 

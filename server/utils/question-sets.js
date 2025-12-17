@@ -1353,6 +1353,25 @@ const questionSets = {
             text: YOU_DO_NOT_KNOW
           }
         }
+      },
+      BLOCKAGE_OWNER: {
+        questionId: 180,
+        key: constants.redisKeys.BLOCKAGE_OWNER,
+        text: 'Do you know who is responsible for causing the blockage?',
+        answers: {
+          yes: {
+            answerId: 181,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 182,
+            text: 'No'
+          },
+          yesDetails: {
+            answerId: 183,
+            text: 'Yes details'
+          }
+        }
       }
     }
   },

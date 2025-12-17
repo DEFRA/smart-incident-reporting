@@ -33,7 +33,6 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    // update redirectTo
     it.each([
       { answer: 'yes', description: 'yes', redirectTo: constants.routes.BLOCKAGE_FLOOD_RISK },
       { answer: 'no', description: 'no', redirectTo: constants.routes.BLOCKAGE_FLOOD_RISK },

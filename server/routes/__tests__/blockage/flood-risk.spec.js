@@ -37,9 +37,9 @@ describe(url, () => {
     it.each([
       { answer: 'alreadyFlooding', description: 'already flooding', redirectTo: constants.routes.BLOCKAGE_START },
       { answer: 'yes', description: 'yes', redirectTo: constants.routes.BLOCKAGE_START },
-      { answer: 'no', description: 'no', redirectTo: constants.routes.BLOCKAGE_START },
-      { answer: 'youDoNotKnow', description: 'you dont know', redirectTo: constants.routes.BLOCKAGE_START }
-    ])('Should redirect to blockage/start when $description selected', async ({ answer, redirectTo }) => {
+      { answer: 'no', description: 'no', redirectTo: constants.routes.BLOCKAGE_OWNER },
+      { answer: 'youDoNotKnow', description: 'you dont know', redirectTo: constants.routes.BLOCKAGE_OWNER }
+    ])('Should redirect to $redirectTo when $description selected', async ({ answer, redirectTo }) => {
       const answerId = question.answers[answer].answerId
       const options = {
         url,
