@@ -34,6 +34,11 @@ describe(url, () => {
         expected: { detailsName: 'John Smith', detailsPhone: '#+441234567890', detailsEmail: 'test@test.com' }
       },
       {
+        description: 'no payload',
+        payload: undefined,
+        expected: { detailsName: '', detailsPhone: '', detailsEmail: '' }
+      },
+      {
         description: 'empty fields',
         payload: { name: '', phone: '', email: '' },
         expected: { detailsName: '', detailsPhone: '', detailsEmail: '' }
