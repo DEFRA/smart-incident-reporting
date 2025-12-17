@@ -1315,7 +1315,7 @@ const questionSets = {
       BLOCKAGE_WATER_LEVEL: {
         questionId: 140,
         key: constants.redisKeys.BLOCKAGE_WATER_LEVEL,
-        text: 'Is the water building up behind the blockage?',
+        text: 'Is water building up behind the blockage?',
         answers: {
           yes: {
             answerId: 141,
@@ -1421,6 +1421,23 @@ const questionSets = {
           somethingElseDetail: {
             answerId: 171,
             text: 'Give details about what\'s at risk from flooding'
+          }
+        }
+      },
+      BLOCKAGE_IMAGES_OR_VIDEO: {
+        questionId: 2800,
+        key: constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO,
+        text: 'Do you want to send us any photos of the problem?',
+        answers: {
+          yes: {
+            answerId: 2801,
+            text: 'Yes',
+            shortText: 'Yes'
+          },
+          no: {
+            answerId: 2802,
+            text: 'No',
+            shortText: 'No'
           }
         }
       }
