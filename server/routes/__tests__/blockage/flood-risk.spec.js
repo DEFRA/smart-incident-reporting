@@ -83,7 +83,7 @@ describe(url, () => {
         payload: {}
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
-      expect(response.payload).toContain('Select whether the blockage will cause a flood or you do not know')
+      expect(response.payload).toContain('Select whether the blockage will cause a flood or &#39;you do not know&#39;')
     })
   })
 })
