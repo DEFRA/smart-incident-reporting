@@ -68,7 +68,7 @@ describe(url, () => {
     it.each([
       { answer: 'yes', description: 'yes' },
       { answer: 'no', description: 'no' }
-    ])('Should redirect to blockage/start when $description selected', async ({ answer }) => {
+    ])('Should redirect to blockage/contact-details when $description selected', async ({ answer }) => {
       const answerId = question.answers[answer].answerId
       const options = {
         url,
@@ -78,7 +78,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_CONTACT_DETAILS)
     })
 
     it('Should save yes answer with details to session', async () => {

@@ -127,6 +127,7 @@ const BLOCKAGE_EXTENT = 'blockage/extent'
 const BLOCKAGE_WATER_LEVEL = 'blockage/water-level'
 const BLOCKAGE_FLOOD_RISK = 'blockage/flood-risk'
 const BLOCKAGE_OWNER = 'blockage/owner'
+const BLOCKAGE_CONTACT_DETAILS = 'blockage/contact-details'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -162,7 +163,8 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
     BLOCKAGE_EXTENT,
     BLOCKAGE_WATER_LEVEL,
     BLOCKAGE_FLOOD_RISK,
-    BLOCKAGE_OWNER
+    BLOCKAGE_OWNER,
+    BLOCKAGE_CONTACT_DETAILS
   }
 }
 
