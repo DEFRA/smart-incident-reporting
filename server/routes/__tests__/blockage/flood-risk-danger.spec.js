@@ -45,13 +45,13 @@ describe(url, () => {
   describe('POST', () => {
     // update redirectTo
     it.each([
-      { answer: 'animal', description: 'Animals, for example cattle or horses', redirectTo: constants.routes.BLOCKAGE_START },
-      { answer: 'farmland', description: 'Farmland or countryside', redirectTo: constants.routes.BLOCKAGE_START },
-      { answer: 'road', description: 'Roads, railways, powerlines or similar', redirectTo: constants.routes.BLOCKAGE_START },
-      { answer: 'unknown', description: 'you dont know', redirectTo: constants.routes.BLOCKAGE_START },
-      { answer: 'otherPeopleHome', description: 'Other people\'s homes', redirectTo: constants.routes.BLOCKAGE_START },
-      { answer: 'yourHome', description: 'Your home or parts of it, including your garage if attached', redirectTo: constants.routes.BLOCKAGE_START },
-      { answer: 'yourOtherProperty', description: 'Other property you own, for example your garden, sheds or a detached garage', redirectTo: constants.routes.BLOCKAGE_START }
+      { answer: 'animal', description: 'Animals, for example cattle or horses', redirectTo: constants.routes.BLOCKAGE_OWNER },
+      { answer: 'farmland', description: 'Farmland or countryside', redirectTo: constants.routes.BLOCKAGE_OWNER },
+      { answer: 'road', description: 'Roads, railways, powerlines or similar', redirectTo: constants.routes.BLOCKAGE_OWNER },
+      { answer: 'unknown', description: 'you dont know', redirectTo: constants.routes.BLOCKAGE_OWNER },
+      { answer: 'otherPeopleHome', description: 'Other people\'s homes', redirectTo: constants.routes.BLOCKAGE_OWNER },
+      { answer: 'yourHome', description: 'Your home or parts of it, including your garage if attached', redirectTo: constants.routes.BLOCKAGE_OWNER },
+      { answer: 'yourOtherProperty', description: 'Other property you own, for example your garden, sheds or a detached garage', redirectTo: constants.routes.BLOCKAGE_OWNER }
     ])('Should redirect to blockage/start when $description selected', async ({ answer, redirectTo }) => {
       const answerId = question.answers[answer].answerId
       const options = {
@@ -72,7 +72,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_OWNER)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_FLOOD_RISK_DANGER)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.yourHome.answerId
@@ -95,7 +95,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_OWNER)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_FLOOD_RISK_DANGER)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.somethingElse.answerId
@@ -115,7 +115,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_OWNER)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_FLOOD_RISK_DANGER)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.commercialProperty.answerId
