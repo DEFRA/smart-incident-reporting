@@ -17,10 +17,10 @@ const handlers = {
     })
   },
   post: async (request, h) => {
-    const { answerId: answerIdRaw } = request.payload
+    let { answerId } = request.payload
 
     // validate payload
-    const errorSummary = validatePayload(answerIdRaw)
+    const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.BLOCKAGE_FLOOD_RISK, {
         ...getContext(request),
@@ -29,7 +29,7 @@ const handlers = {
     }
 
     // convert answerId to number
-    const answerId = Number(answerIdRaw)
+    answerId = Number(answerId)
 
     request.yar.set(constants.redisKeys.BLOCKAGE_FLOOD_RISK, buildAnswers(answerId))
 
@@ -56,7 +56,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select whether the blockage has been here for some time or you do not know',
+      text: 'Select whether the blockage will cause a flood or \'you do not know\'',
       href: '#answerId'
     })
   }
