@@ -126,7 +126,7 @@ const BLOCKAGE_HISTORY = 'blockage/history'
 const BLOCKAGE_EXTENT = 'blockage/extent'
 const BLOCKAGE_WATER_LEVEL = 'blockage/water-level'
 const BLOCKAGE_FLOOD_RISK = 'blockage/flood-risk'
-const BLOCKAGE_FLOOD_RISK_DANGER='blockage/flood-risk-danger'
+const BLOCKAGE_FLOOD_RISK_DANGER = 'blockage/flood-risk-danger'
 const BLOCKAGE_OWNER = 'blockage/owner'
 const BLOCKAGE_CONTACT_DETAILS = 'blockage/contact-details'
 

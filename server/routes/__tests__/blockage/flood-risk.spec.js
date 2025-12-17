@@ -32,7 +32,7 @@ describe(url, () => {
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="152" checked>')
     })
   })
-  describe('POST', () => {    
+  describe('POST', () => {
     it.each([
       { answer: 'alreadyFlooding', description: 'already flooding', redirectTo: constants.routes.BLOCKAGE_FLOOD_RISK_DANGER },
       { answer: 'yes', description: 'yes', redirectTo: constants.routes.BLOCKAGE_FLOOD_RISK_DANGER },
