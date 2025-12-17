@@ -55,7 +55,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select whether the blockage has been here for some time or you do not know',
+      text: 'Select whether the blockage will cause a flood or \'you do not know\'',
       href: '#answerId'
     })
   }
