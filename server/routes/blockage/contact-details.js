@@ -8,21 +8,21 @@ const handlers = {
     })
   },
   post: async (request, h) => {
-    const { name = '', email = '', phone = '' } = request.payload || {}
+    const { fullName = '', email = '', phone = '' } = request.payload || {}
     const errorSummary = validatePayload(phone, email)
 
     // Validation error so return view in Error state
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.BLOCKAGE_CONTACT_DETAILS, {
         errorSummary,
-        name,
+        fullName,
         email,
         phone
       })
     }
 
     request.yar.set(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS, {
-      detailsName: name || '',
+      detailsName: fullName || '',
       detailsPhone: phone || '',
       detailsEmail: email || ''
     })
@@ -34,12 +34,12 @@ const handlers = {
 
 const getContext = request => {
   const yourDetails = request.yar.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)
-  const name = yourDetails?.detailsName || ''
+  const fullName = yourDetails?.detailsName || ''
   const phone = yourDetails?.detailsPhone || ''
   const email = yourDetails?.detailsEmail || ''
 
   return {
-    name,
+    fullName,
     phone,
     email
   }

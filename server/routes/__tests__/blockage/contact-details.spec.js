@@ -16,12 +16,12 @@ const sessionData = {
 describe(url, () => {
   describe('GET', () => {
     it('Should display contact-details view with saved values', async () => {
-      const response = await submitGetRequest({ url }, 'Your details', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, 'Your contact details', constants.statusCodes.OK, sessionData)
       expect(response.result).toContain('value="test name"')
     })
 
     it('Should display empty form when no session data', async () => {
-      const response = await submitGetRequest({ url }, 'Your details', constants.statusCodes.OK)
+      const response = await submitGetRequest({ url }, 'Your contact details', constants.statusCodes.OK)
       expect(response.statusCode).toBe(constants.statusCodes.OK)
     })
   })
@@ -30,7 +30,7 @@ describe(url, () => {
     it.each([
       {
         description: 'all fields',
-        payload: { name: 'John Smith', phone: '#+441234567890', email: 'test@test.com' },
+        payload: { fullName: 'John Smith', phone: '#+441234567890', email: 'test@test.com' },
         expected: { detailsName: 'John Smith', detailsPhone: '#+441234567890', detailsEmail: 'test@test.com' }
       },
       {
@@ -40,17 +40,17 @@ describe(url, () => {
       },
       {
         description: 'empty fields',
-        payload: { name: '', phone: '', email: '' },
+        payload: { fullName: '', phone: '', email: '' },
         expected: { detailsName: '', detailsPhone: '', detailsEmail: '' }
       },
       {
         description: 'name only',
-        payload: { name: 'John Smith', phone: '', email: '' },
+        payload: { fullName: 'John Smith', phone: '', email: '' },
         expected: { detailsName: 'John Smith', detailsPhone: '', detailsEmail: '' }
       },
       {
         description: 'email only',
-        payload: { name: '', phone: '', email: 'test@test.com' },
+        payload: { fullName: '', phone: '', email: 'test@test.com' },
         expected: { detailsName: '', detailsPhone: '', detailsEmail: 'test@test.com' }
       }
     ])('Accepts $description and redirects to BLOCKAGE_START', async ({ payload, expected }) => {
@@ -62,22 +62,22 @@ describe(url, () => {
     it.each([
       {
         description: 'all fields',
-        payload: { name: 'John Smith', phone: '#+441234567890', email: 'test@test.com' },
+        payload: { fullName: 'John Smith', phone: '#+441234567890', email: 'test@test.com' },
         expected: { detailsName: 'John Smith', detailsPhone: '#+441234567890', detailsEmail: 'test@test.com' }
       },
       {
         description: 'empty fields',
-        payload: { name: '', phone: '', email: '' },
+        payload: { fullName: '', phone: '', email: '' },
         expected: { detailsName: '', detailsPhone: '', detailsEmail: '' }
       },
       {
         description: 'name only',
-        payload: { name: 'John Smith', phone: '', email: '' },
+        payload: { fullName: 'John Smith', phone: '', email: '' },
         expected: { detailsName: 'John Smith', detailsPhone: '', detailsEmail: '' }
       },
       {
         description: 'email only',
-        payload: { name: '', phone: '', email: 'test@test.com' },
+        payload: { fullName: '', phone: '', email: 'test@test.com' },
         expected: { detailsName: '', detailsPhone: '', detailsEmail: 'test@test.com' }
       }
     ])('Saves $description to session', async ({ payload, expected }) => {
@@ -89,7 +89,7 @@ describe(url, () => {
     it('Should error with invalid phone number', async () => {
       const options = {
         url,
-        payload: { name: 'John Smith', phone: 'invalid-phone', email: '' }
+        payload: { fullName: 'John Smith', phone: 'invalid-phone', email: '' }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain(phoneError)
@@ -98,7 +98,7 @@ describe(url, () => {
     it('Should error with invalid email address', async () => {
       const options = {
         url,
-        payload: { name: 'John Smith', phone: '', email: 'invalid-email' }
+        payload: { fullName: 'John Smith', phone: '', email: 'invalid-email' }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain(emailError)
@@ -107,7 +107,7 @@ describe(url, () => {
     it('Should preserve field values when validation fails', async () => {
       const options = {
         url,
-        payload: { name: 'John Smith', phone: 'invalid-phone', email: 'test@test.com' }
+        payload: { fullName: 'John Smith', phone: 'invalid-phone', email: 'test@test.com' }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('value="John Smith"')
