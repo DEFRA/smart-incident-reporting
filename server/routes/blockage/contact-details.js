@@ -28,7 +28,7 @@ const handlers = {
     })
 
     // handle redirects
-    return h.redirect(constants.routes.BLOCKAGE_START)
+    return h.redirect(constants.routes.BLOCKAGE_IMAGES_OR_VIDEO)
   }
 }
 
