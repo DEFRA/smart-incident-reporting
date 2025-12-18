@@ -85,7 +85,7 @@ describe(url, () => {
       }
       ])
     })
-    it('Happy: accepts valid answers with something else and other details and redirects to BLOCKAGE_START', async () => {
+    it('Happy: accepts valid answers with something else and other details and redirects to BLOCKAGE_OWNER', async () => {
       const answerId = question.answers.somethingElse.answerId.toString()
       const options = {
         url,
@@ -105,7 +105,7 @@ describe(url, () => {
         otherDetails: 'something else'
       }])
     })
-    it('Happy: accepts valid answers with commercial property and other details and redirects to BLOCKAGE_START', async () => {
+    it('Happy: accepts valid answers with commercial property and other details and redirects to BLOCKAGE_OWNER', async () => {
       const answerId = question.answers.commercialProperty.answerId.toString()
       const options = {
         url,

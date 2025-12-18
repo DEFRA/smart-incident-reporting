@@ -132,7 +132,7 @@ describe(url, () => {
         answerId
       }])
     })
-    // UPDATE THE REDIRECT PAGE HEN NEXT PAGE IS BUILT
+    // UPDATE THE REDIRECT PAGE WHEN NEXT PAGE IS BUILT
     it('Happy: Should accept yes option with prefilled data and redirect to BLOCKAGE/START', async () => {
       const answerId = question.answers.yes.answerId
       const options = {

@@ -50,14 +50,14 @@ const buildAnswers = (answerId, somethingElseDetail, commercialPropertyDetail) =
     })
   })
 
-  if (answerId.indexOf(question.answers.somethingElse.answerId.toString()) > -1 && somethingElseDetail) {
+  if (answerId.includes(question.answers.somethingElse.answerId.toString()) && somethingElseDetail) {
     answers.push({
       ...baseAnswer,
       answerId: question.answers.somethingElseDetail.answerId,
       otherDetails: somethingElseDetail
     })
   }
-  if (answerId.indexOf(question.answers.commercialProperty.answerId.toString()) > -1 && commercialPropertyDetail) {
+  if (answerId.includes(question.answers.commercialProperty.answerId.toString()) && commercialPropertyDetail) {
     answers.push({
       ...baseAnswer,
       answerId: question.answers.commercialPropertyDetail.answerId,
