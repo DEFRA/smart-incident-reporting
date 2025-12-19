@@ -8,7 +8,7 @@ const handlers = {
     })
   },
   post: async (request, h) => {
-    const { fullName, phone, email } = request.payload
+    const { fullName, phone, email } = request.payload || {}
     const errorSummary = validatePayload(phone, email)
 
     // Validation error so return view in Error state
