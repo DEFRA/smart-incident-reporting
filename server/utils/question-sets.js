@@ -1315,7 +1315,7 @@ const questionSets = {
       BLOCKAGE_WATER_LEVEL: {
         questionId: 140,
         key: constants.redisKeys.BLOCKAGE_WATER_LEVEL,
-        text: 'Is the water building up behind the blockage?',
+        text: 'Is water building up behind the blockage?',
         answers: {
           yes: {
             answerId: 141,
@@ -1370,6 +1370,74 @@ const questionSets = {
           yesDetails: {
             answerId: 183,
             text: 'Yes details'
+          }
+        }
+      },
+      BLOCKAGE_FLOOD_RISK_DANGER: {
+        questionId: 160,
+        key: constants.redisKeys.BLOCKAGE_FLOOD_RISK_DANGER,
+        text: 'What is at risk from flooding?',
+        answers: {
+          yourHome: {
+            answerId: 161,
+            text: 'Your home or parts of it, including your garage if attached'
+          },
+          yourOtherProperty: {
+            answerId: 162,
+            text: 'Other property you own, for example your garden, sheds or a detached garage'
+          },
+          otherPeopleHome: {
+            answerId: 163,
+            text: 'Other people\'s homes'
+          },
+          commercialProperty: {
+            answerId: 164,
+            text: 'Commercial or public buildings, for example shops or businesses'
+          },
+          road: {
+            answerId: 165,
+            text: 'Roads, railways, powerlines or similar'
+          },
+          farmland: {
+            answerId: 166,
+            text: 'Farmland or countryside'
+          },
+          animal: {
+            answerId: 167,
+            text: 'Animals, for example cattle or horses'
+          },
+          somethingElse: {
+            answerId: 168,
+            text: SOMETHING_ELSE
+          },
+          unknown: {
+            answerId: 169,
+            text: YOU_DO_NOT_KNOW
+          },
+          commercialPropertyDetail: {
+            answerId: 170,
+            text: 'Give details about type of building at risk from flooding'
+          },
+          somethingElseDetail: {
+            answerId: 171,
+            text: 'Give details about what\'s at risk from flooding'
+          }
+        }
+      },
+      BLOCKAGE_IMAGES_OR_VIDEO: {
+        questionId: 2800,
+        key: constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO,
+        text: 'Do you want to send us any photos of the problem?',
+        answers: {
+          yes: {
+            answerId: 2801,
+            text: 'Yes',
+            shortText: 'Yes'
+          },
+          no: {
+            answerId: 2802,
+            text: 'No',
+            shortText: 'No'
           }
         }
       }

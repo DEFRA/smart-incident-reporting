@@ -47,7 +47,6 @@ const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 const WATER_POLLUTION_CHECK_YOUR_ANSWERS = 'water-pollution/check-your-answers'
 const WATER_POLLUTION_CONTACT_DETAILS = 'water-pollution/contact-details'
 const WATER_POLLUTION_SMELL_DESCRIPTION = 'water-pollution/smell-description'
-const BLOCKAGE_WHEN = 'blockage/when'
 
 const SMELL_START = 'smell-start'
 const SMELL = 'smell'
@@ -122,12 +121,15 @@ const BLOCKAGE_EARLIER_TODAY = 'blockage/earlier-today'
 const BLOCKAGE_YESTERDAY = 'blockage/yesterday'
 const BLOCKAGE_DATE_BEFORE_YESTERDAY = 'blockage/date-before-yesterday'
 const BLOCKAGE_TIME_BEFORE_YESTERDAY = 'blockage/time-before-yesterday'
+const BLOCKAGE_WHEN = 'blockage/when'
 const BLOCKAGE_HISTORY = 'blockage/history'
 const BLOCKAGE_EXTENT = 'blockage/extent'
 const BLOCKAGE_WATER_LEVEL = 'blockage/water-level'
 const BLOCKAGE_FLOOD_RISK = 'blockage/flood-risk'
+const BLOCKAGE_FLOOD_RISK_DANGER = 'blockage/flood-risk-danger'
 const BLOCKAGE_OWNER = 'blockage/owner'
 const BLOCKAGE_CONTACT_DETAILS = 'blockage/contact-details'
+const BLOCKAGE_IMAGES_OR_VIDEO = 'blockage/images-or-video'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -163,8 +165,10 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
     BLOCKAGE_EXTENT,
     BLOCKAGE_WATER_LEVEL,
     BLOCKAGE_FLOOD_RISK,
+    BLOCKAGE_FLOOD_RISK_DANGER,
     BLOCKAGE_OWNER,
-    BLOCKAGE_CONTACT_DETAILS
+    BLOCKAGE_CONTACT_DETAILS,
+    BLOCKAGE_IMAGES_OR_VIDEO
   }
 }
 
