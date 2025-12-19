@@ -47,8 +47,8 @@ const handlers = {
 
     request.yar.set(constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO, buildAnswers(answerId))
 
-    // handle redirects
-    return h.redirect(constants.routes.BLOCKAGE_OTHER_INFORMATION)
+    // update handle redirects
+    return h.redirect(constants.routes.BLOCKAGE_START)
   }
 }
 
@@ -65,6 +65,7 @@ const getContext = (request) => {
 
 const validatePayload = (request, answerId, emailRequired) => {
   const errorSummary = getErrorSummary()
+
   if (!answerId) {
     errorSummary.errorList.push({
       text: 'Select yes if you want to send us any images or videos',
@@ -72,21 +73,26 @@ const validatePayload = (request, answerId, emailRequired) => {
     })
   }
 
-  if ((answerId === question.answers.yes.answerId) && emailRequired) {
-    if (!request.payload.email) {
-      errorSummary.errorList.push({
-        text: 'Enter an email address',
-        href: '#email'
-      })
-    } else if (!validateEmail(request.payload.email)) {
+  if (answerId !== question.answers.yes.answerId || !emailRequired) {
+    return errorSummary
+  }
+
+  const email = request.payload.email
+
+  if (email) {
+    if (!validateEmail(email)) {
       errorSummary.errorList.push({
         text: 'Enter an email address in the correct format, like name@example.com',
         href: '#email'
       })
-    } else {
-      // do nothing
     }
+    return errorSummary
   }
+
+  errorSummary.errorList.push({
+    text: 'Enter an email address',
+    href: '#email'
+  })
 
   return errorSummary
 }
