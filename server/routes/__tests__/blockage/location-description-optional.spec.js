@@ -2,7 +2,7 @@ import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/s
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.BLOCKAGE_LOCATION_DESCRIPTION_OPTIONAL
-const header = 'Other location information(optional)'
+const header = 'Other location information (optional)'
 
 describe(url, () => {
   describe('GET', () => {
