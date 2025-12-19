@@ -8,23 +8,21 @@ const handlers = {
     })
   },
   post: async (request, h) => {
-    const { fullName = '', email = '', phone = '' } = request.payload || {}
+    const { fullName, phone, email } = request.payload
     const errorSummary = validatePayload(phone, email)
 
     // Validation error so return view in Error state
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.BLOCKAGE_CONTACT_DETAILS, {
         errorSummary,
-        fullName,
-        email,
-        phone
+        ...request.payload
       })
     }
 
     request.yar.set(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS, {
-      detailsName: fullName || '',
-      detailsPhone: phone || '',
-      detailsEmail: email || ''
+      reporterName: fullName,
+      reporterPhoneNumber: phone,
+      reporterEmailAddress: email
     })
 
     // handle redirects
@@ -33,10 +31,10 @@ const handlers = {
 }
 
 const getContext = request => {
-  const yourDetails = request.yar.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)
-  const fullName = yourDetails?.detailsName || ''
-  const phone = yourDetails?.detailsPhone || ''
-  const email = yourDetails?.detailsEmail || ''
+  const contactDetails = request.yar.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)
+  const fullName = contactDetails?.reporterName || ''
+  const phone = contactDetails?.reporterPhoneNumber || ''
+  const email = contactDetails?.reporterEmailAddress || ''
 
   return {
     fullName,

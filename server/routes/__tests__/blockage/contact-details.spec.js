@@ -7,9 +7,9 @@ const emailError = 'Enter an email address in the correct format, like name@exam
 
 const sessionData = {
   'blockage/contact-details': {
-    detailsName: 'test name',
-    detailsPhone: '012345678910',
-    detailsEmail: 'test@test.com'
+    reporterName: 'test name',
+    reporterPhoneNumber: '012345678910',
+    reporterEmailAddress: 'test@test.com'
   }
 }
 
@@ -31,27 +31,27 @@ describe(url, () => {
       {
         description: 'all fields',
         payload: { fullName: 'John Smith', phone: '#+441234567890', email: 'test@test.com' },
-        expected: { detailsName: 'John Smith', detailsPhone: '#+441234567890', detailsEmail: 'test@test.com' }
+        expected: { reporterName: 'John Smith', reporterPhoneNumber: '#+441234567890', reporterEmailAddress: 'test@test.com' }
       },
       {
         description: 'no payload',
         payload: undefined,
-        expected: { detailsName: '', detailsPhone: '', detailsEmail: '' }
+        expected: { reporterName: undefined, reporterPhoneNumber: undefined, reporterEmailAddress: undefined }
       },
       {
         description: 'empty fields',
         payload: { fullName: '', phone: '', email: '' },
-        expected: { detailsName: '', detailsPhone: '', detailsEmail: '' }
+        expected: { reporterName: '', reporterPhoneNumber: '', reporterEmailAddress: '' }
       },
       {
         description: 'name only',
         payload: { fullName: 'John Smith', phone: '', email: '' },
-        expected: { detailsName: 'John Smith', detailsPhone: '', detailsEmail: '' }
+        expected: { reporterName: 'John Smith', reporterPhoneNumber: '', reporterEmailAddress: '' }
       },
       {
         description: 'email only',
         payload: { fullName: '', phone: '', email: 'test@test.com' },
-        expected: { detailsName: '', detailsPhone: '', detailsEmail: 'test@test.com' }
+        expected: { reporterName: '', reporterPhoneNumber: '', reporterEmailAddress: 'test@test.com' }
       }
     ])('Accepts $description and redirects to BLOCKAGE_START', async ({ payload, expected }) => {
       const options = { url, payload }
@@ -63,22 +63,22 @@ describe(url, () => {
       {
         description: 'all fields',
         payload: { fullName: 'John Smith', phone: '#+441234567890', email: 'test@test.com' },
-        expected: { detailsName: 'John Smith', detailsPhone: '#+441234567890', detailsEmail: 'test@test.com' }
+        expected: { reporterName: 'John Smith', reporterPhoneNumber: '#+441234567890', reporterEmailAddress: 'test@test.com' }
       },
       {
         description: 'empty fields',
         payload: { fullName: '', phone: '', email: '' },
-        expected: { detailsName: '', detailsPhone: '', detailsEmail: '' }
+        expected: { reporterName: '', reporterPhoneNumber: '', reporterEmailAddress: '' }
       },
       {
         description: 'name only',
         payload: { fullName: 'John Smith', phone: '', email: '' },
-        expected: { detailsName: 'John Smith', detailsPhone: '', detailsEmail: '' }
+        expected: { reporterName: 'John Smith', reporterPhoneNumber: '', reporterEmailAddress: '' }
       },
       {
         description: 'email only',
         payload: { fullName: '', phone: '', email: 'test@test.com' },
-        expected: { detailsName: '', detailsPhone: '', detailsEmail: 'test@test.com' }
+        expected: { reporterName: '', reporterPhoneNumber: '', reporterEmailAddress: 'test@test.com' }
       }
     ])('Saves $description to session', async ({ payload, expected }) => {
       const options = { url, payload }
