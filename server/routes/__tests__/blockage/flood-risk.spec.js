@@ -33,10 +33,9 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    // update redirectTo
     it.each([
-      { answer: 'alreadyFlooding', description: 'already flooding', redirectTo: constants.routes.BLOCKAGE_START },
-      { answer: 'yes', description: 'yes', redirectTo: constants.routes.BLOCKAGE_START },
+      { answer: 'alreadyFlooding', description: 'already flooding', redirectTo: constants.routes.BLOCKAGE_FLOOD_RISK_DANGER },
+      { answer: 'yes', description: 'yes', redirectTo: constants.routes.BLOCKAGE_FLOOD_RISK_DANGER },
       { answer: 'no', description: 'no', redirectTo: constants.routes.BLOCKAGE_OWNER },
       { answer: 'youDoNotKnow', description: 'you dont know', redirectTo: constants.routes.BLOCKAGE_OWNER }
     ])('Should redirect to $redirectTo when $description selected', async ({ answer, redirectTo }) => {

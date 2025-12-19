@@ -1372,6 +1372,57 @@ const questionSets = {
             text: 'Yes details'
           }
         }
+      },
+      BLOCKAGE_FLOOD_RISK_DANGER: {
+        questionId: 160,
+        key: constants.redisKeys.BLOCKAGE_FLOOD_RISK_DANGER,
+        text: 'What is at risk from flooding?',
+        answers: {
+          yourHome: {
+            answerId: 161,
+            text: 'Your home or parts of it, including your garage if attached'
+          },
+          yourOtherProperty: {
+            answerId: 162,
+            text: 'Other property you own, for example your garden, sheds or a detached garage'
+          },
+          otherPeopleHome: {
+            answerId: 163,
+            text: 'Other people\'s homes'
+          },
+          commercialProperty: {
+            answerId: 164,
+            text: 'Commercial or public buildings, for example shops or businesses'
+          },
+          road: {
+            answerId: 165,
+            text: 'Roads, railways, powerlines or similar'
+          },
+          farmland: {
+            answerId: 166,
+            text: 'Farmland or countryside'
+          },
+          animal: {
+            answerId: 167,
+            text: 'Animals, for example cattle or horses'
+          },
+          somethingElse: {
+            answerId: 168,
+            text: SOMETHING_ELSE
+          },
+          unknown: {
+            answerId: 169,
+            text: YOU_DO_NOT_KNOW
+          },
+          commercialPropertyDetail: {
+            answerId: 170,
+            text: 'Give details about type of building at risk from flooding'
+          },
+          somethingElseDetail: {
+            answerId: 171,
+            text: 'Give details about what\'s at risk from flooding'
+          }
+        }
       }
     }
   },

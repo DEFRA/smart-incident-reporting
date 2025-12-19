@@ -1,0 +1,115 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+{% set CommercialPropertyDetailText = question.answers.commercialPropertyDetail.text %}
+{% set somethingElseDetailText = question.answers.somethingElseDetail.text %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% set otherHtml %}
+      {{ govukInput({
+        id: "somethingElseDetail",
+        name: "somethingElseDetail",
+        spellcheck: false,
+        classes: "govuk-!-width-two-third",
+        value: getAnswer(answers, question.answers.somethingElseDetail.answerId),
+        label: {
+          text: somethingElseDetailText
+        }
+      }) }}
+      {% endset -%}
+    {% set commercialPropertyHtml %}
+      {{ govukInput({
+        id: "commercialPropertyDetail",
+        name: "commercialPropertyDetail",
+        spellcheck: false,
+        classes: "govuk-!-width-two-third",
+        value: getAnswer(answers, question.answers.commercialPropertyDetail.answerId),
+        label: {
+          text: CommercialPropertyDetailText
+        }
+      }) }}
+      {% endset -%}      
+
+    {{ govukCheckboxes({
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      fieldset: {
+        legend: {
+          text:  pageTitle + "?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: question.answers.yourHome.answerId,
+          text: question.answers.yourHome.text,
+          checked: getAnswer(answers, question.answers.yourHome.answerId)
+        },
+        {
+          value: question.answers.yourOtherProperty.answerId,
+          text: question.answers.yourOtherProperty.text,
+          checked: getAnswer(answers, question.answers.yourOtherProperty.answerId)
+        },   
+        {
+          value: question.answers.otherPeopleHome.answerId,
+          text: question.answers.otherPeopleHome.text,
+          checked: getAnswer(answers, question.answers.otherPeopleHome.answerId)
+        },              
+        {
+          value: question.answers.commercialProperty.answerId,
+          text: question.answers.commercialProperty.text,
+          checked: getAnswer(answers, question.answers.commercialProperty.answerId),
+          conditional: {
+              html: commercialPropertyHtml
+            }
+        },
+        {
+          value: question.answers.road.answerId,
+          text: question.answers.road.text,
+          checked: getAnswer(answers, question.answers.road.answerId)
+        },
+        {
+          value: question.answers.farmland.answerId,
+          text: question.answers.farmland.text,
+          checked: getAnswer(answers, question.answers.farmland.answerId)
+        },
+        {
+          value: question.answers.animal.answerId,
+          text: question.answers.animal.text,
+          checked: getAnswer(answers, question.answers.animal.answerId)
+        },        
+        {
+          value: question.answers.somethingElse.answerId,
+          text: question.answers.somethingElse.text,
+          checked: getAnswer(answers, question.answers.somethingElse.answerId),
+          conditional: {
+              html: otherHtml
+            }
+        },
+        {
+          divider: "or"
+        },
+        {
+          value: question.answers.unknown.answerId,
+          text: question.answers.unknown.text,
+          behaviour: "exclusive",
+          checked: getAnswer(answers, question.answers.unknown.answerId)
+        }
+      ]
+    }) }}
+
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}
