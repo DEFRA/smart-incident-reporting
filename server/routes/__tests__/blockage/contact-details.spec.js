@@ -56,7 +56,7 @@ describe(url, () => {
     ])('Accepts $description and redirects to BLOCKAGE_START', async ({ payload, expected }) => {
       const options = { url, payload }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_IMAGES_OR_VIDEO)
     })
 
     it.each([
