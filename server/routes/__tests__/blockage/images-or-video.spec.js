@@ -12,21 +12,21 @@ const baseAnswer = {
 
 const sessionDataWithEmail = {
   'blockage/contact-details': {
-    detailsEmail: 'test@test.com'
+    reporterEmailAddress: 'test@test.com'
   }
 }
 
 const sessionDataWithoutEmail = {
   'blockage/contact-details': {
-    detailsName: 'test name',
-    detailsPhone: '012345678910',
-    detailsEmail: ''
+    reporterName: 'test name',
+    reporterPhoneNumber: '012345678910',
+    reporterEmailAddress: ''
   }
 }
 
 const sessionDataYes = {
   'blockage/contact-details': {
-    detailsEmail: 'test@test.com'
+    reporterEmailAddress: 'test@test.com'
   },
   'blockage/images-or-video': [{
     questionId: baseAnswer.questionId,
@@ -35,7 +35,7 @@ const sessionDataYes = {
 }
 const sessionDataNo = {
   'blockage/contact-details': {
-    detailsEmail: 'test@test.com'
+    reporterEmailAddress: 'test@test.com'
   },
   'blockage/images-or-video': [{
     questionId: baseAnswer.questionId,
@@ -97,9 +97,9 @@ describe(url, () => {
         answerId
       }])
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)).toEqual({
-        detailsName: 'test name',
-        detailsPhone: '012345678910',
-        detailsEmail: 'test@test.com'
+        reporterName: 'test name',
+        reporterPhoneNumber: '012345678910',
+        reporterEmailAddress: 'test@test.com'
       })
     })
     it('Happy: Should accept no option with email data and redirect to BLOCKAGE_START', async () => {
@@ -146,7 +146,7 @@ describe(url, () => {
       }
       let sessionData = {
         'blockage/contact-details': {
-          detailsEmail: 'test@test.com'
+          reporterEmailAddress: 'test@test.com'
         }
       }
       sessionData = { ...sessionData, ...answerData }
@@ -176,7 +176,7 @@ describe(url, () => {
       }
       const sessionData3 = {
         'blockage/contact-details': {
-          detailsEmail: ''
+          reporterEmailAddress: ''
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData3)
@@ -194,7 +194,7 @@ describe(url, () => {
       }
       const sessionData4 = {
         'blockage/contact-details': {
-          detailsEmail: ''
+          reporterEmailAddress: ''
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData4)

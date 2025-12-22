@@ -37,11 +37,11 @@ const handlers = {
     }
 
     if (emailRequired && (answerId === question.answers.yes.answerId)) {
-      const { detailsName, detailsPhone } = request.yar.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)
+      const { reporterName, reporterPhoneNumber } = request.yar.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)
       request.yar.set(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS, {
-        detailsName,
-        detailsPhone,
-        detailsEmail: request.payload.email
+        reporterName,
+        reporterPhoneNumber,
+        reporterEmailAddress: request.payload.email
       })
     }
 
@@ -53,13 +53,13 @@ const handlers = {
 }
 
 const getContext = (request) => {
-  const { detailsEmail } = request.yar.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)
+  const { reporterEmailAddress } = request.yar.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)
   const answers = request.yar.get(question.key)
 
   return {
     question,
     answers,
-    email: detailsEmail
+    email: reporterEmailAddress
   }
 }
 
@@ -98,8 +98,8 @@ const validatePayload = (request, answerId, emailRequired) => {
 }
 
 const checkAnswer = request => {
-  const { detailsEmail } = request.yar.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)
-  return detailsEmail.length === 0
+  const { reporterEmailAddress } = request.yar.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)
+  return reporterEmailAddress.length === 0
 }
 
 const buildAnswers = answerId => {
