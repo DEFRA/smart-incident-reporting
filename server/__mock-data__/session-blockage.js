@@ -34,7 +34,7 @@ const session = JSON.parse(`{
       "questionId": 110,
       "questionAsked": "What's blocking the river?",
       "questionResponse": true,
-      "answerId": 111
+      "answerId": 112
     }
   ],
   "blockage/location-option": [
@@ -93,22 +93,33 @@ const session = JSON.parse(`{
       "answerId": 152
     }
   ],
+  "blockage/flood-risk-danger": [
+    {
+      "questionId": 160,
+      "questionAsked": "What is at risk from flooding?",
+      "questionResponse": true,
+      "answerId": 163
+    }
+  ],
   "blockage/owner": [
     {
       "questionId": 180,
       "questionAsked": "Do you know who is responsible for causing the blockage?",
       "questionResponse": true,
-      "answerId": 181
-    },
-    {
-      "questionId": 180,
-      "questionAsked": "Do you know who is responsible for causing the blockage?",
-      "questionResponse": true,
-      "answerId": 183,
-      "otherDetails": "Local construction company"
+      "answerId": 182
     }
   ],
-  "blockage/when": "${moment().toISOString()}"
+  "blockage/images-or-video": [
+    {
+      "questionId": 2800,
+      "questionAsked": "Do you want to send us any photos of the problem?",
+      "questionResponse": true,
+      "answerId": 2802
+    }
+  ],
+  "blockage/other-information": "Example description",
+  "blockage/when": "${moment().toISOString()}",
+  "submissionTimestamp": "${moment().toISOString()}"
 }`)
 
 export { session }

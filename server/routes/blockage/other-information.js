@@ -23,9 +23,10 @@ const handlers = {
       throw new Error('Invalid payload')
     }
 
+    request.logger.info({ payload }, 'Sending blockage report to database')
     await sendMessage(request.logger, payload)
 
-    return h.redirect(constants.routes.REPORT_SENT)
+    return h.redirect(constants.routes.BLOCKAGE_START)
   }
 }
 
