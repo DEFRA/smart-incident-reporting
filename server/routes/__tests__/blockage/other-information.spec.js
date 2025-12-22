@@ -72,9 +72,9 @@ describe(url, () => {
       expect(new Date(response.request.yar.get(constants.redisKeys.SUBMISSION_TIMESTAMP))).toBeInstanceOf(Date)
     })
 
-    it('Should redirect to report sent page', async () => {
+    it('Should redirect to start page', async () => {
       const response = await submitPostRequest(options, 302, session)
-      expect(response.headers.location).toEqual(constants.routes.REPORT_SENT)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
     })
 
     it('Should error if validatePayload fails', async () => {
