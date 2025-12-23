@@ -83,6 +83,8 @@ const validatePayload = (request, answerId, emailRequired) => {
         text: 'Enter an email address in the correct format, like name@example.com',
         href: '#email'
       })
+    } else {
+      // do nothing
     }
   }
   return errorSummary
