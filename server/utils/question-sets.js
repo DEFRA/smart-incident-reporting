@@ -1427,7 +1427,7 @@ const questionSets = {
       BLOCKAGE_IMAGES_OR_VIDEO: {
         questionId: 2800,
         key: constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO,
-        text: 'Do you want to send us any photos of the problem?',
+        text: 'Do you want to send us any images or videos of the problem?',
         answers: {
           yes: {
             answerId: 2801,
