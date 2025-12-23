@@ -47,7 +47,7 @@ describe(url, () => {
       {
         description: 'no selection',
         payload: {},
-        expectedErrors: ['Select what is at risk from flooding, or &#39;you do not know&#39;'],
+        expectedErrors: ['Select what is at risk from flooding or &#39;you do not know&#39;'],
         shouldPreserveCheckboxes: false
       },
       {

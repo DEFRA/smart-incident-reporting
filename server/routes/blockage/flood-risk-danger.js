@@ -109,7 +109,7 @@ const validatePayload = (answerId, somethingElseDetail, commercialPropertyDetail
   const errorSummary = getErrorSummary()
   if (!answerId || answerId.length === 0) {
     errorSummary.errorList.push({
-      text: 'Select what is at risk from flooding, or \'you do not know\'',
+      text: 'Select what is at risk from flooding or \'you do not know\'',
       href: '#answerId'
     })
   }
