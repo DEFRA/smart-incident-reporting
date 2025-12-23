@@ -16,6 +16,7 @@
         spellcheck: false,
         classes: "govuk-!-width-two-third",
         value: getAnswer(answers, question.answers.somethingElseDetail.answerId),
+        errorMessage: findErrorMessageById(errorSummary, "somethingElseDetail"),
         label: {
           text: somethingElseDetailText
         }
@@ -28,6 +29,7 @@
         spellcheck: false,
         classes: "govuk-!-width-two-third",
         value: getAnswer(answers, question.answers.commercialPropertyDetail.answerId),
+        errorMessage: findErrorMessageById(errorSummary, "commercialPropertyDetail"),
         label: {
           text: CommercialPropertyDetailText
         }

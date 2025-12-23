@@ -43,151 +43,233 @@ describe(url, () => {
   })
 
   describe('POST', () => {
-    // update redirectTo
     it.each([
-      { answer: 'animal', description: 'Animals, for example cattle or horses', redirectTo: constants.routes.BLOCKAGE_OWNER },
-      { answer: 'farmland', description: 'Farmland or countryside', redirectTo: constants.routes.BLOCKAGE_OWNER },
-      { answer: 'road', description: 'Roads, railways, powerlines or similar', redirectTo: constants.routes.BLOCKAGE_OWNER },
-      { answer: 'unknown', description: 'you dont know', redirectTo: constants.routes.BLOCKAGE_OWNER },
-      { answer: 'otherPeopleHome', description: 'Other people\'s homes', redirectTo: constants.routes.BLOCKAGE_OWNER },
-      { answer: 'yourHome', description: 'Your home or parts of it, including your garage if attached', redirectTo: constants.routes.BLOCKAGE_OWNER },
-      { answer: 'yourOtherProperty', description: 'Other property you own, for example your garden, sheds or a detached garage', redirectTo: constants.routes.BLOCKAGE_OWNER }
-    ])('Should redirect to blockage/start when $description selected', async ({ answer, redirectTo }) => {
-      const answerId = question.answers[answer].answerId
-      const options = {
-        url,
+      {
+        description: 'no selection',
+        payload: {},
+        expectedErrors: ['Select what is at risk from flooding, or &#39;you do not know&#39;'],
+        shouldPreserveCheckboxes: false
+      },
+      {
+        description: 'commercial property selected but no details provided',
         payload: {
-          answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(redirectTo)
-    })
-    it('Happy: accepts valid array of answerID and redirects to BLOCKAGE_START', async () => {
-      const answerId = [question.answers.yourHome.answerId.toString(), question.answers.yourOtherProperty.answerId.toString(), question.answers.animal.answerId.toString()]
-      const options = {
-        url,
-        payload: {
-          answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_OWNER)
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_FLOOD_RISK_DANGER)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.yourHome.answerId
-      }, {
-        ...baseAnswer,
-        answerId: question.answers.yourOtherProperty.answerId
-      }, {
-        ...baseAnswer,
-        answerId: question.answers.animal.answerId
-      }
-      ])
-    })
-    it('Happy: accepts valid answers with something else and other details and redirects to BLOCKAGE_START', async () => {
-      const answerId = question.answers.somethingElse.answerId.toString()
-      const options = {
-        url,
-        payload: {
-          answerId,
-          somethingElseDetail: 'something else'
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_OWNER)
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_FLOOD_RISK_DANGER)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.somethingElse.answerId
-      }, {
-        ...baseAnswer,
-        answerId: question.answers.somethingElseDetail.answerId,
-        otherDetails: 'something else'
-      }])
-    })
-    it('Happy: accepts valid answers with commercial property and other details and redirects to BLOCKAGE_START', async () => {
-      const answerId = question.answers.commercialProperty.answerId.toString()
-      const options = {
-        url,
-        payload: {
-          answerId,
-          commercialPropertyDetail: 'Commercial details'
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_OWNER)
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_FLOOD_RISK_DANGER)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.commercialProperty.answerId
-      }, {
-        ...baseAnswer,
-        answerId: question.answers.commercialPropertyDetail.answerId,
-        otherBuildingDetail: 'Commercial details'
-      }])
-    })
-    it('Should return error when no checkbox is selected', async () => {
-      const options = {
-        url,
-        payload: {}
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.OK)
-      expect(response.payload).toContain('There is a problem')
-    })
-    it('Should display correct error message when no checbox is selected', async () => {
-      const options = {
-        url,
-        payload: {}
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.OK)
-      expect(response.payload).toContain('Select what is at risk from flooding, or &#39;you do not know&#39;')
-    })
-    it('Should return error when commercial property  is selected and no text is entered', async () => {
-      const answerId = question.answers.commercialProperty.answerId.toString()
-      const options = {
-        url,
-        payload: {
-          answerId,
+          answerId: question.answers.commercialProperty.answerId.toString(),
           commercialPropertyDetail: ''
-        }
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.OK)
-      expect(response.payload).toContain('There is a problem')
-    })
-    it('Should display correct error message when commercial property  is selected and no text is entered', async () => {
-      const answerId = question.answers.commercialProperty.answerId.toString()
-      const options = {
-        url,
+        },
+        expectedErrors: ['Enter details about the type of buildings at risk from flooding'],
+        shouldPreserveCheckboxes: true
+      },
+      {
+        description: 'something else selected but no details provided',
         payload: {
-          answerId,
+          answerId: question.answers.somethingElse.answerId.toString(),
+          somethingElseDetail: ''
+        },
+        expectedErrors: ['Enter details about what is at risk from flooding'],
+        shouldPreserveCheckboxes: true
+      },
+      {
+        description: 'commercial property with no details and other peoples homes',
+        payload: {
+          answerId: [question.answers.commercialProperty.answerId.toString(), question.answers.otherPeopleHome.answerId.toString()],
           commercialPropertyDetail: ''
-        }
+        },
+        expectedErrors: ['Enter details about the type of buildings at risk from flooding'],
+        shouldPreserveCheckboxes: true
+      },
+      {
+        description: 'something else with no details and farmland',
+        payload: {
+          answerId: [question.answers.somethingElse.answerId.toString(), question.answers.farmland.answerId.toString()],
+          somethingElseDetail: ''
+        },
+        expectedErrors: ['Enter details about what is at risk from flooding'],
+        shouldPreserveCheckboxes: true
+      },
+      {
+        description: 'commercial property with no details and something else with no details',
+        payload: {
+          answerId: [question.answers.commercialProperty.answerId.toString(), question.answers.somethingElse.answerId.toString()],
+          commercialPropertyDetail: '',
+          somethingElseDetail: ''
+        },
+        expectedErrors: [
+          'Enter details about the type of buildings at risk from flooding',
+          'Enter details about what is at risk from flooding'
+        ],
+        shouldPreserveCheckboxes: true
+      },
+      {
+        description: 'commercial property with details but something else with no details',
+        payload: {
+          answerId: [question.answers.commercialProperty.answerId.toString(), question.answers.somethingElse.answerId.toString()],
+          commercialPropertyDetail: 'Shop details',
+          somethingElseDetail: ''
+        },
+        expectedErrors: ['Enter details about what is at risk from flooding'],
+        shouldPreserveCheckboxes: true,
+        shouldPreserveCommercialDetails: true
+      },
+      {
+        description: 'commercial property with no details but something else with details',
+        payload: {
+          answerId: [question.answers.commercialProperty.answerId.toString(), question.answers.somethingElse.answerId.toString()],
+          commercialPropertyDetail: '',
+          somethingElseDetail: 'Something else details'
+        },
+        expectedErrors: ['Enter details about the type of buildings at risk from flooding'],
+        shouldPreserveCheckboxes: true,
+        shouldPreserveSomethingElseDetails: true
       }
-      const response = await submitPostRequest(options, constants.statusCodes.OK)
-      expect(response.payload).toContain('Enter details about the type of buildings at risk from flooding')
-    })
-    it('Should return error when something else is selected and no text is entered', async () => {
-      const answerId = question.answers.somethingElse.answerId.toString()
+    ])('Should return error and preserve selections when $description', async ({ payload, expectedErrors, shouldPreserveCheckboxes, shouldPreserveCommercialDetails, shouldPreserveSomethingElseDetails }) => {
       const options = {
         url,
-        payload: {
-          answerId,
-          otherDetails: ''
-        }
+        payload
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
+      expectedErrors.forEach(error => {
+        expect(response.payload).toContain(error)
+      })
+      if (shouldPreserveCheckboxes) {
+        const answerIds = Array.isArray(payload.answerId) ? payload.answerId : [payload.answerId]
+        answerIds.forEach(id => {
+          expect(response.payload).toContain(`value="${id}" checked`)
+        })
+      }
+      if (shouldPreserveCommercialDetails) {
+        expect(response.payload).toContain(`value="${payload.commercialPropertyDetail}"`)
+      }
+      if (shouldPreserveSomethingElseDetails) {
+        expect(response.payload).toContain(`value="${payload.somethingElseDetail}"`)
+      }
     })
-    it('Should display correct error message when something else is selected and no text is entered', async () => {
-      const answerId = question.answers.somethingElse.answerId.toString()
+
+    it.each([
+      {
+        description: 'animals',
+        payload: {
+          answerId: question.answers.animal.answerId.toString()
+        },
+        expectedAnswers: [
+          { ...baseAnswer, answerId: question.answers.animal.answerId }
+        ]
+      },
+      {
+        description: 'farmland',
+        payload: {
+          answerId: question.answers.farmland.answerId.toString()
+        },
+        expectedAnswers: [
+          { ...baseAnswer, answerId: question.answers.farmland.answerId }
+        ]
+      },
+      {
+        description: 'roads railways powerlines or similar',
+        payload: {
+          answerId: question.answers.road.answerId.toString()
+        },
+        expectedAnswers: [
+          { ...baseAnswer, answerId: question.answers.road.answerId }
+        ]
+      },
+      {
+        description: 'you do not know',
+        payload: {
+          answerId: question.answers.unknown.answerId.toString()
+        },
+        expectedAnswers: [
+          { ...baseAnswer, answerId: question.answers.unknown.answerId }
+        ]
+      },
+      {
+        description: 'other peoples homes',
+        payload: {
+          answerId: question.answers.otherPeopleHome.answerId.toString()
+        },
+        expectedAnswers: [
+          { ...baseAnswer, answerId: question.answers.otherPeopleHome.answerId }
+        ]
+      },
+      {
+        description: 'your home',
+        payload: {
+          answerId: question.answers.yourHome.answerId.toString()
+        },
+        expectedAnswers: [
+          { ...baseAnswer, answerId: question.answers.yourHome.answerId }
+        ]
+      },
+      {
+        description: 'your other property',
+        payload: {
+          answerId: question.answers.yourOtherProperty.answerId.toString()
+        },
+        expectedAnswers: [
+          { ...baseAnswer, answerId: question.answers.yourOtherProperty.answerId }
+        ]
+      },
+      {
+        description: 'commercial property with details and something else with details',
+        payload: {
+          answerId: [question.answers.commercialProperty.answerId.toString(), question.answers.somethingElse.answerId.toString()],
+          commercialPropertyDetail: 'Shop and office',
+          somethingElseDetail: 'Park nearby'
+        },
+        expectedAnswers: [
+          { ...baseAnswer, answerId: question.answers.commercialProperty.answerId },
+          { ...baseAnswer, answerId: question.answers.somethingElse.answerId },
+          { ...baseAnswer, answerId: question.answers.somethingElseDetail.answerId, otherDetails: 'Park nearby' },
+          { ...baseAnswer, answerId: question.answers.commercialPropertyDetail.answerId, otherBuildingDetail: 'Shop and office' }
+        ]
+      },
+      {
+        description: 'commercial property with details and other peoples homes',
+        payload: {
+          answerId: [question.answers.commercialProperty.answerId.toString(), question.answers.otherPeopleHome.answerId.toString()],
+          commercialPropertyDetail: 'Factory building'
+        },
+        expectedAnswers: [
+          { ...baseAnswer, answerId: question.answers.commercialProperty.answerId },
+          { ...baseAnswer, answerId: question.answers.otherPeopleHome.answerId },
+          { ...baseAnswer, answerId: question.answers.commercialPropertyDetail.answerId, otherBuildingDetail: 'Factory building' }
+        ]
+      },
+      {
+        description: 'something else with details and farmland',
+        payload: {
+          answerId: [question.answers.somethingElse.answerId.toString(), question.answers.farmland.answerId.toString()],
+          somethingElseDetail: 'Bridge structure'
+        },
+        expectedAnswers: [
+          { ...baseAnswer, answerId: question.answers.somethingElse.answerId },
+          { ...baseAnswer, answerId: question.answers.farmland.answerId },
+          { ...baseAnswer, answerId: question.answers.somethingElseDetail.answerId, otherDetails: 'Bridge structure' }
+        ]
+      },
+      {
+        description: 'your home, other peoples homes and roads',
+        payload: {
+          answerId: [
+            question.answers.yourHome.answerId.toString(),
+            question.answers.otherPeopleHome.answerId.toString(),
+            question.answers.road.answerId.toString()
+          ]
+        },
+        expectedAnswers: [
+          { ...baseAnswer, answerId: question.answers.yourHome.answerId },
+          { ...baseAnswer, answerId: question.answers.otherPeopleHome.answerId },
+          { ...baseAnswer, answerId: question.answers.road.answerId }
+        ]
+      }
+    ])('Should accept valid answers and redirect when $description', async ({ payload, expectedAnswers }) => {
       const options = {
         url,
-        payload: {
-          answerId,
-          otherDetails: ''
-        }
+        payload
       }
-      const response = await submitPostRequest(options, constants.statusCodes.OK)
-      expect(response.payload).toContain('Enter details about what is at risk from flooding')
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_OWNER)
+      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_FLOOD_RISK_DANGER)).toEqual(expectedAnswers)
     })
   })
 })

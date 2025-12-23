@@ -8,6 +8,8 @@ const getAnswer = (answers, answerId) => {
   const answer = answers?.find(item => item.answerId === answerId)
   if (answer?.otherDetails) {
     return answer.otherDetails
+  } else if (answer?.otherBuildingDetail) {
+    return answer.otherBuildingDetail
   } else {
     return answer ? true : ''
   }
