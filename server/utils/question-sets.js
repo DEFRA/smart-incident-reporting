@@ -11,6 +11,7 @@ const MARK_LOCATION_ON_MAP = 'Mark the location on an online map'
 const DESCRIBE_THE_LOCATION = 'Describe the location'
 const MARK_THE_LOCATION = 'Mark the location'
 const RUBBISH_OR_REFUSE = 'Rubbish or refuse'
+const IMAGES_OR_VIDEO_QUESTION = 'Do you want to send us any images or videos of the problem?'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -733,7 +734,7 @@ const questionSets = {
       SMELL_IMAGES_OR_VIDEO: {
         questionId: 3500,
         key: constants.redisKeys.SMELL_IMAGES_OR_VIDEO,
-        text: 'Do you want to send us any images or videos of the problem?',
+        text: IMAGES_OR_VIDEO_QUESTION,
         answers: {
           yes: {
             answerId: 3501,
@@ -1126,7 +1127,7 @@ const questionSets = {
       ILLEGAL_FISHING_IMAGES_OR_VIDEO: {
         questionId: 2800,
         key: constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO,
-        text: 'Do you want to send us any images or videos of the problem?',
+        text: IMAGES_OR_VIDEO_QUESTION,
         answers: {
           yes: {
             answerId: 2801,
@@ -1427,7 +1428,7 @@ const questionSets = {
       BLOCKAGE_IMAGES_OR_VIDEO: {
         questionId: 2800,
         key: constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO,
-        text: 'Do you want to send us any photos of the problem?',
+        text: IMAGES_OR_VIDEO_QUESTION,
         answers: {
           yes: {
             answerId: 2801,
