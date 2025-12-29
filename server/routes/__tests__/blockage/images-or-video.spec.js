@@ -66,7 +66,7 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Happy: Should accept yes option with prefilled data and redirect to BLOCKAGE_START', async () => {
+    it('Happy: Should accept yes option with prefilled data and redirect to BLOCKAGE_OTHER_INFORMATION', async () => {
       const answerId = question.answers.yes.answerId
       const options = {
         url,
@@ -75,13 +75,13 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithEmail)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    it('Happy: Should accept yes option with text input data and redirect to BLOCKAGE_START', async () => {
+    it('Happy: Should accept yes option with text input data and redirect to BLOCKAGE_OTHER_INFORMATION', async () => {
       const answerId = question.answers.yes.answerId
       const options = {
         url,
@@ -91,7 +91,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithoutEmail)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
         answerId
@@ -102,7 +102,7 @@ describe(url, () => {
         reporterEmailAddress: 'test@test.com'
       })
     })
-    it('Happy: Should accept no option with email data and redirect to BLOCKAGE_START', async () => {
+    it('Happy: Should accept no option with email data and redirect to BLOCKAGE_OTHER_INFORMATION', async () => {
       const answerId = question.answers.no.answerId
       const options = {
         url,
@@ -111,13 +111,13 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithEmail)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    it('Happy: Should accept no option without email data and redirect to BLOCKAGE_START', async () => {
+    it('Happy: Should accept no option without email data and redirect to BLOCKAGE_OTHER_INFORMATION', async () => {
       const answerId = question.answers.no.answerId
       const options = {
         url,
@@ -126,7 +126,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithoutEmail)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
         answerId
@@ -142,7 +142,7 @@ describe(url, () => {
         }
       }
       const answerData = {
-        referer: constants.routes.BLOCKAGE_START
+        referer: constants.routes.BLOCKAGE_OTHER_INFORMATION
       }
       let sessionData = {
         'blockage/contact-details': {
@@ -151,7 +151,7 @@ describe(url, () => {
       }
       sessionData = { ...sessionData, ...answerData }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
         answerId

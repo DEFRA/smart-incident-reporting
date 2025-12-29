@@ -130,6 +130,7 @@ const BLOCKAGE_FLOOD_RISK_DANGER = 'blockage/flood-risk-danger'
 const BLOCKAGE_OWNER = 'blockage/owner'
 const BLOCKAGE_CONTACT_DETAILS = 'blockage/contact-details'
 const BLOCKAGE_IMAGES_OR_VIDEO = 'blockage/images-or-video'
+const BLOCKAGE_OTHER_INFORMATION = 'blockage/other-information'
 
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
@@ -168,7 +169,8 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
     BLOCKAGE_FLOOD_RISK_DANGER,
     BLOCKAGE_OWNER,
     BLOCKAGE_CONTACT_DETAILS,
-    BLOCKAGE_IMAGES_OR_VIDEO
+    BLOCKAGE_IMAGES_OR_VIDEO,
+    BLOCKAGE_OTHER_INFORMATION
   }
 }
 

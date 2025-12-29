@@ -48,7 +48,7 @@ const handlers = {
     request.yar.set(constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO, buildAnswers(answerId))
 
     // update handle redirects
-    return h.redirect(constants.routes.BLOCKAGE_START)
+    return h.redirect(constants.routes.BLOCKAGE_OTHER_INFORMATION)
   }
 }
 
