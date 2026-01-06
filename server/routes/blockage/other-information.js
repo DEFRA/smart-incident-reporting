@@ -26,7 +26,7 @@ const handlers = {
     request.logger.info({ payload }, 'Sending blockage report to database')
     await sendMessage(request.logger, payload)
 
-    return h.redirect(constants.routes.BLOCKAGE_START)
+    return h.redirect(constants.routes.REPORT_SENT)
   }
 }
 

@@ -74,7 +74,7 @@ describe(url, () => {
 
     it('Should redirect to start page', async () => {
       const response = await submitPostRequest(options, 302, session)
-      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_START)
+      expect(response.headers.location).toEqual(constants.routes.REPORT_SENT)
     })
 
     it('Should error if validatePayload fails', async () => {
