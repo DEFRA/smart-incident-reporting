@@ -21,10 +21,10 @@ const handlers = {
     // validate payload for errors
     const errorSummary = validatePayload(answerId, somethingElseDetail, commercialPropertyDetail)
     if (errorSummary.errorList.length > 0) {
-      request.yar.set(question.key, [])
       return h.view(constants.views.BLOCKAGE_FLOOD_RISK_DANGER, {
         errorSummary,
-        ...getContext(request)
+        question,
+        answers: buildAnswersForError(answerId, somethingElseDetail, commercialPropertyDetail)
       })
     }
 
@@ -67,6 +67,38 @@ const buildAnswers = (answerId, somethingElseDetail, commercialPropertyDetail) =
   return answers
 }
 
+const buildAnswersForError = (answerId, somethingElseDetail, commercialPropertyDetail) => {
+  if (!answerId) {
+    return []
+  }
+  const answerArray = Array.isArray(answerId) ? answerId : [answerId]
+  const answers = []
+
+  answerArray.forEach(item => {
+    answers.push({
+      ...baseAnswer,
+      answerId: Number(item)
+    })
+  })
+
+  // Include partial text input even if empty to preserve the text field value
+  if (answerArray.includes(question.answers.somethingElse.answerId.toString())) {
+    answers.push({
+      ...baseAnswer,
+      answerId: question.answers.somethingElseDetail.answerId,
+      otherDetails: somethingElseDetail || ''
+    })
+  }
+  if (answerArray.includes(question.answers.commercialProperty.answerId.toString())) {
+    answers.push({
+      ...baseAnswer,
+      answerId: question.answers.commercialPropertyDetail.answerId,
+      otherBuildingDetail: commercialPropertyDetail || ''
+    })
+  }
+  return answers
+}
+
 const getContext = request => {
   const answers = request.yar.get(question.key)
   return {
@@ -79,21 +111,22 @@ const validatePayload = (answerId, somethingElseDetail, commercialPropertyDetail
   const errorSummary = getErrorSummary()
   if (!answerId || answerId.length === 0) {
     errorSummary.errorList.push({
-      text: 'Select what is at risk from flooding, or \'you do not know\'',
+      text: 'Select what is at risk from flooding or \'you do not know\'',
       href: '#answerId'
     })
-  } else if (answerId.length > 0 && (answerId.includes(question.answers.somethingElse.answerId.toString()) && !somethingElseDetail)) {
-    errorSummary.errorList.push({
-      text: 'Enter details about what is at risk from flooding',
-      href: '#answerId'
-    })
-  } else if (answerId.length > 0 && (answerId.includes(question.answers.commercialProperty.answerId.toString()) && !commercialPropertyDetail)) {
+    return errorSummary
+  }
+  if (answerId.includes(question.answers.commercialProperty.answerId.toString()) && !commercialPropertyDetail) {
     errorSummary.errorList.push({
       text: 'Enter details about the type of buildings at risk from flooding',
-      href: '#answerId'
+      href: '#commercialPropertyDetail'
     })
-  } else {
-    // do nothing (sonarcloud made me do this)
+  }
+  if (answerId.includes(question.answers.somethingElse.answerId.toString()) && !somethingElseDetail) {
+    errorSummary.errorList.push({
+      text: 'Enter details about what is at risk from flooding',
+      href: '#somethingElseDetail'
+    })
   }
   return errorSummary
 }
