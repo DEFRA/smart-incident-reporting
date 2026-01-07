@@ -350,7 +350,7 @@ const questionSets = {
           },
           somethingElseDetail: {
             answerId: 2907,
-            text: 'Give details of what you think is in the water'
+            text: 'Give details about what you think the pollution is'
           }
         }
       },
