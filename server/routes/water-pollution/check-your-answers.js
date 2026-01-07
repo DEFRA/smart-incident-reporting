@@ -286,7 +286,7 @@ const getWhenData = (request, pageUrl) => {
       timeZone: 'Europe/London'
     })
 
-    const pollutionTime = timeString.replace(/\s+/g, '').toLowerCase()
+    const pollutionTime = timeString.replaceAll(/\s+/g, '').toLowerCase()
 
     if (isToday) {
       dateTimeData = `Today at ${pollutionTime}`
