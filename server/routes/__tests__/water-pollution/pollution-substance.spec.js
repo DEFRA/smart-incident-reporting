@@ -125,5 +125,19 @@ describe(url, () => {
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Select what you think the pollution is, or &#39;you do not know&#39;')
     })
+    it('Sad: Something else option is selected and no somethingelse details added ', async () => {
+      const answerId = question.answers.somethingElse.answerId.toString()
+      const somethingElseDetails = ''
+      const options = {
+        url,
+        payload: {
+          answerId,
+          somethingElseDetails
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.OK)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain('Enter details about what you think the pollution is')
+    })
   })
 })

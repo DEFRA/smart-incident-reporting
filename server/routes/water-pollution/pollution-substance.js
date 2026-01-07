@@ -19,7 +19,7 @@ const handlers = {
     let { answerId, somethingElseDetail } = request.payload
 
     // validate payload for errors
-    const errorSummary = validatePayload(answerId,somethingElseDetail)
+    const errorSummary = validatePayload(answerId, somethingElseDetail)
     if (errorSummary.errorList.length > 0) {
       request.yar.set(question.key, [])
       return h.view(constants.views.WATER_POLLUTION_POLLUTION_SUBSTANCE, {
@@ -51,7 +51,7 @@ const buildAnswers = (answerId, somethingElseDetail) => {
     })
   })
 
-   if (answerId.includes(question.answers.somethingElse.answerId.toString()) && somethingElseDetail) {
+  if (answerId.includes(question.answers.somethingElse.answerId.toString()) && somethingElseDetail) {
     answers.push({
       ...baseAnswer,
       answerId: question.answers.somethingElseDetail.answerId,
@@ -75,7 +75,7 @@ const buildAnswersForError = (answerId, somethingElseDetail) => {
       answerId: Number(item)
     })
   })
-  
+
   if (answerArray.includes(question.answers.somethingElse.answerId.toString())) {
     answers.push({
       ...baseAnswer,
@@ -85,7 +85,6 @@ const buildAnswersForError = (answerId, somethingElseDetail) => {
   }
   return answers
 }
-
 
 const getContext = request => {
   const answers = request.yar.get(question.key)
@@ -102,7 +101,7 @@ const validatePayload = (answerId, somethingElseDetail) => {
       text: 'Select what you think the pollution is, or \'you do not know\'',
       href: '#answerId'
     })
-    return errorSummary    
+    return errorSummary
   }
   if (answerId.includes(question.answers.somethingElse.answerId.toString()) && !somethingElseDetail) {
     errorSummary.errorList.push({
@@ -110,7 +109,7 @@ const validatePayload = (answerId, somethingElseDetail) => {
       href: '#somethingElseDetail'
     })
   }
-  return errorSummary  
+  return errorSummary
 }
 
 export default [
