@@ -19,8 +19,11 @@ const handlers = {
       })
     }
 
+    // Save directly to session (like contact details)
+    const isBlockageInRiver = isRiver === 'yes' ? true : isRiver === 'no' ? false : null
+
     request.yar.set(constants.redisKeys.BLOCKAGE_RIVER, {
-      isBlockageInRiver: isRiver === 'yes'
+      isBlockageInRiver
     })
 
     // handle redirects

@@ -48,6 +48,19 @@ describe(url, () => {
         isBlockageInRiver: false
       })
     })
+    it('Should accept not sure option and redirect to blockage/report-local-council', async () => {
+      const options = {
+        url,
+        payload: {
+          isRiver: 'notSure'
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_REPORT_DIRECTLY)
+      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual({
+        isBlockageInRiver: null
+      })
+    })
     it('Sad: no radio selected, returns error state', async () => {
       const options = {
         url,
