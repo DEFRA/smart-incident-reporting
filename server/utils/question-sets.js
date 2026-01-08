@@ -199,7 +199,7 @@ const questionSets = {
           },
           somethingElseDetail: {
             answerId: 1005,
-            text: 'Describe what you can see in or on the water'
+            text: 'Give details about what the pollution looks like '
           }
         }
       },
