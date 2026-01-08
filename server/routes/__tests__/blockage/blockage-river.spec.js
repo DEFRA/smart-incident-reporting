@@ -4,21 +4,18 @@ import constants from '../../../utils/constants.js'
 const url = constants.routes.BLOCKAGE_RIVER
 
 const sessionData = {
-  'blockage/river': {
-    isBlockageInRiver: false
-  }
+  [constants.redisKeys.BLOCKAGE_RIVER]: 'no'
 }
 
 describe(url, () => {
   describe('GET', () => {
-    it(`Should return success response and correct view for ${url}`, async () => {
-      const response = await submitGetRequest({ url }, 'Is the blockage in a river?')
-      expect(response.payload).toContain('Is the blockage in a river?')
-    })
-    it(`Should return success response and correct view with pre-selected value for ${url}`, async () => {
+    it('Should display contact-details view with saved values', async () => {
       const response = await submitGetRequest({ url }, 'Is the blockage in a river?', constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('Is the blockage in a river?')
-      expect(response.payload).toContain('checked')
+      expect(response.result).toContain('value="no" checked')
+    })
+    it('Should display empty form when no session data', async () => {
+      const response = await submitGetRequest({ url }, 'Is the blockage in a river?', constants.statusCodes.OK)
+      expect(response.statusCode).toBe(constants.statusCodes.OK)
     })
   })
   describe('POST', () => {
@@ -31,9 +28,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_RIVER_NAME)
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual({
-        isBlockageInRiver: true
-      })
+      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual('yes')
     })
     it('Should accept no option and redirect to blockage/report-local-council', async () => {
       const options = {
@@ -44,9 +39,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_REPORT_DIRECTLY)
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual({
-        isBlockageInRiver: false
-      })
+      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual('no')
     })
     it('Should accept not sure option and redirect to blockage/report-local-council', async () => {
       const options = {
@@ -57,9 +50,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_REPORT_DIRECTLY)
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual({
-        isBlockageInRiver: null
-      })
+      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual('notSure')
     })
     it('Sad: no radio selected, returns error state', async () => {
       const options = {

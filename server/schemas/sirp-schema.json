@@ -107,7 +107,8 @@
           "type": "string"
         },
         "isBlockageInRiver": {
-          "type": "boolean"
+          "type": "string",
+          "enum": ["yes", "no", "notSure"]
         },
         "data": {
           "type": "array",

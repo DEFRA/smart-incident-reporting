@@ -19,11 +19,7 @@ const handlers = {
       })
     }
 
-    const isBlockageInRiver = isRiver === 'yes' ? true : isRiver === 'no' ? false : null
-
-    request.yar.set(constants.redisKeys.BLOCKAGE_RIVER, {
-      isBlockageInRiver
-    })
+    request.yar.set(constants.redisKeys.BLOCKAGE_RIVER, isRiver)
 
     // handle redirects
     if (isRiver === 'yes') {
@@ -35,8 +31,7 @@ const handlers = {
 }
 
 const getContext = request => {
-  const data = request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)
-  const isRiver = data?.isBlockageInRiver
+  const isRiver = request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)
   return {
     isRiver
   }

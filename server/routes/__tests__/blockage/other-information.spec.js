@@ -40,7 +40,7 @@ describe(url, () => {
           reporterName: 'John Smith',
           reporterPhoneNumber: '012345678910',
           reporterEmailAddress: 'test@test.com',
-          isBlockageInRiver: true,
+          isBlockageInRiver: 'yes',
           otherDetails: otherInfo,
           questionSetId: 300,
           data: expect.arrayContaining([

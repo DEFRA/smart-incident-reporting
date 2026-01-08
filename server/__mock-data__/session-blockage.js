@@ -7,7 +7,7 @@ const session = JSON.parse(`{
     "reporterEmailAddress": "test@test.com"
   },
   "blockage/river": {
-    "isBlockageInRiver": true
+    "isBlockageInRiver": "yes"
   },
   "blockage/river-name": [
     {
