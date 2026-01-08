@@ -4,10 +4,8 @@ const urls = {
   GOV_UK_WATER_POLLUTION: 'https://www.gov.uk/report-water-pollution',
   GOV_UK_SMELL: 'https://www.gov.uk/report-smell',
   GOV_UK_ILLEGAL_FISHING: 'https://www.gov.uk/report-illegal-fishing-in-england',
-  GOV_UK_BLOCKAGE: 'https://www.gov.uk/report-an-environmental-incident' // FIXME: find correct URL
+  GOV_UK_BLOCKAGE: 'https://www.gov.uk/report-an-environmental-incident' // FIXME: add correct URL when we know it
 }
-
-// FIXME: above only want these URLs in production
 
 const serviceNames = {
   DEFAULT: 'Report an environmental problem',
