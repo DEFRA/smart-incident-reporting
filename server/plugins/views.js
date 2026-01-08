@@ -6,6 +6,7 @@ import constants from '../utils/constants.js'
 import fs from 'fs'
 import dirname from '../../dirname.cjs'
 import { findErrorMessageById, getAnswer } from '../utils/template-helpers.js'
+import getServiceDetails from '../utils/get-service-details.js'
 const { version } = JSON.parse(fs.readFileSync('./package.json'))
 const analyticsAccount = config.analyticsAccount
 
@@ -16,7 +17,8 @@ export default {
       html: {
         compile: (src, options) => {
           const template = nunjucks.compile(src, options.environment)
-          return context => template.render(context)
+          const serviceNameAndURL = getServiceDetails(options.filename)
+          return context => template.render({ ...context, ...serviceNameAndURL })
         },
         prepare: (options, next) => {
           const env = options.compileOptions.environment = nunjucks.configure(options.path, {
@@ -43,9 +45,6 @@ export default {
       env: config.env,
       assetPath: '/public',
       govUkHome: constants.urls.GOV_UK_HOME,
-      serviceNameUrl: constants.urls.GOV_UK_SERVICE_HOME,
-      serviceName: 'Report an environmental problem',
-      titleSuffix: ' - report an environmental problem - GOV.UK',
       analyticsAccount
     }
   }
