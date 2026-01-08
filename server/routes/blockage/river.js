@@ -1,14 +1,5 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
-import { questionSets } from '../../utils/question-sets.js'
-
-const question = questionSets.BLOCKAGE.questions.BLOCKAGE_IN_RIVER
-
-const baseAnswer = {
-  questionId: question.questionId,
-  questionAsked: question.text,
-  questionResponse: true
-}
 
 const handlers = {
   get: async (request, h) => {
@@ -17,10 +8,10 @@ const handlers = {
     })
   },
   post: async (request, h) => {
-    let { answerId } = request.payload
+    const { isRiver } = request.payload
 
     // validate payload
-    const errorSummary = validatePayload(answerId)
+    const errorSummary = validatePayload(isRiver)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.BLOCKAGE_RIVER, {
         ...getContext(request),
@@ -28,13 +19,12 @@ const handlers = {
       })
     }
 
-    // convert answerId to number
-    answerId = Number(answerId)
-
-    request.yar.set(constants.redisKeys.BLOCKAGE_RIVER, buildAnswers(answerId))
+    request.yar.set(constants.redisKeys.BLOCKAGE_RIVER, {
+      isBlockageInRiver: isRiver === 'yes'
+    })
 
     // handle redirects
-    if (answerId === question.answers.yes.answerId) {
+    if (isRiver === 'yes') {
       return h.redirect(constants.routes.BLOCKAGE_RIVER_NAME)
     } else {
       return h.redirect(constants.routes.BLOCKAGE_REPORT_DIRECTLY)
@@ -43,29 +33,22 @@ const handlers = {
 }
 
 const getContext = request => {
-  const answers = request.yar.get(question.key)
+  const data = request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)
+  const isRiver = data?.isBlockageInRiver
   return {
-    question,
-    answers
+    isRiver
   }
 }
 
-const validatePayload = answerId => {
+const validatePayload = isRiver => {
   const errorSummary = getErrorSummary()
-  if (!answerId) {
+  if (!isRiver) {
     errorSummary.errorList.push({
-      text: 'Answer yes if the blockage is in a river',
-      href: '#answerId'
+      text: 'Select yes if the blockage is in a river',
+      href: '#isRiver'
     })
   }
   return errorSummary
-}
-
-const buildAnswers = answerId => {
-  return [{
-    ...baseAnswer,
-    answerId
-  }]
 }
 
 export default [

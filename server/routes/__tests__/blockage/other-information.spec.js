@@ -40,10 +40,10 @@ describe(url, () => {
           reporterName: 'John Smith',
           reporterPhoneNumber: '012345678910',
           reporterEmailAddress: 'test@test.com',
+          isBlockageInRiver: true,
           otherDetails: otherInfo,
           questionSetId: 300,
           data: expect.arrayContaining([
-            expect.objectContaining({ questionId: 5000, questionAsked: 'Is the blockage in a river?', questionResponse: true, answerId: 5001 }),
             expect.objectContaining({ questionId: 500, questionAsked: 'Do you know the name of the river?', questionResponse: true, answerId: 501 }),
             expect.objectContaining({ questionId: 500, questionAsked: 'Do you know the name of the river?', questionResponse: true, answerId: 509, otherDetails: 'River Thames' }),
             expect.objectContaining({ questionId: 110, questionAsked: 'What\'s blocking the river?', questionResponse: true, answerId: 112 }),

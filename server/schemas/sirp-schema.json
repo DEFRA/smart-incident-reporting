@@ -106,6 +106,9 @@
         "otherDetails": {
           "type": "string"
         },
+        "isBlockageInRiver": {
+          "type": "boolean"
+        },
         "data": {
           "type": "array",
           "minItems": 0,

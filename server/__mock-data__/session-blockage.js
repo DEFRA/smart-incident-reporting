@@ -6,14 +6,9 @@ const session = JSON.parse(`{
     "reporterPhoneNumber": "012345678910",
     "reporterEmailAddress": "test@test.com"
   },
-  "blockage/river": [
-    {
-      "questionId": 5000,
-      "questionAsked": "Is the blockage in a river?",
-      "questionResponse": true,
-      "answerId": 5001
-    }
-  ],
+  "blockage/river": {
+    "isBlockageInRiver": true
+  },
   "blockage/river-name": [
     {
       "questionId": 500,

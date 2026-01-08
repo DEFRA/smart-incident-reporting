@@ -1,62 +1,52 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
-import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.BLOCKAGE_RIVER
-const question = questionSets.BLOCKAGE.questions.BLOCKAGE_IN_RIVER
-const baseAnswer = {
-  questionId: question.questionId,
-  questionAsked: question.text,
-  questionResponse: true
-}
 
 const sessionData = {
-  'blockage/river': [{
-    questionId: baseAnswer.questionId,
-    answerId: question.answers.noOtherWater.answerId
-  }]
+  'blockage/river': {
+    isBlockageInRiver: false
+  }
 }
 
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, 'Is the blockage in a river?')
+      const response = await submitGetRequest({ url }, 'Is the blockage in a river?')
+      expect(response.payload).toContain('Is the blockage in a river?')
     })
-    it(`Should return success response and correct view for ${url}`, async () => {
-      const response = await submitGetRequest({ url }, question.text, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="5002" checked>')
+    it(`Should return success response and correct view with pre-selected value for ${url}`, async () => {
+      const response = await submitGetRequest({ url }, 'Is the blockage in a river?', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('Is the blockage in a river?')
+      expect(response.payload).toContain('checked')
     })
   })
   describe('POST', () => {
     it('Should accept yes option and redirect to blockage/river-name', async () => {
-      const answerId = question.answers.yes.answerId
       const options = {
         url,
         payload: {
-          answerId
+          isRiver: 'yes'
         }
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_RIVER_NAME)
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual([{
-        ...baseAnswer,
-        answerId
-      }])
+      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual({
+        isBlockageInRiver: true
+      })
     })
-    it('Should accept you are not sure option and redirect to blockage/report-local-council', async () => {
-      const answerId = question.answers.youAreNotSure.answerId
+    it('Should accept no option and redirect to blockage/report-local-council', async () => {
       const options = {
         url,
         payload: {
-          answerId
+          isRiver: 'no'
         }
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_REPORT_DIRECTLY)
-      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual([{
-        ...baseAnswer,
-        answerId
-      }])
+      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER)).toEqual({
+        isBlockageInRiver: false
+      })
     })
     it('Sad: no radio selected, returns error state', async () => {
       const options = {
@@ -65,7 +55,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Answer yes if the blockage is in a river')
+      expect(response.payload).toContain('Select yes if the blockage is in a river')
     })
   })
 })
