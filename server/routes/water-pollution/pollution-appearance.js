@@ -60,7 +60,7 @@ const buildAnswers = (answerId, somethingElseDetail) => {
   return answers
 }
 
-const buildAnswersForError = (answerId, somethingElseDetail, commercialPropertyDetail) => {
+const buildAnswersForError = (answerId, somethingElseDetail) => {
   if (!answerId) {
     return []
   }
