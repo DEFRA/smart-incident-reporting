@@ -51,8 +51,8 @@ const buildPayload = (session) => {
       otherDetails: session.get(constants.redisKeys.BLOCKAGE_OTHER_INFORMATION),
       questionSetId: questionSets.BLOCKAGE.questionSetId,
       data: buildAnswerDataset(session, questionSets.BLOCKAGE),
-      ...reporter,
-      ...riverData
+      isBlockageInRiver: riverData,
+      ...reporter
     }
   }
 }
