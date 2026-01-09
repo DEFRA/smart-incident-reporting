@@ -71,27 +71,11 @@ describe('template-helpers', () => {
       expect(result).toBe('Some details')
     })
 
-    it('should return otherBuildingDetail when present', () => {
+    it('should return true when answer exists without otherDetails', () => {
       const answers = [
-        { answerId: 2, otherBuildingDetail: 'Building details' }
+        { answerId: 2 }
       ]
       const result = getAnswer(answers, 2)
-      expect(result).toBe('Building details')
-    })
-
-    it('should prioritize otherDetails over otherBuildingDetail when both present', () => {
-      const answers = [
-        { answerId: 3, otherDetails: 'Other details', otherBuildingDetail: 'Building details' }
-      ]
-      const result = getAnswer(answers, 3)
-      expect(result).toBe('Other details')
-    })
-
-    it('should return true when answer exists without otherDetails or otherBuildingDetail', () => {
-      const answers = [
-        { answerId: 4 }
-      ]
-      const result = getAnswer(answers, 4)
       expect(result).toBe(true)
     })
 
@@ -122,11 +106,11 @@ describe('template-helpers', () => {
     it('should handle answers with multiple items and return correct match', () => {
       const answers = [
         { answerId: 1, otherDetails: 'Details 1' },
-        { answerId: 2, otherBuildingDetail: 'Building 2' },
+        { answerId: 2, otherDetails: 'Details 2' },
         { answerId: 3 }
       ]
       expect(getAnswer(answers, 1)).toBe('Details 1')
-      expect(getAnswer(answers, 2)).toBe('Building 2')
+      expect(getAnswer(answers, 2)).toBe('Details 2')
       expect(getAnswer(answers, 3)).toBe(true)
     })
 
@@ -135,14 +119,6 @@ describe('template-helpers', () => {
         { answerId: 5, otherDetails: '' }
       ]
       const result = getAnswer(answers, 5)
-      expect(result).toBe(true)
-    })
-
-    it('should return true for otherBuildingDetail when value is empty string', () => {
-      const answers = [
-        { answerId: 6, otherBuildingDetail: '' }
-      ]
-      const result = getAnswer(answers, 6)
       expect(result).toBe(true)
     })
 
