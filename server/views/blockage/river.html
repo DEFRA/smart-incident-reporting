@@ -1,5 +1,5 @@
 {% extends 'form-layout.html' %}
-{% set pageTitle = question.text.replace('?', '') %}
+{% set pageTitle = "Is the blockage in a river" %}
 
 {% block formContent %}
 
@@ -7,8 +7,8 @@
   <div class="govuk-grid-column-two-thirds"> 
     {{ govukRadios({ 
       classes: "govuk-radios", 
-      name: "answerId",
-      id: "answerId",
+      name: "isRiver",
+      id: "isRiver",
       fieldset: {
         legend: {
           text: pageTitle + "?",
@@ -19,22 +19,22 @@
       hint: {
         text: "This can change who's responsible for clearing the blockage and who may need to know about it."
       },
-      errorMessage: findErrorMessageById(errorSummary, "answerId"), 
+      errorMessage: findErrorMessageById(errorSummary, "isRiver"), 
       items: [ 
       {
-        value: question.answers.yes.answerId,
-        text: question.answers.yes.text,
-        checked: getAnswer(answers, question.answers.yes.answerId)
+        value: "yes",
+        text: "Yes",
+        checked: isRiver === 'yes'
       },
       {
-        value: question.answers.noOtherWater.answerId,
-        text: question.answers.noOtherWater.text,
-        checked: getAnswer(answers, question.answers.noOtherWater.answerId)
+        value: "no",
+        text: "No, it's some other kind of water",
+        checked: isRiver === 'no'
       },
       {
-        value: question.answers.youAreNotSure.answerId,
-        text: question.answers.youAreNotSure.text,
-        checked: getAnswer(answers, question.answers.youAreNotSure.answerId)
+        value: "notSure",
+        text: "You're not sure",
+        checked: isRiver === 'notSure'
       }
       ] 
     }) }} 

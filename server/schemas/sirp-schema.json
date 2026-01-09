@@ -106,6 +106,10 @@
         "otherDetails": {
           "type": "string"
         },
+        "isBlockageInRiver": {
+          "type": "string",
+          "enum": ["yes", "no", "notSure"]
+        },
         "data": {
           "type": "array",
           "minItems": 0,

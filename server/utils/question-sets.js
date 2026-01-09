@@ -1144,25 +1144,6 @@ const questionSets = {
   BLOCKAGE: {
     questionSetId: 300,
     questions: {
-      BLOCKAGE_IN_RIVER: {
-        questionId: 5000,
-        key: constants.redisKeys.BLOCKAGE_RIVER,
-        text: 'Is the blockage in a river?',
-        answers: {
-          yes: {
-            answerId: 5001,
-            text: 'Yes'
-          },
-          noOtherWater: {
-            answerId: 5002,
-            text: 'No, it\'s some other kind of water'
-          },
-          youAreNotSure: {
-            answerId: 5003,
-            text: 'You\'re not sure'
-          }
-        }
-      },
       BLOCKAGE_RIVER_NAME: {
         questionId: 500,
         key: constants.redisKeys.BLOCKAGE_RIVER_NAME,

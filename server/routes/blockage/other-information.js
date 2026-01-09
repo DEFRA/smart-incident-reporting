@@ -41,6 +41,7 @@ const getContext = request => {
 
 const buildPayload = (session) => {
   const reporter = session.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)
+  const riverData = session.get(constants.redisKeys.BLOCKAGE_RIVER)
   return {
     reportingAnEnvironmentalProblem: {
       sessionGuid: session.id,
@@ -50,6 +51,7 @@ const buildPayload = (session) => {
       otherDetails: session.get(constants.redisKeys.BLOCKAGE_OTHER_INFORMATION),
       questionSetId: questionSets.BLOCKAGE.questionSetId,
       data: buildAnswerDataset(session, questionSets.BLOCKAGE),
+      isBlockageInRiver: riverData,
       ...reporter
     }
   }
