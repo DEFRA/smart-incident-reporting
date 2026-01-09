@@ -220,7 +220,7 @@ describe(url, () => {
           { ...baseAnswer, answerId: question.answers.commercialProperty.answerId },
           { ...baseAnswer, answerId: question.answers.somethingElse.answerId },
           { ...baseAnswer, answerId: question.answers.somethingElseDetail.answerId, otherDetails: 'Park nearby' },
-          { ...baseAnswer, answerId: question.answers.commercialPropertyDetail.answerId, otherBuildingDetail: 'Shop and office' }
+          { ...baseAnswer, answerId: question.answers.commercialPropertyDetail.answerId, otherDetails: 'Shop and office' }
         ]
       },
       {
@@ -232,7 +232,7 @@ describe(url, () => {
         expectedAnswers: [
           { ...baseAnswer, answerId: question.answers.commercialProperty.answerId },
           { ...baseAnswer, answerId: question.answers.otherPeopleHome.answerId },
-          { ...baseAnswer, answerId: question.answers.commercialPropertyDetail.answerId, otherBuildingDetail: 'Factory building' }
+          { ...baseAnswer, answerId: question.answers.commercialPropertyDetail.answerId, otherDetails: 'Factory building' }
         ]
       },
       {

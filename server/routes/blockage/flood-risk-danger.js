@@ -61,7 +61,7 @@ const buildAnswers = (answerId, somethingElseDetail, commercialPropertyDetail) =
     answers.push({
       ...baseAnswer,
       answerId: question.answers.commercialPropertyDetail.answerId,
-      otherBuildingDetail: commercialPropertyDetail
+      otherDetails: commercialPropertyDetail
     })
   }
   return answers
@@ -93,7 +93,7 @@ const buildAnswersForError = (answerId, somethingElseDetail, commercialPropertyD
     answers.push({
       ...baseAnswer,
       answerId: question.answers.commercialPropertyDetail.answerId,
-      otherBuildingDetail: commercialPropertyDetail || ''
+      otherDetails: commercialPropertyDetail || ''
     })
   }
   return answers
