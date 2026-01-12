@@ -67,7 +67,7 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Enter a building number or name')
-      expect(response.payload).toContain('Enter an postcode')
+      expect(response.payload).toContain('Enter a postcode')
     })
     it('Sad: error on invalid postcode', async () => {
       const options = {

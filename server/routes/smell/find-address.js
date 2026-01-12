@@ -92,7 +92,7 @@ const validatePayload = (buildingDetails, postcode, captchaSuccess) => {
 
   if (!postcode) {
     errorSummary.errorList.push({
-      text: 'Enter an postcode',
+      text: 'Enter a postcode',
       href: '#postcode'
     })
   } else if (!postcodeRegExp.test(postcode)) {
