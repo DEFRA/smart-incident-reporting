@@ -1,7 +1,7 @@
 {% extends 'form-layout.html' %}
 
 {% set pageTitle = 'What does the pollution look like' %}
-
+{% set somethingElseDetailText = question.answers.somethingElseDetail.text %}
 {% block formContent %}
 
 <div class="govuk-grid-row">
@@ -14,7 +14,7 @@
         classes: "govuk-!-width-two-third",
         value: getAnswer(answers, question.answers.somethingElseDetail.answerId),
         label: {
-          text: question.answers.somethingElseDetail.text
+          text: somethingElseDetailText
         }
       }) }}
     {% endset -%}

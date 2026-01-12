@@ -18,12 +18,13 @@ const handlers = {
     let { answerId, somethingElseDetail } = request.payload
 
     // validate payload for errors
-    const errorSummary = validatePayload(answerId)
+    const errorSummary = validatePayload(answerId, somethingElseDetail)
     if (errorSummary.errorList.length > 0) {
       request.yar.set(question.key, [])
       return h.view(constants.views.WATER_POLLUTION_POLLUTION_APPEARANCE, {
         errorSummary,
-        ...getContext(request)
+        question,
+        answers: buildAnswersForError(answerId, somethingElseDetail)
       })
     }
 
@@ -48,7 +49,7 @@ const buildAnswers = (answerId, somethingElseDetail) => {
     })
   })
 
-  if (answerId.indexOf(question.answers.somethingElse.answerId.toString()) > -1 && somethingElseDetail) {
+  if (answerId.includes(question.answers.somethingElse.answerId.toString()) && somethingElseDetail) {
     answers.push({
       ...baseAnswer,
       answerId: question.answers.somethingElseDetail.answerId,
@@ -56,6 +57,29 @@ const buildAnswers = (answerId, somethingElseDetail) => {
     })
   }
 
+  return answers
+}
+
+const buildAnswersForError = (answerId, somethingElseDetail) => {
+  if (!answerId) {
+    return []
+  }
+  const answerArray = Array.isArray(answerId) ? answerId : [answerId]
+  const answers = []
+
+  answerArray.forEach(item => {
+    answers.push({
+      ...baseAnswer,
+      answerId: Number(item)
+    })
+  })
+  if (answerArray.includes(question.answers.somethingElse.answerId.toString())) {
+    answers.push({
+      ...baseAnswer,
+      answerId: question.answers.somethingElseDetail.answerId,
+      otherDetails: somethingElseDetail || ''
+    })
+  }
   return answers
 }
 
@@ -67,12 +91,19 @@ const getContext = request => {
   }
 }
 
-const validatePayload = answerId => {
+const validatePayload = (answerId, somethingElseDetail) => {
   const errorSummary = getErrorSummary()
   if (!answerId || answerId.length === 0) {
     errorSummary.errorList.push({
       text: 'Select what the pollution looks like',
       href: '#answerId'
+    })
+    return errorSummary
+  }
+  if (answerId.includes(question.answers.somethingElse.answerId.toString()) && !somethingElseDetail) {
+    errorSummary.errorList.push({
+      text: 'Enter details about what the pollution looks like',
+      href: '#somethingElseDetail'
     })
   }
   return errorSummary
