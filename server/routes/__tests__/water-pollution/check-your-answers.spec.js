@@ -121,6 +121,38 @@ describe(url, () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Test data for location description')
     })
+    it(`Happy: Should display map with accessibility attributes when location point is provided ${url}`, async () => {
+      const testSessionData = JSON.parse(JSON.stringify(session))
+      delete testSessionData['water-pollution/location-description']
+      testSessionData['water-pollution/location-option'] = [{
+        questionId: 2600,
+        questionAsked: 'How do you want to tell us where you\'ve seen water pollution?',
+        questionResponse: true,
+        answerId: 2602
+      }]
+      testSessionData['water-pollution/location-map'] = [{
+        questionId: 1200,
+        questionAsked: 'Where is the pollution?',
+        questionResponse: true,
+        answerId: 1201,
+        otherDetails: 'AB 12345 67890'
+      }, {
+        questionId: 1200,
+        questionAsked: 'Where is the pollution?',
+        questionResponse: true,
+        answerId: 1202,
+        otherDetails: '123456'
+      }, {
+        questionId: 1200,
+        questionAsked: 'Where is the pollution?',
+        questionResponse: true,
+        answerId: 1203,
+        otherDetails: '789012'
+      }]
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, testSessionData)
+      expect(response.payload).toContain('<span class="govuk-visually-hidden">Map showing a pin marking the location of the pollution</span>')
+      expect(response.payload).toContain('aria-hidden="true"')
+    })
     it(`Happy: Should return correct answer for 'Less than 10m in size' question ${url}`, async () => {
       const answerData = {
         'water-pollution/less-than-10-metres': [{
