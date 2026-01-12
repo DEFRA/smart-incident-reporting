@@ -150,8 +150,8 @@ describe(url, () => {
         otherDetails: '789012'
       }]
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, testSessionData)
-      expect(response.payload).toContain('role="img"')
-      expect(response.payload).toContain('aria-label="Map showing a pin marking the location of the pollution"')
+      expect(response.payload).toContain('<span class="govuk-visually-hidden">Map showing a pin marking the location of the pollution</span>')
+      expect(response.payload).toContain('aria-hidden="true"')
     })
     it(`Happy: Should return correct answer for 'Less than 10m in size' question ${url}`, async () => {
       const answerData = {
