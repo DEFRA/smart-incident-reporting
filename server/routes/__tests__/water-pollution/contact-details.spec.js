@@ -1,5 +1,7 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
+import { parse } from 'node-html-parser'
+
 const url = constants.routes.WATER_POLLUTION_CONTACT_DETAILS
 const phoneError = 'Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192'
 const emailError = 'Enter an email address in the correct format, like name@example.com'
@@ -19,6 +21,15 @@ describe(url, () => {
       expect(response.result).toContain('value="test name"')
       expect(response.result).toContain('value="012345678910"')
       expect(response.result).toContain('value="test@test.com"')
+    })
+    it(`Should show the correct service name and link for a water pollution service page on ${url}`, async () => {
+      process.env.REGISTER_START_ROUTES = 'false'
+      const response = await submitGetRequest({ url })
+      const html = parse(response.payload)
+      const serviceNameLink = html.querySelector('.govuk-service-navigation__link')
+      expect(html.querySelector('.govuk-service-navigation__service-name').textContent).toContain(constants.serviceNames.WATER_POLLUTION)
+      expect(serviceNameLink.getAttribute('href')).toBe(constants.urls.GOV_UK_WATER_POLLUTION)
+      process.env.REGISTER_START_ROUTES = 'true'
     })
   })
   describe('POST', () => {

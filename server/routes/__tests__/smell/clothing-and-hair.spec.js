@@ -1,6 +1,7 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
+import { parse } from 'node-html-parser'
 
 const url = constants.routes.SMELL_CLOTHING_AND_HAIR
 const question = questionSets.SMELL.questions.SMELL_CLOTHING_AND_HAIR
@@ -31,6 +32,15 @@ describe(url, () => {
       }
       const wasHeader = header.replace('Does', 'Did')
       await submitGetRequest({ url }, wasHeader, constants.statusCodes.OK, sessionData)
+    })
+    it(`Should show the correct service name and link for an odour/smell service page on ${url}`, async () => {
+      process.env.REGISTER_START_ROUTES = 'false'
+      const response = await submitGetRequest({ url })
+      const html = parse(response.payload)
+      const serviceNameLink = html.querySelector('.govuk-service-navigation__link')
+      expect(html.querySelector('.govuk-service-navigation__service-name').textContent).toContain(constants.serviceNames.SMELL)
+      expect(serviceNameLink.getAttribute('href')).toBe(constants.urls.GOV_UK_SMELL)
+      process.env.REGISTER_START_ROUTES = 'true'
     })
   })
 
