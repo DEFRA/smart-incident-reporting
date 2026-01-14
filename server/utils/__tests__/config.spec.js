@@ -32,4 +32,34 @@ describe('utils/config', () => {
       expect(config.default.captchaSiteKey).toBe('')
     })
   })
+  it('Should default appEnv to development if not set', () => {
+    jest.isolateModules(() => {
+      delete process.env.APP_ENV
+      const config = require('../config.js')
+      expect(config.default.appEnv).toBe('development')
+    })
+  })
+  it('Should set appEnv from environment variable', () => {
+    jest.isolateModules(() => {
+      process.env.APP_ENV = 'pre-production'
+      const config = require('../config.js')
+      expect(config.default.appEnv).toBe('pre-production')
+    })
+  })
+  it('Should accept valid appEnv values', () => {
+    const validEnvs = ['development', 'test', 'pre-production', 'training', 'production']
+    validEnvs.forEach(env => {
+      jest.isolateModules(() => {
+        process.env.APP_ENV = env
+        const config = require('../config.js')
+        expect(config.default.appEnv).toBe(env)
+      })
+    })
+  })
+  it('Should throw error for invalid appEnv value', () => {
+    jest.isolateModules(() => {
+      process.env.APP_ENV = 'invalid-env'
+      expect(() => require('../config.js')).toThrow('The server config is invalid. "appEnv" must be one of [development, test, pre-production, training, production]')
+    })
+  })
 })

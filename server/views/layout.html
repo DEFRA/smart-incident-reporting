@@ -47,11 +47,16 @@
 {% endblock %}
 
 {% block beforeContent %}
+  {% set bannerHtml = 'This is a new service – <a class="govuk-link" href="/feedback">leave feedback</a> to help us to improve it.' %}
+  {% if appEnv != "production" %}
+    {% set bannerHtml = bannerHtml + '<br><div class="non-live-service-banner">This environment is not live - this is the <strong>' + appEnv + '</strong> environment.</div>' %}
+  {% endif %}
+
   {{ govukPhaseBanner({
     tag: {
       text: "Beta"
     },
-    html: 'This is a new service – <a class="govuk-link" href="/feedback">leave feedback</a> to help us to improve it.'
+    html: bannerHtml
   }) }}
 
   <!-- Hide the back link if Javascript is not available -->
