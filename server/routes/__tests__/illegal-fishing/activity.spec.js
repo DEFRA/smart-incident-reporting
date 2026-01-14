@@ -1,6 +1,7 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
+import { parse } from 'node-html-parser'
 
 const url = constants.routes.ILLEGAL_FISHING_ACTIVITY
 const header = 'What illegal fishing activity do you want to report?'
@@ -15,6 +16,15 @@ describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       await submitGetRequest({ url }, header)
+    })
+    it(`Should show the correct service name and link for an illegal fishing service page on ${url}`, async () => {
+      process.env.REGISTER_START_ROUTES = 'false'
+      const response = await submitGetRequest({ url })
+      const html = parse(response.payload)
+      const serviceNameLink = html.querySelector('.govuk-service-navigation__link')
+      expect(html.querySelector('.govuk-service-navigation__service-name').textContent).toContain(constants.serviceNames.ILLEGAL_FISHING)
+      expect(serviceNameLink.getAttribute('href')).toBe(constants.urls.GOV_UK_ILLEGAL_FISHING)
+      process.env.REGISTER_START_ROUTES = 'true'
     })
   })
   describe('POST', () => {
