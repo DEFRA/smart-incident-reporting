@@ -2,7 +2,8 @@ import constants from './constants.js'
 
 const generatePageTitle = serviceName => `${serviceName.charAt(0).toLowerCase()}${serviceName.slice(1)}`
 
-const getServiceDetails = filename => {
+const getServiceDetails = templateFilename => {
+  const filename = templateFilename || ''
   let serviceName = constants.serviceNames.DEFAULT
   let serviceUrl = constants.urls.GOV_UK_SERVICE_HOME
 
