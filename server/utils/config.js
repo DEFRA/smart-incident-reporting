@@ -1,6 +1,6 @@
 import Joi from 'joi'
 const envs = ['development', 'test', 'production']
-const appEnvs = ['development', 'test', 'pre-production', 'training', 'production']
+const appEnvs = ['development', 'test', 'training', 'pre-production', 'production']
 const defaultPort = 8000
 const defaultRedisPort = 6379
 
