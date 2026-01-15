@@ -24,10 +24,12 @@ const sessionData = {
 
 describe(url, () => {
   describe('GET', () => {
-    it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, header)
+    it('Should return success response for GET request', async () => {
+      const response = await submitGetRequest({ url }, header)
+      expect(response.statusCode).toEqual(constants.statusCodes.OK)
+      expect(response.payload).toContain(header)
     })
-    it(`Should return success response and correct view for ${url}`, async () => {
+    it('Should pre-populate form when session data exists', async () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('value="501" checked')
       expect(response.payload).toContain('value="test details"')
@@ -73,6 +75,20 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Enter the name of the river')
+    })
+    it('Happy: accepts No answer and redirects to blockage/blockage-type', async () => {
+      const options = {
+        url,
+        payload: {
+          answerId: question.answers.no.answerId
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_TYPE)
+      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_RIVER_NAME)).toEqual([{
+        ...baseAnswer,
+        answerId: question.answers.no.answerId
+      }])
     })
   })
 })

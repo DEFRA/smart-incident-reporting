@@ -32,9 +32,7 @@ const handlers = {
       })
     }
 
-    if (answerId === question.answers.yes.answerId) {
-      request.yar.set(question.key, buildAnswers(answerId, yesDetails))
-    }
+    request.yar.set(question.key, buildAnswers(answerId, yesDetails))
 
     // handle redirection
     return h.redirect(constants.routes.BLOCKAGE_TYPE)

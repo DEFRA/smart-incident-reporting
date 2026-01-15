@@ -1154,7 +1154,7 @@ const questionSets = {
             text: 'Yes'
           },
           no: {
-            answerId: 502,
+            answerId: 507,
             text: 'No'
           },
           yesDetails: {
