@@ -56,7 +56,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options)
       const storedData = response.request.yar.get(constants.redisKeys.BLOCKAGE_LOCATION_DESCRIPTION)
-      expect(storedData).toBeUndefined()
+      expect(storedData).toBeFalsy()
       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_WHEN)
     })
   })

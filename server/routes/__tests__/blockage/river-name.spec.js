@@ -31,7 +31,7 @@ describe(url, () => {
     })
     it('Should pre-populate form when session data exists', async () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('value="501" checked')
+      expect(response.payload).toContain('value="106" checked')
       expect(response.payload).toContain('value="test details"')
     })
   })

@@ -1145,20 +1145,20 @@ const questionSets = {
     questionSetId: 300,
     questions: {
       BLOCKAGE_RIVER_NAME: {
-        questionId: 500,
+        questionId: 105,
         key: constants.redisKeys.BLOCKAGE_RIVER_NAME,
         text: 'Do you know the name of the river?',
         answers: {
           yes: {
-            answerId: 501,
+            answerId: 106,
             text: 'Yes'
           },
           no: {
-            answerId: 507,
+            answerId: 107,
             text: 'No'
           },
           yesDetails: {
-            answerId: 509,
+            answerId: 108,
             text: 'Name of the river'
           }
         }

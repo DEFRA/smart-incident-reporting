@@ -44,8 +44,8 @@ describe(url, () => {
           otherDetails: otherInfo,
           questionSetId: 300,
           data: expect.arrayContaining([
-            expect.objectContaining({ questionId: 500, questionAsked: 'Do you know the name of the river?', questionResponse: true, answerId: 501 }),
-            expect.objectContaining({ questionId: 500, questionAsked: 'Do you know the name of the river?', questionResponse: true, answerId: 509, otherDetails: 'River Thames' }),
+            expect.objectContaining({ questionId: 105, questionAsked: 'Do you know the name of the river?', questionResponse: true, answerId: 106 }),
+            expect.objectContaining({ questionId: 105, questionAsked: 'Do you know the name of the river?', questionResponse: true, answerId: 108, otherDetails: 'River Thames' }),
             expect.objectContaining({ questionId: 110, questionAsked: 'What\'s blocking the river?', questionResponse: true, answerId: 112 }),
             expect.objectContaining({ questionId: 2600, questionAsked: 'How do you want to tell us where the blockage is?', questionResponse: true, answerId: 2601 }),
             expect.objectContaining({ questionId: 900, questionAsked: 'Location description', questionResponse: true, answerId: 901, otherDetails: 'Near the bridge on High Street' }),
