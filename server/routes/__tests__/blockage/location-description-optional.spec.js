@@ -46,5 +46,18 @@ describe(url, () => {
       }])
       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_WHEN)
     })
+
+    it('Should not store data when optional field is empty', async () => {
+      const options = {
+        url,
+        payload: {
+          otherLocationInfo: ''
+        }
+      }
+      const response = await submitPostRequest(options)
+      const storedData = response.request.yar.get(constants.redisKeys.BLOCKAGE_LOCATION_DESCRIPTION)
+      expect(storedData).toBeUndefined()
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_WHEN)
+    })
   })
 })
