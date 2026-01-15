@@ -47,7 +47,7 @@ describe('utils/config', () => {
     })
   })
   it('Should accept valid appEnv values', () => {
-    const validEnvs = ['development', 'test', 'pre-production', 'training', 'production']
+    const validEnvs = ['development', 'test', 'training', 'pre-production', 'production']
     validEnvs.forEach(env => {
       jest.isolateModules(() => {
         process.env.APP_ENV = env
@@ -59,7 +59,7 @@ describe('utils/config', () => {
   it('Should throw error for invalid appEnv value', () => {
     jest.isolateModules(() => {
       process.env.APP_ENV = 'invalid-env'
-      expect(() => require('../config.js')).toThrow('The server config is invalid. "appEnv" must be one of [development, test, pre-production, training, production]')
+      expect(() => require('../config.js')).toThrow('The server config is invalid. "appEnv" must be one of [development, test, training, pre-production, production]')
     })
   })
 })
