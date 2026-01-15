@@ -9,16 +9,16 @@ const session = JSON.parse(`{
   "blockage/river": "yes",
   "blockage/river-name": [
     {
-      "questionId": 500,
+      "questionId": 105,
       "questionAsked": "Do you know the name of the river?",
       "questionResponse": true,
-      "answerId": 501
+      "answerId": 106
     },
     {
-      "questionId": 500,
+      "questionId": 105,
       "questionAsked": "Do you know the name of the river?",
       "questionResponse": true,
-      "answerId": 509,
+      "answerId": 108,
       "otherDetails": "River Thames"
     }
   ],
