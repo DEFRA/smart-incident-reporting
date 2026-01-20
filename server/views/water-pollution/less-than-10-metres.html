@@ -1,7 +1,7 @@
 {% extends 'form-layout.html' %}
 
-{% set pageTitle = 'Does the pollution spread less than 10 metres' %}
-{% set pageHeader = 'Does the pollution spread less than 10 metres along the ' + waterFeature + '?' %}
+{% set pageTitle = question.text.replace('?', '') %}
+{% set pageHeader = question.text %}
 
 {% set helpHtml %}
   <details class="govuk-details govuk-!-margin-top-6 govuk-!-margin-bottom-6" data-module="govuk-details">

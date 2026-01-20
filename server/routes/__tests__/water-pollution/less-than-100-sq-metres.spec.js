@@ -20,26 +20,26 @@ describe(url, () => {
       const sessionData = {
         'water-pollution/less-than-100-sq-metres': [{
           questionId: baseAnswer.questionId,
-          answerId: question.answers.yes.answerId
+          answerId: question.answers.more.answerId
         }]
       }
-      const response = await submitGetRequest({ url }, 'Does the pollution cover an area less than 100 square metres in size?', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, question.text, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId" name="answerId" type="radio" value="801" checked>')
     })
     it(`Should return success response and correct view when no is selected for ${url}`, async () => {
       const sessionData = {
         'water-pollution/less-than-100-sq-metres': [{
           questionId: baseAnswer.questionId,
-          answerId: question.answers.no.answerId
+          answerId: question.answers.less.answerId
         }]
       }
-      const response = await submitGetRequest({ url }, 'Does the pollution cover an area less than 100 square metres in size?', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, question.text, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="802" checked>')
     })
   })
   describe('POST', () => {
-    it('Happy: accepts yes and redirects to other information', async () => {
-      const answerId = question.answers.yes.answerId
+    it('Happy: accepts less and redirects to other information', async () => {
+      const answerId = question.answers.less.answerId
       const options = {
         url,
         payload: {
@@ -53,8 +53,8 @@ describe(url, () => {
         answerId
       }])
     })
-    it('Happy: accepts no and redirects to pollution-length', async () => {
-      const answerId = question.answers.no.answerId
+    it('Happy: accepts more and redirects to pollution-length', async () => {
+      const answerId = question.answers.more.answerId
       const options = {
         url,
         payload: {
@@ -63,21 +63,6 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_POLLUTION_AREA)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)).toEqual([{
-        ...baseAnswer,
-        answerId
-      }])
-    })
-    it('Happy: accepts do not know and redirects to other information', async () => {
-      const answerId = question.answers.youDoNotKnow.answerId
-      const options = {
-        url,
-        payload: {
-          answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_EFFECT_ON_WILDLIFE)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)).toEqual([{
         ...baseAnswer,
         answerId
@@ -90,10 +75,10 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select yes if the pollution covers less than 100 square metres')
+      expect(response.payload).toContain('Select how much pollution you have seen')
     })
-    it('Happy: For CYA journey, accepts valid answerID for no and redirects to pollution-area', async () => {
-      const answerId = question.answers.no.answerId
+    it('Happy: For CYA journey, accepts valid answerID for more and redirects to pollution-area', async () => {
+      const answerId = question.answers.more.answerId
       const options = {
         url,
         payload: {
@@ -110,27 +95,8 @@ describe(url, () => {
         answerId
       }])
     })
-    it('Happy: For CYA journey, accepts valid answerID for yes and redirects to check-your-answers', async () => {
-      const answerId = question.answers.yes.answerId
-      const options = {
-        url,
-        payload: {
-          answerId
-        }
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
-        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
-      })
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_LENGTH)).toEqual(null)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_POLLUTION_AREA)).toEqual(null)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)).toEqual([{
-        ...baseAnswer,
-        answerId
-      }])
-    })
-    it('Happy: For CYA journey, accepts valid answerID for do not know and redirects to check-your-answers', async () => {
-      const answerId = question.answers.youDoNotKnow.answerId
+    it('Happy: For CYA journey, accepts valid answerID for less and redirects to check-your-answers', async () => {
+      const answerId = question.answers.less.answerId
       const options = {
         url,
         payload: {

@@ -242,9 +242,9 @@ const getIsSizeEstimatedRequired = (request) => {
 
   // Check if 'Size (estimated)' field is required
   let isSizeEstimatedRequiredData = false
-  if (lessThan10MetersAnswerData && lessThan10MetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_10_METRES.answers.no.answerId) {
+  if (lessThan10MetersAnswerData && lessThan10MetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_10_METRES.answers.more.answerId) {
     isSizeEstimatedRequiredData = true
-  } else if (lessThan100SqMetersAnswerData && lessThan100SqMetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_100_SQ_METRES.answers.no.answerId) {
+  } else if (lessThan100SqMetersAnswerData && lessThan100SqMetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_100_SQ_METRES.answers.more.answerId) {
     isSizeEstimatedRequiredData = true
   } else {
     // do nothing for sonarcloud

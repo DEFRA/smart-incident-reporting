@@ -77,44 +77,34 @@ const questionSets = {
       WATER_POLLUTION_LESS_THAN_10_METRES: {
         questionId: 700,
         key: constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES,
-        text: 'Does the pollution spread less than 10 metres along the watercourse?',
+        text: 'How much pollution have you seen?',
         answers: {
-          yes: {
+          more: {
             answerId: 701,
-            text: 'Yes',
-            shortText: 'Yes'
+            text: 'More than 10 metres',
+            shortText: 'More than 10 metres'
           },
-          no: {
+          less: {
             answerId: 702,
-            text: 'No, it is over a longer stretch',
-            shortText: 'No'
-          },
-          youDoNotKnow: {
-            answerId: 703,
-            text: YOU_DO_NOT_KNOW,
-            shortText: YOU_DO_NOT_KNOW_SHORT
+            text: 'Less than 10 metres',
+            shortText: 'Less than 10 metres'
           }
         }
       },
       WATER_POLLUTION_LESS_THAN_100_SQ_METRES: {
         questionId: 800,
         key: constants.redisKeys.WATER_POLLUTION_LESS_THAN_100_SQ_METRES,
-        text: 'Does the pollution cover an area less than 100 square metres in size?',
+        text: 'How much pollution have you seen?',
         answers: {
-          yes: {
+          more: {
             answerId: 801,
-            text: 'Yes',
-            shortText: 'Yes'
+            text: 'More than 100 square metres',
+            shortText: 'More than 100 square metres'
           },
-          no: {
+          less: {
             answerId: 802,
-            text: 'No, it spreads over a larger area',
-            shortText: 'No'
-          },
-          youDoNotKnow: {
-            answerId: 803,
-            text: YOU_DO_NOT_KNOW,
-            shortText: YOU_DO_NOT_KNOW_SHORT
+            text: 'Less than 100 square metres',
+            shortText: 'Less than 100 square metres'
           }
         }
       },
