@@ -48,8 +48,8 @@
 
 {% block beforeContent %}
   {% set bannerHtml = 'This is a new service – <a class="govuk-link" href="/feedback">leave feedback</a> to help us to improve it.' %}
-  {% if appEnv != "production" %}
-    {% set bannerHtml = bannerHtml + '<br><div class="non-live-service-banner govuk-body">This environment is not live - this is the ' + appEnv + ' environment.</div>' %}
+  {% if deploymentEnv != "production" %}
+    {% set bannerHtml = bannerHtml + '<br><div class="non-live-service-banner govuk-body">This environment is not live - this is the ' + deploymentEnv + ' environment.</div>' %}
   {% endif %}
 
   {{ govukPhaseBanner({

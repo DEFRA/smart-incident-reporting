@@ -1,6 +1,6 @@
 import Joi from 'joi'
 const envs = ['development', 'test', 'production']
-const appEnvs = ['development', 'test', 'training', 'pre-production', 'production']
+const deploymentEnvs = ['development', 'test', 'training', 'pre-production', 'production']
 const defaultPort = 8000
 const defaultRedisPort = 6379
 
@@ -13,10 +13,10 @@ const schema = Joi.object().keys({
     .string()
     .valid(...envs)
     .default(envs[0]),
-  appEnv: Joi
+  deploymentEnv: Joi
     .string()
-    .valid(...appEnvs)
-    .default(appEnvs[0]),
+    .valid(...deploymentEnvs)
+    .default(deploymentEnvs[0]),
   servicePort: Joi.number().default(defaultPort),
   redisHost: Joi.string().default('localhost'),
   redisPort: Joi.number().default(defaultRedisPort),
@@ -42,7 +42,7 @@ const captchaEnabled = getBoolean(process.env.CAPTCHA_ENABLED)
 // Build config
 const config = {
   env: process.env.NODE_ENV,
-  appEnv: process.env.APP_ENV,
+  deploymentEnv: process.env.DEPLOYMENT_ENV,
   servicePort: process.env.SERVICE_PORT,
   logLevel: process.env.LOG_LEVEL,
   redisHost: process.env.REDIS_HOST,

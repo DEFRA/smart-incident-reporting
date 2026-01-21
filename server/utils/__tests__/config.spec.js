@@ -32,34 +32,34 @@ describe('utils/config', () => {
       expect(config.default.captchaSiteKey).toBe('')
     })
   })
-  it('Should default appEnv to development if not set', () => {
+  it('Should default deploymentEnv to development if not set', () => {
     jest.isolateModules(() => {
-      delete process.env.APP_ENV
+      delete process.env.DEPLOYMENT_ENV
       const config = require('../config.js')
-      expect(config.default.appEnv).toBe('development')
+      expect(config.default.deploymentEnv).toBe('development')
     })
   })
-  it('Should set appEnv from environment variable', () => {
+  it('Should set deploymentEnv from environment variable', () => {
     jest.isolateModules(() => {
-      process.env.APP_ENV = 'pre-production'
+      process.env.DEPLOYMENT_ENV = 'pre-production'
       const config = require('../config.js')
-      expect(config.default.appEnv).toBe('pre-production')
+      expect(config.default.deploymentEnv).toBe('pre-production')
     })
   })
-  it('Should accept valid appEnv values', () => {
+  it('Should accept valid deploymentEnv values', () => {
     const validEnvs = ['development', 'test', 'training', 'pre-production', 'production']
     validEnvs.forEach(env => {
       jest.isolateModules(() => {
-        process.env.APP_ENV = env
+        process.env.DEPLOYMENT_ENV = env
         const config = require('../config.js')
-        expect(config.default.appEnv).toBe(env)
+        expect(config.default.deploymentEnv).toBe(env)
       })
     })
   })
-  it('Should throw error for invalid appEnv value', () => {
+  it('Should throw error for invalid deploymentEnv value', () => {
     jest.isolateModules(() => {
-      process.env.APP_ENV = 'invalid-env'
-      expect(() => require('../config.js')).toThrow('The server config is invalid. "appEnv" must be one of [development, test, training, pre-production, production]')
+      process.env.DEPLOYMENT_ENV = 'invalid-env'
+      expect(() => require('../config.js')).toThrow('The server config is invalid. "deploymentEnv" must be one of [development, test, training, pre-production, production]')
     })
   })
 })
