@@ -28,7 +28,7 @@ const session = JSON.parse(`{
   "water-pollution/less-than-10-metres": [
     {
       "questionId": 700,
-      "questionAsked": "Does the pollution spread less than 10 metres along the watercourse?",
+      "questionAsked": "How much pollution have you seen?",
       "questionResponse": true,
       "answerId": 702
     }
@@ -159,7 +159,7 @@ const payload =
       otherDetails: 'this is a test'
     }, {
       questionId: 700,
-      questionAsked: 'Does the pollution spread less than 10 metres along the watercourse?',
+      questionAsked: 'How much pollution have you seen?',
       questionResponse: true,
       answerId: 702
     }, {

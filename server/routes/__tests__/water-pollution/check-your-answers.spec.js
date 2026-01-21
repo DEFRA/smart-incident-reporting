@@ -157,7 +157,7 @@ describe(url, () => {
       const answerData = {
         'water-pollution/less-than-10-metres': [{
           questionId: 700,
-          questionAsked: 'Does the pollution spread less than 10 metres along the watercourse?',
+          questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
           answerId: 702
         }]
@@ -170,7 +170,7 @@ describe(url, () => {
       const answerData = {
         'water-pollution/less-than-100-sq-metres': [{
           questionId: 800,
-          questionAsked: 'Does the pollution cover an area less than 100 square metres in size?',
+          questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
           answerId: 801
         }]
@@ -191,7 +191,7 @@ describe(url, () => {
       const additionalData = {
         'water-pollution/less-than-100-sq-metres': [{
           questionId: 800,
-          questionAsked: 'Does the pollution cover an area less than 100 square metres in size?',
+          questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
           answerId: 801
         }]
@@ -212,7 +212,7 @@ describe(url, () => {
       const additionalData = {
         'water-pollution/less-than-10-metres': [{
           questionId: 700,
-          questionAsked: 'Does the pollution spread less than 10 metres along the watercourse?',
+          questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
           answerId: 701
         }]
@@ -233,7 +233,7 @@ describe(url, () => {
       const additionalData1 = {
         'water-pollution/less-than-10-metres': [{
           questionId: 700,
-          questionAsked: 'Does the pollution spread less than 10 metres along the watercourse?',
+          questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
           answerId: 702
         }]
@@ -498,7 +498,7 @@ describe(url, () => {
             }),
             expect.objectContaining({
               questionId: 700,
-              questionAsked: 'Does the pollution spread less than 10 metres along the watercourse?',
+              questionAsked: 'How much pollution have you seen?',
               questionResponse: true,
               answerId: 702
             }),
