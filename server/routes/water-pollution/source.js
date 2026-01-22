@@ -57,7 +57,7 @@ const validatePayload = (answerId, yesDetails) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Answer yes if you know where the pollution is coming from',
+      text: 'Select yes if you know where the pollution is coming from',
       href: '#answerId'
     })
   } else if (Number(answerId) === question.answers.yes.answerId && !yesDetails) {
