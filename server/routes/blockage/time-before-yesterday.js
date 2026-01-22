@@ -46,7 +46,7 @@ const validatePayload = (dateString, time) => {
       text: 'Enter a real time, for example 11:35am or 2:35pm',
       href: '#time'
     })
-  } else if (formattedTime !== 'INVALID_TIME_FORMAT' && !isPastTime(dateString, formattedTime)) {
+  } else if (formattedTime !== 'INVALID_TIME_FORMAT' && !getDateTime(dateString, formattedTime).isBefore(moment())) {
     errorSummary.errorList.push({
       text: 'Enter a time in the past',
       href: '#time'
@@ -76,14 +76,6 @@ const getDateTime = (dateString, time) => {
   const dateTime = moment(dateTimeString, 'YYYY-MM-DD hh:mm a')
 
   return dateTime
-}
-
-const isPastTime = (dateString, time) => {
-  const dateTime = getDateTime(dateString, time)
-  const maxAgeMinutes = 5
-  const isDateTimeInPast = dateTime.isBefore(moment().subtract(maxAgeMinutes, 'minutes'))
-
-  return isDateTimeInPast
 }
 
 export default [
