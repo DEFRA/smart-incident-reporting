@@ -20,7 +20,7 @@ const handlers = {
   post: async (request, h) => {
     // cleanse postcode for special characters https://design-system.service.gov.uk/patterns/addresses/#allow-different-postcode-formats
     if (request.payload.sourcePostcode) {
-      request.payload.sourcePostcode = request.payload.sourcePostcode.replace(/[^\w\s]/gi, '')
+      request.payload.sourcePostcode = request.payload.sourcePostcode.replaceAll(/[^\w\s]/gi, '')
     }
 
     // validate payload for errors
@@ -59,7 +59,7 @@ const validatePayload = payload => {
   const errorSummary = getErrorSummary()
   if (!payload.answerId) {
     errorSummary.errorList.push({
-      text: 'Answer yes if you can give details about where the smell is coming from',
+      text: 'Select yes if you can give details about where the smell is coming from',
       href: '#answerId'
     })
   } else if (payload.answerId === 'yes') {
