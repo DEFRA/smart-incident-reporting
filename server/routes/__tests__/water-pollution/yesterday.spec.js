@@ -3,7 +3,7 @@ import constants from '../../../utils/constants.js'
 import moment from 'moment'
 
 const url = constants.routes.WATER_POLLUTION_YESTERDAY
-const header = 'What time yesterday did you see the pollution?'
+const header = 'What time yesterday?'
 
 const getDateTime = (time) => {
   const date = new Date()
