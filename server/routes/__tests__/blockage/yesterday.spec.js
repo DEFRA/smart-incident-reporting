@@ -3,7 +3,7 @@ import constants from '../../../utils/constants.js'
 import moment from 'moment'
 
 const url = constants.routes.BLOCKAGE_YESTERDAY
-const header = 'What time yesterday did you see this?'
+const header = 'What time yesterday?'
 
 const getDateTime = (time) => {
   const date = new Date()

@@ -15,7 +15,7 @@ const getDateTime = (date, time) => {
   return dateTime
 }
 
-const header = 'What time on 20 April 2025 did you see the pollution?'
+const header = 'What time on 20 April 2025?'
 const dateString = '2025-04-20'
 const dateWordString = '20 April 2025'
 const futureTime = moment().add(15, 'm').format('hh:mma')

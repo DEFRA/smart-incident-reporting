@@ -3,7 +3,7 @@ import constants from '../../../utils/constants.js'
 import moment from 'moment'
 
 const url = constants.routes.SMELL_YESTERDAY
-const header = 'What time yesterday did you first notice the smell?'
+const header = 'What time yesterday?'
 
 const getDateTime = (time) => {
   const date = new Date()

@@ -2,7 +2,7 @@ import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/s
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.BLOCKAGE_DATE_BEFORE_YESTERDAY
-const header = 'What date did you see this?'
+const header = 'What date?'
 
 describe(url, () => {
   describe('GET', () => {

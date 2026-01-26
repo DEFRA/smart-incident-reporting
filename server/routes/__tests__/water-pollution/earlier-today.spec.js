@@ -3,7 +3,7 @@ import constants from '../../../utils/constants.js'
 import moment from 'moment'
 
 const url = constants.routes.WATER_POLLUTION_EARLIER_TODAY
-const header = 'What time today did you see the pollution?'
+const header = 'What time today?'
 
 const pastTime = moment().subtract(15, 'm').format('h:mma')
 const pastTimeCaps = moment().subtract(15, 'm').format('hh:mmA')
