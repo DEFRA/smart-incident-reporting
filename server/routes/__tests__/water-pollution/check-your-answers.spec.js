@@ -159,7 +159,7 @@ describe(url, () => {
           questionId: 700,
           questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
-          answerId: 702
+          answerId: 704
         }]
       }
       sessionData = { ...sessionData, ...answerData }
@@ -172,7 +172,7 @@ describe(url, () => {
           questionId: 800,
           questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
-          answerId: 801
+          answerId: 804
         }]
       }
       sessionData = { ...sessionData, ...answerData }
@@ -193,7 +193,7 @@ describe(url, () => {
           questionId: 800,
           questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
-          answerId: 801
+          answerId: 804
         }]
       }
       sessionData = { ...sessionData, ...answerData, ...additionalData }
@@ -214,7 +214,7 @@ describe(url, () => {
           questionId: 700,
           questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
-          answerId: 701
+          answerId: 704
         }]
       }
       sessionData = { ...sessionData, ...answerData, ...additionalData }
@@ -235,7 +235,7 @@ describe(url, () => {
           questionId: 700,
           questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
-          answerId: 702
+          answerId: 705
         }]
       }
       const additionalData2 = {
@@ -500,7 +500,7 @@ describe(url, () => {
               questionId: 700,
               questionAsked: 'How much pollution have you seen?',
               questionResponse: true,
-              answerId: 702
+              answerId: 705
             }),
             expect.objectContaining({
               questionId: 400,

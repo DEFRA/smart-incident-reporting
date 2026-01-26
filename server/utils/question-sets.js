@@ -80,12 +80,12 @@ const questionSets = {
         text: 'How much pollution have you seen?',
         answers: {
           more: {
-            answerId: 701,
+            answerId: 704,
             text: 'More than 10 metres',
             shortText: 'More than 10 metres'
           },
           less: {
-            answerId: 702,
+            answerId: 705,
             text: 'Less than 10 metres',
             shortText: 'Less than 10 metres'
           }
@@ -97,12 +97,12 @@ const questionSets = {
         text: 'How much pollution have you seen?',
         answers: {
           more: {
-            answerId: 801,
+            answerId: 804,
             text: 'More than 100 square metres',
             shortText: 'More than 100 square metres'
           },
           less: {
-            answerId: 802,
+            answerId: 805,
             text: 'Less than 100 square metres',
             shortText: 'Less than 100 square metres'
           }

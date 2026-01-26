@@ -30,7 +30,7 @@ const session = JSON.parse(`{
       "questionId": 700,
       "questionAsked": "How much pollution have you seen?",
       "questionResponse": true,
-      "answerId": 702
+      "answerId": 705
     }
   ],
   "water-pollution/pollution-length": [
