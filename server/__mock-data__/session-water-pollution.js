@@ -36,7 +36,7 @@ const session = JSON.parse(`{
   "water-pollution/pollution-length": [
     {
       "questionId": 400,
-      "questionAsked": "How far along the water feature does the pollution spread?",
+      "questionAsked": "How far along the water feature have you seen the pollution?",
       "questionResponse": true,
       "answerId": 403
     }
@@ -164,7 +164,7 @@ const payload =
       answerId: 702
     }, {
       questionId: 400,
-      questionAsked: 'How far along the water feature does the pollution spread?',
+      questionAsked: 'How far along the water feature have you seen the pollution?',
       questionResponse: true,
       answerId: 403
     }, {

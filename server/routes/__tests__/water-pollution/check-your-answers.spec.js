@@ -241,7 +241,7 @@ describe(url, () => {
       const additionalData2 = {
         'water-pollution/pollution-length': [{
           questionId: 400,
-          questionAsked: 'How far along the water feature does the pollution spread?',
+          questionAsked: 'How far along the water feature have you seen the pollution?',
           questionResponse: true,
           answerId: 402
         }]
@@ -504,7 +504,7 @@ describe(url, () => {
             }),
             expect.objectContaining({
               questionId: 400,
-              questionAsked: 'How far along the water feature does the pollution spread?',
+              questionAsked: 'How far along the water feature have you seen the pollution?',
               questionResponse: true,
               answerId: 403
             }),
