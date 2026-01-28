@@ -23,9 +23,10 @@ const handlers = {
 const getContext = (request) => {
   const { selectedAddress } = request.yar.get(constants.redisKeys.SMELL_CONFIRM_ADDRESS)
   const addressData = selectedAddress[0].address
-  const { addressLine1, townOrCity, postcode } = formatAddress(addressData)
+  const { addressLine1, addressLine2, townOrCity, postcode } = formatAddress(addressData)
   return {
     addressLine1,
+    addressLine2,
     townOrCity,
     postcode,
     enterAddress: constants.routes.SMELL_LOCATION_ADDRESS,
@@ -34,14 +35,37 @@ const getContext = (request) => {
 }
 
 const formatAddress = (address) => {
-  const addressParts = address.split(',')
+  const MAX_LINE_LENGTH = 60
+  const addressParts = address.split(',').map(p => p.trim())
   const n = 2
-  const addressLine1 = addressParts.slice(0, -n).join()
-  const townOrCity = addressParts[addressParts.length - 2].trimStart()
-  const postcode = addressParts[addressParts.length - 1].trimStart()
+
+  const baseSegments = addressParts.slice(0, -n)
+  const townOrCity = addressParts[addressParts.length - 2]
+  const postcode = addressParts[addressParts.length - 1]
+
+  let addressLine1 = ''
+  let addressLine2 = ''
+
+  const joinSegment = (line, segment) => {
+    return line + (line ? ', ' : '') + segment
+  }
+
+  // Build addressLine1 and addressLine2 without splitting any segment
+  for (const segment of baseSegments) {
+    const nextLine = joinSegment(addressLine1, segment)
+
+    if (nextLine.length <= MAX_LINE_LENGTH) {
+      // add to line 1
+      addressLine1 = nextLine
+    } else {
+      // add to line 2
+      addressLine2 = joinSegment(addressLine2, segment)
+    }
+  }
 
   return {
     addressLine1,
+    addressLine2: addressLine2 || null,
     townOrCity,
     postcode
   }
@@ -55,7 +79,7 @@ const buildAddressAnswers = (selectedAddress) => {
     questionResponse: true
   }
   const addressData = selectedAddress[0].address
-  const { addressLine1, townOrCity, postcode } = formatAddress(addressData)
+  const { addressLine1, addressLine2, townOrCity, postcode } = formatAddress(addressData)
   return [{
     ...baseAnswer,
     answerId: question.answers.addressLine1.answerId,
@@ -63,7 +87,7 @@ const buildAddressAnswers = (selectedAddress) => {
   }, {
     ...baseAnswer,
     answerId: question.answers.addressLine2.answerId,
-    otherDetails: ''
+    otherDetails: addressLine2 || ''
   }, {
     ...baseAnswer,
     answerId: question.answers.townOrCity.answerId,

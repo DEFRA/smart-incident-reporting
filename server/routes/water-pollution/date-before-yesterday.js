@@ -37,7 +37,7 @@ const handlers = {
 
     const dateString = `${payload.year}-${payload.month.padStart(2, '0')}-${payload.day.padStart(2, '0')}`
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    const dateWordString = `${payload.day.padStart(2, '0')} ${months[(Number(payload.month)) - 1]} ${payload.year}`
+    const dateWordString = `${payload.day} ${months[(Number(payload.month)) - 1]} ${payload.year}`
 
     request.yar.set(constants.redisKeys.WATER_POLLUTION_DATE_BEFORE_YESTERDAY, { dateString, dateWordString, payload })
     return h.redirect(constants.routes.WATER_POLLUTION_TIME_BEFORE_YESTERDAY)

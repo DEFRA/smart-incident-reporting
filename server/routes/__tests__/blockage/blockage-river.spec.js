@@ -1,5 +1,6 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
+import { parse } from 'node-html-parser'
 
 const url = constants.routes.BLOCKAGE_RIVER
 
@@ -16,6 +17,15 @@ describe(url, () => {
     it('Should display empty form when no session data', async () => {
       const response = await submitGetRequest({ url }, 'Is the blockage in a river?', constants.statusCodes.OK)
       expect(response.statusCode).toBe(constants.statusCodes.OK)
+    })
+    it(`Should show the correct service name and link for a blockage in a water course service page on ${url}`, async () => {
+      process.env.REGISTER_START_ROUTES = 'false'
+      const response = await submitGetRequest({ url })
+      const html = parse(response.payload)
+      const serviceNameLink = html.querySelector('.govuk-service-navigation__link')
+      expect(html.querySelector('.govuk-service-navigation__service-name').textContent).toContain(constants.serviceNames.BLOCKAGE)
+      expect(serviceNameLink.getAttribute('href')).toBe(constants.urls.GOV_UK_BLOCKAGE)
+      process.env.REGISTER_START_ROUTES = 'true'
     })
   })
   describe('POST', () => {

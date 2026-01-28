@@ -38,12 +38,12 @@
   
   {{ govukServiceNavigation({
     serviceName: serviceName,
-    serviceUrl: "/"
+    serviceUrl: serviceUrl
   }) }}
 {% endblock %}
 
 {% block pageTitle %}
-  {% if errorSummary %} Error: {% endif %} {{ pageTitle }} {{ titleSuffix }}
+  {% if errorSummary %} Error: {% endif %} {{ pageTitle }} - {{ pageTitleServiceName }} - GOV.UK
 {% endblock %}
 
 {% block beforeContent %}

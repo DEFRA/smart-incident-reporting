@@ -1,4 +1,14 @@
 import constants from '../../utils/constants.js'
+import { questionSets } from '../../utils/question-sets.js'
+
+const question = questionSets.BLOCKAGE.questions.BLOCKAGE_LOCATION_DESCRIPTION
+
+const baseAnswer = {
+  questionId: question.questionId,
+  questionAsked: question.text,
+  questionResponse: true,
+  answerId: question.answers.locationDetails.answerId
+}
 
 const handlers = {
   get: async (request, h) => {
@@ -9,16 +19,26 @@ const handlers = {
   post: async (request, h) => {
     const { otherLocationInfo } = request.payload
 
-    request.yar.set(constants.redisKeys.BLOCKAGE_LOCATION_DESCRIPTION_OPTIONAL, otherLocationInfo)
+    if (otherLocationInfo) {
+      request.yar.set(constants.redisKeys.BLOCKAGE_LOCATION_DESCRIPTION, buildAnswers(otherLocationInfo))
+    }
     return h.redirect(constants.routes.BLOCKAGE_WHEN)
   }
 }
 
 const getContext = request => {
-  const answers = request.yar.get(constants.redisKeys.BLOCKAGE_LOCATION_DESCRIPTION_OPTIONAL)
+  const answers = request.yar.get(constants.redisKeys.BLOCKAGE_LOCATION_DESCRIPTION)
   return {
-    answers
+    question,
+    answers: answers?.[0]?.otherDetails
   }
+}
+
+const buildAnswers = otherDetails => {
+  return [{
+    ...baseAnswer,
+    otherDetails
+  }]
 }
 
 export default [

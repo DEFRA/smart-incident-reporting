@@ -1,7 +1,18 @@
 const urls = {
   GOV_UK_HOME: 'https://www.gov.uk',
-  GOV_UK_SERVICE_HOME:
-    'https://www.gov.uk/report-an-environmental-incident'
+  GOV_UK_SERVICE_HOME: 'https://www.gov.uk/report-environmental-problem',
+  GOV_UK_WATER_POLLUTION: 'https://www.gov.uk/report-water-pollution',
+  GOV_UK_SMELL: 'https://www.gov.uk/report-smell',
+  GOV_UK_ILLEGAL_FISHING: 'https://www.gov.uk/report-illegal-fishing-in-england',
+  GOV_UK_BLOCKAGE: 'https://www.gov.uk/report-river-blockage'
+}
+
+const serviceNames = {
+  DEFAULT: 'Report an environmental problem',
+  WATER_POLLUTION: 'Report water pollution in England',
+  SMELL: 'Report a smell from a waste facility, industrial site or farm in England',
+  ILLEGAL_FISHING: 'Report illegal fishing in England',
+  BLOCKAGE: 'Report a blockage in a river in England'
 }
 
 const phoneRegex = /^[\s\d-+()#]*$/
@@ -147,30 +158,7 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
     WATER_POLLUTION_START,
     SMELL_START,
     ILLEGAL_FISHING_START,
-    BLOCKAGE,
-    BLOCKAGE_START,
-    BLOCKAGE_RIVER,
-    BLOCKAGE_RIVER_NAME,
-    BLOCKAGE_REPORT_DIRECTLY,
-    BLOCKAGE_TYPE,
-    BLOCKAGE_LOCATION_OPTION,
-    BLOCKAGE_LOCATION_MAP,
-    BLOCKAGE_LOCATION_DESCRIPTION,
-    BLOCKAGE_LOCATION_DESCRIPTION_OPTIONAL,
-    BLOCKAGE_WHEN,
-    BLOCKAGE_EARLIER_TODAY,
-    BLOCKAGE_YESTERDAY,
-    BLOCKAGE_DATE_BEFORE_YESTERDAY,
-    BLOCKAGE_TIME_BEFORE_YESTERDAY,
-    BLOCKAGE_HISTORY,
-    BLOCKAGE_EXTENT,
-    BLOCKAGE_WATER_LEVEL,
-    BLOCKAGE_FLOOD_RISK,
-    BLOCKAGE_FLOOD_RISK_DANGER,
-    BLOCKAGE_OWNER,
-    BLOCKAGE_CONTACT_DETAILS,
-    BLOCKAGE_IMAGES_OR_VIDEO,
-    BLOCKAGE_OTHER_INFORMATION
+    BLOCKAGE_START
   }
 }
 
@@ -265,7 +253,30 @@ const views = {
   ILLEGAL_FISHING_NUMBER_OF_FISH,
   ILLEGAL_FISHING_CONTACT_DETAILS,
   ILLEGAL_FISHING_IMAGES_OR_VIDEO,
-  ILLEGAL_FISHING_OTHER_INFORMATION
+  ILLEGAL_FISHING_OTHER_INFORMATION,
+  BLOCKAGE,
+  BLOCKAGE_RIVER,
+  BLOCKAGE_RIVER_NAME,
+  BLOCKAGE_REPORT_DIRECTLY,
+  BLOCKAGE_TYPE,
+  BLOCKAGE_LOCATION_OPTION,
+  BLOCKAGE_LOCATION_MAP,
+  BLOCKAGE_LOCATION_DESCRIPTION,
+  BLOCKAGE_LOCATION_DESCRIPTION_OPTIONAL,
+  BLOCKAGE_WHEN,
+  BLOCKAGE_EARLIER_TODAY,
+  BLOCKAGE_YESTERDAY,
+  BLOCKAGE_DATE_BEFORE_YESTERDAY,
+  BLOCKAGE_TIME_BEFORE_YESTERDAY,
+  BLOCKAGE_HISTORY,
+  BLOCKAGE_EXTENT,
+  BLOCKAGE_WATER_LEVEL,
+  BLOCKAGE_FLOOD_RISK,
+  BLOCKAGE_FLOOD_RISK_DANGER,
+  BLOCKAGE_OWNER,
+  BLOCKAGE_CONTACT_DETAILS,
+  BLOCKAGE_IMAGES_OR_VIDEO,
+  BLOCKAGE_OTHER_INFORMATION
 }
 
 const routes = {
@@ -327,6 +338,7 @@ export default Object.freeze({
   views,
   statusCodes,
   urls,
+  serviceNames,
   redisKeys,
   errorSummary,
   phoneRegex,

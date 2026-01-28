@@ -38,18 +38,18 @@ const handlers = {
     // handle redirects
     const refValue = request.yar.get(constants.redisKeys.REFERER)
     if (refValue) {
-      if (answerId === question.answers.no.answerId) {
-        request.yar.clear(constants.redisKeys.WATER_POLLUTION_POLLUTION_AREA)
-        return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_LENGTH)
-      } else {
+      if (answerId === question.answers.less.answerId) {
         request.yar.clear(constants.redisKeys.WATER_POLLUTION_POLLUTION_LENGTH)
         request.yar.clear(constants.redisKeys.WATER_POLLUTION_POLLUTION_AREA)
         return h.redirect(request.yar.get(constants.redisKeys.REFERER))
+      } else {
+        request.yar.clear(constants.redisKeys.WATER_POLLUTION_POLLUTION_AREA)
+        return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_LENGTH)
       }
-    } else if (answerId === question.answers.no.answerId) {
-      return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_LENGTH)
-    } else {
+    } else if (answerId === question.answers.less.answerId) {
       return h.redirect(constants.routes.WATER_POLLUTION_EFFECT_ON_WILDLIFE)
+    } else {
+      return h.redirect(constants.routes.WATER_POLLUTION_POLLUTION_LENGTH)
     }
   }
 }
@@ -68,7 +68,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select yes if the pollution spreads less than 10 metres',
+      text: 'Select how much pollution you have seen',
       href: '#answerId'
     })
   }

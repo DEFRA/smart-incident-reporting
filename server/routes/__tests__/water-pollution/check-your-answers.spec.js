@@ -157,9 +157,9 @@ describe(url, () => {
       const answerData = {
         'water-pollution/less-than-10-metres': [{
           questionId: 700,
-          questionAsked: 'Does the pollution spread less than 10 metres along the watercourse?',
+          questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
-          answerId: 702
+          answerId: 704
         }]
       }
       sessionData = { ...sessionData, ...answerData }
@@ -170,9 +170,9 @@ describe(url, () => {
       const answerData = {
         'water-pollution/less-than-100-sq-metres': [{
           questionId: 800,
-          questionAsked: 'Does the pollution cover an area less than 100 square metres in size?',
+          questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
-          answerId: 801
+          answerId: 804
         }]
       }
       sessionData = { ...sessionData, ...answerData }
@@ -191,9 +191,9 @@ describe(url, () => {
       const additionalData = {
         'water-pollution/less-than-100-sq-metres': [{
           questionId: 800,
-          questionAsked: 'Does the pollution cover an area less than 100 square metres in size?',
+          questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
-          answerId: 801
+          answerId: 804
         }]
       }
       sessionData = { ...sessionData, ...answerData, ...additionalData }
@@ -212,9 +212,9 @@ describe(url, () => {
       const additionalData = {
         'water-pollution/less-than-10-metres': [{
           questionId: 700,
-          questionAsked: 'Does the pollution spread less than 10 metres along the watercourse?',
+          questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
-          answerId: 701
+          answerId: 704
         }]
       }
       sessionData = { ...sessionData, ...answerData, ...additionalData }
@@ -233,15 +233,15 @@ describe(url, () => {
       const additionalData1 = {
         'water-pollution/less-than-10-metres': [{
           questionId: 700,
-          questionAsked: 'Does the pollution spread less than 10 metres along the watercourse?',
+          questionAsked: 'How much pollution have you seen?',
           questionResponse: true,
-          answerId: 702
+          answerId: 705
         }]
       }
       const additionalData2 = {
         'water-pollution/pollution-length': [{
           questionId: 400,
-          questionAsked: 'How far along the water feature does the pollution spread?',
+          questionAsked: 'How far along the water feature have you seen the pollution?',
           questionResponse: true,
           answerId: 402
         }]
@@ -498,13 +498,13 @@ describe(url, () => {
             }),
             expect.objectContaining({
               questionId: 700,
-              questionAsked: 'Does the pollution spread less than 10 metres along the watercourse?',
+              questionAsked: 'How much pollution have you seen?',
               questionResponse: true,
-              answerId: 702
+              answerId: 705
             }),
             expect.objectContaining({
               questionId: 400,
-              questionAsked: 'How far along the water feature does the pollution spread?',
+              questionAsked: 'How far along the water feature have you seen the pollution?',
               questionResponse: true,
               answerId: 403
             }),

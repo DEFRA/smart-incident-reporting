@@ -1,6 +1,6 @@
 {% extends 'form-layout.html' %}
 
-{% set pageTitle = 'How far along the ' + waterFeature + ' does the pollution spread' %}
+{% set pageTitle = 'How far along the ' + waterFeature + ' have you seen the pollution' %}
 
 {% block formContent %}
 
@@ -40,15 +40,7 @@
           value: question.answers.over1km.answerId,
           text: question.answers.over1km.text,
           checked: getAnswer(answers, question.answers.over1km.answerId)
-        },
-          {
-            divider: "or"
-          },
-          {
-            value: question.answers.youDoNotKnow.answerId,
-            text: question.answers.youDoNotKnow.text,
-            checked: getAnswer(answers, question.answers.youDoNotKnow.answerId)
-          }
+        }
         ]
       }) }}
 

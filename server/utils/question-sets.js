@@ -77,83 +77,68 @@ const questionSets = {
       WATER_POLLUTION_LESS_THAN_10_METRES: {
         questionId: 700,
         key: constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES,
-        text: 'Does the pollution spread less than 10 metres along the watercourse?',
+        text: 'How much pollution have you seen?',
         answers: {
-          yes: {
-            answerId: 701,
-            text: 'Yes',
-            shortText: 'Yes'
+          more: {
+            answerId: 704,
+            text: 'More than 10 metres',
+            shortText: 'More than 10 metres'
           },
-          no: {
-            answerId: 702,
-            text: 'No, it is over a longer stretch',
-            shortText: 'No'
-          },
-          youDoNotKnow: {
-            answerId: 703,
-            text: YOU_DO_NOT_KNOW,
-            shortText: YOU_DO_NOT_KNOW_SHORT
+          less: {
+            answerId: 705,
+            text: 'Less than 10 metres',
+            shortText: 'Less than 10 metres'
           }
         }
       },
       WATER_POLLUTION_LESS_THAN_100_SQ_METRES: {
         questionId: 800,
         key: constants.redisKeys.WATER_POLLUTION_LESS_THAN_100_SQ_METRES,
-        text: 'Does the pollution cover an area less than 100 square metres in size?',
+        text: 'How much pollution have you seen?',
         answers: {
-          yes: {
-            answerId: 801,
-            text: 'Yes',
-            shortText: 'Yes'
+          more: {
+            answerId: 804,
+            text: 'More than 100 square metres',
+            shortText: 'More than 100 square metres'
           },
-          no: {
-            answerId: 802,
-            text: 'No, it spreads over a larger area',
-            shortText: 'No'
-          },
-          youDoNotKnow: {
-            answerId: 803,
-            text: YOU_DO_NOT_KNOW,
-            shortText: YOU_DO_NOT_KNOW_SHORT
+          less: {
+            answerId: 805,
+            text: 'Less than 100 square metres',
+            shortText: 'Less than 100 square metres'
           }
         }
       },
       WATER_POLLUTION_POLLUTION_LENGTH: {
         questionId: 400,
         key: constants.redisKeys.WATER_POLLUTION_POLLUTION_LENGTH,
-        text: 'How far along the water feature does the pollution spread?',
+        text: 'How far along the water feature have you seen the pollution?',
         answers: {
           stretches10to100m: {
             answerId: 401,
-            text: '10 to 100 metres (less than 2 minutes average walk)',
+            text: '10 to 100 metres',
             shortText: '10 to 100 metres'
           },
           stretches100to500m: {
             answerId: 402,
-            text: '100 to 500 metres (around 2 to 8 minutes walk)',
+            text: '100 to 500 metres',
             shortText: '100 to 500 metres'
           },
           stretches500to1000m: {
             answerId: 403,
-            text: '500 metres to a kilometre (around 8 to 16 minutes walk)',
+            text: '500 metres to a kilometre',
             shortText: '500 metres to a kilometre'
           },
           over1km: {
             answerId: 404,
-            text: 'Over a kilometre',
-            shortText: 'Over a kilometre'
-          },
-          youDoNotKnow: {
-            answerId: 405,
-            text: YOU_DO_NOT_KNOW,
-            shortText: YOU_DO_NOT_KNOW_SHORT
+            text: 'More than a kilometre',
+            shortText: 'More than a kilometre'
           }
         }
       },
       WATER_POLLUTION_POLLUTION_AREA: {
         questionId: 300,
         key: constants.redisKeys.WATER_POLLUTION_POLLUTION_AREA,
-        text: 'How large an area does the pollution cover?',
+        text: 'Over how wide an area have you seen the pollution?',
         answers: {
           under500sqm: {
             answerId: 301,
@@ -164,11 +149,6 @@ const questionSets = {
             answerId: 302,
             text: 'More than 500 sq m',
             shortText: 'More than 500 square metres'
-          },
-          youDoNotKnow: {
-            answerId: 303,
-            text: YOU_DO_NOT_KNOW,
-            shortText: YOU_DO_NOT_KNOW_SHORT
           }
         }
       },
@@ -1145,20 +1125,20 @@ const questionSets = {
     questionSetId: 300,
     questions: {
       BLOCKAGE_RIVER_NAME: {
-        questionId: 500,
+        questionId: 105,
         key: constants.redisKeys.BLOCKAGE_RIVER_NAME,
         text: 'Do you know the name of the river?',
         answers: {
           yes: {
-            answerId: 501,
+            answerId: 106,
             text: 'Yes'
           },
           no: {
-            answerId: 502,
+            answerId: 107,
             text: 'No'
           },
           yesDetails: {
-            answerId: 509,
+            answerId: 108,
             text: 'Name of the river'
           }
         }

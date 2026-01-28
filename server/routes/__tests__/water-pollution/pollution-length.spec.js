@@ -20,15 +20,15 @@ const sessionData = {
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}: river`, async () => {
-      await submitGetRequest({ url }, 'How far along the river does the pollution spread?', constants.statusCodes.OK, sessionData)
+      await submitGetRequest({ url }, 'How far along the river have you seen the pollution?', constants.statusCodes.OK, sessionData)
     })
     it(`Should return success response and correct view for ${url}: canal`, async () => {
       sessionData[constants.redisKeys.WATER_POLLUTION_WATER_FEATURE][0].answerId = 504
-      await submitGetRequest({ url }, 'How far along the canal does the pollution spread?', constants.statusCodes.OK, sessionData)
+      await submitGetRequest({ url }, 'How far along the canal have you seen the pollution?', constants.statusCodes.OK, sessionData)
     })
     it(`Should return success response and correct view for ${url}: watercourse`, async () => {
       sessionData[constants.redisKeys.WATER_POLLUTION_WATER_FEATURE][0].answerId = 505
-      await submitGetRequest({ url }, 'How far along the watercourse does the pollution spread?', constants.statusCodes.OK, sessionData)
+      await submitGetRequest({ url }, 'How far along the watercourse have you seen the pollution?', constants.statusCodes.OK, sessionData)
     })
     it(`Should return success response and correct view when 100 to 500 metres is selected for ${url}`, async () => {
       let sessionData = {
@@ -46,7 +46,7 @@ describe(url, () => {
         }]
       }
       sessionData = { ...sessionData, ...answerData }
-      const response = await submitGetRequest({ url }, 'How far along the river does the pollution spread?', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, 'How far along the river have you seen the pollution?', constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="402" checked>')
     })
   })
@@ -73,7 +73,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select your estimated length, or that you do not know')
+      expect(response.payload).toContain('Select a length')
     })
     it('Happy: For CYA journey, accepts valid answer and redirects to check-your-answers', async () => {
       const answerId = question.answers.stretches10to100m.answerId

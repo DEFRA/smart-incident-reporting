@@ -22,7 +22,7 @@ describe(url, () => {
           answerId: question.answers.over500sqm.answerId
         }]
       }
-      const response = await submitGetRequest({ url }, 'How large an area does the pollution cover?', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, 'Over how wide an area have you seen the pollution?', constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('<input class="govuk-radios__input" id="answerId-2" name="answerId" type="radio" value="302" checked>')
     })
   })
@@ -49,7 +49,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select your estimated area, or that you do not know')
+      expect(response.payload).toContain('Select a size of area')
     })
     it('Happy: For CYA journey, accepts valid answer and redirects to check-your-answers', async () => {
       const answerId = question.answers.under500sqm.answerId

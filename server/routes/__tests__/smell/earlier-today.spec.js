@@ -3,7 +3,7 @@ import constants from '../../../utils/constants.js'
 import moment from 'moment'
 
 const url = constants.routes.SMELL_EARLIER_TODAY
-const header = 'What time today did you first notice the smell?'
+const header = 'What time today?'
 
 const pastTime = moment().subtract(15, 'm').format('h:mma')
 const pastTimeCaps = moment().subtract(15, 'm').format('hh:mmA')
@@ -99,7 +99,7 @@ describe(url, () => {
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Enter a real time, for example 11:35am or 2:35pm')
     })
-    it('Sad: valid datetime must not > 5 minutes into the future', async () => {
+    it('Sad: valid datetime must be in the past', async () => {
       const time = futureTime
       const options = {
         url,

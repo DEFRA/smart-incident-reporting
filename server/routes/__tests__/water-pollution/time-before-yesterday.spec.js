@@ -15,9 +15,12 @@ const getDateTime = (date, time) => {
   return dateTime
 }
 
-const header = 'What time on 20 April 2025 did you see the pollution?'
+const header = 'What time on 20 April 2025?'
 const dateString = '2025-04-20'
 const dateWordString = '20 April 2025'
+const futureTime = moment().add(15, 'm').format('hh:mma')
+const todayDateString = moment().format('YYYY-MM-DD')
+const todayDateWordString = moment().format('D MMMM YYYY')
 
 describe(url, () => {
   describe('GET', () => {
@@ -129,6 +132,21 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Enter a real time, for example 11:35am or 2:35pm')
+    })
+    it('Sad: datetime must be in the past', async () => {
+      const time = futureTime
+      const sessionData = {
+        'water-pollution/date-before-yesterday': { dateString: todayDateString, dateWordString: todayDateWordString }
+      }
+      const options = {
+        url,
+        payload: {
+          time
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain('Enter a time in the past')
     })
     it('Happy: For CYA journey, accepts valid time for now and redirects to water-pollution/check-your-answers', async () => {
       const time = '7:00am'

@@ -63,7 +63,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select your estimated length, or that you do not know',
+      text: 'Select a length',
       href: '#answerId'
     })
   }
