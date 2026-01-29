@@ -40,7 +40,7 @@ const handlers = {
 
 const getContext = request => {
   const currentAnswer = request.yar.get(constants.redisKeys.SMELL_CURRENT)
-  const current = currentAnswer && currentAnswer[0].answerId === questionSets.SMELL.questions.SMELL_CURRENT.answers.yes.answerId
+  const current = currentAnswer?.[0]?.answerId === questionSets.SMELL.questions.SMELL_CURRENT.answers.yes.answerId
   return {
     question,
     current
