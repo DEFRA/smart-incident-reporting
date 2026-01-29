@@ -47,7 +47,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select yes if the smell is still there',
+      text: 'Select \'yes\' if the smell is still there',
       href: '#answerId'
     })
   }

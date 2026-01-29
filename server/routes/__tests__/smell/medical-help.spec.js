@@ -54,7 +54,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select yes if you had to get any medical help because of the smell')
+      expect(response.payload).toContain('Select \'yes\' if you had to get any medical help because of the smell')
     })
   })
 })

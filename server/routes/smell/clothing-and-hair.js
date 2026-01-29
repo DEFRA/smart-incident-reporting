@@ -54,7 +54,7 @@ const validatePayload = (answerId, current) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: `Select yes if the smell ${current ? 'sticks' : 'stuck'} to your clothing or hair`,
+      text: `Select \'yes\' if the smell ${current ? 'sticks' : 'stuck'} to your clothing or hair`,
       href: '#answerId'
     })
   }

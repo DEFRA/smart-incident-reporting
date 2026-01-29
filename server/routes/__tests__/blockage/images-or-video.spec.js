@@ -164,7 +164,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK, sessionDataWithEmail)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select yes if you want to send us any images or videos')
+      expect(response.payload).toContain('Select \'yes\' if you want to send us any images or videos')
     })
     it('Sad: Should error for an empty email address', async () => {
       const answerId = question.answers.yes.answerId

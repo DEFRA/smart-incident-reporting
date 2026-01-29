@@ -129,7 +129,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select yes if you can give details about where the smell is coming from')
+      expect(response.payload).toContain('Select \'yes\' if you can give details about where the smell is coming from')
     })
     it('Sad: valid answerId yes but errors on no fields provided', async () => {
       const answerId = 'yes'

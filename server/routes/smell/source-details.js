@@ -59,7 +59,7 @@ const validatePayload = payload => {
   const errorSummary = getErrorSummary()
   if (!payload.answerId) {
     errorSummary.errorList.push({
-      text: 'Select yes if you can give details about where the smell is coming from',
+      text: 'Select \'yes\' if you can give details about where the smell is coming from',
       href: '#answerId'
     })
   } else if (payload.answerId === 'yes') {

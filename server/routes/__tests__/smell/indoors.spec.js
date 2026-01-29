@@ -76,7 +76,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select yes if the smell is noticeable indoors')
+      expect(response.payload).toContain('Select \'yes\' if the smell is noticeable indoors')
     })
     it('Sad rejects empty payload with past smell', async () => {
       const sessionData = {
@@ -91,7 +91,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select yes if the smell was noticeable indoors')
+      expect(response.payload).toContain('Select \'yes\' if the smell was noticeable indoors')
     })
   })
 })
