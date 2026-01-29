@@ -111,7 +111,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select \'yes\' if you&#39;ve seen dead or distressed fish or other animals nearby')
+      expect(response.payload).toContain('Select &#39;yes&#39; if you&#39;ve seen dead or distressed fish or other animals nearby')
     })
   })
 })
