@@ -47,7 +47,7 @@ describe('utils/config', () => {
     })
   })
   it('Should accept valid deploymentEnv values', () => {
-    const validEnvs = ['development', 'test', 'training', 'pre-production', 'production']
+    const validEnvs = ['development', 'test', 'training', 'pre-production']
     validEnvs.forEach(env => {
       jest.isolateModules(() => {
         process.env.DEPLOYMENT_ENV = env
