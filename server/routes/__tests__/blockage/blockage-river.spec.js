@@ -69,7 +69,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select yes if the blockage is in a river')
+      expect(response.payload).toContain('Select &#39;yes&#39; if the blockage is in a river')
     })
   })
 })
