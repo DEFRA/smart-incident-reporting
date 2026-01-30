@@ -59,7 +59,7 @@ describe('utils/config', () => {
   it('Should throw error for invalid deploymentEnv value', () => {
     jest.isolateModules(() => {
       process.env.DEPLOYMENT_ENV = 'invalid-env'
-      expect(() => require('../config.js')).toThrow('The server config is invalid. "deploymentEnv" must be one of [development, test, training, pre-production, production]')
+      expect(() => require('../config.js')).toThrow('The server config is invalid. "deploymentEnv" must be one of [development, test, training, pre-production]')
     })
   })
 })
