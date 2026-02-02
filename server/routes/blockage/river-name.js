@@ -51,7 +51,7 @@ const validatePayload = (answerId, yesDetails) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Answer \'yes\' if you know the name of the river',
+      text: 'Select \'yes\' if you know the name of the river',
       href: '#answerId'
     })
   } else if (Number(answerId) === question.answers.yes.answerId && !yesDetails) {
