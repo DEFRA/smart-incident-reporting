@@ -103,7 +103,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select whether the blockage has been here for some time or you do not know')
+      expect(response.payload).toContain('Select whether the blockage has been here for some time or &#39;you do not know&#39;')
     })
     it('Sad rejects yes answer with no further details', async () => {
       const options = {

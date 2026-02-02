@@ -48,7 +48,7 @@ const validatePayload = (answerId, yesDetails) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select whether the blockage has been here for some time or you do not know',
+      text: 'Select whether the blockage has been here for some time or \'you do not know\'',
       href: '#answerId'
     })
   } else if (Number(answerId) === question.answers.yes.answerId && !yesDetails) {
