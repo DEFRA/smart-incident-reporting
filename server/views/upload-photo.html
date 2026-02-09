@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% set pageTitle = 'Upload photos' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+    <p>Add photos to your report of {{journey}} , made at {{ dateTime }}</p> 
+    <p>You must:</p>   
+    <ul class="govuk-list govuk-list--bullet">
+      <li>select up to five photos</li>
+      <li>upload all your photos together</li>            
+    </ul>
+   <p>If you do not have all the photos available on this device, come back later.</p>
+
+    {{ govukButton({
+    text: "Continue"
+    }) }}   
+  </div>
+</div>
+
+{% endblock %}
