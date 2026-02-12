@@ -15,8 +15,7 @@ const schema = Joi.object().keys({
     .default(envs[0]),
   deploymentEnv: Joi
     .string()
-    .valid(...deploymentEnvs)
-    .default(deploymentEnvs[0]),
+    .valid(...deploymentEnvs),
   servicePort: Joi.number().default(defaultPort),
   redisHost: Joi.string().default('localhost'),
   redisPort: Joi.number().default(defaultRedisPort),
