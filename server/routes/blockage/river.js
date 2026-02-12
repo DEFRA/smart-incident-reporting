@@ -41,7 +41,7 @@ const validatePayload = isRiver => {
   const errorSummary = getErrorSummary()
   if (!isRiver) {
     errorSummary.errorList.push({
-      text: 'Select yes if the blockage is in a river',
+      text: 'Select \'yes\' if the blockage is in a river',
       href: '#isRiver'
     })
   }

@@ -128,7 +128,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select yes if you know where the pollution is coming from')
+      expect(response.payload).toContain('Select &#39;yes&#39; if you know where the pollution is coming from')
     })
     it('Sad rejects yes answer with no further details', async () => {
       const options = {

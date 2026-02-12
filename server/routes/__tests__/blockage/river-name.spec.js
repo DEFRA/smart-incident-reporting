@@ -63,7 +63,7 @@ describe(url, () => {
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Answer &#39;yes&#39; if you know the name of the river')
+      expect(response.payload).toContain('Select &#39;yes&#39; if you know the name of the river')
     })
     it('Sad: rejects yes answer with no further details', async () => {
       const options = {

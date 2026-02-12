@@ -52,7 +52,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select yes if you\'ve seen dead or distressed fish or other animals nearby',
+      text: 'Select \'yes\' if you\'ve seen dead or distressed fish or other animals nearby',
       href: '#answerId'
     })
   }

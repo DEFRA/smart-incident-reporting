@@ -43,7 +43,7 @@ const handlers = {
 
 const getContext = request => {
   const currentAnswer = request.yar.get(constants.redisKeys.SMELL_INDOORS)
-  const current = currentAnswer && currentAnswer[0].answerId === questionSets.SMELL.questions.SMELL_INDOORS.answers.yes.answerId
+  const current = currentAnswer?.[0]?.answerId === questionSets.SMELL.questions.SMELL_INDOORS.answers.yes.answerId
   return {
     question,
     current
@@ -54,7 +54,7 @@ const validatePayload = (answerId, current) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: `Select yes if the smell ${current ? 'sticks' : 'stuck'} to your clothing or hair`,
+      text: `Select 'yes' if the smell ${current ? 'sticks' : 'stuck'} to your clothing or hair`,
       href: '#answerId'
     })
   }
