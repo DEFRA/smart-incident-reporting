@@ -240,8 +240,14 @@ const getIsSizeEstimatedRequired = (request) => {
   const lessThan10MetersAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_10_METRES)
   const lessThan100SqMetersAnswerData = request.yar.get(constants.redisKeys.WATER_POLLUTION_LESS_THAN_100_SQ_METRES)
 
-  return lessThan10MetersAnswerData?.[0]?.answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_10_METRES.answers.more.answerId ||
-    lessThan100SqMetersAnswerData?.[0]?.answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_100_SQ_METRES.answers.more.answerId
+  if (lessThan10MetersAnswerData && lessThan10MetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_10_METRES.answers.more.answerId) {
+    return true
+  } else if (lessThan100SqMetersAnswerData && lessThan100SqMetersAnswerData[0].answerId === questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_LESS_THAN_100_SQ_METRES.answers.more.answerId) {
+    return true
+  } else {
+    // do nothing for sonarcloud
+  }
+  return false
 }
 
 // Format date and time data
