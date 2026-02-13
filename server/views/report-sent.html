@@ -2,7 +2,7 @@
 
 {% set hideBackLink = true %}
 {% set pageTitle = 'Report sent' %}
-
+{% set email = photoUploadDetails.reportersEmail %}
 {% block content %}
 
 <div class="govuk-grid-row">
@@ -11,6 +11,20 @@
       titleText: "Report sent",
       html: "We have received your report"
     }) }}
+   {% if(photoUploadDetails.userAgreedForImages and photoUploadDetails.reportersEmail !== '') %}   
+    <p>We have sent a confirmation of your report and a reference number to {{ email }}</p>    
+    {% endif %}      
+
+    {% if(photoUploadDetails.userAgreedForImages) %}
+    <h2 class="govuk-heading-m">
+      Upload images
+    </h2>
+    <p>You can now <a>upload any photos</a> you have that might help us investigate the problem.</p>
+    {% endif %}     
+    {% if(photoUploadDetails.userAgreedForImages and photoUploadDetails.reportersEmail !== '') %}             
+    <p>We've also included this link  in your confirmation email, if you want to do this later.</p>    
+    {% endif %}
+         
     <h2 class="govuk-heading-m">
       What happens next
     </h2>
@@ -26,12 +40,7 @@
       <li>contact any people or organisations involved</li>
       <li>pass details of the problem to local teams or other organisations</li>
     </ul>
-    <p>If you gave an email address, check your email for:</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>confirmation of your report and a reference number</li>
-      <li>how to send us photos to add to your report, if you said you had any and we need to see them</li>
-    </ul>
-    <p>Otherwise, we will only contact you if we need more information about the problem - you do not need to call us.</p>
+    <p>We will only contact you again if we need more information about the problem - you do not need to call us.</p>
     {{ govukInsetText({
       text: "The Environment Agency incident hotline cannot give updates on your report."
     }) }}
