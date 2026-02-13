@@ -2,10 +2,10 @@ import constants from '../utils/constants.js'
 
 const handlers = {
   get: async (request, h) => {
-    const questionSetID = request.yar.get(constants.redisKeys.QUESTION_SET_ID)    
-    const photoUploadDetails = getPhotoUploadDetails(request, questionSetID)    
+    const questionSetID = request.yar.get(constants.redisKeys.QUESTION_SET_ID)
+    const photoUploadDetails = getPhotoUploadDetails(request, questionSetID)
     request.yar.reset()
-    const context = _getContext()    
+    const context = _getContext()
     return h.view(constants.views.REPORT_SENT, {
       ...context, photoUploadDetails
     })
