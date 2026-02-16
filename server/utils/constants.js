@@ -34,6 +34,9 @@ const REPORT_SENT = 'report-sent'
 const FEEDBACK = 'feedback'
 const FEEDBACK_SUCCESS = 'feedback-success'
 
+// Upload Photos
+const UPLOAD_PHOTO = 'upload-photo'
+
 const WATER_POLLUTION_START = 'water-pollution-start'
 const WATER_POLLUTION = 'water-pollution'
 const WATER_POLLUTION_WATER_FEATURE = 'water-pollution/water-feature'
@@ -176,6 +179,7 @@ const views = {
   FEEDBACK,
   FEEDBACK_SUCCESS,
   REPORT_SENT,
+  UPLOAD_PHOTO,
   WATER_POLLUTION,
   WATER_POLLUTION_WATER_FEATURE,
   WATER_POLLUTION_LOCATION_OPTION,
