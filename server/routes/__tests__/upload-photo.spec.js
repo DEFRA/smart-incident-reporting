@@ -7,7 +7,8 @@ const header = 'Upload photos'
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, header)
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK)
+      expect(response.payload).toContain('Upload photos')
     })
   })
 })
