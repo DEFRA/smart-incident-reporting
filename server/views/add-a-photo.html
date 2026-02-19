@@ -5,30 +5,32 @@
 
 {% block content %}
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
-    <p>Add your photos one at a time.</p>   
-    <p>The photos must:</p>  
-    <ul class="govuk-list govuk-list--bullet">
-      <li>be in JPG or PNG format</li>
-      <li>be smaller than 10MB</li>
-      <li>not include people</li>          
-    </ul>
-   
-    {{ govukFileUpload({
-        id: "file-upload-1",
-        name: "fileUpload1",
-        label: {
-            text: "Upload a photo"
-        }
-    }) }}
+<form method="post" enctype="multipart/form-data" novalidate="novalidate" action="">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+      <p>Add your photos one at a time.</p>   
+      <p>The photos must:</p>  
+      <ul class="govuk-list govuk-list--bullet">
+        <li>be in JPG or PNG format</li>
+        <li>be smaller than 10MB</li>
+        <li>not include people</li>          
+      </ul>
+    
+      {{ govukFileUpload({
+          id: "file-upload-1",
+          name: "fileUpload1",
+          label: {
+              text: "Upload a photo"
+          }
+      }) }}
 
-    {{ govukButton({
-        text: "Save and continue"
-    }) }}   
+      {{ govukButton({
+          text: "Save and continue"
+      }) }}   
+    </div>
   </div>
-</div>
+</form>
 
 {% endblock %}
 
