@@ -1,7 +1,7 @@
 import constants from '../utils/constants.js'
 
 const handlers = {
-  get: (request, h) => {
+  get: (_request, h) => {
     return h.view(constants.views.TERMS_FOR_UPLOADING_PHOTOS)
   }
 }

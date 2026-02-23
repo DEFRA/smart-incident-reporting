@@ -81,7 +81,7 @@ async function handleFileUpload (request, uploadId) {
     throw err
   }
 
-  if (!file.hapi || !file.hapi.filename) {
+  if (!file.hapi?.filename) {
     const err = new Error('Missing original filename')
     err.code = 'NO_IMAGE'
     throw err
