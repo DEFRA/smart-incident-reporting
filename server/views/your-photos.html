@@ -10,4 +10,16 @@
     </div>
 </div>
 
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <ul class="govuk-list">
+        {% for photo in thumbnails %}
+            <li>
+                <img src="{{ photo.thumbLoc }}" alt="Uploaded photo thumbnail" style="max-width:200px;max-height:200px;">
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
 {% endblock %}
