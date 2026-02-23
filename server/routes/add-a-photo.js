@@ -65,7 +65,7 @@ async function createThumbnail (filename) {
 
     return localUploadLocation
   } catch (err) {
-    const newErr = new Error('Unexpected upload failure')
+    const newErr = new Error('Unexpected upload failure', { cause: err })
     newErr.code = 'UPLOAD_FAILED'
     throw newErr
   }
