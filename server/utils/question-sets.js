@@ -1118,6 +1118,21 @@ const questionSets = {
             text: 'No'
           }
         }
+      },
+      ILLEGAL_FISHING_ANGLING_TRUST: {
+        questionId: 4300,
+        key: constants.redisKeys.ILLEGAL_FISHING_ANGLING_TRUST,
+        text: 'Are you an Angling Trust volunteer?',
+        answers: {
+          yes: {
+            answerId: 4301,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 4302,
+            text: 'No'
+          }
+        }
       }
     }
   },

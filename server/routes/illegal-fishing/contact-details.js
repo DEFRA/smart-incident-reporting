@@ -26,7 +26,7 @@ const handlers = {
     })
 
     // handle redirects
-    return h.redirect(constants.routes.ILLEGAL_FISHING_IMAGES_OR_VIDEO)
+    return h.redirect(constants.routes.ILLEGAL_FISHING_ANGLING_TRUST)
   }
 }
 
