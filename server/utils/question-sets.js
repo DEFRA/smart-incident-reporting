@@ -1120,16 +1120,16 @@ const questionSets = {
         }
       },
       ILLEGAL_FISHING_ANGLING_TRUST: {
-        questionId: 4300,
+        questionId: 4280,
         key: constants.redisKeys.ILLEGAL_FISHING_ANGLING_TRUST,
         text: 'Are you an Angling Trust volunteer?',
         answers: {
           yes: {
-            answerId: 4301,
+            answerId: 4281,
             text: 'Yes'
           },
           no: {
-            answerId: 4302,
+            answerId: 4282,
             text: 'No'
           }
         }
