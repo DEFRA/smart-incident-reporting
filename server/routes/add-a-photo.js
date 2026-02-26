@@ -8,6 +8,7 @@ import crypto from 'node:crypto'
 
 const MAX_SELECTED_IMAGES = 5
 const UPLOAD_MAX_BYTES = 10 * 1024 * 1024
+const PAYLOAD_MAX_BYTES = 12 * 1024 * 1024
 const containerName = 'sir-media-uploads'
 
 async function initContainerClient () {
@@ -175,7 +176,7 @@ export default [
     options: {
       auth: false,
       payload: {
-        maxBytes: 12 * 1024 * 1024,
+        maxBytes: PAYLOAD_MAX_BYTES,
         output: 'stream',
         parse: true,
         multipart: true,
