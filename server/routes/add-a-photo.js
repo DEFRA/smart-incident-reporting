@@ -6,7 +6,7 @@ import path from 'node:path'
 import dirname from '../../dirname.cjs'
 import crypto from 'node:crypto'
 
-const MAX_SELECTED_IMAGES = 5
+const MAX_SELECTED_FILES = 5
 const UPLOAD_MAX_BYTES = 10 * 1024 * 1024
 const PAYLOAD_MAX_BYTES = 12 * 1024 * 1024
 const containerName = 'sir-media-uploads'
@@ -77,21 +77,21 @@ async function handleFileUpload (request, uploadId) {
   const file = request.payload.fileUpload1
 
   if (!file) {
-    const err = new Error('No image provided')
-    err.code = 'NO_IMAGE'
+    const err = new Error('No file provided')
+    err.code = 'NO_FILE'
     throw err
   }
 
   if (!file.hapi?.filename) {
     const err = new Error('Missing original filename')
-    err.code = 'NO_IMAGE'
+    err.code = 'NO_FILE'
     throw err
   }
 
   const fileBuffer = await streamToBuffer(file)
   if (fileBuffer.length > UPLOAD_MAX_BYTES) {
-    const err = new Error('Image too large')
-    err.code = 'IMAGE_TOO_LARGE'
+    const err = new Error('File too large')
+    err.code = 'FILE_TOO_LARGE'
     throw err
   }
 
@@ -124,9 +124,9 @@ const handlers = {
     const uploadId = request.yar.get('upload-id')
     const thumbnails = request.yar.get('thumbnails') || []
 
-    if (thumbnails.length >= MAX_SELECTED_IMAGES) {
+    if (thumbnails.length >= MAX_SELECTED_FILES) {
       return h.view(constants.views.ADD_A_PHOTO, {
-        errorMessage: 'You can only select up to 5 images at the same time.'
+        errorMessage: `You can only select up to 5 files at the same time.`
       })
     }
 
@@ -143,19 +143,19 @@ const handlers = {
     } catch (err) {
       console.log('Upload error:', err)
       switch (err.code) {
-        case 'NO_IMAGE':
+        case 'NO_FILE':
           return h.view(constants.views.ADD_A_PHOTO, {
-            errorMessage: 'Select an image.'
+            errorMessage: 'Select an file.'
           })
 
-        case 'IMAGE_TOO_LARGE':
+        case 'FILE_TOO_LARGE':
           return h.view(constants.views.ADD_A_PHOTO, {
-            errorMessage: 'The selected image must be smaller than 10MB.'
+            errorMessage: 'The selected file must be smaller than 10MB.'
           })
 
         default:
           return h.view(constants.views.ADD_A_PHOTO, {
-            errorMessage: 'The selected image could not be uploaded – try again.'
+            errorMessage: 'The selected file could not be uploaded – try again.'
           })
       }
     }
