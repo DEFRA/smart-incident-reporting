@@ -6,6 +6,7 @@ import path from 'node:path'
 import dirname from '../../dirname.cjs'
 import crypto from 'node:crypto'
 
+const MAX_SELECTED_IMAGES = 5
 const UPLOAD_MAX_BYTES = 10 * 1024 * 1024
 const containerName = 'sir-media-uploads'
 
@@ -72,7 +73,6 @@ async function createThumbnail (filename) {
 }
 
 async function handleFileUpload (request, uploadId) {
-  const containerClient = await initContainerClient()
   const file = request.payload.fileUpload1
 
   if (!file) {
@@ -101,6 +101,7 @@ async function handleFileUpload (request, uploadId) {
   }
 
   const finalFilename = `${uploadId}/${file.hapi.filename}`
+  const containerClient = await initContainerClient()
 
   await containerClient
     .getBlockBlobClient(finalFilename)
@@ -120,14 +121,19 @@ const handlers = {
 
   post: async (request, h) => {
     const uploadId = request.yar.get('upload-id')
+    const thumbnails = request.yar.get('thumbnails') || []
+
+    if (thumbnails.length >= MAX_SELECTED_IMAGES) {
+      return h.view(constants.views.ADD_A_PHOTO, {
+        errorMessage: 'You can only select up to 5 images at the same time.'
+      })
+    }
 
     try {
       const finalFilename = await handleFileUpload(request, uploadId)
       const fileLoc = await createThumbnail(finalFilename)
 
       const thumbLoc = `/public/thumbnails/${fileLoc}`
-
-      const thumbnails = request.yar.get('thumbnails') || []
       thumbnails.push({ finalFilename, thumbLoc })
 
       request.yar.set('thumbnails', thumbnails)
@@ -169,7 +175,7 @@ export default [
     options: {
       auth: false,
       payload: {
-        maxBytes: UPLOAD_MAX_BYTES,
+        maxBytes: 12 * 1024 * 1024,
         output: 'stream',
         parse: true,
         multipart: true,

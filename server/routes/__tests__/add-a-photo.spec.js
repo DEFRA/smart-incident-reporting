@@ -80,16 +80,31 @@ describe(url, () => {
       })
     })
 
-    it('should return error if file too large', async () => {
-      const bigBuffer = Buffer.alloc(11 * 1024 * 1024)
-      const form = createForm('big.png', bigBuffer)
+    it('should return size error if file is over 10MB', async () => {
+      const form = createForm('big.png', Buffer.alloc(11 * 1024 * 1024), 'image/png')
       const response = await submitPostRequest({
         url,
         payload: form.getBuffer(),
         headers: form.getHeaders()
-      }, 413)
+      }, 200)
 
-      expect(response.statusCode).toBe(413)
+      expect(response.result).toContain('The selected image must be smaller than 10MB.')
+    })
+
+    it('should return max selected images error when 5 images already exist', async () => {
+      const form = createForm('valid.png', mockValidPng, 'image/png')
+      const thumbnails = Array.from({ length: 5 }, (_, index) => ({
+        finalFilename: `upload-id/${index}.png`,
+        thumbLoc: `/public/thumbnails/upload-id-${index}.png`
+      }))
+
+      const response = await submitPostRequest({
+        url,
+        payload: form.getBuffer(),
+        headers: form.getHeaders()
+      }, 200, { thumbnails })
+
+      expect(response.result).toContain('You can only select up to 5 images at the same time.')
     })
 
     describe('upload failure', () => {
