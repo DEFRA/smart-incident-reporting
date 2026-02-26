@@ -64,7 +64,7 @@ describe(url, () => {
           headers: form.getHeaders()
         }, 200)
 
-        expect(response.result).toContain('Select an image.')
+        expect(response.result).toContain('Select a file.')
       })
 
       it('should return correct error message if file missing original filename', async () => {
@@ -76,7 +76,7 @@ describe(url, () => {
           headers: form.getHeaders()
         }, 200)
 
-        expect(response.result).toContain('Select an image.')
+        expect(response.result).toContain('Select a file.')
       })
     })
 
@@ -88,10 +88,10 @@ describe(url, () => {
         headers: form.getHeaders()
       }, 200)
 
-      expect(response.result).toContain('The selected image must be smaller than 10MB.')
+      expect(response.result).toContain('The selected file must be smaller than 10MB.')
     })
 
-    it('should return max selected images error when 5 images already exist', async () => {
+    it('should return max selected files error when 5 files already exist', async () => {
       const form = createForm('valid.png', mockValidPng, 'image/png')
       const thumbnails = Array.from({ length: 5 }, (_, index) => ({
         finalFilename: `upload-id/${index}.png`,
@@ -104,7 +104,7 @@ describe(url, () => {
         headers: form.getHeaders()
       }, 200, { thumbnails })
 
-      expect(response.result).toContain('You can only select up to 5 images at the same time.')
+      expect(response.result).toContain('You can only select up to 5 files at the same time.')
     })
 
     describe('upload failure', () => {

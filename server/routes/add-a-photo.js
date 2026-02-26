@@ -126,7 +126,7 @@ const handlers = {
 
     if (thumbnails.length >= MAX_SELECTED_FILES) {
       return h.view(constants.views.ADD_A_PHOTO, {
-        errorMessage: `You can only select up to 5 files at the same time.`
+        errorMessage: 'You can only select up to 5 files at the same time.'
       })
     }
 
@@ -145,7 +145,7 @@ const handlers = {
       switch (err.code) {
         case 'NO_FILE':
           return h.view(constants.views.ADD_A_PHOTO, {
-            errorMessage: 'Select an file.'
+            errorMessage: 'Select a file.'
           })
 
         case 'FILE_TOO_LARGE':
