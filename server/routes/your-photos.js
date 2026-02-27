@@ -30,7 +30,7 @@ const handlers = {
   get: (request, h) => {
     const thumbnails = request.yar.get('thumbnails') || []
     const remainingPhotos = MAX_PHOTOS - thumbnails.length
-    return h.view(constants.views.YOUR_PHOTOS, { 
+    return h.view(constants.views.YOUR_PHOTOS, {
       thumbnails: thumbnails.map((files, index) => ({
         ...files,
         filename: files.finalFilename.split('/').pop(),
@@ -50,7 +50,7 @@ const handlers = {
       try {
         // Delete from Azure Blob Storage
         const containerClient = await initContainerClient()
-        
+
         // Delete the original image
         const blobClient = containerClient.getBlockBlobClient(imageToRemove.finalFilename)
         await blobClient.deleteIfExists()
