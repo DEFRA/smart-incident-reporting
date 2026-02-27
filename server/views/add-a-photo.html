@@ -20,38 +20,43 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
-      <p>Add your photos one at a time.</p>   
-      <p>The photos must:</p>  
-      <ul class="govuk-list govuk-list--bullet">
-        <li>be in JPG or PNG format</li>
-        <li>be smaller than 10MB</li>
-        <li>meet our <a href="/terms-for-uploading-photos" target="_blank" rel="noopener">terms for uploading photos</a></li>
-      </ul>
+      {% if maxSelectedFiles %}
+        <p>You have added the maximum number of photos allowed</p>
+        <p><a href="/your-photos">See your photos</a></p>
+      {% else %}
+        <p>Add your photos one at a time.</p>
+        <p>The photos must:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>be in JPG or PNG format</li>
+          <li>be smaller than 10MB</li>
+          <li>meet our <a href="/terms-for-uploading-photos" target="_blank" rel="noopener">terms for uploading photos</a></li>
+        </ul>
 
-        {% if errorMessage %}
-          {{ govukFileUpload({
-            id: "file-upload-1",
-            name: "fileUpload1",
-            label: {
-              text: "Upload a photo"
-            },
-            errorMessage: { text: errorMessage },
-            javascript: true
-          }) }}
-        {% else %}
-          {{ govukFileUpload({
-            id: "file-upload-1",
-            name: "fileUpload1",
-            label: {
-              text: "Upload a photo"
-            },
-            javascript: true
-          }) }}
-        {% endif %}
+          {% if errorMessage %}
+            {{ govukFileUpload({
+              id: "file-upload-1",
+              name: "fileUpload1",
+              label: {
+                text: "Upload a photo"
+              },
+              errorMessage: { text: errorMessage },
+              javascript: true
+            }) }}
+          {% else %}
+            {{ govukFileUpload({
+              id: "file-upload-1",
+              name: "fileUpload1",
+              label: {
+                text: "Upload a photo"
+              },
+              javascript: true
+            }) }}
+          {% endif %}
 
-      {{ govukButton({
-          text: "Save and continue"
-      }) }}   
+        {{ govukButton({
+            text: "Save and continue"
+        }) }}
+      {% endif %}
     </div>
   </div>
 </form>

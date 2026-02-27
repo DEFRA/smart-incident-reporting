@@ -98,7 +98,7 @@ describe(url, () => {
       expect(response.result).toContain('The selected file must be smaller than 10MB.')
     })
 
-    it('should return max selected files error when 5 files already exist', async () => {
+    it('should show max selected files content when 5 files already exist', async () => {
       const form = createForm('valid.png', mockValidPng, 'image/png')
       const thumbnails = Array.from({ length: 5 }, (_, index) => ({
         finalFilename: `upload-id/${index}.png`,
@@ -111,7 +111,7 @@ describe(url, () => {
         headers: form.getHeaders()
       }, 200, { thumbnails })
 
-      expect(response.result).toContain('You can only select up to 5 files at the same time.')
+      expect(response.result).toContain('You have added the maximum number of photos allowed')
     })
 
     describe('upload failure', () => {
@@ -158,8 +158,44 @@ describe(url, () => {
         const thumbnails = response.request.yar.get('thumbnails')
 
         expect(Array.isArray(thumbnails)).toBe(true)
+      })
+
+      it('should add at least one thumbnail to session on successful upload', async () => {
+        const form = createForm('valid.png', mockValidPng, 'image/png')
+        const response = await submitPostRequest({
+          url,
+          payload: form.getBuffer(),
+          headers: form.getHeaders()
+        }, 302)
+
+        const thumbnails = response.request.yar.get('thumbnails')
+
         expect(thumbnails.length).toBeGreaterThan(0)
+      })
+
+      it('should store thumbLoc in session thumbnail entry', async () => {
+        const form = createForm('valid.png', mockValidPng, 'image/png')
+        const response = await submitPostRequest({
+          url,
+          payload: form.getBuffer(),
+          headers: form.getHeaders()
+        }, 302)
+
+        const thumbnails = response.request.yar.get('thumbnails')
+
         expect(thumbnails[0]).toHaveProperty('thumbLoc')
+      })
+
+      it('should store finalFilename in session thumbnail entry', async () => {
+        const form = createForm('valid.png', mockValidPng, 'image/png')
+        const response = await submitPostRequest({
+          url,
+          payload: form.getBuffer(),
+          headers: form.getHeaders()
+        }, 302)
+
+        const thumbnails = response.request.yar.get('thumbnails')
+
         expect(thumbnails[0]).toHaveProperty('finalFilename')
       })
     })

@@ -117,7 +117,9 @@ const handlers = {
       request.yar.set('upload-id', crypto.randomUUID())
     }
 
-    return h.view(constants.views.ADD_A_PHOTO)
+    return h.view(constants.views.ADD_A_PHOTO, {
+      maxSelectedFiles: false
+    })
   },
 
   post: async (request, h) => {
@@ -126,7 +128,7 @@ const handlers = {
 
     if (thumbnails.length >= MAX_SELECTED_FILES) {
       return h.view(constants.views.ADD_A_PHOTO, {
-        errorMessage: 'You can only select up to 5 files at the same time.'
+        maxSelectedFiles: true
       })
     }
 
@@ -145,16 +147,19 @@ const handlers = {
       switch (err.code) {
         case 'NO_FILE':
           return h.view(constants.views.ADD_A_PHOTO, {
+            maxSelectedFiles: false,
             errorMessage: 'Select a file.'
           })
 
         case 'FILE_TOO_LARGE':
           return h.view(constants.views.ADD_A_PHOTO, {
+            maxSelectedFiles: false,
             errorMessage: 'The selected file must be smaller than 10MB.'
           })
 
         default:
           return h.view(constants.views.ADD_A_PHOTO, {
+            maxSelectedFiles: false,
             errorMessage: 'The selected file could not be uploaded – try again.'
           })
       }
