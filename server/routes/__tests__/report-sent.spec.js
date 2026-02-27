@@ -26,13 +26,13 @@ describe(url, () => {
   it(`Should return success response and correct paragraph when email is not provided and Yes is selected for images question ${url}`, async () => {
     const sessionData = buildSession({ email: '', agreed: true })
     const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
-    expect(response.payload).toContain('<p>You can now <a>upload any photos</a> you have that might help us investigate the problem.</p>')
+    expect(response.payload).toContain('<p>You can now <a href="/upload-photo">upload any photos</a> you have that might help us investigate the problem.</p>')
   })
 
   it(`Should return success response and correct paragraph when email is provided and  Yes is selected for images question  ${url}`, async () => {
     const sessionData = buildSession({ email: 'test@test.com', agreed: true })
     const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
-    expect(response.payload).toContain('<p>We have sent a confirmation of your report and a reference number to test@test.com</p>')
+    expect(response.payload).toContain('<p>We have sent a confirmation of your report and a reference number to <strong>test@test.com</strong></p>')
   })
   it(`Should return success response and correct view when email is not provided and No is selected for images question ${url}`, async () => {
     const sessionData = buildSession({ email: '', agreed: false })
