@@ -168,10 +168,10 @@ const session = JSON.parse(`{
   ],
   "illegal-fishing/angling-trust": [
     {
-      "questionId": 4300,
+      "questionId": 4280,
       "questionAsked": "Are you an Angling Trust volunteer?",
       "questionResponse": true,
-      "answerId": 4301
+      "answerId": 4281
     }
   ],
   "illegal-fishing/other-information": "This is a description of the illegal fishing activity",
