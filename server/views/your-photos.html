@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% from "dist/govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageTitle = 'Your photos' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+        {% if remainingPhotos == 5 %}
+            <p class="govuk-body">You have no photos added.</p>
+            <p class="govuk-body">You can add up to 5 photos.</p>
+        {% elif remainingPhotos > 0 %}
+            <p class="govuk-body">You can add {{ remainingPhotos }} more {% if remainingPhotos == 1 %}photo{% else %}photos{% endif %}.</p>
+        {% else %}
+            <p class="govuk-body">You have added the maximum number of photos allowed.</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% for photo in thumbnails %}
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key vertical-align-top">
+                    {{ photo.filename }}
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <img src="{{ photo.thumbLoc }}" alt="Uploaded thumbnail" style="width:100%;height:auto;">
+                </dd>
+                <dd class="govuk-summary-list__actions vertical-align-top">
+                    <form method="post" action="" style="display:inline;">
+                        <input type="hidden" name="imageIndex" value="{{ photo.index }}">
+                        <button type="submit" class="govuk-link" style="background:none;border:none;padding:0;color:#1d70b8;text-decoration:underline;cursor:pointer;">Remove<span class="govuk-visually-hidden"> {{ photo.filename }}</span></button>
+                    </form>
+                </dd>
+            </div>
+        </dl>
+        {% endfor %}
+
+        {% if remainingPhotos > 0 %}
+            <p class="govuk-body">
+                <a class="govuk-link" href="/add-a-photo">{% if remainingPhotos == 5 %}Add a photo{% else %}Add another photo{% endif %}</a>
+            </p>
+        {% endif %}
+
+        {{ govukButton({
+            text: "Continue",
+            href: "/send-photos"
+        }) }}
+    </div>
+</div>
+
+{% endblock %}
