@@ -117,6 +117,7 @@ const ILLEGAL_FISHING_NUMBER_OF_FISH = 'illegal-fishing/number-of-fish'
 const ILLEGAL_FISHING_CONTACT_DETAILS = 'illegal-fishing/contact-details'
 const ILLEGAL_FISHING_IMAGES_OR_VIDEO = 'illegal-fishing/images-or-video'
 const ILLEGAL_FISHING_OTHER_INFORMATION = 'illegal-fishing/other-information'
+const ILLEGAL_FISHING_ANGLING_TRUST = 'illegal-fishing/angling-trust'
 
 const BLOCKAGE_START = 'blockage-start'
 const BLOCKAGE = 'blockage'
@@ -254,6 +255,7 @@ const views = {
   ILLEGAL_FISHING_CONTACT_DETAILS,
   ILLEGAL_FISHING_IMAGES_OR_VIDEO,
   ILLEGAL_FISHING_OTHER_INFORMATION,
+  ILLEGAL_FISHING_ANGLING_TRUST,
   BLOCKAGE,
   BLOCKAGE_RIVER,
   BLOCKAGE_RIVER_NAME,

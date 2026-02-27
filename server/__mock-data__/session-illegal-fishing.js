@@ -166,6 +166,14 @@ const session = JSON.parse(`{
       "answerId": 2801
     }
   ],
+  "illegal-fishing/angling-trust": [
+    {
+      "questionId": 4280,
+      "questionAsked": "Are you an Angling Trust volunteer?",
+      "questionResponse": true,
+      "answerId": 4281
+    }
+  ],
   "illegal-fishing/other-information": "This is a description of the illegal fishing activity",
   "illegal-fishing/when": "${yesterday.toISOString()}",
   "submission-timestamp": "${today.toISOString()}"
