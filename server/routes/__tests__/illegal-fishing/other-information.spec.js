@@ -58,7 +58,7 @@ describe(url, () => {
             expect.objectContaining({ questionId: 4215, questionAsked: 'Did you see fish being \'taken\'?', questionResponse: true, answerId: 4216 }),
             expect.objectContaining({ questionId: 4220, questionAsked: 'How many fish?', questionResponse: true, answerId: 4221 }),
             expect.objectContaining({ questionId: 2800, questionAsked: 'Do you want to send us any images or videos of the pollution?', questionResponse: true, answerId: 2801 }),
-            expect.objectContaining({ questionId: 4300, questionAsked: 'Are you an Angling Trust volunteer?', questionResponse: true, answerId: 4281 })
+            expect.objectContaining({ questionId: 4280, questionAsked: 'Are you an Angling Trust volunteer?', questionResponse: true, answerId: 4281 })
           ])
         })
       }))
