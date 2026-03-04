@@ -1,19 +1,24 @@
 {% extends 'layout.html' %}
 {% from "dist/govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "dist/govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% set pageTitle = 'Add a photo' %}
+{% if errorMessage %}
+  {% set errorSummary = {
+    titleText: 'There is a problem',
+    errorList: [
+      {
+        text: errorMessage,
+        href: '#file-upload-1'
+      }
+    ]
+  } %}
+{% endif %}
 
 {% block content %}
 
-{% if errorMessage %}
-  <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
-    <h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2>
-    <div class="govuk-error-summary__body">
-      <ul class="govuk-list govuk-error-summary__list">
-        <li>{{ errorMessage }}</li>
-      </ul>
-    </div>
-  </div>
+{% if errorSummary %}
+  {{ govukErrorSummary(errorSummary) }}
 {% endif %}
 
 <form method="post" enctype="multipart/form-data" novalidate="novalidate" action="">
@@ -25,13 +30,7 @@
         <p><a href="/your-photos">See your photos</a></p>
       {% else %}
         <p>Add your photos one at a time.</p>
-        <p>The photos must:</p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>be in JPG or PNG format</li>
-          <li>be smaller than 10MB</li>
-          <li>meet our <a href="/terms-for-uploading-photos" target="_blank" rel="noopener">terms for uploading photos</a></li>
-        </ul>
-
+        <p>The photos must meet our <a href="/terms-for-uploading-photos" target="_blank" rel="noopener">terms for uploading photos</a></p>
           {% if errorMessage %}
             {{ govukFileUpload({
               id: "file-upload-1",

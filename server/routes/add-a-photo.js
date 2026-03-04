@@ -1,14 +1,15 @@
 import constants from '../utils/constants.js'
 import { BlobServiceClient, StorageSharedKeyCredential } from '@azure/storage-blob'
 import sharp from 'sharp'
+import heicConvert from 'heic-convert'
 import fs from 'node:fs'
 import path from 'node:path'
 import dirname from '../../dirname.cjs'
 import crypto from 'node:crypto'
 
 const MAX_SELECTED_FILES = 5
-const UPLOAD_MAX_BYTES = 10 * 1024 * 1024
-const PAYLOAD_MAX_BYTES = 12 * 1024 * 1024
+const UPLOAD_MAX_BYTES = 4 * 1024 * 1024 // 4MB
+const PAYLOAD_MAX_BYTES = 10 * 1024 * 1024
 const containerName = 'sir-media-uploads'
 
 async function initContainerClient () {
@@ -73,6 +74,116 @@ async function createThumbnail (filename) {
   }
 }
 
+export async function convertImageType (fileBuffer, file) {
+  // AI content checker allows: JPEG, PNG, GIF, BMP, TIFF, or WEBP
+  try {
+    const metadata = await sharp(fileBuffer).metadata()
+
+    if (metadata.format === 'jpeg') {
+      return { buffer: fileBuffer, extension: '.jpg' }
+    }
+
+    if (metadata.format === 'png') {
+      return { buffer: fileBuffer, extension: '.png' }
+    }
+
+    if (metadata.hasAlpha) {
+      const convertedBuffer = await sharp(fileBuffer).png().toBuffer()
+      return { buffer: convertedBuffer, extension: '.png' }
+    }
+
+    const convertedBuffer = await sharp(fileBuffer).jpeg({ quality: 85 }).toBuffer()
+    return { buffer: convertedBuffer, extension: '.jpg' }
+  } catch (sharpError) {
+    const filename = file?.hapi?.filename || ''
+    const fileExtension = path.extname(filename).toLowerCase()
+    const contentType = (file?.hapi?.headers?.['content-type'] || '').toLowerCase()
+    const isHeicUpload = ['.heic', '.heif'].includes(fileExtension) || contentType.includes('heic') || contentType.includes('heif')
+
+    if (isHeicUpload) {
+      try {
+        const convertedHeic = await heicConvert({
+          buffer: fileBuffer,
+          format: 'JPEG',
+          quality: 0.85
+        })
+
+        const convertedBuffer = Buffer.isBuffer(convertedHeic)
+          ? convertedHeic
+          : Buffer.from(convertedHeic)
+
+        return { buffer: convertedBuffer, extension: '.jpg' }
+      } catch (heicError) {
+        const err = new Error('Invalid or unsupported image format', { cause: heicError })
+        err.code = 'INVALID_IMAGE'
+        throw err
+      }
+    }
+
+    const err = new Error('Invalid or unsupported image format', { cause: sharpError })
+    err.code = 'INVALID_IMAGE'
+    throw err
+  }
+}
+
+export async function convertImageSize (fileBuffer, extension, depth = 0) {
+  if (fileBuffer.length <= UPLOAD_MAX_BYTES) {
+    return { buffer: fileBuffer, extension }
+  }
+
+  if (depth >= 5) {
+    const err = new Error('Image file is too large after processing')
+    err.code = 'FILE_TOO_LARGE'
+    throw err
+  }
+
+  const qualityLevels = [80, 70, 60, 50, 40, 30]
+
+  const tryJpegQuality = async (index) => {
+    if (index >= qualityLevels.length) {
+      return null
+    }
+
+    const convertedBuffer = await sharp(fileBuffer)
+      .jpeg({ quality: qualityLevels[index] })
+      .toBuffer()
+
+    if (convertedBuffer.length <= UPLOAD_MAX_BYTES) {
+      return { buffer: convertedBuffer, extension: '.jpg' }
+    }
+
+    return tryJpegQuality(index + 1)
+  }
+
+  const qualityResult = await tryJpegQuality(0)
+  if (qualityResult) {
+    return qualityResult
+  }
+
+  const metadata = await sharp(fileBuffer).metadata()
+  if (!metadata.width || metadata.width <= 320) {
+    const fallbackBuffer = await sharp(fileBuffer).jpeg({ quality: 30 }).toBuffer()
+
+    if (fallbackBuffer.length > UPLOAD_MAX_BYTES) {
+      const err = new Error('Image file is too large after processing')
+      err.code = 'FILE_TOO_LARGE'
+      throw err
+    }
+
+    return { buffer: fallbackBuffer, extension: '.jpg' }
+  }
+
+  const resizedBuffer = await sharp(fileBuffer)
+    .resize({
+      width: Math.max(320, Math.floor(metadata.width * 0.8)),
+      withoutEnlargement: true
+    })
+    .jpeg({ quality: 30 })
+    .toBuffer()
+
+  return convertImageSize(resizedBuffer, '.jpg', depth + 1)
+}
+
 async function handleFileUpload (request, uploadId) {
   const file = request.payload.fileUpload1
 
@@ -89,24 +200,16 @@ async function handleFileUpload (request, uploadId) {
   }
 
   const fileBuffer = await streamToBuffer(file)
-  if (fileBuffer.length > UPLOAD_MAX_BYTES) {
-    const err = new Error('File too large')
-    err.code = 'FILE_TOO_LARGE'
-    throw err
-  }
+  const { buffer: uploadBuffer, extension } = await convertImageType(fileBuffer, file)
+  const { buffer: maxSizedBuffer, extension: maxSizedExtension } = await convertImageSize(uploadBuffer, extension)
 
-  try {
-    await sharp(fileBuffer).metadata()
-  } catch {
-    // CONVERT IMAGE TYPE REMOVE ERROR
-  }
-
-  const finalFilename = `${uploadId}/${file.hapi.filename}`
+  const originalName = path.parse(file.hapi.filename).name || 'upload'
+  const finalFilename = `${uploadId}/${originalName}${maxSizedExtension}`
   const containerClient = await initContainerClient()
 
   await containerClient
     .getBlockBlobClient(finalFilename)
-    .uploadData(fileBuffer)
+    .uploadData(maxSizedBuffer)
 
   return finalFilename
 }
@@ -148,19 +251,25 @@ const handlers = {
         case 'NO_FILE':
           return h.view(constants.views.ADD_A_PHOTO, {
             maxSelectedFiles: false,
-            errorMessage: 'Select a file.'
+            errorMessage: 'Select a file'
+          })
+
+        case 'INVALID_IMAGE':
+          return h.view(constants.views.ADD_A_PHOTO, {
+            maxSelectedFiles: false,
+            errorMessage: 'Select a file in a different image format, for example JPEG or PNG'
           })
 
         case 'FILE_TOO_LARGE':
           return h.view(constants.views.ADD_A_PHOTO, {
             maxSelectedFiles: false,
-            errorMessage: 'The selected file must be smaller than 10MB.'
+            errorMessage: 'The selected file must be smaller than 4MB'
           })
 
         default:
           return h.view(constants.views.ADD_A_PHOTO, {
             maxSelectedFiles: false,
-            errorMessage: 'The selected file could not be uploaded – try again.'
+            errorMessage: 'The selected file could not be uploaded – try again'
           })
       }
     }
@@ -181,11 +290,11 @@ export default [
     options: {
       auth: false,
       payload: {
-        maxBytes: PAYLOAD_MAX_BYTES,
         output: 'stream',
         parse: true,
         multipart: true,
-        allow: 'multipart/form-data'
+        allow: 'multipart/form-data',
+        maxBytes: PAYLOAD_MAX_BYTES
       }
     }
   }
