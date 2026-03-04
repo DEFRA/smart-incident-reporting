@@ -7,10 +7,15 @@ import path from 'node:path'
 import dirname from '../../dirname.cjs'
 import crypto from 'node:crypto'
 
-const MAX_SELECTED_FILES = 5
-const UPLOAD_MAX_BYTES = 4 * 1024 * 1024 // 4MB
-const PAYLOAD_MAX_BYTES = 10 * 1024 * 1024
 const containerName = 'sir-media-uploads'
+
+const MAX_IMAGE_RESIZE_DEPTH = 5
+const MAX_SELECTED_FILES = 5
+const MIN_RESIZE_WIDTH = 320
+const QUALITY_LEVELS = [80, 70, 60, 50, 40, 30]
+const RESIZE_WIDTH_RATIO = 0.8
+const PAYLOAD_MAX_BYTES = 10 * 1024 * 1024
+const UPLOAD_MAX_BYTES = 4 * 1024 * 1024 // 4MB
 
 async function initContainerClient () {
   if (!initContainerClient.cachedClient) {
@@ -88,8 +93,8 @@ export async function convertImageType (fileBuffer, file) {
     }
 
     if (metadata.hasAlpha) {
-      const convertedBuffer = await sharp(fileBuffer).png().toBuffer()
-      return { buffer: convertedBuffer, extension: '.png' }
+      const alphaConvertedBuffer = await sharp(fileBuffer).png().toBuffer()
+      return { buffer: alphaConvertedBuffer, extension: '.png' }
     }
 
     const convertedBuffer = await sharp(fileBuffer).jpeg({ quality: 85 }).toBuffer()
@@ -114,9 +119,9 @@ export async function convertImageType (fileBuffer, file) {
 
         return { buffer: convertedBuffer, extension: '.jpg' }
       } catch (heicError) {
-        const err = new Error('Invalid or unsupported image format', { cause: heicError })
-        err.code = 'INVALID_IMAGE'
-        throw err
+        const invalidImageError = new Error('Invalid or unsupported image format', { cause: heicError })
+        invalidImageError.code = 'INVALID_IMAGE'
+        throw invalidImageError
       }
     }
 
@@ -131,21 +136,19 @@ export async function convertImageSize (fileBuffer, extension, depth = 0) {
     return { buffer: fileBuffer, extension }
   }
 
-  if (depth >= 5) {
+  if (depth >= MAX_IMAGE_RESIZE_DEPTH) {
     const err = new Error('Image file is too large after processing')
     err.code = 'FILE_TOO_LARGE'
     throw err
   }
 
-  const qualityLevels = [80, 70, 60, 50, 40, 30]
-
   const tryJpegQuality = async (index) => {
-    if (index >= qualityLevels.length) {
+    if (index >= QUALITY_LEVELS.length) {
       return null
     }
 
     const convertedBuffer = await sharp(fileBuffer)
-      .jpeg({ quality: qualityLevels[index] })
+      .jpeg({ quality: QUALITY_LEVELS[index] })
       .toBuffer()
 
     if (convertedBuffer.length <= UPLOAD_MAX_BYTES) {
@@ -161,7 +164,7 @@ export async function convertImageSize (fileBuffer, extension, depth = 0) {
   }
 
   const metadata = await sharp(fileBuffer).metadata()
-  if (!metadata.width || metadata.width <= 320) {
+  if (!metadata.width || metadata.width <= MIN_RESIZE_WIDTH) {
     const fallbackBuffer = await sharp(fileBuffer).jpeg({ quality: 30 }).toBuffer()
 
     if (fallbackBuffer.length > UPLOAD_MAX_BYTES) {
@@ -175,7 +178,7 @@ export async function convertImageSize (fileBuffer, extension, depth = 0) {
 
   const resizedBuffer = await sharp(fileBuffer)
     .resize({
-      width: Math.max(320, Math.floor(metadata.width * 0.8)),
+      width: Math.max(MIN_RESIZE_WIDTH, Math.floor(metadata.width * RESIZE_WIDTH_RATIO)),
       withoutEnlargement: true
     })
     .jpeg({ quality: 30 })

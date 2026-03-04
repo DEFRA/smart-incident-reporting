@@ -20,6 +20,7 @@ const mockValidPng = Buffer.from(
   'base64'
 )
 const UPLOAD_MAX_BYTES = 4 * 1024 * 1024
+const MAX_IMAGE_RESIZE_DEPTH = 5
 
 const createForm = (filename = '', content = 'data', contentType = 'image/png') => {
   const form = new FormData()
@@ -280,7 +281,7 @@ describe(url, () => {
 
       it('should throw FILE_TOO_LARGE at max processing depth when still oversized', async () => {
         const oversizedBuffer = Buffer.alloc(UPLOAD_MAX_BYTES + 1)
-        await expect(addPhoto.convertImageSize(oversizedBuffer, '.png', 5)).rejects.toMatchObject({
+        await expect(addPhoto.convertImageSize(oversizedBuffer, '.png', MAX_IMAGE_RESIZE_DEPTH)).rejects.toMatchObject({
           code: 'FILE_TOO_LARGE'
         })
       })
