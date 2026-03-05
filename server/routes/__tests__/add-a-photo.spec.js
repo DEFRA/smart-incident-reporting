@@ -3,6 +3,7 @@ import constants from '../../utils/constants.js'
 import { BlobServiceClient } from '@azure/storage-blob'
 import crypto from 'node:crypto'
 import fs from 'node:fs'
+import path from 'node:path'
 import FormData from 'form-data'
 import sharp from 'sharp'
 import heicConvert from 'heic-convert'
@@ -498,6 +499,24 @@ describe(url, () => {
         }, 302)
         const thumbnails = response.request.yar.get('thumbnails')
         expect(thumbnails[0]).toHaveProperty('finalFilename')
+      })
+
+      it('should store upload fallback name in finalFilename when basename is empty', async () => {
+        jest.spyOn(path, 'parse').mockReturnValue({
+          root: '',
+          dir: '',
+          base: 'valid.png',
+          ext: '.png',
+          name: ''
+        })
+        const form = createForm('valid.png', mockValidPng, 'image/png')
+        const response = await submitPostRequest({
+          url,
+          payload: form.getBuffer(),
+          headers: form.getHeaders()
+        }, 302)
+        const thumbnails = response.request.yar.get('thumbnails')
+        expect(thumbnails[0].finalFilename).toContain('/upload')
       })
     })
   })
