@@ -354,6 +354,62 @@ describe(url, () => {
         const resizedResult = await addPhoto.convertImageSize(wideOversizedImage, '.png')
         expect(resizedResult.buffer.length).toBeLessThanOrEqual(UPLOAD_MAX_BYTES)
       })
+
+      it('throws FILE_TOO_LARGE when fallback image metadata has no width and fallback output is still too large', async () => {
+        jest.spyOn(sharp.prototype, 'metadata').mockResolvedValue({})
+        jest.spyOn(sharp.prototype, 'toBuffer')
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+        await expect(
+          addPhoto.convertImageSize(Buffer.alloc(UPLOAD_MAX_BYTES + 1000), '.png')
+        ).rejects.toMatchObject({ code: 'FILE_TOO_LARGE' })
+      })
+
+      it('returns jpg when image width is at minimum threshold and fallback output is within upload limit', async () => {
+        jest.spyOn(sharp.prototype, 'metadata').mockResolvedValue({ width: 320 })
+        jest.spyOn(sharp.prototype, 'toBuffer')
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES - 10))
+        const resizedResult = await addPhoto.convertImageSize(Buffer.alloc(UPLOAD_MAX_BYTES + 1000), '.png')
+        expect(resizedResult.extension).toBe('.jpg')
+      })
+
+      it('should return file too large message when upload processing exceeds 4MB', async () => {
+        const oversizedUploadImage = await createNoiseImageBuffer({
+          width: 1700,
+          height: 1500,
+          format: 'png'
+        })
+
+        jest.spyOn(sharp.prototype, 'metadata')
+          .mockResolvedValueOnce({ format: 'png' })
+          .mockResolvedValueOnce({ width: 320 })
+        jest.spyOn(sharp.prototype, 'toBuffer')
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+          .mockResolvedValueOnce(Buffer.alloc(UPLOAD_MAX_BYTES + 10))
+        const form = createForm('valid.png', oversizedUploadImage, 'image/png')
+        const response = await submitPostRequest({
+          url,
+          payload: form.getBuffer(),
+          headers: form.getHeaders()
+        }, 200)
+        expect(response.result).toContain('The selected file must be smaller than 4MB')
+      })
     })
 
     describe('upload failure', () => {
