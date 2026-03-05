@@ -210,6 +210,31 @@ describe(url, () => {
           )
         ).rejects.toMatchObject({ code: 'INVALID_IMAGE' })
       })
+
+      it('sharp error and missing file metadata still throws INVALID_IMAGE', async () => {
+        await expect(
+          addPhoto.convertImageType(Buffer.from('not-a-real-image'))
+        ).rejects.toMatchObject({ code: 'INVALID_IMAGE' })
+      })
+
+      it('sharp error and heic upload converts Uint8Array output to Buffer', async () => {
+        heicConvert.mockResolvedValueOnce(new Uint8Array([1, 2, 3]))
+        const result = await addPhoto.convertImageType(
+          Buffer.from('not-a-real-image'),
+          makeUploadFile('photo.heic', 'image/heic')
+        )
+        expect(Buffer.isBuffer(result.buffer)).toBe(true)
+      })
+
+      it('should return invalid image error for unsupported upload through route', async () => {
+        const form = createForm('note.txt', 'not-an-image', 'text/plain')
+        const response = await submitPostRequest({
+          url,
+          payload: form.getBuffer(),
+          headers: form.getHeaders()
+        }, 200)
+        expect(response.result).toContain('Select a file in a different image format, for example JPEG or PNG')
+      })
     })
 
     describe('empty file', () => {
@@ -285,6 +310,50 @@ describe(url, () => {
           code: 'FILE_TOO_LARGE'
         })
       })
+
+      it('processes very tall narrow image and returns jpg extension', async () => {
+        const narrowOversizedImage = await createNoiseImageBuffer({
+          width: 320,
+          height: 30000,
+          format: 'png'
+        })
+
+        const resizedResult = await addPhoto.convertImageSize(narrowOversizedImage, '.png')
+        expect(resizedResult.extension).toBe('.jpg')
+      })
+
+      it('processes very tall narrow image within upload limit', async () => {
+        const narrowOversizedImage = await createNoiseImageBuffer({
+          width: 320,
+          height: 30000,
+          format: 'png'
+        })
+
+        const resizedResult = await addPhoto.convertImageSize(narrowOversizedImage, '.png')
+        expect(resizedResult.buffer.length).toBeLessThanOrEqual(UPLOAD_MAX_BYTES)
+      })
+
+      it('exhausts quality levels then resizes and recurses for wide oversized image as jpg', async () => {
+        const wideOversizedImage = await createNoiseImageBuffer({
+          width: 4200,
+          height: 4200,
+          format: 'png'
+        })
+
+        const resizedResult = await addPhoto.convertImageSize(wideOversizedImage, '.png')
+        expect(resizedResult.extension).toBe('.jpg')
+      })
+
+      it('exhausts quality levels then resizes and recurses for wide oversized image within upload limit', async () => {
+        const wideOversizedImage = await createNoiseImageBuffer({
+          width: 4200,
+          height: 4200,
+          format: 'png'
+        })
+
+        const resizedResult = await addPhoto.convertImageSize(wideOversizedImage, '.png')
+        expect(resizedResult.buffer.length).toBeLessThanOrEqual(UPLOAD_MAX_BYTES)
+      })
     })
 
     describe('upload failure', () => {
@@ -305,6 +374,20 @@ describe(url, () => {
     describe('successful upload', () => {
       beforeEach(() => {
         jest.spyOn(addPhoto, 'streamToBuffer').mockResolvedValue(mockValidPng)
+      })
+
+      it('should create thumbnail directory if missing', async () => {
+        jest.spyOn(fs, 'existsSync').mockReturnValue(false)
+        const mkdirSpy = jest.spyOn(fs, 'mkdirSync').mockImplementation(() => {})
+
+        const form = createForm('valid.png', mockValidPng, 'image/png')
+        await submitPostRequest({
+          url,
+          payload: form.getBuffer(),
+          headers: form.getHeaders()
+        }, 302)
+
+        expect(mkdirSpy).toHaveBeenCalled()
       })
 
       it('should redirect on success', async () => {
