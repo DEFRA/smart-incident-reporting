@@ -1,9 +1,82 @@
 import constants from '../utils/constants.js'
+import { BlobServiceClient, StorageSharedKeyCredential } from '@azure/storage-blob'
+import fs from 'node:fs'
+import path from 'node:path'
+import dirname from '../../dirname.cjs'
+
+const containerName = 'sir-media-uploads'
+
+async function initContainerClient () {
+  if (!initContainerClient.cachedClient) {
+    const blobServiceClient = new BlobServiceClient(
+      process.env.AZURE_BLOB_SERVICE_URL,
+      new StorageSharedKeyCredential(
+        process.env.AZURE_STORAGE_ACCOUNT,
+        process.env.AZURE_STORAGE_ACCESS_KEY
+      )
+    )
+
+    const containerClient = blobServiceClient.getContainerClient(containerName)
+    await containerClient.createIfNotExists()
+    initContainerClient.cachedClient = containerClient
+  }
+
+  return initContainerClient.cachedClient
+}
+
+const MAX_PHOTOS = 5
 
 const handlers = {
   get: (request, h) => {
-    const thumbnails = request.yar.get('thumbnails')
-    return h.view(constants.views.YOUR_PHOTOS, { thumbnails })
+    const thumbnails = request.yar.get('thumbnails') || []
+    const remainingPhotos = MAX_PHOTOS - thumbnails.length
+    return h.view(constants.views.YOUR_PHOTOS, {
+      thumbnails: thumbnails.map((files, index) => ({
+        ...files,
+        filename: files.finalFilename.split('/').pop(),
+        index
+      })),
+      remainingPhotos
+    })
+  },
+
+  post: async (request, h) => {
+    const imageIndex = parseInt(request.payload.imageIndex, 10)
+    const thumbnails = request.yar.get('thumbnails') || []
+
+    if (!isNaN(imageIndex) && imageIndex >= 0 && imageIndex < thumbnails.length) {
+      const imageToRemove = thumbnails[imageIndex]
+
+      try {
+        // Delete from Azure Blob Storage
+        const containerClient = await initContainerClient()
+
+        // Delete the original image
+        const blobClient = containerClient.getBlockBlobClient(imageToRemove.finalFilename)
+        await blobClient.deleteIfExists()
+
+        // Delete the thumbnail from blob storage
+        const [folder, file] = imageToRemove.finalFilename.split('/')
+        const [name, ext] = file.split('.')
+        const thumbName = `${name}-thumbnail.${ext}`
+        const thumbBlobClient = containerClient.getBlockBlobClient(`${folder}/${thumbName}`)
+        await thumbBlobClient.deleteIfExists()
+
+        // Delete local thumbnail file
+        const localThumbPath = path.join(dirname, 'server/public/build', imageToRemove.thumbLoc)
+        if (fs.existsSync(localThumbPath)) {
+          fs.unlinkSync(localThumbPath)
+        }
+
+        // Remove from session array
+        thumbnails.splice(imageIndex, 1)
+        request.yar.set('thumbnails', thumbnails)
+      } catch (err) {
+        console.error('Error removing image:', err)
+      }
+    }
+
+    return h.redirect(constants.routes.YOUR_PHOTOS)
   }
 }
 
@@ -12,6 +85,14 @@ export default [
     method: 'GET',
     path: constants.routes.YOUR_PHOTOS,
     handler: handlers.get,
+    options: {
+      auth: false
+    }
+  },
+  {
+    method: 'POST',
+    path: constants.routes.YOUR_PHOTOS,
+    handler: handlers.post,
     options: {
       auth: false
     }
