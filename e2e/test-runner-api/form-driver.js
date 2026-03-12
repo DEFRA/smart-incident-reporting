@@ -79,8 +79,8 @@ export class FormDriver {
 
   async assertMainContainsText (expectedText) {
     const actual = await this.getMainText()
-    const actualTrimmed = actual.toString().replace(/\s/g, '')
-    const expectedTrimmed = expectedText.toString().replace(/\s/g, '')
+    const actualTrimmed = actual.toString().replaceAll(/\s/g, '')
+    const expectedTrimmed = expectedText.toString().replaceAll(/\s/g, '')
     await expect(actualTrimmed).toContain(expectedTrimmed)
   }
 

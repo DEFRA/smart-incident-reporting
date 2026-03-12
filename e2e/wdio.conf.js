@@ -1,49 +1,60 @@
 import { ReportAggregator } from 'wdio-html-nice-reporter'
 import VideoReporter from 'wdio-video-reporter'
 
-const testRunTimestamp = new Date().toISOString().replace(/[:.]/g, '-')
+const testRunTimestamp = new Date().toISOString().replaceAll(/[:.]/g, '-')
 const selectedBrowser = (process.env.BROWSER || 'chrome').toLowerCase()
+const LOCAL_MAX_INSTANCES = 5
 let reportAggregator
+
+const resolveCapabilities = (browser) => {
+  if (browser === 'chrome') {
+    return {
+      browserName: 'chrome',
+      'goog:chromeOptions': {
+        args: [
+          '--headless=new',
+          '--no-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-gpu',
+          '--disable-extensions',
+          '--disable-infobars',
+          '--disable-notifications'
+        ]
+      }
+    }
+  }
+
+  if (browser === 'firefox') {
+    return {
+      browserName: 'firefox',
+      'moz:firefoxOptions': {
+        args: ['-headless']
+      }
+    }
+  }
+
+  if (['edge', 'msedge', 'microsoftedge'].includes(browser)) {
+    return {
+      browserName: 'MicrosoftEdge',
+      'ms:edgeOptions': {
+        args: ['--headless', '--disable-gpu']
+      }
+    }
+  }
+
+  return {
+    browserName: browser
+  }
+}
 
 export const config = {
   specs: ['./tests/**/*.js'],
   exclude: [],
-  maxInstances: process.env.CI ? 2 : 5,
+  maxInstances: process.env.CI ? 2 : LOCAL_MAX_INSTANCES,
 
   capabilities: [{
     maxInstances: 1,
-    ...(selectedBrowser === 'chrome'
-      ? {
-          browserName: 'chrome',
-          'goog:chromeOptions': {
-            args: [
-              '--headless=new',
-              '--no-sandbox',
-              '--disable-dev-shm-usage',
-              '--disable-gpu',
-              '--disable-extensions',
-              '--disable-infobars',
-              '--disable-notifications'
-            ]
-          }
-        }
-      : selectedBrowser === 'firefox'
-        ? {
-            browserName: 'firefox',
-            'moz:firefoxOptions': {
-              args: ['-headless']
-            }
-          }
-        : ['edge', 'msedge', 'microsoftedge'].includes(selectedBrowser)
-            ? {
-                browserName: 'MicrosoftEdge',
-                'ms:edgeOptions': {
-                  args: ['--headless', '--disable-gpu']
-                }
-              }
-            : {
-                browserName: selectedBrowser
-              })
+    ...resolveCapabilities(selectedBrowser)
   }],
   logLevel: 'warn',
   bail: 0,
@@ -99,12 +110,12 @@ export const config = {
   before: async function () {
     await browser.maximizeWindow()
   },
-  onPrepare: function (config, capabilities) {
+  onPrepare: function (_config, capabilities) {
     try {
       // Derive a browser label dynamically from capabilities
       const browserLabel = Array.isArray(capabilities)
-        ? [...new Set(capabilities.map(c => c.browserName || (c.capabilities && c.capabilities.browserName)).filter(Boolean))].join(', ')
-        : (capabilities && (capabilities.browserName || (capabilities.capabilities && capabilities.capabilities.browserName)))
+        ? [...new Set(capabilities.map(c => c.browserName || c.capabilities?.browserName).filter(Boolean))].join(', ')
+        : (capabilities?.browserName || capabilities?.capabilities?.browserName)
       reportAggregator = new ReportAggregator({
         outputDir: './_results_/test-results/',
         filename: `master-${testRunTimestamp}.html`,
@@ -116,27 +127,27 @@ export const config = {
       reportAggregator.clean()
     } catch (err) {
       // If the aggregator can't be initialized, continue without master report
-      console.warn('Master report aggregator init failed:', err && err.message)
+      console.warn('Master report aggregator init failed:', err?.message)
     }
   },
   // Minimal hook to trigger screenshot capture on failure
-  afterTest: async function (test, context, { passed }) {
+  afterTest: async function (_test, _context, { passed }) {
     if (!passed) {
       try {
         await browser.takeScreenshot()
-      } catch (_) { /* ignore */ }
+      } catch (err) {
+        console.warn('Screenshot capture failed:', err?.message)
+      }
     }
     await browser.deleteCookies()
   },
-  onComplete: function (exitCode, config, capabilities, results) {
+  onComplete: async function () {
     if (reportAggregator && typeof reportAggregator.createReport === 'function') {
-      return (async () => {
-        try {
-          await reportAggregator.createReport()
-        } catch (err) {
-          console.warn('Master report generation failed:', err && err.message)
-        }
-      })()
+      try {
+        await reportAggregator.createReport()
+      } catch (err) {
+        console.warn('Master report generation failed:', err?.message)
+      }
     }
   }
 }
