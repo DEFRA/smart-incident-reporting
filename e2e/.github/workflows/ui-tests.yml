@@ -31,6 +31,12 @@ jobs:
           node-version: '20.x'
           cache: 'npm'
 
+      - name: Setup Java for Allure report generation
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
       - name: Install dependencies (UI tests)
         run: npm ci
 
@@ -38,7 +44,7 @@ jobs:
       - name: Run WDIO test
         env:
           BROWSER: chrome
-          BASE_URL: ${{ inputs.baseUrl || vars.BASE_URL }}
+          BASE_URL: ${{ inputs.baseUrl || env.BASE_URL }}
         run: npx wdio run wdio.conf.js
 
       # Upload WDIO HTML report artifacts even if tests fail
@@ -48,14 +54,28 @@ jobs:
         with:
           name: wdio-html-reports
           path: |
-            reports/html-reports/**
+            _results_/test-results/**
           if-no-files-found: warn
 
       - name: Publish JUnit test results to UI
         if: always()
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          files: reports/junit/*.xml
+          files: _results_/junit/*.xml
+
+      - name: Generate Allure report
+        if: always()
+        run: npx allure generate _results_/allure-raw --clean -o _results_/allure-report
+
+      - name: Upload Allure results and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: |
+            _results_/allure-raw/**
+            _results_/allure-report/**
+          if-no-files-found: warn
 
       - name: Add report info to job summary
         if: always()
@@ -64,3 +84,7 @@ jobs:
           echo "### WDIO HTML Reports" >> "$GITHUB_STEP_SUMMARY"
           echo "- Artifact: wdio-html-reports" >> "$GITHUB_STEP_SUMMARY"
           echo "- Download from the 'Artifacts' section of this run." >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "### Allure Reports" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Artifact: allure-report" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Includes both raw allure results and generated HTML report." >> "$GITHUB_STEP_SUMMARY"

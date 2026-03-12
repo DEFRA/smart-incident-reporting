@@ -64,10 +64,10 @@ export const config = {
       saveAllVideos: false,
       videoSlowdownMultiplier: 3,
       videoRenderTimeout: 5,
-      outputDir: 'reports/html-reports/screenshots'
+      outputDir: '_results_/screenshots'
     }],
     ['html-nice', {
-      outputDir: './reports/html-reports/',
+      outputDir: './_results_/test-results/',
       filename: `report-${testRunTimestamp}.html`,
       reportTitle: 'SIRP UI Test Report',
       linkScreenshots: true,
@@ -79,10 +79,16 @@ export const config = {
       produceJson: true
     }],
     ['junit', {
-      outputDir: './reports/junit',
+      outputDir: './_results_/junit',
       outputFileFormat: function (options) {
         return `wdio-junit-${options.cid}.xml`
       }
+    }],
+    ['allure', {
+      outputDir: './_results_/allure-raw',
+      disableWebdriverStepsReporting: true,
+      disableWebdriverScreenshotsReporting: false,
+      addConsoleLogs: true
     }]
   ],
   framework: 'mocha',
@@ -100,7 +106,7 @@ export const config = {
         ? [...new Set(capabilities.map(c => c.browserName || (c.capabilities && c.capabilities.browserName)).filter(Boolean))].join(', ')
         : (capabilities && (capabilities.browserName || (capabilities.capabilities && capabilities.capabilities.browserName)))
       reportAggregator = new ReportAggregator({
-        outputDir: './reports/html-reports/',
+        outputDir: './_results_/test-results/',
         filename: `master-${testRunTimestamp}.html`,
         reportTitle: 'SIRP UI Master Report',
         collapseTests: false,
