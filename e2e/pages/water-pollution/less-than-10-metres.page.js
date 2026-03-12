@@ -3,7 +3,7 @@ import { definePage, radioOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'LessThan10Metres',
   slug: 'water-pollution/less-than-10-metres',
-  title: 'How much pollution have you seen?',
+  title: 'How much pollution have you seen?'
 })
 
 export const moreThan10Metres = radioOption('More than 10 metres')

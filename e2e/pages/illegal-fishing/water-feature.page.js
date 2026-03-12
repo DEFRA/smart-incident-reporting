@@ -3,7 +3,7 @@ import { definePage, radioOption, textInput, errorText } from '../utils.js'
 export const page = definePage({
   key: 'IllegalFishingWaterFeature',
   slug: 'illegal-fishing/water-feature',
-  title: 'In what kind of water have you seen illegal fishing?',
+  title: 'In what kind of water have you seen illegal fishing?'
 })
 
 export const river = radioOption('A river')

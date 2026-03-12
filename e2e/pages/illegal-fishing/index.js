@@ -43,5 +43,5 @@ export const pages = {
   earlierToday,
   yesterday,
   timeBeforeYesterday,
-  contactOwnerOrPolice,
+  contactOwnerOrPolice
 }

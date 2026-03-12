@@ -3,7 +3,7 @@ import { definePage, radioOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'LocationOption',
   slug: 'water-pollution/location-option',
-  title: "How do you want to tell us where you've seen water pollution?",
+  title: "How do you want to tell us where you've seen water pollution?"
 })
 
 // Radio options

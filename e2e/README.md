@@ -192,14 +192,6 @@ For more detailed information on the framework design and architecture, please r
 
 ## Code Quality
 
-### Linting
-
-The project uses ESLint with the neostandard config:
-
-```bash
-npm run lint
-```
-
 ### Git Hooks
 
 Husky is configured for pre-commit hooks to ensure code quality.
@@ -221,7 +213,6 @@ The test suite is designed for CI/CD pipeline integration:
   "test-headless": "Run tests in headless mode",
   "test:chrome": "Run tests in Chrome",
   "test:firefox": "Run tests in Firefox",
-  "lint": "Run ESLint on codebase",
   "authentication": "Run authentication script"
 }
 ```

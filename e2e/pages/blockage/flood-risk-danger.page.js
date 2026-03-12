@@ -3,7 +3,7 @@ import { definePage, checkboxOption, textInput, errorText } from '../utils.js'
 export const page = definePage({
   key: 'BlockageFloodRiskDanger',
   slug: 'blockage/flood-risk-danger',
-  title: 'What is at risk from flooding?',
+  title: 'What is at risk from flooding?'
 })
 
 export const yourHome = checkboxOption('Your home or parts of it, including your garage if attached')

@@ -3,7 +3,7 @@ import { definePage, radioOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'SmellStartDateTime',
   slug: 'smell/start-date-time',
-  title: 'What date did the smell start, on this occasion?',
+  title: 'What date did the smell start, on this occasion?'
 })
 
 export const now = radioOption('Now')

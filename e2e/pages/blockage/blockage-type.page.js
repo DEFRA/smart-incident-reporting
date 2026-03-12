@@ -3,7 +3,7 @@ import { definePage, radioOption, textInput, errorText } from '../utils.js'
 export const page = definePage({
   key: 'BlockageType',
   slug: 'blockage/blockage-type',
-  title: "What's blocking the river?",
+  title: "What's blocking the river?"
 })
 
 export const fallenTree = radioOption('A fallen tree or other vegetation')

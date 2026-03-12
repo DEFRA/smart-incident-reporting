@@ -3,7 +3,7 @@ import { definePage, checkboxOption, textInput, errorText } from '../utils.js'
 export const page = definePage({
   key: 'PollutionSubstance',
   slug: 'water-pollution/pollution-substance',
-  title: 'What do you think the pollution is?',
+  title: 'What do you think the pollution is?'
 })
 
 export const sewage = checkboxOption('Sewage')

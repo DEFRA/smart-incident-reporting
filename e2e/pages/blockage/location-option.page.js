@@ -3,7 +3,7 @@ import { definePage, radioOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'BlockageLocationOption',
   slug: 'blockage/location-option',
-  title: 'How do you want to tell us where the blockage is?',
+  title: 'How do you want to tell us where the blockage is?'
 })
 
 export const useCurrentLocation = radioOption('Use your current location')

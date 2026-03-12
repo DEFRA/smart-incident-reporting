@@ -3,7 +3,7 @@ import { definePage, textInput } from '../utils.js'
 export const page = definePage({
   key: 'SmellLocationAddress',
   slug: 'smell/location-address',
-  title: 'Enter your address',
+  title: 'Enter your address'
 })
 
 export const addressLine1 = textInput('Address line 1')

@@ -4,5 +4,5 @@ import { definePage } from '../utils.js'
 export const page = definePage({
   key: 'IllegalFishingStart',
   slug: 'illegal-fishing',
-  title: 'In what kind of water have you seen illegal fishing?',
+  title: 'In what kind of water have you seen illegal fishing?'
 })

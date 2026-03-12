@@ -3,7 +3,7 @@ import { definePage, textInput } from '../utils.js'
 export const page = definePage({
   key: 'IllegalFishingContactDetails',
   slug: 'illegal-fishing/contact-details',
-  title: 'Your contact details',
+  title: 'Your contact details'
 })
 
 export const fullName = textInput('Your name (optional)')

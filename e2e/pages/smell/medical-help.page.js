@@ -3,7 +3,7 @@ import { definePage, radioOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'SmellMedicalHelp',
   slug: 'smell/medical-help',
-  title: 'Have you had to get any medical help because of the smell?',
+  title: 'Have you had to get any medical help because of the smell?'
 })
 
 export const yes = radioOption('Yes')

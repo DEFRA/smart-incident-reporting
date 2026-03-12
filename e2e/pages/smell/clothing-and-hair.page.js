@@ -3,7 +3,7 @@ import { definePage, radioOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'SmellClothingAndHair',
   slug: 'smell/clothing-and-hair',
-  title: 'Does the smell stick to your clothing or hair?',
+  title: 'Does the smell stick to your clothing or hair?'
 })
 
 export const yes = radioOption('Yes')

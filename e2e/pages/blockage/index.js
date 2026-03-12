@@ -35,5 +35,5 @@ export const pages = {
   imagesOrVideo,
   contactDetails,
   otherInformation,
-  reportDirectly,
+  reportDirectly
 }

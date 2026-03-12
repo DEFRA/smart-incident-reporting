@@ -83,13 +83,20 @@
   "standard": {
     "globals": [
       "describe",
+      "context",
+      "before",
       "beforeEach",
+      "after",
       "expect",
       "it",
       "afterEach",
       "jest",
       "beforeAll",
-      "afterAll"
+      "afterAll",
+      "browser",
+      "$",
+      "$$",
+      "baseUrl"
     ],
     "ignore": [
       "**/public/js/"
@@ -119,7 +126,8 @@
     },
     "coveragePathIgnorePatterns": [
       "__test-helpers__",
-      "/old-smell/"
+      "/old-smell/",
+      "/e2e/"
     ],
     "setupFiles": [
       "./.jest/test.env.js"
@@ -129,7 +137,8 @@
     ],
     "testPathIgnorePatterns": [
       "__test-helpers__",
-      "/old-smell/"
+      "/old-smell/",
+      "/e2e/"
     ]
   }
 }

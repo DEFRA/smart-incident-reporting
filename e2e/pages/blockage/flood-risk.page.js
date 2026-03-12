@@ -3,7 +3,7 @@ import { definePage, radioOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'BlockageFloodRisk',
   slug: 'blockage/flood-risk',
-  title: 'Will the blockage cause a flood if it is not removed?',
+  title: 'Will the blockage cause a flood if it is not removed?'
 })
 
 export const alreadyFlooding = radioOption("There's already flooding")

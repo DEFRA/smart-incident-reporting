@@ -3,7 +3,7 @@ import { definePage, radioOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'PollutionLength',
   slug: 'water-pollution/pollution-length',
-  title: 'How far along the water feature does the pollution spread?',
+  title: 'How far along the water feature does the pollution spread?'
 })
 
 export const stretches10to100m = radioOption('10 to 100 metres (less than 2 minutes average walk)')

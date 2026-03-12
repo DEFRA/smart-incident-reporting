@@ -3,7 +3,7 @@ import { definePage, radioOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'BlockageExtent',
   slug: 'blockage/extent',
-  title: 'How much of the river is blocked?',
+  title: 'How much of the river is blocked?'
 })
 
 export const fullWidth = radioOption('The full width (from bank to bank)')

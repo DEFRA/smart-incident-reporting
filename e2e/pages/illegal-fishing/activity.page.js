@@ -3,7 +3,7 @@ import { definePage, checkboxOption, textInput, errorText } from '../utils.js'
 export const page = definePage({
   key: 'IllegalFishingActivity',
   slug: 'illegal-fishing/activity',
-  title: 'What illegal fishing activity do you want to report?',
+  title: 'What illegal fishing activity do you want to report?'
 })
 
 export const withoutPermission = checkboxOption('Fishing without permission of the owner or club')

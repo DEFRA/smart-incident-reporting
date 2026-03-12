@@ -94,7 +94,7 @@ export const config = {
   framework: 'mocha',
   mochaOpts: {
     ui: 'bdd',
-    timeout: 60000,
+    timeout: 60000
   },
   before: async function () {
     await browser.maximizeWindow()

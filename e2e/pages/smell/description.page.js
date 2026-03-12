@@ -3,7 +3,7 @@ import { definePage, checkboxOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'SmellDescription',
   slug: 'smell/description',
-  title: 'How would you describe the smell?',
+  title: 'How would you describe the smell?'
 })
 
 export const sewage = checkboxOption('Sewage')

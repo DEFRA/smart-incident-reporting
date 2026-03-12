@@ -13,5 +13,5 @@ export const pages = {
   common,
   accessibility,
   privacyNotice,
-  footer,
+  footer
 }

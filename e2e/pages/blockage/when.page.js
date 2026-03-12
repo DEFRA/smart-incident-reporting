@@ -3,7 +3,7 @@ import { definePage, radioOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'BlockageWhen',
   slug: 'blockage/when',
-  title: 'When did you notice this?',
+  title: 'When did you notice this?'
 })
 
 export const now = radioOption('Now')

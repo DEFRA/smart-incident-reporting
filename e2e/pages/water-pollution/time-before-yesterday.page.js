@@ -3,7 +3,7 @@ import { definePage, textInput, errorText } from '../utils.js'
 export const page = definePage({
   key: 'WaterPollutionTimeBeforeYesterday',
   slug: 'water-pollution/time-before-yesterday',
-  title: 'What time on [date] did you see the pollution?',
+  title: 'What time on [date] did you see the pollution?'
 })
 
 export const time = textInput('Time')

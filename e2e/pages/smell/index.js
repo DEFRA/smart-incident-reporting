@@ -43,5 +43,5 @@ export const pages = {
   startDateTime,
   earlierToday,
   yesterday,
-  timeBeforeYesterday,
+  timeBeforeYesterday
 }

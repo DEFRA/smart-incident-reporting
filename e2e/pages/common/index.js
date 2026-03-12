@@ -7,5 +7,5 @@ export const pages = {
   accessibility,
   privacyNotice,
   footer,
-  reportSent,
+  reportSent
 }

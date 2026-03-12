@@ -3,7 +3,7 @@ import { definePage, radioOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'SmellSource',
   slug: 'smell/source',
-  title: 'Where is the smell coming from?',
+  title: 'Where is the smell coming from?'
 })
 
 export const wasteSite = radioOption('A waste site, for example a landfill or recycling centre')

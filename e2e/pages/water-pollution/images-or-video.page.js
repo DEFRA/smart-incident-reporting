@@ -3,7 +3,7 @@ import { definePage, radioOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'ImagesOrVideo',
   slug: 'water-pollution/images-or-video',
-  title: 'Do you want to send us any images or videos of the pollution?',
+  title: 'Do you want to send us any images or videos of the pollution?'
 })
 
 export const yes = radioOption('Yes')

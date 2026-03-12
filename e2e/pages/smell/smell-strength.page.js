@@ -3,7 +3,7 @@ import { definePage, radioOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'SmellStrength',
   slug: 'smell/smell-strength',
-  title: 'How strong is the smell?',
+  title: 'How strong is the smell?'
 })
 
 export const veryWeak = radioOption('Very weak')

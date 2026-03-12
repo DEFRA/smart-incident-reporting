@@ -3,7 +3,7 @@ import { definePage, radioOption, errorText } from '../utils.js'
 export const page = definePage({
   key: 'IllegalFishingNumberOfFish',
   slug: 'illegal-fishing/number-of-fish',
-  title: 'How many fish?',
+  title: 'How many fish?'
 })
 
 export const fiveOrMore = radioOption('5 or more')

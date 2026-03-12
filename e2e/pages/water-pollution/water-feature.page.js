@@ -3,7 +3,7 @@ import { definePage, radioOption, textInput, errorText } from '../utils.js'
 export const page = definePage({
   key: 'WaterFeature',
   slug: 'water-pollution/water-feature',
-  title: 'In what kind of water is the pollution?',
+  title: 'In what kind of water is the pollution?'
 })
 
 // Radio options

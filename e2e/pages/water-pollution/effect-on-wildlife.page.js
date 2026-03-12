@@ -3,7 +3,7 @@ import { definePage, radioOption, textInput, errorText } from '../utils.js'
 export const page = definePage({
   key: 'EffectOnWildlife',
   slug: 'water-pollution/effect-on-wildlife',
-  title: 'Have you seen any dead or distressed fish or animals nearby?',
+  title: 'Have you seen any dead or distressed fish or animals nearby?'
 })
 
 export const yes = radioOption('Yes')
