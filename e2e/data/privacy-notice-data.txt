@@ -1,0 +1,51 @@
+Privacy notice: Report an environmental problem service
+The Environment Agency is the data controller for the report an environmental problem service on GOV.UK.
+A data controller determines how and why personal data (personal information) is processed.
+Our personal information charter explains:
+what we do with your personal information (personal data) in general
+your rights
+how to complain to the Information Commissioner's Office
+Why we collect personal data
+We collect and process personal data as necessary to exercise our official authority set out in law under:
+the Environment Act 1990
+Environmental Permitting (England and Wales) Regulations 2016
+the Environment Act 1995
+The lawful basis we rely on to process your personal data is article 6(1)(e) of the UK General Data Protection Regulation (GDPR).
+What personal data we collect
+We collect the following personal data from you directly:
+your name
+your phone number
+your email address, if you include it
+your home address, if you include it
+details of health issues and treatment connected to the problem you're reporting, if you include them
+any other details you include about yourself
+We may also ask for and collect personal data about other people if they potentially involved in illegal activity. This data could include:
+a description of the person
+details of their vehicle, including registration number
+any other details you choose to give
+We collect some personal data by placing small files called cookies onto your computer to collect information about how you use our service.
+The personal data collected are:
+your Internet Protocol (IP) address
+details of which version of which web browser you use
+Friendly Captcha
+When you use our postcode look-up to find your address, we use Friendly Captcha to check that you’re not a robot. For more information about the information Friendly Captcha collects, view the Friendly Captcha privacy policy.
+What we do with your personal data
+We use your personal data to:
+help process your report, for example to find the location of a problem you tell us about
+respond to you about your report if necessary
+improve the service by monitoring how it's used and analysing feedback
+We may share your personal data with emergency services and environmental response teams outside the Environment Agency if it is essential to deal with the problem you report.
+We will not share your personal data with anyone else without your consent, unless we must do so by law.
+We do not use your data to make any automated decisions or for automated profiling.
+You can remove consent for us to use your personal data at any time by contacting:
+Email: enquiries@environment-agency.gov.uk
+Telephone: 03708 506 506
+Where your personal information is stored and processed
+We store and process your personal data on secure servers in the United Kingdom (UK).
+Your data will not be transferred outside the UK.
+How long we keep your personal data
+We keep your personal data indefinitely.
+Changes to this notice
+We may change this privacy notice. In that case, the 'last updated' date at the bottom of this page will also change. Any changes to this privacy notice will immediately apply to you and your data.
+If these changes affect how your personal data is processed, we'll take reasonable steps to let you know.
+This notice was last updated on 13 May 2025.

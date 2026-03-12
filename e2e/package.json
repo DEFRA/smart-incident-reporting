@@ -1,0 +1,43 @@
+{
+  "name": "smart-incident-reporting-tests",
+  "version": "1.0.0",
+  "description": "Ui auto test repo",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "lint": "npx eslint .",
+    "test-headless": "npx wdio run wdio.ci.conf.js",
+    "test": "npx wdio run wdio.conf.js",
+    "test:chrome": "BROWSER=chrome npm run test",
+    "test:firefox": "BROWSER=firefox npm run test",
+    "authentication": "node authentication.js",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DEFRA/smart-incident-reporting-tests.git"
+  },
+  "author": "C Capper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DEFRA/smart-incident-reporting-tests/issues"
+  },
+  "homepage": "https://github.com/DEFRA/smart-incident-reporting-tests#readme",
+  "devDependencies": {
+    "@wdio/cli": "^9.23.2",
+    "@wdio/junit-reporter": "^9.23.2",
+    "@wdio/local-runner": "^9.23.2",
+    "@wdio/mocha-framework": "^9.23.2",
+    "@wdio/reporter": "^9.23.2",
+    "@wdio/spec-reporter": "^9.23.2",
+    "csv-parser": "^3.0.0",
+    "dayjs": "^1.11.19",
+    "eslint": "^9.39.2",
+    "husky": "^9.1.7",
+    "neostandard": "^0.12.2",
+    "node-fetch": "^3.3.2",
+    "wdio-html-nice-reporter": "^8.1.7",
+    "wdio-video-reporter": "^6.2.0",
+    "webdriverio": "^9.23.2"
+  }
+}

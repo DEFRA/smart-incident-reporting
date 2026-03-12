@@ -1,0 +1,66 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      browser:
+        description: "Browser to run (chrome or firefox)"
+        required: false
+        default: "chrome"
+      baseUrl:
+        description: "Override BASE_URL (optional)"
+        required: false
+
+jobs:
+  wdio:
+    name: Run WDIO E2E tests and publish report
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies (UI tests)
+        run: npm ci
+
+      # Optional: override base URL via repository/environment variable
+      - name: Run WDIO test
+        env:
+          BROWSER: chrome
+          BASE_URL: ${{ inputs.baseUrl || vars.BASE_URL }}
+        run: npx wdio run wdio.conf.js
+
+      # Upload WDIO HTML report artifacts even if tests fail
+      - name: Upload HTML reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wdio-html-reports
+          path: |
+            reports/html-reports/**
+          if-no-files-found: warn
+
+      - name: Publish JUnit test results to UI
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: reports/junit/*.xml
+
+      - name: Add report info to job summary
+        if: always()
+        shell: bash
+        run: |
+          echo "### WDIO HTML Reports" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Artifact: wdio-html-reports" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Download from the 'Artifacts' section of this run." >> "$GITHUB_STEP_SUMMARY"
