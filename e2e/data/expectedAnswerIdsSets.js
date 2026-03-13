@@ -1,5 +1,3 @@
-
-
 const ANSWER_ID = {
   RIVER: Number('501'),
   LAKE_OR_RESERVOIR: Number('502'),
