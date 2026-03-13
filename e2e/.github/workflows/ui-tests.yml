@@ -38,7 +38,7 @@ jobs:
           java-version: '21'
 
       - name: Install dependencies (UI tests)
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       # Optional: override base URL via repository/environment variable
       - name: Run WDIO test
@@ -59,7 +59,7 @@ jobs:
 
       - name: Publish JUnit test results to UI
         if: always()
-        uses: EnricoMi/publish-unit-test-result-action@v2
+        uses: EnricoMi/publish-unit-test-result-action@c950f6fb443cb5af20a377fd0dfaa78838901040 # v2
         with:
           files: _results_/junit/*.xml
 
