@@ -35,9 +35,7 @@ describe(url, () => {
         }
       ]
 
-      const response = await submitPostRequest({ url }, constants.statusCodes.REDIRECT, {
-        thumbnails
-      })
+      await submitPostRequest({ url }, constants.statusCodes.REDIRECT, { thumbnails })
 
       expect(imageChecker.validate).toHaveBeenCalledWith(thumbnails)
     })
@@ -56,7 +54,7 @@ describe(url, () => {
     })
 
     it('should call image checker with empty list when no thumbnails exist in session', async () => {
-      const response = await submitPostRequest({ url }, constants.statusCodes.REDIRECT)
+      await submitPostRequest({ url }, constants.statusCodes.REDIRECT)
 
       expect(imageChecker.validate).toHaveBeenCalledWith([])
     })
