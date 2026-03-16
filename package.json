@@ -35,6 +35,8 @@
     "url": "https://github.com/DEFRA/smart-incident-reporting.git"
   },
   "dependencies": {
+    "@azure-rest/ai-content-safety": "^1.0.1",
+    "@azure/core-auth": "^1.10.1",
     "@azure/identity": "^4.5.0",
     "@azure/service-bus": "^7.9.5",
     "@azure/storage-blob": "^12.31.0",

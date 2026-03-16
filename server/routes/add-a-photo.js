@@ -1,13 +1,11 @@
 import constants from '../utils/constants.js'
-import { BlobServiceClient, StorageSharedKeyCredential } from '@azure/storage-blob'
 import sharp from 'sharp'
 import heicConvert from 'heic-convert'
 import fs from 'node:fs'
 import path from 'node:path'
 import dirname from '../../dirname.cjs'
 import crypto from 'node:crypto'
-
-const containerName = 'sir-media-uploads'
+import { getUploadContainerClient } from '../services/blob-storage.js'
 
 const MAX_IMAGE_RESIZE_DEPTH = 5
 const MAX_SELECTED_FILES = 5
@@ -16,24 +14,6 @@ const QUALITY_LEVELS = [80, 70, 60, 50, 40, 30]
 const RESIZE_WIDTH_RATIO = 0.8
 const PAYLOAD_MAX_BYTES = 10 * 1024 * 1024
 const UPLOAD_MAX_BYTES = 4 * 1024 * 1024 // 4MB
-
-async function initContainerClient () {
-  if (!initContainerClient.cachedClient) {
-    const blobServiceClient = new BlobServiceClient(
-      process.env.AZURE_BLOB_SERVICE_URL,
-      new StorageSharedKeyCredential(
-        process.env.AZURE_STORAGE_ACCOUNT,
-        process.env.AZURE_STORAGE_ACCESS_KEY
-      )
-    )
-
-    const containerClient = blobServiceClient.getContainerClient(containerName)
-    await containerClient.createIfNotExists()
-    initContainerClient.cachedClient = containerClient
-  }
-
-  return initContainerClient.cachedClient
-}
 
 export function streamToBuffer (stream) {
   return new Promise((resolve, reject) => {
@@ -46,7 +26,7 @@ export function streamToBuffer (stream) {
 
 async function createThumbnail (filename) {
   try {
-    const containerClient = await initContainerClient()
+    const containerClient = await getUploadContainerClient()
     const blobClient = containerClient.getBlockBlobClient(filename)
     const imgBuf = await blobClient.downloadToBuffer()
     const thumbnail = await sharp(imgBuf)
@@ -208,7 +188,7 @@ async function handleFileUpload (request, uploadId) {
 
   const originalName = path.parse(file.hapi.filename).name || 'upload'
   const finalFilename = `${uploadId}/${originalName}${maxSizedExtension}`
-  const containerClient = await initContainerClient()
+  const containerClient = await getUploadContainerClient()
 
   await containerClient
     .getBlockBlobClient(finalFilename)

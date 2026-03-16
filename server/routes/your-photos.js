@@ -1,28 +1,8 @@
 import constants from '../utils/constants.js'
-import { BlobServiceClient, StorageSharedKeyCredential } from '@azure/storage-blob'
 import fs from 'node:fs'
 import path from 'node:path'
 import dirname from '../../dirname.cjs'
-
-const containerName = 'sir-media-uploads'
-
-async function initContainerClient () {
-  if (!initContainerClient.cachedClient) {
-    const blobServiceClient = new BlobServiceClient(
-      process.env.AZURE_BLOB_SERVICE_URL,
-      new StorageSharedKeyCredential(
-        process.env.AZURE_STORAGE_ACCOUNT,
-        process.env.AZURE_STORAGE_ACCESS_KEY
-      )
-    )
-
-    const containerClient = blobServiceClient.getContainerClient(containerName)
-    await containerClient.createIfNotExists()
-    initContainerClient.cachedClient = containerClient
-  }
-
-  return initContainerClient.cachedClient
-}
+import { getUploadContainerClient } from '../services/blob-storage.js'
 
 const MAX_PHOTOS = 5
 
@@ -49,7 +29,7 @@ const handlers = {
 
       try {
         // Delete from Azure Blob Storage
-        const containerClient = await initContainerClient()
+        const containerClient = await getUploadContainerClient()
 
         // Delete the original image
         const blobClient = containerClient.getBlockBlobClient(imageToRemove.finalFilename)

@@ -1,11 +1,10 @@
 import { submitGetRequest, submitPostRequest } from '../../__test-helpers__/server.js'
 import constants from '../../utils/constants.js'
-import { BlobServiceClient } from '@azure/storage-blob'
 import fs from 'node:fs'
+import { getUploadContainerClient } from '../../services/blob-storage.js'
 
-jest.mock('@azure/storage-blob', () => ({
-  BlobServiceClient: jest.fn(),
-  StorageSharedKeyCredential: jest.fn()
+jest.mock('../../services/blob-storage.js', () => ({
+  getUploadContainerClient: jest.fn()
 }))
 
 jest.mock('node:fs', () => ({
@@ -34,14 +33,11 @@ describe(url, () => {
   beforeEach(() => {
     mockDeleteIfExists = jest.fn().mockResolvedValue()
 
-    BlobServiceClient.mockImplementation(() => ({
-      getContainerClient: () => ({
-        createIfNotExists: () => Promise.resolve(),
-        getBlockBlobClient: () => ({
-          deleteIfExists: mockDeleteIfExists
-        })
+    getUploadContainerClient.mockResolvedValue({
+      getBlockBlobClient: () => ({
+        deleteIfExists: mockDeleteIfExists
       })
-    }))
+    })
 
     fs.existsSync.mockReturnValue(true)
     fs.unlinkSync.mockImplementation(() => {})

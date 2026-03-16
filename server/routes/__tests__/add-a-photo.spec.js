@@ -1,6 +1,5 @@
 import { submitGetRequest, submitPostRequest } from '../../__test-helpers__/server.js'
 import constants from '../../utils/constants.js'
-import { BlobServiceClient } from '@azure/storage-blob'
 import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -8,10 +7,10 @@ import FormData from 'form-data'
 import sharp from 'sharp'
 import heicConvert from 'heic-convert'
 import * as addPhoto from '../add-a-photo.js'
+import { getUploadContainerClient } from '../../services/blob-storage.js'
 
-jest.mock('@azure/storage-blob', () => ({
-  BlobServiceClient: jest.fn(),
-  StorageSharedKeyCredential: jest.fn()
+jest.mock('../../services/blob-storage.js', () => ({
+  getUploadContainerClient: jest.fn()
 }))
 
 jest.mock('heic-convert', () => jest.fn())
@@ -50,15 +49,12 @@ const header = 'Add a photo'
 
 describe(url, () => {
   beforeEach(() => {
-    BlobServiceClient.mockImplementation(() => ({
-      getContainerClient: () => ({
-        createIfNotExists: () => Promise.resolve(),
-        getBlockBlobClient: () => ({
-          uploadData: () => Promise.resolve(),
-          downloadToBuffer: () => Promise.resolve(mockValidPng)
-        })
+    getUploadContainerClient.mockResolvedValue({
+      getBlockBlobClient: () => ({
+        uploadData: () => Promise.resolve(),
+        downloadToBuffer: () => Promise.resolve(mockValidPng)
       })
-    }))
+    })
   })
 
   afterEach(() => {
