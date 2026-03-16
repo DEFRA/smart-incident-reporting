@@ -21,10 +21,10 @@ const handlers = {
   },
 
   post: async (request, h) => {
-    const imageIndex = parseInt(request.payload.imageIndex, 10)
+    const imageIndex = Number.parseInt(request.payload.imageIndex, 10)
     const thumbnails = request.yar.get('thumbnails') || []
 
-    if (!isNaN(imageIndex) && imageIndex >= 0 && imageIndex < thumbnails.length) {
+    if (!Number.isNaN(imageIndex) && imageIndex >= 0 && imageIndex < thumbnails.length) {
       const imageToRemove = thumbnails[imageIndex]
 
       try {

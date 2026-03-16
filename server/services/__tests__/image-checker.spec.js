@@ -108,6 +108,12 @@ describe('image-checker', () => {
     expect(result).toEqual({ success: true, skipped: true })
   })
 
+  it('returns skipped result when thumbnails argument is omitted', async () => {
+    const result = await imageChecker.validate()
+
+    expect(result).toEqual({ success: true, skipped: true })
+  })
+
   it('does not call post when no thumbnails are supplied', async () => {
     await imageChecker.validate([])
 
@@ -120,6 +126,66 @@ describe('image-checker', () => {
     const result = await imageChecker.validate([{ finalFilename: 'upload-id/photo1.jpg' }])
 
     expect(result).toEqual({ success: true, skipped: true })
+  })
+
+  it.each([
+    {
+      label: 'endpoint is missing',
+      endpoint: '',
+      key: 'test-content-safety-key'
+    },
+    {
+      label: 'key is missing',
+      endpoint: 'https://example.cognitiveservices.azure.com/',
+      key: ''
+    }
+  ])('returns skipped result when content safety config is incomplete: $label', async ({ endpoint, key }) => {
+    process.env.CONTENT_SAFETY_ENDPOINT = endpoint
+    process.env.CONTENT_SAFETY_KEY = key
+
+    const result = await imageChecker.validate([{ finalFilename: 'upload-id/photo1.jpg' }])
+
+    expect(result).toEqual({ success: true, skipped: true })
+  })
+
+  it.each([
+    {
+      label: 'endpoint is missing',
+      endpoint: '',
+      key: 'test-content-safety-key'
+    },
+    {
+      label: 'key is missing',
+      endpoint: 'https://example.cognitiveservices.azure.com/',
+      key: ''
+    }
+  ])('does not create content safety client when config is incomplete: $label', async ({ endpoint, key }) => {
+    process.env.CONTENT_SAFETY_ENDPOINT = endpoint
+    process.env.CONTENT_SAFETY_KEY = key
+
+    await imageChecker.validate([{ finalFilename: 'upload-id/photo1.jpg' }])
+
+    expect(ContentSafetyClient).not.toHaveBeenCalled()
+  })
+
+  it.each([
+    {
+      label: 'endpoint is missing',
+      endpoint: '',
+      key: 'test-content-safety-key'
+    },
+    {
+      label: 'key is missing',
+      endpoint: 'https://example.cognitiveservices.azure.com/',
+      key: ''
+    }
+  ])('does not fetch blob container when config is incomplete: $label', async ({ endpoint, key }) => {
+    process.env.CONTENT_SAFETY_ENDPOINT = endpoint
+    process.env.CONTENT_SAFETY_KEY = key
+
+    await imageChecker.validate([{ finalFilename: 'upload-id/photo1.jpg' }])
+
+    expect(blobStorage.getUploadContainerClient).not.toHaveBeenCalled()
   })
 
   it('does not call post when blob container client is unavailable', async () => {
