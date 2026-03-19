@@ -2,13 +2,18 @@ import constants from '../utils/constants.js'
 import imageChecker from '../services/image-checker.js'
 
 const handlers = {
-  get: (_request, h) => {
-    return h.view(constants.views.SEND_PHOTOS)
+  get: (request, h) => {
+    const thumbnails = request.yar.get('thumbnails') || []
+    return h.view(constants.views.SEND_PHOTOS, {
+      photos: thumbnails.length
+    })
   },
   post: async (request, h) => {
     const thumbnails = request.yar.get('thumbnails') || []
     await imageChecker.validate(thumbnails)
-    return h.redirect(constants.routes.SEND_PHOTOS)
+    return h.redirect(constants.routes.SEND_PHOTOS, {
+      photos: thumbnails.length
+    })
   }
 }
 

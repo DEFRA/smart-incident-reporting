@@ -5,6 +5,12 @@ import imageChecker from '../../services/image-checker.js'
 const url = constants.routes.SEND_PHOTOS
 const header = 'Send photos'
 
+const generateThumbnails = (count) =>
+  Array.from({ length: count }, (_, i) => ({
+    finalFilename: `upload-id/photo${i + 1}.jpg`,
+    thumbLoc: `/public/thumbnails/upload-id-photo${i + 1}-thumbnail.jpg`
+  }))
+
 describe(url, () => {
   beforeEach(() => {
     jest.spyOn(imageChecker, 'validate').mockResolvedValue({ success: true, skipped: true })
@@ -20,48 +26,27 @@ describe(url, () => {
       expect(response.payload).toContain('Send photos')
     })
 
-    it('should render a post button to trigger photo checking', async () => {
+    it('should render a send photos submit button', async () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK)
-      expect(response.payload).toContain('Check photos')
+      expect(response.payload).toContain('Send photos')
+    })
+
+    it.each([0, 1, 2, 3, 4, 5])('should display %i photos from the session', async (count) => {
+      const thumbnails = generateThumbnails(count)
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, { thumbnails })
+      expect(response.payload).toContain(`You have added ${count} out of a maximum of 5.`)
     })
   })
 
   describe('POST', () => {
-    it('should call image checker when thumbnails are present in session', async () => {
-      const thumbnails = [
-        {
-          finalFilename: 'upload-id/photo1.jpg',
-          thumbLoc: '/public/thumbnails/upload-id-photo1-thumbnail.jpg'
-        }
-      ]
-
+    it.each([0, 1, 2, 3, 4, 5])('should call image checker with %i thumbnails from the session', async (count) => {
+      const thumbnails = generateThumbnails(count)
       await submitPostRequest({ url }, constants.statusCodes.REDIRECT, { thumbnails })
-
       expect(imageChecker.validate).toHaveBeenCalledWith(thumbnails)
-    })
-
-    it('should redirect to send-photos when thumbnails are present in session', async () => {
-      const response = await submitPostRequest({ url }, constants.statusCodes.REDIRECT, {
-        thumbnails: [
-          {
-            finalFilename: 'upload-id/photo1.jpg',
-            thumbLoc: '/public/thumbnails/upload-id-photo1-thumbnail.jpg'
-          }
-        ]
-      })
-
-      expect(response.headers.location).toBe(constants.routes.SEND_PHOTOS)
-    })
-
-    it('should call image checker with empty list when no thumbnails exist in session', async () => {
-      await submitPostRequest({ url }, constants.statusCodes.REDIRECT)
-
-      expect(imageChecker.validate).toHaveBeenCalledWith([])
     })
 
     it('should redirect to send-photos when no thumbnails exist in session', async () => {
       const response = await submitPostRequest({ url }, constants.statusCodes.REDIRECT)
-
       expect(response.headers.location).toBe(constants.routes.SEND_PHOTOS)
     })
   })
