@@ -45,9 +45,9 @@ describe(url, () => {
       expect(imageChecker.validate).toHaveBeenCalledWith(thumbnails)
     })
 
-    it('should redirect to send-photos when no thumbnails exist in session', async () => {
+    it('should redirect to success when no thumbnails exist in session', async () => {
       const response = await submitPostRequest({ url }, constants.statusCodes.REDIRECT)
-      expect(response.headers.location).toBe(constants.routes.SEND_PHOTOS)
+      expect(response.headers.location).toBe(constants.routes.SUCCESS)
     })
   })
 })

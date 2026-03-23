@@ -11,9 +11,7 @@ const handlers = {
   post: async (request, h) => {
     const thumbnails = request.yar.get('thumbnails') || []
     await imageChecker.validate(thumbnails)
-    return h.redirect(constants.routes.SEND_PHOTOS, {
-      photos: thumbnails.length
-    })
+    return h.redirect(constants.routes.SUCCESS)
   }
 }
 
