@@ -7,7 +7,7 @@ export default {
     logPayload: true,
     level: config.logLevel,
     redact: {
-      paths: ['req.headers.authorization', 'req.headers.cookie', 'res.headers'],
+      paths: ['req.headers.authorization', 'req.headers.cookie', 'res.headers', 'payload.fileUpload1'],
       remove: true
     },
     ignorePaths: [
