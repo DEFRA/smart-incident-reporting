@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% set pageTitle = 'This link has been used' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-two-thirds">
+		{{ govukPanel({
+			titleText: "This link has been used",
+			html: "We have received your photos"
+		}) }}
+
+		<p>You have already uploaded photos to support your report of {{ journey }}</p>
+
+		<p>You cannot add any more photos.</p>
+
+		<h2 class="govuk-heading-m">
+			What happens next
+		</h2>
+		<p>The Environment Agency will use your photos to help investigate the problem.</p>
+
+		<p>We will only contact you if we need more information - you do not need to call us.</p>
+
+		{{ govukInsetText({
+			text: "The Environment Agency incident hotline cannot give updates on your report."
+		}) }}
+
+		<p><a href="/feedback">Give feedback</a> on the service to help improve it.</p>
+	</div>
+</div>
+
+{% endblock %}

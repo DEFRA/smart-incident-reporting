@@ -40,6 +40,7 @@ const ADD_A_PHOTO = 'add-a-photo'
 const YOUR_PHOTOS = 'your-photos'
 const SEND_PHOTOS = 'send-photos'
 const SUCCESS = 'success'
+const LINK_USED = 'link-used'
 const TERMS_FOR_UPLOADING_PHOTOS = 'terms-for-uploading-photos'
 
 const WATER_POLLUTION_START = 'water-pollution-start'
@@ -189,6 +190,7 @@ const views = {
   YOUR_PHOTOS,
   SEND_PHOTOS,
   SUCCESS,
+  LINK_USED,
   TERMS_FOR_UPLOADING_PHOTOS,
   WATER_POLLUTION,
   WATER_POLLUTION_WATER_FEATURE,
