@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+{% from "dist/govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "dist/govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% set pageTitle = 'Add a photo' %}
+{% if errorMessage %}
+  {% set errorSummary = {
+    titleText: 'There is a problem',
+    errorList: [
+      {
+        text: errorMessage,
+        href: '#file-upload-1'
+      }
+    ]
+  } %}
+{% endif %}
+
+{% block content %}
+
+{% if errorSummary %}
+  {{ govukErrorSummary(errorSummary) }}
+{% endif %}
+
+<form method="post" enctype="multipart/form-data" novalidate="novalidate" action="">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+      {% if maxSelectedFiles %}
+        <p>You have added the maximum number of photos allowed</p>
+        <p><a href="/your-photos">See your photos</a></p>
+      {% else %}
+        <p>Add your photos one at a time.</p>
+        <p>The photos must meet our <a href="/terms-for-uploading-photos" target="_blank" rel="noopener">terms for uploading photos</a></p>
+          {% if errorMessage %}
+            {{ govukFileUpload({
+              id: "file-upload-1",
+              name: "fileUpload1",
+              label: {
+                text: "Upload a photo"
+              },
+              errorMessage: { text: errorMessage },
+              javascript: true
+            }) }}
+          {% else %}
+            {{ govukFileUpload({
+              id: "file-upload-1",
+              name: "fileUpload1",
+              label: {
+                text: "Upload a photo"
+              },
+              javascript: true
+            }) }}
+          {% endif %}
+
+        {{ govukButton({
+            text: "Save and continue"
+        }) }}
+      {% endif %}
+    </div>
+  </div>
+</form>
+
+{% endblock %}
+

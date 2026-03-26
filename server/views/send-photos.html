@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% from "dist/govuk/components/button/macro.njk" import govukButton %}
+{% from "dist/govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% set pageTitle = 'Send photos' %}
+
+{% block content %}
+<form method="post" action="">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+            <p class="govuk-body">You have added {{ photos }} out of a maximum of 5.</p>
+            <p class="govuk-body">If you've included all the photos you want to, you can send your photos now.</p>
+
+            {{ govukInsetText({
+                text: "You will not be able to add any photos after this point, and the link in your email will no longer work."
+            }) }}
+
+            <p><a href="/your-photos">Add or remove photos</a></p>
+
+            {{ govukButton({
+                text: "Send photos"
+            }) }}
+    </div>
+    </div>
+</form>
+
+{% endblock %}
