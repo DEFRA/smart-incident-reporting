@@ -1439,7 +1439,7 @@ const questionSets = {
       },
       REPORTED_PHOTOS_OR_VIDEOS: {
         questionId: 3900,
-        text: 'Has photos or videos of problem',
+        text: 'Photos or videos available',
         answers: {
           yes: {
             answerId: 3901,
@@ -1448,6 +1448,14 @@ const questionSets = {
           no: {
             answerId: 3902,
             text: 'NO'
+          },
+          photos: {
+            answerId: 3903,
+            text: 'Photos'
+          },
+          video: {
+            answerId: 3904,
+            text: 'Video'
           }
         }
       },
