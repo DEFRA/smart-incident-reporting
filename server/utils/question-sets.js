@@ -1439,7 +1439,7 @@ const questionSets = {
       },
       REPORTED_PHOTOS_OR_VIDEOS: {
         questionId: 3900,
-        text: 'Photos or videos - available',
+        text: 'Photos or videos available',
         answers: {
           yes: {
             answerId: 3901,
