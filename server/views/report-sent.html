@@ -11,6 +11,20 @@
       titleText: "Report sent",
       html: "We have received your report"
     }) }}
+    {% if(photoUploadDetails.userAgreedForImages and photoUploadDetails.reportersEmail !== '') %}   
+      <p>We have sent a confirmation of your report and a reference number to <strong>{{ photoUploadDetails.reportersEmail }}</strong></p>    
+    {% endif %}      
+
+    {% if(photoUploadDetails.userAgreedForImages) %}
+      <h2 class="govuk-heading-m">
+        Upload images
+      </h2>
+      <p>You can now <a href="{{ photoUploadDetails.photoUploadLink }}">upload any photos</a> you have that might help us investigate the problem.</p>
+    {% endif %}     
+    {% if(photoUploadDetails.userAgreedForImages and photoUploadDetails.reportersEmail !== '') %}             
+      <p>We've also included this link  in your confirmation email, if you want to do this later.</p>    
+    {% endif %}
+
     <h2 class="govuk-heading-m">
       What happens next
     </h2>
