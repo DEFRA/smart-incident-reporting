@@ -29,8 +29,7 @@ const schema = Joi.object().keys({
   captchaEnabled: Joi.bool().default(false),
   captchaApiKey: Joi.string().allow(''),
   captchaSiteKey: Joi.string().allow(''),
-  captchaBypassKey: Joi.string(),
-  mediaUploadBaseUrl: Joi.string().uri({ scheme: ['http', 'https'] }).allow('').default('')
+  captchaBypassKey: Joi.string()
 })
 
 const captchaEnabled = getBoolean(process.env.CAPTCHA_ENABLED)
@@ -55,8 +54,7 @@ const config = {
   captchaEnabled,
   captchaApiKey: captchaEnabled ? process.env.CAPTCHA_API_KEY : '',
   captchaSiteKey: captchaEnabled ? process.env.CAPTCHA_SITE_KEY : '',
-  captchaBypassKey: process.env.CAPTCHA_BYPASS_KEY,
-  mediaUploadBaseUrl: process.env.MEDIA_UPLOAD_BASE_URL
+  captchaBypassKey: process.env.CAPTCHA_BYPASS_KEY
 }
 
 // Validate config

@@ -150,27 +150,9 @@ const returnError = (errorSummary, validateAndError, text, href, invalidDate) =>
   }
 }
 
-const formattedDate = (inputDate) => {
-  const date = new Date(inputDate)
-  const time = date.toLocaleTimeString('en-GB', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true
-  }).toLowerCase()
-
-  const weekday = date.toLocaleDateString('en-GB', { weekday: 'long' })
-  const day = date.getDate()
-  const month = date.toLocaleDateString('en-GB', { month: 'long' })
-  const year = date.getFullYear()
-  const dateString = `${time} on ${weekday}, ${day} ${month} ${year}`
-
-  return dateString
-}
-
 export {
   dateValidateAndError,
   fieldErrorClasses,
   getDateErrors,
-  validatePayload,
-  formattedDate
+  validatePayload
 }
