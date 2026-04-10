@@ -1,4 +1,5 @@
 import constants from '../utils/constants.js'
+// import config from '../utils/config.js'
 
 const expire = 72 * 60 * 60 * 1000
 
@@ -30,7 +31,9 @@ const handlers = {
     request.yar.reset()
     const context = _getContext()
     return h.view(constants.views.REPORT_SENT, {
-      ...context
+      ...context,
+      mediaUploadLink: 'https://sir-uploader-dev1.azure.defra.cloud/upload-photo'
+      // mediaUploadLink: config.mediaUploadUrl
     })
   }
 }
