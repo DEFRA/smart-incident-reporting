@@ -39,6 +39,7 @@ const handlers = {
     const questionSetID = request.yar.get(constants.redisKeys.QUESTION_SET_ID)
     const submissionTimestamp = request.yar.get(constants.redisKeys.SUBMISSION_TIMESTAMP)
     const journey = journeyMap[questionSetID]
+    const sessionId = request.yar.id
     const journeyConfig = journeyConfigMap[questionSetID]
 
     const contactDetails = journeyConfig
@@ -53,8 +54,10 @@ const handlers = {
       ? imagesOrVideoAnswer?.[0]?.answerId === journeyConfig.imagesQuestion.answers.yes.answerId
       : false
 
-    request.yar.set('journey', journey)
-    request.yar.set('dateTime', submissionTimestamp)
+    await request.server.app.mediaUploadCache.set(sessionId, {
+      journey,
+      dateTime: submissionTimestamp
+    })
 
     request.yar.reset()
     const context = _getContext({
