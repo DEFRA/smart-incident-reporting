@@ -2,7 +2,6 @@ import constants from '../utils/constants.js'
 import { questionSets } from '../utils/question-sets.js'
 // import config from '../utils/config.js'
 
-const expire = 72 * 60 * 60 * 1000
 const mediaUploadLink = 'https://sir-uploader-dev1.azure.defra.cloud/upload-photo'
 
 const journeyMap = {
@@ -40,7 +39,6 @@ const handlers = {
     const questionSetID = request.yar.get(constants.redisKeys.QUESTION_SET_ID)
     const submissionTimestamp = request.yar.get(constants.redisKeys.SUBMISSION_TIMESTAMP)
     const journey = journeyMap[questionSetID]
-    const sessionId = request.yar.id
     const journeyConfig = journeyConfigMap[questionSetID]
 
     const contactDetails = journeyConfig
@@ -55,16 +53,8 @@ const handlers = {
       ? imagesOrVideoAnswer?.[0]?.answerId === journeyConfig.imagesQuestion.answers.yes.answerId
       : false
 
-    const mediaUploadCache = request.server.cache({
-      cache: 'redis_cache',
-      segment: 'media-upload',
-      expiresIn: expire
-    })
-
-    await mediaUploadCache.set(sessionId, {
-      journey,
-      dateTime: submissionTimestamp
-    })
+    request.yar.set('journey', journey)
+    request.yar.set('dateTime', submissionTimestamp)
 
     request.yar.reset()
     const context = _getContext({
