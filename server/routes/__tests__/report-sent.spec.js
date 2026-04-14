@@ -1,13 +1,14 @@
 import { submitGetRequest } from '../../__test-helpers__/server.js'
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
-// import config from '../../utils/config.js'
+import config from '../../utils/config.js'
 import reportSentRoutes from '../report-sent.js'
 
 const url = constants.routes.REPORT_SENT
 const header = 'Report sent'
 const submissionTimestamp = '2026-04-09T09:00:00.000Z'
 const sessionId = 'test-session-id'
+const expectedMediaUploadLink = `${config.mediaUploadUrl}/upload-photo?sirid=${sessionId}`
 
 const journeySessionData = {
   100: {
@@ -127,7 +128,7 @@ describe(url, () => {
 
       expect(view).toHaveBeenCalledWith(constants.views.REPORT_SENT, expect.objectContaining({
         photoUploadDetails: expect.objectContaining({
-          mediaUploadLink: 'https://sir-uploader-dev1.azure.defra.cloud/upload-photo'
+          mediaUploadLink: expectedMediaUploadLink
           // mediaUploadLink: config.mediaUploadUrl
         })
       }))
@@ -143,7 +144,7 @@ describe(url, () => {
 
       expect(view).toHaveBeenCalledWith(constants.views.REPORT_SENT, expect.objectContaining({
         photoUploadDetails: {
-          mediaUploadLink: 'https://sir-uploader-dev1.azure.defra.cloud/upload-photo',
+          mediaUploadLink: expectedMediaUploadLink,
           reportersEmail: email,
           userAgreedForImages: true
         }
@@ -158,7 +159,7 @@ describe(url, () => {
 
       expect(view).toHaveBeenCalledWith(constants.views.REPORT_SENT, expect.objectContaining({
         photoUploadDetails: {
-          mediaUploadLink: 'https://sir-uploader-dev1.azure.defra.cloud/upload-photo',
+          mediaUploadLink: expectedMediaUploadLink,
           reportersEmail: '',
           userAgreedForImages: false
         }

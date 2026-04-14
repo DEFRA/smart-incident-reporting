@@ -1,8 +1,8 @@
 import constants from '../utils/constants.js'
 import { questionSets } from '../utils/question-sets.js'
-// import config from '../utils/config.js'
+import config from '../utils/config.js'
 
-const mediaUploadLink = 'https://sir-uploader-dev1.azure.defra.cloud/upload-photo'
+const mediaUploadBaseUrl = `${config.mediaUploadUrl}/upload-photo`
 
 const journeyMap = {
   100: 'water pollution',
@@ -58,6 +58,8 @@ const handlers = {
       journey,
       dateTime: submissionTimestamp
     })
+
+    const mediaUploadLink = `${mediaUploadBaseUrl}?sirid=${sessionId}`
 
     request.yar.reset()
     const context = _getContext({
