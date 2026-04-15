@@ -3,10 +3,10 @@ import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
 const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO
-const yesAnswerId = question.answers.yes.answerId
-const photosAnswerId = question.answers.photos.answerId
-const videoAnswerId = question.answers.video.answerId
-const noAnswerId = question.answers.no.answerId
+const yesPhotosAnswerId = question.answers.yesPhotos.answerId
+const noPhotosAnswerId = question.answers.noPhotos.answerId
+const yesVideoAnswerId = question.answers.yesVideo.answerId
+const noVideoAnswerId = question.answers.noVideo.answerId
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -47,9 +47,12 @@ const getContext = (request) => {
   }
 }
 
-const validatePayload = (answerId) => {
+const validatePayload = (answerIds) => {
   const errorSummary = getErrorSummary()
-  if (!answerId || answerId.length === 0) {
+  const validAnswerIds = [yesPhotosAnswerId, yesVideoAnswerId, noPhotosAnswerId]
+  const hasValidSelection = answerIds && answerIds.some(answerId => validAnswerIds.includes(answerId))
+
+  if (!hasValidSelection) {
     errorSummary.errorList.push({
       text: 'Select \'yes\' if you want to send us any images or videos',
       href: '#answerId'
@@ -68,27 +71,58 @@ const getAnswerIds = answerId => {
 }
 
 const buildAnswers = answerIds => {
-  // User selected 'No'
-  if (answerIds.includes(noAnswerId)) {
-    return [{
-      ...baseAnswer,
-      answerId: noAnswerId
-    }]
+  const selectedPhotos = answerIds.includes(yesPhotosAnswerId)
+  const selectedVideo = answerIds.includes(yesVideoAnswerId)
+  const selectedNo = answerIds.includes(noPhotosAnswerId)
+
+  if (selectedNo) {
+    return [
+      {
+        ...baseAnswer,
+        answerId: noPhotosAnswerId
+      },
+      {
+        ...baseAnswer,
+        answerId: noVideoAnswerId
+      }
+    ]
   }
 
-  // User selected 'Photos' and/or 'Video' - always include 'Yes' response
-  const selectedYesOptions = [photosAnswerId, videoAnswerId]
-    .filter(id => answerIds.includes(id))
+  if (selectedPhotos && selectedVideo) {
+    return [
+      {
+        ...baseAnswer,
+        answerId: yesPhotosAnswerId
+      },
+      {
+        ...baseAnswer,
+        answerId: yesVideoAnswerId
+      }
+    ]
+  }
+
+  if (selectedPhotos) {
+    return [
+      {
+        ...baseAnswer,
+        answerId: yesPhotosAnswerId
+      },
+      {
+        ...baseAnswer,
+        answerId: noVideoAnswerId
+      }
+    ]
+  }
 
   return [
     {
       ...baseAnswer,
-      answerId: yesAnswerId
+      answerId: noPhotosAnswerId
     },
-    ...selectedYesOptions.map(answerId => ({
+    {
       ...baseAnswer,
-      answerId
-    }))
+      answerId: yesVideoAnswerId
+    }
   ]
 }
 

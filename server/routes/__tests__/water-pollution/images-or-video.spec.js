@@ -4,7 +4,9 @@ import constants from '../../../utils/constants.js'
 
 const url = constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO
 const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO
-const videoAnswerId = (question.answers.video || question.answers.videos).answerId
+const videoAnswerId = question.answers.yesVideo.answerId
+const noVideoAnswerId = question.answers.noVideo.answerId
+const noPhotosAnswerId = question.answers.noPhotos.answerId
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -34,10 +36,10 @@ const sessionDataWithPhotosSelected = {
   },
   'water-pollution/images-or-video': [{
     questionId: baseAnswer.questionId,
-    answerId: question.answers.photos.answerId
+    answerId: question.answers.yesPhotos.answerId
   }, {
     questionId: baseAnswer.questionId,
-    answerId: question.answers.yes.answerId
+    answerId: noVideoAnswerId
   }]
 }
 
@@ -47,7 +49,10 @@ const sessionDataNo = {
   },
   'water-pollution/images-or-video': [{
     questionId: baseAnswer.questionId,
-    answerId: question.answers.no.answerId
+    answerId: noPhotosAnswerId
+  }, {
+    questionId: baseAnswer.questionId,
+    answerId: noVideoAnswerId
   }]
 }
 
@@ -63,21 +68,21 @@ describe(url, () => {
 
     it(`Should return success response and show selected photos option for ${url}`, async () => {
       const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the pollution?', constants.statusCodes.OK, sessionDataWithPhotosSelected)
-      expect(response.payload).toContain(`value="${question.answers.photos.answerId}" checked`)
+      expect(response.payload).toContain(`value="${question.answers.yesPhotos.answerId}" checked`)
     })
 
     it(`Should return success response and show selected no option for ${url}`, async () => {
       const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the pollution?', constants.statusCodes.OK, sessionDataNo)
-      expect(response.payload).toContain(`value="${question.answers.no.answerId}" checked`)
+      expect(response.payload).toContain(`value="${question.answers.noPhotos.answerId}" checked`)
     })
   })
 
   describe('POST', () => {
-    it('Happy: accepts photos and saves photos + yes answer IDs', async () => {
+    it('Happy: accepts photos and saves yesPhotos + noVideo answer IDs', async () => {
       const options = {
         url,
         payload: {
-          answerId: question.answers.photos.answerId.toString()
+          answerId: question.answers.yesPhotos.answerId.toString()
         }
       }
 
@@ -85,14 +90,14 @@ describe(url, () => {
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CONTACT_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
-        answerId: question.answers.yes.answerId
+        answerId: question.answers.yesPhotos.answerId
       }, {
         ...baseAnswer,
-        answerId: question.answers.photos.answerId
+        answerId: noVideoAnswerId
       }])
     })
 
-    it('Happy: accepts video and saves video + yes answer IDs', async () => {
+    it('Happy: accepts video and saves noPhotos + yesVideo answer IDs', async () => {
       const options = {
         url,
         payload: {
@@ -104,18 +109,18 @@ describe(url, () => {
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CONTACT_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
-        answerId: question.answers.yes.answerId
+        answerId: noPhotosAnswerId
       }, {
         ...baseAnswer,
         answerId: videoAnswerId
       }])
     })
 
-    it('Happy: accepts photos and video and saves both + yes answer IDs', async () => {
+    it('Happy: accepts photos and video and saves yesPhotos + yesVideo answer IDs', async () => {
       const options = {
         url,
         payload: {
-          answerId: [question.answers.photos.answerId.toString(), videoAnswerId.toString()]
+          answerId: [question.answers.yesPhotos.answerId.toString(), videoAnswerId.toString()]
         }
       }
 
@@ -123,21 +128,18 @@ describe(url, () => {
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CONTACT_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
-        answerId: question.answers.yes.answerId
-      }, {
-        ...baseAnswer,
-        answerId: question.answers.photos.answerId
+        answerId: question.answers.yesPhotos.answerId
       }, {
         ...baseAnswer,
         answerId: videoAnswerId
       }])
     })
 
-    it('Happy: accepts no and saves only no answer ID', async () => {
+    it('Happy: accepts no and saves noPhotos + noVideo answer IDs', async () => {
       const options = {
         url,
         payload: {
-          answerId: question.answers.no.answerId.toString()
+          answerId: noPhotosAnswerId.toString()
         }
       }
 
@@ -145,7 +147,10 @@ describe(url, () => {
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CONTACT_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
-        answerId: question.answers.no.answerId
+        answerId: noPhotosAnswerId
+      }, {
+        ...baseAnswer,
+        answerId: noVideoAnswerId
       }])
     })
 
@@ -153,7 +158,7 @@ describe(url, () => {
       const options = {
         url,
         payload: {
-          answerId: question.answers.photos.answerId.toString()
+          answerId: question.answers.yesPhotos.answerId.toString()
         }
       }
 
@@ -167,10 +172,10 @@ describe(url, () => {
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
-        answerId: question.answers.yes.answerId
+        answerId: question.answers.yesPhotos.answerId
       }, {
         ...baseAnswer,
-        answerId: question.answers.photos.answerId
+        answerId: noVideoAnswerId
       }])
     })
 

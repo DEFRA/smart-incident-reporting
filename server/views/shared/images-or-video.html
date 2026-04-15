@@ -21,23 +21,23 @@
       },
       items: [
         {
-          value: question.answers.photos.answerId,
-          text: question.answers.photos.text,
-          checked: getAnswer(answers, question.answers.photos.answerId)
+          value: question.answers.yesPhotos.answerId,
+          text: question.answers.yesPhotos.text,
+          checked: getAnswer(answers, question.answers.yesPhotos.answerId)
         },
         {
-          value: (question.answers.video or question.answers.videos).answerId,
-          text: (question.answers.video or question.answers.videos).text,
-          checked: getAnswer(answers, (question.answers.video or question.answers.videos).answerId)
+          value: question.answers.yesVideo.answerId,
+          text: question.answers.yesVideo.text,
+          checked: getAnswer(answers, question.answers.yesVideo.answerId)
         },
         {
           divider: "or"
         },
         {
-          value: question.answers.no.answerId,
+          value: question.answers.noPhotos.answerId,
           text: question.answers.no.text,
           behaviour: "exclusive",
-          checked: getAnswer(answers, question.answers.no.answerId)
+          checked: getAnswer(answers, question.answers.noPhotos.answerId) and getAnswer(answers, question.answers.noVideo.answerId)
         }
       ]
     }) }}

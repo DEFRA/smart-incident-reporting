@@ -219,15 +219,25 @@ const questionSets = {
             text: 'No',
             shortText: 'No'
           },
-          photos: {
+          yesPhotos: {
             answerId: 2803,
             text: 'Yes, you have photos',
-            shortText: 'Yes'
+            shortText: 'Yes - photos'
           },
-          video: {
+          noPhotos: {
             answerId: 2804,
+            text: 'No, you do not have photos',
+            shortText: 'No - photos'
+          },
+          yesVideo: {
+            answerId: 2805,
             text: 'Yes, you have video',
-            shortText: 'Yes'
+            shortText: 'Yes - video'
+          },
+          noVideo: {
+            answerId: 2806,
+            text: 'No, you do not have video',
+            shortText: 'No - video'
           }
         }
       },
