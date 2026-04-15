@@ -32,6 +32,7 @@
           text: "Your name (optional)"
         }
       }) }}
+      {% set emailLabel = "Email address" + ("" if emailRequired else " (optional)") %}
       {{ govukInput({
         id: "email",
         name: "email",
@@ -41,7 +42,7 @@
         spellcheck: false,
         classes: "govuk-!-width-two-thirds",
         label: {
-          text: "Email address (optional)"
+          text: emailLabel
         },
         hint: {
           text: "We will send your reference number to this email"

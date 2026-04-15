@@ -218,6 +218,16 @@ const questionSets = {
             answerId: 2802,
             text: 'No',
             shortText: 'No'
+          },
+          photos: {
+            answerId: 2803,
+            text: 'Yes, you have photos',
+            shortText: 'Yes'
+          },
+          video: {
+            answerId: 2804,
+            text: 'Yes, you have video',
+            shortText: 'Yes'
           }
         }
       },
