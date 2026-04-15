@@ -77,7 +77,8 @@ describe(url, () => {
         questionResponse: true,
         answerId: 2806
       }])
-      expect(response.payload).toContain('No')
+      expect(response.payload).toContain('No - photos')
+      expect(response.payload).toContain('No - video')
     })
 
     it(`Happy: Should return yes photos and no video for 'Images or videos available question' ${url}`, async () => {
@@ -140,7 +141,7 @@ describe(url, () => {
       expect(response.payload).toContain('Yes - videos')
     })
 
-    it(`Happy: Should return no for 'Images or videos available question' when both no options are selected ${url}`, async () => {
+    it(`Happy: Should return no photos and no video for 'Images or videos available question' when both no options are selected ${url}`, async () => {
       const answerData = {
         'water-pollution/images-or-video': [{
           questionId: 2800,
@@ -156,7 +157,8 @@ describe(url, () => {
       }
       sessionData = { ...sessionData, ...answerData }
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('No')
+      expect(response.payload).toContain('No - photos')
+      expect(response.payload).toContain('No - video')
     })
     it(`Happy: Should return correct answer for 'Type of water' question ${url}`, async () => {
       const answerData = {

@@ -26,8 +26,10 @@ const handlers = {
     // validate payload
     const errorSummary = validatePayload(answerIds)
     if (errorSummary.errorList.length > 0) {
+      request.yar.set(question.key, [])
       return h.view(constants.views.WATER_POLLUTION_IMAGES_OR_VIDEO, {
-        ...getContext(request),
+        question,
+        answers: buildAnswersForError(answerIds),
         errorSummary
       })
     }
@@ -124,6 +126,17 @@ const buildAnswers = answerIds => {
       answerId: yesVideoAnswerId
     }
   ]
+}
+
+const buildAnswersForError = answerIds => {
+  if (!answerIds || answerIds.length === 0) {
+    return []
+  }
+
+  return answerIds.map(answerId => ({
+    ...baseAnswer,
+    answerId
+  }))
 }
 
 export default [

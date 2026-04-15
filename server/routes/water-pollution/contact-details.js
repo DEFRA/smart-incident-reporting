@@ -3,13 +3,14 @@ import { getErrorSummary, validateEmail } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
 const imageQuestion = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO
-const yesAnswerId = imageQuestion.answers.yes.answerId
+const yesPhotosAnswerId = imageQuestion.answers.yesPhotos.answerId
+const yesVideoAnswerId = imageQuestion.answers.yesVideo.answerId
 
 const isEmailRequired = (request) => {
   const imagesOrVideoAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)
   if (!Array.isArray(imagesOrVideoAnswer)) return false
 
-  return imagesOrVideoAnswer.some(answer => answer.answerId === yesAnswerId)
+  return imagesOrVideoAnswer.some(answer => [yesPhotosAnswerId, yesVideoAnswerId].includes(answer.answerId))
 }
 
 const handlers = {

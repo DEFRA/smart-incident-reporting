@@ -95,7 +95,7 @@ const getImagesOrVideoAnswer = (request) => {
   const hasNoVideo = selectedAnswerIds.includes(answerSet.noVideo.answerId)
 
   if (hasNoPhotos && hasNoVideo) {
-    return 'No'
+    return `${answerSet.noPhotos.shortText}<br>${answerSet.noVideo.shortText}`
   }
 
   if (hasYesPhotos && hasYesVideo) {

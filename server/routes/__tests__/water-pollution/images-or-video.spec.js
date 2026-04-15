@@ -189,5 +189,18 @@ describe(url, () => {
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Select &#39;yes&#39; if you want to send us any images or videos')
     })
+
+    it('Sad: no checkbox selected does not re-show previous selected option', async () => {
+      const options = {
+        url,
+        payload: {}
+      }
+
+      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionDataWithPhotosSelected)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).not.toContain(`value="${question.answers.yesPhotos.answerId}" checked`)
+      expect(response.payload).not.toContain(`value="${question.answers.yesVideo.answerId}" checked`)
+      expect(response.payload).not.toContain(`value="${question.answers.noPhotos.answerId}" checked`)
+    })
   })
 })
