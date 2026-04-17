@@ -38,7 +38,7 @@ const handlers = {
     const captchaSuccess = await captchaCheck.validate(captchaResponse, captchaBypassKey)
 
     // validate payload
-    const errorSummary = validatePayload(buildingDetails, postcode, captchaSuccess)
+    const errorSummary = validatePayload(postcode, captchaSuccess)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.SMELL_FIND_ADDRESS, {
         errorSummary,
@@ -74,7 +74,7 @@ const getContext = (request) => {
   }
 }
 
-const validatePayload = (buildingDetails, postcode, captchaSuccess) => {
+const validatePayload = (postcode, captchaSuccess) => {
   const errorSummary = getErrorSummary()
   if (!captchaSuccess) {
     errorSummary.errorList.push({
