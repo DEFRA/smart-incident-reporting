@@ -83,13 +83,6 @@ const validatePayload = (buildingDetails, postcode, captchaSuccess) => {
     })
   }
 
-  if (!buildingDetails) {
-    errorSummary.errorList.push({
-      text: 'Enter a building number or name',
-      href: '#buildingDetails'
-    })
-  }
-
   if (!postcode) {
     errorSummary.errorList.push({
       text: 'Enter a postcode',
