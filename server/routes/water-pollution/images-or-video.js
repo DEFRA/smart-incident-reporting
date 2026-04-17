@@ -37,7 +37,7 @@ const handlers = {
     request.yar.set(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO, buildAnswers(answerIds))
 
     // handle redirects
-    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_CONTACT_DETAILS)
+    return h.redirect(constants.routes.WATER_POLLUTION_CONTACT_DETAILS)
   }
 }
 
