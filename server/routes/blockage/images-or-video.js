@@ -1,8 +1,12 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary, validateEmail } from '../../utils/helpers.js'
+import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
 const question = questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO
+const yesPhotosAnswerId = question.answers.yesPhotos.answerId
+const noPhotosAnswerId = question.answers.noPhotos.answerId
+const yesVideoAnswerId = question.answers.yesVideo.answerId
+const noVideoAnswerId = question.answers.noVideo.answerId
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -12,94 +16,127 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => {
-    const emailRequired = checkAnswer(request)
     return h.view(constants.views.BLOCKAGE_IMAGES_OR_VIDEO, {
-      ...getContext(request),
-      emailRequired
+      ...getContext(request)
     })
   },
   post: async (request, h) => {
-    const emailRequired = checkAnswer(request)
-    let { answerId } = request.payload
-
-    // convert answerId to number
-    answerId = Number(answerId)
+    const answerIds = getAnswerIds(request.payload.answerId)
 
     // validate payload
-    const errorSummary = validatePayload(request, answerId, emailRequired)
+    const errorSummary = validatePayload(answerIds)
     if (errorSummary.errorList.length > 0) {
+      request.yar.set(question.key, [])
       return h.view(constants.views.BLOCKAGE_IMAGES_OR_VIDEO, {
-        ...getContext(request),
-        errorSummary,
-        emailRequired,
-        yesChecked: answerId === question.answers.yes.answerId
+        question,
+        answers: buildAnswersForError(answerIds),
+        errorSummary
       })
     }
 
-    if (emailRequired && (answerId === question.answers.yes.answerId)) {
-      const { reporterName, reporterPhoneNumber } = request.yar.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)
-      request.yar.set(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS, {
-        reporterName,
-        reporterPhoneNumber,
-        reporterEmailAddress: request.payload.email
-      })
-    }
+    request.yar.set(constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO, buildAnswers(answerIds))
 
-    request.yar.set(constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO, buildAnswers(answerId))
-
-    // update handle redirects
-    return h.redirect(constants.routes.BLOCKAGE_OTHER_INFORMATION)
+    // handle redirects
+    return h.redirect(constants.routes.BLOCKAGE_CONTACT_DETAILS)
   }
 }
 
 const getContext = (request) => {
-  const { reporterEmailAddress } = request.yar.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)
   const answers = request.yar.get(question.key)
-
   return {
     question,
-    answers,
-    email: reporterEmailAddress
+    answers
   }
 }
 
-const validatePayload = (request, answerId, emailRequired) => {
+const validatePayload = (answerIds) => {
   const errorSummary = getErrorSummary()
-  if (!answerId) {
+  const validAnswerIds = [yesPhotosAnswerId, yesVideoAnswerId, noPhotosAnswerId]
+  const hasValidSelection = answerIds && answerIds.some(answerId => validAnswerIds.includes(answerId))
+
+  if (!hasValidSelection) {
     errorSummary.errorList.push({
       text: 'Select \'yes\' if you want to send us any images or videos',
       href: '#answerId'
     })
   }
-
-  if ((answerId === question.answers.yes.answerId) && emailRequired) {
-    if (!request.payload.email) {
-      errorSummary.errorList.push({
-        text: 'Enter an email address',
-        href: '#email'
-      })
-    } else if (!validateEmail(request.payload.email)) {
-      errorSummary.errorList.push({
-        text: 'Enter an email address in the correct format, like name@example.com',
-        href: '#email'
-      })
-    } else {
-      // do nothing
-    }
-  }
   return errorSummary
 }
 
-const checkAnswer = request => {
-  const { reporterEmailAddress } = request.yar.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)
-  return reporterEmailAddress.length === 0
+const getAnswerIds = answerId => {
+  if (!answerId) {
+    return []
+  }
+
+  const answerArray = Array.isArray(answerId) ? answerId : [answerId]
+  return answerArray.map(item => Number(item))
 }
 
-const buildAnswers = answerId => {
-  return [{
+const buildAnswers = answerIds => {
+  const selectedPhotos = answerIds.includes(yesPhotosAnswerId)
+  const selectedVideo = answerIds.includes(yesVideoAnswerId)
+  const selectedNo = answerIds.includes(noPhotosAnswerId)
+
+  if (selectedNo) {
+    return [
+      {
+        ...baseAnswer,
+        answerId: noPhotosAnswerId
+      },
+      {
+        ...baseAnswer,
+        answerId: noVideoAnswerId
+      }
+    ]
+  }
+
+  if (selectedPhotos && selectedVideo) {
+    return [
+      {
+        ...baseAnswer,
+        answerId: yesPhotosAnswerId
+      },
+      {
+        ...baseAnswer,
+        answerId: yesVideoAnswerId
+      }
+    ]
+  }
+
+  if (selectedPhotos) {
+    return [
+      {
+        ...baseAnswer,
+        answerId: yesPhotosAnswerId
+      },
+      {
+        ...baseAnswer,
+        answerId: noVideoAnswerId
+      }
+    ]
+  }
+
+  return [
+    {
+      ...baseAnswer,
+      answerId: noPhotosAnswerId
+    },
+    {
+      ...baseAnswer,
+      answerId: yesVideoAnswerId
+    }
+  ]
+}
+
+const buildAnswersForError = answerIds => {
+  if (!answerIds || answerIds.length === 0) {
+    return []
+  }
+
+  return answerIds.map(answerId => ({
     ...baseAnswer,
     answerId
-  }]
+  }))
 }
 
 export default [

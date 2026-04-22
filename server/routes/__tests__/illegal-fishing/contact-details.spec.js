@@ -22,7 +22,7 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Happy: Accepts valid answers and redirects to ILLEGAL_FISHING_ANGLING_TRUST', async () => {
+    it('Happy: Accepts valid answers and redirects to ILLEGAL_FISHING_OTHER_INFORMATION', async () => {
       const options = {
         url,
         payload: {
@@ -32,7 +32,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_ANGLING_TRUST)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_CONTACT_DETAILS)).toEqual({
         reporterName: 'John Smith',
         reporterPhoneNumber: '#+441234567890',

@@ -1136,6 +1136,22 @@ const questionSets = {
           no: {
             answerId: 2802,
             text: 'No'
+          },
+          yesPhotos: {
+            answerId: 2803,
+            text: 'Yes, you have photos'
+          },
+          noPhotos: {
+            answerId: 2804,
+            text: 'No, you do not have photos'
+          },
+          yesVideo: {
+            answerId: 2805,
+            text: 'Yes, you have video'
+          },
+          noVideo: {
+            answerId: 2806,
+            text: 'No, you do not have video'
           }
         }
       },
@@ -1428,13 +1444,27 @@ const questionSets = {
         answers: {
           yes: {
             answerId: 2801,
-            text: 'Yes',
-            shortText: 'Yes'
+            text: 'Yes'
           },
           no: {
             answerId: 2802,
-            text: 'No',
-            shortText: 'No'
+            text: 'No'
+          },
+          yesPhotos: {
+            answerId: 2803,
+            text: 'Yes, you have photos'
+          },
+          noPhotos: {
+            answerId: 2804,
+            text: 'No, you do not have photos'
+          },
+          yesVideo: {
+            answerId: 2805,
+            text: 'Yes, you have video'
+          },
+          noVideo: {
+            answerId: 2806,
+            text: 'No, you do not have video'
           }
         }
       }

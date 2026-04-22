@@ -17,7 +17,7 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Happy accepts 5 or more and redirects to illegal-fishing/contact-details', async () => {
+    it('Happy accepts 5 or more and redirects to illegal-fishing/angling-trust', async () => {
       const answerId = question.answers.fiveOrMore.answerId
       const options = {
         url,
@@ -26,13 +26,13 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_CONTACT_DETAILS)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_ANGLING_TRUST)
       expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_NUMBER_OF_FISH)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    it('Happy accepts Less than 5 and redirects to illegal-fishing/contact-details', async () => {
+    it('Happy accepts Less than 5 and redirects to illegal-fishing/angling-trust', async () => {
       const answerId = question.answers.lessThanFive.answerId
       const options = {
         url,
@@ -41,13 +41,13 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_CONTACT_DETAILS)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_ANGLING_TRUST)
       expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_NUMBER_OF_FISH)).toEqual([{
         ...baseAnswer,
         answerId
       }])
     })
-    it('Happy accepts You do not know and redirects to illegal-fishing/contact-details', async () => {
+    it('Happy accepts You do not know and redirects to illegal-fishing/angling-trust', async () => {
       const answerId = question.answers.youDoNotKnow.answerId
       const options = {
         url,
@@ -56,7 +56,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_CONTACT_DETAILS)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_ANGLING_TRUST)
       expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_NUMBER_OF_FISH)).toEqual([{
         ...baseAnswer,
         answerId
