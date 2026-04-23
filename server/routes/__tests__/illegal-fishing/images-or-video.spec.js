@@ -59,20 +59,20 @@ const sessionDataNo = {
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, 'Do you want to send us any images or videos of the incident?', constants.statusCodes.OK, sessionDataWithEmail)
+      await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataWithEmail)
     })
 
     it(`Should return success response and correct view for ${url} with empty contact email`, async () => {
-      await submitGetRequest({ url }, 'Do you want to send us any images or videos of the incident?', constants.statusCodes.OK, sessionDataWithoutEmail)
+      await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataWithoutEmail)
     })
 
     it(`Should return success response and show selected photos option for ${url}`, async () => {
-      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the incident?', constants.statusCodes.OK, sessionDataWithPhotosSelected)
+      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataWithPhotosSelected)
       expect(response.payload).toContain(`value="${question.answers.yesPhotos.answerId}" checked`)
     })
 
     it(`Should return success response and show selected no option for ${url}`, async () => {
-      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the incident?', constants.statusCodes.OK, sessionDataNo)
+      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataNo)
       expect(response.payload).toContain(`value="${question.answers.noPhotos.answerId}" checked`)
     })
   })

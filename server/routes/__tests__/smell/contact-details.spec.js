@@ -22,7 +22,7 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Happy: Accepts valid answers and redirects to SMELL_IMAGES_OR_VIDEO', async () => {
+    it('Happy: Accepts valid answers and redirects to SMELL_OTHER_INFORMATION', async () => {
       const options = {
         url,
         payload: {
@@ -32,7 +32,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_IMAGES_OR_VIDEO)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_OTHER_INFORMATION)
       expect(response.request.yar.get(constants.redisKeys.SMELL_CONTACT_DETAILS)).toEqual({
         reporterName: 'John Smith',
         reporterPhoneNumber: '#+441234567890',

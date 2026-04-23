@@ -743,6 +743,22 @@ const questionSets = {
           no: {
             answerId: 3502,
             text: 'No'
+          },
+          yesPhotos: {
+            answerId: 3503,
+            text: 'Yes, you have photos'
+          },
+          noPhotos: {
+            answerId: 3504,
+            text: 'No, you do not have photos'
+          },
+          yesVideo: {
+            answerId: 3505,
+            text: 'Yes, you have video'
+          },
+          noVideo: {
+            answerId: 3506,
+            text: 'No, you do not have video'
           }
         }
       },

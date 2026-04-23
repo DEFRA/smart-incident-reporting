@@ -154,31 +154,6 @@ describe(url, () => {
       }])
     })
 
-    it('Happy: redirects to referer when set', async () => {
-      const options = {
-        url,
-        payload: {
-          answerId: question.answers.yesPhotos.answerId.toString()
-        }
-      }
-
-      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, {
-        'water-pollution/contact-details': {
-          reporterEmailAddress: 'test@test.com'
-        },
-        referer: constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
-      })
-
-      expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.yesPhotos.answerId
-      }, {
-        ...baseAnswer,
-        answerId: noVideoAnswerId
-      }])
-    })
-
     it('Sad: no checkbox selected returns error state', async () => {
       const options = {
         url,

@@ -31,15 +31,15 @@ describe(url, () => {
         payload: {
           'date-day': '20',
           'date-month': '4',
-          'date-year': '2025'
+          'date-year': '2026'
         }
       }
-      const dateString = '2025-04-20'
-      const dateWordString = '20 April 2025'
+      const dateString = '2026-04-20'
+      const dateWordString = '20 April 2026'
       const payload = {
         day: '20',
         month: '4',
-        year: '2025'
+        year: '2026'
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_TIME_BEFORE_YESTERDAY)
