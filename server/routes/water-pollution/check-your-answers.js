@@ -86,13 +86,13 @@ const resetImagesOrVideoAnswer = (request) => {
 
 const getImagesOrVideoAnswer = (request) => {
   const recordedAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO) || []
-  const selectedAnswerIds = recordedAnswer.map(item => item.answerId)
+  const selectedAnswerIds = new Set(recordedAnswer.map(item => item.answerId))
   const answerSet = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers
 
-  const hasYesPhotos = selectedAnswerIds.includes(answerSet.yesPhotos.answerId)
-  const hasNoPhotos = selectedAnswerIds.includes(answerSet.noPhotos.answerId)
-  const hasYesVideo = selectedAnswerIds.includes(answerSet.yesVideo.answerId)
-  const hasNoVideo = selectedAnswerIds.includes(answerSet.noVideo.answerId)
+  const hasYesPhotos = selectedAnswerIds.has(answerSet.yesPhotos.answerId)
+  const hasNoPhotos = selectedAnswerIds.has(answerSet.noPhotos.answerId)
+  const hasYesVideo = selectedAnswerIds.has(answerSet.yesVideo.answerId)
+  const hasNoVideo = selectedAnswerIds.has(answerSet.noVideo.answerId)
 
   if (hasNoPhotos && hasNoVideo) {
     return `${answerSet.noPhotos.shortText}<br>${answerSet.noVideo.shortText}`
