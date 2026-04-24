@@ -30,7 +30,8 @@ const schema = Joi.object().keys({
   captchaApiKey: Joi.string().allow(''),
   captchaSiteKey: Joi.string().allow(''),
   captchaBypassKey: Joi.string(),
-  mediaUploadUrl: Joi.string().uri({ scheme: ['http', 'https'] }).allow('').default('')
+  // mediaUploadUrl: Joi.string().uri({ scheme: ['http', 'https'] }).allow('').default('')
+  mediaUploadUrl: Joi.string().uri({ scheme: ['http', 'https'] }).allow('').default('https://sir-uploader-pre1.azure.defra.cloud')
 })
 
 const captchaEnabled = getBoolean(process.env.CAPTCHA_ENABLED)
