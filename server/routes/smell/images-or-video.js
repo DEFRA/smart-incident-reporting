@@ -51,8 +51,8 @@ const getContext = (request) => {
 
 const validatePayload = (answerIds) => {
   const errorSummary = getErrorSummary()
-  const validAnswerIds = [yesPhotosAnswerId, yesVideoAnswerId, noPhotosAnswerId]
-  const hasValidSelection = answerIds && answerIds.some(answerId => validAnswerIds.includes(answerId))
+  const validAnswerIds = new Set([yesPhotosAnswerId, yesVideoAnswerId, noPhotosAnswerId])
+  const hasValidSelection = answerIds?.some(answerId => validAnswerIds.has(answerId))
 
   if (!hasValidSelection) {
     errorSummary.errorList.push({
@@ -69,7 +69,7 @@ const getAnswerIds = answerId => {
   }
 
   const answerArray = Array.isArray(answerId) ? answerId : [answerId]
-  return answerArray.map(item => Number(item))
+  return answerArray.map(Number)
 }
 
 const buildAnswers = answerIds => {
