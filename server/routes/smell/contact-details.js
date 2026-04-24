@@ -8,7 +8,7 @@ const yesVideoAnswerId = imageQuestion.answers.yesVideo.answerId
 
 const isEmailRequired = (request) => {
   const imagesOrVideoAnswer = request.yar.get(constants.redisKeys.SMELL_IMAGES_OR_VIDEO)
-  if (!Array.isArray(imagesOrVideoAnswer)) return false
+  if (!Array.isArray(imagesOrVideoAnswer)) { return false }
 
   return imagesOrVideoAnswer.some(answer => [yesPhotosAnswerId, yesVideoAnswerId].includes(answer.answerId))
 }
