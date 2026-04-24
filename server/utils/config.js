@@ -31,7 +31,7 @@ const schema = Joi.object().keys({
   captchaSiteKey: Joi.string().allow(''),
   captchaBypassKey: Joi.string(),
   // mediaUploadUrl: Joi.string().uri({ scheme: ['http', 'https'] }).allow('').default('')
-  mediaUploadUrl: Joi.string().uri({ scheme: ['http', 'https'] }).allow('').default('https://sir-uploader-tst1.azure.defra.cloud')
+  mediaUploadUrl: Joi.string().uri({ scheme: ['http', 'https'] }).allow('').default('https://tstsirwebaw1406.azurewebsites.net')
 })
 
 const captchaEnabled = getBoolean(process.env.CAPTCHA_ENABLED)
