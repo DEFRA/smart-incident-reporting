@@ -12,6 +12,10 @@ const DESCRIBE_THE_LOCATION = 'Describe the location'
 const MARK_THE_LOCATION = 'Mark the location'
 const RUBBISH_OR_REFUSE = 'Rubbish or refuse'
 const IMAGES_OR_VIDEO_QUESTION = 'Do you want to send us any images or videos of the problem?'
+const YES_YOU_HAVE_PHOTOS = 'Yes, you have photos'
+const NO_YOU_DO_NOT_HAVE_PHOTOS = 'No, you do not have photos'
+const YES_YOU_HAVE_VIDEO = 'Yes, you have video'
+const NO_YOU_DO_NOT_HAVE_VIDEO = 'No, you do not have video'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -221,22 +225,22 @@ const questionSets = {
           },
           yesPhotos: {
             answerId: 2803,
-            text: 'Yes, you have photos',
+            text: YES_YOU_HAVE_PHOTOS,
             shortText: 'Yes - photos'
           },
           noPhotos: {
             answerId: 2804,
-            text: 'No, you do not have photos',
+            text: NO_YOU_DO_NOT_HAVE_PHOTOS,
             shortText: 'No - photos'
           },
           yesVideo: {
             answerId: 2805,
-            text: 'Yes, you have video',
+            text: YES_YOU_HAVE_VIDEO,
             shortText: 'Yes - video'
           },
           noVideo: {
             answerId: 2806,
-            text: 'No, you do not have video',
+            text: NO_YOU_DO_NOT_HAVE_VIDEO,
             shortText: 'No - video'
           }
         }
@@ -746,19 +750,19 @@ const questionSets = {
           },
           yesPhotos: {
             answerId: 3503,
-            text: 'Yes, you have photos'
+            text: YES_YOU_HAVE_PHOTOS
           },
           noPhotos: {
             answerId: 3504,
-            text: 'No, you do not have photos'
+            text: NO_YOU_DO_NOT_HAVE_PHOTOS
           },
           yesVideo: {
             answerId: 3505,
-            text: 'Yes, you have video'
+            text: YES_YOU_HAVE_VIDEO
           },
           noVideo: {
             answerId: 3506,
-            text: 'No, you do not have video'
+            text: NO_YOU_DO_NOT_HAVE_VIDEO
           }
         }
       },
@@ -1155,19 +1159,19 @@ const questionSets = {
           },
           yesPhotos: {
             answerId: 2803,
-            text: 'Yes, you have photos'
+            text: YES_YOU_HAVE_PHOTOS
           },
           noPhotos: {
             answerId: 2804,
-            text: 'No, you do not have photos'
+            text: NO_YOU_DO_NOT_HAVE_PHOTOS
           },
           yesVideo: {
             answerId: 2805,
-            text: 'Yes, you have video'
+            text: YES_YOU_HAVE_VIDEO
           },
           noVideo: {
             answerId: 2806,
-            text: 'No, you do not have video'
+            text: NO_YOU_DO_NOT_HAVE_VIDEO
           }
         }
       },
@@ -1468,19 +1472,19 @@ const questionSets = {
           },
           yesPhotos: {
             answerId: 2803,
-            text: 'Yes, you have photos'
+            text: YES_YOU_HAVE_PHOTOS
           },
           noPhotos: {
             answerId: 2804,
-            text: 'No, you do not have photos'
+            text: NO_YOU_DO_NOT_HAVE_PHOTOS
           },
           yesVideo: {
             answerId: 2805,
-            text: 'Yes, you have video'
+            text: YES_YOU_HAVE_VIDEO
           },
           noVideo: {
             answerId: 2806,
-            text: 'No, you do not have video'
+            text: NO_YOU_DO_NOT_HAVE_VIDEO
           }
         }
       }
