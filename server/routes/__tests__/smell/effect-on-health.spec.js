@@ -78,7 +78,7 @@ describe(url, () => {
         otherDetails: 'Something else details'
       }])
     })
-    it('Happy: accepts valiid answerId none of these and redirects to SMELL_CONTACT_DETAILS', async () => {
+    it('Happy: accepts valid answerId none of these and redirects to SMELL_IMAGES_OR_VIDEO', async () => {
       const answerId = question.answers.noneOfthese.answerId.toString()
       const options = {
         url,
@@ -87,7 +87,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_CONTACT_DETAILS)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_IMAGES_OR_VIDEO)
       expect(response.request.yar.get(constants.redisKeys.SMELL_EFFECT_ON_HEALTH)).toEqual([{
         ...baseAnswer,
         answerId: question.answers.noneOfthese.answerId
