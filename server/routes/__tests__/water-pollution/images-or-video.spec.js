@@ -177,5 +177,21 @@ describe(url, () => {
       expect(response.payload).not.toContain(`value="${question.answers.yesVideo.answerId}" checked`)
       expect(response.payload).not.toContain(`value="${question.answers.noPhotos.answerId}" checked`)
     })
+
+    it('Sad: invalid non-empty answerId returns error and clears selected options', async () => {
+      const options = {
+        url,
+        payload: {
+          answerId: '999999'
+        }
+      }
+
+      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionDataWithPhotosSelected)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain('Select &#39;yes&#39; if you want to send us any images or videos')
+      expect(response.payload).not.toContain(`value="${question.answers.yesPhotos.answerId}" checked`)
+      expect(response.payload).not.toContain(`value="${question.answers.yesVideo.answerId}" checked`)
+      expect(response.payload).not.toContain(`value="${question.answers.noPhotos.answerId}" checked`)
+    })
   })
 })
