@@ -3,6 +3,9 @@ import constants from '../../../utils/constants.js'
 
 const url = constants.routes.BLOCKAGE_DATE_BEFORE_YESTERDAY
 const header = 'What date?'
+const currentYear = new Date().getFullYear()
+const currentYearString = String(currentYear)
+const futureYearString = String(currentYear + 1)
 
 describe(url, () => {
   describe('GET', () => {
@@ -13,7 +16,7 @@ describe(url, () => {
       const payload = {
         day: 20,
         month: 4,
-        year: 2025
+        year: currentYear
       }
       const sessionData = {
         'blockage/date-before-yesterday': { payload }
@@ -21,7 +24,7 @@ describe(url, () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('id="date-day" name="date-day" type="text" value="20" inputmode="numeric">')
       expect(response.payload).toContain('id="date-month" name="date-month" type="text" value="4" inputmode="numeric">')
-      expect(response.payload).toContain('id="date-year" name="date-year" type="text" value="2025" inputmode="numeric">')
+      expect(response.payload).toContain(`id="date-year" name="date-year" type="text" value="${currentYearString}" inputmode="numeric">`)
     })
   })
   describe('POST', () => {
@@ -31,15 +34,15 @@ describe(url, () => {
         payload: {
           'date-day': '20',
           'date-month': '4',
-          'date-year': '2025'
+          'date-year': currentYearString
         }
       }
-      const dateString = '2025-04-20'
-      const dateWordString = '20 April 2025'
+      const dateString = `${currentYearString}-04-20`
+      const dateWordString = `20 April ${currentYearString}`
       const payload = {
         day: '20',
         month: '4',
-        year: '2025'
+        year: currentYearString
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_TIME_BEFORE_YESTERDAY)
@@ -60,7 +63,7 @@ describe(url, () => {
         payload: {
           'date-day': '',
           'date-month': '4',
-          'date-year': '2025'
+          'date-year': currentYearString
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
@@ -73,7 +76,7 @@ describe(url, () => {
         payload: {
           'date-day': '20',
           'date-month': '',
-          'date-year': '2025'
+          'date-year': currentYearString
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
@@ -99,7 +102,7 @@ describe(url, () => {
         payload: {
           'date-day': '35',
           'date-month': '4',
-          'date-year': '2025'
+          'date-year': currentYearString
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
@@ -112,7 +115,7 @@ describe(url, () => {
         payload: {
           'date-day': '20',
           'date-month': '44',
-          'date-year': '2025'
+          'date-year': currentYearString
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
@@ -138,7 +141,7 @@ describe(url, () => {
         payload: {
           'date-day': '31',
           'date-month': '02',
-          'date-year': '2025'
+          'date-year': currentYearString
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
@@ -151,7 +154,7 @@ describe(url, () => {
         payload: {
           'date-day': '20',
           'date-month': '04',
-          'date-year': '2030'
+          'date-year': futureYearString
         }
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
