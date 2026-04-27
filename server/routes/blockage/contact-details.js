@@ -58,7 +58,7 @@ const getContext = request => {
   }
 }
 
-const validatePayload = (phone, email, emailRequired = false) => {
+const validatePayload = (phone, email, emailRequired) => {
   const errorSummary = getErrorSummary()
   if ((phone?.length > 0) && !constants.phoneRegex.test(phone)) {
     errorSummary.errorList.push({
