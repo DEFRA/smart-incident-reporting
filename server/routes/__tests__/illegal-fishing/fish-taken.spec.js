@@ -32,7 +32,7 @@ describe(url, () => {
         answerId
       }])
     })
-    it('Happy accepts no and redirects to illegal-fishing/contact-details', async () => {
+    it('Happy accepts no and redirects to illegal-fishing/angling-trust', async () => {
       const answerId = question.answers.no.answerId
       const options = {
         url,
@@ -41,7 +41,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_CONTACT_DETAILS)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_ANGLING_TRUST)
       expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_FISH_TAKEN)).toEqual([{
         ...baseAnswer,
         answerId
