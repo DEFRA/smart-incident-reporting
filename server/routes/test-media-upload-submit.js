@@ -9,7 +9,6 @@ const handlers = {
   },
   post: async (request, h) => {
     const payload = request.payload
-    console.log('Payload received:', payload)
 
     request.yar.reset()
     request.yar.set(constants.redisKeys.QUESTION_SET_ID, Number(payload.journey))
