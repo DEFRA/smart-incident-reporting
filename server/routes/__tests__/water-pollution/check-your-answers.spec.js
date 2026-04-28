@@ -70,21 +70,95 @@ describe(url, () => {
         questionId: 2800,
         questionAsked: 'Do you want to send us any images or videos of the pollution?',
         questionResponse: true,
-        answerId: 2802
+        answerId: 2804
+      }, {
+        questionId: 2800,
+        questionAsked: 'Do you want to send us any images or videos of the pollution?',
+        questionResponse: true,
+        answerId: 2806
       }])
+      expect(response.payload).toContain('No - photos')
+      expect(response.payload).toContain('No - video')
     })
-    it(`Happy: Should return correct answer for 'Images or videos available question' ${url}`, async () => {
+
+    it(`Happy: Should return yes photos and no video for 'Images or videos available question' ${url}`, async () => {
       const answerData = {
         'water-pollution/images-or-video': [{
           questionId: 2800,
           questionAsked: 'Do you want to send us any images or videos of the pollution?',
           questionResponse: true,
-          answerId: 2801
+          answerId: 2803
+        }, {
+          questionId: 2800,
+          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionResponse: true,
+          answerId: 2806
         }]
       }
       sessionData = { ...sessionData, ...answerData }
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('Yes')
+      expect(response.payload).toContain('Yes - photos')
+      expect(response.payload).toContain('No - video')
+    })
+
+    it(`Happy: Should return no photos and yes videos for 'Images or videos available question' ${url}`, async () => {
+      const answerData = {
+        'water-pollution/images-or-video': [{
+          questionId: 2800,
+          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionResponse: true,
+          answerId: 2804
+        }, {
+          questionId: 2800,
+          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionResponse: true,
+          answerId: 2805
+        }]
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('No - photos')
+      expect(response.payload).toContain('Yes - videos')
+    })
+
+    it(`Happy: Should return yes photos and yes videos for 'Images or videos available question' ${url}`, async () => {
+      const answerData = {
+        'water-pollution/images-or-video': [{
+          questionId: 2800,
+          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionResponse: true,
+          answerId: 2803
+        }, {
+          questionId: 2800,
+          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionResponse: true,
+          answerId: 2805
+        }]
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('Yes - photos')
+      expect(response.payload).toContain('Yes - videos')
+    })
+
+    it(`Happy: Should return no photos and no video for 'Images or videos available question' when both no options are selected ${url}`, async () => {
+      const answerData = {
+        'water-pollution/images-or-video': [{
+          questionId: 2800,
+          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionResponse: true,
+          answerId: 2804
+        }, {
+          questionId: 2800,
+          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionResponse: true,
+          answerId: 2806
+        }]
+      }
+      sessionData = { ...sessionData, ...answerData }
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('No - photos')
+      expect(response.payload).toContain('No - video')
     })
     it(`Happy: Should return correct answer for 'Type of water' question ${url}`, async () => {
       const answerData = {
@@ -168,6 +242,12 @@ describe(url, () => {
     })
     it(`Happy: Should return correct answer for 'Less than 100 square metres in size' question ${url}`, async () => {
       const answerData = {
+        'water-pollution/water-feature': [{
+          questionId: 500,
+          questionAsked: 'In what kind of water is the pollution?',
+          questionResponse: true,
+          answerId: 502
+        }],
         'water-pollution/less-than-100-sq-metres': [{
           questionId: 800,
           questionAsked: 'How much pollution have you seen?',
@@ -177,7 +257,7 @@ describe(url, () => {
       }
       sessionData = { ...sessionData, ...answerData }
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('Yes')
+      expect(response.payload).toContain('Less than 100 square metres')
     })
     it(`Happy: Should return correct question label 'Less than 100 square metres in size' based on the answer for 'Type of water' question ${url}`, async () => {
       const answerData = {

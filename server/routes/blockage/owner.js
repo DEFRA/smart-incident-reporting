@@ -37,7 +37,7 @@ const handlers = {
     request.yar.set(question.key, buildAnswers(answerId, yesDetails))
 
     // handle redirects
-    return h.redirect(constants.routes.BLOCKAGE_CONTACT_DETAILS)
+    return h.redirect(constants.routes.BLOCKAGE_IMAGES_OR_VIDEO)
   }
 }
 

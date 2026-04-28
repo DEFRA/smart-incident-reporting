@@ -249,7 +249,7 @@ describe(url, () => {
       findByPostcode.mockResolvedValueOnce(apiResponse)
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Choose an address')
-      expect(response.payload).toContain('1 address found for <b>32</b> and <b>BA1 1UB</b>.')
+      expect(response.payload).toContain('<p class="govuk-body">1 address found for <b>32</b> and <b>BA1 1UB</b>.</p>')
       expect(response.payload).toContain('Carpenter House, 32, Broad Quay, Bath, BA1 1UB')
       expect(response.payload).toContain('<a href="/smell/find-address" class="govuk-link">Change search</a>')
       expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
@@ -264,9 +264,27 @@ describe(url, () => {
       findByPostcode.mockResolvedValueOnce(apiResponse)
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Choose an address')
-      expect(response.payload).toContain('2 addresses found for <b>Carpenter House</b> and <b>BA1 1UB</b>.')
+      expect(response.payload).toContain('<p class="govuk-body">2 addresses found for <b>Carpenter House</b> and <b>BA1 1UB</b>.</p>')
       expect(response.payload).toContain('Carpenter House, 32, Broad Quay, Bath, BA1 1UB')
       expect(response.payload).toContain('Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB')
+      expect(response.payload).toContain('<a href="/smell/find-address" class="govuk-link">Change search</a>')
+      expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
+    })
+    it(`Happy: Should return addresses for postcode only and omit building details text ${url}`, async () => {
+      const sessionData = {
+        'smell/find-address': {
+          buildingDetails: '',
+          postcode: 'BA1 1UB'
+        }
+      }
+      findByPostcode.mockResolvedValueOnce(apiResponse)
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('Choose an address')
+      expect(response.payload).toMatch(/<p class="govuk-body">\s*3 addresses found for <b>BA1 1UB<\/b>\.\s*<\/p>/)
+      expect(response.payload).not.toContain('and <b>BA1 1UB</b>.')
+      expect(response.payload).toContain('Carpenter House, 32, Broad Quay, Bath, BA1 1UB')
+      expect(response.payload).toContain('Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB')
+      expect(response.payload).toContain('Horizon House, Broad Quay, Bath, BA1 1UB')
       expect(response.payload).toContain('<a href="/smell/find-address" class="govuk-link">Change search</a>')
       expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
     })
@@ -281,7 +299,7 @@ describe(url, () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Choose an address')
       expect(response.payload).toContain('We could not find an address that matches <b>Capitol House</b> and <b>BA1 1UB</b>.')
-      expect(response.payload).toContain('3 addresses found for <b>BA1 1UB</b>')
+      expect(response.payload).toMatch(/<p class="govuk-body">\s*3 addresses found for <b>BA1 1UB<\/b>\.\s*<\/p>/)
       expect(response.payload).toContain('Carpenter House, 32, Broad Quay, Bath, BA1 1UB')
       expect(response.payload).toContain('Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB')
       expect(response.payload).toContain('Horizon House, Broad Quay, Bath, BA1 1UB')
@@ -298,7 +316,7 @@ describe(url, () => {
       const sessionData = { ...answerData, ...postSessionData2, ...cachedPostcodeDetails }
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Choose an address')
-      expect(response.payload).toContain('1 address found for <b>City Centre</b> and <b>BA1 1UB</b>.')
+      expect(response.payload).toContain('<p class="govuk-body">1 address found for <b>City Centre</b> and <b>BA1 1UB</b>.</p>')
       expect(response.payload).toContain('Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB')
       expect(response.payload).toContain('<a href="/smell/find-address" class="govuk-link">Change search</a>')
       expect(response.payload).toContain('<a href="/smell/location-address" class="govuk-link">Enter address manually</a>')
@@ -313,7 +331,7 @@ describe(url, () => {
       const sessionData = { ...answerData, ...postSessionData2, ...cachedPostcodeDetails }
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Choose an address')
-      expect(response.payload).toContain('2 addresses found for <b>Carpenter House</b> and <b>BA1 1UB</b>.')
+      expect(response.payload).toContain('<p class="govuk-body">2 addresses found for <b>Carpenter House</b> and <b>BA1 1UB</b>.</p>')
       expect(response.payload).toContain('Carpenter House, 32, Broad Quay, Bath, BA1 1UB')
       expect(response.payload).toContain('Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB')
       expect(response.payload).toContain('<a href="/smell/find-address" class="govuk-link">Change search</a>')
@@ -330,7 +348,7 @@ describe(url, () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Choose an address')
       expect(response.payload).toContain('We could not find an address that matches <b>House</b> and <b>BA1 1UB</b>.')
-      expect(response.payload).toContain('3 addresses found for <b>BA1 1UB</b>')
+      expect(response.payload).toMatch(/<p class="govuk-body">\s*3 addresses found for <b>BA1 1UB<\/b>\.\s*<\/p>/)
       expect(response.payload).toContain('Carpenter House, 32, Broad Quay, Bath, BA1 1UB')
       expect(response.payload).toContain('Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB')
       expect(response.payload).toContain('Horizon House, Broad Quay, Bath, BA1 1UB')
@@ -347,7 +365,7 @@ describe(url, () => {
       const sessionData = { ...answerData, ...selectedOption, ...postSessionData3, ...cachedPostcodeDetails }
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Choose an address')
-      expect(response.payload).toContain('3 addresses found for <b>Broad Quay</b> and <b>BA1 1UB</b>.')
+      expect(response.payload).toContain('<p class="govuk-body">3 addresses found for <b>Broad Quay</b> and <b>BA1 1UB</b>.</p>')
       expect(response.payload).toContain('Carpenter House, 32, Broad Quay, Bath, BA1 1UB')
       expect(response.payload).toContain('Carpenter House, Broad Quay, City Centre, Bath, Bath And North East Somerset, BA1 1UB')
       expect(response.payload).toContain('Horizon House, Broad Quay, Bath, BA1 1UB')

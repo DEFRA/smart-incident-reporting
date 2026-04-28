@@ -1,20 +1,35 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary, validateEmail } from '../../utils/helpers.js'
+import { questionSets } from '../../utils/question-sets.js'
+
+const imageQuestion = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO
+const yesPhotosAnswerId = imageQuestion.answers.yesPhotos.answerId
+const yesVideoAnswerId = imageQuestion.answers.yesVideo.answerId
+
+const isEmailRequired = (request) => {
+  const imagesOrVideoAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)
+  if (!Array.isArray(imagesOrVideoAnswer)) { return false }
+
+  return imagesOrVideoAnswer.some(answer => [yesPhotosAnswerId, yesVideoAnswerId].includes(answer.answerId))
+}
 
 const handlers = {
   get: async (request, h) => {
     return h.view(constants.views.WATER_POLLUTION_CONTACT_DETAILS, {
-      ...getContext(request)
+      ...getContext(request),
+      emailRequired: isEmailRequired(request)
     })
   },
   post: async (request, h) => {
     const { fullName, phone, email } = request.payload
-    const errorSummary = validatePayload(phone, email)
+    const emailRequired = isEmailRequired(request)
+    const errorSummary = validatePayload(phone, email, emailRequired)
 
     // Validation error so return view in Error state
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.WATER_POLLUTION_CONTACT_DETAILS, {
         errorSummary,
+        emailRequired,
         ...request.payload
       })
     }
@@ -26,7 +41,7 @@ const handlers = {
     })
 
     // handle redirects
-    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_IMAGES_OR_VIDEO)
+    return h.redirect(request.yar.get(constants.redisKeys.REFERER) || constants.routes.WATER_POLLUTION_OTHER_INFORMATION)
   }
 }
 
@@ -43,7 +58,7 @@ const getContext = request => {
   }
 }
 
-const validatePayload = (phone, email) => {
+const validatePayload = (phone, email, emailRequired) => {
   const errorSummary = getErrorSummary()
   if ((phone?.length > 0) && !constants.phoneRegex.test(phone)) {
     errorSummary.errorList.push({
@@ -52,11 +67,18 @@ const validatePayload = (phone, email) => {
     })
   }
 
-  if ((email?.length > 0) && !validateEmail(email)) {
+  if (emailRequired && !email?.length) {
+    errorSummary.errorList.push({
+      text: 'Enter your email address',
+      href: '#email'
+    })
+  } else if ((email?.length > 0) && !validateEmail(email)) {
     errorSummary.errorList.push({
       text: 'Enter an email address in the correct format, like name@example.com',
       href: '#email'
     })
+  } else {
+    // do nothing
   }
   return errorSummary
 }
