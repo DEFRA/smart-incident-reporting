@@ -34,17 +34,6 @@ describe(url, () => {
         payload: {
           'date-day': '20',
           'date-month': '4',
-<<<<<<< HEAD
-          'date-year': '2026'
-        }
-      }
-      const dateString = '2026-04-20'
-      const dateWordString = '20 April 2026'
-      const payload = {
-        day: '20',
-        month: '4',
-        year: '2026'
-=======
           'date-year': currentYearString
         }
       }
@@ -54,7 +43,6 @@ describe(url, () => {
         day: '20',
         month: '4',
         year: currentYearString
->>>>>>> develop
       }
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_TIME_BEFORE_YESTERDAY)
