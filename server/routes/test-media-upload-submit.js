@@ -5,7 +5,7 @@ const testEmail = 'not-a-real-email-address'
 
 const handlers = {
   get: (request, h) => {
-    return h.view('test-media-upload-submit')
+    return h.view(constants.views.TEST_MEDIA_UPLOAD_SUBMIT)
   },
   post: async (request, h) => {
     const payload = request.payload
