@@ -1519,13 +1519,21 @@ const questionSets = {
             answerId: 3902,
             text: 'NO'
           },
-          photos: {
+          yesPhotos: {
             answerId: 3903,
-            text: 'Photos'
+            text: YES_YOU_HAVE_PHOTOS
           },
-          video: {
+          noPhotos: {
             answerId: 3904,
-            text: 'Video'
+            text: NO_YOU_DO_NOT_HAVE_PHOTOS
+          },
+          yesVideo: {
+            answerId: 3905,
+            text: YES_YOU_HAVE_VIDEO
+          },
+          noVideo: {
+            answerId: 3906,
+            text: NO_YOU_DO_NOT_HAVE_VIDEO
           }
         }
       },
