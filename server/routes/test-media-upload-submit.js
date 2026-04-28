@@ -4,7 +4,7 @@ import { questionSets } from '../utils/question-sets.js'
 const testEmail = 'not-a-real-email-address'
 
 const handlers = {
-  get: (request, h) => {
+  get: (_request, h) => {
     return h.view(constants.views.TEST_MEDIA_UPLOAD_SUBMIT)
   },
   post: async (request, h) => {
