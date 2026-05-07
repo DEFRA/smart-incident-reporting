@@ -68,12 +68,12 @@ describe(url, () => {
       expect(response.payload).toContain('Not given')
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)).toEqual([{
         questionId: 2800,
-        questionAsked: 'Do you want to send us any images or videos of the pollution?',
+        questionAsked: 'Do you have any photos or videos to include?',
         questionResponse: true,
         answerId: 2804
       }, {
         questionId: 2800,
-        questionAsked: 'Do you want to send us any images or videos of the pollution?',
+        questionAsked: 'Do you have any photos or videos to include?',
         questionResponse: true,
         answerId: 2806
       }])
@@ -85,12 +85,12 @@ describe(url, () => {
       const answerData = {
         'water-pollution/images-or-video': [{
           questionId: 2800,
-          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionAsked: 'Do you have any photos or videos to include?',
           questionResponse: true,
           answerId: 2803
         }, {
           questionId: 2800,
-          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionAsked: 'Do you have any photos or videos to include?',
           questionResponse: true,
           answerId: 2806
         }]
@@ -105,12 +105,12 @@ describe(url, () => {
       const answerData = {
         'water-pollution/images-or-video': [{
           questionId: 2800,
-          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionAsked: 'Do you have any photos or videos to include?',
           questionResponse: true,
           answerId: 2804
         }, {
           questionId: 2800,
-          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionAsked: 'Do you have any photos or videos to include?',
           questionResponse: true,
           answerId: 2805
         }]
@@ -125,12 +125,12 @@ describe(url, () => {
       const answerData = {
         'water-pollution/images-or-video': [{
           questionId: 2800,
-          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionAsked: 'Do you have any photos or videos to include?',
           questionResponse: true,
           answerId: 2803
         }, {
           questionId: 2800,
-          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionAsked: 'Do you have any photos or videos to include?',
           questionResponse: true,
           answerId: 2805
         }]
@@ -145,12 +145,12 @@ describe(url, () => {
       const answerData = {
         'water-pollution/images-or-video': [{
           questionId: 2800,
-          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionAsked: 'Do you have any photos or videos to include?',
           questionResponse: true,
           answerId: 2804
         }, {
           questionId: 2800,
-          questionAsked: 'Do you want to send us any images or videos of the pollution?',
+          questionAsked: 'Do you have any photos or videos to include?',
           questionResponse: true,
           answerId: 2806
         }]
@@ -609,7 +609,7 @@ describe(url, () => {
             }),
             expect.objectContaining({
               questionId: 2800,
-              questionAsked: 'Do you want to send us any images or videos of the pollution?',
+              questionAsked: 'Do you have any photos or videos to include?',
               questionResponse: true,
               answerId: 2801
             }),

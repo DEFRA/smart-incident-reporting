@@ -128,7 +128,7 @@ const session = JSON.parse(`{
   "smell/images-or-video": [
     {
       "questionId": 3500,
-      "questionAsked": "Do you want to send us any images or videos of the problem?",
+      "questionAsked": "Do you have any photos or videos to include?",
       "questionResponse": true,
       "answerId": 3501
     }

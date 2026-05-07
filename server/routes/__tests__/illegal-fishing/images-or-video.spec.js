@@ -59,20 +59,20 @@ const sessionDataNo = {
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataWithEmail)
+      await submitGetRequest({ url }, 'Do you have any photos or videos to include?', constants.statusCodes.OK, sessionDataWithEmail)
     })
 
     it(`Should return success response and correct view for ${url} with empty contact email`, async () => {
-      await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataWithoutEmail)
+      await submitGetRequest({ url }, 'Do you have any photos or videos to include?', constants.statusCodes.OK, sessionDataWithoutEmail)
     })
 
     it(`Should return success response and show selected photos option for ${url}`, async () => {
-      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataWithPhotosSelected)
+      const response = await submitGetRequest({ url }, 'Do you have any photos or videos to include?', constants.statusCodes.OK, sessionDataWithPhotosSelected)
       expect(response.payload).toContain(`value="${question.answers.yesPhotos.answerId}" checked`)
     })
 
     it(`Should return success response and show selected no option for ${url}`, async () => {
-      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataNo)
+      const response = await submitGetRequest({ url }, 'Do you have any photos or videos to include?', constants.statusCodes.OK, sessionDataNo)
       expect(response.payload).toContain(`value="${question.answers.noPhotos.answerId}" checked`)
     })
   })
@@ -162,7 +162,7 @@ describe(url, () => {
 
       const response = await submitPostRequest(options, constants.statusCodes.OK, sessionDataWithEmail)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select &#39;yes&#39; if you want to send us any images or videos')
+      expect(response.payload).toContain('Select whether you have any photos or videos to include')
     })
 
     it('Sad: no checkbox selected does not re-show previous selected option', async () => {
@@ -186,7 +186,7 @@ describe(url, () => {
 
       const response = await submitPostRequest(options, constants.statusCodes.OK, sessionDataWithPhotosSelected)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select &#39;yes&#39; if you want to send us any images or videos')
+      expect(response.payload).toContain('Select whether you have any photos or videos to include')
       expect(response.payload).not.toContain(`value="${question.answers.yesPhotos.answerId}" checked`)
       expect(response.payload).not.toContain(`value="${question.answers.yesVideo.answerId}" checked`)
       expect(response.payload).not.toContain(`value="${question.answers.noPhotos.answerId}" checked`)
