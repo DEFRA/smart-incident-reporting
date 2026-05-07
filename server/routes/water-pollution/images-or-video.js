@@ -63,29 +63,13 @@ const getContext = (request) => {
   }
 }
 
-const validatePayload = (request, answerId, emailRequired) => {
+const validatePayload = (answerId) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select \'yes\' if you want to send us any images or videos',
+      text: 'Select whether you have any photos or videos to include',
       href: '#answerId'
     })
-  }
-
-  if ((answerId === question.answers.yes.answerId) && emailRequired) {
-    if (!request.payload.email) {
-      errorSummary.errorList.push({
-        text: 'Enter an email address',
-        href: '#email'
-      })
-    } else if (!validateEmail(request.payload.email)) {
-      errorSummary.errorList.push({
-        text: 'Enter an email address in the correct format, like name@example.com',
-        href: '#email'
-      })
-    } else {
-      // do nothing
-    }
   }
 
   return errorSummary

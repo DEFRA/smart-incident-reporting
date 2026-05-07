@@ -11,7 +11,7 @@ const MARK_LOCATION_ON_MAP = 'Mark the location on an online map'
 const DESCRIBE_THE_LOCATION = 'Describe the location'
 const MARK_THE_LOCATION = 'Mark the location'
 const RUBBISH_OR_REFUSE = 'Rubbish or refuse'
-const IMAGES_OR_VIDEO_QUESTION = 'Do you want to send us any images or videos of the problem?'
+const IMAGES_OR_VIDEO_QUESTION = 'Do you have any photos or videos to include?'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -207,7 +207,7 @@ const questionSets = {
       WATER_POLLUTION_IMAGES_OR_VIDEO: {
         questionId: 2800,
         key: constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO,
-        text: 'Do you want to send us any images or videos of the pollution?',
+        text: IMAGES_OR_VIDEO_QUESTION,
         answers: {
           yes: {
             answerId: 2801,
