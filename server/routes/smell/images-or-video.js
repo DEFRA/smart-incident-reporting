@@ -56,7 +56,7 @@ const validatePayload = (answerIds) => {
 
   if (!hasValidSelection) {
     errorSummary.errorList.push({
-      text: 'Select \'yes\' if you want to send us any images or videos',
+      text: 'Select whether you have any photos or videos to include',
       href: '#answerId'
     })
   }
