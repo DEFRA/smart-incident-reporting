@@ -21,6 +21,8 @@ const phoneRegex = /^[\s\d-+()#]*$/
 const API_OS_API_TOKEN = 'api/os-api-token'
 const API_LOCATION = 'api/location'
 const API_LOCATION_SUGGESTIONS = 'api/location-suggestions'
+const API_LOCATION_SUGGESTIONS_LOCALITY = 'api/location-suggestions-locality'
+const LOCATION_TYPE_SEARCH = 'location-type-search'
 
 // Notices
 const ACCESSIBILITY = 'accessibility'
@@ -169,6 +171,8 @@ const views = {
   API_OS_API_TOKEN,
   API_LOCATION,
   API_LOCATION_SUGGESTIONS,
+  API_LOCATION_SUGGESTIONS_LOCALITY,
+  LOCATION_TYPE_SEARCH,
   ACCESSIBILITY,
   COOKIES,
   PRIVACY_NOTICE,

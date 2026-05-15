@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+
+{% set pageTitle = 'Search by locality type' %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-xl">Search by locality type</h1>
+
+    <form id="location-type-search-form" novalidate>
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="locality-type">Locality type</label>
+        <select class="govuk-select" id="locality-type" name="localityType">
+          {% for type in localityTypes %}
+            <option value="{{ type.value }}">{{ type.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="location-query">Search query</label>
+        <input class="govuk-input" id="location-query" name="locationQuery" type="text" autocomplete="off">
+      </div>
+
+      {{ govukButton({
+        text: 'Search',
+        attributes: {
+          id: 'location-type-search-button'
+        }
+      }) }}
+    </form>
+
+    <p class="govuk-error-message" id="location-type-search-error" hidden>
+      <span class="govuk-visually-hidden">Error:</span>
+      Enter a search term
+    </p>
+
+    <div id="location-type-results" hidden>
+      <h2 class="govuk-heading-m">Results</h2>
+      <p class="govuk-body" id="location-type-results-summary"></p>
+      <ul class="govuk-list govuk-list--bullet" id="location-type-results-list"></ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script>
+    (function () {
+      const form = document.getElementById('location-type-search-form')
+      const queryInput = document.getElementById('location-query')
+      const localityTypeSelect = document.getElementById('locality-type')
+      const errorMessage = document.getElementById('location-type-search-error')
+      const resultsContainer = document.getElementById('location-type-results')
+      const resultsSummary = document.getElementById('location-type-results-summary')
+      const resultsList = document.getElementById('location-type-results-list')
+
+      const hideError = () => {
+        errorMessage.hidden = true
+      }
+
+      const showError = message => {
+        errorMessage.textContent = message
+        errorMessage.hidden = false
+      }
+
+      const toResultLabel = item => {
+        const entry = item.GAZETTEER_ENTRY
+        const localityType = entry.LOCAL_TYPE ? ` (${entry.LOCAL_TYPE.replaceAll('_', ' ')})` : ''
+        return `${entry.NAME1}${localityType}`
+      }
+
+      const renderResults = results => {
+        resultsList.innerHTML = ''
+
+        if (results.length === 0) {
+          resultsSummary.textContent = 'No matching locations found.'
+          resultsContainer.hidden = false
+          return
+        }
+
+        resultsSummary.textContent = `${results.length} matching location${results.length > 1 ? 's' : ''} found.`
+
+        results.forEach(item => {
+          const li = document.createElement('li')
+          li.textContent = toResultLabel(item)
+          resultsList.appendChild(li)
+        })
+
+        resultsContainer.hidden = false
+      }
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault()
+        hideError()
+
+        const query = queryInput.value.trim()
+        const localityType = localityTypeSelect.value
+
+        if (!query) {
+          showError('Enter a search term')
+          resultsContainer.hidden = true
+          return
+        }
+
+        const response = await fetch(`/api/location-suggestions-locality?location=${encodeURIComponent(query)}&localityType=${encodeURIComponent(localityType)}`)
+        const results = await response.json()
+
+        renderResults(results)
+      })
+    })()
+  </script>
+{% endblock %}
