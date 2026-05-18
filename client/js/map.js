@@ -20,9 +20,8 @@ const OSGB36 = 'EPSG:27700'
 const extent = [0, 0, 700000, 1300000]
 const center = [360589, 175650]
 const zoom = 1
-const maxZoom = 13
+const maxZoom = 15
 const pointElement = document.getElementById('point')
-const premiumTileMatrix = [10, 11, 12, 13]
 
 // Map drawing interaction
 const vectorSource = new VectorSource({ wrapX: false })
@@ -72,10 +71,6 @@ const getOptionsFromCapabilities = async () => {
   const response = await fetch(url, getFetchOptions())
   const text = await response.text()
   const parsedCapabilities = parser.read(text)
-  // Delete premium OS data layers
-  premiumTileMatrix.forEach(value => {
-    delete parsedCapabilities.Contents.TileMatrixSet[0].TileMatrix[value]
-  })
   return optionsFromCapabilities(parsedCapabilities, {
     layer: 'Road_27700'
   })
