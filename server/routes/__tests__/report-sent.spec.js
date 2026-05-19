@@ -17,6 +17,9 @@ const journeySessionData = {
     },
     imagesOrVideo: [{
       answerId: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
+    },
+    {
+      answerId: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noVideo.answerId
     }]
   },
   200: {
@@ -25,6 +28,9 @@ const journeySessionData = {
     },
     imagesOrVideo: [{
       answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
+    },
+    {
+      answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.noVideo.answerId
     }]
   },
   300: {
@@ -33,6 +39,9 @@ const journeySessionData = {
     },
     imagesOrVideo: [{
       answerId: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
+    },
+    {
+      answerId: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.noVideo.answerId
     }]
   },
   1800: {
@@ -41,6 +50,9 @@ const journeySessionData = {
     },
     imagesOrVideo: [{
       answerId: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
+    },
+    {
+      answerId: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.noVideo.answerId
     }]
   }
 }
@@ -146,7 +158,7 @@ describe(url, () => {
           mediaUploadLink: expectedMediaUploadLink,
           reportersEmail: email,
           hasPhoneNumber: false,
-          userAgreedForImagesAndVideos: true,
+          userAgreedForVideos: false,
           userAgreedForImages: true
         }
       }))
@@ -160,10 +172,10 @@ describe(url, () => {
 
       expect(view).toHaveBeenCalledWith(constants.views.REPORT_SENT, expect.objectContaining({
         photoUploadDetails: {
-          mediaUploadLink: expectedMediaUploadLink,
+          mediaUploadLink: undefined,
           reportersEmail: '',
           hasPhoneNumber: false,
-          userAgreedForImagesAndVideos: false,
+          userAgreedForVideos: false,
           userAgreedForImages: false
         }
       }))
@@ -195,7 +207,7 @@ describe(url, () => {
           questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noPhotos.answerId,
           questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yesVideo.answerId
         ],
-        expectedImagesAndVideos: true,
+        expectedVideos: true,
         expectedImages: false
       },
       {
@@ -204,7 +216,7 @@ describe(url, () => {
           questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yesPhotos.answerId,
           questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noVideo.answerId
         ],
-        expectedImagesAndVideos: true,
+        expectedVideos: false,
         expectedImages: true
       },
       {
@@ -213,7 +225,7 @@ describe(url, () => {
           questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yesPhotos.answerId,
           questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yesVideo.answerId
         ],
-        expectedImagesAndVideos: true,
+        expectedVideos: true,
         expectedImages: true
       },
       {
@@ -222,16 +234,16 @@ describe(url, () => {
           questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noPhotos.answerId,
           questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noVideo.answerId
         ],
-        expectedImagesAndVideos: false,
+        expectedVideos: false,
         expectedImages: false
       }
-    ])('should set media flags correctly when $scenario provided', async ({ imageAnswers, expectedImagesAndVideos, expectedImages }) => {
+    ])('should set media flags correctly when $scenario provided', async ({ imageAnswers, expectedVideos, expectedImages }) => {
       const imagesOrVideo = imageAnswers ? imageAnswers.map(answerId => ({ answerId })) : null
       const { view } = await handler(100, { imagesOrVideo })
 
       expect(view).toHaveBeenCalledWith(constants.views.REPORT_SENT, expect.objectContaining({
         photoUploadDetails: expect.objectContaining({
-          userAgreedForImagesAndVideos: expectedImagesAndVideos,
+          userAgreedForVideos: expectedVideos,
           userAgreedForImages: expectedImages
         })
       }))
