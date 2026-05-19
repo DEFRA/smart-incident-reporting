@@ -27,19 +27,19 @@ const handlers = {
       answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
     },
     {
-      answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.yesVideo.answerId
+      answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.noVideo.answerId
     }])
     request.yar.set(constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO, [{
-      answerId: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.noPhotos.answerId
+      answerId: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
     },
     {
       answerId: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.noVideo.answerId
     }])
     request.yar.set(constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO, [{
-      answerId: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.noPhotos.answerId
+      answerId: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
     },
     {
-      answerId: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.yesVideo.answerId
+      answerId: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.noVideo.answerId
     }])
 
     return h.redirect(constants.routes.REPORT_SENT)
