@@ -38,7 +38,7 @@ const handlers = {
 
     const currentAnswer = request.yar.get(constants.redisKeys.SMELL_EFFECT_ON_HEALTH)
     if (currentAnswer.length === 1 && currentAnswer[0].answerId === question.answers.noneOfthese.answerId) {
-      return h.redirect(constants.routes.SMELL_CONTACT_DETAILS)
+      return h.redirect(constants.routes.SMELL_IMAGES_OR_VIDEO)
     } else {
       return h.redirect(constants.routes.SMELL_MEDICAL_HELP)
     }

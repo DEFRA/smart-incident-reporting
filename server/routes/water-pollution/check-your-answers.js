@@ -51,8 +51,7 @@ const getYourDetails = (request) => {
   const emailUrl = url.WATER_POLLUTION_CONTACT_DETAILS
 
   // Get answer for 'Images or videos available' question
-  const imagesOrVideoUrl = 'WATER_POLLUTION_IMAGES_OR_VIDEO'
-  const imagesOrVideoAnswer = getData(request, imagesOrVideoUrl)
+  const imagesOrVideoAnswer = getImagesOrVideoAnswer(request)
 
   return {
     name,
@@ -66,14 +65,52 @@ const getYourDetails = (request) => {
 // Reset answer for 'Send images or videos' as no if email is not available
 const resetImagesOrVideoAnswer = (request) => {
   const question = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO
-  const answerId = question.answers.no.answerId
+  const noPhotosAnswerId = question.answers.noPhotos.answerId
+  const noVideoAnswerId = question.answers.noVideo.answerId
   request.yar.clear(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO)
-  request.yar.set(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO, [{
-    questionId: question.questionId,
-    questionAsked: question.text,
-    questionResponse: true,
-    answerId
-  }])
+  request.yar.set(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO, [
+    {
+      questionId: question.questionId,
+      questionAsked: question.text,
+      questionResponse: true,
+      answerId: noPhotosAnswerId
+    },
+    {
+      questionId: question.questionId,
+      questionAsked: question.text,
+      questionResponse: true,
+      answerId: noVideoAnswerId
+    }
+  ])
+}
+
+const getImagesOrVideoAnswer = (request) => {
+  const recordedAnswer = request.yar.get(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO) || []
+  const selectedAnswerIds = new Set(recordedAnswer.map(item => item.answerId))
+  const answerSet = questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers
+
+  const hasYesPhotos = selectedAnswerIds.has(answerSet.yesPhotos.answerId)
+  const hasNoPhotos = selectedAnswerIds.has(answerSet.noPhotos.answerId)
+  const hasYesVideo = selectedAnswerIds.has(answerSet.yesVideo.answerId)
+  const hasNoVideo = selectedAnswerIds.has(answerSet.noVideo.answerId)
+
+  if (hasNoPhotos && hasNoVideo) {
+    return `${answerSet.noPhotos.shortText}<br>${answerSet.noVideo.shortText}`
+  }
+
+  if (hasYesPhotos && hasYesVideo) {
+    return `${answerSet.yesPhotos.shortText}<br>Yes - videos`
+  }
+
+  if (hasYesPhotos) {
+    return `${answerSet.yesPhotos.shortText}<br>${answerSet.noVideo.shortText}`
+  }
+
+  if (hasYesVideo) {
+    return `${answerSet.noPhotos.shortText}<br>Yes - videos`
+  }
+
+  return getData(request, 'WATER_POLLUTION_IMAGES_OR_VIDEO')
 }
 
 // Get answers for 'Location and size of pollution' section

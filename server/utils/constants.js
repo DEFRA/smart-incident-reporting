@@ -146,6 +146,9 @@ const BLOCKAGE_CONTACT_DETAILS = 'blockage/contact-details'
 const BLOCKAGE_IMAGES_OR_VIDEO = 'blockage/images-or-video'
 const BLOCKAGE_OTHER_INFORMATION = 'blockage/other-information'
 
+// Testing helper pages
+const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
+
 // Meta data
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 const REFERER = 'referer'
@@ -161,7 +164,8 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
     WATER_POLLUTION_START,
     SMELL_START,
     ILLEGAL_FISHING_START,
-    BLOCKAGE_START
+    BLOCKAGE_START,
+    TEST_MEDIA_UPLOAD_SUBMIT
   }
 }
 
