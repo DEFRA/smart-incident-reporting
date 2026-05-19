@@ -18,16 +18,28 @@ const handlers = {
     request.yar.set(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS, { reporterEmailAddress: testEmail })
     request.yar.set(constants.redisKeys.ILLEGAL_FISHING_CONTACT_DETAILS, { reporterEmailAddress: testEmail })
     request.yar.set(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO, [{
-      answerId: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yes.answerId
+      answerId: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
+    },
+    {
+      answerId: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noVideo.answerId
     }])
     request.yar.set(constants.redisKeys.SMELL_IMAGES_OR_VIDEO, [{
-      answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.yes.answerId
+      answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
+    },
+    {
+      answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.yesVideo.answerId
     }])
     request.yar.set(constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO, [{
-      answerId: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.yes.answerId
+      answerId: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.noPhotos.answerId
+    },
+    {
+      answerId: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.noVideo.answerId
     }])
     request.yar.set(constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO, [{
-      answerId: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.yes.answerId
+      answerId: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.noPhotos.answerId
+    },
+    {
+      answerId: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.yesVideo.answerId
     }])
 
     return h.redirect(constants.routes.REPORT_SENT)
