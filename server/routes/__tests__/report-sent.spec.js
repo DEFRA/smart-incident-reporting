@@ -16,7 +16,7 @@ const journeySessionData = {
       reporterEmailAddress: 'water@test.com'
     },
     imagesOrVideo: [{
-      answerId: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yes.answerId
+      answerId: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
     }]
   },
   200: {
@@ -24,7 +24,7 @@ const journeySessionData = {
       reporterEmailAddress: 'smell@test.com'
     },
     imagesOrVideo: [{
-      answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.yes.answerId
+      answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
     }]
   },
   300: {
@@ -32,7 +32,7 @@ const journeySessionData = {
       reporterEmailAddress: 'blockage@test.com'
     },
     imagesOrVideo: [{
-      answerId: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.yes.answerId
+      answerId: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
     }]
   },
   1800: {
@@ -40,7 +40,7 @@ const journeySessionData = {
       reporterEmailAddress: 'fishing@test.com'
     },
     imagesOrVideo: [{
-      answerId: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.yes.answerId
+      answerId: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
     }]
   }
 }
@@ -129,7 +129,6 @@ describe(url, () => {
       expect(view).toHaveBeenCalledWith(constants.views.REPORT_SENT, expect.objectContaining({
         photoUploadDetails: expect.objectContaining({
           mediaUploadLink: expectedMediaUploadLink
-          // mediaUploadLink: config.mediaUploadUrl
         })
       }))
     })
@@ -146,6 +145,8 @@ describe(url, () => {
         photoUploadDetails: {
           mediaUploadLink: expectedMediaUploadLink,
           reportersEmail: email,
+          hasPhoneNumber: false,
+          userAgreedForImagesAndVideos: true,
           userAgreedForImages: true
         }
       }))
@@ -161,8 +162,78 @@ describe(url, () => {
         photoUploadDetails: {
           mediaUploadLink: expectedMediaUploadLink,
           reportersEmail: '',
+          hasPhoneNumber: false,
+          userAgreedForImagesAndVideos: false,
           userAgreedForImages: false
         }
+      }))
+    })
+
+    it.each([
+      { hasPhone: true, expectedHasPhoneNumber: true, description: 'phone provided' },
+      { hasPhone: false, expectedHasPhoneNumber: false, description: 'phone not provided' }
+    ])('should set hasPhoneNumber correctly when $description', async ({ hasPhone, expectedHasPhoneNumber }) => {
+      const contactDetails = {
+        reporterEmailAddress: 'water@test.com'
+      }
+      if (hasPhone) {
+        contactDetails.reporterPhoneNumber = '01234567890'
+      }
+      const { view } = await handler(100, { contactDetails })
+
+      expect(view).toHaveBeenCalledWith(constants.views.REPORT_SENT, expect.objectContaining({
+        photoUploadDetails: expect.objectContaining({
+          hasPhoneNumber: expectedHasPhoneNumber
+        })
+      }))
+    })
+
+    it.each([
+      {
+        scenario: 'noPhotos/yesVideo',
+        imageAnswers: [
+          questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noPhotos.answerId,
+          questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yesVideo.answerId
+        ],
+        expectedImagesAndVideos: true,
+        expectedImages: false
+      },
+      {
+        scenario: 'yesPhotos/noVideo',
+        imageAnswers: [
+          questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yesPhotos.answerId,
+          questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noVideo.answerId
+        ],
+        expectedImagesAndVideos: true,
+        expectedImages: true
+      },
+      {
+        scenario: 'yesPhotos/yesVideo',
+        imageAnswers: [
+          questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yesPhotos.answerId,
+          questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yesVideo.answerId
+        ],
+        expectedImagesAndVideos: true,
+        expectedImages: true
+      },
+      {
+        scenario: 'noPhotos/noVideo',
+        imageAnswers: [
+          questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noPhotos.answerId,
+          questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noVideo.answerId
+        ],
+        expectedImagesAndVideos: false,
+        expectedImages: false
+      }
+    ])('should set media flags correctly when $scenario provided', async ({ imageAnswers, expectedImagesAndVideos, expectedImages }) => {
+      const imagesOrVideo = imageAnswers ? imageAnswers.map(answerId => ({ answerId })) : null
+      const { view } = await handler(100, { imagesOrVideo })
+
+      expect(view).toHaveBeenCalledWith(constants.views.REPORT_SENT, expect.objectContaining({
+        photoUploadDetails: expect.objectContaining({
+          userAgreedForImagesAndVideos: expectedImagesAndVideos,
+          userAgreedForImages: expectedImages
+        })
       }))
     })
   })

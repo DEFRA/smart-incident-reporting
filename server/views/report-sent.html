@@ -11,19 +11,24 @@
       titleText: "Report sent",
       html: "We have received your report"
     }) }}
-    {% if(photoUploadDetails.userAgreedForImages and photoUploadDetails.reportersEmail !== '') %}   
+    {% if(photoUploadDetails.reportersEmail !== '') %}   
       <p>We have sent a confirmation of your report and a reference number to <strong>{{ photoUploadDetails.reportersEmail }}</strong></p>    
     {% endif %}      
 
-    {% if(photoUploadDetails.userAgreedForImages) %}
+    {% if(photoUploadDetails.userAgreedForImagesAndVideo) %}
       <h2 class="govuk-heading-m">
-        Upload images
+        Photos and video
       </h2>
-      <p>You can now <a href="{{ photoUploadDetails.mediaUploadLink }}">upload any photos</a> you have that might help us investigate the problem.</p>
-    {% endif %}     
-    {% if(photoUploadDetails.userAgreedForImages and photoUploadDetails.reportersEmail !== '') %}             
-      <p>We've also included this link  in your confirmation email, if you want to do this later.</p>    
-    {% endif %}
+      {% if(photoUploadDetails.userAgreedForImages) %}    
+        <p>You can now <a href="{{ photoUploadDetails.mediaUploadLink }}">upload any photos</a> you want to include with your report.</p>    
+        {{ govukButton({
+          text: "Upload photos",
+          href: photoUploadDetails.mediaUploadLink
+        }) }}
+        <p>We have also sent you this link by email.</p>    
+      {% endif %}
+      <p>Someone will contact you separately if we need to see any videos.</p> 
+    {% endif %} 
 
     <h2 class="govuk-heading-m">
       What happens next
@@ -45,7 +50,9 @@
       <li>confirmation of your report and a reference number</li>
       <li>how to send us photos to add to your report, if you said you had any and we need to see them</li>
     </ul>
-    <p>Otherwise, we will only contact you if we need more information about the problem - you do not need to call us.</p>
+    {% if(photoUploadDetails.reportersEmail != '' or photoUploadDetails.hasPhoneNumber) %} 
+      <p>We will only contact you if we need more information about the problem - you do not need to call us.</p>
+    {% endif %}
     {{ govukInsetText({
       text: "The Environment Agency incident hotline cannot give updates on your report."
     }) }}

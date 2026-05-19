@@ -50,8 +50,13 @@ const handlers = {
       : null
 
     const reportersEmail = contactDetails?.reporterEmailAddress || ''
+    const hasPhoneNumber = !!(contactDetails?.reporterPhoneNumber)
+    const selectedAnswerIds = imagesOrVideoAnswer?.map(item => item.answerId) || []
+    const userAgreedForImagesAndVideo = journeyConfig
+      ? selectedAnswerIds.includes(journeyConfig.imagesQuestion.answers.yesVideo.answerId) || selectedAnswerIds.includes(journeyConfig.imagesQuestion.answers.yesPhotos.answerId)
+      : false
     const userAgreedForImages = journeyConfig
-      ? imagesOrVideoAnswer?.[0]?.answerId === journeyConfig.imagesQuestion.answers.yes.answerId
+      ? selectedAnswerIds.includes(journeyConfig.imagesQuestion.answers.yesPhotos.answerId)
       : false
 
     await request.server.app.mediaUploadCache.set(sessionId, {
@@ -64,9 +69,10 @@ const handlers = {
     request.yar.reset()
     const context = _getContext({
       reportersEmail,
+      hasPhoneNumber,
+      userAgreedForImagesAndVideos: userAgreedForImagesAndVideo,
       userAgreedForImages,
       mediaUploadLink
-      // mediaUploadLink: config.mediaUploadUrl
     })
     return h.view(constants.views.REPORT_SENT, context)
   }
@@ -76,7 +82,6 @@ const _getContext = (photoUploadDetails) => {
   return {
     hideBackLink: true,
     photoUploadDetails
-    // mediaUploadLink: config.mediaUploadUrl
   }
 }
 
