@@ -74,6 +74,10 @@ const getOptionsFromCapabilities = async () => {
   return optionsFromCapabilities(parsedCapabilities, {
     layer: 'Road_27700'
   })
+  // outdoor layer is 'Outdoor_27700'
+  // return optionsFromCapabilities(parsedCapabilities, {
+  //   layer: 'Outdoor_27700'
+  // })
 }
 
 const getBase64TileSource = async blob => {
