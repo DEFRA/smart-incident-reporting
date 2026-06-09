@@ -44,11 +44,17 @@ const smellKeyToRoute = {
 const getSmellJourneyRedirect = (request) => {
   const { path } = request
 
-  if (!path.startsWith('/smell/')) return null
-  if (request.yar.get(k.QUESTION_SET_ID) !== questionSets.SMELL.questionSetId) return r.SMELL_START
+  if (!path.startsWith('/smell/')) {
+    return null
+  }
+  if (request.yar.get(k.QUESTION_SET_ID) !== questionSets.SMELL.questionSetId) {
+    return r.SMELL_START
+  }
 
   const requiredKey = smellPrerequisites[path]
-  if (!requiredKey) return null
+  if (!requiredKey) {
+    return null
+  }
 
   const value = request.yar.get(requiredKey)
   return (!value || (Array.isArray(value) && !value.length)) ? smellKeyToRoute[requiredKey] : null
