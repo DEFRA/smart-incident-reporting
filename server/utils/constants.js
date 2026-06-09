@@ -156,15 +156,12 @@ const DATE_TIME_OPTION = 'date-time-option'
 const QUESTION_SET_ID = 'question-set-id'
 
 // Configs to add additional home/start pages on non-production environments
-let viewsExtra = {}
-if (process.env.REGISTER_START_ROUTES === 'true') {
-  viewsExtra = {
-    WATER_POLLUTION_START,
-    SMELL_START,
-    ILLEGAL_FISHING_START,
-    BLOCKAGE_START,
-    TEST_MEDIA_UPLOAD_SUBMIT
-  }
+const viewsExtra = {
+  WATER_POLLUTION_START,
+  SMELL_START,
+  ILLEGAL_FISHING_START,
+  BLOCKAGE_START,
+  TEST_MEDIA_UPLOAD_SUBMIT
 }
 
 const views = {
