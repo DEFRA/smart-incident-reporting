@@ -65,7 +65,7 @@ const handlers = {
       await request.server.app.mediaUploadCache.set(sessionId, {
         journey,
         dateTime: submissionTimestamp
-      })
+      }, 168 * 60 * 60 * 1000)
 
       mediaUploadLink = `${mediaUploadBaseUrl}?sirid=${sessionId}`
     }
