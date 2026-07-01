@@ -1,8 +1,7 @@
 import constants from '../utils/constants.js'
 import { questionSets } from '../utils/question-sets.js'
-import config from '../utils/config.js'
 
-const mediaUploadBaseUrl = `${config.mediaUploadUrl}/upload-photo`
+const mediaUploadBaseUrl = '/media/upload-photo'
 
 const journeyMap = {
   100: 'water pollution',
