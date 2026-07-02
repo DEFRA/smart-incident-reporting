@@ -1,14 +1,14 @@
 import { submitGetRequest } from '../../__test-helpers__/server.js'
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
-import config from '../../utils/config.js'
 import reportSentRoutes from '../report-sent.js'
 
 const url = constants.routes.REPORT_SENT
 const header = 'Report sent'
 const submissionTimestamp = '2026-04-09T09:00:00.000Z'
 const sessionId = 'test-session-id'
-const expectedMediaUploadLink = `${config.mediaUploadUrl}/upload-photo?sirid=${sessionId}`
+const expectedMediaUploadLink = `/media/upload-photo?sirid=${sessionId}`
+const expectedCacheTtlMs = 168 * 60 * 60 * 1000
 
 const journeySessionData = {
   100: {
@@ -132,7 +132,7 @@ describe(url, () => {
       expect(set).toHaveBeenCalledWith(sessionId, {
         journey: expectedJourney,
         dateTime: submissionTimestamp
-      })
+      }, expectedCacheTtlMs)
     })
 
     it('should pass mediaUploadLink in photoUploadDetails', async () => {
