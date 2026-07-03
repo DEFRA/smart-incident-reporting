@@ -1,4 +1,4 @@
-import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
+import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/smell-server.js'
 import constants from '../../../utils/constants.js'
 import { sendMessage } from '../../../services/service-bus.js'
 import { session } from '../../../__mock-data__/session-smell.js'
@@ -64,7 +64,7 @@ describe(url, () => {
       expect(response.headers.location).toEqual(constants.routes.REPORT_SENT)
     })
     it('Should error if validatePayload fails', async () => {
-      const { submitPostRequest } = await import('../../../__test-helpers__/server.js')
+      const { submitPostRequest } = await import('../../../__test-helpers__/smell-server.js')
       const helpers = await import('../../../utils/helpers.js')
       helpers.validatePayload = jest.fn().mockImplementation(() => {
         return false

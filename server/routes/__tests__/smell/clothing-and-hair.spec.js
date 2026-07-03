@@ -1,4 +1,4 @@
-import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
+import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/smell-server.js'
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 import { parse } from 'node-html-parser'
@@ -90,7 +90,7 @@ describe(url, () => {
     })
     it('Sad: Rejects empty payload with current smell is not noticeable indoors', async () => {
       const sessionData = {
-        'smell/indors': [{
+        'smell/indoors': [{
           questionId: questionSets.SMELL.questions.SMELL_INDOORS.questionId,
           answerId: questionSets.SMELL.questions.SMELL_INDOORS.answers.no.answerId
         }]

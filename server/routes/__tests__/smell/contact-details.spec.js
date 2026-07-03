@@ -1,4 +1,4 @@
-import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
+import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/smell-server.js'
 import constants from '../../../utils/constants.js'
 const url = constants.routes.SMELL_CONTACT_DETAILS
 const phoneError = 'Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192'
