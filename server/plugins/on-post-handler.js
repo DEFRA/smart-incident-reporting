@@ -48,7 +48,7 @@ const getSmellJourneyRedirect = (request) => {
     return null
   }
   if (request.yar.get(k.QUESTION_SET_ID) !== questionSets.SMELL.questionSetId) {
-    return r.SMELL_START
+    return r.SMELL
   }
 
   const requiredKey = smellPrerequisites[path]

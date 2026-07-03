@@ -120,15 +120,15 @@ describe('Smell journey guard (onPreHandler)', () => {
     })
   })
 
-  describe('Should redirect to smell-start when no active smell journey', () => {
-    it.each(guardedRoutes)('%s → redirects to smell-start with no question-set-id', async (route) => {
+  describe('Should redirect to smell when no active smell journey', () => {
+    it.each(guardedRoutes)('%s → redirects to smell with no question-set-id', async (route) => {
       const response = await submitGetRequest(
         { url: route },
         null,
         constants.statusCodes.REDIRECT,
         {}
       )
-      expect(response.headers.location).toEqual(r.SMELL_START)
+      expect(response.headers.location).toEqual(r.SMELL)
     })
   })
 })
