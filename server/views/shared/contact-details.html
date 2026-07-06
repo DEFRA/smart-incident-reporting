@@ -14,12 +14,16 @@
           isPageHeading: true
         }
       }) %}
-      <p class="govuk-body">We will only use your email and phone number to:</p>
+      <p class="govuk-body">We will only contact you to:</p>
       <ul class="govuk-list govuk-list--bullet">
         <li>send you confirmation of your report, including a reference number</li>
         <li>ask for more information about the problem, if needed</li>
       </ul>
+      {% if emailRequired %}
+      <p class="govuk-body">You need to give an email to include photos or video with your report. You do not have to give any other details.</p>
+      {% else %}
       <p class="govuk-body">You do not have to give any details, but we cannot send you a reference number without an email.</p>
+      {% endif %}
       <p class="govuk-body"><a href="../privacy-notice">Find out how we use your personal data</a>.</p>
       {{ govukInput({
         id: "fullName",
@@ -32,6 +36,7 @@
           text: "Your name (optional)"
         }
       }) }}
+      {% set emailLabel = "Email address" + ("" if emailRequired else " (optional)") %}
       {{ govukInput({
         id: "email",
         name: "email",
@@ -41,7 +46,7 @@
         spellcheck: false,
         classes: "govuk-!-width-two-thirds",
         label: {
-          text: "Email address (optional)"
+          text: emailLabel
         },
         hint: {
           text: "We will send your reference number to this email"

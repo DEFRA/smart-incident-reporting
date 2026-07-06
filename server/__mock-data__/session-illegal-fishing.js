@@ -161,7 +161,7 @@ const session = JSON.parse(`{
   "illegal-fishing/images-or-video": [
     {
       "questionId": 2800,
-      "questionAsked": "Do you want to send us any images or videos of the pollution?",
+      "questionAsked": "Do you have any photos or videos to include?",
       "questionResponse": true,
       "answerId": 2801
     }
