@@ -10,7 +10,7 @@ import logging from './plugins/logging.js'
 import session from './plugins/session.js'
 import onPostHandler from './plugins/on-post-handler.js'
 
-const expire = 168 * 60 * 60 * 1000
+const expire = 15 * 60 * 1000
 
 const createServer = async options => {
   // Create the hapi server
