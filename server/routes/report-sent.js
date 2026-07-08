@@ -2,6 +2,7 @@ import constants from '../utils/constants.js'
 import { questionSets } from '../utils/question-sets.js'
 
 const mediaUploadBaseUrl = '/media/upload-photo'
+const mediaUploadCacheTtlMs = 15 * 60 * 1000
 
 const journeyMap = {
   100: 'water pollution',
@@ -64,7 +65,7 @@ const handlers = {
       await request.server.app.mediaUploadCache.set(sessionId, {
         journey,
         dateTime: submissionTimestamp
-      }, 168 * 60 * 60 * 1000)
+      }, mediaUploadCacheTtlMs)
 
       mediaUploadLink = `${mediaUploadBaseUrl}?sirid=${sessionId}`
     }
