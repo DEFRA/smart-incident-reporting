@@ -1,0 +1,97 @@
+{% extends 'layout.html' %}
+
+{% set pageTitle = 'Report ' + type + ' from a waste facility, industrial site or farm in England' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-xl">
+      Report {{ type }} from a waste facility, industrial site or farm in England
+    </h1>
+
+    <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+            This start page is in progress. Content is not complete and will change.
+        </strong>
+    </div>
+
+    <p>Use this service to report {{ type }} from waste processing, large industrial sites and farming activities.</p>
+
+    {% if type == 'smell' %}
+      <p>This includes smells from:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>rubbish tips</li>
+        <li>recycling centres</li>
+        <li>industrial food processing</li>
+        <li>livestock management, such as pig or poultry farming</li>
+      </ul>
+
+    <div class="govuk-inset-text">
+        There's a different way to
+        <a rel="external" href="https://www.mygov.scot/report-environmental-incident">report a smell in Scotland</a>,
+        <a rel="external" href="https://naturalresources.wales/about-us/contact-us/report-an-incident/?lang=en">report a smell in Wales</a> or
+        <a rel="external" href="https://www.nidirect.gov.uk/information-and-services/environment-and-outdoors/">report an environmental problem in Northern Ireland</a>.
+      </div>
+
+      <h2 class="govuk-heading-m">Report other types of smells</h2>
+      <p>You cannot use this service to report smells from:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>neighbours</li>
+        <li>domestic rubbish</li>
+        <li>small or local businesses such as restaurants</li>
+      </ul>
+      <p>You'll need to <a href="https://www.gov.uk/find-local-council">contact your local council</a> and ask for their environmental health department.</p>
+    {% endif %}
+
+    {% if type == 'smell' %}
+    <h2 class="govuk-heading-m">Before you start</h2>
+      <p>You'll need to know:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>where the smell is coming from</li>
+        <li>where you noticed it</li>
+        <li>when you noticed it</li>
+      </ul>
+    {% endif %}
+    <p>You only need to give your personal details if you're happy to be contacted for more information.</p>
+    <p>You'll need to give an email address if you want to either:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>include any photos</li>
+      <li>get a reference number</li>
+    </ul>
+
+    {{ govukButton({
+      text: "Start now",
+      href: startHref or "/",
+      isStartButton: true
+    }) }}
+
+    <h2 class="govuk-heading-m">Report {{ type }} by phone</h2>
+    <p>If you're unable to use the online service you can call the Environment Agency.</p>
+    <div class="contact">
+      <p>Environment Agency incident hotline<br />
+        Telephone: 0800 80 70 60<br />
+        24 hours<br />
+        <a href="https://www.gov.uk/call-charges">Find out about call charges</a>
+      </p>
+    </div>
+
+    <h2 class="govuk-heading-m">After you make your report</h2>
+    <p>The Environment Agency will review your report and decide if any action is needed.</p>
+    <p>You will not get updates on your report.</p>
+
+    <h2 class="govuk-heading-m">Other environmental problems</h2>
+    <p>How you report other problems affecting the environment depends on what it is and where it's happening. You may have to report it to:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>the Environment Agency</li>
+      <li>your local council</li>
+      <li>your utilities company</li>
+    </ul>
+    <p><a href="https://www.gov.uk/report-an-environmental-incident">Report other environmental problems</a>.</p>
+
+  </div>
+</div>
+
+{% endblock %}

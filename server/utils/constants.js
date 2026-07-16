@@ -4,7 +4,7 @@ const urls = {
   GOV_UK_WATER_POLLUTION: 'https://www.gov.uk/report-water-pollution',
   GOV_UK_SMELL: 'https://www.gov.uk/report-smell',
   GOV_UK_ILLEGAL_FISHING: 'https://www.gov.uk/report-illegal-fishing-in-england',
-  GOV_UK_BLOCKAGE: 'https://www.gov.uk/report-river-blockage'
+  GOV_UK_REPORT_A_REGULATED_SITE: 'https://www.gov.uk/report-regulated-site'
 }
 
 const serviceNames = {
@@ -12,7 +12,8 @@ const serviceNames = {
   WATER_POLLUTION: 'Report water pollution in England',
   SMELL: 'Report a smell from a waste facility, industrial site or farm in England',
   ILLEGAL_FISHING: 'Report illegal fishing in England',
-  BLOCKAGE: 'Report a blockage in a river in England'
+  BLOCKAGE: 'Report a blockage in a river in England',
+  REGULATED_SITE: 'Report a regulated site in England'
 }
 
 const phoneRegex = /^[\s\d-+()#]*$/
@@ -144,6 +145,10 @@ const BLOCKAGE_CONTACT_DETAILS = 'blockage/contact-details'
 const BLOCKAGE_IMAGES_OR_VIDEO = 'blockage/images-or-video'
 const BLOCKAGE_OTHER_INFORMATION = 'blockage/other-information'
 
+const REPORT_A_REGULATED_SITE = 'report-a-regulated-site'
+const REPORT_A_REGULATED_SITE_HOME = 'report-a-regulated-site-home'
+const REPORT_A_REGULATED_SITE_START = 'report-a-regulated-site-start'
+
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
 
@@ -163,6 +168,8 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
     SMELL_START,
     ILLEGAL_FISHING_START,
     BLOCKAGE_START,
+    REPORT_A_REGULATED_SITE_HOME,
+    REPORT_A_REGULATED_SITE_START,
     TEST_MEDIA_UPLOAD_SUBMIT
   }
 }
@@ -282,7 +289,10 @@ const views = {
   BLOCKAGE_OWNER,
   BLOCKAGE_CONTACT_DETAILS,
   BLOCKAGE_IMAGES_OR_VIDEO,
-  BLOCKAGE_OTHER_INFORMATION
+  BLOCKAGE_OTHER_INFORMATION,
+  REPORT_A_REGULATED_SITE,
+  REPORT_A_REGULATED_SITE_HOME,
+  REPORT_A_REGULATED_SITE_START
 }
 
 const routes = {

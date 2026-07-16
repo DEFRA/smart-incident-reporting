@@ -1580,6 +1580,8 @@ const questionSets = {
         }
       }
     }
+  },
+  REPORT_A_REGUATED_SITE: {
   }
 }
 

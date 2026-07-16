@@ -1,0 +1,33 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'Smart Incident Reporting' %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">
+      Report a regulated site
+    </h1>
+    <p class="govuk-body">
+      <a href="/report-a-regulated-site-start?type=smell" class="govuk-link">Report a smell</a>
+    </p>
+    <p class="govuk-body">
+      <a href="/report-a-regulated-site-start?type=noise" class="govuk-link">Report noise</a>
+    </p>
+    <p class="govuk-body">
+      <a href="/report-a-regulated-site-start?type=vermin" class="govuk-link">Report vermin or pests, for example rats or flies</a>
+    </p>
+    <p class="govuk-body">
+      <a href="/report-a-regulated-site-start?type=dust" class="govuk-link">Report dust</a>
+    </p>
+    <p class="govuk-body">
+      <a href="/report-a-regulated-site-start?type=mud" class="govuk-link">Report mud</a>
+    </p>
+    <p class="govuk-body">
+      <a href="/report-a-regulated-site-start?type=litter" class="govuk-link">Report litter</a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}
