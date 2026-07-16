@@ -22,9 +22,10 @@ describe(url, () => {
       process.env.REGISTER_START_ROUTES = 'false'
       const response = await submitGetRequest({ url })
       const html = parse(response.payload)
-      const serviceNameLink = html.querySelector('.govuk-service-navigation__link')
+      const serviceNavigation = html.querySelector('.govuk-service-navigation')
+      const serviceNameLink = serviceNavigation?.querySelector('a')
       expect(html.querySelector('.govuk-service-navigation__service-name').textContent).toContain(constants.serviceNames.BLOCKAGE)
-      expect(serviceNameLink.getAttribute('href')).toBe(constants.urls.GOV_UK_BLOCKAGE)
+      expect(serviceNameLink?.getAttribute('href')).toBe(constants.urls.GOV_UK_BLOCKAGE)
       process.env.REGISTER_START_ROUTES = 'true'
     })
   })
