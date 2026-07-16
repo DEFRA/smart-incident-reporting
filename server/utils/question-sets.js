@@ -1581,7 +1581,7 @@ const questionSets = {
       }
     }
   },
-  REPORT_A_REGUATED_SITE: {
+  REPORT_A_REGULATED_SITE: {
   }
 }
 
