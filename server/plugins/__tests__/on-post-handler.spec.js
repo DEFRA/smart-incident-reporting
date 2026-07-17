@@ -91,6 +91,19 @@ const routeToRequiredKey = {
 }
 
 describe('Smell journey guard (onPreHandler)', () => {
+  describe('Health endpoint', () => {
+    it('smell/health is always accessible', async () => {
+      const response = await submitGetRequest(
+        { url: r.SMELL_HEALTH },
+        null,
+        constants.statusCodes.OK,
+        {}
+      )
+      expect(response.statusCode).toBe(constants.statusCodes.OK)
+      expect(response.result).toEqual({ status: 'ok' })
+    })
+  })
+
   describe('Should allow access when prerequisites are met', () => {
     it.each(allowedRoutes)('%s → allowed with full session', async (route) => {
       const response = await submitGetRequest(

@@ -58,6 +58,7 @@ const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 const WATER_POLLUTION_CHECK_YOUR_ANSWERS = 'water-pollution/check-your-answers'
 const WATER_POLLUTION_CONTACT_DETAILS = 'water-pollution/contact-details'
 const WATER_POLLUTION_SMELL_DESCRIPTION = 'water-pollution/smell-description'
+const WATER_POLLUTION_HEALTH = 'water-pollution/health'
 
 const SMELL_START = 'smell-start'
 const SMELL = 'smell'
@@ -91,6 +92,7 @@ const SMELL_CHOOSE_ADDRESS = 'smell/choose-address'
 const SMELL_CONFIRM_ADDRESS = 'smell/confirm-address'
 const SMELL_EXCEEDED_ATTEMPTS = 'smell/exceeded-attempts'
 const SMELL_DESCRIPTION = 'smell/description'
+const SMELL_HEALTH = 'smell/health'
 
 const ILLEGAL_FISHING_START = 'illegal-fishing-start'
 const ILLEGAL_FISHING = 'illegal-fishing'
@@ -118,6 +120,7 @@ const ILLEGAL_FISHING_CONTACT_DETAILS = 'illegal-fishing/contact-details'
 const ILLEGAL_FISHING_IMAGES_OR_VIDEO = 'illegal-fishing/images-or-video'
 const ILLEGAL_FISHING_OTHER_INFORMATION = 'illegal-fishing/other-information'
 const ILLEGAL_FISHING_ANGLING_TRUST = 'illegal-fishing/angling-trust'
+const ILLEGAL_FISHING_HEALTH = 'illegal-fishing/health'
 
 const BLOCKAGE_START = 'blockage-start'
 const BLOCKAGE = 'blockage'
@@ -143,6 +146,7 @@ const BLOCKAGE_OWNER = 'blockage/owner'
 const BLOCKAGE_CONTACT_DETAILS = 'blockage/contact-details'
 const BLOCKAGE_IMAGES_OR_VIDEO = 'blockage/images-or-video'
 const BLOCKAGE_OTHER_INFORMATION = 'blockage/other-information'
+const BLOCKAGE_HEALTH = 'blockage/health'
 
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
@@ -181,6 +185,7 @@ const views = {
   FEEDBACK,
   FEEDBACK_SUCCESS,
   REPORT_SENT,
+  WATER_POLLUTION_HEALTH,
   WATER_POLLUTION,
   WATER_POLLUTION_WATER_FEATURE,
   WATER_POLLUTION_LOCATION_OPTION,
@@ -204,6 +209,7 @@ const views = {
   WATER_POLLUTION_CHECK_YOUR_ANSWERS,
   WATER_POLLUTION_CONTACT_DETAILS,
   WATER_POLLUTION_SMELL_DESCRIPTION,
+  SMELL_HEALTH,
   SMELL,
   SMELL_LOCATION_HOME,
   SMELL_LOCATION_ADDRESS,
@@ -235,6 +241,7 @@ const views = {
   SMELL_CONFIRM_ADDRESS,
   SMELL_EXCEEDED_ATTEMPTS,
   SMELL_DESCRIPTION,
+  ILLEGAL_FISHING_HEALTH,
   ILLEGAL_FISHING,
   ILLEGAL_FISHING_WATER_FEATURE,
   ILLEGAL_FISHING_ACTIVITY,
@@ -260,6 +267,7 @@ const views = {
   ILLEGAL_FISHING_IMAGES_OR_VIDEO,
   ILLEGAL_FISHING_OTHER_INFORMATION,
   ILLEGAL_FISHING_ANGLING_TRUST,
+  BLOCKAGE_HEALTH,
   BLOCKAGE,
   BLOCKAGE_RIVER,
   BLOCKAGE_RIVER_NAME,
