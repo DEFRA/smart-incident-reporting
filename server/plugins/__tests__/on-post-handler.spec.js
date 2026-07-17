@@ -13,6 +13,7 @@ const completeSession = {
   // Branch-specific keys not in default mock session
   [k.SMELL_LOCATION_OPTION]: [{ questionId: 2600, questionAsked: 'How do you want to tell us where you\'ve noticed the smell?', questionResponse: true, answerId: 2602 }],
   [k.SMELL_DESCRIPTION]: [{ questionId: 1700, questionAsked: 'How would you describe the smell?', questionResponse: true, answerId: 1701 }],
+  [k.SMELL_MEDICAL_HELP]: [{ questionId: 3300, questionAsked: 'Have you had to get any medical help because of the smell?', questionResponse: true, answerId: 3302 }],
   [k.SMELL_DATE_BEFORE_YESTERDAY]: { dateString: '2026-06-01', dateWordString: '1 June 2026', payload: { day: '1', month: '6', year: '2026' } },
   [k.SMELL_CONFIRM_ADDRESS]: { selectedAddress: '1 TEST STREET, LONDON, SW1A 1AA' },
   [k.SMELL_CHOOSE_ADDRESS]: { postcode: 'SW1A 1AA' }
@@ -46,9 +47,9 @@ const guardedRoutes = [
   [r.SMELL_EFFECT_ON_DAILY_LIFE, r.SMELL_CLOTHING_AND_HAIR],
   [r.SMELL_EFFECT_ON_HEALTH, r.SMELL_EFFECT_ON_DAILY_LIFE],
   [r.SMELL_MEDICAL_HELP, r.SMELL_EFFECT_ON_HEALTH],
-  [r.SMELL_CONTACT_DETAILS, r.SMELL_EFFECT_ON_HEALTH],
-  [r.SMELL_IMAGES_OR_VIDEO, r.SMELL_CONTACT_DETAILS],
-  [r.SMELL_OTHER_INFORMATION, r.SMELL_IMAGES_OR_VIDEO]
+  [r.SMELL_IMAGES_OR_VIDEO, r.SMELL_MEDICAL_HELP],
+  [r.SMELL_CONTACT_DETAILS, r.SMELL_IMAGES_OR_VIDEO],
+  [r.SMELL_OTHER_INFORMATION, r.SMELL_CONTACT_DETAILS]
 ]
 
 // Routes that require specific API/address mock data for their GET handlers — tested for redirect only
@@ -85,9 +86,9 @@ const routeToRequiredKey = {
   [r.SMELL_EFFECT_ON_DAILY_LIFE]: k.SMELL_CLOTHING_AND_HAIR,
   [r.SMELL_EFFECT_ON_HEALTH]: k.SMELL_EFFECT_ON_DAILY_LIFE,
   [r.SMELL_MEDICAL_HELP]: k.SMELL_EFFECT_ON_HEALTH,
-  [r.SMELL_CONTACT_DETAILS]: k.SMELL_EFFECT_ON_HEALTH,
-  [r.SMELL_IMAGES_OR_VIDEO]: k.SMELL_CONTACT_DETAILS,
-  [r.SMELL_OTHER_INFORMATION]: k.SMELL_IMAGES_OR_VIDEO
+  [r.SMELL_IMAGES_OR_VIDEO]: k.SMELL_MEDICAL_HELP,
+  [r.SMELL_CONTACT_DETAILS]: k.SMELL_IMAGES_OR_VIDEO,
+  [r.SMELL_OTHER_INFORMATION]: k.SMELL_CONTACT_DETAILS
 }
 
 describe('Smell journey guard (onPreHandler)', () => {

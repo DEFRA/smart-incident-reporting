@@ -4,9 +4,19 @@ import constants from '../../../utils/constants.js'
 
 const url = constants.routes.SMELL_IMAGES_OR_VIDEO
 const question = questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO
+const medicalHelpQuestion = questionSets.SMELL.questions.SMELL_MEDICAL_HELP
 const videoAnswerId = question.answers.yesVideo.answerId
 const noVideoAnswerId = question.answers.noVideo.answerId
 const noPhotosAnswerId = question.answers.noPhotos.answerId
+
+const medicalHelpSessionData = {
+  'smell/medical-help': [{
+    questionId: medicalHelpQuestion.questionId,
+    questionAsked: medicalHelpQuestion.text,
+    questionResponse: true,
+    answerId: medicalHelpQuestion.answers.no.answerId
+  }]
+}
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -15,6 +25,7 @@ const baseAnswer = {
 }
 
 const sessionDataWithEmail = {
+  ...medicalHelpSessionData,
   'smell/contact-details': {
     reporterName: 'test name',
     reporterPhoneNumber: '012345678910',
@@ -23,6 +34,7 @@ const sessionDataWithEmail = {
 }
 
 const sessionDataWithoutEmail = {
+  ...medicalHelpSessionData,
   'smell/contact-details': {
     reporterName: 'test name',
     reporterPhoneNumber: '012345678910',
@@ -31,6 +43,7 @@ const sessionDataWithoutEmail = {
 }
 
 const sessionDataWithPhotosSelected = {
+  ...medicalHelpSessionData,
   'smell/contact-details': {
     reporterEmailAddress: 'test@test.com'
   },
@@ -44,6 +57,7 @@ const sessionDataWithPhotosSelected = {
 }
 
 const sessionDataNo = {
+  ...medicalHelpSessionData,
   'smell/contact-details': {
     reporterEmailAddress: 'test@test.com'
   },
