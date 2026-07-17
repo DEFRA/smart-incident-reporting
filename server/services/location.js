@@ -2,7 +2,7 @@ import config from '../utils/config.js'
 import { getJson } from '../utils/util.js'
 
 const findByQuery = async query => {
-  const uri = `https://api.os.uk/search/names/v1/find?query=${query}&key=${config.osKey}&maxresults=20&fq=LOCAL_TYPE:Postcode LOCAL_TYPE:City LOCAL_TYPE:Town LOCAL_TYPE:Village LOCAL_TYPE:Other_Settlement LOCAL_TYPE:Hamlet LOCAL_TYPE:Suburban_Area`
+  const uri = `https://api.os.uk/search/names/v1/find?query=${query}&key=${config.osSearchKey}&maxresults=20&fq=LOCAL_TYPE:Postcode LOCAL_TYPE:City LOCAL_TYPE:Town LOCAL_TYPE:Village LOCAL_TYPE:Other_Settlement LOCAL_TYPE:Hamlet LOCAL_TYPE:Suburban_Area`
   const payload = await getJson(uri)
 
   if (!payload.results || payload.results.length === 0) {
@@ -14,7 +14,7 @@ const findByQuery = async query => {
 }
 
 const findSuggestionsByQuery = async query => {
-  const uri = `https://api.os.uk/search/names/v1/find?query=${query}&key=${config.osKey}&maxResults=100&fq=LOCAL_TYPE:Postcode LOCAL_TYPE:City LOCAL_TYPE:Town LOCAL_TYPE:Village LOCAL_TYPE:Other_Settlement LOCAL_TYPE:Hamlet LOCAL_TYPE:Suburban_Area`
+  const uri = `https://api.os.uk/search/names/v1/find?query=${query}&key=${config.osSearchKey}&maxResults=100&fq=LOCAL_TYPE:Postcode LOCAL_TYPE:City LOCAL_TYPE:Town LOCAL_TYPE:Village LOCAL_TYPE:Other_Settlement LOCAL_TYPE:Hamlet LOCAL_TYPE:Suburban_Area`
   const payload = await getJson(uri)
 
   if (!payload.results || payload.results.length === 0) {
