@@ -1581,7 +1581,25 @@ const questionSets = {
       }
     }
   },
-  REPORT_A_REGULATED_SITE: {
+  NOISE: {
+    questionSetId: 500,
+    questions: {}
+  },
+  LITTER: {
+    questionSetId: 600,
+    questions: {}
+  },
+  VERMIN: {
+    questionSetId: 700,
+    questions: {}
+  },
+  DUST: {
+    questionSetId: 800,
+    questions: {}
+  },
+  MUD: {
+    questionSetId: 900,
+    questions: {}
   }
 }
 

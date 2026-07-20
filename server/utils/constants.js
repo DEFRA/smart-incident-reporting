@@ -145,9 +145,20 @@ const BLOCKAGE_CONTACT_DETAILS = 'blockage/contact-details'
 const BLOCKAGE_IMAGES_OR_VIDEO = 'blockage/images-or-video'
 const BLOCKAGE_OTHER_INFORMATION = 'blockage/other-information'
 
-const REPORT_A_REGULATED_SITE = 'report-a-regulated-site'
-const REPORT_A_REGULATED_SITE_HOME = 'report-a-regulated-site-home'
-const REPORT_A_REGULATED_SITE_START = 'report-a-regulated-site-start'
+const NOISE = 'noise'
+const NOISE_START = 'noise-start'
+
+const LITTER = 'litter'
+const LITTER_START = 'litter-start'
+
+const VERMIN = 'vermin'
+const VERMIN_START = 'vermin-start'
+
+const DUST = 'dust'
+const DUST_START = 'dust-start'
+
+const MUD = 'mud'
+const MUD_START = 'mud-start'
 
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
@@ -168,8 +179,6 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
     SMELL_START,
     ILLEGAL_FISHING_START,
     BLOCKAGE_START,
-    REPORT_A_REGULATED_SITE_HOME,
-    REPORT_A_REGULATED_SITE_START,
     TEST_MEDIA_UPLOAD_SUBMIT
   }
 }
@@ -290,6 +299,16 @@ const views = {
   BLOCKAGE_CONTACT_DETAILS,
   BLOCKAGE_IMAGES_OR_VIDEO,
   BLOCKAGE_OTHER_INFORMATION,
+  NOISE,
+  NOISE_START,
+  LITTER,
+  LITTER_START,
+  VERMIN,
+  VERMIN_START,
+  DUST,
+  DUST_START,
+  MUD,
+  MUD_START,
   REPORT_A_REGULATED_SITE,
   REPORT_A_REGULATED_SITE_HOME,
   REPORT_A_REGULATED_SITE_START
