@@ -121,7 +121,7 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.OK)
 
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Feedback must be less than 4000 characters')
+      expect(response.payload).toContain('Feedback must be 4000 characters or fewer')
       expect(sendMessage).not.toHaveBeenCalled()
     })
   })
