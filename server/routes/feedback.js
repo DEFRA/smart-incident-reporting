@@ -2,7 +2,7 @@ import constants from '../utils/constants.js'
 import { getErrorSummary, validatePayload } from '../utils/helpers.js'
 import { sendMessage } from '../services/service-bus.js'
 
-const FEEDBACK_TEXT_CHARACTER_LIMIT = 3999
+const FEEDBACK_TEXT_CHARACTER_LIMIT = 4000
 
 const handlers = {
   get: (request, h) => {
