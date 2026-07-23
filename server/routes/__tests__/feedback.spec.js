@@ -76,5 +76,53 @@ describe(url, () => {
       const response = await submitPostRequest(options, constants.statusCodes.PROBLEM_WITH_SERVICE, session)
       expect(response.payload).toContain('Sorry, there is a problem with the service')
     })
+    it('Should successfully post feedback when feedback text is 4000 characters', async () => {
+      const feedbackURL = refererUrl
+      const feedbackText = 'a'.repeat(4000)
+
+      session[constants.redisKeys.FEEDBACK] = {
+        feedbackURL
+      }
+      session[constants.redisKeys.QUESTION_SET_ID] = 100
+
+      const options = {
+        url,
+        payload: {
+          feedback: 'vsatisfied',
+          otherInfo: feedbackText
+        }
+      }
+
+      const response = await submitPostRequest(options, 302, session)
+
+      expect(sendMessage).toHaveBeenCalledTimes(1)
+      expect(sendMessage).toHaveBeenCalledWith(expect.objectContaining({
+        info: expect.any(Function)
+      }),
+      expect.objectContaining({
+        givingFeedbackToAEnvironmentalProblemReport: expect.objectContaining({
+          feedbackRating: 'vsatisfied',
+          feedbackText,
+          questionSetId: 100,
+          feedbackURL
+        })
+      }), '-feedback')
+      expect(response.request.yar.get(constants.redisKeys.FEEDBACK).feedbackURL).toEqual(feedbackURL)
+    })
+    it('Should fail validation when feedback text is 4001 characters or more', async () => {
+      const options = {
+        url,
+        payload: {
+          feedback: 'vsatisfied',
+          otherInfo: 'a'.repeat(4001)
+        }
+      }
+
+      const response = await submitPostRequest(options, constants.statusCodes.OK)
+
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain('Feedback must be less than 4000 characters')
+      expect(sendMessage).not.toHaveBeenCalled()
+    })
   })
 })

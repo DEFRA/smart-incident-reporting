@@ -52,11 +52,14 @@
           name: "otherInfo",
           id: "otherInfo",
           rows: "10",
+          maxlength: 3999,
+          value: otherInfo,
           label: {
             text: "How could we improve this service?",
             classes: "govuk-label--s",
             isPageHeading: true
           },
+          errorMessage: findErrorMessageById(errorSummary, "otherInfo"),
           hint: {
             text: "Do not include any personal or financial information, for example your National Insurance or credit card numbers."
           }

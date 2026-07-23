@@ -21,7 +21,8 @@
           "type": "string"
         },
         "feedbackText": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 4000
         },
         "questionSetId": {
           "type": [ "number", "null" ]

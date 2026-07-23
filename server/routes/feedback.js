@@ -2,6 +2,8 @@ import constants from '../utils/constants.js'
 import { getErrorSummary, validatePayload } from '../utils/helpers.js'
 import { sendMessage } from '../services/service-bus.js'
 
+const FEEDBACK_TEXT_CHARACTER_LIMIT = 3999
+
 const handlers = {
   get: (request, h) => {
     request.yar.set(constants.redisKeys.FEEDBACK, {
@@ -13,14 +15,27 @@ const handlers = {
     const { feedback, otherInfo } = request.payload
 
     // validate payload
+    const errorSummary = getErrorSummary()
+
     if (!feedback) {
-      const errorSummary = getErrorSummary()
       errorSummary.errorList.push({
         text: 'Select how you feel about the service',
         href: '#feedback'
       })
+    }
+
+    if (otherInfo && otherInfo.length > FEEDBACK_TEXT_CHARACTER_LIMIT) {
+      errorSummary.errorList.push({
+        text: 'Feedback must be less than 4000 characters',
+        href: '#otherInfo'
+      })
+    }
+
+    if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.FEEDBACK, {
-        errorSummary
+        errorSummary,
+        feedback,
+        otherInfo
       })
     }
 
