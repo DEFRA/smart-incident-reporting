@@ -26,7 +26,7 @@ const handlers = {
 
     if (otherInfo && otherInfo.length > FEEDBACK_TEXT_CHARACTER_LIMIT) {
       errorSummary.errorList.push({
-        text: 'Feedback must be less than 4000 characters',
+        text: 'Feedback must be 4000 characters or fewer',
         href: '#otherInfo'
       })
     }
