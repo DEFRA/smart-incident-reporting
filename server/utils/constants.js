@@ -4,7 +4,7 @@ const urls = {
   GOV_UK_WATER_POLLUTION: 'https://www.gov.uk/report-water-pollution',
   GOV_UK_SMELL: 'https://www.gov.uk/report-smell',
   GOV_UK_ILLEGAL_FISHING: 'https://www.gov.uk/report-illegal-fishing-in-england',
-  GOV_UK_REPORT_A_REGULATED_SITE: 'https://www.gov.uk/report-regulated-site'
+  GOV_UK_BLOCKAGE: 'https://www.gov.uk/report-river-blockage'
 }
 
 const serviceNames = {
@@ -12,8 +12,7 @@ const serviceNames = {
   WATER_POLLUTION: 'Report water pollution in England',
   SMELL: 'Report a smell from a waste facility, industrial site or farm in England',
   ILLEGAL_FISHING: 'Report illegal fishing in England',
-  BLOCKAGE: 'Report a blockage in a river in England',
-  REGULATED_SITE: 'Report a regulated site in England'
+  BLOCKAGE: 'Report a blockage in a river in England'
 }
 
 const phoneRegex = /^[\s\d-+()#]*$/
@@ -184,6 +183,11 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
     VERMIN_START,
     DUST_START,
     MUD_START,
+    NOISE,
+    LITTER,
+    VERMIN,
+    DUST,
+    MUD,
     TEST_MEDIA_UPLOAD_SUBMIT
   }
 }
@@ -303,12 +307,7 @@ const views = {
   BLOCKAGE_OWNER,
   BLOCKAGE_CONTACT_DETAILS,
   BLOCKAGE_IMAGES_OR_VIDEO,
-  BLOCKAGE_OTHER_INFORMATION,
-  NOISE,
-  LITTER,
-  VERMIN,
-  DUST,
-  MUD
+  BLOCKAGE_OTHER_INFORMATION
 }
 
 const routes = {
