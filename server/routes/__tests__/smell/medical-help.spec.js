@@ -13,7 +13,8 @@ const baseAnswer = {
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, 'Have you had to get any medical help or treatment?')
+      await submitGetRequest({ url }, question.text)
+      )
     })
   })
   describe('POST', () => {

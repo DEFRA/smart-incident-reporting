@@ -1,7 +1,5 @@
 {% extends 'form-layout.html' %}
-
-{% set title = 'Have you had to get any medical help or treatment?' %}
-{% set pageTitle = 'Have you had to get any medical help or treatment?' %}
+{% set pageTitle = question.text.replace('?', '') %}
 
 {% set items = [
   {
