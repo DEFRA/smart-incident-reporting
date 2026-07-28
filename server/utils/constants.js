@@ -1,10 +1,18 @@
+import rarsConstants from './rars-constants.js'
+
+// UPDATE URLS
 const urls = {
   GOV_UK_HOME: 'https://www.gov.uk',
   GOV_UK_SERVICE_HOME: 'https://www.gov.uk/report-environmental-problem',
   GOV_UK_WATER_POLLUTION: 'https://www.gov.uk/report-water-pollution',
   GOV_UK_SMELL: 'https://www.gov.uk/report-smell',
   GOV_UK_ILLEGAL_FISHING: 'https://www.gov.uk/report-illegal-fishing-in-england',
-  GOV_UK_BLOCKAGE: 'https://www.gov.uk/report-river-blockage'
+  GOV_UK_BLOCKAGE: 'https://www.gov.uk/report-river-blockage',
+  GOV_UK_NOISE: 'https://www.gov.uk/report-environmental-problem',
+  GOV_UK_LITTER: 'https://www.gov.uk/report-environmental-problem',
+  GOV_UK_VERMIN: 'https://www.gov.uk/report-environmental-problem',
+  GOV_UK_DUST: 'https://www.gov.uk/report-environmental-problem',
+  GOV_UK_MUD: 'https://www.gov.uk/report-environmental-problem'
 }
 
 const serviceNames = {
@@ -12,7 +20,12 @@ const serviceNames = {
   WATER_POLLUTION: 'Report water pollution in England',
   SMELL: 'Report a smell from a waste facility, industrial site or farm in England',
   ILLEGAL_FISHING: 'Report illegal fishing in England',
-  BLOCKAGE: 'Report a blockage in a river in England'
+  BLOCKAGE: 'Report a blockage in a river in England',
+  NOISE: 'Report noise from a waste facility, industrial site or farm in England',
+  LITTER: 'Report litter from a waste facility, industrial site or farm in England',
+  VERMIN: 'Report vermin from a waste facility, industrial site or farm in England',
+  DUST: 'Report dust from a waste facility, industrial site or farm in England',
+  MUD: 'Report mud from a waste facility, industrial site or farm in England'
 }
 
 const phoneRegex = /^[\s\d-+()#]*$/
@@ -59,38 +72,38 @@ const WATER_POLLUTION_CHECK_YOUR_ANSWERS = 'water-pollution/check-your-answers'
 const WATER_POLLUTION_CONTACT_DETAILS = 'water-pollution/contact-details'
 const WATER_POLLUTION_SMELL_DESCRIPTION = 'water-pollution/smell-description'
 
-const SMELL_START = 'smell-start'
-const SMELL = 'smell'
-const SMELL_LOCATION_HOME = 'smell/location-home'
-const SMELL_LOCATION_ADDRESS = 'smell/location-address'
-const SMELL_LOCATION_OPTION = 'smell/location-option'
-const SMELL_PREVIOUS = 'smell/previous'
-const SMELL_LOCATION_MAP = 'smell/location-map'
-const SMELL_LOCATION_DESCRIPTION = 'smell/location-description'
-const SMELL_START_DATE_TIME = 'smell/start-date-time'
-const SMELL_EARLIER_TODAY = 'smell/earlier-today'
-const SMELL_YESTERDAY = 'smell/yesterday'
-const SMELL_DATE_BEFORE_YESTERDAY = 'smell/date-before-yesterday'
-const SMELL_TIME_BEFORE_YESTERDAY = 'smell/time-before-yesterday'
-const SMELL_CURRENT = 'smell/current'
-const SMELL_SMELL_STRENGTH = 'smell/smell-strength'
-const SMELL_INDOORS = 'smell/indoors'
-const SMELL_CLOTHING_AND_HAIR = 'smell/clothing-and-hair'
-const SMELL_EFFECT_ON_DAILY_LIFE = 'smell/effect-on-daily-life'
-const SMELL_EFFECT_ON_HEALTH = 'smell/effect-on-health'
-const SMELL_MEDICAL_HELP = 'smell/medical-help'
-const SMELL_SOURCE = 'smell/source'
-const SMELL_REPORT_LOCAL_COUNCIL = 'smell/report-local-council'
-const SMELL_CONTACT_LOCAL_COUNCIL = 'smell/contact-local-council'
-const SMELL_SOURCE_DETAILS = 'smell/source-details'
-const SMELL_CONTACT_DETAILS = 'smell/contact-details'
-const SMELL_IMAGES_OR_VIDEO = 'smell/images-or-video'
-const SMELL_OTHER_INFORMATION = 'smell/other-information'
-const SMELL_FIND_ADDRESS = 'smell/find-address'
-const SMELL_CHOOSE_ADDRESS = 'smell/choose-address'
-const SMELL_CONFIRM_ADDRESS = 'smell/confirm-address'
-const SMELL_EXCEEDED_ATTEMPTS = 'smell/exceeded-attempts'
-const SMELL_DESCRIPTION = 'smell/description'
+// const SMELL_START = 'smell-start'
+// const SMELL = 'smell'
+// const SMELL_LOCATION_HOME = 'smell/location-home'
+// const SMELL_LOCATION_ADDRESS = 'smell/location-address'
+// const SMELL_LOCATION_OPTION = 'smell/location-option'
+// const SMELL_PREVIOUS = 'smell/previous'
+// const SMELL_LOCATION_MAP = 'smell/location-map'
+// const SMELL_LOCATION_DESCRIPTION = 'smell/location-description'
+// const SMELL_START_DATE_TIME = 'smell/start-date-time'
+// const SMELL_EARLIER_TODAY = 'smell/earlier-today'
+// const SMELL_YESTERDAY = 'smell/yesterday'
+// const SMELL_DATE_BEFORE_YESTERDAY = 'smell/date-before-yesterday'
+// const SMELL_TIME_BEFORE_YESTERDAY = 'smell/time-before-yesterday'
+// const SMELL_CURRENT = 'smell/current'
+// const SMELL_SMELL_STRENGTH = 'smell/smell-strength'
+// const SMELL_INDOORS = 'smell/indoors'
+// const SMELL_CLOTHING_AND_HAIR = 'smell/clothing-and-hair'
+// const SMELL_EFFECT_ON_DAILY_LIFE = 'smell/effect-on-daily-life'
+// const SMELL_EFFECT_ON_HEALTH = 'smell/effect-on-health'
+// const SMELL_MEDICAL_HELP = 'smell/medical-help'
+// const SMELL_SOURCE = 'smell/source'
+// const SMELL_REPORT_LOCAL_COUNCIL = 'smell/report-local-council'
+// const SMELL_CONTACT_LOCAL_COUNCIL = 'smell/contact-local-council'
+// const SMELL_SOURCE_DETAILS = 'smell/source-details'
+// const SMELL_CONTACT_DETAILS = 'smell/contact-details'
+// const SMELL_IMAGES_OR_VIDEO = 'smell/images-or-video'
+// const SMELL_OTHER_INFORMATION = 'smell/other-information'
+// const SMELL_FIND_ADDRESS = 'smell/find-address'
+// const SMELL_CHOOSE_ADDRESS = 'smell/choose-address'
+// const SMELL_CONFIRM_ADDRESS = 'smell/confirm-address'
+// const SMELL_EXCEEDED_ATTEMPTS = 'smell/exceeded-attempts'
+// const SMELL_DESCRIPTION = 'smell/description'
 
 const ILLEGAL_FISHING_START = 'illegal-fishing-start'
 const ILLEGAL_FISHING = 'illegal-fishing'
@@ -144,20 +157,12 @@ const BLOCKAGE_CONTACT_DETAILS = 'blockage/contact-details'
 const BLOCKAGE_IMAGES_OR_VIDEO = 'blockage/images-or-video'
 const BLOCKAGE_OTHER_INFORMATION = 'blockage/other-information'
 
-const NOISE = 'noise'
 const NOISE_START = 'noise-start'
-
-const LITTER = 'litter'
 const LITTER_START = 'litter-start'
-
-const VERMIN = 'vermin'
 const VERMIN_START = 'vermin-start'
-
-const DUST = 'dust'
 const DUST_START = 'dust-start'
-
-const MUD = 'mud'
 const MUD_START = 'mud-start'
+const SMELL_START = 'smell-start'
 
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
@@ -166,7 +171,7 @@ const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 const REFERER = 'referer'
 const COUNTER = 'counter'
-const SMELL_POSTCODE_DETAILS = 'smell-postcode-details'
+// const SMELL_POSTCODE_DETAILS = 'smell-postcode-details'
 const DATE_TIME_OPTION = 'date-time-option'
 const QUESTION_SET_ID = 'question-set-id'
 
@@ -183,11 +188,6 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
     VERMIN_START,
     DUST_START,
     MUD_START,
-    NOISE,
-    LITTER,
-    VERMIN,
-    DUST,
-    MUD,
     TEST_MEDIA_UPLOAD_SUBMIT
   }
 }
@@ -229,37 +229,37 @@ const views = {
   WATER_POLLUTION_CHECK_YOUR_ANSWERS,
   WATER_POLLUTION_CONTACT_DETAILS,
   WATER_POLLUTION_SMELL_DESCRIPTION,
-  SMELL,
-  SMELL_LOCATION_HOME,
-  SMELL_LOCATION_ADDRESS,
-  SMELL_LOCATION_OPTION,
-  SMELL_PREVIOUS,
-  SMELL_LOCATION_MAP,
-  SMELL_LOCATION_DESCRIPTION,
-  SMELL_START_DATE_TIME,
-  SMELL_EARLIER_TODAY,
-  SMELL_YESTERDAY,
-  SMELL_DATE_BEFORE_YESTERDAY,
-  SMELL_TIME_BEFORE_YESTERDAY,
-  SMELL_SOURCE,
-  SMELL_REPORT_LOCAL_COUNCIL,
-  SMELL_CONTACT_LOCAL_COUNCIL,
-  SMELL_SOURCE_DETAILS,
-  SMELL_CURRENT,
-  SMELL_SMELL_STRENGTH,
-  SMELL_INDOORS,
-  SMELL_CLOTHING_AND_HAIR,
-  SMELL_EFFECT_ON_DAILY_LIFE,
-  SMELL_EFFECT_ON_HEALTH,
-  SMELL_MEDICAL_HELP,
-  SMELL_CONTACT_DETAILS,
-  SMELL_IMAGES_OR_VIDEO,
-  SMELL_OTHER_INFORMATION,
-  SMELL_FIND_ADDRESS,
-  SMELL_CHOOSE_ADDRESS,
-  SMELL_CONFIRM_ADDRESS,
-  SMELL_EXCEEDED_ATTEMPTS,
-  SMELL_DESCRIPTION,
+  // SMELL,
+  // SMELL_LOCATION_HOME,
+  // SMELL_LOCATION_ADDRESS,
+  // SMELL_LOCATION_OPTION,
+  // SMELL_PREVIOUS,
+  // SMELL_LOCATION_MAP,
+  // SMELL_LOCATION_DESCRIPTION,
+  // SMELL_START_DATE_TIME,
+  // SMELL_EARLIER_TODAY,
+  // SMELL_YESTERDAY,
+  // SMELL_DATE_BEFORE_YESTERDAY,
+  // SMELL_TIME_BEFORE_YESTERDAY,
+  // SMELL_SOURCE,
+  // SMELL_REPORT_LOCAL_COUNCIL,
+  // SMELL_CONTACT_LOCAL_COUNCIL,
+  // SMELL_SOURCE_DETAILS,
+  // SMELL_CURRENT,
+  // SMELL_SMELL_STRENGTH,
+  // SMELL_INDOORS,
+  // SMELL_CLOTHING_AND_HAIR,
+  // SMELL_EFFECT_ON_DAILY_LIFE,
+  // SMELL_EFFECT_ON_HEALTH,
+  // SMELL_MEDICAL_HELP,
+  // SMELL_CONTACT_DETAILS,
+  // SMELL_IMAGES_OR_VIDEO,
+  // SMELL_OTHER_INFORMATION,
+  // SMELL_FIND_ADDRESS,
+  // SMELL_CHOOSE_ADDRESS,
+  // SMELL_CONFIRM_ADDRESS,
+  // SMELL_EXCEEDED_ATTEMPTS,
+  // SMELL_DESCRIPTION,
   ILLEGAL_FISHING,
   ILLEGAL_FISHING_WATER_FEATURE,
   ILLEGAL_FISHING_ACTIVITY,
@@ -320,10 +320,11 @@ for (const [key, value] of Object.entries(views)) {
 
 const redisKeys = {
   ...views,
+  ...rarsConstants.redisKeys,
   SUBMISSION_TIMESTAMP,
   REFERER,
   COUNTER,
-  SMELL_POSTCODE_DETAILS,
+  // SMELL_POSTCODE_DETAILS,
   DATE_TIME_OPTION,
   QUESTION_SET_ID
 }
@@ -360,13 +361,24 @@ const setReferer = [
 ]
 
 // Pages that clear a referrer to break the above chain
-const clearReferer = [
+const clearReferer = []
 
-]
+const extendedRoutes = {
+  ...routes,
+  ...rarsConstants.routes
+}
+
+const extendedViews = {
+  ...views,
+  ...rarsConstants.views
+}
+
+// console.log('rarsConstants:', rarsConstants)
+// console.log('extendedRoutes:', extendedRoutes)
 
 export default Object.freeze({
-  routes,
-  views,
+  routes: extendedRoutes,
+  views: extendedViews,
   statusCodes,
   urls,
   serviceNames,

@@ -54,7 +54,7 @@ const buildAnswers = answerId => {
 const getContext = () => {
   return {
     question,
-    problem: 'smell'
+    problem: 'mud'
   }
 }
 
@@ -72,12 +72,12 @@ const validatePayload = answerId => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.SMELL_SOURCE,
+    path: constants.routes.MUD_SOURCE,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.SMELL_SOURCE,
+    path: constants.routes.MUD_SOURCE,
     handler: handlers.post
   }
 ]

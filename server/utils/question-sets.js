@@ -1581,25 +1581,45 @@ const questionSets = {
       }
     }
   },
-  NOISE: {
-    questionSetId: 500,
-    questions: {}
-  },
-  LITTER: {
-    questionSetId: 600,
-    questions: {}
-  },
-  VERMIN: {
-    questionSetId: 700,
-    questions: {}
-  },
-  DUST: {
-    questionSetId: 800,
-    questions: {}
-  },
-  MUD: {
-    questionSetId: 900,
-    questions: {}
+  REPORT_REGULATED_SITE: {
+    questionSetId: 200,
+    questions: {
+      RARS_SOURCE: {
+        questionId: 1600,
+        key: constants.redisKeys.RARS_SOURCE,
+        text: 'Where is the {problem} coming from?',
+        answers: {
+          wasteSite: {
+            answerId: 1601,
+            text: 'A waste site, for example a landfill or recycling centre'
+          },
+          industry: {
+            answerId: 1602,
+            text: 'A large industrial site, factory or business, for example a food processing or chemical plant'
+          },
+          sewage: {
+            answerId: 1603,
+            text: 'A sewage or water treatment works'
+          },
+          farm: {
+            answerId: 1604, // reuse same answerId
+            text: 'A farm or farming activity'
+          },
+          local: {
+            answerId: 1605,
+            text: 'A small local business, for example a restaurant'
+          },
+          neighbour: {
+            answerId: 1606,
+            text: 'A neighbouring property'
+          },
+          unknown: {
+            answerId: 1608,
+            text: 'Something else or you do not know'
+          }
+        }
+      }
+    }
   }
 }
 

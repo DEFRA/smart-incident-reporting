@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 
-const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_SOURCE
+const question = questionSets.SMELL.questions.SMELL_SOURCE
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -12,7 +12,7 @@ const baseAnswer = {
 
 const handlers = {
   get: async (_request, h) => {
-    return h.view(constants.views.RARS_SOURCE, {
+    return h.view(constants.views.SMELL_SOURCE, {
       ...getContext()
     })
   },
@@ -23,7 +23,7 @@ const handlers = {
     // validate payload for errors
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.RARS_SOURCE, {
+      return h.view(constants.views.SMELL_SOURCE, {
         ...getContext(),
         errorSummary
       })
@@ -33,14 +33,14 @@ const handlers = {
     answerId = Number(answerId)
 
     // set answer in session
-    request.yar.set(constants.redisKeys.RARS_SOURCE, buildAnswers(answerId))
+    request.yar.set(constants.redisKeys.SMELL_SOURCE, buildAnswers(answerId))
 
     // handle redirects
-    // if (answerId === question.answers.local.answerId || answerId === question.answers.neighbour.answerId || answerId === question.answers.rubbish.answerId || answerId === question.answers.unknown.answerId) {
-    //   return h.redirect(constants.routes.SMELL_REPORT_LOCAL_COUNCIL)
-    // } else {
-    //   return h.redirect(constants.routes.SMELL_SOURCE_DETAILS)
-    // }
+    if (answerId === question.answers.local.answerId || answerId === question.answers.neighbour.answerId || answerId === question.answers.rubbish.answerId || answerId === question.answers.unknown.answerId) {
+      return h.redirect(constants.routes.SMELL_REPORT_LOCAL_COUNCIL)
+    } else {
+      return h.redirect(constants.routes.SMELL_SOURCE_DETAILS)
+    }
   }
 }
 
@@ -53,8 +53,7 @@ const buildAnswers = answerId => {
 
 const getContext = () => {
   return {
-    question,
-    problem: 'smell'
+    question
   }
 }
 
