@@ -520,7 +520,7 @@ const questionSets = {
       SMELL_PREVIOUS: {
         questionId: 1900,
         key: constants.redisKeys.SMELL_PREVIOUS,
-        text: 'Has this smell caused you problems before?',
+        text: 'Has this happened before?',
         answers: {
           yes: {
             answerId: 1901,
