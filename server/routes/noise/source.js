@@ -36,11 +36,7 @@ const handlers = {
     request.yar.set(constants.redisKeys.RARS_SOURCE, buildAnswers(answerId))
 
     // handle redirects
-    // if (answerId === question.answers.local.answerId || answerId === question.answers.neighbour.answerId || answerId === question.answers.rubbish.answerId || answerId === question.answers.unknown.answerId) {
-    //   return h.redirect(constants.routes.SMELL_REPORT_LOCAL_COUNCIL)
-    // } else {
-    //   return h.redirect(constants.routes.SMELL_SOURCE_DETAILS)
-    // }
+    return h.redirect(constants.routes.NOISE_SOURCE)
   }
 }
 
@@ -62,7 +58,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select a type of place or activity where the smell is coming from',
+      text: 'Select a type of place or activity where the noise is coming from',
       href: '#answerId'
     })
   }
