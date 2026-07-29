@@ -72,37 +72,6 @@ const WATER_POLLUTION_CHECK_YOUR_ANSWERS = 'water-pollution/check-your-answers'
 const WATER_POLLUTION_CONTACT_DETAILS = 'water-pollution/contact-details'
 const WATER_POLLUTION_SMELL_DESCRIPTION = 'water-pollution/smell-description'
 
-const SMELL_LOCATION_HOME = 'smell/location-home'
-const SMELL_LOCATION_ADDRESS = 'smell/location-address'
-const SMELL_LOCATION_OPTION = 'smell/location-option'
-const SMELL_PREVIOUS = 'smell/previous'
-const SMELL_LOCATION_MAP = 'smell/location-map'
-const SMELL_LOCATION_DESCRIPTION = 'smell/location-description'
-const SMELL_START_DATE_TIME = 'smell/start-date-time'
-const SMELL_EARLIER_TODAY = 'smell/earlier-today'
-const SMELL_YESTERDAY = 'smell/yesterday'
-const SMELL_DATE_BEFORE_YESTERDAY = 'smell/date-before-yesterday'
-const SMELL_TIME_BEFORE_YESTERDAY = 'smell/time-before-yesterday'
-const SMELL_CURRENT = 'smell/current'
-const SMELL_SMELL_STRENGTH = 'smell/smell-strength'
-const SMELL_INDOORS = 'smell/indoors'
-const SMELL_CLOTHING_AND_HAIR = 'smell/clothing-and-hair'
-const SMELL_EFFECT_ON_DAILY_LIFE = 'smell/effect-on-daily-life'
-const SMELL_EFFECT_ON_HEALTH = 'smell/effect-on-health'
-const SMELL_MEDICAL_HELP = 'smell/medical-help'
-const SMELL_SOURCE = 'smell/source'
-const SMELL_REPORT_LOCAL_COUNCIL = 'smell/report-local-council'
-const SMELL_CONTACT_LOCAL_COUNCIL = 'smell/contact-local-council'
-const SMELL_SOURCE_DETAILS = 'smell/source-details'
-const SMELL_CONTACT_DETAILS = 'smell/contact-details'
-const SMELL_IMAGES_OR_VIDEO = 'smell/images-or-video'
-const SMELL_OTHER_INFORMATION = 'smell/other-information'
-const SMELL_FIND_ADDRESS = 'smell/find-address'
-const SMELL_CHOOSE_ADDRESS = 'smell/choose-address'
-const SMELL_CONFIRM_ADDRESS = 'smell/confirm-address'
-const SMELL_EXCEEDED_ATTEMPTS = 'smell/exceeded-attempts'
-const SMELL_DESCRIPTION = 'smell/description'
-
 const ILLEGAL_FISHING_START = 'illegal-fishing-start'
 const ILLEGAL_FISHING = 'illegal-fishing'
 const ILLEGAL_FISHING_WATER_FEATURE = 'illegal-fishing/water-feature'
@@ -227,36 +196,6 @@ const views = {
   WATER_POLLUTION_CHECK_YOUR_ANSWERS,
   WATER_POLLUTION_CONTACT_DETAILS,
   WATER_POLLUTION_SMELL_DESCRIPTION,
-  SMELL_LOCATION_HOME,
-  SMELL_LOCATION_ADDRESS,
-  SMELL_LOCATION_OPTION,
-  SMELL_PREVIOUS,
-  SMELL_LOCATION_MAP,
-  SMELL_LOCATION_DESCRIPTION,
-  SMELL_START_DATE_TIME,
-  SMELL_EARLIER_TODAY,
-  SMELL_YESTERDAY,
-  SMELL_DATE_BEFORE_YESTERDAY,
-  SMELL_TIME_BEFORE_YESTERDAY,
-  SMELL_SOURCE,
-  SMELL_REPORT_LOCAL_COUNCIL,
-  SMELL_CONTACT_LOCAL_COUNCIL,
-  SMELL_SOURCE_DETAILS,
-  SMELL_CURRENT,
-  SMELL_SMELL_STRENGTH,
-  SMELL_INDOORS,
-  SMELL_CLOTHING_AND_HAIR,
-  SMELL_EFFECT_ON_DAILY_LIFE,
-  SMELL_EFFECT_ON_HEALTH,
-  SMELL_MEDICAL_HELP,
-  SMELL_CONTACT_DETAILS,
-  SMELL_IMAGES_OR_VIDEO,
-  SMELL_OTHER_INFORMATION,
-  SMELL_FIND_ADDRESS,
-  SMELL_CHOOSE_ADDRESS,
-  SMELL_CONFIRM_ADDRESS,
-  SMELL_EXCEEDED_ATTEMPTS,
-  SMELL_DESCRIPTION,
   ILLEGAL_FISHING,
   ILLEGAL_FISHING_WATER_FEATURE,
   ILLEGAL_FISHING_ACTIVITY,
@@ -369,9 +308,6 @@ const extendedViews = {
   ...views,
   ...rarsConstants.views
 }
-
-// console.log('rarsConstants:', rarsConstants)
-// console.log('extendedRoutes:', extendedRoutes)
 
 export default Object.freeze({
   routes: extendedRoutes,
