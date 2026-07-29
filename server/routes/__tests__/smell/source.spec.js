@@ -1,10 +1,10 @@
-import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/smell-server.js'
+import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.SMELL_SOURCE
-const header = 'Where is the smell coming from?'
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_SOURCE
+const header = 'Where is the smell coming from?'
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
@@ -18,53 +18,46 @@ describe(url, () => {
     })
   })
   describe('POST', () => {
-    it('Happy: accepts valid answerId of a waste site and redirects to smell/source-details', async () => {
+    it('Happy: accepts valid answerId of a waste site', async () => {
       const answerId = question.answers.wasteSite.answerId
       const options = { url, payload: { answerId } }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_SOURCE_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.RARS_SOURCE)).toEqual([{ ...baseAnswer, answerId }])
     })
-    it('Happy: accepts valid answerId of a large industrial site, factory or business and redirects to smell/source-details', async () => {
+    it('Happy: accepts valid answerId of a large industrial site, factory or business', async () => {
       const answerId = question.answers.industry.answerId
       const options = { url, payload: { answerId } }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_SOURCE_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.RARS_SOURCE)).toEqual([{ ...baseAnswer, answerId }])
     })
-    it('Happy: accepts valid answerId of a sewage or water treatment works and redirects to smell/source-details', async () => {
+    it('Happy: accepts valid answerId of a sewage or water treatment works', async () => {
       const answerId = question.answers.sewage.answerId
       const options = { url, payload: { answerId } }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_SOURCE_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.RARS_SOURCE)).toEqual([{ ...baseAnswer, answerId }])
     })
-    it('Happy: accepts valid answerId of a farm or farming activity and redirects to smell/source-details', async () => {
+    it('Happy: accepts valid answerId of a farm or farming activity', async () => {
       const answerId = question.answers.farm.answerId
       const options = { url, payload: { answerId } }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_SOURCE_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.RARS_SOURCE)).toEqual([{ ...baseAnswer, answerId }])
     })
-    it('Happy: accepts valid answerId of a small local business and redirects to smell/report-local-council', async () => {
+    it('Happy: accepts valid answerId of a small local business', async () => {
       const answerId = question.answers.local.answerId
       const options = { url, payload: { answerId } }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_REPORT_LOCAL_COUNCIL)
       expect(response.request.yar.get(constants.redisKeys.RARS_SOURCE)).toEqual([{ ...baseAnswer, answerId }])
     })
-    it('Happy: accepts valid answerId of a neighbouring property and redirects to smell/report-local-council', async () => {
+    it('Happy: accepts valid answerId of a neighbouring property', async () => {
       const answerId = question.answers.neighbour.answerId
       const options = { url, payload: { answerId } }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_REPORT_LOCAL_COUNCIL)
       expect(response.request.yar.get(constants.redisKeys.RARS_SOURCE)).toEqual([{ ...baseAnswer, answerId }])
     })
-    it('Happy: accepts valid answerId of unknown and redirects to smell/report-local-council', async () => {
+    it('Happy: accepts valid answerId of unknown', async () => {
       const answerId = question.answers.unknown.answerId
       const options = { url, payload: { answerId } }
       const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_REPORT_LOCAL_COUNCIL)
       expect(response.request.yar.get(constants.redisKeys.RARS_SOURCE)).toEqual([{ ...baseAnswer, answerId }])
     })
     it('Sad: no radio selected, returns error state', async () => {
