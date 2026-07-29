@@ -35,11 +35,49 @@
   box-sizing: border-box;
 }
 
+.os-attribution-container {
+  display: none;
+}
+
 /* ---------- Only desktop (>= 640px / 40.0625em) ---------- */
 @media (min-width: 40.0625em) {
   .clear-input-button {
   display: none !important;
-}
+  }
+
+  .os-attribution-container {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+  .mobile-map {
+    position: relative;
+  }
+
+  .os-attribution-text {
+    font-family: "GDS Transport", arial, sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+    color: #0b0c0c;
+    padding: 3px 5px;
+    background-color: #ffffff;
+    opacity: 0.75;
+
+    a {
+      outline: 3px transparent;
+      color: #0b0c0c;
+      opacity: 0.75;
+
+      &:hover {
+        text-decoration-thickness: max(2px, 0.1rem, 0.1em);
+        opacity: 1;
+      }
+    }
+  }
 }
 
 /* ---------- Mobile (<= 640px / 40.0625em) ---------- */
@@ -102,6 +140,9 @@
 
   /* Exit link positioning */
   .exit-map-container {
+    position: sticky;
+    top: 0;
+    z-index: 4;
     margin: 5px 0 0 0.6rem;
 
     #exit-map-link.govuk-back-link.exit-map-link {
@@ -198,7 +239,6 @@
     height: 100%;
     margin: 60px 0 -1.45em;
   }
-
   .map {
     position: relative;
     width: 100%;
