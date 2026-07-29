@@ -47,7 +47,7 @@ const sessionDataWithYesVideo = {
 describe(url, () => {
   describe('GET', () => {
     it('Should display contact-details view', async () => {
-      const response = await submitGetRequest({ url }, 'Your contact details', constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, 'Contact details', constants.statusCodes.OK, sessionData)
       expect(response.result).toContain('value="test name"')
       expect(response.result).toContain('value="012345678910"')
       expect(response.result).toContain('value="test@test.com"')
@@ -62,13 +62,13 @@ describe(url, () => {
       process.env.REGISTER_START_ROUTES = 'true'
     })
     it('Should require email when yesPhotos was selected on images-or-video', async () => {
-      const response = await submitGetRequest({ url }, 'Your contact details', constants.statusCodes.OK, sessionDataWithYesPhotos)
+      const response = await submitGetRequest({ url }, 'Contact details', constants.statusCodes.OK, sessionDataWithYesPhotos)
       expect(response.payload).toContain('Email address')
       expect(response.payload).not.toContain('Email address (optional)')
     })
 
     it('Should require email when yesVideo was selected on images-or-video', async () => {
-      const response = await submitGetRequest({ url }, 'Your contact details', constants.statusCodes.OK, sessionDataWithYesVideo)
+      const response = await submitGetRequest({ url }, 'Contact details', constants.statusCodes.OK, sessionDataWithYesVideo)
       expect(response.payload).toContain('Email address')
       expect(response.payload).not.toContain('Email address (optional)')
     })
