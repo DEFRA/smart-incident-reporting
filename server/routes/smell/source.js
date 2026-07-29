@@ -36,7 +36,15 @@ const handlers = {
     request.yar.set(constants.redisKeys.RARS_SOURCE, buildAnswers(answerId))
 
     // handle redirects
-    return h.redirect(constants.routes.VERMIN_SOURCE)
+    const localCouncilAnswerIds = [
+      question.answers.local.answerId,
+      question.answers.neighbour.answerId,
+      question.answers.unknown.answerId
+    ]
+    if (localCouncilAnswerIds.includes(answerId)) {
+      return h.redirect(constants.routes.SMELL_REPORT_LOCAL_COUNCIL)
+    }
+    return h.redirect(constants.routes.SMELL_SOURCE_DETAILS)
   }
 }
 

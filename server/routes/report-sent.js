@@ -5,7 +5,7 @@ const mediaUploadBaseUrl = '/media/upload-photo'
 
 const journeyMap = {
   100: 'water pollution',
-  200: 'smell',
+  // 200: 'smell',
   300: 'blockage',
   1800: 'illegal fishing'
 }
@@ -16,11 +16,11 @@ const journeyConfigMap = {
     imagesOrVideoKey: constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO,
     imagesQuestion: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO
   },
-  200: {
-    contactDetailsKey: constants.redisKeys.SMELL_CONTACT_DETAILS,
-    imagesOrVideoKey: constants.redisKeys.SMELL_IMAGES_OR_VIDEO,
-    imagesQuestion: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO
-  },
+  //   200: {
+  //   contactDetailsKey: constants.redisKeys.SMELL_CONTACT_DETAILS,
+  //   imagesOrVideoKey: constants.redisKeys.SMELL_IMAGES_OR_VIDEO,
+  //   imagesQuestion: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO
+  // },
   300: {
     contactDetailsKey: constants.redisKeys.BLOCKAGE_CONTACT_DETAILS,
     imagesOrVideoKey: constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO,
