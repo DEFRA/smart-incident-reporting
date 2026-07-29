@@ -130,8 +130,6 @@ const VERMIN_START = 'vermin-start'
 const DUST_START = 'dust-start'
 const MUD_START = 'mud-start'
 const SMELL_START = 'smell-start'
-const SMELL_SOURCE_DETAILS = 'smell/source-details'
-const SMELL_REPORT_LOCAL_COUNCIL = 'smell/report-local-council'
 
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
@@ -303,9 +301,7 @@ const clearReferer = []
 
 const extendedRoutes = {
   ...routes,
-  ...rarsConstants.routes,
-  SMELL_SOURCE_DETAILS: `/${SMELL_SOURCE_DETAILS}`,
-  SMELL_REPORT_LOCAL_COUNCIL: `/${SMELL_REPORT_LOCAL_COUNCIL}`
+  ...rarsConstants.routes
 }
 
 const extendedViews = {
