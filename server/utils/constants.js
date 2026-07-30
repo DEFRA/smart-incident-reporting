@@ -26,6 +26,7 @@ const API_LOCATION_SUGGESTIONS = 'api/location-suggestions'
 const ACCESSIBILITY = 'accessibility'
 const COOKIES = 'cookies'
 const PRIVACY_NOTICE = 'privacy-notice'
+const OS_TERMS = 'os-terms'
 
 const ERROR = 'error'
 const PUBLIC = 'public'
@@ -180,6 +181,7 @@ const views = {
   ACCESSIBILITY,
   COOKIES,
   PRIVACY_NOTICE,
+  OS_TERMS,
   ERROR,
   PUBLIC,
   FEEDBACK,
