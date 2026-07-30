@@ -56,8 +56,37 @@ const validateEmail = email => {
   return !domainIssue
 }
 
+const getServiceDetails = (problem) => {
+  const serviceNameMap = {
+    smell: constants.serviceNames.SMELL,
+    noise: constants.serviceNames.NOISE,
+    dust: constants.serviceNames.DUST,
+    litter: constants.serviceNames.LITTER,
+    mud: constants.serviceNames.MUD,
+    vermin: constants.serviceNames.VERMIN
+  }
+
+  const urlMap = {
+    smell: constants.urls.GOV_UK_SMELL,
+    noise: constants.urls.GOV_UK_NOISE,
+    dust: constants.urls.GOV_UK_DUST,
+    litter: constants.urls.GOV_UK_LITTER,
+    mud: constants.urls.GOV_UK_MUD,
+    vermin: constants.urls.GOV_UK_VERMIN
+  }
+
+  const serviceName = serviceNameMap[problem]
+
+  return {
+    serviceName,
+    pageTitleServiceName: serviceName,
+    serviceUrl: urlMap[problem]
+  }
+}
+
 export {
   getErrorSummary,
   validatePayload,
-  validateEmail
+  validateEmail,
+  getServiceDetails
 }
