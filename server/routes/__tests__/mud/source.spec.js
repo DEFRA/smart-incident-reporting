@@ -14,7 +14,11 @@ describe('mud/source', () => {
     expect(mockCreateSourceRoutes).toHaveBeenCalledWith({
       problem: 'mud',
       route: constants.routes.MUD_SOURCE,
-      redirect: constants.routes.MUD_SOURCE
+      redirect: {
+        contactEnvironmentAgency: constants.routes.MUD_CONTACT_ENVIRONMENT_AGENCY,
+        localCouncil: constants.routes.MUD_REPORT_LOCAL_COUNCIL,
+        sourceDetails: constants.routes.MUD_SOURCE_DETAILS
+      }
     })
   })
 })

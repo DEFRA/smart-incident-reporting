@@ -12,7 +12,6 @@ const baseAnswer = {
 
 const createSourceRoutes = ({ problem, route, redirect }) => {
   const serviceDetails = getServiceDetails(problem)
-  const errorText = `Select a type of place or activity where the ${problem} is coming from`
 
   const handlers = {
     get: async (_request, h) => {
@@ -25,11 +24,7 @@ const createSourceRoutes = ({ problem, route, redirect }) => {
     post: async (request, h) => {
       let { answerId } = request.payload
 
-      const errorSummary = getErrorSummary()
-      if (!answerId) {
-        errorSummary.errorList.push({ text: errorText, href: '#answerId' })
-      }
-
+      const errorSummary = validatePayload(answerId, problem)
       if (errorSummary.errorList.length > 0) {
         return h.view(constants.views.RARS_SOURCE, {
           question,
@@ -41,9 +36,17 @@ const createSourceRoutes = ({ problem, route, redirect }) => {
 
       answerId = Number(answerId)
 
-      request.yar.set(constants.redisKeys.RARS_SOURCE, [{ ...baseAnswer, answerId }])
+      request.yar.set(constants.redisKeys.RARS_SOURCE, buildAnswers(answerId))
 
-      return h.redirect(redirect)
+      // handle redirects
+      console.log('answerId: ', answerId)
+      if (answerId === question.answers.local.answerId || answerId === question.answers.neighbour.answerId) {
+        return h.redirect(redirect.localCouncil)
+      } else if (answerId === question.answers.unknown.answerId) {
+        return h.redirect(redirect.contactEnvironmentAgency)
+      } else {
+        return h.redirect(redirect.sourceDetails)
+      }
     }
   }
 
@@ -51,6 +54,24 @@ const createSourceRoutes = ({ problem, route, redirect }) => {
     { method: 'GET', path: route, handler: handlers.get },
     { method: 'POST', path: route, handler: handlers.post }
   ]
+}
+
+const buildAnswers = answerId => {
+  return [{
+    ...baseAnswer,
+    answerId
+  }]
+}
+
+const validatePayload = (answerId, problem) => {
+  const errorSummary = getErrorSummary()
+  if (!answerId) {
+    errorSummary.errorList.push({
+      text: `Select a type of place or activity where the ${problem} is coming from`,
+      href: '#answerId'
+    })
+  }
+  return errorSummary
 }
 
 export default createSourceRoutes

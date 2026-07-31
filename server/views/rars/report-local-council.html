@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% set pageTitle = 'Report the ' + problem + ' to your local council' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">
+      {{ pageTitle }}
+    </h1>
+
+    <p>Contact your local council to report a nuisance {{ problem }} from:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>local businesses, such as restaurants</li>
+      <li>neighbouring properties</li>      
+      <li>uncollected or dumped <a href="https://www.gov.uk/dispose-household-waste">household waste</a></li>
+      <li>other sources not connected to industry, agriculture or waste management</li>
+      <li>an unknown source</li>
+    </ul>
+    <p><a href="https://www.gov.uk/find-your-local-council">Check your local council's website</a> - you may be able to report the problem online. Otherwise contact their environmental health team.</p>
+  </div>
+</div>
+
+{% endblock %}

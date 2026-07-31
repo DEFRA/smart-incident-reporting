@@ -7,35 +7,66 @@ const problems = [
     url: constants.routes.SMELL_SOURCE,
     header: 'Where is the smell coming from?',
     errorText: 'Select a type of place or activity where the smell is coming from',
-    redirectUrl: constants.routes.SMELL_SOURCE
+    redirect: {
+      contactEnvironmentAgency: constants.routes.SMELL_CONTACT_ENVIRONMENT_AGENCY,
+      localCouncil: constants.routes.SMELL_REPORT_LOCAL_COUNCIL,
+      sourceDetails: constants.routes.SMELL_SOURCE_DETAILS
+    }
   },
   {
     problem: 'noise',
     url: constants.routes.NOISE_SOURCE,
     header: 'Where is the noise coming from?',
     errorText: 'Select a type of place or activity where the noise is coming from',
-    redirectUrl: constants.routes.NOISE_SOURCE
+    redirect: {
+      contactEnvironmentAgency: constants.routes.NOISE_CONTACT_ENVIRONMENT_AGENCY,
+      localCouncil: constants.routes.NOISE_REPORT_LOCAL_COUNCIL,
+      sourceDetails: constants.routes.NOISE_SOURCE_DETAILS
+    }
   },
   {
     problem: 'dust',
     url: constants.routes.DUST_SOURCE,
     header: 'Where is the dust coming from?',
     errorText: 'Select a type of place or activity where the dust is coming from',
-    redirectUrl: constants.routes.DUST_SOURCE
+    redirect: {
+      contactEnvironmentAgency: constants.routes.DUST_CONTACT_ENVIRONMENT_AGENCY,
+      localCouncil: constants.routes.DUST_REPORT_LOCAL_COUNCIL,
+      sourceDetails: constants.routes.DUST_SOURCE_DETAILS
+    }
   },
   {
     problem: 'litter',
     url: constants.routes.LITTER_SOURCE,
     header: 'Where is the litter coming from?',
     errorText: 'Select a type of place or activity where the litter is coming from',
-    redirectUrl: constants.routes.LITTER_SOURCE
+    redirect: {
+      contactEnvironmentAgency: constants.routes.LITTER_CONTACT_ENVIRONMENT_AGENCY,
+      localCouncil: constants.routes.LITTER_REPORT_LOCAL_COUNCIL,
+      sourceDetails: constants.routes.LITTER_SOURCE_DETAILS
+    }
   },
   {
     problem: 'mud',
     url: constants.routes.MUD_SOURCE,
     header: 'Where is the mud coming from?',
     errorText: 'Select a type of place or activity where the mud is coming from',
-    redirectUrl: constants.routes.MUD_SOURCE
+    redirect: {
+      contactEnvironmentAgency: constants.routes.MUD_CONTACT_ENVIRONMENT_AGENCY,
+      localCouncil: constants.routes.MUD_REPORT_LOCAL_COUNCIL,
+      sourceDetails: constants.routes.MUD_SOURCE_DETAILS
+    }
+  },
+  {
+    problem: 'vermin',
+    url: constants.routes.VERMIN_SOURCE,
+    header: 'Where is the vermin coming from?',
+    errorText: 'Select a type of place or activity where the vermin is coming from',
+    redirect: {
+      contactEnvironmentAgency: constants.routes.VERMIN_CONTACT_ENVIRONMENT_AGENCY,
+      localCouncil: constants.routes.VERMIN_REPORT_LOCAL_COUNCIL,
+      sourceDetails: constants.routes.VERMIN_SOURCE_DETAILS
+    }
   }
 ]
 
@@ -59,12 +90,31 @@ describe('RARS Source Routes', () => {
     })
   })
 
-  describe.each(problems)('$problem source redirect', ({ url, redirectUrl }) => {
+  describe.each(problems)('$problem source redirect', ({ url, redirect }) => {
     describe('POST', () => {
-      it('Happy: valid answer redirects to correct page', async () => {
-        const options = { url, payload: { answerId: 'waste-site' } }
+      it.each([
+        { answerId: 1601 }, { answerId: 1602 }, { answerId: 1603 }, { answerId: 1604 }
+      ])('Happy: valid answer redirects too source details', async (answerId) => {
+        const options = { url, payload: answerId }
         const response = await submitPostRequest(options)
         expect(response.statusCode).toBe(constants.statusCodes.REDIRECT)
+        expect(response.headers.location).toBe(redirect.sourceDetails)
+      })
+
+      it.each([
+        { answerId: 1605 }, { answerId: 1606 }
+      ])('Happy: valid answer redirects too report local council', async (answerId) => {
+        const options = { url, payload: answerId }
+        const response = await submitPostRequest(options)
+        expect(response.statusCode).toBe(constants.statusCodes.REDIRECT)
+        expect(response.headers.location).toBe(redirect.localCouncil)
+      })
+
+      it('Happy: valid answer redirects too contact environment agency', async () => {
+        const options = { url, payload: { answerId: 1608 } }
+        const response = await submitPostRequest(options)
+        expect(response.statusCode).toBe(constants.statusCodes.REDIRECT)
+        expect(response.headers.location).toBe(redirect.contactEnvironmentAgency)
       })
     })
   })

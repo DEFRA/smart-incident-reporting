@@ -14,7 +14,11 @@ describe('noise/source', () => {
     expect(mockCreateSourceRoutes).toHaveBeenCalledWith({
       problem: 'noise',
       route: constants.routes.NOISE_SOURCE,
-      redirect: constants.routes.NOISE_SOURCE
+      redirect: {
+        contactEnvironmentAgency: constants.routes.NOISE_CONTACT_ENVIRONMENT_AGENCY,
+        localCouncil: constants.routes.NOISE_REPORT_LOCAL_COUNCIL,
+        sourceDetails: constants.routes.NOISE_SOURCE_DETAILS
+      }
     })
   })
 })
