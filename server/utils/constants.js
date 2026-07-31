@@ -1,18 +1,19 @@
 import rarsConstants from './rars-constants.js'
 
 // UPDATE URLS
+const serviceHome = 'https://www.gov.uk/report-environmental-problem'
 const urls = {
   GOV_UK_HOME: 'https://www.gov.uk',
-  GOV_UK_SERVICE_HOME: 'https://www.gov.uk/report-environmental-problem',
+  GOV_UK_SERVICE_HOME: serviceHome,
   GOV_UK_WATER_POLLUTION: 'https://www.gov.uk/report-water-pollution',
   GOV_UK_SMELL: 'https://www.gov.uk/report-smell',
   GOV_UK_ILLEGAL_FISHING: 'https://www.gov.uk/report-illegal-fishing-in-england',
   GOV_UK_BLOCKAGE: 'https://www.gov.uk/report-river-blockage',
-  GOV_UK_NOISE: 'https://www.gov.uk/report-environmental-problem',
-  GOV_UK_LITTER: 'https://www.gov.uk/report-environmental-problem',
-  GOV_UK_VERMIN: 'https://www.gov.uk/report-environmental-problem',
-  GOV_UK_DUST: 'https://www.gov.uk/report-environmental-problem',
-  GOV_UK_MUD: 'https://www.gov.uk/report-environmental-problem'
+  GOV_UK_NOISE: serviceHome,
+  GOV_UK_LITTER: serviceHome,
+  GOV_UK_VERMIN: serviceHome,
+  GOV_UK_DUST: serviceHome,
+  GOV_UK_MUD: serviceHome
 }
 
 const serviceNames = {
