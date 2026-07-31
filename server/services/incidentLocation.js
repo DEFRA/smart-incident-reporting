@@ -1,7 +1,7 @@
 import config from '../utils/config.js'
 import util from '../utils/util.js'
 
-const apiKey = config.osKey
+const apiKey = config.osSearchKey
 export default {
   findByPostcode: async postcode => {
     try {
