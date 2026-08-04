@@ -132,6 +132,8 @@ const DUST_START = 'dust-start'
 const MUD_START = 'mud-start'
 const SMELL_START = 'smell-start'
 
+const VERMIN_TYPE = 'vermin/type'
+
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
 
@@ -142,6 +144,7 @@ const COUNTER = 'counter'
 // const SMELL_POSTCODE_DETAILS = 'smell-postcode-details'
 const DATE_TIME_OPTION = 'date-time-option'
 const QUESTION_SET_ID = 'question-set-id'
+const VERMIN_TYPE_SELECTED = 'vermin-type-selected'
 
 // Configs to add additional home/start pages on non-production environments
 let viewsExtra = {}
@@ -244,7 +247,8 @@ const views = {
   BLOCKAGE_OWNER,
   BLOCKAGE_CONTACT_DETAILS,
   BLOCKAGE_IMAGES_OR_VIDEO,
-  BLOCKAGE_OTHER_INFORMATION
+  BLOCKAGE_OTHER_INFORMATION,
+  VERMIN_TYPE
 }
 
 const routes = {
@@ -263,7 +267,8 @@ const redisKeys = {
   COUNTER,
   // SMELL_POSTCODE_DETAILS,
   DATE_TIME_OPTION,
-  QUESTION_SET_ID
+  QUESTION_SET_ID,
+  VERMIN_TYPE_SELECTED
 }
 
 const statusCodes = {

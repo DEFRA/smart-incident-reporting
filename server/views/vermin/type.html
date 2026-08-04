@@ -1,0 +1,70 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+{% set somethingElseDetailText = question.answers.somethingElseDetail.text %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% set otherHtml %}
+      {{ govukInput({
+        id: "somethingElseDetail",
+        name: "somethingElseDetail",
+        spellcheck: false,
+        classes: "govuk-!-width-two-third",
+        value: getAnswer(answers, question.answers.somethingElseDetail.answerId),
+        errorMessage: findErrorMessageById(errorSummary, "somethingElseDetail"),
+        label: {
+          text: somethingElseDetailText
+        }
+      }) }}
+      {% endset -%}
+
+    {{ govukRadios({
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      fieldset: {
+        legend: {
+          text: pageTitle + "?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: question.answers.flies.answerId,
+          text: question.answers.flies.text,
+          checked: getAnswer(answers, question.answers.flies.answerId)
+        },
+        {
+          value: question.answers.rats.answerId,
+          text: question.answers.rats.text,
+          checked: getAnswer(answers, question.answers.rats.answerId)
+        },   
+        {
+          value: question.answers.seagulls.answerId,
+          text: question.answers.seagulls.text,
+          checked: getAnswer(answers, question.answers.seagulls.answerId)
+        },  
+        {
+          value: question.answers.somethingElse.answerId,
+          text: question.answers.somethingElse.text,
+          checked: getAnswer(answers, question.answers.somethingElse.answerId),
+          conditional: {
+            html: otherHtml
+          }
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

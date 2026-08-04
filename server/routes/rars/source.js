@@ -1,6 +1,6 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
-import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
+import { getErrorSummary, getServiceDetails, titleHelper } from '../../utils/helpers.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_SOURCE
 
@@ -14,10 +14,13 @@ const createSourceRoutes = ({ problem, route, redirect }) => {
   const serviceDetails = getServiceDetails(problem)
 
   const handlers = {
-    get: async (_request, h) => {
+    get: async (request, h) => {
+      const { title, pageTitle } = titleHelper(request, question.text, problem)
       return h.view(constants.views.RARS_SOURCE, {
         question,
         problem,
+        title,
+        pageTitle,
         ...serviceDetails
       })
     },
@@ -26,9 +29,12 @@ const createSourceRoutes = ({ problem, route, redirect }) => {
 
       const errorSummary = validatePayload(answerId, problem)
       if (errorSummary.errorList.length > 0) {
+        const { title, pageTitle } = titleHelper(request, question.text, problem)
         return h.view(constants.views.RARS_SOURCE, {
           question,
           problem,
+          title,
+          pageTitle,
           errorSummary,
           ...serviceDetails
         })
@@ -39,7 +45,6 @@ const createSourceRoutes = ({ problem, route, redirect }) => {
       request.yar.set(constants.redisKeys.RARS_SOURCE, buildAnswers(answerId))
 
       // handle redirects
-      console.log('answerId: ', answerId)
       if (answerId === question.answers.local.answerId || answerId === question.answers.neighbour.answerId) {
         return h.redirect(redirect.localCouncil)
       } else if (answerId === question.answers.unknown.answerId) {
