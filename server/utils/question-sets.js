@@ -1602,7 +1602,7 @@ const questionSets = {
             text: 'A sewage or water treatment works'
           },
           farm: {
-            answerId: 1604, // reuse same answerId
+            answerId: 1609,
             text: 'A farm or farming activity'
           },
           local: {
