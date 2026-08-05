@@ -3,7 +3,7 @@ import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary, getServiceDetails, titleHelper } from '../../utils/helpers.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_SOURCE
-const verminQuestion = 'Where is the {VERMIN} coming from?'
+const verminQuestion = 'Where are the {VERMIN} coming from?'
 
 const baseAnswer = {
   questionId: question.questionId,
