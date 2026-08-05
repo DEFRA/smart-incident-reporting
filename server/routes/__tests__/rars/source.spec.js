@@ -71,10 +71,14 @@ const problems = [
 ]
 
 describe('RARS Source Routes', () => {
-  describe.each(problems)('$problem source', ({ url, header }) => {
+  describe.each(problems)('$problem source', ({ problem, url, header }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
-        await submitGetRequest({ url }, header)
+        const sessionData = problem === 'vermin'
+          ? { [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'vermin' }
+          : {}
+
+        await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
       })
     })
   })
