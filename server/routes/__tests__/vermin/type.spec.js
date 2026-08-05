@@ -45,16 +45,6 @@ describe(url, () => {
 
     it.each([
       {
-        description: 'flies',
-        payload: {
-          answerId: question.answers.flies.answerId.toString()
-        },
-        expectedSelectedType: question.answers.flies.text.toLowerCase(),
-        expectedAnswers: [
-          { ...baseAnswer, answerId: question.answers.flies.answerId }
-        ]
-      },
-      {
         description: 'rats',
         payload: {
           answerId: question.answers.rats.answerId.toString()

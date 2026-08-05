@@ -60,7 +60,7 @@ const problems = [
   {
     problem: 'vermin',
     url: constants.routes.VERMIN_SOURCE,
-    header: 'Where is the vermin coming from?',
+    header: 'Where are the vermin/pests coming from?',
     errorText: 'Select a type of place or activity where the vermin is coming from',
     redirect: {
       contactEnvironmentAgency: constants.routes.VERMIN_CONTACT_ENVIRONMENT_AGENCY,
@@ -75,7 +75,7 @@ describe('RARS Source Routes', () => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
         const sessionData = problem === 'vermin'
-          ? { [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'vermin' }
+          ? { [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'vermin/pests' }
           : {}
 
         await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
@@ -124,24 +124,28 @@ describe('RARS Source Routes', () => {
   })
 
   describe('vermin source title behaviour', () => {
-    it('Should use selected vermin type in title when session has VERMIN_TYPE_SELECTED', async () => {
-      const response = await submitGetRequest(
-        { url: constants.routes.VERMIN_SOURCE },
-        'Where is the rats coming from?',
-        constants.statusCodes.OK,
-        { [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'rats' }
-      )
-      expect(response.statusCode).toBe(constants.statusCodes.OK)
-    })
+    it.each(['rats', 'seagulls', 'vermin/pests'])(
+      'Should use selected vermin type in title when session has %s', async (selectedVermin) => {
+        const response = await submitGetRequest(
+          { url: constants.routes.VERMIN_SOURCE },
+          `Where are the ${selectedVermin} coming from?`,
+          constants.statusCodes.OK,
+          { [constants.redisKeys.VERMIN_TYPE_SELECTED]: selectedVermin }
+        )
+        expect(response.statusCode).toBe(constants.statusCodes.OK)
+      }
+    )
 
-    it('Should show selected vermin type title when validation fails and session has VERMIN_TYPE_SELECTED', async () => {
-      const response = await submitPostRequest(
-        { url: constants.routes.VERMIN_SOURCE, payload: {} },
-        constants.statusCodes.OK,
-        { [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'rats' }
-      )
-      expect(response.payload).toContain('Where is the rats coming from?')
-      expect(response.payload).toContain('There is a problem')
-    })
+    it.each(['rats', 'seagulls', 'vermin/pests'])(
+      'Should show selected vermin type title when validation fails and session has %s', async (selectedVermin) => {
+        const response = await submitPostRequest(
+          { url: constants.routes.VERMIN_SOURCE, payload: {} },
+          constants.statusCodes.OK,
+          { [constants.redisKeys.VERMIN_TYPE_SELECTED]: selectedVermin }
+        )
+        expect(response.payload).toContain(`Where are the ${selectedVermin} coming from?`)
+        expect(response.payload).toContain('There is a problem')
+      }
+    )
   })
 })

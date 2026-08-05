@@ -1589,25 +1589,21 @@ const questionSets = {
         key: constants.redisKeys.VERMIN_TYPE,
         text: 'What type of vermin or pest is causing a problem?',
         answers: {
-          flies: {
-            answerId: 1621,
-            text: 'Flies'
-          },
           rats: {
-            answerId: 1622,
+            answerId: 1621,
             text: 'Rats'
           },
           seagulls: {
-            answerId: 1623,
+            answerId: 1622,
             text: 'Seagulls'
           },
           somethingElse: {
-            answerId: 1624,
+            answerId: 1623,
             text: SOMETHING_ELSE,
             shortText: SOMETHING_ELSE
           },
           somethingElseDetail: {
-            answerId: 1625,
+            answerId: 1624,
             text: 'Type of vermin or pest'
           }
         }

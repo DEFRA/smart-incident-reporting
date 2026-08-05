@@ -45,7 +45,6 @@ const handlers = {
 const buildAnswers = (answerId, somethingElseDetail) => {
   const answers = []
   const selectedTypeByAnswerId = {
-    [question.answers.flies.answerId]: question.answers.flies.text.toLowerCase(),
     [question.answers.rats.answerId]: question.answers.rats.text.toLowerCase(),
     [question.answers.seagulls.answerId]: question.answers.seagulls.text.toLowerCase(),
     [question.answers.somethingElse.answerId]: 'vermin/pests'
