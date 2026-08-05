@@ -88,9 +88,7 @@ const titleHelper = (request, questionText, verminQuestion, problem) => {
   const isVermin = problem === 'vermin'
   const selectedVermin = request.yar.get(constants.redisKeys.VERMIN_TYPE_SELECTED)
   const title = isVermin
-    ? selectedVermin
-      ? verminQuestion.replace('{VERMIN}', selectedVermin)
-      : questionText.replace('{problem}', problem)
+    ? verminQuestion.replace('{VERMIN}', selectedVermin)
     : questionText.replace('{problem}', problem)
 
   return {

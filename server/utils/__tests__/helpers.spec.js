@@ -65,11 +65,5 @@ describe('helpers', () => {
       expect(title).toBe('Where are the the rats coming from?')
       expect(pageTitle).toBe('Where are the the rats coming from')
     })
-
-    it('Should fall back to the main problem question when VERMIN_TYPE_SELECTED is not in session', () => {
-      const { title, pageTitle } = titleHelper(mockRequest(null), questionText, verminQuestion, 'vermin')
-      expect(title).toBe('Where is the vermin coming from?')
-      expect(pageTitle).toBe('Where is the vermin coming from')
-    })
   })
 })
