@@ -49,6 +49,7 @@ describe(url, () => {
         payload: {
           answerId: question.answers.flies.answerId.toString()
         },
+        expectedSelectedType: question.answers.flies.text.toLowerCase(),
         expectedAnswers: [
           { ...baseAnswer, answerId: question.answers.flies.answerId }
         ]
@@ -58,6 +59,7 @@ describe(url, () => {
         payload: {
           answerId: question.answers.rats.answerId.toString()
         },
+        expectedSelectedType: question.answers.rats.text.toLowerCase(),
         expectedAnswers: [
           { ...baseAnswer, answerId: question.answers.rats.answerId }
         ]
@@ -67,6 +69,7 @@ describe(url, () => {
         payload: {
           answerId: question.answers.seagulls.answerId.toString()
         },
+        expectedSelectedType: question.answers.seagulls.text.toLowerCase(),
         expectedAnswers: [
           { ...baseAnswer, answerId: question.answers.seagulls.answerId }
         ]
@@ -77,12 +80,13 @@ describe(url, () => {
           answerId: question.answers.somethingElse.answerId.toString(),
           somethingElseDetail: 'Pigeons'
         },
+        expectedSelectedType: 'vermin/pests',
         expectedAnswers: [
           { ...baseAnswer, answerId: question.answers.somethingElse.answerId },
           { ...baseAnswer, answerId: question.answers.somethingElseDetail.answerId, otherDetails: 'Pigeons' }
         ]
       }
-    ])('Should accept valid answer and redirect when $description', async ({ payload, expectedAnswers }) => {
+    ])('Should accept valid answer and redirect when $description', async ({ payload, expectedAnswers, expectedSelectedType }) => {
       const options = {
         url,
         payload
@@ -90,6 +94,7 @@ describe(url, () => {
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.VERMIN_SOURCE)
       expect(response.request.yar.get(question.key)).toEqual(expectedAnswers)
+      expect(response.request.yar.get(constants.redisKeys.VERMIN_TYPE_SELECTED)).toEqual(expectedSelectedType)
     })
   })
 })

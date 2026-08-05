@@ -26,6 +26,7 @@ const handlers = {
 
     // set answers and selected type in session
     request.yar.set(question.key, answers)
+    // if selceted something else dont set it as the details set it as "vermin/pests"
     request.yar.set(constants.redisKeys.VERMIN_TYPE_SELECTED, selectedType)
 
     // validate payload for errors
@@ -43,34 +44,25 @@ const handlers = {
 
 const buildAnswers = (answerId, somethingElseDetail) => {
   const answers = []
-  let selectedType = ''
+  const selectedTypeByAnswerId = {
+    [question.answers.flies.answerId]: question.answers.flies.text.toLowerCase(),
+    [question.answers.rats.answerId]: question.answers.rats.text.toLowerCase(),
+    [question.answers.seagulls.answerId]: question.answers.seagulls.text.toLowerCase(),
+    [question.answers.somethingElse.answerId]: 'vermin/pests'
+  }
+  const selectedType = selectedTypeByAnswerId[answerId] || ''
 
   answers.push({
     ...baseAnswer,
     answerId
   })
 
-  // Determine selected vermin type
-  switch (answerId) {
-    case question.answers.flies.answerId:
-      selectedType = question.answers.flies.text.toLowerCase()
-      break
-    case question.answers.rats.answerId:
-      selectedType = question.answers.rats.text.toLowerCase()
-      break
-    case question.answers.seagulls.answerId:
-      selectedType = question.answers.seagulls.text.toLowerCase()
-      break
-    case question.answers.somethingElse.answerId:
-      if (somethingElseDetail) {
-        selectedType = somethingElseDetail.toLowerCase()
-        answers.push({
-          ...baseAnswer,
-          answerId: question.answers.somethingElseDetail.answerId,
-          otherDetails: somethingElseDetail
-        })
-      }
-      break
+  if (answerId === question.answers.somethingElse.answerId && somethingElseDetail) {
+    answers.push({
+      ...baseAnswer,
+      answerId: question.answers.somethingElseDetail.answerId,
+      otherDetails: somethingElseDetail
+    })
   }
 
   return { answers, selectedType }

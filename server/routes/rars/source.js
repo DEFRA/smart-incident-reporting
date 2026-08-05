@@ -3,6 +3,7 @@ import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary, getServiceDetails, titleHelper } from '../../utils/helpers.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_SOURCE
+const verminQuestion = 'Where is the {VERMIN} coming from?'
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -15,7 +16,7 @@ const createSourceRoutes = ({ problem, route, redirect }) => {
 
   const handlers = {
     get: async (request, h) => {
-      const { title, pageTitle } = titleHelper(request, question.text, problem)
+      const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
       return h.view(constants.views.RARS_SOURCE, {
         question,
         problem,
@@ -29,7 +30,7 @@ const createSourceRoutes = ({ problem, route, redirect }) => {
 
       const errorSummary = validatePayload(answerId, problem)
       if (errorSummary.errorList.length > 0) {
-        const { title, pageTitle } = titleHelper(request, question.text, problem)
+        const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
         return h.view(constants.views.RARS_SOURCE, {
           question,
           problem,

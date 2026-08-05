@@ -51,22 +51,23 @@ describe('helpers', () => {
   })
   describe('titleHelper', () => {
     const questionText = 'Where is the {problem} coming from?'
+    const verminQuestion = 'Where are the the {VERMIN} coming from?'
     const mockRequest = (verminType) => ({ yar: { get: () => verminType } })
 
     it('Should replace {problem} with the problem for non-vermin problems', () => {
-      const { title, pageTitle } = titleHelper(mockRequest(null), questionText, 'smell')
+      const { title, pageTitle } = titleHelper(mockRequest(null), questionText, verminQuestion, 'smell')
       expect(title).toBe('Where is the smell coming from?')
       expect(pageTitle).toBe('Where is the smell coming from')
     })
 
     it('Should use the vermin type from session for title when problem is vermin', () => {
-      const { title, pageTitle } = titleHelper(mockRequest('rats'), questionText, 'vermin')
-      expect(title).toBe('Where is the rats coming from?')
-      expect(pageTitle).toBe('Where is the rats coming from')
+      const { title, pageTitle } = titleHelper(mockRequest('rats'), questionText, verminQuestion, 'vermin')
+      expect(title).toBe('Where are the the rats coming from?')
+      expect(pageTitle).toBe('Where are the the rats coming from')
     })
 
-    it('Should fall back to vermin when VERMIN_TYPE_SELECTED is not in session', () => {
-      const { title, pageTitle } = titleHelper(mockRequest(null), questionText, 'vermin')
+    it('Should fall back to the main problem question when VERMIN_TYPE_SELECTED is not in session', () => {
+      const { title, pageTitle } = titleHelper(mockRequest(null), questionText, verminQuestion, 'vermin')
       expect(title).toBe('Where is the vermin coming from?')
       expect(pageTitle).toBe('Where is the vermin coming from')
     })

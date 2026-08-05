@@ -118,4 +118,26 @@ describe('RARS Source Routes', () => {
       })
     })
   })
+
+  describe('vermin source title behaviour', () => {
+    it('Should use selected vermin type in title when session has VERMIN_TYPE_SELECTED', async () => {
+      const response = await submitGetRequest(
+        { url: constants.routes.VERMIN_SOURCE },
+        'Where is the rats coming from?',
+        constants.statusCodes.OK,
+        { [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'rats' }
+      )
+      expect(response.statusCode).toBe(constants.statusCodes.OK)
+    })
+
+    it('Should show selected vermin type title when validation fails and session has VERMIN_TYPE_SELECTED', async () => {
+      const response = await submitPostRequest(
+        { url: constants.routes.VERMIN_SOURCE, payload: {} },
+        constants.statusCodes.OK,
+        { [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'rats' }
+      )
+      expect(response.payload).toContain('Where is the rats coming from?')
+      expect(response.payload).toContain('There is a problem')
+    })
+  })
 })
