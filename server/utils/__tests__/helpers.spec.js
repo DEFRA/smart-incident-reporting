@@ -51,7 +51,7 @@ describe('helpers', () => {
   })
   describe('titleHelper', () => {
     const questionText = 'Where is the {problem} coming from?'
-    const verminQuestion = 'Where are the the {VERMIN} coming from?'
+    const verminQuestion = 'Where are the the {vermin} coming from?'
     const mockRequest = (verminType) => ({ yar: { get: () => verminType } })
 
     it('Should replace {problem} with the problem for non-vermin problems', () => {
