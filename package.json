@@ -1,6 +1,6 @@
 {
   "name": "smart-incident-reporting",
-  "version": "2.8.0",
+  "version": "2.8.1",
   "description": "Digital service for incident reporting",
   "main": "index.js",
   "type": "module",
