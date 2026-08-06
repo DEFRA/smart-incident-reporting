@@ -1584,6 +1584,30 @@ const questionSets = {
   REPORT_REGULATED_SITE: {
     questionSetId: 200,
     questions: {
+      VERMIN_TYPE: {
+        questionId: 1620,
+        key: constants.redisKeys.VERMIN_TYPE,
+        text: 'What type of vermin or pest is causing a problem?',
+        answers: {
+          rats: {
+            answerId: 1621,
+            text: 'Rats'
+          },
+          seagulls: {
+            answerId: 1622,
+            text: 'Seagulls'
+          },
+          somethingElse: {
+            answerId: 1623,
+            text: SOMETHING_ELSE,
+            shortText: SOMETHING_ELSE
+          },
+          somethingElseDetail: {
+            answerId: 1624,
+            text: 'Type of vermin or pest'
+          }
+        }
+      },
       RARS_SOURCE: {
         questionId: 1600,
         key: constants.redisKeys.RARS_SOURCE,

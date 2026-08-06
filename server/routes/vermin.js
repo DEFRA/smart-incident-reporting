@@ -5,7 +5,7 @@ const handlers = {
   get: async (request, h) => {
     request.yar.reset()
     request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.REPORT_REGULATED_SITE.questionSetId)
-    return h.redirect(constants.routes.VERMIN_SOURCE)
+    return h.redirect(constants.routes.VERMIN_TYPE)
   }
 }
 

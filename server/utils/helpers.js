@@ -84,9 +84,23 @@ const getServiceDetails = (problem) => {
   }
 }
 
+const titleHelper = (request, questionText, verminQuestion, problem) => {
+  const isVermin = problem === 'vermin'
+  const selectedVermin = request.yar.get(constants.redisKeys.VERMIN_TYPE_SELECTED)
+  const title = isVermin
+    ? verminQuestion.replace('{vermin}', selectedVermin)
+    : questionText.replace('{problem}', problem)
+
+  return {
+    title,
+    pageTitle: title.replace('?', '')
+  }
+}
+
 export {
   getErrorSummary,
   validatePayload,
   validateEmail,
-  getServiceDetails
+  getServiceDetails,
+  titleHelper
 }

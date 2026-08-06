@@ -1,4 +1,4 @@
-import { validatePayload, validateEmail, getServiceDetails } from '../helpers.js'
+import { validatePayload, validateEmail, getServiceDetails, titleHelper } from '../helpers.js'
 import { payload } from '../../__mock-data__/session-water-pollution.js'
 import constants from '../constants.js'
 
@@ -47,6 +47,23 @@ describe('helpers', () => {
       const result = getServiceDetails('unknown')
       expect(result.serviceName).toBeUndefined()
       expect(result.serviceUrl).toBeUndefined()
+    })
+  })
+  describe('titleHelper', () => {
+    const questionText = 'Where is the {problem} coming from?'
+    const verminQuestion = 'Where are the the {vermin} coming from?'
+    const mockRequest = (verminType) => ({ yar: { get: () => verminType } })
+
+    it('Should replace {problem} with the problem for non-vermin problems', () => {
+      const { title, pageTitle } = titleHelper(mockRequest(null), questionText, verminQuestion, 'smell')
+      expect(title).toBe('Where is the smell coming from?')
+      expect(pageTitle).toBe('Where is the smell coming from')
+    })
+
+    it('Should use the vermin type from session for title when problem is vermin', () => {
+      const { title, pageTitle } = titleHelper(mockRequest('rats'), questionText, verminQuestion, 'vermin')
+      expect(title).toBe('Where are the the rats coming from?')
+      expect(pageTitle).toBe('Where are the the rats coming from')
     })
   })
 })
