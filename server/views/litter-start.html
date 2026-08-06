@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+
+{% set pageTitle = 'Report litter from a waste facility, industrial site or farm in England' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-xl">
+      Report litter from a waste facility, industrial site or farm in England
+    </h1>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        This start page is in progress. Content is not complete and will change.
+      </strong>
+    </div>
+
+    <p class="govuk-body">Use this service to report litter or fly-tipping caused by waste processing, large industrial sites and farming activities in England.</p>
+    <p class="govuk-body">This includes litter from:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>waste sites, for example material escaping from landfills or recycling centres</li>
+      <li>large industrial sites or factories</li>
+      <li>agricultural sites or activities</li>
+    </ul>
+
+    <div class="govuk-inset-text">
+      Do not use this service to report fly-tipping or litter from the public or small local businesses.
+      <a href="https://www.gov.uk/find-local-council" class="govuk-link">Contact your local council for help</a>.
+    </div>
+
+    <h2 class="govuk-heading-m">Before you start</h2>
+    <p class="govuk-body">You'll need to know:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>where the litter is coming from, for example the name of the site or business responsible</li>
+      <li>the location of the litter</li>
+      <li>when you noticed the litter</li>
+    </ul>
+
+    <p class="govuk-body">You only need to give your personal details if you're happy to be contacted for more information.</p>
+    <p class="govuk-body">You'll need to give an email address if you want to either:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>include any photos</li>
+      <li>get a reference number</li>
+    </ul>
+
+    {{ govukButton({
+      text: "Start now",
+      href: startHref,
+      isStartButton: true
+    }) }}
+
+    <h2 class="govuk-heading-m">Report litter by phone</h2>
+    <p class="govuk-body">If you're unable to use the online service you can call the Environment Agency.</p>
+    <div class="contact">
+      <p>Environment Agency incident hotline<br />
+        Telephone: 0800 80 70 60<br />
+        24 hours<br />
+        <a href="https://www.gov.uk/call-charges" class="govuk-link">Find out about call charges</a>
+      </p>
+    </div>
+
+    <h2 class="govuk-heading-m">After you make your report</h2>
+    <p class="govuk-body">The Environment Agency will review your report and decide if any action is needed.</p>
+    <p class="govuk-body">You will not get updates on your report.</p>
+
+    <h2 class="govuk-heading-m">Other environmental problems</h2>
+    <p class="govuk-body">How you report other problems affecting the environment depends on what it is and where it's happening. You may have to report it to:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>the Environment Agency</li>
+      <li>your local council</li>
+      <li>your utilities company</li>
+    </ul>
+    <p class="govuk-body"><a href="https://www.gov.uk/report-an-environmental-incident" class="govuk-link">Report other environmental problems</a>.</p>
+
+  </div>
+</div>
+
+{% endblock %}

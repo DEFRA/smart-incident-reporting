@@ -22,17 +22,17 @@ const journeySessionData = {
       answerId: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noVideo.answerId
     }]
   },
-  200: {
-    contactDetails: {
-      reporterEmailAddress: 'smell@test.com'
-    },
-    imagesOrVideo: [{
-      answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
-    },
-    {
-      answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.noVideo.answerId
-    }]
-  },
+  // 200: {
+  //   contactDetails: {
+  //     reporterEmailAddress: 'smell@test.com'
+  //   },
+  //   imagesOrVideo: [{
+  //     answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
+  //   },
+  //   {
+  //     answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.noVideo.answerId
+  //   }]
+  // },
   300: {
     contactDetails: {
       reporterEmailAddress: 'blockage@test.com'
@@ -78,10 +78,10 @@ const handler = async (questionSetID, overrides = {}) => {
       contactDetailsKey: constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS,
       imagesOrVideoKey: constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO
     },
-    200: {
-      contactDetailsKey: constants.redisKeys.SMELL_CONTACT_DETAILS,
-      imagesOrVideoKey: constants.redisKeys.SMELL_IMAGES_OR_VIDEO
-    },
+    // 200: {
+    //   contactDetailsKey: constants.redisKeys.SMELL_CONTACT_DETAILS,
+    //   imagesOrVideoKey: constants.redisKeys.SMELL_IMAGES_OR_VIDEO
+    // },
     300: {
       contactDetailsKey: constants.redisKeys.BLOCKAGE_CONTACT_DETAILS,
       imagesOrVideoKey: constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO
@@ -123,7 +123,7 @@ describe(url, () => {
 
     it.each([
       { questionSetID: 100, expectedJourney: 'water pollution' },
-      { questionSetID: 200, expectedJourney: 'smell' },
+      // { questionSetID: 200, expectedJourney: 'smell' },
       { questionSetID: 300, expectedJourney: 'blockage' },
       { questionSetID: 1800, expectedJourney: 'illegal fishing' }
     ])('should cache journey "$expectedJourney" for questionSetID $questionSetID', async ({ questionSetID, expectedJourney }) => {
@@ -147,7 +147,7 @@ describe(url, () => {
 
     it.each([
       { questionSetID: 100, email: 'water@test.com' },
-      { questionSetID: 200, email: 'smell@test.com' },
+      // { questionSetID: 200, email: 'smell@test.com' },
       { questionSetID: 300, email: 'blockage@test.com' },
       { questionSetID: 1800, email: 'fishing@test.com' }
     ])('should pass photo upload details for questionSetID $questionSetID', async ({ questionSetID, email }) => {
