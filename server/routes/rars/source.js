@@ -30,12 +30,18 @@ const createSourceRoutes = ({ problem, route, redirect }) => {
 
       const errorSummary = validatePayload(answerId, problem)
       if (errorSummary.errorList.length > 0) {
+<<<<<<< HEAD
         const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
         return h.view(constants.views.RARS_SOURCE, {
           question,
           problem,
           title,
           pageTitle,
+=======
+        return h.view(constants.views.RARS_SOURCE, {
+          question,
+          problem,
+>>>>>>> report-a-regulated-site
           errorSummary,
           ...serviceDetails
         })
@@ -46,6 +52,10 @@ const createSourceRoutes = ({ problem, route, redirect }) => {
       request.yar.set(constants.redisKeys.RARS_SOURCE, buildAnswers(answerId))
 
       // handle redirects
+<<<<<<< HEAD
+=======
+      console.log('answerId: ', answerId)
+>>>>>>> report-a-regulated-site
       if (answerId === question.answers.local.answerId || answerId === question.answers.neighbour.answerId) {
         return h.redirect(redirect.localCouncil)
       } else if (answerId === question.answers.unknown.answerId) {
