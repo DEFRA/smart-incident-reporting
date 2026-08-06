@@ -101,10 +101,6 @@ export {
   getErrorSummary,
   validatePayload,
   validateEmail,
-<<<<<<< HEAD
   getServiceDetails,
   titleHelper
-=======
-  getServiceDetails
->>>>>>> report-a-regulated-site
 }
