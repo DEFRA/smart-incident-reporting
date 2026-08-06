@@ -70,10 +70,6 @@ if (error) {
 // Add some helper props
 value.isDev = value.env === 'development'
 
-if (value) {
-  throw new Error(`${JSON.stringify(value, null, 2)}`)
-}
-
 export default {
   ...value
 }

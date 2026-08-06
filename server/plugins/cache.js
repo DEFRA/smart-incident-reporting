@@ -1,6 +1,13 @@
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 import config from '../utils/config.js'
 
+console.log('Redis config', {
+  host: config.redisHost,
+  port: config.redisPort,
+  password: config.redisPassword,
+  tls: config.redisTls
+})
+
 const cache = [{
   name: 'redis_cache',
   provider: {
