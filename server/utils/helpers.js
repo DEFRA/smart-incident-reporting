@@ -56,8 +56,51 @@ const validateEmail = email => {
   return !domainIssue
 }
 
+const getServiceDetails = (problem) => {
+  const serviceNameMap = {
+    smell: constants.serviceNames.SMELL,
+    noise: constants.serviceNames.NOISE,
+    dust: constants.serviceNames.DUST,
+    litter: constants.serviceNames.LITTER,
+    mud: constants.serviceNames.MUD,
+    vermin: constants.serviceNames.VERMIN
+  }
+
+  const urlMap = {
+    smell: constants.urls.GOV_UK_SMELL,
+    noise: constants.urls.GOV_UK_NOISE,
+    dust: constants.urls.GOV_UK_DUST,
+    litter: constants.urls.GOV_UK_LITTER,
+    mud: constants.urls.GOV_UK_MUD,
+    vermin: constants.urls.GOV_UK_VERMIN
+  }
+
+  const serviceName = serviceNameMap[problem]
+
+  return {
+    serviceName,
+    pageTitleServiceName: serviceName,
+    serviceUrl: urlMap[problem]
+  }
+}
+
+const titleHelper = (request, questionText, verminQuestion, problem) => {
+  const isVermin = problem === 'vermin'
+  const selectedVermin = request.yar.get(constants.redisKeys.VERMIN_TYPE_SELECTED)
+  const title = isVermin
+    ? verminQuestion.replace('{vermin}', selectedVermin)
+    : questionText.replace('{problem}', problem)
+
+  return {
+    title,
+    pageTitle: title.replace('?', '')
+  }
+}
+
 export {
   getErrorSummary,
   validatePayload,
-  validateEmail
+  validateEmail,
+  getServiceDetails,
+  titleHelper
 }

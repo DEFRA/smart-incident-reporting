@@ -65,4 +65,49 @@ describe('get-service-details', () => {
       pageTitleServiceName: generatePageTitle(constants.serviceNames.SMELL)
     })
   })
+
+  it('returns dust service details for dust journey template', () => {
+    const details = getServiceDetails(`root/${constants.routes.DUST}/template`)
+    expect(details).toEqual({
+      serviceName: constants.serviceNames.DUST,
+      serviceUrl: constants.urls.GOV_UK_DUST,
+      pageTitleServiceName: generatePageTitle(constants.serviceNames.DUST)
+    })
+  })
+
+  it('returns litter service details for litter journey template', () => {
+    const details = getServiceDetails(`root/${constants.routes.LITTER}/template`)
+    expect(details).toEqual({
+      serviceName: constants.serviceNames.LITTER,
+      serviceUrl: constants.urls.GOV_UK_LITTER,
+      pageTitleServiceName: generatePageTitle(constants.serviceNames.LITTER)
+    })
+  })
+
+  it('returns noise service details for noise journey template', () => {
+    const details = getServiceDetails(`root/${constants.routes.NOISE}/template`)
+    expect(details).toEqual({
+      serviceName: constants.serviceNames.NOISE,
+      serviceUrl: constants.urls.GOV_UK_NOISE,
+      pageTitleServiceName: generatePageTitle(constants.serviceNames.NOISE)
+    })
+  })
+
+  it('returns mud service details for mud journey template', () => {
+    const details = getServiceDetails(`root/${constants.routes.MUD}/template`)
+    expect(details).toEqual({
+      serviceName: constants.serviceNames.MUD,
+      serviceUrl: constants.urls.GOV_UK_MUD,
+      pageTitleServiceName: generatePageTitle(constants.serviceNames.MUD)
+    })
+  })
+
+  it('returns vermin service details for vermin journey template', () => {
+    const details = getServiceDetails(`root/${constants.routes.VERMIN}/template`)
+    expect(details).toEqual({
+      serviceName: constants.serviceNames.VERMIN,
+      serviceUrl: constants.urls.GOV_UK_VERMIN,
+      pageTitleServiceName: generatePageTitle(constants.serviceNames.VERMIN)
+    })
+  })
 })

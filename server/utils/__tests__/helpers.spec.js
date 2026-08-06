@@ -1,5 +1,6 @@
-import { validatePayload, validateEmail } from '../helpers.js'
+import { validatePayload, validateEmail, getServiceDetails, titleHelper } from '../helpers.js'
 import { payload } from '../../__mock-data__/session-water-pollution.js'
+import constants from '../constants.js'
 
 describe('helpers', () => {
   describe('validatePayload', () => {
@@ -26,6 +27,43 @@ describe('helpers', () => {
       expect(validateEmail('testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest@test.com')).toBe(false)
       expect(validateEmail('test@testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest.com')).toBe(false)
       expect(validateEmail('test@testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest.test.com'))
+    })
+  })
+  describe('getServiceDetails', () => {
+    it.each([
+      ['smell', constants.serviceNames.SMELL, constants.urls.GOV_UK_SMELL],
+      ['noise', constants.serviceNames.NOISE, constants.urls.GOV_UK_NOISE],
+      ['dust', constants.serviceNames.DUST, constants.urls.GOV_UK_DUST],
+      ['litter', constants.serviceNames.LITTER, constants.urls.GOV_UK_LITTER],
+      ['mud', constants.serviceNames.MUD, constants.urls.GOV_UK_MUD],
+      ['vermin', constants.serviceNames.VERMIN, constants.urls.GOV_UK_VERMIN]
+    ])('Should return correct details for %s', (problem, expectedServiceName, expectedUrl) => {
+      const result = getServiceDetails(problem)
+      expect(result.serviceName).toBe(expectedServiceName)
+      expect(result.serviceUrl).toBe(expectedUrl)
+      expect(result.pageTitleServiceName).toBe(expectedServiceName)
+    })
+    it('Should return undefined serviceName and serviceUrl for unknown problem', () => {
+      const result = getServiceDetails('unknown')
+      expect(result.serviceName).toBeUndefined()
+      expect(result.serviceUrl).toBeUndefined()
+    })
+  })
+  describe('titleHelper', () => {
+    const questionText = 'Where is the {problem} coming from?'
+    const verminQuestion = 'Where are the the {vermin} coming from?'
+    const mockRequest = (verminType) => ({ yar: { get: () => verminType } })
+
+    it('Should replace {problem} with the problem for non-vermin problems', () => {
+      const { title, pageTitle } = titleHelper(mockRequest(null), questionText, verminQuestion, 'smell')
+      expect(title).toBe('Where is the smell coming from?')
+      expect(pageTitle).toBe('Where is the smell coming from')
+    })
+
+    it('Should use the vermin type from session for title when problem is vermin', () => {
+      const { title, pageTitle } = titleHelper(mockRequest('rats'), questionText, verminQuestion, 'vermin')
+      expect(title).toBe('Where are the the rats coming from?')
+      expect(pageTitle).toBe('Where are the the rats coming from')
     })
   })
 })

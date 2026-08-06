@@ -18,7 +18,7 @@ export default {
         compile: (src, options) => {
           const template = nunjucks.compile(src, options.environment)
           const serviceNameAndURL = getServiceDetails(options.filename)
-          return context => template.render({ ...context, ...serviceNameAndURL })
+          return context => template.render({ ...serviceNameAndURL, ...context })
         },
         prepare: (options, next) => {
           const env = options.compileOptions.environment = nunjucks.configure(options.path, {
