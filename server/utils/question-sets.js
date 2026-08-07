@@ -1642,6 +1642,21 @@ const questionSets = {
             text: 'Something else or you do not know'
           }
         }
+      },
+      RARS_LOCATION_HOME: {
+        questionId: 3100,
+        key: constants.redisKeys.RARS_LOCATION_HOME,
+        text: 'Where is the {problem} causing a problem?',
+        answers: {
+          home: {
+            answerId: 3103,
+            text: 'At your home'
+          },
+          somewhereElse: {
+            answerId: 3104,
+            text: 'Somewhere else'
+          }
+        }
       }
     }
   }
