@@ -90,14 +90,14 @@ describe('RARS Location Home Routes', () => {
   describe.each(problems)('$problem location home redirect', ({ url, redirect }) => {
     describe('POST', () => {
       it('Happy: answer "at home" redirects to find address', async () => {
-        const options = { url, payload: { answerId: 3103 } }
+        const options = { url, payload: { answerId: 3101 } }
         const response = await submitPostRequest(options)
         expect(response.statusCode).toBe(constants.statusCodes.REDIRECT)
         expect(response.headers.location).toBe(redirect.findAddress)
       })
 
       it('Happy: answer "somewhere else" redirects to location option', async () => {
-        const options = { url, payload: { answerId: 3104 } }
+        const options = { url, payload: { answerId: 3102 } }
         const response = await submitPostRequest(options)
         expect(response.statusCode).toBe(constants.statusCodes.REDIRECT)
         expect(response.headers.location).toBe(redirect.locationOption)
