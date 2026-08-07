@@ -1649,11 +1649,11 @@ const questionSets = {
         text: 'Where is the {problem} causing a problem?',
         answers: {
           home: {
-            answerId: 3103,
+            answerId: 3101,
             text: 'At your home'
           },
           somewhereElse: {
-            answerId: 3104,
+            answerId: 3102,
             text: 'Somewhere else'
           }
         }
