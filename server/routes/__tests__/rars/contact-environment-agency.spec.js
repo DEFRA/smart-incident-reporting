@@ -5,32 +5,32 @@ const problems = [
   {
     problem: 'smell',
     url: constants.routes.SMELL_CONTACT_ENVIRONMENT_AGENCY,
-    header: 'CONTACT ENVIRONMENT AGENCY'
+    header: 'Call the Environment Agency incident hotline'
   },
   {
     problem: 'noise',
     url: constants.routes.NOISE_CONTACT_ENVIRONMENT_AGENCY,
-    header: 'CONTACT ENVIRONMENT AGENCY'
+    header: 'Call the Environment Agency incident hotline'
   },
   {
     problem: 'dust',
     url: constants.routes.DUST_CONTACT_ENVIRONMENT_AGENCY,
-    header: 'CONTACT ENVIRONMENT AGENCY'
+    header: 'Call the Environment Agency incident hotline'
   },
   {
     problem: 'litter',
     url: constants.routes.LITTER_CONTACT_ENVIRONMENT_AGENCY,
-    header: 'CONTACT ENVIRONMENT AGENCY'
+    header: 'Call the Environment Agency incident hotline'
   },
   {
     problem: 'mud',
     url: constants.routes.MUD_CONTACT_ENVIRONMENT_AGENCY,
-    header: 'CONTACT ENVIRONMENT AGENCY'
+    header: 'Call the Environment Agency incident hotline'
   },
   {
     problem: 'vermin',
     url: constants.routes.VERMIN_CONTACT_ENVIRONMENT_AGENCY,
-    header: 'CONTACT ENVIRONMENT AGENCY'
+    header: 'Call the Environment Agency incident hotline'
   }
 ]
 
