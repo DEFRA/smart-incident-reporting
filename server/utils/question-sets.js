@@ -1642,6 +1642,29 @@ const questionSets = {
             text: 'Something else or you do not know'
           }
         }
+      },
+    RARS_SOURCE_DETAILS: {
+        questionId: 3200,
+        key: constants.redisKeys.RARS_SOURCE_DETAILS,
+        text: 'Do you know the site or business responsible for the {problem}?',
+        answers: {
+          siteName: {
+            answerId: 3202,
+            text: 'Name of person or site'
+          },
+          sourceAddress: {
+            answerId: 3203,
+            text: 'Street name and number (if known)'
+          },
+          sourceTown: {
+            answerId: 3204,
+            text: 'Town or city'
+          },
+          sourcePostcode: {
+            answerId: 3205,
+            text: 'Postcode (if known)'
+          }
+        }
       }
     }
   }
