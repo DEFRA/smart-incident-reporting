@@ -46,7 +46,7 @@ const problems = [
     problem: 'smell',
     url: constants.routes.SMELL_SOURCE_DETAILS,
     header: 'Do you know the site or business responsible for the smell?',
-    errorText: "Select 'yes' if you can give details about where the smell is coming from",
+    errorText: 'Select &#39;yes&#39; if you can give details about where the smell is coming from',
     redirect: {
       locationHome: constants.routes.SMELL_LOCATION_HOME,
       contactLocalCouncil: constants.routes.SMELL_CONTACT_LOCAL_COUNCIL
@@ -56,7 +56,7 @@ const problems = [
     problem: 'noise',
     url: constants.routes.NOISE_SOURCE_DETAILS,
     header: 'Do you know the site or business responsible for the noise?',
-    errorText: "Select 'yes' if you can give details about where the noise is coming from",
+    errorText: 'Select &#39;yes&#39; if you can give details about where the noise is coming from',
     redirect: {
       locationHome: constants.routes.NOISE_LOCATION_HOME,
       contactLocalCouncil: constants.routes.NOISE_CONTACT_LOCAL_COUNCIL
@@ -66,7 +66,7 @@ const problems = [
     problem: 'dust',
     url: constants.routes.DUST_SOURCE_DETAILS,
     header: 'Do you know the site or business responsible for the dust?',
-    errorText: "Select 'yes' if you can give details about where the dust is coming from",
+    errorText: 'Select &#39;yes&#39; if you can give details about where the dust is coming from',
     redirect: {
       locationHome: constants.routes.DUST_LOCATION_HOME,
       contactLocalCouncil: constants.routes.DUST_CONTACT_LOCAL_COUNCIL
@@ -76,7 +76,7 @@ const problems = [
     problem: 'litter',
     url: constants.routes.LITTER_SOURCE_DETAILS,
     header: 'Do you know the site or business responsible for the litter?',
-    errorText: "Select 'yes' if you can give details about where the litter is coming from",
+    errorText: 'Select &#39;yes&#39; if you can give details about where the litter is coming from',
     redirect: {
       locationHome: constants.routes.LITTER_LOCATION_HOME,
       contactLocalCouncil: constants.routes.LITTER_CONTACT_LOCAL_COUNCIL
@@ -86,7 +86,7 @@ const problems = [
     problem: 'mud',
     url: constants.routes.MUD_SOURCE_DETAILS,
     header: 'Do you know the site or business responsible for the mud?',
-    errorText: "Select 'yes' if you can give details about where the mud is coming from",
+    errorText: 'Select &#39;yes&#39; if you can give details about where the mud is coming from',
     redirect: {
       locationHome: constants.routes.MUD_LOCATION_HOME,
       contactLocalCouncil: constants.routes.MUD_CONTACT_LOCAL_COUNCIL
@@ -96,7 +96,7 @@ const problems = [
     problem: 'vermin',
     url: constants.routes.VERMIN_SOURCE_DETAILS,
     header: 'Do you know the site or business responsible for the vermin/pests?',
-    errorText: "Select 'yes' if you can give details about where the vermin is coming from",
+    errorText: 'Select &#39;yes&#39; if you can give details about where the vermin is coming from',
     redirect: {
       locationHome: constants.routes.VERMIN_LOCATION_HOME,
       contactLocalCouncil: constants.routes.VERMIN_CONTACT_LOCAL_COUNCIL
