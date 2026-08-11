@@ -1643,7 +1643,7 @@ const questionSets = {
           }
         }
       },
-    RARS_SOURCE_DETAILS: {
+      RARS_SOURCE_DETAILS: {
         questionId: 3200,
         key: constants.redisKeys.RARS_SOURCE_DETAILS,
         text: 'Do you know the site or business responsible for the {problem}?',

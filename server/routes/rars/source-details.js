@@ -1,5 +1,5 @@
 import constants from '../../utils/constants.js'
-import questionSets from '../../utils/question-sets.js'
+import { questionSets } from '../../utils/question-sets.js'
 import { getServiceDetails, getErrorSummary, titleHelper } from '../../utils/helpers.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_SOURCE_DETAILS
@@ -33,10 +33,15 @@ const createSourceDetailsRoutes = ({ problem, route, redirect }) => {
     }
 
     // validate payload for errors
-    const errorSummary = validatePayload(request.payload)
+    const errorSummary = validatePayload(request.payload, problem)
     if (errorSummary.errorList.length > 0) {
+      const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
       return h.view(constants.views.RARS_SOURCE_DETAILS, {
-        ...getContext(),
+        question,
+        problem,
+        title,
+        pageTitle,
+        ...serviceDetails,
         errorSummary,
         ...request.payload,
         yesChecked: request.payload.answerId === 'yes'
@@ -64,11 +69,6 @@ const createSourceDetailsRoutes = ({ problem, route, redirect }) => {
   ]
 }
 
-const getContext = () => {
-  return {
-    question
-  }
-}
 
 const validatePayload = (payload, problem) => {
   const errorSummary = getErrorSummary()
