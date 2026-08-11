@@ -27,48 +27,47 @@ const createSourceDetailsRoutes = ({ problem, route, redirect }) => {
       })
     },
     post: async (request, h) => {
-    // cleanse postcode for special characters https://design-system.service.gov.uk/patterns/addresses/#allow-different-postcode-formats
-    if (request.payload.sourcePostcode) {
-      request.payload.sourcePostcode = request.payload.sourcePostcode.replaceAll(/[^\w\s]/gi, '')
-    }
+      // cleanse postcode for special characters https://design-system.service.gov.uk/patterns/addresses/#allow-different-postcode-formats
+      if (request.payload.sourcePostcode) {
+        request.payload.sourcePostcode = request.payload.sourcePostcode.replaceAll(/[^\w\s]/gi, '')
+      }
 
-    // validate payload for errors
-    const errorSummary = validatePayload(request.payload, problem)
-    if (errorSummary.errorList.length > 0) {
-      const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
-      return h.view(constants.views.RARS_SOURCE_DETAILS, {
-        question,
-        problem,
-        title,
-        pageTitle,
-        ...serviceDetails,
-        errorSummary,
-        ...request.payload,
-        yesChecked: request.payload.answerId === 'yes'
-      })
-    }
+      // validate payload for errors
+      const errorSummary = validatePayload(request.payload, problem)
+      if (errorSummary.errorList.length > 0) {
+        const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
+        return h.view(constants.views.RARS_SOURCE_DETAILS, {
+          question,
+          problem,
+          title,
+          pageTitle,
+          ...serviceDetails,
+          errorSummary,
+          ...request.payload,
+          yesChecked: request.payload.answerId === 'yes'
+        })
+      }
 
-    // handle redirects
-    if (request.payload.answerId === 'yes') {
-      // set answer in session
-      request.yar.set(constants.redisKeys.RARS_SOURCE_DETAILS, buildAnswers(request.payload))
-      return h.redirect(redirect.locationHome)
-    } else if (request.payload.answerId === 'no') {
-      return h.redirect(redirect.contactLocalCouncil)
-    } else {
-      // do nothing
-    }
+      // handle redirects
+      if (request.payload.answerId === 'yes') {
+        // set answer in session
+        request.yar.set(constants.redisKeys.RARS_SOURCE_DETAILS, buildAnswers(request.payload))
+        return h.redirect(redirect.locationHome)
+      } else if (request.payload.answerId === 'no') {
+        return h.redirect(redirect.contactLocalCouncil)
+      } else {
+        // do nothing
+      }
 
-    return null
+      return null
+    }
   }
-}
 
   return [
     { method: 'GET', path: route, handler: handlers.get },
     { method: 'POST', path: route, handler: handlers.post }
   ]
 }
-
 
 const validatePayload = (payload, problem) => {
   const errorSummary = getErrorSummary()
@@ -125,4 +124,3 @@ const buildAnswers = payload => {
 }
 
 export default createSourceDetailsRoutes
-
