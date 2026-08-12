@@ -24,7 +24,7 @@ const serviceNames = {
   BLOCKAGE: 'Report a blockage in a river in England',
   NOISE: 'Report noise from a waste facility, industrial site or farm in England',
   LITTER: 'Report litter from a waste facility, industrial site or farm in England',
-  VERMIN: 'Report vermin from a waste facility, industrial site or farm in England',
+  VERMIN: 'Report vermin or pest problem from a waste facility, industrial site or farm in England',
   DUST: 'Report dust from a waste facility, industrial site or farm in England',
   MUD: 'Report mud from a waste facility, industrial site or farm in England'
 }
