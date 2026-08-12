@@ -1,8 +1,9 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary } from '../../utils/helpers.js'
+import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.VERMIN_TYPE
+const serviceDetails = getServiceDetails('vermin')
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -71,7 +72,8 @@ const getContext = request => {
   const answers = request.yar.get(question.key)
   return {
     question,
-    answers
+    answers,
+    ...serviceDetails
   }
 }
 

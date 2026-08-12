@@ -2,7 +2,7 @@ import { submitGetRequest } from '../../__test-helpers__/server.js'
 import constants from '../../utils/constants.js'
 
 const url = constants.routes.VERMIN_START
-const header = 'Report vermin or pests from a waste facility, industrial site or farm in England'
+const header = 'Report vermin or pest problem from a waste facility, industrial site or farm in England'
 
 describe(url, () => {
   describe('GET', () => {

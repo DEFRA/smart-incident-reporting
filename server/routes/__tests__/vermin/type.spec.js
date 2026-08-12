@@ -1,6 +1,7 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
 import { questionSets } from '../../../utils/question-sets.js'
+import { parse } from 'node-html-parser'
 
 const url = constants.routes.VERMIN_TYPE
 const question = questionSets.REPORT_REGULATED_SITE.questions.VERMIN_TYPE
@@ -15,6 +16,15 @@ describe(url, () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       const response = await submitGetRequest({ url }, question.text)
       expect(response.statusCode).toBe(constants.statusCodes.OK)
+    })
+    it('Should show the correct service name and link for a vermin service page', async () => {
+      process.env.REGISTER_START_ROUTES = 'false'
+      const response = await submitGetRequest({ url })
+      const html = parse(response.payload)
+      const serviceNameLink = html.querySelector('.govuk-service-navigation__link')
+      expect(html.querySelector('.govuk-service-navigation__service-name').textContent).toContain(constants.serviceNames.VERMIN)
+      expect(serviceNameLink.getAttribute('href')).toBe(constants.urls.GOV_UK_VERMIN)
+      process.env.REGISTER_START_ROUTES = 'true'
     })
   })
 

@@ -1615,11 +1615,11 @@ const questionSets = {
         answers: {
           wasteSite: {
             answerId: 1601,
-            text: 'A waste site, for example a landfill or recycling centre'
+            text: 'A waste site, for example a rubbish tip, recycling centre or scrapyard'
           },
           industry: {
             answerId: 1602,
-            text: 'A large industrial site, factory or business, for example a food processing or chemical plant'
+            text: 'An industrial site, factory or business, for example a food processing or chemical plant'
           },
           sewage: {
             answerId: 1603,
@@ -1635,7 +1635,7 @@ const questionSets = {
           },
           neighbour: {
             answerId: 1606,
-            text: 'A neighbouring property'
+            text: 'A neighbouring property, including from their househld rubbish'
           },
           unknown: {
             answerId: 1608,
