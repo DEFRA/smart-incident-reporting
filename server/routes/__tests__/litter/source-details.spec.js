@@ -13,7 +13,11 @@ describe('litter/source-details', () => {
     expect(createSourceDetailsRoutes).toHaveBeenCalledTimes(1)
     expect(createSourceDetailsRoutes).toHaveBeenCalledWith({
       problem: 'litter',
-      route: constants.routes.LITTER_SOURCE_DETAILS
+      route: constants.routes.LITTER_SOURCE_DETAILS,
+      redirect: {
+        locationHome: constants.routes.LITTER_LOCATION_HOME,
+        contactLocalCouncil: constants.routes.LITTER_CONTACT_LOCAL_COUNCIL
+      }
     })
   })
 })

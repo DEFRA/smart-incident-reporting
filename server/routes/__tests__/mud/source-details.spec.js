@@ -13,7 +13,11 @@ describe('mud/source-details', () => {
     expect(createSourceDetailsRoutes).toHaveBeenCalledTimes(1)
     expect(createSourceDetailsRoutes).toHaveBeenCalledWith({
       problem: 'mud',
-      route: constants.routes.MUD_SOURCE_DETAILS
+      route: constants.routes.MUD_SOURCE_DETAILS,
+      redirect: {
+        locationHome: constants.routes.MUD_LOCATION_HOME,
+        contactLocalCouncil: constants.routes.MUD_CONTACT_LOCAL_COUNCIL
+      }
     })
   })
 })
