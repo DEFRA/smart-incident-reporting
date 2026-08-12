@@ -53,13 +53,9 @@ const createSourceDetailsRoutes = ({ problem, route, redirect }) => {
         // set answer in session
         request.yar.set(constants.redisKeys.RARS_SOURCE_DETAILS, buildAnswers(request.payload))
         return h.redirect(redirect.locationHome)
-      } else if (request.payload.answerId === 'no') {
-        return h.redirect(redirect.contactLocalCouncil)
-      } else {
-        // do nothing
       }
 
-      return null
+      return h.redirect(redirect.contactLocalCouncil)
     }
   }
 
