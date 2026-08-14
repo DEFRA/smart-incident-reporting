@@ -13,7 +13,11 @@ describe('dust/source-details', () => {
     expect(createSourceDetailsRoutes).toHaveBeenCalledTimes(1)
     expect(createSourceDetailsRoutes).toHaveBeenCalledWith({
       problem: 'dust',
-      route: constants.routes.DUST_SOURCE_DETAILS
+      route: constants.routes.DUST_SOURCE_DETAILS,
+      redirect: {
+        locationHome: constants.routes.DUST_LOCATION_HOME,
+        contactLocalCouncil: constants.routes.DUST_CONTACT_LOCAL_COUNCIL
+      }
     })
   })
 })

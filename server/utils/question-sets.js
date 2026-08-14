@@ -16,6 +16,7 @@ const YES_YOU_HAVE_PHOTOS = 'Yes, you have photos'
 const NO_YOU_DO_NOT_HAVE_PHOTOS = 'No, you do not have photos'
 const YES_YOU_HAVE_VIDEO = 'Yes, you have video'
 const NO_YOU_DO_NOT_HAVE_VIDEO = 'No, you do not have video'
+const TOWN_OR_CITY = 'Town or city'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -438,7 +439,7 @@ const questionSets = {
           },
           sourceTown: {
             answerId: 3204,
-            text: 'Town or city'
+            text: TOWN_OR_CITY
           },
           sourcePostcode: {
             answerId: 3205,
@@ -476,7 +477,7 @@ const questionSets = {
           },
           townOrCity: {
             answerId: 1403,
-            text: 'Town or city'
+            text: TOWN_OR_CITY
           },
           county: {
             answerId: 1404,
@@ -1640,6 +1641,44 @@ const questionSets = {
           unknown: {
             answerId: 1608,
             text: 'Something else or you do not know'
+          }
+        }
+      },
+      RARS_SOURCE_DETAILS: {
+        questionId: 3200,
+        key: constants.redisKeys.RARS_SOURCE_DETAILS,
+        text: 'Do you know the site or business responsible for the {problem}?',
+        answers: {
+          siteName: {
+            answerId: 3202,
+            text: 'Name of person or site'
+          },
+          sourceAddress: {
+            answerId: 3203,
+            text: 'Street name and number (if known)'
+          },
+          sourceTown: {
+            answerId: 3204,
+            text: TOWN_OR_CITY
+          },
+          sourcePostcode: {
+            answerId: 3205,
+            text: 'Postcode (if known)'
+          }
+        }
+      },
+      RARS_LOCATION_HOME: {
+        questionId: 3100,
+        key: constants.redisKeys.RARS_LOCATION_HOME,
+        text: 'Where is the {problem} causing a problem?',
+        answers: {
+          home: {
+            answerId: 3101,
+            text: 'At your home'
+          },
+          somewhereElse: {
+            answerId: 3102,
+            text: 'Somewhere else'
           }
         }
       }

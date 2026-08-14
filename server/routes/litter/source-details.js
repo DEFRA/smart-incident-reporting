@@ -3,5 +3,9 @@ import createSourceDetailsRoutes from '../rars/source-details.js'
 
 export default createSourceDetailsRoutes({
   problem: 'litter',
-  route: constants.routes.LITTER_SOURCE_DETAILS
+  route: constants.routes.LITTER_SOURCE_DETAILS,
+  redirect: {
+    locationHome: constants.routes.LITTER_LOCATION_HOME,
+    contactLocalCouncil: constants.routes.LITTER_CONTACT_LOCAL_COUNCIL
+  }
 })

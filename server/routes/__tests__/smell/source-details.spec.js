@@ -13,7 +13,11 @@ describe('smell/source-details', () => {
     expect(createSourceDetailsRoutes).toHaveBeenCalledTimes(1)
     expect(createSourceDetailsRoutes).toHaveBeenCalledWith({
       problem: 'smell',
-      route: constants.routes.SMELL_SOURCE_DETAILS
+      route: constants.routes.SMELL_SOURCE_DETAILS,
+      redirect: {
+        locationHome: constants.routes.SMELL_LOCATION_HOME,
+        contactLocalCouncil: constants.routes.SMELL_CONTACT_LOCAL_COUNCIL
+      }
     })
   })
 })
