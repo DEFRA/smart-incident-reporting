@@ -1584,12 +1584,25 @@ const questionSets = {
   },
   REPORT_REGULATED_SITE: {
     questionSetId: 200,
+    reportTypes: {
+      smell: 200,
+      dust: 900,
+      flies: 1300,
+      litter: 2200,
+      mud: 2300,
+      noise: 2500,
+      vermin: 3100
+    },
     questions: {
       VERMIN_TYPE: {
         questionId: 1620,
         key: constants.redisKeys.VERMIN_TYPE,
         text: 'What type of vermin or pest is causing a problem?',
         answers: {
+          flies: {
+            answerId: 1625,
+            text: 'Flies'
+          },
           rats: {
             answerId: 1621,
             text: 'Rats'

@@ -53,6 +53,14 @@ describe(url, () => {
       expect(response.payload).toContain(`value="${question.answers.somethingElse.answerId}" checked`)
     })
 
+    it('Should redirect to vermin source and only set selected type when flies selected', async () => {
+      const options = { url, payload: { answerId: question.answers.flies.answerId.toString() } }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.VERMIN_SOURCE)
+      expect(response.request.yar.get(question.key)).toBeNull()
+      expect(response.request.yar.get(constants.redisKeys.VERMIN_TYPE_SELECTED)).toEqual(question.answers.flies.text.toLowerCase())
+    })
+
     it.each([
       {
         description: 'rats',
