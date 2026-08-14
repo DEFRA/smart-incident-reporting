@@ -56,7 +56,7 @@ describe('RARS Location Option Routes', () => {
   describe.each(problems)('$problem location option', ({ url }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
-        await submitGetRequest({ url }, 'LOCATION OPTION')
+        await submitGetRequest({ url }, 'How do you want to tell us where the problem is?')
       })
     })
   })
