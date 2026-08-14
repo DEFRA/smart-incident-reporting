@@ -1,16 +1,49 @@
-{% extends 'layout.html' %}
+{% extends 'form-layout.html' %}
 
-{% set pageTitle = 'LOCATION OPTION' %}
+{% set pageTitle = question.text.replace('?', '') %}
 
-{% block content %}
+{% block formContent %}
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-two-thirds"> 
+    {{ govukRadios({ 
+      classes: "govuk-radios", 
+      name: "answerId",
+      id: "answerId",
+      fieldset: {
+        legend: {
+          text: pageTitle + "?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      items: [
+      {
+        value: question.answers.gps.answerId,
+        text: question.answers.gps.text,
+        checked: getAnswer(answers, question.answers.gps.answerId),
+        hint: {
+          text: "This will show you your current location on a map, use this if you're at the location now"
+        }
+      },
+      {
+        value: question.answers.map.answerId,
+        text: question.answers.map.text,
+        checked: getAnswer(answers, question.answers.map.answerId)
+      },
+      {
+        value: question.answers.description.answerId,
+        text: question.answers.description.text,
+        checked: getAnswer(answers, question.answers.description.answerId)
+      }
+      ] 
+    }) }} 
 
-    <h1 class="govuk-heading-l">
-      {{ pageTitle }}
-    </h1>
-  </div>
-</div>
+    {{ govukButton({ 
+      text: "Continue" 
+    }) }} 
+  </div> 
 
+</div> 
 {% endblock %}

@@ -22,6 +22,8 @@ const RARS_LOCATION_HOME = 'rars/location-home'
 const RARS_CONTACT_LOCAL_COUNCIL = 'rars/contact-local-council'
 const RARS_FIND_ADDRESS = 'rars/find-address'
 const RARS_LOCATION_OPTION = 'rars/location-option'
+const RARS_LOCATION_MAP = 'rars/location-map'
+const RARS_LOCATION_DESCRIPTION = 'rars/location-description'
 
 const views = {
   RARS_SOURCE,
@@ -31,7 +33,9 @@ const views = {
   RARS_LOCATION_HOME,
   RARS_CONTACT_LOCAL_COUNCIL,
   RARS_FIND_ADDRESS,
-  RARS_LOCATION_OPTION
+  RARS_LOCATION_OPTION,
+  RARS_LOCATION_MAP,
+  RARS_LOCATION_DESCRIPTION
 }
 
 const redisKeys = {
