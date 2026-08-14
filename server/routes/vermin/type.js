@@ -25,9 +25,11 @@ const handlers = {
     // build answers and get selected vermin type
     const { answers, selectedType } = buildAnswers(answerId, somethingElseDetail)
 
-    // set answers and selected type in session
-    request.yar.set(question.key, answers)
-    // if selceted something else dont set it as the details set it as "vermin/pests"
+    // flies skips the source journey so no answers to store
+    if (answerId !== question.answers.flies.answerId) {
+      request.yar.set(question.key, answers)
+    }
+    // if selected something else don't set it as the details, set it as "vermin/pests"
     request.yar.set(constants.redisKeys.VERMIN_TYPE_SELECTED, selectedType)
 
     // validate payload for errors
@@ -38,7 +40,6 @@ const handlers = {
         ...getContext(request)
       })
     }
-
     return h.redirect(constants.routes.VERMIN_SOURCE)
   }
 }
@@ -46,6 +47,7 @@ const handlers = {
 const buildAnswers = (answerId, somethingElseDetail) => {
   const answers = []
   const selectedTypeByAnswerId = {
+    [question.answers.flies.answerId]: question.answers.flies.text.toLowerCase(),
     [question.answers.rats.answerId]: question.answers.rats.text.toLowerCase(),
     [question.answers.seagulls.answerId]: question.answers.seagulls.text.toLowerCase(),
     [question.answers.somethingElse.answerId]: 'vermin/pests'
