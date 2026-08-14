@@ -13,7 +13,11 @@ describe('mud/location-home', () => {
     expect(createLocationHomeRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationHomeRoutes).toHaveBeenCalledWith({
       problem: 'mud',
-      route: constants.routes.MUD_LOCATION_HOME
+      route: constants.routes.MUD_LOCATION_HOME,
+      redirect: {
+        findAddress: constants.routes.MUD_FIND_ADDRESS,
+        locationOption: constants.routes.MUD_LOCATION_OPTION
+      }
     })
   })
 })

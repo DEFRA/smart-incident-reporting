@@ -20,6 +20,8 @@ const RARS_CONTACT_ENVIRONMENT_AGENCY = 'rars/contact-environment-agency'
 const RARS_REPORT_LOCAL_COUNCIL = 'rars/report-local-council'
 const RARS_LOCATION_HOME = 'rars/location-home'
 const RARS_CONTACT_LOCAL_COUNCIL = 'rars/contact-local-council'
+const RARS_FIND_ADDRESS = 'rars/find-address'
+const RARS_LOCATION_OPTION = 'rars/location-option'
 
 const views = {
   RARS_SOURCE,
@@ -27,7 +29,9 @@ const views = {
   RARS_CONTACT_ENVIRONMENT_AGENCY,
   RARS_REPORT_LOCAL_COUNCIL,
   RARS_LOCATION_HOME,
-  RARS_CONTACT_LOCAL_COUNCIL
+  RARS_CONTACT_LOCAL_COUNCIL,
+  RARS_FIND_ADDRESS,
+  RARS_LOCATION_OPTION
 }
 
 const redisKeys = {

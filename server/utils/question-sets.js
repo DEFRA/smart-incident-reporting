@@ -1679,6 +1679,21 @@ const questionSets = {
             text: 'Postcode (if known)'
           }
         }
+      },
+      RARS_LOCATION_HOME: {
+        questionId: 3100,
+        key: constants.redisKeys.RARS_LOCATION_HOME,
+        text: 'Where is the {problem} causing a problem?',
+        answers: {
+          home: {
+            answerId: 3101,
+            text: 'At your home'
+          },
+          somewhereElse: {
+            answerId: 3102,
+            text: 'Somewhere else'
+          }
+        }
       }
     }
   }

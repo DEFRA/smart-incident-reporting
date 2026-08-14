@@ -1,16 +1,38 @@
-{% extends 'layout.html' %}
- 
-{% set pageTitle = 'LOCATION HOME' %}
- 
-{% block content %}
- 
+{% extends 'form-layout.html' %}
+
+{% block formContent %}
+
 <div class="govuk-grid-row">
-<div class="govuk-grid-column-two-thirds">
- 
-    <h1 class="govuk-heading-l">
-      {{ pageTitle }}
-</h1>
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukRadios({
+      name: "answerId",
+      id: "answerId",
+      errorMessage: findErrorMessageById(errorSummary, "answerId"),
+      fieldset: {
+        legend: {
+          text: title,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: question.answers.home.answerId,
+          text: question.answers.home.text
+        },
+        {
+          value: question.answers.somewhereElse.answerId,
+          text: question.answers.somewhereElse.text
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
 </div>
-</div>
- 
+
 {% endblock %}

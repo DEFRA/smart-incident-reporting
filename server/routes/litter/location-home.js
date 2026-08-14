@@ -3,5 +3,9 @@ import createLocationHomeRoutes from '../rars/location-home.js'
 
 export default createLocationHomeRoutes({
   problem: 'litter',
-  route: constants.routes.LITTER_LOCATION_HOME
+  route: constants.routes.LITTER_LOCATION_HOME,
+  redirect: {
+    findAddress: constants.routes.LITTER_FIND_ADDRESS,
+    locationOption: constants.routes.LITTER_LOCATION_OPTION
+  }
 })

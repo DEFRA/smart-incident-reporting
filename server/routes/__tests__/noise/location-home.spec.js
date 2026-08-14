@@ -13,7 +13,11 @@ describe('noise/location-home', () => {
     expect(createLocationHomeRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationHomeRoutes).toHaveBeenCalledWith({
       problem: 'noise',
-      route: constants.routes.NOISE_LOCATION_HOME
+      route: constants.routes.NOISE_LOCATION_HOME,
+      redirect: {
+        findAddress: constants.routes.NOISE_FIND_ADDRESS,
+        locationOption: constants.routes.NOISE_LOCATION_OPTION
+      }
     })
   })
 })

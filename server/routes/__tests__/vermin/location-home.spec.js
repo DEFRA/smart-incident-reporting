@@ -13,7 +13,11 @@ describe('vermin/location-home', () => {
     expect(createLocationHomeRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationHomeRoutes).toHaveBeenCalledWith({
       problem: 'vermin',
-      route: constants.routes.VERMIN_LOCATION_HOME
+      route: constants.routes.VERMIN_LOCATION_HOME,
+      redirect: {
+        findAddress: constants.routes.VERMIN_FIND_ADDRESS,
+        locationOption: constants.routes.VERMIN_LOCATION_OPTION
+      }
     })
   })
 })
