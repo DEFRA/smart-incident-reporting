@@ -119,6 +119,8 @@ const processPayload = (payload, buildingDetails) => {
     }
   })
 
+  results.sort((a, b) => a.ADDRESS.localeCompare(b.ADDRESS, 'en-GB', { numeric: true, sensitivity: 'base' }))
+
   return {
     results,
     fullResults
