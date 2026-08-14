@@ -1,30 +1,8 @@
-{% extends 'layout.html' %}
-
-{% set pageTitle = 'SOURCE DETAILS' %}
-
-{% block content %}
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-
-    <h1 class="govuk-heading-l">
-      SOURCE DETAILS
-    </h1>
-  </div>
-</div>
-
-{% endblock %}
-
-{# TODO: replace placeholder above with the full form once question data is wired up
-
 {% extends 'form-layout.html' %}
-
-{% set title = question.text.replace('{problem}', problem) %}
-{% set pageTitle = title.replace('?', '') %}
 
 {% block formContent %}
 
- <div class="govuk-grid-row">
+<div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds"> 
     {% set yesDetailsHtml %}
 
@@ -86,7 +64,7 @@
       errorMessage: findErrorMessageById(errorSummary, "answerId"),
       fieldset: {
         legend: {
-          text: question.text,
+          text: title,
           isPageHeading: true,
           classes: "govuk-fieldset__legend--l"
         }
@@ -117,5 +95,3 @@
 
 </div> 
 {% endblock %}
-
-#}
