@@ -1681,6 +1681,25 @@ const questionSets = {
             text: 'Somewhere else'
           }
         }
+      },
+      RARS_LOCATION_OPTION: {
+        questionId: 2600,
+        key: constants.redisKeys.RARS_LOCATION_OPTION,
+        text: 'How do you want to tell us where the problem is?',
+        answers: {
+          gps: {
+            answerId: 2603,
+            text: USE_CURRENT_LOCATION
+          },
+          map: {
+            answerId: 2602,
+            text: MARK_LOCATION_ON_MAP
+          },
+          description: {
+            answerId: 2601,
+            text: DESCRIBE_THE_LOCATION
+          }
+        }
       }
     }
   }
