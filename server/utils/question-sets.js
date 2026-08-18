@@ -1713,6 +1713,28 @@ const questionSets = {
             text: DESCRIBE_THE_LOCATION
           }
         }
+      },
+      RARS_LOCATION_MAP: {
+        questionId: 2700,
+        key: constants.redisKeys.RARS_LOCATION_MAP,
+        text: MARK_THE_LOCATION,
+        answers: {
+          nationalGridReference: {
+            answerId: 2701
+          },
+          easting: {
+            answerId: 2702
+          },
+          northing: {
+            answerId: 2703
+          },
+          lng: {
+            answerId: 2704
+          },
+          lat: {
+            answerId: 2705
+          }
+        }
       }
     }
   }
