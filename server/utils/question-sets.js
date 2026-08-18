@@ -1713,6 +1713,16 @@ const questionSets = {
             text: DESCRIBE_THE_LOCATION
           }
         }
+      },
+      RARS_LOCATION_DESCRIPTION: {
+        questionId: 1500,
+        key: constants.redisKeys.RARS_LOCATION_DESCRIPTION,
+        text: 'Describe the location',
+        answers: {
+          locationDetails: {
+            answerId: 1501
+          }
+        }
       }
     }
   }
