@@ -9,7 +9,7 @@
       {{ pageTitle }}
     </h1>
 
-    <p>Contact your local council to report a nuisance {{ issue }} from:</p>
+    <p>Contact your local council to report {% if issue === 'noise' or issue === 'smell' %}a nuisance{% else %}nuisance{% endif %} {{ issue }} from:</p>
     <ul class="govuk-list govuk-list--bullet">
       <li>local businesses, such as restaurants</li>
       <li>neighbouring properties</li>      
