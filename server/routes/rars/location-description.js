@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 
-const question = questionSets.SMELL.questions.SMELL_LOCATION_DESCRIPTION
+const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_DESCRIPTION
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -17,6 +17,7 @@ const createLocationDescriptionRoutes = ({ problem, route }) => {
   const handlers = {
     get: async (_request, h) => {
       return h.view(constants.views.RARS_LOCATION_DESCRIPTION, {
+        question,
         problem,
         ...serviceDetails
       })
@@ -28,13 +29,16 @@ const createLocationDescriptionRoutes = ({ problem, route }) => {
       const errorSummary = validatePayload(locationDescription)
       if (errorSummary.errorList.length > 0) {
         return h.view(constants.views.RARS_LOCATION_DESCRIPTION, {
-          errorSummary
+          question,
+          problem,
+          errorSummary,
+          ...serviceDetails
         })
       }
 
       request.yar.set(constants.redisKeys.RARS_LOCATION_DESCRIPTION, buildAnswers(locationDescription))
 
-      return h.redirect(constants.routes.RARS_DESCRIPTION)
+      return h.redirect(constants.routes.RARS_WHEN)
     }
   }
 

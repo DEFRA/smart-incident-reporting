@@ -1,12 +1,12 @@
 import constants from '../../utils/constants.js'
 import { getServiceDetails } from '../../utils/helpers.js'
 
-const createDescriptionRoutes = ({ problem, route }) => {
+const createWhenRoutes = ({ problem, route }) => {
   const serviceDetails = getServiceDetails(problem)
 
   const handlers = {
     get: async (_request, h) => {
-      return h.view(constants.views.RARS_DESCRIPTION, {
+      return h.view(constants.views.RARS_WHEN, {
         problem,
         ...serviceDetails
       })
@@ -18,4 +18,4 @@ const createDescriptionRoutes = ({ problem, route }) => {
   ]
 }
 
-export default createDescriptionRoutes
+export default createWhenRoutes
