@@ -11,14 +11,16 @@ const baseAnswer = {
   answerId: question.answers.locationDetails.answerId
 }
 
-const createLocationDescriptionRoutes = ({ problem, route }) => {
+const createLocationDescriptionRoutes = ({ problem, route, redirect }) => {
   const serviceDetails = getServiceDetails(problem)
 
   const handlers = {
-    get: async (_request, h) => {
+    get: async (request, h) => {
+      const answers = request.yar.get(constants.redisKeys.RARS_LOCATION_DESCRIPTION)
       return h.view(constants.views.RARS_LOCATION_DESCRIPTION, {
         question,
         problem,
+        answers,
         ...serviceDetails
       })
     },
@@ -38,7 +40,7 @@ const createLocationDescriptionRoutes = ({ problem, route }) => {
 
       request.yar.set(constants.redisKeys.RARS_LOCATION_DESCRIPTION, buildAnswers(locationDescription))
 
-      return h.redirect(constants.routes.RARS_WHEN)
+      return h.redirect(redirect.when)
     }
   }
 

@@ -3,5 +3,8 @@ import createLocationDescriptionRoutes from '../rars/location-description.js'
 
 export default createLocationDescriptionRoutes({
   problem: 'vermin',
-  route: constants.routes.VERMIN_LOCATION_DESCRIPTION
+  route: constants.routes.VERMIN_LOCATION_DESCRIPTION,
+  redirect: {
+    when: constants.routes.VERMIN_WHEN
+  }
 })

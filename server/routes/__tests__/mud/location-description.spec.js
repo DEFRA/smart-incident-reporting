@@ -13,7 +13,10 @@ describe('mud/location-description', () => {
     expect(createLocationDescriptionRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationDescriptionRoutes).toHaveBeenCalledWith({
       problem: 'mud',
-      route: constants.routes.MUD_LOCATION_DESCRIPTION
+      route: constants.routes.MUD_LOCATION_DESCRIPTION,
+      redirect: {
+        when: constants.routes.MUD_WHEN
+      }
     })
   })
 })
