@@ -16,7 +16,7 @@ describe('litter/source-details', () => {
       route: constants.routes.LITTER_SOURCE_DETAILS,
       redirect: {
         locationHome: constants.routes.LITTER_LOCATION_HOME,
-        contactLocalCouncil: constants.routes.LITTER_CONTACT_LOCAL_COUNCIL
+        contactEnvironmentAgency: constants.routes.LITTER_CONTACT_ENVIRONMENT_AGENCY
       }
     })
   })

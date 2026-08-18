@@ -49,7 +49,7 @@ const problems = [
     errorText: 'Select &#39;yes&#39; if you can give details about where the smell is coming from',
     redirect: {
       locationHome: constants.routes.SMELL_LOCATION_HOME,
-      contactLocalCouncil: constants.routes.SMELL_CONTACT_LOCAL_COUNCIL
+      contactEnvironmentAgency: constants.routes.SMELL_CONTACT_ENVIRONMENT_AGENCY
     }
   },
   {
@@ -59,7 +59,7 @@ const problems = [
     errorText: 'Select &#39;yes&#39; if you can give details about where the noise is coming from',
     redirect: {
       locationHome: constants.routes.NOISE_LOCATION_HOME,
-      contactLocalCouncil: constants.routes.NOISE_CONTACT_LOCAL_COUNCIL
+      contactEnvironmentAgency: constants.routes.NOISE_CONTACT_ENVIRONMENT_AGENCY
     }
   },
   {
@@ -69,7 +69,7 @@ const problems = [
     errorText: 'Select &#39;yes&#39; if you can give details about where the dust is coming from',
     redirect: {
       locationHome: constants.routes.DUST_LOCATION_HOME,
-      contactLocalCouncil: constants.routes.DUST_CONTACT_LOCAL_COUNCIL
+      contactEnvironmentAgency: constants.routes.DUST_CONTACT_ENVIRONMENT_AGENCY
     }
   },
   {
@@ -79,7 +79,7 @@ const problems = [
     errorText: 'Select &#39;yes&#39; if you can give details about where the litter is coming from',
     redirect: {
       locationHome: constants.routes.LITTER_LOCATION_HOME,
-      contactLocalCouncil: constants.routes.LITTER_CONTACT_LOCAL_COUNCIL
+      contactEnvironmentAgency: constants.routes.LITTER_CONTACT_ENVIRONMENT_AGENCY
     }
   },
   {
@@ -89,7 +89,7 @@ const problems = [
     errorText: 'Select &#39;yes&#39; if you can give details about where the mud is coming from',
     redirect: {
       locationHome: constants.routes.MUD_LOCATION_HOME,
-      contactLocalCouncil: constants.routes.MUD_CONTACT_LOCAL_COUNCIL
+      contactEnvironmentAgency: constants.routes.MUD_CONTACT_ENVIRONMENT_AGENCY
     }
   },
   {
@@ -99,7 +99,7 @@ const problems = [
     errorText: 'Select &#39;yes&#39; if you can give details about where the vermin is coming from',
     redirect: {
       locationHome: constants.routes.VERMIN_LOCATION_HOME,
-      contactLocalCouncil: constants.routes.VERMIN_CONTACT_LOCAL_COUNCIL
+      contactEnvironmentAgency: constants.routes.VERMIN_CONTACT_ENVIRONMENT_AGENCY
     }
   }
 ]
@@ -148,10 +148,10 @@ describe('RARS Source Details Routes', () => {
 
   describe.each(problems)('$problem source details redirect', ({ url, redirect }) => {
     describe('POST', () => {
-      it('Happy: accepts valid answerId no and redirects to contact local council', async () => {
+      it('Happy: accepts valid answerId no and redirects to contact environment agency', async () => {
         const options = { url, payload: { answerId: 'no' } }
         const response = await submitPostRequest(options)
-        expect(response.headers.location).toEqual(redirect.contactLocalCouncil)
+        expect(response.headers.location).toEqual(redirect.contactEnvironmentAgency)
       })
 
       it('Happy: accepts valid answerId yes and complete address with valid postcode', async () => {
