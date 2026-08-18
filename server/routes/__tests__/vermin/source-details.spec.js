@@ -16,7 +16,7 @@ describe('vermin/source-details', () => {
       route: constants.routes.VERMIN_SOURCE_DETAILS,
       redirect: {
         locationHome: constants.routes.VERMIN_LOCATION_HOME,
-        contactLocalCouncil: constants.routes.VERMIN_CONTACT_LOCAL_COUNCIL
+        contactEnvironmentAgency: constants.routes.VERMIN_CONTACT_ENVIRONMENT_AGENCY
       }
     })
   })

@@ -55,7 +55,7 @@ const createSourceDetailsRoutes = ({ problem, route, redirect }) => {
         return h.redirect(redirect.locationHome)
       }
 
-      return h.redirect(redirect.contactLocalCouncil)
+      return h.redirect(redirect.contactEnvironmentAgency)
     }
   }
 
