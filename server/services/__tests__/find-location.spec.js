@@ -93,7 +93,7 @@ describe('OrdnanceService', () => {
 
       // Assert the util.getJson function call
       expect(util.getJson).toHaveBeenCalledTimes(1)
-      expect(util.getJson).toHaveBeenCalledWith('https://api.os.uk/search/places/v1/postcode?postcode=BA1 1UB&key=testKey&lr=EN&fq=logical_status_code:1 logical_status_code:6&dataset=DPA&offset=0&maxresults=100', true)
+      expect(util.getJson).toHaveBeenCalledWith('https://api.os.uk/search/places/v1/postcode?postcode=BA1 1UB&key=testSearchKey&lr=EN&fq=logical_status_code:1 logical_status_code:6&dataset=DPA&offset=0&maxresults=100', true)
     })
 
     it('should return default response for an invalid postcode', async () => {
@@ -116,7 +116,7 @@ describe('OrdnanceService', () => {
 
       // Assert the util.getJson function call
       expect(util.getJson).toHaveBeenCalledTimes(1)
-      expect(util.getJson).toHaveBeenNthCalledWith(1, 'https://api.os.uk/search/places/v1/postcode?postcode=invalid&key=testKey&lr=EN&fq=logical_status_code:1 logical_status_code:6&dataset=DPA&offset=0&maxresults=100', true)
+      expect(util.getJson).toHaveBeenNthCalledWith(1, 'https://api.os.uk/search/places/v1/postcode?postcode=invalid&key=testSearchKey&lr=EN&fq=logical_status_code:1 logical_status_code:6&dataset=DPA&offset=0&maxresults=100', true)
     })
   })
 })

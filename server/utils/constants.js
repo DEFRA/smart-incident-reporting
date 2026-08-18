@@ -40,6 +40,7 @@ const API_LOCATION_SUGGESTIONS = 'api/location-suggestions'
 const ACCESSIBILITY = 'accessibility'
 const COOKIES = 'cookies'
 const PRIVACY_NOTICE = 'privacy-notice'
+const OS_TERMS = 'os-terms'
 
 const ERROR = 'error'
 const PUBLIC = 'public'
@@ -72,6 +73,7 @@ const WATER_POLLUTION_OTHER_INFORMATION = 'water-pollution/other-information'
 const WATER_POLLUTION_CHECK_YOUR_ANSWERS = 'water-pollution/check-your-answers'
 const WATER_POLLUTION_CONTACT_DETAILS = 'water-pollution/contact-details'
 const WATER_POLLUTION_SMELL_DESCRIPTION = 'water-pollution/smell-description'
+const WATER_POLLUTION_HEALTH = 'water-pollution/health'
 
 const ILLEGAL_FISHING_START = 'illegal-fishing-start'
 const ILLEGAL_FISHING = 'illegal-fishing'
@@ -99,6 +101,7 @@ const ILLEGAL_FISHING_CONTACT_DETAILS = 'illegal-fishing/contact-details'
 const ILLEGAL_FISHING_IMAGES_OR_VIDEO = 'illegal-fishing/images-or-video'
 const ILLEGAL_FISHING_OTHER_INFORMATION = 'illegal-fishing/other-information'
 const ILLEGAL_FISHING_ANGLING_TRUST = 'illegal-fishing/angling-trust'
+const ILLEGAL_FISHING_HEALTH = 'illegal-fishing/health'
 
 const BLOCKAGE_START = 'blockage-start'
 const BLOCKAGE = 'blockage'
@@ -124,6 +127,7 @@ const BLOCKAGE_OWNER = 'blockage/owner'
 const BLOCKAGE_CONTACT_DETAILS = 'blockage/contact-details'
 const BLOCKAGE_IMAGES_OR_VIDEO = 'blockage/images-or-video'
 const BLOCKAGE_OTHER_INFORMATION = 'blockage/other-information'
+const BLOCKAGE_HEALTH = 'blockage/health'
 
 const NOISE_START = 'noise-start'
 const LITTER_START = 'litter-start'
@@ -172,11 +176,13 @@ const views = {
   ACCESSIBILITY,
   COOKIES,
   PRIVACY_NOTICE,
+  OS_TERMS,
   ERROR,
   PUBLIC,
   FEEDBACK,
   FEEDBACK_SUCCESS,
   REPORT_SENT,
+  WATER_POLLUTION_HEALTH,
   WATER_POLLUTION,
   WATER_POLLUTION_WATER_FEATURE,
   WATER_POLLUTION_LOCATION_OPTION,
@@ -225,6 +231,7 @@ const views = {
   ILLEGAL_FISHING_IMAGES_OR_VIDEO,
   ILLEGAL_FISHING_OTHER_INFORMATION,
   ILLEGAL_FISHING_ANGLING_TRUST,
+  BLOCKAGE_HEALTH,
   BLOCKAGE,
   BLOCKAGE_RIVER,
   BLOCKAGE_RIVER_NAME,

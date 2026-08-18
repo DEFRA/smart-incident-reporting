@@ -521,7 +521,7 @@ const questionSets = {
       SMELL_PREVIOUS: {
         questionId: 1900,
         key: constants.redisKeys.SMELL_PREVIOUS,
-        text: 'Has this smell caused you problems before?',
+        text: 'Has this happened before?',
         answers: {
           yes: {
             answerId: 1901,
@@ -724,7 +724,7 @@ const questionSets = {
       SMELL_MEDICAL_HELP: {
         questionId: 3300,
         key: constants.redisKeys.SMELL_MEDICAL_HELP,
-        text: 'Have you had to get any medical help because of the smell?',
+        text: 'Have you had to get any medical help or treatment?',
         answers: {
           yes: {
             answerId: 3301,
