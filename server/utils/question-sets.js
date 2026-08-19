@@ -717,6 +717,10 @@ const questionSets = {
           mentalHealthIssues: {
             answerId: 2508,
             text: 'Mental health issues, for example stress'
+          },
+          disturbedSleep: {
+            answerId: 2509,
+            text: 'Disturbed sleep'
           }
         }
       },
