@@ -34,7 +34,7 @@ describe(url, () => {
       }])
     })
     it('Happy: accepts valid array of answerID and redirects to SMELL_MEDICAL_HELP', async () => {
-      const answerId = [question.answers.headache.answerId.toString(), question.answers.wateringEyes.answerId.toString(), question.answers.sicknessOrNausea.answerId.toString(), question.answers.vomiting.answerId.toString()]
+      const answerId = [question.answers.disturbedSleep.answerId.toString(), question.answers.headache.answerId.toString(), question.answers.wateringEyes.answerId.toString(), question.answers.sicknessOrNausea.answerId.toString(), question.answers.vomiting.answerId.toString()]
       const options = {
         url,
         payload: {
@@ -44,6 +44,9 @@ describe(url, () => {
       const response = await submitPostRequest(options)
       expect(response.headers.location).toEqual(constants.routes.SMELL_MEDICAL_HELP)
       expect(response.request.yar.get(constants.redisKeys.SMELL_EFFECT_ON_HEALTH)).toEqual([{
+        ...baseAnswer,
+        answerId: question.answers.disturbedSleep.answerId
+      }, {
         ...baseAnswer,
         answerId: question.answers.headache.answerId
       }, {
