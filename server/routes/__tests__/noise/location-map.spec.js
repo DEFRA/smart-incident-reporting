@@ -13,7 +13,10 @@ describe('noise/location-map', () => {
     expect(createLocationMapRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationMapRoutes).toHaveBeenCalledWith({
       problem: 'noise',
-      route: constants.routes.NOISE_LOCATION_MAP
+      route: constants.routes.NOISE_LOCATION_MAP,
+      redirect: {
+        locationDescriptionOptional: constants.routes.NOISE_LOCATION_DESCRIPTION_OPTIONAL
+      }
     })
   })
 })

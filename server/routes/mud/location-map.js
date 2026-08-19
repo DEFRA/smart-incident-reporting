@@ -3,5 +3,8 @@ import createLocationMapRoutes from '../rars/location-map.js'
 
 export default createLocationMapRoutes({
   problem: 'mud',
-  route: constants.routes.MUD_LOCATION_MAP
+  route: constants.routes.MUD_LOCATION_MAP,
+  redirect: {
+    locationDescriptionOptional: constants.routes.MUD_LOCATION_DESCRIPTION_OPTIONAL
+  }
 })
