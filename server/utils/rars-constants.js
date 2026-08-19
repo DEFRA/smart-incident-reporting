@@ -25,6 +25,7 @@ const RARS_LOCATION_OPTION = 'rars/location-option'
 const RARS_LOCATION_MAP = 'rars/location-map'
 const RARS_LOCATION_DESCRIPTION = 'rars/location-description'
 const RARS_LOCATION_DESCRIPTION_OPTIONAL = 'rars/location-description-optional'
+const RARS_WHEN = 'rars/when'
 
 const views = {
   RARS_SOURCE,
@@ -37,7 +38,8 @@ const views = {
   RARS_LOCATION_OPTION,
   RARS_LOCATION_MAP,
   RARS_LOCATION_DESCRIPTION,
-  RARS_LOCATION_DESCRIPTION_OPTIONAL
+  RARS_LOCATION_DESCRIPTION_OPTIONAL,
+  RARS_WHEN
 }
 
 const redisKeys = {

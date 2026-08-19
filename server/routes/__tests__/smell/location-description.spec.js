@@ -13,7 +13,10 @@ describe('smell/location-description', () => {
     expect(createLocationDescriptionRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationDescriptionRoutes).toHaveBeenCalledWith({
       problem: 'smell',
-      route: constants.routes.SMELL_LOCATION_DESCRIPTION
+      route: constants.routes.SMELL_LOCATION_DESCRIPTION,
+      redirect: {
+        when: constants.routes.SMELL_WHEN
+      }
     })
   })
 })

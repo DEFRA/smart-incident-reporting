@@ -1735,6 +1735,16 @@ const questionSets = {
             answerId: 2705
           }
         }
+      },
+      RARS_LOCATION_DESCRIPTION: {
+        questionId: 1500,
+        key: constants.redisKeys.RARS_LOCATION_DESCRIPTION,
+        text: 'Describe the location',
+        answers: {
+          locationDetails: {
+            answerId: 1501
+          }
+        }
       }
     }
   }
