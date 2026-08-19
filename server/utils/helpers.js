@@ -76,11 +76,13 @@ const getServiceDetails = (problem) => {
   }
 
   const serviceName = serviceNameMap[problem]
+  const govUkUrl = urlMap[problem]
+  const serviceUrl = govUkUrl && process.env.REGISTER_START_ROUTES === 'true' ? '/' : govUkUrl
 
   return {
     serviceName,
     pageTitleServiceName: serviceName,
-    serviceUrl: urlMap[problem]
+    serviceUrl
   }
 }
 
