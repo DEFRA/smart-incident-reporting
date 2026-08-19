@@ -13,7 +13,10 @@ describe('mud/location-map', () => {
     expect(createLocationMapRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationMapRoutes).toHaveBeenCalledWith({
       problem: 'mud',
-      route: constants.routes.MUD_LOCATION_MAP
+      route: constants.routes.MUD_LOCATION_MAP,
+      redirect: {
+        locationDescriptionOptional: constants.routes.MUD_LOCATION_DESCRIPTION_OPTIONAL
+      }
     })
   })
 })

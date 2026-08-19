@@ -3,5 +3,8 @@ import createLocationMapRoutes from '../rars/location-map.js'
 
 export default createLocationMapRoutes({
   problem: 'vermin',
-  route: constants.routes.VERMIN_LOCATION_MAP
+  route: constants.routes.VERMIN_LOCATION_MAP,
+  redirect: {
+    locationDescriptionOptional: constants.routes.VERMIN_LOCATION_DESCRIPTION_OPTIONAL
+  }
 })

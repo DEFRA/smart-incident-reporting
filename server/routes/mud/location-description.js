@@ -3,5 +3,8 @@ import createLocationDescriptionRoutes from '../rars/location-description.js'
 
 export default createLocationDescriptionRoutes({
   problem: 'mud',
-  route: constants.routes.MUD_LOCATION_DESCRIPTION
+  route: constants.routes.MUD_LOCATION_DESCRIPTION,
+  redirect: {
+    when: constants.routes.MUD_WHEN
+  }
 })
