@@ -13,7 +13,10 @@ describe('litter/location-description-optional', () => {
     expect(createLocationDescriptionOptionalRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationDescriptionOptionalRoutes).toHaveBeenCalledWith({
       problem: 'litter',
-      route: constants.routes.LITTER_LOCATION_DESCRIPTION_OPTIONAL
+      route: constants.routes.LITTER_LOCATION_DESCRIPTION_OPTIONAL,
+      redirect: {
+        description: constants.routes.LITTER_DESCRIPTION
+      }
     })
   })
 })

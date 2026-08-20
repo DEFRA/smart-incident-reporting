@@ -15,7 +15,7 @@ describe('litter/location-description', () => {
       problem: 'litter',
       route: constants.routes.LITTER_LOCATION_DESCRIPTION,
       redirect: {
-        when: constants.routes.LITTER_WHEN
+        description: constants.routes.LITTER_DESCRIPTION
       }
     })
   })
