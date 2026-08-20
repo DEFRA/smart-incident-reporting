@@ -684,7 +684,7 @@ const questionSets = {
       SMELL_EFFECT_ON_HEALTH: {
         questionId: 2500,
         key: constants.redisKeys.SMELL_EFFECT_ON_HEALTH,
-        text: 'Did the smell cause any of these health problems, on this occasion?',
+        text: 'Has the smell caused any of the following issues?',
         answers: {
           headache: {
             answerId: 2501,
