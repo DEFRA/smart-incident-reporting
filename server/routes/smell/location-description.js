@@ -5,6 +5,6 @@ export default createLocationDescriptionRoutes({
   problem: 'smell',
   route: constants.routes.SMELL_LOCATION_DESCRIPTION,
   redirect: {
-    description: constants.routes.SMELL_DESCRIPTION
+    recurring: constants.routes.SMELL_RECURRING
   }
 })

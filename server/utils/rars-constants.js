@@ -26,6 +26,7 @@ const RARS_LOCATION_MAP = 'rars/location-map'
 const RARS_LOCATION_DESCRIPTION = 'rars/location-description'
 const RARS_LOCATION_DESCRIPTION_OPTIONAL = 'rars/location-description-optional'
 const RARS_DESCRIPTION = 'rars/description'
+const RARS_RECURRING = 'rars/recurring'
 const RARS_WHEN = 'rars/when'
 
 const views = {
@@ -41,6 +42,7 @@ const views = {
   RARS_LOCATION_DESCRIPTION,
   RARS_LOCATION_DESCRIPTION_OPTIONAL,
   RARS_DESCRIPTION,
+  RARS_RECURRING,
   RARS_WHEN
 }
 

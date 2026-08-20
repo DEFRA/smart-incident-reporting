@@ -28,6 +28,9 @@ const createLocationDescriptionOptionalRoutes = ({ problem, route, redirect }) =
       if (otherLocationInfo) {
         request.yar.set(question.key, buildAnswers(otherLocationInfo))
       }
+      if (problem === 'vermin' || problem === 'smell') {
+        return h.redirect(redirect.recurring)
+      }
       return h.redirect(redirect.description)
     }
   }
