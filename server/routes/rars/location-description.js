@@ -40,7 +40,7 @@ const createLocationDescriptionRoutes = ({ problem, route, redirect }) => {
 
       request.yar.set(constants.redisKeys.RARS_LOCATION_DESCRIPTION, buildAnswers(locationDescription))
 
-      return h.redirect(redirect.when)
+      return h.redirect(redirect.description)
     }
   }
 

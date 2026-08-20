@@ -3,5 +3,8 @@ import createLocationDescriptionOptionalRoutes from '../rars/location-descriptio
 
 export default createLocationDescriptionOptionalRoutes({
   problem: 'smell',
-  route: constants.routes.SMELL_LOCATION_DESCRIPTION_OPTIONAL
+  route: constants.routes.SMELL_LOCATION_DESCRIPTION_OPTIONAL,
+  redirect: {
+    description: constants.routes.SMELL_DESCRIPTION
+  }
 })

@@ -13,7 +13,10 @@ describe('dust/location-description-optional', () => {
     expect(createLocationDescriptionOptionalRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationDescriptionOptionalRoutes).toHaveBeenCalledWith({
       problem: 'dust',
-      route: constants.routes.DUST_LOCATION_DESCRIPTION_OPTIONAL
+      route: constants.routes.DUST_LOCATION_DESCRIPTION_OPTIONAL,
+      redirect: {
+        description: constants.routes.DUST_DESCRIPTION
+      }
     })
   })
 })

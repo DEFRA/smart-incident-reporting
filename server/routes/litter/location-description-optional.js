@@ -3,5 +3,8 @@ import createLocationDescriptionOptionalRoutes from '../rars/location-descriptio
 
 export default createLocationDescriptionOptionalRoutes({
   problem: 'litter',
-  route: constants.routes.LITTER_LOCATION_DESCRIPTION_OPTIONAL
+  route: constants.routes.LITTER_LOCATION_DESCRIPTION_OPTIONAL,
+  redirect: {
+    description: constants.routes.LITTER_DESCRIPTION
+  }
 })

@@ -15,7 +15,7 @@ describe('mud/location-description', () => {
       problem: 'mud',
       route: constants.routes.MUD_LOCATION_DESCRIPTION,
       redirect: {
-        when: constants.routes.MUD_WHEN
+        description: constants.routes.MUD_DESCRIPTION
       }
     })
   })

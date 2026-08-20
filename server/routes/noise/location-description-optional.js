@@ -3,5 +3,8 @@ import createLocationDescriptionOptionalRoutes from '../rars/location-descriptio
 
 export default createLocationDescriptionOptionalRoutes({
   problem: 'noise',
-  route: constants.routes.NOISE_LOCATION_DESCRIPTION_OPTIONAL
+  route: constants.routes.NOISE_LOCATION_DESCRIPTION_OPTIONAL,
+  redirect: {
+    description: constants.routes.NOISE_DESCRIPTION
+  }
 })
