@@ -5,6 +5,6 @@ export default createLocationDescriptionRoutes({
   problem: 'noise',
   route: constants.routes.NOISE_LOCATION_DESCRIPTION,
   redirect: {
-    when: constants.routes.NOISE_WHEN
+    description: constants.routes.NOISE_DESCRIPTION
   }
 })

@@ -13,7 +13,10 @@ describe('vermin/location-description-optional', () => {
     expect(createLocationDescriptionOptionalRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationDescriptionOptionalRoutes).toHaveBeenCalledWith({
       problem: 'vermin',
-      route: constants.routes.VERMIN_LOCATION_DESCRIPTION_OPTIONAL
+      route: constants.routes.VERMIN_LOCATION_DESCRIPTION_OPTIONAL,
+      redirect: {
+        description: constants.routes.VERMIN_DESCRIPTION
+      }
     })
   })
 })

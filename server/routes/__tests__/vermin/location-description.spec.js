@@ -15,7 +15,7 @@ describe('vermin/location-description', () => {
       problem: 'vermin',
       route: constants.routes.VERMIN_LOCATION_DESCRIPTION,
       redirect: {
-        when: constants.routes.VERMIN_WHEN
+        description: constants.routes.VERMIN_DESCRIPTION
       }
     })
   })

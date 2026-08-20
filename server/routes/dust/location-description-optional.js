@@ -3,5 +3,8 @@ import createLocationDescriptionOptionalRoutes from '../rars/location-descriptio
 
 export default createLocationDescriptionOptionalRoutes({
   problem: 'dust',
-  route: constants.routes.DUST_LOCATION_DESCRIPTION_OPTIONAL
+  route: constants.routes.DUST_LOCATION_DESCRIPTION_OPTIONAL,
+  redirect: {
+    description: constants.routes.DUST_DESCRIPTION
+  }
 })

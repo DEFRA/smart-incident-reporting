@@ -16,37 +16,37 @@ const problems = [
   {
     problem: 'smell',
     url: constants.routes.SMELL_LOCATION_DESCRIPTION,
-    whenUrl: constants.routes.SMELL_WHEN
+    descriptionUrl: constants.routes.SMELL_DESCRIPTION
   },
   {
     problem: 'noise',
     url: constants.routes.NOISE_LOCATION_DESCRIPTION,
-    whenUrl: constants.routes.NOISE_WHEN
+    descriptionUrl: constants.routes.NOISE_DESCRIPTION
   },
   {
     problem: 'dust',
     url: constants.routes.DUST_LOCATION_DESCRIPTION,
-    whenUrl: constants.routes.DUST_WHEN
+    descriptionUrl: constants.routes.DUST_DESCRIPTION
   },
   {
     problem: 'litter',
     url: constants.routes.LITTER_LOCATION_DESCRIPTION,
-    whenUrl: constants.routes.LITTER_WHEN
+    descriptionUrl: constants.routes.LITTER_DESCRIPTION
   },
   {
     problem: 'mud',
     url: constants.routes.MUD_LOCATION_DESCRIPTION,
-    whenUrl: constants.routes.MUD_WHEN
+    descriptionUrl: constants.routes.MUD_DESCRIPTION
   },
   {
     problem: 'vermin',
     url: constants.routes.VERMIN_LOCATION_DESCRIPTION,
-    whenUrl: constants.routes.VERMIN_WHEN
+    descriptionUrl: constants.routes.VERMIN_DESCRIPTION
   }
 ]
 
 describe('RARS Location Description Routes', () => {
-  describe.each(problems)('$problem location description', ({ url, whenUrl }) => {
+  describe.each(problems)('$problem location description', ({ url, descriptionUrl }) => {
     const sessionData = {
       [constants.redisKeys.RARS_LOCATION_DESCRIPTION]: [{
         questionId: baseAnswer.questionId,
@@ -71,7 +71,7 @@ describe('RARS Location Description Routes', () => {
         const locationDescription = 'This is a description of the location of the problem'
         const options = { url, payload: { locationDescription } }
         const response = await submitPostRequest(options)
-        expect(response.headers.location).toEqual(whenUrl)
+        expect(response.headers.location).toEqual(descriptionUrl)
         expect(response.request.yar.get(constants.redisKeys.RARS_LOCATION_DESCRIPTION)).toEqual([{
           ...baseAnswer,
           otherDetails: locationDescription
