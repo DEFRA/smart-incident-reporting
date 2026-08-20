@@ -59,8 +59,17 @@ const routes = {
   SMELL: `/${SMELL}`
 }
 
+// journeys that don't have a route file for a given view, so must be excluded from generation
+const journeyExclusions = {
+  vermin: ['RARS_DESCRIPTION'],
+  smell: ['RARS_DESCRIPTION']
+}
+
 for (const [key, value] of Object.entries(views)) {
   for (const journey of rarsJourneys) {
+    if (journeyExclusions[journey]?.includes(key)) {
+      continue
+    }
     const route = value.replace('rars', journey)
     const routeKey = key.replace('RARS', journey.toUpperCase())
     routes[routeKey] = `/${route}`
