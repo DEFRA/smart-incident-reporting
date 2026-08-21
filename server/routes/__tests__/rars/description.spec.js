@@ -4,10 +4,10 @@ import { getServer } from '../../../../.jest/setup.js'
 import { parse } from 'node-html-parser'
 
 const baseAnswer = {
-  questionId: 9000,
+  questionId: 1350,
   questionAsked: '{problem} description',
   questionResponse: true,
-  answerId: 9001
+  answerId: 1351
 }
 
 const problems = [
