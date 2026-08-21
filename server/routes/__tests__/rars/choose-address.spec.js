@@ -125,6 +125,51 @@ describe('RARS Choose Address Routes', () => {
         const response = await submitGetRequest({ url }, 'No address found', constants.statusCodes.OK, noResultsSession)
         expect(response.payload).toContain('Check you have entered the correct postcode.')
       })
+
+      it('Happy: Should return cached results when postcode and building details are unchanged', async () => {
+        const session = {
+          [constants.redisKeys.RARS_FIND_ADDRESS]: { buildingDetails: 'Test House', postcode: 'TE1 0ST' },
+          [constants.redisKeys.RARS_CHOOSE_ADDRESS]: {
+            ...chooseAddressSession[constants.redisKeys.RARS_CHOOSE_ADDRESS],
+            buildingDetails: 'Test House',
+            postcode: 'TE1 0ST'
+          }
+        }
+        const response = await submitGetRequest({ url }, 'Choose an address', constants.statusCodes.OK, session)
+        expect(response.payload).toContain('Unit 1, Test House, 5, Example Street, Testtown, TE1 0ST')
+        expect(findByPostcode).not.toHaveBeenCalled()
+      })
+
+      it('Happy: Should show all results when building details do not match any address', async () => {
+        findByPostcode.mockResolvedValueOnce(apiResponse)
+        const session = {
+          [constants.redisKeys.RARS_FIND_ADDRESS]: { buildingDetails: 'Nonexistent Building', postcode: 'TE1 0ST' }
+        }
+        const response = await submitGetRequest({ url }, 'Choose an address', constants.statusCodes.OK, session)
+        expect(response.payload).toContain('We could not find an address that matches')
+        expect(response.payload).toContain('Nonexistent Building')
+      })
+
+      it('Happy: Should use cached postcode data when only building details change', async () => {
+        const postcodePayload = apiResponse.payload
+        const session = {
+          [constants.redisKeys.RARS_FIND_ADDRESS]: { buildingDetails: 'Unit 1', postcode: 'TE1 0ST' },
+          [constants.redisKeys.RARS_CHOOSE_ADDRESS]: {
+            ...chooseAddressSession[constants.redisKeys.RARS_CHOOSE_ADDRESS],
+            buildingDetails: 'Test House',
+            postcode: 'TE1 0ST'
+          },
+          'smell-postcode-details': postcodePayload,
+          'noise-postcode-details': postcodePayload,
+          'dust-postcode-details': postcodePayload,
+          'litter-postcode-details': postcodePayload,
+          'mud-postcode-details': postcodePayload,
+          'vermin-postcode-details': postcodePayload
+        }
+        const response = await submitGetRequest({ url }, 'Choose an address', constants.statusCodes.OK, session)
+        expect(response.payload).toContain('Unit 1, Test House, 5, Example Street, Testtown, TE1 0ST')
+        expect(findByPostcode).not.toHaveBeenCalled()
+      })
     })
 
     describe('POST', () => {

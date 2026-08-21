@@ -68,6 +68,11 @@ describe('RARS Find Address Routes', () => {
         const response = await submitGetRequest({ url }, 'Find your address', constants.statusCodes.OK)
         expect(response.payload).toContain('id="friendly-captcha"')
       })
+
+      it('Should return success response when counter already has a value', async () => {
+        const response = await submitGetRequest({ url }, 'Find your address', constants.statusCodes.OK, { counter: 5 })
+        expect(response.payload).toContain('Find your address')
+      })
     })
 
     describe('POST', () => {
