@@ -8,20 +8,22 @@
   <div class="govuk-grid-column-two-thirds">
     <div class="govuk-form-group {% if findErrorMessageById(errorSummary, 'answerId-1') %}govuk-form-group--error{% endif %}">
       {% if resultsFound === false %}
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-        <h1 class="govuk-fieldset__heading">
-          No address found
-        </h1>
-      </legend>
-      <p class="govuk-body">
-        We could not find an address that matches <b>{{ buildingDetails }}</b> and <b>{{ postcode }}</b>.
-      </p>
-      <p class="govuk-body">
-        Check you have entered the correct postcode.
-      </p>
-      <p class="govuk-body">
-        <a href="{{ findAddress }}" class="govuk-link">Change search</a>
-      </p>
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">
+            No address found
+          </h1>
+        </legend>
+        <p class="govuk-body">
+          We could not find an address that matches <b>{{ buildingDetails }}</b> and <b>{{ postcode }}</b>.
+        </p>
+        <p class="govuk-body">
+          Check you have entered the correct postcode.
+        </p>
+        <p class="govuk-body">
+          <a href="{{ findAddress }}" class="govuk-link">Change search</a>
+        </p>
+      </fieldset>
       {% endif %}
 
       {% if resultsFound === true %}
