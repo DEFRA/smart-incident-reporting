@@ -10,6 +10,7 @@ const captchaSiteKey = config.captchaSiteKey
 const createFindAddressRoutes = ({ problem, route }) => {
   const chooseAddressRoute = `/${problem}/choose-address`
   const exceededAttemptsRoute = `/${problem}/exceeded-attempts`
+  const locationAddressRoute = `/${problem}/location-address`
 
   const handlers = {
     get: async (request, h) => {
@@ -21,6 +22,7 @@ const createFindAddressRoutes = ({ problem, route }) => {
 
       return h.view(constants.views.RARS_FIND_ADDRESS, {
         ...getContext(request),
+        enterAddress: locationAddressRoute,
         captchaSiteKey,
         captchaEnabled
       })
@@ -44,6 +46,7 @@ const createFindAddressRoutes = ({ problem, route }) => {
         return h.view(constants.views.RARS_FIND_ADDRESS, {
           errorSummary,
           ...request.payload,
+          enterAddress: locationAddressRoute,
           captchaSiteKey,
           captchaEnabled
         })

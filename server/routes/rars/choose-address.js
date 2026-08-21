@@ -5,6 +5,7 @@ import { findByPostcode } from '../../services/find-location.js'
 const createChooseAddressRoutes = ({ problem, route }) => {
   const confirmAddressRoute = `/${problem}/confirm-address`
   const findAddressRoute = `/${problem}/find-address`
+  const locationAddressRoute = `/${problem}/location-address`
   const postcodeDetailsKey = `${problem}-postcode-details`
 
   const handlers = {
@@ -54,7 +55,8 @@ const getContext = (request, findAddressRoute, confirmAddressRoute) => {
   return {
     answer,
     findAddress: findAddressRoute,
-    confirmAddress: confirmAddressRoute
+    confirmAddress: confirmAddressRoute,
+    enterAddress: locationAddressRoute
   }
 }
 

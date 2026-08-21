@@ -113,6 +113,7 @@ describe('RARS Find Address Routes', () => {
         const response = await submitPostRequest(options, constants.statusCodes.OK)
         expect(response.payload).toContain('There is a problem')
         expect(response.payload).toContain('Enter a postcode')
+        expect(response.payload).toContain('Enter address manually')
       })
 
       it('Sad: errors when postcode is invalid', async () => {

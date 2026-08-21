@@ -9,6 +9,7 @@ const locationMapQuestion = questionSets.REPORT_REGULATED_SITE.questions.RARS_LO
 const createConfirmAddressRoutes = ({ problem, route }) => {
   const descriptionRoute = `/${problem}/description`
   const chooseAddressRoute = `/${problem}/choose-address`
+  const locationAddressRoute = `/${problem}/location-address`
 
   const handlers = {
     get: async (request, h) => {
@@ -41,7 +42,8 @@ const getContext = (request, chooseAddressRoute) => {
     addressLine2,
     townOrCity,
     postcode,
-    chooseAddress: chooseAddressRoute
+    chooseAddress: chooseAddressRoute,
+    enterAddress: locationAddressRoute
   }
 }
 
