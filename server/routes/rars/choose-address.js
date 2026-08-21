@@ -14,7 +14,7 @@ const createChooseAddressRoutes = ({ problem, route }) => {
       request.yar.set(constants.redisKeys.RARS_CHOOSE_ADDRESS, result)
       return h.view(constants.views.RARS_CHOOSE_ADDRESS, {
         ...result,
-        ...getContext(request, findAddressRoute, confirmAddressRoute)
+        ...getContext(request, findAddressRoute, confirmAddressRoute, locationAddressRoute)
       })
     },
     post: async (request, h) => {
@@ -27,7 +27,7 @@ const createChooseAddressRoutes = ({ problem, route }) => {
         const result = request.yar.get(constants.redisKeys.RARS_CHOOSE_ADDRESS)
         return h.view(constants.views.RARS_CHOOSE_ADDRESS, {
           ...result,
-          ...getContext(request, findAddressRoute, confirmAddressRoute),
+          ...getContext(request, findAddressRoute, confirmAddressRoute, locationAddressRoute),
           errorSummary
         })
       }
@@ -44,7 +44,7 @@ const createChooseAddressRoutes = ({ problem, route }) => {
   ]
 }
 
-const getContext = (request, findAddressRoute, confirmAddressRoute) => {
+const getContext = (request, findAddressRoute, confirmAddressRoute, locationAddressRoute) => {
   const selectedOption = request.yar.get(constants.redisKeys.RARS_CONFIRM_ADDRESS)
   let answer
   if (selectedOption) {

@@ -14,7 +14,7 @@ const createConfirmAddressRoutes = ({ problem, route }) => {
   const handlers = {
     get: async (request, h) => {
       return h.view(constants.views.RARS_CONFIRM_ADDRESS, {
-        ...getContext(request, chooseAddressRoute)
+        ...getContext(request, chooseAddressRoute, locationAddressRoute)
       })
     },
     post: async (request, h) => {
@@ -33,7 +33,7 @@ const createConfirmAddressRoutes = ({ problem, route }) => {
   ]
 }
 
-const getContext = (request, chooseAddressRoute) => {
+const getContext = (request, chooseAddressRoute, locationAddressRoute) => {
   const { selectedAddress } = request.yar.get(constants.redisKeys.RARS_CONFIRM_ADDRESS)
   const addressData = selectedAddress[0].address
   const { addressLine1, addressLine2, townOrCity, postcode } = formatAddress(addressData)
