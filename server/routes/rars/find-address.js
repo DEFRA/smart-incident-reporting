@@ -3,7 +3,7 @@ import { getErrorSummary } from '../../utils/helpers.js'
 import config from '../../utils/config.js'
 import captchaCheck from '../../services/captchaCheck.js'
 
-const postcodeRegExp = /^([A-Za-z][A-Ha-hJ-Yj-y]?\d[A-Za-z0-9]? ?\d[A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/ // https://stackoverflow.com/a/51885364
+const { postcodeRegExp } = constants
 const captchaEnabled = config.captchaEnabled
 const captchaSiteKey = config.captchaSiteKey
 
