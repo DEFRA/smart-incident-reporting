@@ -1,6 +1,7 @@
 import { submitGetRequest } from '../../__test-helpers__/server.js'
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
+import { buildDataForReportSentPage } from '../../services/send-report.js'
 import reportSentRoutes from '../report-sent.js'
 
 const url = constants.routes.REPORT_SENT
@@ -8,7 +9,6 @@ const header = 'Report sent'
 const submissionTimestamp = '2026-04-09T09:00:00.000Z'
 const sessionId = 'test-session-id'
 const expectedMediaUploadLink = `/media/upload-photo?sirid=${sessionId}`
-const expectedCacheTtlMs = 168 * 60 * 60 * 1000
 
 const journeySessionData = {
   100: {
@@ -93,12 +93,21 @@ const handler = async (questionSetID, overrides = {}) => {
   }
 
   const journeyKeys = keyMap[questionSetID] || {}
+  const reportSentPageData = buildDataForReportSentPage({
+    id: sessionId,
+    get: jest.fn(key => ({
+      [constants.redisKeys.QUESTION_SET_ID]: questionSetID,
+      [journeyKeys.contactDetailsKey]: contactDetails,
+      [journeyKeys.imagesOrVideoKey]: imagesOrVideo
+    }[key]))
+  })
 
   await reportSentRoutes[0].handler({
     yar: {
       get: jest.fn(key => ({
         [constants.redisKeys.QUESTION_SET_ID]: questionSetID,
         [constants.redisKeys.SUBMISSION_TIMESTAMP]: submissionTimestamp,
+        [constants.redisKeys.REPORT_SENT_PAGE_DATA]: reportSentPageData,
         [journeyKeys.contactDetailsKey]: contactDetails,
         [journeyKeys.imagesOrVideoKey]: imagesOrVideo
       }[key])),
@@ -119,20 +128,6 @@ describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       await submitGetRequest({ url }, header)
-    })
-
-    it.each([
-      { questionSetID: 100, expectedJourney: 'water pollution' },
-      { questionSetID: 200, expectedJourney: 'smell' },
-      { questionSetID: 300, expectedJourney: 'blockage' },
-      { questionSetID: 1800, expectedJourney: 'illegal fishing' }
-    ])('should cache journey "$expectedJourney" for questionSetID $questionSetID', async ({ questionSetID, expectedJourney }) => {
-      const { set } = await handler(questionSetID)
-
-      expect(set).toHaveBeenCalledWith(sessionId, {
-        journey: expectedJourney,
-        dateTime: submissionTimestamp
-      }, expectedCacheTtlMs)
     })
 
     it('should pass mediaUploadLink in photoUploadDetails', async () => {

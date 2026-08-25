@@ -1,7 +1,11 @@
 import constants from '../utils/constants.js'
-import { questionSets } from '../utils/question-sets.js'
 
-const testEmail = 'not-a-real-email-address'
+const journeyMap = {
+  100: 'water pollution',
+  200: 'smell',
+  300: 'blockage',
+  1800: 'illegal fishing'
+}
 
 const handlers = {
   get: (_request, h) => {
@@ -9,38 +13,24 @@ const handlers = {
   },
   post: async (request, h) => {
     const payload = request.payload
+    const submissionTimestamp = (new Date()).toISOString()
 
     request.yar.reset()
-    request.yar.set(constants.redisKeys.QUESTION_SET_ID, Number(payload.journey))
-    request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS, { reporterEmailAddress: testEmail })
-    request.yar.set(constants.redisKeys.SMELL_CONTACT_DETAILS, { reporterEmailAddress: testEmail })
-    request.yar.set(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS, { reporterEmailAddress: testEmail })
-    request.yar.set(constants.redisKeys.ILLEGAL_FISHING_CONTACT_DETAILS, { reporterEmailAddress: testEmail })
-    request.yar.set(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO, [{
-      answerId: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
-    },
-    {
-      answerId: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noVideo.answerId
-    }])
-    request.yar.set(constants.redisKeys.SMELL_IMAGES_OR_VIDEO, [{
-      answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
-    },
-    {
-      answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.noVideo.answerId
-    }])
-    request.yar.set(constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO, [{
-      answerId: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
-    },
-    {
-      answerId: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.noVideo.answerId
-    }])
-    request.yar.set(constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO, [{
-      answerId: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
-    },
-    {
-      answerId: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.noVideo.answerId
-    }])
+
+    const mediaUploadLink = `/media/upload-photo?sirid=${request.yar.id}`
+
+    request.yar.set(constants.redisKeys.REPORT_SENT_PAGE_DATA, {
+      reportersEmail: 'not-a-real-email-address',
+      hasPhoneNumber: false,
+      userAgreedForVideos: false,
+      userAgreedForImages: true,
+      mediaUploadLink
+    })
+
+    await request.server.app.mediaUploadCache.set(request.yar.id, {
+      dateTime: submissionTimestamp,
+      journey: journeyMap[Number(payload.journey)]
+    }, 0)
 
     return h.redirect(constants.routes.REPORT_SENT)
   }
