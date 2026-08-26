@@ -42,6 +42,7 @@ const views = {
   RARS_FIND_ADDRESS,
   RARS_CHOOSE_ADDRESS,
   RARS_CONFIRM_ADDRESS,
+  RARS_EXCEEDED_ATTEMPTS,
   RARS_LOCATION_ADDRESS,
   RARS_LOCATION_OPTION,
   RARS_LOCATION_MAP,
@@ -52,8 +53,7 @@ const views = {
 }
 
 const redisKeys = {
-  ...views,
-  RARS_EXCEEDED_ATTEMPTS
+  ...views
 }
 
 const routes = {
