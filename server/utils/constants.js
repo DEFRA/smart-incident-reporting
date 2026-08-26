@@ -30,6 +30,7 @@ const serviceNames = {
 }
 
 const phoneRegex = /^[\s\d-+()#]*$/
+const postcodeRegExp = /^([A-Z][A-HJ-Y]?\d[A-Z\d]? ?\d[A-Z]{2}|GIR ?0AA)$/i // https://stackoverflow.com/a/51885364
 
 // API
 const API_OS_API_TOKEN = 'api/os-api-token'
@@ -335,6 +336,7 @@ export default Object.freeze({
   redisKeys,
   errorSummary,
   phoneRegex,
+  postcodeRegExp,
   waterFeatureLabels,
   setReferer,
   clearReferer

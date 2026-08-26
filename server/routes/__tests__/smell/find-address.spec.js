@@ -13,7 +13,12 @@ describe('smell/find-address', () => {
     expect(createFindAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createFindAddressRoutes).toHaveBeenCalledWith({
       problem: 'smell',
-      route: constants.routes.SMELL_FIND_ADDRESS
+      route: constants.routes.SMELL_FIND_ADDRESS,
+      redirect: {
+        chooseAddress: constants.routes.SMELL_CHOOSE_ADDRESS,
+        exceededAttempts: constants.routes.SMELL_EXCEEDED_ATTEMPTS,
+        locationAddress: constants.routes.SMELL_LOCATION_ADDRESS
+      }
     })
   })
 })
