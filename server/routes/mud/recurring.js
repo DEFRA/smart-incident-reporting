@@ -3,5 +3,8 @@ import createRecurringRoutes from '../rars/recurring.js'
 
 export default createRecurringRoutes({
   problem: 'mud',
-  route: constants.routes.MUD_RECURRING
+  route: constants.routes.MUD_RECURRING,
+  redirect: {
+    when: constants.routes.MUD_WHEN
+  }
 })

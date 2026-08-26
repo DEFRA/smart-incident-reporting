@@ -13,7 +13,10 @@ describe('smell/recurring', () => {
     expect(createRecurringRoutes).toHaveBeenCalledTimes(1)
     expect(createRecurringRoutes).toHaveBeenCalledWith({
       problem: 'smell',
-      route: constants.routes.SMELL_RECURRING
+      route: constants.routes.SMELL_RECURRING,
+      redirect: {
+        when: constants.routes.SMELL_WHEN
+      }
     })
   })
 })
