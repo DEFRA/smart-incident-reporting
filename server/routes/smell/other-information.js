@@ -1,7 +1,6 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
-import { sendMessage } from '../../services/service-bus.js'
-import { validatePayload } from '../../utils/helpers.js'
+import { sendReport } from '../../services/send-report.js'
 
 const handlers = {
   get: async (_request, h) => h.view(constants.views.SMELL_OTHER_INFORMATION),
@@ -14,12 +13,7 @@ const handlers = {
     // Build the payload to send to service bus
     const payload = buildPayload(request.yar)
 
-    // test the payload against the schema
-    if (!validatePayload(payload)) {
-      throw new Error('Invalid payload')
-    }
-
-    await sendMessage(request.logger, payload)
+    await sendReport(request, payload)
 
     return h.redirect(constants.routes.REPORT_SENT)
   }

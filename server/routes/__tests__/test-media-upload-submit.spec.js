@@ -21,11 +21,7 @@ describe(url, () => {
         }
       }
       const response = await submitPostRequest(options)
-      // Test a couple of the session values to check that the session is being set correctly
-      // It's only a testing route so no need to check all session values
       expect(response.headers.location).toEqual(constants.routes.REPORT_SENT)
-      expect(response.request.yar.get(constants.redisKeys.QUESTION_SET_ID)).toEqual(journeyId)
-      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS)).toEqual({ reporterEmailAddress: 'not-a-real-email-address' })
     })
   })
 })

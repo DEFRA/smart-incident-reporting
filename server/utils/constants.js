@@ -32,6 +32,7 @@ const ERROR = 'error'
 const PUBLIC = 'public'
 const HOME = 'home'
 const REPORT_SENT = 'report-sent'
+const REPORT_SENT_PAGE_DATA = 'report-sent-page-data'
 const FEEDBACK = 'feedback'
 const FEEDBACK_SUCCESS = 'feedback-success'
 
@@ -310,7 +311,8 @@ const redisKeys = {
   COUNTER,
   SMELL_POSTCODE_DETAILS,
   DATE_TIME_OPTION,
-  QUESTION_SET_ID
+  QUESTION_SET_ID,
+  REPORT_SENT_PAGE_DATA
 }
 
 const statusCodes = {
