@@ -34,7 +34,7 @@ const createLocationAddressRoutes = ({ route, redirect }) => {
 
       request.yar.set(constants.redisKeys.RARS_LOCATION_ADDRESS, buildAnswers(request.payload))
 
-      return h.redirect(redirect)
+      return h.redirect(redirect.description)
     }
   }
 

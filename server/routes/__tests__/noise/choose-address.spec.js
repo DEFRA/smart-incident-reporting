@@ -13,7 +13,12 @@ describe('noise/choose-address', () => {
     expect(createChooseAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createChooseAddressRoutes).toHaveBeenCalledWith({
       problem: 'noise',
-      route: constants.routes.NOISE_CHOOSE_ADDRESS
+      route: constants.routes.NOISE_CHOOSE_ADDRESS,
+      redirect: {
+        confirmAddress: constants.routes.NOISE_CONFIRM_ADDRESS,
+        findAddress: constants.routes.NOISE_FIND_ADDRESS,
+        locationAddress: constants.routes.NOISE_LOCATION_ADDRESS
+      }
     })
   })
 })

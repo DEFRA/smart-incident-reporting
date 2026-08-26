@@ -6,15 +6,11 @@ import { oSGBToWGS84 } from '../../utils/transform-point.js'
 const addressQuestion = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_ADDRESS
 const locationMapQuestion = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_MAP
 
-const createConfirmAddressRoutes = ({ problem, route }) => {
-  const descriptionRoute = `/${problem}/description`
-  const chooseAddressRoute = `/${problem}/choose-address`
-  const locationAddressRoute = `/${problem}/location-address`
-
+const createConfirmAddressRoutes = ({ problem, route, redirect }) => {
   const handlers = {
     get: async (request, h) => {
       return h.view(constants.views.RARS_CONFIRM_ADDRESS, {
-        ...getContext(request, chooseAddressRoute, locationAddressRoute)
+        ...getContext(request, redirect.chooseAddress, redirect.locationAddress)
       })
     },
     post: async (request, h) => {
@@ -23,7 +19,7 @@ const createConfirmAddressRoutes = ({ problem, route }) => {
       request.yar.set(constants.redisKeys.RARS_LOCATION_ADDRESS, buildAddressAnswers(selectedAddress))
       request.yar.set(constants.redisKeys.RARS_LOCATION_MAP, buildLocationAnswers(point))
 
-      return h.redirect(descriptionRoute)
+      return h.redirect(redirect.description)
     }
   }
 
@@ -33,7 +29,7 @@ const createConfirmAddressRoutes = ({ problem, route }) => {
   ]
 }
 
-const getContext = (request, chooseAddressRoute, locationAddressRoute) => {
+const getContext = (request, chooseAddress, locationAddress) => {
   const { selectedAddress } = request.yar.get(constants.redisKeys.RARS_CONFIRM_ADDRESS)
   const addressData = selectedAddress[0].address
   const { addressLine1, addressLine2, townOrCity, postcode } = formatAddress(addressData)
@@ -42,8 +38,8 @@ const getContext = (request, chooseAddressRoute, locationAddressRoute) => {
     addressLine2,
     townOrCity,
     postcode,
-    chooseAddress: chooseAddressRoute,
-    enterAddress: locationAddressRoute
+    chooseAddress,
+    enterAddress: locationAddress
   }
 }
 

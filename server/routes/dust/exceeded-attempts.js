@@ -3,5 +3,7 @@ import createExceededAttemptsRoutes from '../rars/exceeded-attempts.js'
 
 export default createExceededAttemptsRoutes({
   route: constants.routes.DUST_EXCEEDED_ATTEMPTS,
-  locationAddressRoute: constants.routes.DUST_LOCATION_ADDRESS
+  redirect: {
+    locationAddress: constants.routes.DUST_LOCATION_ADDRESS
+  }
 })

@@ -2,10 +2,7 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { findByPostcode } from '../../services/find-location.js'
 
-const createChooseAddressRoutes = ({ problem, route }) => {
-  const confirmAddressRoute = `/${problem}/confirm-address`
-  const findAddressRoute = `/${problem}/find-address`
-  const locationAddressRoute = `/${problem}/location-address`
+const createChooseAddressRoutes = ({ problem, route, redirect }) => {
   const postcodeDetailsKey = `${problem}-postcode-details`
 
   const handlers = {
@@ -14,7 +11,7 @@ const createChooseAddressRoutes = ({ problem, route }) => {
       request.yar.set(constants.redisKeys.RARS_CHOOSE_ADDRESS, result)
       return h.view(constants.views.RARS_CHOOSE_ADDRESS, {
         ...result,
-        ...getContext(request, findAddressRoute, confirmAddressRoute, locationAddressRoute)
+        ...getContext(request, redirect.findAddress, redirect.confirmAddress, redirect.locationAddress)
       })
     },
     post: async (request, h) => {
@@ -27,14 +24,14 @@ const createChooseAddressRoutes = ({ problem, route }) => {
         const result = request.yar.get(constants.redisKeys.RARS_CHOOSE_ADDRESS)
         return h.view(constants.views.RARS_CHOOSE_ADDRESS, {
           ...result,
-          ...getContext(request, findAddressRoute, confirmAddressRoute, locationAddressRoute),
+          ...getContext(request, redirect.findAddress, redirect.confirmAddress, redirect.locationAddress),
           errorSummary
         })
       }
 
       request.yar.set(constants.redisKeys.RARS_CONFIRM_ADDRESS, buildAnswers(request, answerId))
 
-      return h.redirect(confirmAddressRoute)
+      return h.redirect(redirect.confirmAddress)
     }
   }
 

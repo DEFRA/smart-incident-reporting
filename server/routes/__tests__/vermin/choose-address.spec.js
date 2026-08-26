@@ -13,7 +13,12 @@ describe('vermin/choose-address', () => {
     expect(createChooseAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createChooseAddressRoutes).toHaveBeenCalledWith({
       problem: 'vermin',
-      route: constants.routes.VERMIN_CHOOSE_ADDRESS
+      route: constants.routes.VERMIN_CHOOSE_ADDRESS,
+      redirect: {
+        confirmAddress: constants.routes.VERMIN_CONFIRM_ADDRESS,
+        findAddress: constants.routes.VERMIN_FIND_ADDRESS,
+        locationAddress: constants.routes.VERMIN_LOCATION_ADDRESS
+      }
     })
   })
 })

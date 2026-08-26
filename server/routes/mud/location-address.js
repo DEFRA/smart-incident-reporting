@@ -3,5 +3,7 @@ import createLocationAddressRoutes from '../rars/location-address.js'
 
 export default createLocationAddressRoutes({
   route: constants.routes.MUD_LOCATION_ADDRESS,
-  redirect: constants.routes.MUD_DESCRIPTION
+  redirect: {
+    description: constants.routes.MUD_DESCRIPTION
+  }
 })

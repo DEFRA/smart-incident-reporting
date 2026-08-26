@@ -13,7 +13,9 @@ describe('litter/exceeded-attempts', () => {
     expect(createExceededAttemptsRoutes).toHaveBeenCalledTimes(1)
     expect(createExceededAttemptsRoutes).toHaveBeenCalledWith({
       route: constants.routes.LITTER_EXCEEDED_ATTEMPTS,
-      locationAddressRoute: constants.routes.LITTER_LOCATION_ADDRESS
+      redirect: {
+        locationAddress: constants.routes.LITTER_LOCATION_ADDRESS
+      }
     })
   })
 })

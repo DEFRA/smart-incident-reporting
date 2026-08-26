@@ -1,10 +1,10 @@
 import constants from '../../utils/constants.js'
 
-const createExceededAttemptsRoutes = ({ route, locationAddressRoute }) => {
+const createExceededAttemptsRoutes = ({ route, redirect }) => {
   const handlers = {
     get: async (_request, h) => {
       return h.view(constants.views.RARS_EXCEEDED_ATTEMPTS, {
-        enterAddress: locationAddressRoute
+        enterAddress: redirect.locationAddress
       })
     }
   }

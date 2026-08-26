@@ -7,11 +7,7 @@ const { postcodeRegExp } = constants
 const captchaEnabled = config.captchaEnabled
 const captchaSiteKey = config.captchaSiteKey
 
-const createFindAddressRoutes = ({ problem, route }) => {
-  const chooseAddressRoute = `/${problem}/choose-address`
-  const exceededAttemptsRoute = `/${problem}/exceeded-attempts`
-  const locationAddressRoute = `/${problem}/location-address`
-
+const createFindAddressRoutes = ({ problem, route, redirect }) => {
   const handlers = {
     get: async (request, h) => {
       const counterVal = request.yar.get(constants.redisKeys.COUNTER)
@@ -22,7 +18,7 @@ const createFindAddressRoutes = ({ problem, route }) => {
 
       return h.view(constants.views.RARS_FIND_ADDRESS, {
         ...getContext(request),
-        enterAddress: locationAddressRoute,
+        enterAddress: redirect.locationAddress,
         captchaSiteKey,
         captchaEnabled
       })
@@ -46,7 +42,7 @@ const createFindAddressRoutes = ({ problem, route }) => {
         return h.view(constants.views.RARS_FIND_ADDRESS, {
           errorSummary,
           ...request.payload,
-          enterAddress: locationAddressRoute,
+          enterAddress: redirect.locationAddress,
           captchaSiteKey,
           captchaEnabled
         })
@@ -58,10 +54,10 @@ const createFindAddressRoutes = ({ problem, route }) => {
       const counterLimit = 10
 
       if (counterVal > counterLimit) {
-        return h.redirect(exceededAttemptsRoute)
+        return h.redirect(redirect.exceededAttempts)
       } else {
         request.yar.set(constants.redisKeys.RARS_FIND_ADDRESS, buildAnswers(buildingDetails, postcode))
-        return h.redirect(chooseAddressRoute)
+        return h.redirect(redirect.chooseAddress)
       }
     }
   }

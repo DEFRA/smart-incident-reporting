@@ -13,7 +13,9 @@ describe('mud/location-address', () => {
     expect(createLocationAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationAddressRoutes).toHaveBeenCalledWith({
       route: constants.routes.MUD_LOCATION_ADDRESS,
-      redirect: constants.routes.MUD_DESCRIPTION
+      redirect: {
+        description: constants.routes.MUD_DESCRIPTION
+      }
     })
   })
 })

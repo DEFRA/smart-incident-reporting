@@ -13,7 +13,9 @@ describe('noise/location-address', () => {
     expect(createLocationAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationAddressRoutes).toHaveBeenCalledWith({
       route: constants.routes.NOISE_LOCATION_ADDRESS,
-      redirect: constants.routes.NOISE_DESCRIPTION
+      redirect: {
+        description: constants.routes.NOISE_DESCRIPTION
+      }
     })
   })
 })

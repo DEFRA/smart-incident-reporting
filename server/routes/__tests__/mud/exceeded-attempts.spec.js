@@ -13,7 +13,9 @@ describe('mud/exceeded-attempts', () => {
     expect(createExceededAttemptsRoutes).toHaveBeenCalledTimes(1)
     expect(createExceededAttemptsRoutes).toHaveBeenCalledWith({
       route: constants.routes.MUD_EXCEEDED_ATTEMPTS,
-      locationAddressRoute: constants.routes.MUD_LOCATION_ADDRESS
+      redirect: {
+        locationAddress: constants.routes.MUD_LOCATION_ADDRESS
+      }
     })
   })
 })
