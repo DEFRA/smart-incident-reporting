@@ -30,6 +30,7 @@ const RARS_LOCATION_MAP = 'rars/location-map'
 const RARS_LOCATION_DESCRIPTION = 'rars/location-description'
 const RARS_LOCATION_DESCRIPTION_OPTIONAL = 'rars/location-description-optional'
 const RARS_DESCRIPTION = 'rars/description'
+const RARS_RECURRING = 'rars/recurring'
 const RARS_WHEN = 'rars/when'
 
 const views = {
@@ -49,6 +50,7 @@ const views = {
   RARS_LOCATION_DESCRIPTION,
   RARS_LOCATION_DESCRIPTION_OPTIONAL,
   RARS_DESCRIPTION,
+  RARS_RECURRING,
   RARS_WHEN
 }
 
@@ -65,8 +67,17 @@ const routes = {
   SMELL: `/${SMELL}`
 }
 
+// journeys that don't have a route file for a given view, so must be excluded from generation
+const journeyExclusions = {
+  vermin: ['RARS_DESCRIPTION'],
+  smell: ['RARS_DESCRIPTION']
+}
+
 for (const [key, value] of Object.entries(views)) {
   for (const journey of rarsJourneys) {
+    if (journeyExclusions[journey]?.includes(key)) {
+      continue
+    }
     const route = value.replace('rars', journey)
     const routeKey = key.replace('RARS', journey.toUpperCase())
     routes[routeKey] = `/${route}`

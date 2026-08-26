@@ -1772,6 +1772,16 @@ const questionSets = {
             answerId: 1501
           }
         }
+      },
+      RARS_DESCRIPTION: {
+        questionId: 1350,
+        key: constants.redisKeys.RARS_DESCRIPTION,
+        text: '{problem} description',
+        answers: {
+          details: {
+            answerId: 1351
+          }
+        }
       }
     }
   }

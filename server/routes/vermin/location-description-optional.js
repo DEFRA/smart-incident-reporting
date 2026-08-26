@@ -5,6 +5,6 @@ export default createLocationDescriptionOptionalRoutes({
   problem: 'vermin',
   route: constants.routes.VERMIN_LOCATION_DESCRIPTION_OPTIONAL,
   redirect: {
-    description: constants.routes.VERMIN_DESCRIPTION
+    recurring: constants.routes.VERMIN_RECURRING
   }
 })

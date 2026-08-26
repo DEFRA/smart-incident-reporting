@@ -5,7 +5,7 @@ const problems = [
   {
     problem: 'smell',
     url: constants.routes.SMELL_LOCATION_DESCRIPTION_OPTIONAL,
-    redirectUrl: constants.routes.SMELL_DESCRIPTION
+    redirectUrl: constants.routes.SMELL_RECURRING
   },
   {
     problem: 'noise',
@@ -30,7 +30,7 @@ const problems = [
   {
     problem: 'vermin',
     url: constants.routes.VERMIN_LOCATION_DESCRIPTION_OPTIONAL,
-    redirectUrl: constants.routes.VERMIN_DESCRIPTION
+    redirectUrl: constants.routes.VERMIN_RECURRING
   }
 ]
 
