@@ -170,6 +170,7 @@ describe('RARS Choose Address Routes', () => {
         const response = await submitGetRequest({ url }, 'Choose an address', constants.statusCodes.OK, findAddressSession)
         const occurrences = (response.payload.match(/Unit 1, Test House/g) || []).length
         expect(occurrences).toBe(1)
+        expect(response.payload).toContain('2 addresses found for')
         expect(response.payload).toContain('Unit 2, Test House, 5, Example Street, Testtown, TE1 0ST')
       })
 
