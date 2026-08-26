@@ -170,6 +170,22 @@ describe('RARS Choose Address Routes', () => {
         expect(response.payload).toContain('Unit 1, Test House, 5, Example Street, Testtown, TE1 0ST')
         expect(findByPostcode).not.toHaveBeenCalled()
       })
+
+      it('Happy: Should preselect previously chosen address when returning to the page', async () => {
+        const session = {
+          [constants.redisKeys.RARS_FIND_ADDRESS]: { buildingDetails: 'Test House', postcode: 'TE1 0ST' },
+          [constants.redisKeys.RARS_CHOOSE_ADDRESS]: {
+            ...chooseAddressSession[constants.redisKeys.RARS_CHOOSE_ADDRESS],
+            buildingDetails: 'Test House',
+            postcode: 'TE1 0ST'
+          },
+          [constants.redisKeys.RARS_CONFIRM_ADDRESS]: {
+            selectedAddress: [{ uprn: '10001150001', postcode: 'TE1 0ST', address: 'Unit 1, Test House, 5, Example Street, Testtown, TE1 0ST', x: 543210.0, y: 182345.0 }]
+          }
+        }
+        const response = await submitGetRequest({ url }, 'Choose an address', constants.statusCodes.OK, session)
+        expect(response.payload).toContain('value="10001150001" checked')
+      })
     })
 
     describe('POST', () => {
