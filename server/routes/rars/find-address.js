@@ -7,7 +7,7 @@ const { postcodeRegExp } = constants
 const captchaEnabled = config.captchaEnabled
 const captchaSiteKey = config.captchaSiteKey
 
-const createFindAddressRoutes = ({ problem, route, redirect }) => {
+const createFindAddressRoutes = ({ route, redirect }) => {
   const handlers = {
     get: async (request, h) => {
       const counterVal = request.yar.get(constants.redisKeys.COUNTER)

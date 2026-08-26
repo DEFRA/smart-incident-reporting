@@ -12,7 +12,6 @@ describe('smell/confirm-address', () => {
     })
     expect(createConfirmAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createConfirmAddressRoutes).toHaveBeenCalledWith({
-      problem: 'smell',
       route: constants.routes.SMELL_CONFIRM_ADDRESS,
       redirect: {
         description: constants.routes.SMELL_DESCRIPTION,

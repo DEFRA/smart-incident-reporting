@@ -6,7 +6,7 @@ import { oSGBToWGS84 } from '../../utils/transform-point.js'
 const addressQuestion = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_ADDRESS
 const locationMapQuestion = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_MAP
 
-const createConfirmAddressRoutes = ({ problem, route, redirect }) => {
+const createConfirmAddressRoutes = ({ route, redirect }) => {
   const handlers = {
     get: async (request, h) => {
       return h.view(constants.views.RARS_CONFIRM_ADDRESS, {

@@ -12,7 +12,6 @@ describe('vermin/confirm-address', () => {
     })
     expect(createConfirmAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createConfirmAddressRoutes).toHaveBeenCalledWith({
-      problem: 'vermin',
       route: constants.routes.VERMIN_CONFIRM_ADDRESS,
       redirect: {
         description: constants.routes.VERMIN_DESCRIPTION,

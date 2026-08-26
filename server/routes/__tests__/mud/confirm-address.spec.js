@@ -12,7 +12,6 @@ describe('mud/confirm-address', () => {
     })
     expect(createConfirmAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createConfirmAddressRoutes).toHaveBeenCalledWith({
-      problem: 'mud',
       route: constants.routes.MUD_CONFIRM_ADDRESS,
       redirect: {
         description: constants.routes.MUD_DESCRIPTION,
