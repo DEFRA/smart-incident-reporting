@@ -11,7 +11,11 @@ const MARK_LOCATION_ON_MAP = 'Mark the location on an online map'
 const DESCRIBE_THE_LOCATION = 'Describe the location'
 const MARK_THE_LOCATION = 'Mark the location'
 const RUBBISH_OR_REFUSE = 'Rubbish or refuse'
-const IMAGES_OR_VIDEO_QUESTION = 'Do you want to send us any images or videos of the problem?'
+const IMAGES_OR_VIDEO_QUESTION = 'Do you have any photos or videos to include?'
+const YES_YOU_HAVE_PHOTOS = 'Yes, you have photos'
+const NO_YOU_DO_NOT_HAVE_PHOTOS = 'No, you do not have photos'
+const YES_YOU_HAVE_VIDEO = 'Yes, you have video'
+const NO_YOU_DO_NOT_HAVE_VIDEO = 'No, you do not have video'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -207,7 +211,7 @@ const questionSets = {
       WATER_POLLUTION_IMAGES_OR_VIDEO: {
         questionId: 2800,
         key: constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO,
-        text: 'Do you want to send us any images or videos of the pollution?',
+        text: IMAGES_OR_VIDEO_QUESTION,
         answers: {
           yes: {
             answerId: 2801,
@@ -218,6 +222,26 @@ const questionSets = {
             answerId: 2802,
             text: 'No',
             shortText: 'No'
+          },
+          yesPhotos: {
+            answerId: 2803,
+            text: YES_YOU_HAVE_PHOTOS,
+            shortText: 'Yes - photos'
+          },
+          noPhotos: {
+            answerId: 2804,
+            text: NO_YOU_DO_NOT_HAVE_PHOTOS,
+            shortText: 'No - photos'
+          },
+          yesVideo: {
+            answerId: 2805,
+            text: YES_YOU_HAVE_VIDEO,
+            shortText: 'Yes - video'
+          },
+          noVideo: {
+            answerId: 2806,
+            text: NO_YOU_DO_NOT_HAVE_VIDEO,
+            shortText: 'No - video'
           }
         }
       },
@@ -496,7 +520,7 @@ const questionSets = {
       SMELL_PREVIOUS: {
         questionId: 1900,
         key: constants.redisKeys.SMELL_PREVIOUS,
-        text: 'Has this smell caused you problems before?',
+        text: 'Has this happened before?',
         answers: {
           yes: {
             answerId: 1901,
@@ -660,7 +684,7 @@ const questionSets = {
       SMELL_EFFECT_ON_HEALTH: {
         questionId: 2500,
         key: constants.redisKeys.SMELL_EFFECT_ON_HEALTH,
-        text: 'Did the smell cause any of these health problems, on this occasion?',
+        text: 'Has the smell caused any of the following issues?',
         answers: {
           headache: {
             answerId: 2501,
@@ -699,7 +723,7 @@ const questionSets = {
       SMELL_MEDICAL_HELP: {
         questionId: 3300,
         key: constants.redisKeys.SMELL_MEDICAL_HELP,
-        text: 'Have you had to get any medical help because of the smell?',
+        text: 'Have you had to get any medical help or treatment?',
         answers: {
           yes: {
             answerId: 3301,
@@ -723,6 +747,22 @@ const questionSets = {
           no: {
             answerId: 3502,
             text: 'No'
+          },
+          yesPhotos: {
+            answerId: 3503,
+            text: YES_YOU_HAVE_PHOTOS
+          },
+          noPhotos: {
+            answerId: 3504,
+            text: NO_YOU_DO_NOT_HAVE_PHOTOS
+          },
+          yesVideo: {
+            answerId: 3505,
+            text: YES_YOU_HAVE_VIDEO
+          },
+          noVideo: {
+            answerId: 3506,
+            text: NO_YOU_DO_NOT_HAVE_VIDEO
           }
         }
       },
@@ -1116,6 +1156,37 @@ const questionSets = {
           no: {
             answerId: 2802,
             text: 'No'
+          },
+          yesPhotos: {
+            answerId: 2803,
+            text: YES_YOU_HAVE_PHOTOS
+          },
+          noPhotos: {
+            answerId: 2804,
+            text: NO_YOU_DO_NOT_HAVE_PHOTOS
+          },
+          yesVideo: {
+            answerId: 2805,
+            text: YES_YOU_HAVE_VIDEO
+          },
+          noVideo: {
+            answerId: 2806,
+            text: NO_YOU_DO_NOT_HAVE_VIDEO
+          }
+        }
+      },
+      ILLEGAL_FISHING_ANGLING_TRUST: {
+        questionId: 4280,
+        key: constants.redisKeys.ILLEGAL_FISHING_ANGLING_TRUST,
+        text: 'Are you an Angling Trust volunteer?',
+        answers: {
+          yes: {
+            answerId: 4281,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 4282,
+            text: 'No'
           }
         }
       }
@@ -1393,13 +1464,27 @@ const questionSets = {
         answers: {
           yes: {
             answerId: 2801,
-            text: 'Yes',
-            shortText: 'Yes'
+            text: 'Yes'
           },
           no: {
             answerId: 2802,
-            text: 'No',
-            shortText: 'No'
+            text: 'No'
+          },
+          yesPhotos: {
+            answerId: 2803,
+            text: YES_YOU_HAVE_PHOTOS
+          },
+          noPhotos: {
+            answerId: 2804,
+            text: NO_YOU_DO_NOT_HAVE_PHOTOS
+          },
+          yesVideo: {
+            answerId: 2805,
+            text: YES_YOU_HAVE_VIDEO
+          },
+          noVideo: {
+            answerId: 2806,
+            text: NO_YOU_DO_NOT_HAVE_VIDEO
           }
         }
       }
@@ -1424,7 +1509,7 @@ const questionSets = {
       },
       REPORTED_PHOTOS_OR_VIDEOS: {
         questionId: 3900,
-        text: 'Has photos or videos of problem',
+        text: 'Photos or videos available',
         answers: {
           yes: {
             answerId: 3901,
@@ -1433,6 +1518,22 @@ const questionSets = {
           no: {
             answerId: 3902,
             text: 'NO'
+          },
+          yesPhotos: {
+            answerId: 3903,
+            text: YES_YOU_HAVE_PHOTOS
+          },
+          noPhotos: {
+            answerId: 3904,
+            text: NO_YOU_DO_NOT_HAVE_PHOTOS
+          },
+          yesVideo: {
+            answerId: 3905,
+            text: YES_YOU_HAVE_VIDEO
+          },
+          noVideo: {
+            answerId: 3906,
+            text: NO_YOU_DO_NOT_HAVE_VIDEO
           }
         }
       },

@@ -2,19 +2,19 @@ import constants from '../utils/constants.js'
 
 const handlers = {
   get: async (request, h) => {
-    const questionSetID = request.yar.get(constants.redisKeys.QUESTION_SET_ID)
+    const reportSentPageData = request.yar.get(constants.redisKeys.REPORT_SENT_PAGE_DATA)
+
     request.yar.reset()
-    request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSetID)
-    const context = _getContext()
-    return h.view(constants.views.REPORT_SENT, {
-      ...context
-    })
+    const context = _getContext(reportSentPageData)
+
+    return h.view(constants.views.REPORT_SENT, context)
   }
 }
 
-const _getContext = () => {
+const _getContext = (photoUploadDetails) => {
   return {
-    hideBackLink: true
+    hideBackLink: true,
+    photoUploadDetails
   }
 }
 

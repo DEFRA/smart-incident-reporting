@@ -35,7 +35,7 @@ const handlers = {
     if (answerId === question.answers.yes.answerId) {
       return h.redirect(constants.routes.ILLEGAL_FISHING_NUMBER_OF_FISH)
     } else {
-      return h.redirect(constants.routes.ILLEGAL_FISHING_CONTACT_DETAILS)
+      return h.redirect(constants.routes.ILLEGAL_FISHING_ANGLING_TRUST)
     }
   }
 }

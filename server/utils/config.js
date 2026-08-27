@@ -27,13 +27,15 @@ const schema = Joi.object().keys({
   cookieIsSecure: Joi.bool().default(false),
   osSecret: Joi.string(),
   osKey: Joi.string(),
+  osSearchKey: Joi.string(),
   serviceBusConnectionString: Joi.string().required(),
   serviceBusQueueName: Joi.string().required(),
   serviceAvailableCron: Joi.string().default('* * * * * *'),
   captchaEnabled: Joi.bool().default(false),
   captchaApiKey: Joi.string().allow(''),
   captchaSiteKey: Joi.string().allow(''),
-  captchaBypassKey: Joi.string()
+  captchaBypassKey: Joi.string(),
+  mediaUploadUrl: Joi.string().uri({ scheme: ['http', 'https'] }).allow('').default('')
 })
 
 const captchaEnabled = getBoolean(process.env.CAPTCHA_ENABLED)
@@ -53,13 +55,15 @@ const config = {
   cookieIsSecure: getBoolean(process.env.COOKIE_IS_SECURE),
   osSecret: process.env.OS_SECRET,
   osKey: process.env.OS_KEY,
+  osSearchKey: process.env.OS_SEARCH_KEY,
   serviceBusConnectionString: process.env.SERVICE_BUS_CONNECTION_STRING,
   serviceBusQueueName: process.env.SERVICE_BUS_QUEUE_NAME,
   serviceAvailableCron: process.env.SERVICE_AVAILABLE_CRON,
   captchaEnabled,
   captchaApiKey: captchaEnabled ? process.env.CAPTCHA_API_KEY : '',
   captchaSiteKey: captchaEnabled ? process.env.CAPTCHA_SITE_KEY : '',
-  captchaBypassKey: process.env.CAPTCHA_BYPASS_KEY
+  captchaBypassKey: process.env.CAPTCHA_BYPASS_KEY,
+  mediaUploadUrl: process.env.MEDIA_UPLOAD_URL
 }
 
 // Validate config

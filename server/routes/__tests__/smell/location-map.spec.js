@@ -1,4 +1,4 @@
-import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
+import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/smell-server.js'
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 

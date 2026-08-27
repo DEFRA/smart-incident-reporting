@@ -1,4 +1,4 @@
-import { submitGetRequest } from '../../../__test-helpers__/server.js'
+import { submitGetRequest } from '../../../__test-helpers__/smell-server.js'
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.SMELL_CONTACT_LOCAL_COUNCIL

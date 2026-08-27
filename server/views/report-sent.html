@@ -6,11 +6,35 @@
 {% block content %}
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    {{ govukPanel({
-      titleText: "Report sent",
-      html: "We have received your report"
-    }) }}
+  <div class="govuk-grid-column-two-thirds">    
+    {% if(photoUploadDetails.reportersEmail !== '') %}
+      {{ govukPanel({
+        titleText: "Report sent",
+        html: "We have sent a confirmation of your report and a reference number to <strong>" + photoUploadDetails.reportersEmail + "</strong>"
+      }) }}
+    {% else %}
+      {{ govukPanel({
+        titleText: "Report sent"        
+      }) }}
+    {% endif %}      
+
+    {% if(photoUploadDetails.userAgreedForVideos or photoUploadDetails.userAgreedForImages) %}
+      <h2 class="govuk-heading-m">
+        Photos and video
+      </h2>
+      {% if(photoUploadDetails.userAgreedForImages) %}    
+        <p>You can now <a href="{{ photoUploadDetails.mediaUploadLink }}">upload any photos</a> you want to include with your report.</p>    
+        {{ govukButton({
+          text: "Upload photos",
+          href: photoUploadDetails.mediaUploadLink
+        }) }}
+        <p>We have also sent you this link by email.</p>    
+      {% endif %}
+      {% if(photoUploadDetails.userAgreedForVideos) %}
+        <p>Someone will contact you separately if we need to see any videos.</p> 
+      {% endif %}
+    {% endif %} 
+
     <h2 class="govuk-heading-m">
       What happens next
     </h2>
@@ -26,12 +50,9 @@
       <li>contact any people or organisations involved</li>
       <li>pass details of the problem to local teams or other organisations</li>
     </ul>
-    <p>If you gave an email address, check your email for:</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>confirmation of your report and a reference number</li>
-      <li>how to send us photos to add to your report, if you said you had any and we need to see them</li>
-    </ul>
-    <p>Otherwise, we will only contact you if we need more information about the problem - you do not need to call us.</p>
+    {% if(photoUploadDetails.reportersEmail != '' or photoUploadDetails.hasPhoneNumber) %} 
+      <p>We will only contact you if we need more information about the problem - you do not need to call us.</p>
+    {% endif %}
     {{ govukInsetText({
       text: "The Environment Agency incident hotline cannot give updates on your report."
     }) }}

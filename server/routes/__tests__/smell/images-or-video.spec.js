@@ -1,9 +1,23 @@
-import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
+import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/smell-server.js'
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
 
 const url = constants.routes.SMELL_IMAGES_OR_VIDEO
 const question = questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO
+const medicalHelpQuestion = questionSets.SMELL.questions.SMELL_MEDICAL_HELP
+const videoAnswerId = question.answers.yesVideo.answerId
+const noVideoAnswerId = question.answers.noVideo.answerId
+const noPhotosAnswerId = question.answers.noPhotos.answerId
+
+const medicalHelpSessionData = {
+  'smell/medical-help': [{
+    questionId: medicalHelpQuestion.questionId,
+    questionAsked: medicalHelpQuestion.text,
+    questionResponse: true,
+    answerId: medicalHelpQuestion.answers.no.answerId
+  }]
+}
+
 const baseAnswer = {
   questionId: question.questionId,
   questionAsked: question.text,
@@ -11,12 +25,16 @@ const baseAnswer = {
 }
 
 const sessionDataWithEmail = {
+  ...medicalHelpSessionData,
   'smell/contact-details': {
+    reporterName: 'test name',
+    reporterPhoneNumber: '012345678910',
     reporterEmailAddress: 'test@test.com'
   }
 }
 
 const sessionDataWithoutEmail = {
+  ...medicalHelpSessionData,
   'smell/contact-details': {
     reporterName: 'test name',
     reporterPhoneNumber: '012345678910',
@@ -24,157 +42,168 @@ const sessionDataWithoutEmail = {
   }
 }
 
-const sessionDataYes = {
+const sessionDataWithPhotosSelected = {
+  ...medicalHelpSessionData,
   'smell/contact-details': {
     reporterEmailAddress: 'test@test.com'
   },
   'smell/images-or-video': [{
     questionId: baseAnswer.questionId,
-    answerId: question.answers.yes.answerId
+    answerId: question.answers.yesPhotos.answerId
+  }, {
+    questionId: baseAnswer.questionId,
+    answerId: noVideoAnswerId
   }]
 }
+
 const sessionDataNo = {
+  ...medicalHelpSessionData,
   'smell/contact-details': {
     reporterEmailAddress: 'test@test.com'
   },
   'smell/images-or-video': [{
     questionId: baseAnswer.questionId,
-    answerId: question.answers.no.answerId
+    answerId: noPhotosAnswerId
+  }, {
+    questionId: baseAnswer.questionId,
+    answerId: noVideoAnswerId
   }]
 }
 
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataWithEmail)
-      expect(response.payload).toContain('We\'ll send a message to <strong>test@test.com</strong> with details on where to send these, if needed.')
+      await submitGetRequest({ url }, question.text, constants.statusCodes.OK, sessionDataWithEmail)
     })
-    it(`Should return success response and correct view for ${url} with email text field`, async () => {
-      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataWithoutEmail)
-      expect(response.payload).toContain('We need your email to send you instructions on how to share images and videos, after you send your report.')
-      expect(response.payload).toContain('Email address')
+
+    it(`Should return success response and correct view for ${url} with empty contact email`, async () => {
+      await submitGetRequest({ url }, question.text, constants.statusCodes.OK, sessionDataWithoutEmail)
     })
-    it(`Should return success response and correct view for ${url} with pre selected yes option`, async () => {
-      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataYes)
-      expect(response.payload).toContain('We\'ll send a message to <strong>test@test.com</strong> with details on where to send these, if needed.')
-      expect(response.payload).toContain('value="3501" checked')
+
+    it(`Should return success response and show selected photos option for ${url}`, async () => {
+      const response = await submitGetRequest({ url }, question.text, constants.statusCodes.OK, sessionDataWithPhotosSelected)
+      expect(response.payload).toContain(`value="${question.answers.yesPhotos.answerId}" checked`)
     })
-    it(`Should return success response and correct view for ${url} with pre selected no option`, async () => {
-      const response = await submitGetRequest({ url }, 'Do you want to send us any images or videos of the problem?', constants.statusCodes.OK, sessionDataNo)
-      expect(response.payload).toContain('We\'ll send a message to <strong>test@test.com</strong> with details on where to send these, if needed.')
-      expect(response.payload).toContain('value="3502" checked')
+
+    it(`Should return success response and show selected no option for ${url}`, async () => {
+      const response = await submitGetRequest({ url }, question.text, constants.statusCodes.OK, sessionDataNo)
+      expect(response.payload).toContain(`value="${question.answers.noPhotos.answerId}" checked`)
     })
   })
+
   describe('POST', () => {
-    it('Happy: Should accept yes option with prefilled data and redirect to SMELL_OTHER_INFORMATION', async () => {
-      const answerId = question.answers.yes.answerId
+    it('Happy: accepts photos and saves yesPhotos + noVideo answer IDs', async () => {
       const options = {
         url,
         payload: {
-          answerId
+          answerId: question.answers.yesPhotos.answerId.toString()
         }
       }
+
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithEmail)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_OTHER_INFORMATION)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_CONTACT_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.SMELL_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
-        answerId
+        answerId: question.answers.yesPhotos.answerId
+      }, {
+        ...baseAnswer,
+        answerId: noVideoAnswerId
       }])
     })
-    it('Happy: Should accept yes option with text input data and redirect to SMELL_OTHER_INFORMATION', async () => {
-      const answerId = question.answers.yes.answerId
+
+    it('Happy: accepts video and saves noPhotos + yesVideo answer IDs', async () => {
       const options = {
         url,
         payload: {
-          answerId,
-          email: 'test@test.com'
+          answerId: videoAnswerId.toString()
         }
       }
-      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithoutEmail)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_OTHER_INFORMATION)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_IMAGES_OR_VIDEO)).toEqual([{
-        ...baseAnswer,
-        answerId
-      }])
-      expect(response.request.yar.get(constants.redisKeys.SMELL_CONTACT_DETAILS)).toEqual({
-        reporterName: 'test name',
-        reporterPhoneNumber: '012345678910',
-        reporterEmailAddress: 'test@test.com'
-      })
-    })
-    it('Happy: Should accept no option with email data and redirect to SMELL_OTHER_INFORMATION', async () => {
-      const answerId = question.answers.no.answerId
-      const options = {
-        url,
-        payload: {
-          answerId
-        }
-      }
+
       const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithEmail)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_OTHER_INFORMATION)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_CONTACT_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.SMELL_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
-        answerId
+        answerId: noPhotosAnswerId
+      }, {
+        ...baseAnswer,
+        answerId: videoAnswerId
       }])
     })
-    it('Happy: Should accept no option without email data and redirect to SMELL_OTHER_INFORMATION', async () => {
-      const answerId = question.answers.no.answerId
+
+    it('Happy: accepts photos and video and saves yesPhotos + yesVideo answer IDs', async () => {
       const options = {
         url,
         payload: {
-          answerId
+          answerId: [question.answers.yesPhotos.answerId.toString(), videoAnswerId.toString()]
         }
       }
-      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithoutEmail)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_OTHER_INFORMATION)
+
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithEmail)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_CONTACT_DETAILS)
       expect(response.request.yar.get(constants.redisKeys.SMELL_IMAGES_OR_VIDEO)).toEqual([{
         ...baseAnswer,
-        answerId
+        answerId: question.answers.yesPhotos.answerId
+      }, {
+        ...baseAnswer,
+        answerId: videoAnswerId
       }])
     })
-    it('Sad: no radio selected, returns error state', async () => {
+
+    it('Happy: accepts no and saves noPhotos + noVideo answer IDs', async () => {
+      const options = {
+        url,
+        payload: {
+          answerId: noPhotosAnswerId.toString()
+        }
+      }
+
+      const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithoutEmail)
+      expect(response.headers.location).toEqual(constants.routes.SMELL_CONTACT_DETAILS)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_IMAGES_OR_VIDEO)).toEqual([{
+        ...baseAnswer,
+        answerId: noPhotosAnswerId
+      }, {
+        ...baseAnswer,
+        answerId: noVideoAnswerId
+      }])
+    })
+
+    it('Sad: no checkbox selected returns error state', async () => {
       const options = {
         url,
         payload: {}
       }
+
       const response = await submitPostRequest(options, constants.statusCodes.OK, sessionDataWithEmail)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select &#39;yes&#39; if you want to send us any images or videos')
+      expect(response.payload).toContain('Select whether you have any photos or videos to include')
     })
-    it('Sad: Should error for an empty email address', async () => {
-      const answerId = question.answers.yes.answerId
+
+    it('Sad: no checkbox selected does not re-show previous selected option', async () => {
+      const options = {
+        url,
+        payload: {}
+      }
+
+      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionDataWithPhotosSelected)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).not.toContain(`value="${question.answers.yesPhotos.answerId}" checked`)
+    })
+
+    it('Sad: invalid non-empty answerId returns error and clears selected options', async () => {
       const options = {
         url,
         payload: {
-          answerId
+          answerId: '999999'
         }
       }
-      const sessionData3 = {
-        'smell/contact-details': {
-          reporterEmailAddress: ''
-        }
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData3)
+
+      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionDataWithPhotosSelected)
       expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Enter an email address')
-    })
-    it('Sad: Should error for an invalid email address', async () => {
-      const answerId = question.answers.yes.answerId
-      const options = {
-        url,
-        payload: {
-          answerId,
-          email: 'sdfdsf'
-        }
-      }
-      const sessionData4 = {
-        'smell/contact-details': {
-          reporterEmailAddress: ''
-        }
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData4)
-      expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Enter an email address in the correct format, like name@example.com')
+      expect(response.payload).toContain('Select whether you have any photos or videos to include')
+      expect(response.payload).not.toContain(`value="${question.answers.yesPhotos.answerId}" checked`)
+      expect(response.payload).not.toContain(`value="${question.answers.yesVideo.answerId}" checked`)
+      expect(response.payload).not.toContain(`value="${question.answers.noPhotos.answerId}" checked`)
     })
   })
 })

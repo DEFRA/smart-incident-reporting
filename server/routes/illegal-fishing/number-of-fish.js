@@ -34,7 +34,7 @@ const handlers = {
 
     // set answer in session
     request.yar.set(constants.redisKeys.ILLEGAL_FISHING_NUMBER_OF_FISH, buildAnswers(answerId))
-    return h.redirect(constants.routes.ILLEGAL_FISHING_CONTACT_DETAILS)
+    return h.redirect(constants.routes.ILLEGAL_FISHING_ANGLING_TRUST)
   }
 }
 
