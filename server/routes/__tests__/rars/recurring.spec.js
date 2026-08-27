@@ -4,35 +4,41 @@ import constants from '../../../utils/constants.js'
 const problems = [
   {
     problem: 'smell',
-    url: constants.routes.SMELL_RECURRING
+    url: constants.routes.SMELL_RECURRING,
+    header: 'Has this happened before?'
   },
   {
     problem: 'noise',
-    url: constants.routes.NOISE_RECURRING
+    url: constants.routes.NOISE_RECURRING,
+    header: 'Has this happened before?'
   },
   {
     problem: 'dust',
-    url: constants.routes.DUST_RECURRING
+    url: constants.routes.DUST_RECURRING,
+    header: 'Has this happened before?'
   },
   {
     problem: 'litter',
-    url: constants.routes.LITTER_RECURRING
+    url: constants.routes.LITTER_RECURRING,
+    header: 'Has this happened before?'
   },
   {
     problem: 'mud',
-    url: constants.routes.MUD_RECURRING
+    url: constants.routes.MUD_RECURRING,
+    header: 'Has this happened before?'
   },
   {
     problem: 'vermin',
-    url: constants.routes.VERMIN_RECURRING
+    url: constants.routes.VERMIN_RECURRING,
+    header: 'Has this happened before?'
   }
 ]
 
 describe('RARS Recurring Routes', () => {
-  describe.each(problems)('$problem recurring', ({ problem, url }) => {
+  describe.each(problems)('$problem recurring', ({ problem, url, header }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
-        await submitGetRequest({ url }, 'RECURRING')
+        await submitGetRequest({ url }, header)
       })
     })
 
@@ -48,8 +54,9 @@ describe('RARS Recurring Routes', () => {
           sessionData
         )
 
+        expect(response.payload).toContain('There is a problem')
         const expectedProblem = problem === 'vermin' ? 'rats' : problem
-        expect(response.payload).toContain(`Select 'yes' if the ${expectedProblem} has caused you a problem before`)
+        expect(response.payload).toContain(`Select &#39;yes&#39; if the ${expectedProblem} has caused you a problem before`)
       })
     })
   })
