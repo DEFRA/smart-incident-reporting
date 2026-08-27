@@ -12,7 +12,6 @@ describe('noise/confirm-address', () => {
     })
     expect(createConfirmAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createConfirmAddressRoutes).toHaveBeenCalledWith({
-      problem: 'noise',
       route: constants.routes.NOISE_CONFIRM_ADDRESS,
       redirect: {
         description: constants.routes.NOISE_DESCRIPTION,

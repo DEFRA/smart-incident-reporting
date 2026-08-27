@@ -64,6 +64,54 @@ const noResultsApiResponse = {
   }
 }
 
+const duplicateUprnsApiResponse = {
+  payload: {
+    header: {
+      uri: 'https://api.os.uk/search/places/v1/postcode?postcode=TE1%200ST',
+      query: 'postcode=TE1 0ST',
+      offset: 0,
+      totalresults: 3,
+      format: 'JSON',
+      dataset: 'DPA',
+      lr: 'EN',
+      maxresults: 100,
+      epoch: '115',
+      lastupdate: '2025-03-12',
+      filter: 'fq=logical_status_code:1 logical_status_code:6',
+      output_srs: 'EPSG:27700'
+    },
+    results: [
+      {
+        DPA: {
+          UPRN: '10001150001',
+          ADDRESS: 'UNIT 1, TEST HOUSE, 5, EXAMPLE STREET, TESTTOWN, TE1 0ST',
+          POSTCODE: 'TE1 0ST',
+          X_COORDINATE: 543210.0,
+          Y_COORDINATE: 182345.0
+        }
+      },
+      {
+        DPA: {
+          UPRN: '10001150001',
+          ADDRESS: 'UNIT 1, TEST HOUSE, 5, EXAMPLE STREET, TESTTOWN, TE1 0ST',
+          POSTCODE: 'TE1 0ST',
+          X_COORDINATE: 543210.0,
+          Y_COORDINATE: 182345.0
+        }
+      },
+      {
+        DPA: {
+          UPRN: '10001150002',
+          ADDRESS: 'UNIT 2, TEST HOUSE, 5, EXAMPLE STREET, TESTTOWN, TE1 0ST',
+          POSTCODE: 'TE1 0ST',
+          X_COORDINATE: 543210.0,
+          Y_COORDINATE: 182345.0
+        }
+      }
+    ]
+  }
+}
+
 const findAddressSession = {
   [constants.redisKeys.RARS_FIND_ADDRESS]: {
     buildingDetails: 'Test House',
@@ -115,6 +163,15 @@ describe('RARS Choose Address Routes', () => {
         expect(response.payload).toContain('Unit 1, Test House, 5, Example Street, Testtown, TE1 0ST')
         expect(response.payload).toContain('Unit 2, Test House, 5, Example Street, Testtown, TE1 0ST')
         expect(response.payload).toContain('2 addresses found for')
+      })
+
+      it('Happy: Should deduplicate addresses with the same UPRN', async () => {
+        findByPostcode.mockResolvedValueOnce(duplicateUprnsApiResponse)
+        const response = await submitGetRequest({ url }, 'Choose an address', constants.statusCodes.OK, findAddressSession)
+        const occurrences = (response.payload.match(/Unit 1, Test House/g) || []).length
+        expect(occurrences).toBe(1)
+        expect(response.payload).toContain('2 addresses found for')
+        expect(response.payload).toContain('Unit 2, Test House, 5, Example Street, Testtown, TE1 0ST')
       })
 
       it('Sad: Should display no address found when postcode returns no results', async () => {
@@ -169,6 +226,22 @@ describe('RARS Choose Address Routes', () => {
         const response = await submitGetRequest({ url }, 'Choose an address', constants.statusCodes.OK, session)
         expect(response.payload).toContain('Unit 1, Test House, 5, Example Street, Testtown, TE1 0ST')
         expect(findByPostcode).not.toHaveBeenCalled()
+      })
+
+      it('Happy: Should preselect previously chosen address when returning to the page', async () => {
+        const session = {
+          [constants.redisKeys.RARS_FIND_ADDRESS]: { buildingDetails: 'Test House', postcode: 'TE1 0ST' },
+          [constants.redisKeys.RARS_CHOOSE_ADDRESS]: {
+            ...chooseAddressSession[constants.redisKeys.RARS_CHOOSE_ADDRESS],
+            buildingDetails: 'Test House',
+            postcode: 'TE1 0ST'
+          },
+          [constants.redisKeys.RARS_CONFIRM_ADDRESS]: {
+            selectedAddress: [{ uprn: '10001150001', postcode: 'TE1 0ST', address: 'Unit 1, Test House, 5, Example Street, Testtown, TE1 0ST', x: 543210.0, y: 182345.0 }]
+          }
+        }
+        const response = await submitGetRequest({ url }, 'Choose an address', constants.statusCodes.OK, session)
+        expect(response.payload).toContain('value="10001150001" checked')
       })
     })
 

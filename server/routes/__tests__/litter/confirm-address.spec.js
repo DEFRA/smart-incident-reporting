@@ -12,7 +12,6 @@ describe('litter/confirm-address', () => {
     })
     expect(createConfirmAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createConfirmAddressRoutes).toHaveBeenCalledWith({
-      problem: 'litter',
       route: constants.routes.LITTER_CONFIRM_ADDRESS,
       redirect: {
         description: constants.routes.LITTER_DESCRIPTION,

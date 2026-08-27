@@ -116,7 +116,7 @@ const processPayload = (payload, buildingDetails) => {
   const fullResults = filteredItems.length === 0
   const allItems = fullResults ? payload.results.map(item => item.DPA) : filteredItems
   allItems.forEach((item) => {
-    if (!(results.find(result => result.UPRN === item.UPRN))) {
+    if (!results.some(result => result.UPRN === item.UPRN)) {
       results.push(item)
     }
   })
