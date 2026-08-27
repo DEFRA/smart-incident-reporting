@@ -1,0 +1,26 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'Confirm address' %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Confirm address</h1>
+    <div class="govuk-inset-text">
+      {{ addressLine1 }}<br>{% if addressLine2 %}{{ addressLine2 }}<br>{% endif %}{{ townOrCity }}<br>{{ postcode }}
+    </div>
+    {{ govukButton({
+      text: "Use this address",
+      isStartButton: false
+    }) }}
+    <p class="govuk-body">
+      <a href="{{ chooseAddress }}" class="govuk-link">Choose a different address</a>
+    </p>
+    <p class="govuk-body">
+      <a href="{{ enterAddress }}" class="govuk-link">Enter address manually</a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

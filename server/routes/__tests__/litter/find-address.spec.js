@@ -12,8 +12,12 @@ describe('litter/find-address', () => {
     })
     expect(createFindAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createFindAddressRoutes).toHaveBeenCalledWith({
-      problem: 'litter',
-      route: constants.routes.LITTER_FIND_ADDRESS
+      route: constants.routes.LITTER_FIND_ADDRESS,
+      redirect: {
+        chooseAddress: constants.routes.LITTER_CHOOSE_ADDRESS,
+        exceededAttempts: constants.routes.LITTER_EXCEEDED_ATTEMPTS,
+        locationAddress: constants.routes.LITTER_LOCATION_ADDRESS
+      }
     })
   })
 })
