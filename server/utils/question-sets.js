@@ -1736,6 +1736,33 @@ const questionSets = {
           }
         }
       },
+      RARS_LOCATION_ADDRESS: {
+        questionId: 2750,
+        key: constants.redisKeys.RARS_LOCATION_ADDRESS,
+        text: 'Enter your address',
+        answers: {
+          addressLine1: {
+            answerId: 2751,
+            text: 'Address line 1'
+          },
+          addressLine2: {
+            answerId: 2752,
+            text: 'Address line 2 (optional)'
+          },
+          townOrCity: {
+            answerId: 2753,
+            text: TOWN_OR_CITY
+          },
+          county: {
+            answerId: 2754,
+            text: 'County (optional)'
+          },
+          postcode: {
+            answerId: 2755,
+            text: 'Postcode'
+          }
+        }
+      },
       RARS_LOCATION_DESCRIPTION: {
         questionId: 1500,
         key: constants.redisKeys.RARS_LOCATION_DESCRIPTION,
