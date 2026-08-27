@@ -32,4 +32,27 @@ describe('utils/config', () => {
       expect(config.default.captchaSiteKey).toBe('')
     })
   })
+  it('Should accept valid deploymentEnv values', () => {
+    const validEnvs = ['development', 'test', 'training']
+    validEnvs.forEach(env => {
+      jest.isolateModules(() => {
+        process.env.DEPLOYMENT_ENV = env
+        const config = require('../config.js')
+        expect(config.default.deploymentEnv).toBe(env)
+      })
+    })
+  })
+  it('Should throw error for invalid deploymentEnv value', () => {
+    jest.isolateModules(() => {
+      process.env.DEPLOYMENT_ENV = 'invalid-env'
+      expect(() => require('../config.js')).toThrow('The server config is invalid. "deploymentEnv" must be one of [development, test, training]')
+    })
+  })
+  it('Should accept undefined deploymentEnv when not set', () => {
+    jest.isolateModules(() => {
+      delete process.env.DEPLOYMENT_ENV
+      const config = require('../config.js')
+      expect(config.default.deploymentEnv).toBeUndefined()
+    })
+  })
 })

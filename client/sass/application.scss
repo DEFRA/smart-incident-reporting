@@ -19,6 +19,20 @@ p {
   margin-top: 30px;
 }
 
+.govuk-phase-banner {
+  padding-bottom: 0;
+}
+
+.non-live-service-banner {
+  border-left: 0;
+  background-color: rgb(191 232 206);
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding: 10px;
+}
+
 .browse__breadcrumb-wrapper,
 .browse__header-wrapper {
   background-color: #263135
