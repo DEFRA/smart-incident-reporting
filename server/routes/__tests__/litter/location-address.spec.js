@@ -12,6 +12,7 @@ describe('litter/location-address', () => {
     })
     expect(createLocationAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationAddressRoutes).toHaveBeenCalledWith({
+      problem: 'litter',
       route: constants.routes.LITTER_LOCATION_ADDRESS,
       redirect: {
         description: constants.routes.LITTER_DESCRIPTION

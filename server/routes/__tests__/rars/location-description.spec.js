@@ -16,7 +16,7 @@ const problems = [
   {
     problem: 'smell',
     url: constants.routes.SMELL_LOCATION_DESCRIPTION,
-    descriptionUrl: constants.routes.SMELL_RECURRING
+    descriptionUrl: constants.routes.SMELL_DESCRIPTION
   },
   {
     problem: 'noise',

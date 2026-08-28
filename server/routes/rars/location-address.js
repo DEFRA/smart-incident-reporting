@@ -1,5 +1,5 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary } from '../../utils/helpers.js'
+import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_ADDRESS
@@ -11,10 +11,12 @@ const baseAnswer = {
   questionResponse: true
 }
 
-const createLocationAddressRoutes = ({ route, redirect }) => {
+const createLocationAddressRoutes = ({ problem, route, redirect }) => {
+  const serviceDetails = getServiceDetails(problem)
   const handlers = {
     get: async (_request, h) => {
       return h.view(constants.views.RARS_LOCATION_ADDRESS, {
+        ...serviceDetails,
         question
       })
     },
@@ -28,6 +30,7 @@ const createLocationAddressRoutes = ({ route, redirect }) => {
         return h.view(constants.views.RARS_LOCATION_ADDRESS, {
           question,
           errorSummary,
+          ...serviceDetails,
           ...request.payload
         })
       }

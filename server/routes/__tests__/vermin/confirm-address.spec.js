@@ -12,11 +12,12 @@ describe('vermin/confirm-address', () => {
     })
     expect(createConfirmAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createConfirmAddressRoutes).toHaveBeenCalledWith({
+      problem: 'vermin',
       route: constants.routes.VERMIN_CONFIRM_ADDRESS,
       redirect: {
-        description: constants.routes.VERMIN_DESCRIPTION,
         chooseAddress: constants.routes.VERMIN_CHOOSE_ADDRESS,
-        locationAddress: constants.routes.VERMIN_LOCATION_ADDRESS
+        locationAddress: constants.routes.VERMIN_LOCATION_ADDRESS,
+        recurring: constants.routes.VERMIN_RECURRING
       }
     })
   })

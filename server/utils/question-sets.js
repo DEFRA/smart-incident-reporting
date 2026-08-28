@@ -1782,6 +1782,44 @@ const questionSets = {
             answerId: 1351
           }
         }
+      },
+      SMELL_DESCRIPTION: {
+        questionId: 1700,
+        key: constants.redisKeys.SMELL_DESCRIPTION,
+        text: 'How would you describe the smell?',
+        answers: {
+          sewage: {
+            answerId: 1701,
+            text: 'Sewage'
+          },
+          rubbishOrRefuse: {
+            answerId: 1702,
+            text: RUBBISH_OR_REFUSE
+          },
+          burningOrSmoke: {
+            answerId: 1703,
+            text: 'Burning or smoke'
+          },
+          gasOrPetrol: {
+            answerId: 1704,
+            text: 'Gas or petrol'
+          },
+          agriculture: {
+            answerId: 1705,
+            text: 'Agriculture'
+          },
+          somethingElse: {
+            answerId: 1706,
+            text: SOMETHING_ELSE
+          },
+          cannotDescribe: {
+            answerId: 1707,
+            text: 'You cannot describe it'
+          },
+          somethingElseDetails: {
+            answerId: 1708
+          }
+        }
       }
     }
   }

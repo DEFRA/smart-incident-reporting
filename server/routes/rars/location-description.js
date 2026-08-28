@@ -40,7 +40,7 @@ const createLocationDescriptionRoutes = ({ problem, route, redirect }) => {
 
       request.yar.set(constants.redisKeys.RARS_LOCATION_DESCRIPTION, buildAnswers(locationDescription))
 
-      if (problem === 'vermin' || problem === 'smell') {
+      if (problem === 'vermin') {
         return h.redirect(redirect.recurring)
       }
       return h.redirect(redirect.description)

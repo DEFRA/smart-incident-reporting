@@ -140,6 +140,7 @@ const SMELL_START = 'smell-start'
 const VERMIN_TYPE = 'vermin/type'
 
 const SMELL_HEALTH = 'smell/health'
+const SMELL_DESCRIPTION = 'smell/description'
 
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
@@ -260,6 +261,7 @@ const views = {
   BLOCKAGE_IMAGES_OR_VIDEO,
   BLOCKAGE_OTHER_INFORMATION,
   SMELL_HEALTH,
+  SMELL_DESCRIPTION,
   VERMIN_TYPE
 }
 

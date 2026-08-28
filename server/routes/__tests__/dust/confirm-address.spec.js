@@ -12,6 +12,7 @@ describe('dust/confirm-address', () => {
     })
     expect(createConfirmAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createConfirmAddressRoutes).toHaveBeenCalledWith({
+      problem: 'dust',
       route: constants.routes.DUST_CONFIRM_ADDRESS,
       redirect: {
         description: constants.routes.DUST_DESCRIPTION,

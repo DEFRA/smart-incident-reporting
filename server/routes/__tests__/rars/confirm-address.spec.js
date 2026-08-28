@@ -51,7 +51,7 @@ const problems = [
   { problem: 'dust', url: constants.routes.DUST_CONFIRM_ADDRESS, redirect: constants.routes.DUST_DESCRIPTION },
   { problem: 'litter', url: constants.routes.LITTER_CONFIRM_ADDRESS, redirect: constants.routes.LITTER_DESCRIPTION },
   { problem: 'mud', url: constants.routes.MUD_CONFIRM_ADDRESS, redirect: constants.routes.MUD_DESCRIPTION },
-  { problem: 'vermin', url: constants.routes.VERMIN_CONFIRM_ADDRESS, redirect: constants.routes.VERMIN_DESCRIPTION }
+  { problem: 'vermin', url: constants.routes.VERMIN_CONFIRM_ADDRESS, redirect: constants.routes.VERMIN_RECURRING }
 ]
 
 describe('RARS Confirm Address Routes', () => {

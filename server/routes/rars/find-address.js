@@ -1,5 +1,5 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary } from '../../utils/helpers.js'
+import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import config from '../../utils/config.js'
 import captchaCheck from '../../services/captchaCheck.js'
 
@@ -7,7 +7,8 @@ const { postcodeRegExp } = constants
 const captchaEnabled = config.captchaEnabled
 const captchaSiteKey = config.captchaSiteKey
 
-const createFindAddressRoutes = ({ route, redirect }) => {
+const createFindAddressRoutes = ({ problem, route, redirect }) => {
+  const serviceDetails = getServiceDetails(problem)
   const handlers = {
     get: async (request, h) => {
       const counterVal = request.yar.get(constants.redisKeys.COUNTER)
@@ -17,6 +18,7 @@ const createFindAddressRoutes = ({ route, redirect }) => {
       }
 
       return h.view(constants.views.RARS_FIND_ADDRESS, {
+        ...serviceDetails,
         ...getContext(request),
         enterAddress: redirect.locationAddress,
         captchaSiteKey,
@@ -44,7 +46,8 @@ const createFindAddressRoutes = ({ route, redirect }) => {
           ...request.payload,
           enterAddress: redirect.locationAddress,
           captchaSiteKey,
-          captchaEnabled
+          captchaEnabled,
+          ...serviceDetails
         })
       }
 

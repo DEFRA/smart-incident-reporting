@@ -12,6 +12,7 @@ describe('litter/find-address', () => {
     })
     expect(createFindAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createFindAddressRoutes).toHaveBeenCalledWith({
+      problem: 'litter',
       route: constants.routes.LITTER_FIND_ADDRESS,
       redirect: {
         chooseAddress: constants.routes.LITTER_CHOOSE_ADDRESS,

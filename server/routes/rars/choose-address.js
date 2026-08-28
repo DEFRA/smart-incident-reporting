@@ -1,8 +1,9 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary } from '../../utils/helpers.js'
+import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { findByPostcode } from '../../services/find-location.js'
 
 const createChooseAddressRoutes = ({ problem, route, redirect }) => {
+  const serviceDetails = getServiceDetails(problem)
   const postcodeDetailsKey = `${problem}-postcode-details`
 
   const handlers = {
@@ -11,6 +12,7 @@ const createChooseAddressRoutes = ({ problem, route, redirect }) => {
       request.yar.set(constants.redisKeys.RARS_CHOOSE_ADDRESS, result)
       return h.view(constants.views.RARS_CHOOSE_ADDRESS, {
         ...result,
+        ...serviceDetails,
         ...getContext(request, redirect.findAddress, redirect.confirmAddress, redirect.locationAddress)
       })
     },
@@ -23,6 +25,7 @@ const createChooseAddressRoutes = ({ problem, route, redirect }) => {
       if (errorSummary.errorList.length > 0) {
         const result = request.yar.get(constants.redisKeys.RARS_CHOOSE_ADDRESS)
         return h.view(constants.views.RARS_CHOOSE_ADDRESS, {
+          ...serviceDetails,
           ...result,
           ...getContext(request, redirect.findAddress, redirect.confirmAddress, redirect.locationAddress),
           errorSummary
