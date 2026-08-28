@@ -12,9 +12,10 @@ describe('vermin/location-address', () => {
     })
     expect(createLocationAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationAddressRoutes).toHaveBeenCalledWith({
+      problem: 'vermin',
       route: constants.routes.VERMIN_LOCATION_ADDRESS,
       redirect: {
-        description: constants.routes.VERMIN_DESCRIPTION
+        recurring: constants.routes.VERMIN_RECURRING
       }
     })
   })

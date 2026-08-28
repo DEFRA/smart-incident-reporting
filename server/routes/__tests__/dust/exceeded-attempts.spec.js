@@ -12,6 +12,7 @@ describe('dust/exceeded-attempts', () => {
     })
     expect(createExceededAttemptsRoutes).toHaveBeenCalledTimes(1)
     expect(createExceededAttemptsRoutes).toHaveBeenCalledWith({
+      problem: 'dust',
       route: constants.routes.DUST_EXCEEDED_ATTEMPTS,
       redirect: {
         locationAddress: constants.routes.DUST_LOCATION_ADDRESS

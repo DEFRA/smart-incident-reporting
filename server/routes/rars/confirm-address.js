@@ -2,14 +2,18 @@ import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
 import bngToNgr from '../../utils/bng-to-ngr.js'
 import { oSGBToWGS84 } from '../../utils/transform-point.js'
+import { getServiceDetails } from '../../utils/helpers.js'
 
 const addressQuestion = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_ADDRESS
 const locationMapQuestion = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_MAP
 
-const createConfirmAddressRoutes = ({ route, redirect }) => {
+const createConfirmAddressRoutes = ({ problem, route, redirect }) => {
+  const serviceDetails = getServiceDetails(problem)
+
   const handlers = {
     get: async (request, h) => {
       return h.view(constants.views.RARS_CONFIRM_ADDRESS, {
+        ...serviceDetails,
         ...getContext(request, redirect.chooseAddress, redirect.locationAddress)
       })
     },
@@ -19,6 +23,9 @@ const createConfirmAddressRoutes = ({ route, redirect }) => {
       request.yar.set(constants.redisKeys.RARS_LOCATION_ADDRESS, buildAddressAnswers(selectedAddress))
       request.yar.set(constants.redisKeys.RARS_LOCATION_MAP, buildLocationAnswers(point))
 
+      if (problem === 'vermin') {
+        return h.redirect(redirect.recurring)
+      }
       return h.redirect(redirect.description)
     }
   }

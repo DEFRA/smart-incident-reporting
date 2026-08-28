@@ -3,7 +3,6 @@ import constants from './constants.js'
 // Common phrases
 const YOU_DO_NOT_KNOW = 'You do not know'
 const SOMETHING_ELSE = 'Something else'
-const NONE_OF_THESE = 'None of these'
 const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
 const NOT_GIVEN = 'Not given'
 const USE_CURRENT_LOCATION = 'Use your current location'
@@ -377,431 +376,6 @@ const questionSets = {
           yesDetails: {
             answerId: 1028,
             text: 'Describe the smell'
-          }
-        }
-      }
-    }
-  },
-  SMELL: {
-    questionSetId: 200,
-    questions: {
-      SMELL_SOURCE: {
-        questionId: 1600,
-        key: constants.redisKeys.SMELL_SOURCE,
-        text: 'Where is the smell coming from?',
-        answers: {
-          wasteSite: {
-            answerId: 1601,
-            text: 'A waste site, for example a landfill or recycling centre'
-          },
-          industry: {
-            answerId: 1602,
-            text: 'A large industrial site, factory or business, for example a food processing plant'
-          },
-          sewage: {
-            answerId: 1603,
-            text: 'A sewage or water treatment works'
-          },
-          wasteSpreading: {
-            answerId: 1604,
-            text: 'Agricultural site or activity, for example muck spreading'
-          },
-          local: {
-            answerId: 1605,
-            text: 'A small local business, for example a restaurant'
-          },
-          neighbour: {
-            answerId: 1606,
-            text: 'A neighbouring property'
-          },
-          rubbish: {
-            answerId: 1607,
-            text: 'Household waste and rubbish'
-          },
-          unknown: {
-            answerId: 1608,
-            text: 'Something else or you do not know'
-          }
-        }
-      },
-      SMELL_SOURCE_DETAILS: {
-        questionId: 3200,
-        key: constants.redisKeys.SMELL_SOURCE_DETAILS,
-        text: 'Can you give details about where the smell is coming from?',
-        answers: {
-          siteName: {
-            answerId: 3202,
-            text: 'Name of person or site'
-          },
-          sourceAddress: {
-            answerId: 3203,
-            text: 'Street name and number (if known)'
-          },
-          sourceTown: {
-            answerId: 3204,
-            text: TOWN_OR_CITY
-          },
-          sourcePostcode: {
-            answerId: 3205,
-            text: 'Postcode (if known)'
-          }
-        }
-      },
-      SMELL_LOCATION_HOME: {
-        questionId: 3100,
-        key: constants.redisKeys.SMELL_LOCATION_HOME,
-        text: 'Is the smell affecting you at home?',
-        answers: {
-          yes: {
-            answerId: 3101,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 3102,
-            text: 'No, somewhere else'
-          }
-        }
-      },
-      SMELL_LOCATION_ADDRESS: {
-        questionId: 1400,
-        key: constants.redisKeys.SMELL_LOCATION_ADDRESS,
-        text: 'Enter your address',
-        answers: {
-          addressLine1: {
-            answerId: 1401,
-            text: 'Address line 1'
-          },
-          addressLine2: {
-            answerId: 1402,
-            text: 'Address line 2 (optional)'
-          },
-          townOrCity: {
-            answerId: 1403,
-            text: TOWN_OR_CITY
-          },
-          county: {
-            answerId: 1404,
-            text: 'County (optional)'
-          },
-          postcode: {
-            answerId: 1405,
-            text: 'Postcode'
-          }
-        }
-      },
-      SMELL_LOCATION_OPTION: {
-        questionId: 2600,
-        key: constants.redisKeys.SMELL_LOCATION_OPTION,
-        text: 'How do you want to tell us where you\'ve noticed the smell?',
-        answers: {
-          gps: {
-            answerId: 2603,
-            text: USE_CURRENT_LOCATION
-          },
-          map: {
-            answerId: 2602,
-            text: MARK_LOCATION_ON_MAP
-          },
-          description: {
-            answerId: 2601,
-            text: DESCRIBE_THE_LOCATION
-          }
-        }
-      },
-      SMELL_LOCATION_DESCRIPTION: {
-        questionId: 1500,
-        key: constants.redisKeys.SMELL_LOCATION_DESCRIPTION,
-        text: 'Describe the location where you noticed the smell',
-        answers: {
-          locationDetails: {
-            answerId: 1501
-          }
-        }
-      },
-      SMELL_PREVIOUS: {
-        questionId: 1900,
-        key: constants.redisKeys.SMELL_PREVIOUS,
-        text: 'Has this happened before?',
-        answers: {
-          yes: {
-            answerId: 1901,
-            text: 'Yes, it happens often'
-          },
-          occasionally: {
-            answerId: 1902,
-            text: 'Yes, now and then'
-          },
-          no: {
-            answerId: 1903,
-            text: 'No, this is the first time'
-          }
-        }
-      },
-      SMELL_LOCATION_MAP: {
-        questionId: 2700,
-        key: constants.redisKeys.SMELL_LOCATION_MAP,
-        text: MARK_THE_LOCATION,
-        answers: {
-          nationalGridReference: {
-            answerId: 2701
-          },
-          easting: {
-            answerId: 2702
-          },
-          northing: {
-            answerId: 2703
-          },
-          lng: {
-            answerId: 2704
-          },
-          lat: {
-            answerId: 2705
-          }
-        }
-      },
-      SMELL_CURRENT: {
-        questionId: 2100,
-        key: constants.redisKeys.SMELL_CURRENT,
-        text: 'Is the smell still there?',
-        answers: {
-          yes: {
-            answerId: 2101,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 2102,
-            text: 'No'
-          }
-        }
-      },
-      SMELL_SMELL_STRENGTH: {
-        questionId: 2200,
-        key: constants.redisKeys.SMELL_SMELL_STRENGTH,
-        text: 'How strong is the smell?',
-        answers: {
-          veryWeak: {
-            answerId: 2211,
-            text: 'Very weak'
-          },
-          weak: {
-            answerId: 2212,
-            text: 'Weak'
-          },
-          distinct: {
-            answerId: 2213,
-            text: 'Distinct'
-          },
-          strong: {
-            answerId: 2214,
-            text: 'Strong'
-          },
-          veryStrong: {
-            answerId: 2215,
-            text: 'Very strong'
-          },
-          extremelyStrong: {
-            answerId: 2216,
-            text: 'Extremely strong'
-          }
-        }
-      },
-      SMELL_INDOORS: {
-        questionId: 3000,
-        key: constants.redisKeys.SMELL_INDOORS,
-        text: 'Is the smell noticeable indoors?',
-        answers: {
-          yes: {
-            answerId: 3001,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 3002,
-            text: 'No, you can only smell it outside'
-          }
-        }
-      },
-      SMELL_CLOTHING_AND_HAIR: {
-        questionId: 3600,
-        key: constants.redisKeys.SMELL_CLOTHING_AND_HAIR,
-        text: 'Does the smell stick to your clothing or hair?',
-        answers: {
-          yes: {
-            answerId: 3601,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 3602,
-            text: 'No'
-          }
-        }
-      },
-      SMELL_EFFECT_ON_DAILY_LIFE: {
-        questionId: 2400,
-        key: constants.redisKeys.SMELL_EFFECT_ON_DAILY_LIFE,
-        text: 'Did you do any of the following because of the smell?',
-        answers: {
-          leave: {
-            answerId: 2401,
-            text: 'Leave the area of the smell'
-          },
-          windows: {
-            answerId: 2402,
-            text: 'Keep windows or doors closed'
-          },
-          goingOutside: {
-            answerId: 2403,
-            text: 'Avoid using parts of your property, for example your garden'
-          },
-          goingElsewhere: {
-            answerId: 2404,
-            text: 'Put off doing something, for example going to the shops'
-          },
-          cancelEvent: {
-            answerId: 2405,
-            text: 'Cancel, or not attend an event or planned activity'
-          },
-          somethingElse: {
-            answerId: 2406,
-            text: SOMETHING_ELSE
-          },
-          noImpact: {
-            answerId: 2407,
-            text: NONE_OF_THESE
-          },
-          putOffDetails: {
-            answerId: 2408,
-            text: 'Give details about what you put off doing'
-          },
-          eventDetails: {
-            answerId: 2409,
-            text: 'Give details about the event'
-          },
-          somethingElseDetails: {
-            answerId: 2410,
-            text: 'Give details about what happened'
-          }
-        }
-      },
-      SMELL_EFFECT_ON_HEALTH: {
-        questionId: 2500,
-        key: constants.redisKeys.SMELL_EFFECT_ON_HEALTH,
-        text: 'Did the smell cause any of these health problems, on this occasion?',
-        answers: {
-          headache: {
-            answerId: 2501,
-            text: 'Headache'
-          },
-          wateringEyes: {
-            answerId: 2502,
-            text: 'Watering eyes'
-          },
-          sicknessOrNausea: {
-            answerId: 2503,
-            text: 'Sickness or nausea'
-          },
-          vomiting: {
-            answerId: 2504,
-            text: 'Vomiting'
-          },
-          somethingElse: {
-            answerId: 2505,
-            text: 'Something else or you\'d prefer not to say'
-          },
-          noneOfthese: {
-            answerId: 2506,
-            text: NONE_OF_THESE
-          },
-          somethingElseDetails: {
-            answerId: 2507,
-            text: 'Give details about the health problem'
-          },
-          mentalHealthIssues: {
-            answerId: 2508,
-            text: 'Mental health issues, for example stress'
-          }
-        }
-      },
-      SMELL_MEDICAL_HELP: {
-        questionId: 3300,
-        key: constants.redisKeys.SMELL_MEDICAL_HELP,
-        text: 'Have you had to get any medical help or treatment?',
-        answers: {
-          yes: {
-            answerId: 3301,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 3302,
-            text: 'No'
-          }
-        }
-      },
-      SMELL_IMAGES_OR_VIDEO: {
-        questionId: 3500,
-        key: constants.redisKeys.SMELL_IMAGES_OR_VIDEO,
-        text: IMAGES_OR_VIDEO_QUESTION,
-        answers: {
-          yes: {
-            answerId: 3501,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 3502,
-            text: 'No'
-          },
-          yesPhotos: {
-            answerId: 3503,
-            text: YES_YOU_HAVE_PHOTOS
-          },
-          noPhotos: {
-            answerId: 3504,
-            text: NO_YOU_DO_NOT_HAVE_PHOTOS
-          },
-          yesVideo: {
-            answerId: 3505,
-            text: YES_YOU_HAVE_VIDEO
-          },
-          noVideo: {
-            answerId: 3506,
-            text: NO_YOU_DO_NOT_HAVE_VIDEO
-          }
-        }
-      },
-      SMELL_DESCRIPTION: {
-        questionId: 1700,
-        key: constants.redisKeys.SMELL_DESCRIPTION,
-        text: 'How would you describe the smell?',
-        answers: {
-          sewage: {
-            answerId: 1701,
-            text: 'Sewage'
-          },
-          rubbishOrRefuse: {
-            answerId: 1702,
-            text: RUBBISH_OR_REFUSE
-          },
-          burningOrSmoke: {
-            answerId: 1703,
-            text: 'Burning or smoke'
-          },
-          gasOrPetrol: {
-            answerId: 1704,
-            text: 'Gas or petrol'
-          },
-          agriculture: {
-            answerId: 1705,
-            text: 'Agriculture'
-          },
-          somethingElse: {
-            answerId: 1706,
-            text: SOMETHING_ELSE
-          },
-          cannotDescribe: {
-            answerId: 1707,
-            text: 'You cannot describe it'
-          },
-          somethingElseDetails: {
-            answerId: 1708
           }
         }
       }
@@ -1799,6 +1373,44 @@ const questionSets = {
           no: {
             answerId: 1903,
             text: 'No, this is the first time'
+          }
+        }
+      },
+      SMELL_DESCRIPTION: {
+        questionId: 1700,
+        key: constants.redisKeys.SMELL_DESCRIPTION,
+        text: 'How would you describe the smell?',
+        answers: {
+          sewage: {
+            answerId: 1701,
+            text: 'Sewage'
+          },
+          rubbishOrRefuse: {
+            answerId: 1702,
+            text: RUBBISH_OR_REFUSE
+          },
+          burningOrSmoke: {
+            answerId: 1703,
+            text: 'Burning or smoke'
+          },
+          gasOrPetrol: {
+            answerId: 1704,
+            text: 'Gas or petrol'
+          },
+          agriculture: {
+            answerId: 1705,
+            text: 'Agriculture'
+          },
+          somethingElse: {
+            answerId: 1706,
+            text: SOMETHING_ELSE
+          },
+          cannotDescribe: {
+            answerId: 1707,
+            text: 'You cannot describe it'
+          },
+          somethingElseDetails: {
+            answerId: 1708
           }
         }
       }

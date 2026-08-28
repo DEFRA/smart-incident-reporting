@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
 import { questionSets } from '../../../utils/question-sets.js'
@@ -9,10 +10,15 @@ const baseAnswer = {
   questionAsked: question.text,
   questionResponse: true
 }
+=======
+import { submitGetRequest } from '../../../__test-helpers__/server.js'
+import constants from '../../../utils/constants.js'
+>>>>>>> report-a-regulated-site
 
 const problems = [
   {
     problem: 'smell',
+<<<<<<< HEAD
     url: constants.routes.SMELL_RECURRING,
     header: 'Has this happened before?',
     redirect: constants.routes.SMELL_WHEN
@@ -46,10 +52,34 @@ const problems = [
     url: constants.routes.VERMIN_RECURRING,
     header: 'Has this happened before?',
     redirect: constants.routes.VERMIN_WHEN
+=======
+    url: constants.routes.SMELL_RECURRING
+  },
+  {
+    problem: 'noise',
+    url: constants.routes.NOISE_RECURRING
+  },
+  {
+    problem: 'dust',
+    url: constants.routes.DUST_RECURRING
+  },
+  {
+    problem: 'litter',
+    url: constants.routes.LITTER_RECURRING
+  },
+  {
+    problem: 'mud',
+    url: constants.routes.MUD_RECURRING
+  },
+  {
+    problem: 'vermin',
+    url: constants.routes.VERMIN_RECURRING
+>>>>>>> report-a-regulated-site
   }
 ]
 
 describe('RARS Recurring Routes', () => {
+<<<<<<< HEAD
   describe.each(problems)('$problem recurring', ({ problem, url, header }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
@@ -107,6 +137,12 @@ describe('RARS Recurring Routes', () => {
 
         expect(typeof sessionData[0].answerId).toBe('number')
         expect(sessionData[0].answerId).toBe(question.answers.yes.answerId)
+=======
+  describe.each(problems)('$problem recurring', ({ url }) => {
+    describe('GET', () => {
+      it('Should return success response and correct view', async () => {
+        await submitGetRequest({ url }, 'RECURRING')
+>>>>>>> report-a-regulated-site
       })
     })
   })

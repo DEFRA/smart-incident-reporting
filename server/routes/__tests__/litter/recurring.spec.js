@@ -13,10 +13,14 @@ describe('litter/recurring', () => {
     expect(createRecurringRoutes).toHaveBeenCalledTimes(1)
     expect(createRecurringRoutes).toHaveBeenCalledWith({
       problem: 'litter',
+<<<<<<< HEAD
       route: constants.routes.LITTER_RECURRING,
       redirect: {
         when: constants.routes.LITTER_WHEN
       }
+=======
+      route: constants.routes.LITTER_RECURRING
+>>>>>>> report-a-regulated-site
     })
   })
 })
