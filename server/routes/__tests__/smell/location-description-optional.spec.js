@@ -15,7 +15,7 @@ describe('smell/location-description-optional', () => {
       problem: 'smell',
       route: constants.routes.SMELL_LOCATION_DESCRIPTION_OPTIONAL,
       redirect: {
-        recurring: constants.routes.SMELL_RECURRING
+        description: constants.routes.SMELL_DESCRIPTION
       }
     })
   })
