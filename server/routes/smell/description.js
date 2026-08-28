@@ -13,33 +13,50 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => h.view(constants.views.SMELL_DESCRIPTION, {
+    ...serviceDetails,
     ...getContext(request)
   }),
   post: async (request, h) => {
-    let { answerId } = request.payload
-
-    // convert answerId to number
-    answerId = Number(answerId)
+    let { answerId, somethingElseDetails } = request.payload
 
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
+      request.yar.set(question.key, [])
       return h.view(constants.views.SMELL_DESCRIPTION, {
         errorSummary,
+        ...serviceDetails,
         ...getContext(request)
       })
     }
 
-    request.yar.set(question.key, buildAnswers(answerId))
+    if (!Array.isArray(answerId)) {
+      answerId = [answerId]
+    }
+
+    request.yar.set(question.key, buildAnswers(answerId, somethingElseDetails))
 
     return h.redirect(constants.routes.SMELL_RECURRING)
   }
 }
 
-const buildAnswers = answerId => {
-  return [{
-    ...baseAnswer,
-    answerId
-  }]
+const buildAnswers = (answerId, somethingElseDetails) => {
+  const answers = []
+  answerId.forEach(item => {
+    answers.push({
+      ...baseAnswer,
+      answerId: Number(item)
+    })
+  })
+
+  if (answerId.indexOf(question.answers.somethingElse.answerId.toString()) > -1 && somethingElseDetails) {
+    answers.push({
+      ...baseAnswer,
+      answerId: question.answers.somethingElseDetails.answerId,
+      otherDetails: somethingElseDetails
+    })
+  }
+
+  return answers
 }
 
 const getContext = request => {
@@ -53,9 +70,9 @@ const getContext = request => {
 
 const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
-  if (!answerId) {
+  if (!answerId || answerId.length === 0) {
     errorSummary.errorList.push({
-      text: 'Select how you would describe the smell',
+      text: 'Select the description of the smell',
       href: '#answerId'
     })
   }
