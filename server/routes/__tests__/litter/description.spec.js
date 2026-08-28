@@ -13,7 +13,10 @@ describe('litter/description', () => {
     expect(createDescriptionRoutes).toHaveBeenCalledTimes(1)
     expect(createDescriptionRoutes).toHaveBeenCalledWith({
       problem: 'litter',
-      route: constants.routes.LITTER_DESCRIPTION
+      route: constants.routes.LITTER_DESCRIPTION,
+      redirect: {
+        recurring: constants.routes.LITTER_RECURRING
+      }
     })
   })
 })

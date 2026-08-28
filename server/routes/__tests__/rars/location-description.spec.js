@@ -41,7 +41,7 @@ const problems = [
   {
     problem: 'vermin',
     url: constants.routes.VERMIN_LOCATION_DESCRIPTION,
-    descriptionUrl: constants.routes.VERMIN_DESCRIPTION
+    descriptionUrl: constants.routes.VERMIN_RECURRING
   }
 ]
 

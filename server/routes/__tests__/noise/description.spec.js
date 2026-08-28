@@ -13,7 +13,10 @@ describe('noise/description', () => {
     expect(createDescriptionRoutes).toHaveBeenCalledTimes(1)
     expect(createDescriptionRoutes).toHaveBeenCalledWith({
       problem: 'noise',
-      route: constants.routes.NOISE_DESCRIPTION
+      route: constants.routes.NOISE_DESCRIPTION,
+      redirect: {
+        recurring: constants.routes.NOISE_RECURRING
+      }
     })
   })
 })

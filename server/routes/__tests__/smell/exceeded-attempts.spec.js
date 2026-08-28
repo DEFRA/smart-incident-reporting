@@ -12,6 +12,7 @@ describe('smell/exceeded-attempts', () => {
     })
     expect(createExceededAttemptsRoutes).toHaveBeenCalledTimes(1)
     expect(createExceededAttemptsRoutes).toHaveBeenCalledWith({
+      problem: 'smell',
       route: constants.routes.SMELL_EXCEEDED_ATTEMPTS,
       redirect: {
         locationAddress: constants.routes.SMELL_LOCATION_ADDRESS

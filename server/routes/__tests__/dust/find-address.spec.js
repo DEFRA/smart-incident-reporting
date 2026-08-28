@@ -12,6 +12,7 @@ describe('dust/find-address', () => {
     })
     expect(createFindAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createFindAddressRoutes).toHaveBeenCalledWith({
+      problem: 'dust',
       route: constants.routes.DUST_FIND_ADDRESS,
       redirect: {
         chooseAddress: constants.routes.DUST_CHOOSE_ADDRESS,

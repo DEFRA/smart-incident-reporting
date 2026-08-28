@@ -1,16 +1,34 @@
-{% extends 'layout.html' %}
- 
-{% set pageTitle = 'DESCRIPTION' %}
- 
-{% block content %}
- 
+{% extends 'form-layout.html' %}
+
+{% block formContent %}
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
- 
-    <h1 class="govuk-heading-l">
-      {{ pageTitle }}
-    </h1>
+    <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+    <p>Enter as detailed a description of the {{ problem }} as you can.</p>
+    <p>You might want to include: </p>
+    <ul class="govuk-list govuk-list--bullet">
+      {% for bulletPoint in bulletPoints %}
+      <li>{{ bulletPoint }}</li>
+      {% endfor %}
+    </ul>
+    
+    {{ govukTextarea({
+      name: "description",
+      id: "description",
+      rows: "10",
+      value: answers,
+      label: {
+        text: "Describe the " + problem,
+        classes: "govuk-label--m",
+        isPageHeading: true
+      }
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
   </div>
 </div>
- 
+
 {% endblock %}

@@ -12,6 +12,7 @@ describe('mud/find-address', () => {
     })
     expect(createFindAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createFindAddressRoutes).toHaveBeenCalledWith({
+      problem: 'mud',
       route: constants.routes.MUD_FIND_ADDRESS,
       redirect: {
         chooseAddress: constants.routes.MUD_CHOOSE_ADDRESS,
