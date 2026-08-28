@@ -48,7 +48,7 @@ const buildAnswers = (answerId, somethingElseDetails) => {
     })
   })
 
-  if (answerId.indexOf(question.answers.somethingElse.answerId.toString()) > -1 && somethingElseDetails) {
+  if (answerId.includes(question.answers.somethingElse.answerId.toString()) && somethingElseDetails) {
     answers.push({
       ...baseAnswer,
       answerId: question.answers.somethingElseDetails.answerId,
