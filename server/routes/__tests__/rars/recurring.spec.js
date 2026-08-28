@@ -82,6 +82,21 @@ describe('RARS Recurring Routes', () => {
     })
   })
 
+  describe('vermin recurring sad path with no vermin type selected', () => {
+    describe('POST', () => {
+      it('Sad: no radio selected and no vermin type in session, falls back to "vermin"', async () => {
+        const response = await submitPostRequest(
+          { url: constants.routes.VERMIN_RECURRING, payload: {} },
+          constants.statusCodes.OK,
+          {}
+        )
+
+        expect(response.payload).toContain('There is a problem')
+        expect(response.payload).toContain('Select &#39;yes&#39; if the vermin has caused you a problem before')
+      })
+    })
+  })
+
   describe.each(problems)('$problem recurring redirect', ({ url, redirect }) => {
     describe('POST', () => {
       it.each([
