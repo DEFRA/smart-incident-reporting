@@ -14,7 +14,7 @@ const createRecurringRoutes = ({ problem, route, redirect }) => {
   const serviceDetails = getServiceDetails(problem)
 
   const handlers = {
-    get: async (request, h) => {
+    get: async (_request, h) => {
       return h.view(constants.views.RARS_RECURRING, {
         question,
         problem,
