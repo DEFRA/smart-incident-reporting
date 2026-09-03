@@ -13,7 +13,10 @@ describe('dust/recurring', () => {
     expect(createRecurringRoutes).toHaveBeenCalledTimes(1)
     expect(createRecurringRoutes).toHaveBeenCalledWith({
       problem: 'dust',
-      route: constants.routes.DUST_RECURRING
+      route: constants.routes.DUST_RECURRING,
+      redirect: {
+        when: constants.routes.DUST_WHEN
+      }
     })
   })
 })

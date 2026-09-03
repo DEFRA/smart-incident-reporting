@@ -5,7 +5,7 @@ const problems = [
   {
     problem: 'smell',
     url: constants.routes.SMELL_LOCATION_DESCRIPTION_OPTIONAL,
-    redirectUrl: constants.routes.SMELL_RECURRING
+    redirectUrl: constants.routes.SMELL_DESCRIPTION
   },
   {
     problem: 'noise',

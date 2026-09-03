@@ -1357,6 +1357,25 @@ const questionSets = {
           }
         }
       },
+      RARS_RECURRING: {
+        questionId: 1900,
+        key: constants.redisKeys.RARS_RECURRING,
+        text: 'Has this happened before?',
+        answers: {
+          yes: {
+            answerId: 1901,
+            text: 'Yes, it happens often'
+          },
+          occasionally: {
+            answerId: 1902,
+            text: 'Yes, now and then'
+          },
+          no: {
+            answerId: 1903,
+            text: 'No, this is the first time'
+          }
+        }
+      },
       SMELL_DESCRIPTION: {
         questionId: 1700,
         key: constants.redisKeys.SMELL_DESCRIPTION,

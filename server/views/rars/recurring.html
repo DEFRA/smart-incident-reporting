@@ -1,16 +1,24 @@
-{% extends 'layout.html' %}
+{% extends 'form-layout.html' %}
 
-{% set pageTitle = 'RECURRING' %}
+{% set pageTitle = question.text.replace('?', '') %}
 
-{% block content %}
+{% set items = [
+  {
+    value: question.answers.yes.answerId,
+    text: question.answers.yes.text
+  },
+  {
+    value: question.answers.occasionally.answerId,
+    text: question.answers.occasionally.text
+  },
+  {
+    value: question.answers.no.answerId,
+    text: question.answers.no.text
+  }
+]%}
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+{% block formContent %}
 
-    <h1 class="govuk-heading-l">
-      {{ pageTitle }}
-    </h1>
-  </div>
-</div>
+  {% include "partials/radios.html" %} 
 
 {% endblock %}
