@@ -30,6 +30,14 @@ describe('helpers', () => {
     })
   })
   describe('getServiceDetails', () => {
+    beforeAll(() => {
+      process.env.REGISTER_START_ROUTES = 'false'
+    })
+
+    afterAll(() => {
+      process.env.REGISTER_START_ROUTES = 'true'
+    })
+
     it.each([
       ['smell', constants.serviceNames.SMELL, constants.urls.GOV_UK_SMELL],
       ['noise', constants.serviceNames.NOISE, constants.urls.GOV_UK_NOISE],
@@ -47,6 +55,12 @@ describe('helpers', () => {
       const result = getServiceDetails('unknown')
       expect(result.serviceName).toBeUndefined()
       expect(result.serviceUrl).toBeUndefined()
+    })
+    it('Should return relative serviceUrl when REGISTER_START_ROUTES is true', () => {
+      process.env.REGISTER_START_ROUTES = 'true'
+      const result = getServiceDetails('smell')
+      expect(result.serviceUrl).toBe('/')
+      process.env.REGISTER_START_ROUTES = 'false'
     })
   })
   describe('titleHelper', () => {
