@@ -16,6 +16,7 @@ const NO_YOU_DO_NOT_HAVE_PHOTOS = 'No, you do not have photos'
 const YES_YOU_HAVE_VIDEO = 'Yes, you have video'
 const NO_YOU_DO_NOT_HAVE_VIDEO = 'No, you do not have video'
 const TOWN_OR_CITY = 'Town or city'
+const NONE_OF_THESE = 'None of these'
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -1413,7 +1414,46 @@ const questionSets = {
             answerId: 1708
           }
         }
-      }
+      },
+      RARS_EFFECT_ON_HEALTH: {
+        questionId: 2500,
+        key: constants.redisKeys.RARS_EFFECT_ON_HEALTH,
+        text: 'Has the {problem} caused any of the following issues?',
+        answers: {
+          headache: {
+            answerId: 2501,
+            text: 'Headache'
+          },
+          wateringEyes: {
+            answerId: 2502,
+            text: 'Watering eyes'
+          },
+          sicknessOrNausea: {
+            answerId: 2503,
+            text: 'Sickness or nausea'
+          },
+          vomiting: {
+            answerId: 2504,
+            text: 'Vomiting'
+          },
+          somethingElse: {
+            answerId: 2505,
+            text: 'Something else or you\'d prefer not to say'
+          },
+          noneOfthese: {
+            answerId: 2506,
+            text: NONE_OF_THESE
+          },
+          somethingElseDetails: {
+            answerId: 2507,
+            text: 'Give details about the health problem'
+          },
+          mentalHealthIssues: {
+            answerId: 2508,
+            text: 'Mental health issues, for example stress'
+          }
+        }
+      },
     }
   }
 }
