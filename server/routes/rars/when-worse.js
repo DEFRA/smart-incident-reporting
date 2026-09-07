@@ -58,11 +58,12 @@ const createWhenWorseRoutes = ({ problem, route, redirect }) => {
   const validatePayload = answerId => {
     const errorSummary = getErrorSummary()
     if (!answerId) {
-      const incidentType = problem === 'noise'
-        ? 'noise'
-        : problem === 'vermin'
-          ? 'vermin/pests'
-          : problem
+      let incidentType = problem
+      if (problem === 'noise') {
+        incidentType = 'noise'
+      } else if (problem === 'vermin') {
+        incidentType = 'vermin/pests'
+      }
 
       errorSummary.errorList.push({
         text: `Select if the ${incidentType} is worse on certain days`,
