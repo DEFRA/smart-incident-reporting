@@ -63,6 +63,8 @@ const createWhenWorseRoutes = ({ problem, route, redirect }) => {
         incidentType = 'noise'
       } else if (problem === 'vermin') {
         incidentType = 'vermin/pests'
+      } else {
+        // do nothing
       }
 
       errorSummary.errorList.push({
