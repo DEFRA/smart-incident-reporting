@@ -46,6 +46,33 @@ const getDateTime = (date, time) => {
 }
 
 describe('RARS Time Before Yesterday Routes', () => {
+  it('Should redirect to the when-worse page when configured for the shared RARS flow', async () => {
+    const route = require('../../rars/time-before-yesterday.js').default({
+      _problem: 'noise',
+      route: constants.routes.NOISE_TIME_BEFORE_YESTERDAY,
+      redirect: {
+        whenWorse: constants.routes.NOISE_WHEN_WORSE,
+        smellStrength: constants.routes.SMELL_SMELL_STRENGTH,
+        effectOnDailyLife: constants.routes.RARS_EFFECT_ON_DAILY_LIFE
+      }
+    })
+
+    const response = await route[1].handler({
+      payload: { time: '9:30am' },
+      yar: {
+        get: key => {
+          if (key === constants.redisKeys.RARS_DATE_BEFORE_YESTERDAY) {
+            return { dateString: '2025-04-20', dateWordString: '20 April 2025' }
+          }
+          return undefined
+        },
+        set: jest.fn()
+      }
+    }, { redirect: jest.fn((url) => url) })
+
+    expect(response).toBe(constants.routes.NOISE_WHEN_WORSE)
+  })
+
   describe.each(problems)('$problem time-before-yesterday', ({
     url,
     redirectWhenWorse,

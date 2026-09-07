@@ -1,5 +1,6 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
+import createWhenRoutes from '../../rars/when.js'
 
 const problems = [
   {
@@ -66,6 +67,46 @@ const problems = [
 ]
 
 describe('RARS When Routes', () => {
+  it('Should surface the vermin-specific validation copy when the answer is missing', async () => {
+    const route = createWhenRoutes({
+      problem: 'vermin',
+      route: constants.routes.VERMIN_WHEN,
+      redirect: {
+        whenWorse: constants.routes.RARS_EFFECT_ON_DAILY_LIFE,
+        earlierToday: constants.routes.VERMIN_EARLIER_TODAY,
+        yesterday: constants.routes.VERMIN_YESTERDAY,
+        dateBeforeYesterday: constants.routes.VERMIN_DATE_BEFORE_YESTERDAY
+      }
+    })
+
+    const request = {
+      payload: {},
+      yar: {
+        get: jest.fn(() => undefined),
+        set: jest.fn()
+      }
+    }
+    const h = {
+      view: jest.fn((viewName, viewData) => ({ viewName, viewData }))
+    }
+
+    const response = await route[1].handler(request, h)
+
+    expect(h.view).toHaveBeenCalledWith(
+      constants.views.RARS_WHEN,
+      expect.objectContaining({
+        problem: 'vermin',
+        errorSummary: expect.objectContaining({
+          errorList: [expect.objectContaining({
+            text: 'Select when you noticed the vermin/pests',
+            href: '#answerId'
+          })]
+        })
+      })
+    )
+    expect(response.viewData.errorSummary.errorList[0].text).toBe('Select when you noticed the vermin/pests')
+  })
+
   describe.each(problems)('$problem when', ({
     url,
     redirectEarlierToday,

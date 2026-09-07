@@ -1,6 +1,7 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
 import { questionSets } from '../../../utils/question-sets.js'
+import createWhenWorseRoutes from '../../rars/when-worse.js'
 
 const problems = [
   {
@@ -30,6 +31,42 @@ const problems = [
 ]
 
 describe('RARS When Worse Routes', () => {
+  it('Should surface the vermin-specific validation copy when the answer is missing', async () => {
+    const route = createWhenWorseRoutes({
+      problem: 'vermin',
+      route: constants.routes.VERMIN_WHEN_WORSE,
+      redirect: {
+        daysWhenWorse: constants.routes.RARS_DAYS_WHEN_WORSE
+      }
+    })
+
+    const request = {
+      payload: {},
+      yar: {
+        get: jest.fn(() => undefined),
+        set: jest.fn()
+      }
+    }
+    const h = {
+      view: jest.fn((viewName, viewData) => ({ viewName, viewData }))
+    }
+
+    const response = await route[1].handler(request, h)
+
+    expect(h.view).toHaveBeenCalledWith(
+      constants.views.RARS_WHEN_WORSE,
+      expect.objectContaining({
+        errorSummary: expect.objectContaining({
+          errorList: [expect.objectContaining({
+            text: 'Select if the vermin/pests is worse on certain days',
+            href: '#answerId'
+          })]
+        })
+      })
+    )
+    expect(response.viewData.errorSummary.errorList[0].text).toBe('Select if the vermin/pests is worse on certain days')
+  })
+
   describe.each(problems)('$problem when-worse', ({
     url,
     redirectDaysWhenWorse,
