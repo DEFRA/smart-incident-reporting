@@ -60,6 +60,8 @@ const createWhenRoutes = ({ problem, route, redirect }) => {
         return h.redirect(redirect.yesterday)
       } else if (answerId === optionFour) {
         return h.redirect(redirect.dateBeforeYesterday)
+      } else {
+        // do nothing
       }
 
       return null

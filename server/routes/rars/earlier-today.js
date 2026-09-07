@@ -3,7 +3,7 @@ import { getErrorSummary } from '../../utils/helpers.js'
 import { formatTime } from '../../utils/time-helpers.js'
 import moment from 'moment'
 
-const createEarlierTodayRoutes = ({ problem, route, redirect }) => {
+const createEarlierTodayRoutes = ({ _problem, route, redirect }) => {
   const handlers = {
     get: async (request, h) => {
       return h.view(constants.views.RARS_EARLIER_TODAY, {

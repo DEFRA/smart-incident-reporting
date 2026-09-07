@@ -6,7 +6,7 @@ import {
   validatePayload
 } from '../../utils/date-helpers.js'
 
-const createDateBeforeYesterdayRoutes = ({ problem, route, redirect }) => {
+const createDateBeforeYesterdayRoutes = ({ _problem, route, redirect }) => {
   const handlers = {
     get: async (request, h) => {
       return h.view(constants.views.RARS_DATE_BEFORE_YESTERDAY, {

@@ -1,8 +1,8 @@
 import constants from '../../utils/constants.js'
 
 const handlers = {
-  get: async (request, h) => h.view(constants.views.RARS_EFFECT_ON_DAILY_LIFE),
-  post: async (request, h) => h.redirect(constants.routes.VERMIN_LOCATION_DESCRIPTION)
+  get: async (_request, h) => h.view(constants.views.RARS_EFFECT_ON_DAILY_LIFE),
+  post: async (_request, h) => h.redirect(constants.routes.VERMIN_LOCATION_DESCRIPTION)
 }
 
 export default [
