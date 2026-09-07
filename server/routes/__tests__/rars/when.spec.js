@@ -67,6 +67,66 @@ const problems = [
 ]
 
 describe('RARS When Routes', () => {
+  it('Should redirect to dateBeforeYesterday when option 4 is selected', async () => {
+    const route = createWhenRoutes({
+      problem: 'smell',
+      route: constants.routes.SMELL_WHEN,
+      redirect: {
+        whenWorse: constants.routes.SMELL_SMELL_STRENGTH,
+        earlierToday: constants.routes.SMELL_EARLIER_TODAY,
+        yesterday: constants.routes.SMELL_YESTERDAY,
+        dateBeforeYesterday: constants.routes.SMELL_DATE_BEFORE_YESTERDAY
+      }
+    })
+
+    const request = {
+      payload: { answerId: '4' },
+      yar: {
+        get: jest.fn(() => undefined),
+        set: jest.fn()
+      }
+    }
+    const h = {
+      redirect: jest.fn(() => 'redirected')
+    }
+
+    const response = await route[1].handler(request, h)
+
+    expect(response).toBe('redirected')
+    expect(h.redirect).toHaveBeenCalledWith(constants.routes.SMELL_DATE_BEFORE_YESTERDAY)
+    expect(request.yar.set).toHaveBeenCalledWith(constants.redisKeys.DATE_TIME_OPTION, 4)
+  })
+
+  it('Should return null for an unhandled option value', async () => {
+    const route = createWhenRoutes({
+      problem: 'noise',
+      route: constants.routes.NOISE_WHEN,
+      redirect: {
+        whenWorse: constants.routes.NOISE_WHEN_WORSE,
+        earlierToday: constants.routes.NOISE_EARLIER_TODAY,
+        yesterday: constants.routes.NOISE_YESTERDAY,
+        dateBeforeYesterday: constants.routes.NOISE_DATE_BEFORE_YESTERDAY
+      }
+    })
+
+    const request = {
+      payload: { answerId: '99' },
+      yar: {
+        get: jest.fn(() => undefined),
+        set: jest.fn()
+      }
+    }
+    const h = {
+      redirect: jest.fn()
+    }
+
+    const response = await route[1].handler(request, h)
+
+    expect(response).toBeNull()
+    expect(h.redirect).not.toHaveBeenCalled()
+    expect(request.yar.set).toHaveBeenCalledWith(constants.redisKeys.DATE_TIME_OPTION, 99)
+  })
+
   it('Should surface the vermin-specific validation copy when the answer is missing', async () => {
     const route = createWhenRoutes({
       problem: 'vermin',
