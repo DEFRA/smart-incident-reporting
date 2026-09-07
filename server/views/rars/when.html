@@ -1,16 +1,9 @@
-{% extends 'layout.html' %}
- 
-{% set pageTitle = 'WHEN' %}
- 
-{% block content %}
- 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
- 
-    <h1 class="govuk-heading-l">
-      {{ pageTitle }}
-    </h1>
-  </div>
-</div>
- 
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = questionText %}
+
+{% block formContent %}
+
+  {% include "partials/incident-date-time.html" %}
+
 {% endblock %}

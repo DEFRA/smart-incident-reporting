@@ -1,0 +1,41 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = questionText %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukRadios({
+      classes: "govuk-radios",
+      id: "answerId",
+      name: "answerId",
+      fieldset: {
+        legend: {
+          text: pageTitle + "?",
+          classes: "govuk-fieldset__legend--l",
+          isPageHeading: true
+        }
+      },
+      items: [
+        {
+          value: 1,
+          text: "Yes",
+          checked: (answer === 1)
+        },
+        {
+          value: 2,
+          text: "No",
+          checked: (answer === 2)
+        }
+      ],
+      errorMessage: findErrorMessageById(errorSummary, 'answerId')
+    }) }}
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+  </div>
+</div>
+
+{% endblock %}
