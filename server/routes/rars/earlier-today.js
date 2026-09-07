@@ -50,6 +50,8 @@ const createEarlierTodayRoutes = ({ problem, route, redirect }) => {
         text: 'Enter a time in the past',
         href: '#time'
       })
+    } else {
+      // do nothing
     }
     return errorSummary
   }

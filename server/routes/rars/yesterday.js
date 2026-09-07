@@ -45,6 +45,8 @@ const createYesterdayRoutes = ({ problem, route, redirect }) => {
         text: 'Enter a real time, for example 11:35am or 2:35pm',
         href: '#time'
       })
+    } else {
+      // do nothing
     }
     return errorSummary
   }
