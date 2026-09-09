@@ -3,7 +3,6 @@ import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.VERMIN_TYPE
-const serviceDetails = getServiceDetails('vermin')
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -75,7 +74,7 @@ const getContext = request => {
   return {
     question,
     answers,
-    ...serviceDetails
+    ...getServiceDetails('vermin')
   }
 }
 
