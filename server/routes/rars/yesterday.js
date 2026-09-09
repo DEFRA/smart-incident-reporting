@@ -1,13 +1,16 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary } from '../../utils/helpers.js'
+import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { formatTime } from '../../utils/time-helpers.js'
 import moment from 'moment'
 
-const createYesterdayRoutes = ({ _problem, route, redirect }) => {
+const createYesterdayRoutes = ({ problem, route, redirect }) => {
+  const serviceDetails = getServiceDetails(problem)
+
   const handlers = {
     get: async (request, h) => {
       return h.view(constants.views.RARS_YESTERDAY, {
-        ...getContext(request)
+        ...getContext(request),
+        ...serviceDetails
       })
     },
     post: async (request, h) => {
@@ -19,7 +22,8 @@ const createYesterdayRoutes = ({ _problem, route, redirect }) => {
       if (errorSummary.errorList.length > 0) {
         return h.view(constants.views.RARS_YESTERDAY, {
           errorSummary,
-          ...request.payload
+          ...request.payload,
+          ...serviceDetails
         })
       }
 

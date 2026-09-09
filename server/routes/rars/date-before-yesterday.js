@@ -1,4 +1,5 @@
 import constants from '../../utils/constants.js'
+import { getServiceDetails } from '../../utils/helpers.js'
 import {
   dateValidateAndError,
   fieldErrorClasses,
@@ -6,14 +7,17 @@ import {
   validatePayload
 } from '../../utils/date-helpers.js'
 
-const createDateBeforeYesterdayRoutes = ({ _problem, route, redirect }) => {
+const createDateBeforeYesterdayRoutes = ({ problem, route, redirect }) => {
+  const serviceDetails = getServiceDetails(problem)
+
   const handlers = {
     get: async (request, h) => {
       return h.view(constants.views.RARS_DATE_BEFORE_YESTERDAY, {
         fieldErrorClasses,
         getDateErrors,
         validateAndError: dateValidateAndError(),
-        ...getContext(request)
+        ...getContext(request),
+        ...serviceDetails
       })
     },
     post: async (request, h) => {
@@ -32,7 +36,8 @@ const createDateBeforeYesterdayRoutes = ({ _problem, route, redirect }) => {
           validateAndError,
           fieldErrorClasses,
           getDateErrors,
-          ...payload
+          ...payload,
+          ...serviceDetails
         })
       }
 
