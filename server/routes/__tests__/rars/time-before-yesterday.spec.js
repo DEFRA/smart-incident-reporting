@@ -168,9 +168,14 @@ describe('RARS Time Before Yesterday Routes', () => {
       })
 
       it('Should error when the time is in the future', async () => {
+        const futureDate = moment().add(1, 'day')
+        const futureDateString = futureDate.format('YYYY-MM-DD')
         const futureTime = '9:30am'
         const sessionData = {
-          'rars/date-before-yesterday': { dateString, dateWordString }
+          'rars/date-before-yesterday': {
+            dateString: futureDateString,
+            dateWordString: futureDate.format('D MMMM YYYY')
+          }
         }
         const response = await submitPostRequest({ url, payload: { time: futureTime } }, 200, sessionData)
         expect(response.payload).toContain('There is a problem')
