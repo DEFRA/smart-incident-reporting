@@ -5,7 +5,7 @@ import { parse } from 'node-html-parser'
 
 const baseAnswer = {
   questionId: 1350,
-  questionAsked: '{problem} description',
+  questionAsked: 'How would you describe the {problem}?',
   questionResponse: true,
   answerId: 1351
 }
@@ -14,7 +14,7 @@ const problems = [
   {
     problem: 'noise',
     url: constants.routes.NOISE_DESCRIPTION,
-    header: 'Noise description',
+    header: 'How would you describe the noise?',
     recurringUrl: constants.routes.NOISE_RECURRING,
     bulletPoints: [
       'what type of sound it is, for example a buzzing or banging',
@@ -25,7 +25,7 @@ const problems = [
   {
     problem: 'dust',
     url: constants.routes.DUST_DESCRIPTION,
-    header: 'Dust description',
+    header: 'How would you describe the dust?',
     recurringUrl: constants.routes.DUST_RECURRING,
     bulletPoints: [
       'the colour and texture of the dust',
@@ -37,7 +37,7 @@ const problems = [
   {
     problem: 'litter',
     url: constants.routes.LITTER_DESCRIPTION,
-    header: 'Litter description',
+    header: 'How would you describe the litter?',
     recurringUrl: constants.routes.LITTER_RECURRING,
     bulletPoints: [
       'what material the litter is made up of, for example is it household waste or packaging',
@@ -48,7 +48,7 @@ const problems = [
   {
     problem: 'mud',
     url: constants.routes.MUD_DESCRIPTION,
-    header: 'Mud description',
+    header: 'How would you describe the mud?',
     recurringUrl: constants.routes.MUD_RECURRING,
     bulletPoints: [
       'the colour',
