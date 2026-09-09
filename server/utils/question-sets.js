@@ -1428,6 +1428,67 @@ const questionSets = {
             answerId: 1708
           }
         }
+      },
+      SMELL_SMELL_STRENGTH: {
+        questionId: 2200,
+        key: constants.redisKeys.SMELL_SMELL_STRENGTH,
+        text: 'How strong is the smell?',
+        answers: {
+          veryWeak: {
+            answerId: 2211,
+            text: 'Very weak'
+          },
+          weak: {
+            answerId: 2212,
+            text: 'Weak'
+          },
+          distinct: {
+            answerId: 2213,
+            text: 'Distinct'
+          },
+          strong: {
+            answerId: 2214,
+            text: 'Strong'
+          },
+          veryStrong: {
+            answerId: 2215,
+            text: 'Very strong'
+          },
+          extremelyStrong: {
+            answerId: 2216,
+            text: 'Extremely strong'
+          }
+        }
+      },
+      SMELL_INDOORS: {
+        questionId: 3000,
+        key: constants.redisKeys.SMELL_INDOORS,
+        text: 'Is the smell noticeable indoors?',
+        answers: {
+          yes: {
+            answerId: 3001,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3002,
+            text: 'No, you can only smell it outside'
+          }
+        }
+      },
+      SMELL_CLOTHING_AND_HAIR: {
+        questionId: 3600,
+        key: constants.redisKeys.SMELL_CLOTHING_AND_HAIR,
+        text: 'Does the smell stick to your clothing or hair?',
+        answers: {
+          yes: {
+            answerId: 3601,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3602,
+            text: 'No'
+          }
+        }
       }
     }
   }
