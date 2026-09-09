@@ -18,8 +18,8 @@ const problems = [
     recurringUrl: constants.routes.NOISE_RECURRING,
     bulletPoints: [
       'what type of sound it is, for example a buzzing or banging',
-      'what it sounds similar to, for example a car engine or hammer',
-      'what activity you think is causing the noise, for example car breaking or digging'
+      'how loud it is, for example can you hear it with the doors and windows closed',
+      'what it sounds similar to, for example a car engine or hammer'
     ]
   },
   {
@@ -28,10 +28,10 @@ const problems = [
     header: 'Dust description',
     recurringUrl: constants.routes.DUST_RECURRING,
     bulletPoints: [
-      'the colour of the dust',
-      'how thick or coarse the dust is',
-      'what substance the dust seems to be, for example is it soot, or metallic',
-      'what activity you think is causing the dust'
+      'the colour and texture of the dust',
+      'what substance the dust seems to be, for example is it soot or metallic',
+      'what activity you think is causing the dust',
+      'the spread of the dust, for example it has covered a car'
     ]
   },
   {
