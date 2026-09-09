@@ -1,0 +1,93 @@
+import constants from '../../utils/constants.js'
+import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
+import { formatTime } from '../../utils/time-helpers.js'
+import moment from 'moment'
+
+const getTimeBeforeYesterdayContext = request => {
+  const time = request.yar.get(constants.redisKeys.RARS_TIME_BEFORE_YESTERDAY)
+  const dateBeforeYesterdayData = request.yar.get(constants.redisKeys.RARS_DATE_BEFORE_YESTERDAY)
+  const dateWordString = dateBeforeYesterdayData?.dateWordString
+
+  return {
+    time,
+    dateWordString
+  }
+}
+
+const getTimeBeforeYesterdayDateTime = (dateString, time) => {
+  const minusTwo = -2
+  const timeParts = time.split(':')
+  const hour = timeParts[0]
+  const minute = timeParts[1].slice(0, minusTwo)
+  const period = timeParts[1].slice(minusTwo)
+  const dateTimeString = `${dateString} ${hour}:${minute.padStart(2, '0')} ${period.toLowerCase()}`
+  const dateTime = moment(dateTimeString, 'YYYY-MM-DD hh:mm a')
+  return dateTime
+}
+
+const validateTimeBeforeYesterdayPayload = (dateString, time) => {
+  const errorSummary = getErrorSummary()
+  const formattedTime = formatTime(time)
+  if (!time) {
+    errorSummary.errorList.push({
+      text: 'Enter a time',
+      href: '#time'
+    })
+  } else if (formattedTime === 'INVALID_TIME_FORMAT') {
+    errorSummary.errorList.push({
+      text: 'Enter a real time, for example 11:35am or 2:35pm',
+      href: '#time'
+    })
+  } else if (formattedTime !== 'INVALID_TIME_FORMAT' && !getTimeBeforeYesterdayDateTime(dateString, formattedTime).isBefore(moment())) {
+    errorSummary.errorList.push({
+      text: 'Enter a time in the past',
+      href: '#time'
+    })
+  } else {
+    // do nothing
+  }
+  return errorSummary
+}
+
+const getTimeBeforeYesterdayHandlers = ({ redirect, serviceDetails }) => ({
+  get: async (request, h) => {
+    return h.view(constants.views.RARS_TIME_BEFORE_YESTERDAY, {
+      ...getTimeBeforeYesterdayContext(request),
+      ...serviceDetails
+    })
+  },
+  post: async (request, h) => {
+    const { time } = request.payload
+    const { dateString } = request.yar.get(constants.redisKeys.RARS_DATE_BEFORE_YESTERDAY)
+    const errorSummary = validateTimeBeforeYesterdayPayload(dateString, time)
+
+    if (errorSummary.errorList.length > 0) {
+      const { dateWordString } = request.yar.get(constants.redisKeys.RARS_DATE_BEFORE_YESTERDAY)
+      return h.view(constants.views.RARS_TIME_BEFORE_YESTERDAY, {
+        errorSummary,
+        dateWordString,
+        ...request.payload,
+        ...serviceDetails
+      })
+    }
+
+    const formattedTime = formatTime(time)
+    const dateTime = getTimeBeforeYesterdayDateTime(dateString, formattedTime)
+    request.yar.set(constants.redisKeys.RARS_TIME_BEFORE_YESTERDAY, formattedTime)
+    request.yar.set(constants.redisKeys.RARS_WHEN, dateTime.toISOString())
+    const nextRoute = redirect.whenWorse || redirect.smellStrength || redirect.effectOnDailyLife
+    return h.redirect(nextRoute)
+  }
+})
+
+const createTimeBeforeYesterdayRoutes = ({ problem, route, redirect }) => {
+  const serviceDetails = getServiceDetails(problem)
+  const handlers = getTimeBeforeYesterdayHandlers({ redirect, serviceDetails })
+
+  return [
+    { method: 'GET', path: route, handler: handlers.get },
+    { method: 'POST', path: route, handler: handlers.post }
+  ]
+}
+
+export default createTimeBeforeYesterdayRoutes

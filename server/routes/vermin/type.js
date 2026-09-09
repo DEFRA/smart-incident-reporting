@@ -12,7 +12,8 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => h.view(constants.views.VERMIN_TYPE, {
-    ...getContext(request)
+    ...getContext(request),
+    ...getServiceDetails('vermin')
   }),
   post: async (request, h) => {
     // get payload
@@ -36,7 +37,8 @@ const handlers = {
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.VERMIN_TYPE, {
         errorSummary,
-        ...getContext(request)
+        ...getContext(request),
+        ...getServiceDetails('vermin')
       })
     }
     return h.redirect(constants.routes.VERMIN_SOURCE)
