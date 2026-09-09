@@ -38,7 +38,9 @@ const RARS_DATE_BEFORE_YESTERDAY = 'rars/date-before-yesterday'
 const RARS_TIME_BEFORE_YESTERDAY = 'rars/time-before-yesterday'
 const RARS_WHEN_WORSE = 'rars/when-worse'
 const RARS_DAYS_WHEN_WORSE = 'rars/days-when-worse'
-const RARS_EFFECT_ON_DAILY_LIFE = 'vermin/effect-on-daily-life'
+const RARS_EFFECT_ON_DAILY_LIFE = 'rars/effect-on-daily-life'
+const RARS_IMAGES_OR_VIDEO = 'rars/images-or-video'
+const RARS_CONTACT_DETAILS = 'rars/contact-details'
 
 const views = {
   RARS_SOURCE,
@@ -65,7 +67,9 @@ const views = {
   RARS_TIME_BEFORE_YESTERDAY,
   RARS_WHEN_WORSE,
   RARS_DAYS_WHEN_WORSE,
-  RARS_EFFECT_ON_DAILY_LIFE
+  RARS_EFFECT_ON_DAILY_LIFE,
+  RARS_IMAGES_OR_VIDEO,
+  RARS_CONTACT_DETAILS
 }
 
 const redisKeys = {
@@ -100,8 +104,6 @@ for (const [key, value] of Object.entries(views)) {
     routes[routeKey] = `/${route}`
   }
 }
-
-routes.RARS_EFFECT_ON_DAILY_LIFE = `/${RARS_EFFECT_ON_DAILY_LIFE.replace('rars', VERMIN)}`
 
 export default {
   views,

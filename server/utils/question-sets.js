@@ -1489,6 +1489,43 @@ const questionSets = {
             text: 'No'
           }
         }
+      },
+      RARS_IMAGES_OR_VIDEO: {
+        questionId: 2800,
+        key: constants.redisKeys.RARS_IMAGES_OR_VIDEO,
+        text: IMAGES_OR_VIDEO_QUESTION,
+        answers: {
+          yes: {
+            answerId: 2801,
+            text: 'Yes',
+            shortText: 'Yes'
+          },
+          no: {
+            answerId: 2802,
+            text: 'No',
+            shortText: 'No'
+          },
+          yesPhotos: {
+            answerId: 2803,
+            text: YES_YOU_HAVE_PHOTOS,
+            shortText: 'Yes - photos'
+          },
+          noPhotos: {
+            answerId: 2804,
+            text: NO_YOU_DO_NOT_HAVE_PHOTOS,
+            shortText: 'No - photos'
+          },
+          yesVideo: {
+            answerId: 2805,
+            text: YES_YOU_HAVE_VIDEO,
+            shortText: 'Yes - video'
+          },
+          noVideo: {
+            answerId: 2806,
+            text: NO_YOU_DO_NOT_HAVE_VIDEO,
+            shortText: 'No - video'
+          }
+        }
       }
     }
   }
