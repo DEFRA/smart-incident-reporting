@@ -32,6 +32,8 @@ const RARS_LOCATION_DESCRIPTION_OPTIONAL = 'rars/location-description-optional'
 const RARS_DESCRIPTION = 'rars/description'
 const RARS_RECURRING = 'rars/recurring'
 const RARS_WHEN = 'rars/when'
+const RARS_EFFECT_ON_HEALTH = 'rars/effect-on-health'
+const RARS_MEDICAL_HELP = 'rars/medical-help'
 
 const views = {
   RARS_SOURCE,
@@ -51,7 +53,9 @@ const views = {
   RARS_LOCATION_DESCRIPTION_OPTIONAL,
   RARS_DESCRIPTION,
   RARS_RECURRING,
-  RARS_WHEN
+  RARS_WHEN,
+  RARS_EFFECT_ON_HEALTH,
+  RARS_MEDICAL_HELP
 }
 
 const redisKeys = {

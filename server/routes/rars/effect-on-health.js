@@ -1,32 +1,9 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
-import { getServiceDetails } from '../../utils/helpers.js'
+import { getServiceDetails, getErrorSummary, titleHelper } from '../../utils/helpers.js'
 
-// const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_EFFECT_ON_HEALTH
-
-// const baseAnswer = { 
-//   questionId: question.questionId,
-//   questionAsked: question.text,
-//   questionResponse: true
-// }
-
-// const createEffectOnHealthRoutes = ({ problem, route, redirect }) => {
-//   const serviceDetails = getServiceDetails(problem)
-  
-//   const handlers = {
-//     get: async (_request, h) => {
-//       return h.view(constants.views.RARS_EFFECT_ON_HEALTH, { 
-//         question,
-//         problem,
-//         ...serviceDetails
-//       })
-//   },
-
-//import constants from '../../utils/constants.js'
-import { getErrorSummary } from '../../utils/helpers.js'
-import { questionSets } from '../../utils/question-sets.js'
-
-const question = questionSets.SMELL.questions.RARS_EFFECT_ON_HEALTH
+const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_EFFECT_ON_HEALTH
+const verminQuestion = 'Do you know the site or business responsible for the {vermin}?'
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -34,48 +11,57 @@ const baseAnswer = {
   questionResponse: true
 }
 
-const handlers = {
-  get: async (_request, h) => h.view(constants.views.RARS_EFFECT_ON_HEALTH, {
-    ...getContext()
-  }),
-  post: async (request, h) => {
-    // get payload
-    let { answerId, somethingElseDetails } = request.payload
+const createEffectOnHealthroutes = ({ problem, route, redirect }) => {
+  const serviceDetails = getServiceDetails(problem)
 
-    // validate payload for errors
-    const errorSummary = validatePayload(answerId)
-    if (errorSummary.errorList.length > 0) {
-      request.yar.set(question.key, [])
-      return h.view(constants.views.RARS_EFFECT_ON_HEALTH, {
-        errorSummary,
-        ...getContext()
+  const handlers = { 
+    get: async (_request, h) => {
+      const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
+      return h.view(constants.views.RARS.EFFECT_ON_HEALTH, {
+        question,
+        problem,
+        title,
+        pageTitle,
+       ...serviceDetails
       })
-    }
+    },
+    post: async (request, h) => {
+      let { answerId, somethingElseDetails } = request.payload
+      const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
+      const errorSummary = validatePayload(answerId, request, problem)
+      if (errorSummary.errorlist.length > 0) {
+        request.yar.set(question.key, [])
+        return h.view(constants.views.RARS.EFFECT_ON_HEALTH, {
+          question,
+          problem,
+          title,
+          pageTitle,
+          errorSummary,
+          ...serviceDetails
+        })
+      }
 
-    // Convert answer to array if only a single string answer
-    if (!Array.isArray(answerId)) {
-      answerId = [answerId]
-    }
+      // Convert the answer to an array object is only a single string
+      if (!Array.isArray(answerId)) {
+        answerId = [answerId]
+      }
 
-    // set answer in session
-    request.yar.set(constants.redisKeys.RARS_EFFECT_ON_HEALTH, buildAnswers(answerId, somethingElseDetails))
+      // set the answer in the session
+      request.yar.set(constants.redisKeys.RARS_EFFECT_ON_HEALTH, buildAnswer(answerId, somethingElseDetails))
+      return h.redirect(redirect. medicalHelp)
 
-    const currentAnswer = request.yar.get(constants.redisKeys.RARS_EFFECT_ON_HEALTH)
-    if (currentAnswer.length === 1 && currentAnswer[0].answerId === question.answers.noneOfthese.answerId) {
-      return h.redirect(constants.routes.RARS_IMAGES_OR_VIDEO)
-    } else {
-      return h.redirect(constants.routes.RARS_MEDICAL_HELP)
-    }
+
   }
 }
 
-const getContext = () => {
-  return {
-    question
-  }
+return [
+  { method: 'GET', path: route, handler: handlers.get },
+  { method: 'POST', path: route, handler: handlers.post }
+]
 }
 
-const buildAnswers = (answerId, somethingElseDetails) => {
+
+const buildAnswer = (answerId, somethingElseDetails) => {
   const answers = []
   let somethingElse = false
 
@@ -88,6 +74,7 @@ const buildAnswers = (answerId, somethingElseDetails) => {
       answerId: Number(item)
     })
   })
+
   if (somethingElse && somethingElseDetails) {
     answers.push({
       ...baseAnswer,
@@ -99,26 +86,19 @@ const buildAnswers = (answerId, somethingElseDetails) => {
   return answers
 }
 
-const validatePayload = answerId => {
+  const validatePayload = (answerId, request, problem) => {
   const errorSummary = getErrorSummary()
   if (!answerId || answerId.length === 0) {
+    const selectedProblem = problem === 'vermin'
+      ? (request?.yar?.get(constants.redisKeys.VERMIN_TYPE_SELECTED) || 'vermin')
+      : problem
+
     errorSummary.errorList.push({
-      text: 'Select any health conditions caused by the {problem}, or \'none of these\'',
+      text: `Select any health conditions caused by the ${selectedProblem}, or 'none of these'`,
       href: '#answerId'
     })
   }
   return errorSummary
 }
 
-export default [
-  {
-    method: 'GET',
-    path: constants.routes.RARS_EFFECT_ON_HEALTH,
-    handler: handlers.get
-  },
-  {
-    method: 'POST',
-    path: constants.routes.RARS_EFFECT_ON_HEALTH,
-    handler: handlers.post
-  }
-]
+export default createEffectOnHealthroutes
