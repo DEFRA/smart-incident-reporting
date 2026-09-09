@@ -166,6 +166,16 @@ describe('RARS Time Before Yesterday Routes', () => {
         expect(response.payload).toContain('There is a problem')
         expect(response.payload).toContain('Enter a real time')
       })
+
+      it('Should error when the time is in the future', async () => {
+        const futureTime = '9:30am'
+        const sessionData = {
+          'rars/date-before-yesterday': { dateString, dateWordString }
+        }
+        const response = await submitPostRequest({ url, payload: { time: futureTime } }, 200, sessionData)
+        expect(response.payload).toContain('There is a problem')
+        expect(response.payload).toContain('Enter a time in the past')
+      })
     })
   })
 })
