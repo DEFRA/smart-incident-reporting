@@ -1357,6 +1357,21 @@ const questionSets = {
           }
         }
       },
+      RARS_WHEN_WORSE: {
+        questionId: 1360,
+        key: constants.redisKeys.RARS_WHEN_WORSE,
+        text: 'Do you notice the {problem} is worse on certain days or a particular time?',
+        answers: {
+          yes: {
+            answerId: 1361,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 1362,
+            text: 'No'
+          }
+        }
+      },
       RARS_RECURRING: {
         questionId: 1900,
         key: constants.redisKeys.RARS_RECURRING,
