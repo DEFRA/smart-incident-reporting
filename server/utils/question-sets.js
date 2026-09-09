@@ -1350,7 +1350,7 @@ const questionSets = {
       RARS_DESCRIPTION: {
         questionId: 1350,
         key: constants.redisKeys.RARS_DESCRIPTION,
-        text: '{problem} description',
+        text: 'How would you describe the {problem}?',
         answers: {
           details: {
             answerId: 1351
