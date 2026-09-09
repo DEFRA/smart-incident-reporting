@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
-const question = questionSets.REPORT_REGULATED_SITE.questions.SMELL_SMELL_STRENGTH
+const question = questionSets.REPORT_REGULATED_SITE.questions.SMELL_CLOTHING_AND_HAIR
 const serviceDetails = getServiceDetails('smell')
 
 const baseAnswer = {
@@ -13,7 +13,7 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => {
-    return h.view(constants.views.SMELL_SMELL_STRENGTH, {
+    return h.view(constants.views.SMELL_CLOTHING_AND_HAIR, {
       ...getContext(request),
       ...serviceDetails
     })
@@ -26,7 +26,7 @@ const handlers = {
     // validate payload for errors
     const errorSummary = validatePayload(answerId, current)
     if (errorSummary.errorList.length > 0) {
-      return h.view(constants.views.SMELL_SMELL_STRENGTH, {
+      return h.view(constants.views.SMELL_CLOTHING_AND_HAIR, {
         ...getContext(request),
         errorSummary,
         ...serviceDetails
@@ -39,7 +39,7 @@ const handlers = {
     // set answer in session
     request.yar.set(question.key, buildAnswers(answerId))
 
-    return h.redirect(constants.routes.SMELL_INDOORS)
+    return h.redirect(constants.routes.RARS_EFFECT_ON_DAILY_LIFE)
   }
 }
 
@@ -61,7 +61,7 @@ const validatePayload = (answerId, current) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: `Select how strong the smell ${current ? 'is' : 'was'}`,
+      text: `Select 'yes' if the smell ${current ? 'sticks' : 'stuck'} to your clothing or hair`,
       href: '#answerId'
     })
   }
@@ -78,12 +78,12 @@ const buildAnswers = answerId => {
 export default [
   {
     method: 'GET',
-    path: constants.routes.SMELL_SMELL_STRENGTH,
+    path: constants.routes.SMELL_CLOTHING_AND_HAIR,
     handler: handlers.get
   },
   {
     method: 'POST',
-    path: constants.routes.SMELL_SMELL_STRENGTH,
+    path: constants.routes.SMELL_CLOTHING_AND_HAIR,
     handler: handlers.post
   }
 ]
