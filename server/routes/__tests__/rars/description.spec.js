@@ -89,8 +89,13 @@ describe('RARS Description Routes', () => {
       it('Sad: errors on no description provided', async () => {
         const options = { url, payload: {} }
         const response = await submitPostRequest(options, constants.statusCodes.OK)
+        const html = parse(response.payload)
+        const errorMessages = html.querySelectorAll('.govuk-error-message')
+
         expect(response.payload).toContain('There is a problem')
         expect(response.payload).toContain('Enter a description')
+        expect(errorMessages.length).toBeGreaterThan(0)
+        expect(errorMessages[0].textContent.trim()).toContain('Enter a description')
       })
     })
   })
