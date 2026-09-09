@@ -103,8 +103,6 @@ for (const [key, value] of Object.entries(views)) {
   }
 }
 
-routes.RARS_EFFECT_ON_DAILY_LIFE = `/${RARS_EFFECT_ON_DAILY_LIFE.replace('rars', VERMIN)}`
-
 export default {
   views,
   redisKeys,
