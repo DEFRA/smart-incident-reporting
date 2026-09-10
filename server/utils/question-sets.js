@@ -1453,7 +1453,7 @@ const questionSets = {
             text: 'Mental health issues, for example stress'
           }
         }
-      },
+      }
     }
   }
 }

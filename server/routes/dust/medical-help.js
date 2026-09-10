@@ -1,5 +1,5 @@
 import constants from '../../utils/constants.js'
-import createMedicalHealthRoutes from '../../rars/medical-help.js'
+import createMedicalHealthRoutes from '../rars/medical-help.js'
 
 export default createMedicalHealthRoutes({
   problem: 'dust',

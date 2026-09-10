@@ -3,8 +3,8 @@ import createEffectOnHealthRoutes from '../../routes/rars/effect-on-health.js'
 
 export default createEffectOnHealthRoutes({
   problem: 'smell',
-  route: constants.routes.DUST_EFFECT_ON_HEALTH,
-  redirect: { 
+  route: constants.routes.SMELL_EFFECT_ON_HEALTH,
+  redirect: {
     medicalHelp:
     constants.routes.SMELL_MEDICAL_HELP
   }

@@ -9,5 +9,3 @@ export default createSourceDetailsRoutes({
     contactEnvironmentAgency: constants.routes.NOISE_CONTACT_ENVIRONMENT_AGENCY
   }
 })
-
-

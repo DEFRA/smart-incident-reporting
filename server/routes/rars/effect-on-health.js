@@ -14,15 +14,15 @@ const baseAnswer = {
 const createEffectOnHealthroutes = ({ problem, route, redirect }) => {
   const serviceDetails = getServiceDetails(problem)
 
-  const handlers = { 
+  const handlers = {
     get: async (_request, h) => {
-      const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
+      const { title, pageTitle } = titleHelper(_request, question.text, verminQuestion, problem)
       return h.view(constants.views.RARS.EFFECT_ON_HEALTH, {
         question,
         problem,
         title,
         pageTitle,
-       ...serviceDetails
+        ...serviceDetails
       })
     },
     post: async (request, h) => {
@@ -48,18 +48,15 @@ const createEffectOnHealthroutes = ({ problem, route, redirect }) => {
 
       // set the answer in the session
       request.yar.set(constants.redisKeys.RARS_EFFECT_ON_HEALTH, buildAnswer(answerId, somethingElseDetails))
-      return h.redirect(redirect. medicalHelp)
-
-
+      return h.redirect(redirect.medicalHelp)
+    }
   }
-}
 
-return [
-  { method: 'GET', path: route, handler: handlers.get },
-  { method: 'POST', path: route, handler: handlers.post }
-]
+  return [
+    { method: 'GET', path: route, handler: handlers.get },
+    { method: 'POST', path: route, handler: handlers.post }
+  ]
 }
-
 
 const buildAnswer = (answerId, somethingElseDetails) => {
   const answers = []
@@ -86,7 +83,7 @@ const buildAnswer = (answerId, somethingElseDetails) => {
   return answers
 }
 
-  const validatePayload = (answerId, request, problem) => {
+const validatePayload = (answerId, request, problem) => {
   const errorSummary = getErrorSummary()
   if (!answerId || answerId.length === 0) {
     const selectedProblem = problem === 'vermin'

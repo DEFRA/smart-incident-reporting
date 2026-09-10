@@ -3,8 +3,8 @@ import createEffectOnHealthRoutes from '../../routes/rars/effect-on-health.js'
 
 export default createEffectOnHealthRoutes({
   problem: 'vermin',
-  route: constants.routes.DUST_EFFECT_ON_HEALTH,
-  redirect: { 
+  route: constants.routes.VERMIN_EFFECT_ON_HEALTH,
+  redirect: {
     medicalHelp:
     constants.routes.VERMIN_MEDICAL_HELP
   }
