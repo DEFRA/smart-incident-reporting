@@ -32,13 +32,14 @@ const RARS_LOCATION_DESCRIPTION_OPTIONAL = 'rars/location-description-optional'
 const RARS_DESCRIPTION = 'rars/description'
 const RARS_RECURRING = 'rars/recurring'
 const RARS_WHEN = 'rars/when'
+const RARS_EFFECT_ON_DAILY_LIFE = 'rars/effect-on-daily-life'
+const RARS_EFFECT_ON_HEALTH = 'rars/effect-on-health'
 const RARS_EARLIER_TODAY = 'rars/earlier-today'
 const RARS_YESTERDAY = 'rars/yesterday'
 const RARS_DATE_BEFORE_YESTERDAY = 'rars/date-before-yesterday'
 const RARS_TIME_BEFORE_YESTERDAY = 'rars/time-before-yesterday'
 const RARS_WHEN_WORSE = 'rars/when-worse'
 const RARS_DAYS_WHEN_WORSE = 'rars/days-when-worse'
-const RARS_EFFECT_ON_DAILY_LIFE = 'rars/effect-on-daily-life'
 const RARS_IMAGES_OR_VIDEO = 'rars/images-or-video'
 const RARS_CONTACT_DETAILS = 'rars/contact-details'
 
@@ -61,13 +62,14 @@ const views = {
   RARS_DESCRIPTION,
   RARS_RECURRING,
   RARS_WHEN,
+  RARS_EFFECT_ON_DAILY_LIFE,
+  RARS_EFFECT_ON_HEALTH,
   RARS_EARLIER_TODAY,
   RARS_YESTERDAY,
   RARS_DATE_BEFORE_YESTERDAY,
   RARS_TIME_BEFORE_YESTERDAY,
   RARS_WHEN_WORSE,
   RARS_DAYS_WHEN_WORSE,
-  RARS_EFFECT_ON_DAILY_LIFE,
   RARS_IMAGES_OR_VIDEO,
   RARS_CONTACT_DETAILS
 }

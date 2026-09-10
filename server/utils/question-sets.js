@@ -3,6 +3,7 @@ import constants from './constants.js'
 // Common phrases
 const YOU_DO_NOT_KNOW = 'You do not know'
 const SOMETHING_ELSE = 'Something else'
+const NONE_OF_THESE = 'None of these'
 const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
 const NOT_GIVEN = 'Not given'
 const USE_CURRENT_LOCATION = 'Use your current location'
@@ -1368,6 +1369,53 @@ const questionSets = {
           },
           somethingElseDetails: {
             answerId: 1708
+          }
+        }
+      },
+      RARS_EFFECT_ON_DAILY_LIFE: {
+        questionId: 2400,
+        key: constants.redisKeys.RARS_EFFECT_ON_DAILY_LIFE,
+        text: 'Did you do any of the following because of the {problem}, on this occasion?',
+        answers: {
+          leave: {
+            answerId: 2401,
+            text: 'Leave or avoid the area'
+          },
+          windows: {
+            answerId: 2402,
+            text: 'Keep windows or doors closed'
+          },
+          goingOutside: {
+            answerId: 2403,
+            text: 'Avoid using parts of your property, for example your garden'
+          },
+          goingElsewhere: {
+            answerId: 2404,
+            text: 'Put off doing something, for example going to the shops'
+          },
+          cancelEvent: {
+            answerId: 2405,
+            text: 'Cancel, or not attend an event'
+          },
+          somethingElse: {
+            answerId: 2406,
+            text: SOMETHING_ELSE
+          },
+          noImpact: {
+            answerId: 2407,
+            text: NONE_OF_THESE
+          },
+          putOffDetails: {
+            answerId: 2408,
+            text: 'Give details about what you put off doing'
+          },
+          eventDetails: {
+            answerId: 2409,
+            text: 'Give details about the event'
+          },
+          somethingElseDetails: {
+            answerId: 2410,
+            text: 'Give details about what happened'
           }
         }
       },
