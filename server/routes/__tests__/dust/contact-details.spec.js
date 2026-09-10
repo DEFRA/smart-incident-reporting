@@ -15,7 +15,10 @@ describe('dust/contact-details', () => {
     expect(createContactDetailsRoutes).toHaveBeenCalledTimes(1)
     expect(createContactDetailsRoutes).toHaveBeenCalledWith({
       problem: 'dust',
-      route: constants.routes.DUST_CONTACT_DETAILS
+      route: constants.routes.DUST_CONTACT_DETAILS,
+      redirect: {
+        otherInformation: constants.routes.DUST_OTHER_INFORMATION
+      }
     })
   })
 })

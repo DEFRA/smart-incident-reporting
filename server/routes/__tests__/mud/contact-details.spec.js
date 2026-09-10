@@ -15,7 +15,10 @@ describe('mud/contact-details', () => {
     expect(createContactDetailsRoutes).toHaveBeenCalledTimes(1)
     expect(createContactDetailsRoutes).toHaveBeenCalledWith({
       problem: 'mud',
-      route: constants.routes.MUD_CONTACT_DETAILS
+      route: constants.routes.MUD_CONTACT_DETAILS,
+      redirect: {
+        otherInformation: constants.routes.MUD_OTHER_INFORMATION
+      }
     })
   })
 })
