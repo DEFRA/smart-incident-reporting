@@ -17,6 +17,44 @@ const YES_YOU_HAVE_VIDEO = 'Yes, you have video'
 const NO_YOU_DO_NOT_HAVE_VIDEO = 'No, you do not have video'
 const TOWN_OR_CITY = 'Town or city'
 
+const createImagesOrVideoQuestion = (key) => ({
+  questionId: 2800,
+  key,
+  text: IMAGES_OR_VIDEO_QUESTION,
+  answers: {
+    yes: {
+      answerId: 2801,
+      text: 'Yes',
+      shortText: 'Yes'
+    },
+    no: {
+      answerId: 2802,
+      text: 'No',
+      shortText: 'No'
+    },
+    yesPhotos: {
+      answerId: 2803,
+      text: YES_YOU_HAVE_PHOTOS,
+      shortText: 'Yes - photos'
+    },
+    noPhotos: {
+      answerId: 2804,
+      text: NO_YOU_DO_NOT_HAVE_PHOTOS,
+      shortText: 'No - photos'
+    },
+    yesVideo: {
+      answerId: 2805,
+      text: YES_YOU_HAVE_VIDEO,
+      shortText: 'Yes - video'
+    },
+    noVideo: {
+      answerId: 2806,
+      text: NO_YOU_DO_NOT_HAVE_VIDEO,
+      shortText: 'No - video'
+    }
+  }
+})
+
 const questionSets = {
   WATER_POLLUTION: {
     questionSetId: 100,
@@ -208,43 +246,7 @@ const questionSets = {
           }
         }
       },
-      WATER_POLLUTION_IMAGES_OR_VIDEO: {
-        questionId: 2800,
-        key: constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO,
-        text: IMAGES_OR_VIDEO_QUESTION,
-        answers: {
-          yes: {
-            answerId: 2801,
-            text: 'Yes',
-            shortText: 'Yes'
-          },
-          no: {
-            answerId: 2802,
-            text: 'No',
-            shortText: 'No'
-          },
-          yesPhotos: {
-            answerId: 2803,
-            text: YES_YOU_HAVE_PHOTOS,
-            shortText: 'Yes - photos'
-          },
-          noPhotos: {
-            answerId: 2804,
-            text: NO_YOU_DO_NOT_HAVE_PHOTOS,
-            shortText: 'No - photos'
-          },
-          yesVideo: {
-            answerId: 2805,
-            text: YES_YOU_HAVE_VIDEO,
-            shortText: 'Yes - video'
-          },
-          noVideo: {
-            answerId: 2806,
-            text: NO_YOU_DO_NOT_HAVE_VIDEO,
-            shortText: 'No - video'
-          }
-        }
-      },
+      WATER_POLLUTION_IMAGES_OR_VIDEO: createImagesOrVideoQuestion(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO),
       WATER_POLLUTION_LOCATION_OPTION: {
         questionId: 2600,
         key: constants.redisKeys.WATER_POLLUTION_LOCATION_OPTION,
@@ -719,37 +721,7 @@ const questionSets = {
           }
         }
       },
-      ILLEGAL_FISHING_IMAGES_OR_VIDEO: {
-        questionId: 2800,
-        key: constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO,
-        text: IMAGES_OR_VIDEO_QUESTION,
-        answers: {
-          yes: {
-            answerId: 2801,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 2802,
-            text: 'No'
-          },
-          yesPhotos: {
-            answerId: 2803,
-            text: YES_YOU_HAVE_PHOTOS
-          },
-          noPhotos: {
-            answerId: 2804,
-            text: NO_YOU_DO_NOT_HAVE_PHOTOS
-          },
-          yesVideo: {
-            answerId: 2805,
-            text: YES_YOU_HAVE_VIDEO
-          },
-          noVideo: {
-            answerId: 2806,
-            text: NO_YOU_DO_NOT_HAVE_VIDEO
-          }
-        }
-      },
+      ILLEGAL_FISHING_IMAGES_OR_VIDEO: createImagesOrVideoQuestion(constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO),
       ILLEGAL_FISHING_ANGLING_TRUST: {
         questionId: 4280,
         key: constants.redisKeys.ILLEGAL_FISHING_ANGLING_TRUST,
@@ -1032,37 +1004,7 @@ const questionSets = {
           }
         }
       },
-      BLOCKAGE_IMAGES_OR_VIDEO: {
-        questionId: 2800,
-        key: constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO,
-        text: IMAGES_OR_VIDEO_QUESTION,
-        answers: {
-          yes: {
-            answerId: 2801,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 2802,
-            text: 'No'
-          },
-          yesPhotos: {
-            answerId: 2803,
-            text: YES_YOU_HAVE_PHOTOS
-          },
-          noPhotos: {
-            answerId: 2804,
-            text: NO_YOU_DO_NOT_HAVE_PHOTOS
-          },
-          yesVideo: {
-            answerId: 2805,
-            text: YES_YOU_HAVE_VIDEO
-          },
-          noVideo: {
-            answerId: 2806,
-            text: NO_YOU_DO_NOT_HAVE_VIDEO
-          }
-        }
-      }
+      BLOCKAGE_IMAGES_OR_VIDEO: createImagesOrVideoQuestion(constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO)
     }
   },
   CREATE_A_REPORT: {
@@ -1490,43 +1432,7 @@ const questionSets = {
           }
         }
       },
-      RARS_IMAGES_OR_VIDEO: {
-        questionId: 2800,
-        key: constants.redisKeys.RARS_IMAGES_OR_VIDEO,
-        text: IMAGES_OR_VIDEO_QUESTION,
-        answers: {
-          yes: {
-            answerId: 2801,
-            text: 'Yes',
-            shortText: 'Yes'
-          },
-          no: {
-            answerId: 2802,
-            text: 'No',
-            shortText: 'No'
-          },
-          yesPhotos: {
-            answerId: 2803,
-            text: YES_YOU_HAVE_PHOTOS,
-            shortText: 'Yes - photos'
-          },
-          noPhotos: {
-            answerId: 2804,
-            text: NO_YOU_DO_NOT_HAVE_PHOTOS,
-            shortText: 'No - photos'
-          },
-          yesVideo: {
-            answerId: 2805,
-            text: YES_YOU_HAVE_VIDEO,
-            shortText: 'Yes - video'
-          },
-          noVideo: {
-            answerId: 2806,
-            text: NO_YOU_DO_NOT_HAVE_VIDEO,
-            shortText: 'No - video'
-          }
-        }
-      }
+      RARS_IMAGES_OR_VIDEO: createImagesOrVideoQuestion(constants.redisKeys.RARS_IMAGES_OR_VIDEO)
     }
   }
 }
