@@ -92,9 +92,6 @@ const journeyExclusions = {
 }
 
 for (const [key, value] of Object.entries(views)) {
-  if (key === 'RARS_EFFECT_ON_DAILY_LIFE') {
-    continue
-  }
   for (const journey of rarsJourneys) {
     if (journeyExclusions[journey]?.includes(key)) {
       continue
