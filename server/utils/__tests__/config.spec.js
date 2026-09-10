@@ -42,17 +42,18 @@ describe('utils/config', () => {
       })
     })
   })
-  it('Should throw error for invalid deploymentEnv value', () => {
+  it('Should set deploymentEnv to null for invalid deploymentEnv value', () => {
     jest.isolateModules(() => {
       process.env.DEPLOYMENT_ENV = 'invalid-env'
-      expect(() => require('../config.js')).toThrow('The server config is invalid. "deploymentEnv" must be one of [development, test, training]')
+      const config = require('../config.js')
+      expect(config.default.deploymentEnv).toBeNull()
     })
   })
-  it('Should accept undefined deploymentEnv when not set', () => {
+  it('Should set deploymentEnv to null when not set', () => {
     jest.isolateModules(() => {
       delete process.env.DEPLOYMENT_ENV
       const config = require('../config.js')
-      expect(config.default.deploymentEnv).toBeUndefined()
+      expect(config.default.deploymentEnv).toBeNull()
     })
   })
 })

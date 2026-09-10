@@ -64,11 +64,16 @@ describe('Deployment Environment Banner', () => {
       { deployment: 'pre-production' },
       { deployment: 'production' },
       { deployment: 'unknown' }
-    ])('should throw error for invalid deployment environment $deployment', ({ deployment }) => {
-      jest.isolateModules(() => {
-        process.env.DEPLOYMENT_ENV = deployment
-        expect(() => require('../../utils/config.js')).toThrow('The server config is invalid. "deploymentEnv" must be one of [development, test, training]')
-      })
+    ])('should not display the non-live-service-banner class for invalid deployment environment $deployment', async ({ deployment }) => {
+      process.env.DEPLOYMENT_ENV = deployment
+      jest.resetModules()
+      const { createServer, init } = await import('../../index.js')
+
+      server.current = await createServer({ ...serverOptions, port: 0 })
+      await init(server.current)
+
+      const response = await server.current.inject({ method: 'GET', url })
+      expect(response.payload).not.toContain('non-live-service-banner')
     })
   })
 })

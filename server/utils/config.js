@@ -7,6 +7,9 @@ const defaultRedisPort = 6379
 const getBoolean = booleanString =>
   String(booleanString).toLowerCase() === 'true'
 
+const getDeploymentEnv = deploymentEnv =>
+  deploymentEnvs.includes(deploymentEnv) ? deploymentEnv : null
+
 // Define config schema
 const schema = Joi.object().keys({
   env: Joi
@@ -15,7 +18,8 @@ const schema = Joi.object().keys({
     .default(envs[0]),
   deploymentEnv: Joi
     .string()
-    .valid(...deploymentEnvs),
+    .valid(...deploymentEnvs)
+    .allow(null),
   servicePort: Joi.number().default(defaultPort),
   redisHost: Joi.string().default('localhost'),
   redisPort: Joi.number().default(defaultRedisPort),
@@ -43,7 +47,7 @@ const captchaEnabled = getBoolean(process.env.CAPTCHA_ENABLED)
 // Build config
 const config = {
   env: process.env.NODE_ENV,
-  deploymentEnv: process.env.DEPLOYMENT_ENV,
+  deploymentEnv: getDeploymentEnv(process.env.DEPLOYMENT_ENV),
   servicePort: process.env.SERVICE_PORT,
   logLevel: process.env.LOG_LEVEL,
   redisHost: process.env.REDIS_HOST,
