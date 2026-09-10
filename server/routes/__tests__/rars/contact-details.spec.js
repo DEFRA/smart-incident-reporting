@@ -46,15 +46,15 @@ const problems = [
   }
 ]
 
-const sessionData = {
+const getSessionData = () => ({
   [constants.redisKeys.RARS_CONTACT_DETAILS]: {
     reporterName: 'test name',
     reporterPhoneNumber: '012345678910',
     reporterEmailAddress: 'test@test.com'
   }
-}
+})
 
-const sessionDataWithYesPhotos = {
+const getSessionDataWithYesPhotos = () => ({
   [constants.redisKeys.RARS_CONTACT_DETAILS]: {
     reporterName: 'test name',
     reporterPhoneNumber: '012345678910',
@@ -67,9 +67,9 @@ const sessionDataWithYesPhotos = {
     questionId: question.questionId,
     answerId: question.answers.noVideo.answerId
   }]
-}
+})
 
-const sessionDataWithYesVideo = {
+const getSessionDataWithYesVideo = () => ({
   [constants.redisKeys.RARS_CONTACT_DETAILS]: {
     reporterName: 'test name',
     reporterPhoneNumber: '012345678910',
@@ -82,9 +82,9 @@ const sessionDataWithYesVideo = {
     questionId: question.questionId,
     answerId: question.answers.yesVideo.answerId
   }]
-}
+})
 
-const sessionDataWithNoPhotos = {
+const getSessionDataWithNoPhotos = () => ({
   [constants.redisKeys.RARS_IMAGES_OR_VIDEO]: [{
     questionId: question.questionId,
     answerId: question.answers.noPhotos.answerId
@@ -92,7 +92,7 @@ const sessionDataWithNoPhotos = {
     questionId: question.questionId,
     answerId: question.answers.noVideo.answerId
   }]
-}
+})
 
 describe('RARS Contact Details Routes', () => {
   describe.each(problems)('$problem contact details', ({ url, redirect, header }) => {
@@ -102,26 +102,26 @@ describe('RARS Contact Details Routes', () => {
       })
 
       it('Should display pre-populated contact details from session', async () => {
-        const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+        const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, getSessionData())
         expect(response.payload).toContain('value="test name"')
         expect(response.payload).toContain('value="012345678910"')
         expect(response.payload).toContain('value="test@test.com"')
       })
 
       it('Should require email when yesPhotos was selected on images-or-video', async () => {
-        const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionDataWithYesPhotos)
+        const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, getSessionDataWithYesPhotos())
         expect(response.payload).toContain('Email address')
         expect(response.payload).not.toContain('Email address (optional)')
       })
 
       it('Should require email when yesVideo was selected on images-or-video', async () => {
-        const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionDataWithYesVideo)
+        const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, getSessionDataWithYesVideo())
         expect(response.payload).toContain('Email address')
         expect(response.payload).not.toContain('Email address (optional)')
       })
 
       it('Should not require email when no photos was selected on images-or-video', async () => {
-        const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionDataWithNoPhotos)
+        const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, getSessionDataWithNoPhotos())
         expect(response.payload).toContain('Email address (optional)')
       })
     })
@@ -136,7 +136,7 @@ describe('RARS Contact Details Routes', () => {
             email: 'test@test.com'
           }
         }
-        const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData)
+        const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, getSessionData())
         expect(response.headers.location).toEqual(redirect)
         expect(response.request.yar.get(constants.redisKeys.RARS_CONTACT_DETAILS)).toEqual({
           reporterName: 'John Smith',
@@ -154,7 +154,7 @@ describe('RARS Contact Details Routes', () => {
             email: ''
           }
         }
-        const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionDataWithNoPhotos)
+        const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, getSessionDataWithNoPhotos())
         expect(response.headers.location).toEqual(redirect)
         expect(response.request.yar.get(constants.redisKeys.RARS_CONTACT_DETAILS)).toEqual({
           reporterName: 'John Smith',
@@ -171,7 +171,7 @@ describe('RARS Contact Details Routes', () => {
             phone: 'invalid-phone'
           }
         }
-        const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
+        const response = await submitPostRequest(options, constants.statusCodes.OK, getSessionData())
         expect(response.payload).toContain('There is a problem')
         expect(response.payload).toContain(phoneError)
       })
@@ -185,7 +185,7 @@ describe('RARS Contact Details Routes', () => {
             email: 'not-an-email'
           }
         }
-        const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
+        const response = await submitPostRequest(options, constants.statusCodes.OK, getSessionData())
         expect(response.payload).toContain('There is a problem')
         expect(response.payload).toContain(emailError)
       })
@@ -199,7 +199,7 @@ describe('RARS Contact Details Routes', () => {
             email: ''
           }
         }
-        const response = await submitPostRequest(options, constants.statusCodes.OK, sessionDataWithYesPhotos)
+        const response = await submitPostRequest(options, constants.statusCodes.OK, getSessionDataWithYesPhotos())
         expect(response.payload).toContain('There is a problem')
         expect(response.payload).toContain(emailRequiredError)
       })
@@ -213,7 +213,7 @@ describe('RARS Contact Details Routes', () => {
             email: ''
           }
         }
-        const response = await submitPostRequest(options, constants.statusCodes.OK, sessionDataWithYesVideo)
+        const response = await submitPostRequest(options, constants.statusCodes.OK, getSessionDataWithYesVideo())
         expect(response.payload).toContain('There is a problem')
         expect(response.payload).toContain(emailRequiredError)
       })
