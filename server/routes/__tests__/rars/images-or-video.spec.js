@@ -71,6 +71,16 @@ describe('RARS images-or-video routes', () => {
         expect(response.payload).toContain('There is a problem')
         expect(response.payload).toContain('Select whether you have any photos or videos to include')
       })
+
+      it('Sad: invalid checkbox selected, returns error state and builds error answers', async () => {
+        const response = await submitPostRequest({
+          url,
+          payload: { answerId: '9999' }
+        }, constants.statusCodes.OK)
+
+        expect(response.payload).toContain('There is a problem')
+        expect(response.payload).toContain('Select whether you have any photos or videos to include')
+      })
     })
   })
 
