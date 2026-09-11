@@ -60,7 +60,7 @@ const problems = [
     redirectEarlierToday: constants.routes.VERMIN_EARLIER_TODAY,
     redirectYesterday: constants.routes.VERMIN_YESTERDAY,
     redirectDateBeforeYesterday: constants.routes.VERMIN_DATE_BEFORE_YESTERDAY,
-    redirectEffectOnDailyLife: constants.routes.RARS_EFFECT_ON_DAILY_LIFE,
+    redirectEffectOnDailyLife: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE,
     expectedQuestion: 'When did you most recently notice the vermin/pests',
     expectedError: 'Select when you noticed the vermin/pests'
   }
@@ -132,7 +132,7 @@ describe('RARS When Routes', () => {
       problem: 'vermin',
       route: constants.routes.VERMIN_WHEN,
       redirect: {
-        whenWorse: constants.routes.RARS_EFFECT_ON_DAILY_LIFE,
+        whenWorse: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE,
         earlierToday: constants.routes.VERMIN_EARLIER_TODAY,
         yesterday: constants.routes.VERMIN_YESTERDAY,
         dateBeforeYesterday: constants.routes.VERMIN_DATE_BEFORE_YESTERDAY
@@ -183,7 +183,7 @@ describe('RARS When Routes', () => {
       dust: constants.routes.DUST_WHEN_WORSE,
       litter: constants.routes.LITTER_WHEN_WORSE,
       mud: constants.routes.MUD_WHEN_WORSE,
-      vermin: constants.routes.RARS_EFFECT_ON_DAILY_LIFE
+      vermin: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE
     }
     const redirectWorse = redirectWorseMap[problem]
 

@@ -19,14 +19,14 @@
       },
       items: [
         {
-          value: 1,
-          text: "Yes",
-          checked: (answer === 1)
+          value: question.answers.yes.answerId,
+          text: question.answers.yes.text,
+          checked: (answers === question.answers.yes.answerId)
         },
         {
-          value: 2,
-          text: "No",
-          checked: (answer === 2)
+          value: question.answers.no.answerId,
+          text: question.answers.no.text,
+          checked: (answers === question.answers.no.answerId)
         }
       ],
       errorMessage: findErrorMessageById(errorSummary, 'answerId')

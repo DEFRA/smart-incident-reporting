@@ -1,6 +1,6 @@
 import constants from '../../../utils/constants.js'
 
-describe('vermin/effect-on-daily-life', () => {
+describe('noise/effect-on-daily-life', () => {
   it('Should call createEffectOnDailyLifeRoutes with correct config', () => {
     const createEffectOnDailyLifeRoutes = jest.fn()
     jest.isolateModules(() => {
@@ -8,12 +8,12 @@ describe('vermin/effect-on-daily-life', () => {
         __esModule: true,
         default: createEffectOnDailyLifeRoutes
       }))
-      require('../../vermin/effect-on-daily-life.js')
+      require('../../noise/effect-on-daily-life.js')
     })
     expect(createEffectOnDailyLifeRoutes).toHaveBeenCalledTimes(1)
     expect(createEffectOnDailyLifeRoutes).toHaveBeenCalledWith({
-      problem: 'vermin',
-      route: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE
+      problem: 'noise',
+      route: constants.routes.NOISE_EFFECT_ON_DAILY_LIFE
     })
   })
 })
