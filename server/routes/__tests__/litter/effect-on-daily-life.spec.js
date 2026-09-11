@@ -2,18 +2,21 @@ import constants from '../../../utils/constants.js'
 
 describe('litter/effect-on-daily-life', () => {
   it('Should call createEffectOnDailyLifeRoutes with correct config', () => {
-    const createEffectOnDailyLifeRoutes = jest.fn()
+    const mockCreateEffectOnDailyLifeRoutes = jest.fn()
     jest.isolateModules(() => {
       jest.doMock('../../rars/effect-on-daily-life.js', () => ({
         __esModule: true,
-        default: createEffectOnDailyLifeRoutes
+        default: mockCreateEffectOnDailyLifeRoutes
       }))
       require('../../litter/effect-on-daily-life.js')
     })
-    expect(createEffectOnDailyLifeRoutes).toHaveBeenCalledTimes(1)
-    expect(createEffectOnDailyLifeRoutes).toHaveBeenCalledWith({
+    expect(mockCreateEffectOnDailyLifeRoutes).toHaveBeenCalledTimes(1)
+    expect(mockCreateEffectOnDailyLifeRoutes).toHaveBeenCalledWith({
       problem: 'litter',
-      route: constants.routes.LITTER_EFFECT_ON_DAILY_LIFE
+      route: constants.routes.LITTER_EFFECT_ON_DAILY_LIFE,
+      redirect: {
+        effectOnHealth: constants.routes.LITTER_EFFECT_ON_HEALTH
+      }
     })
   })
 })
