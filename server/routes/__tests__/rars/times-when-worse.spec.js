@@ -38,27 +38,7 @@ const journeys = [
 ]
 
 describe('RARS times-when-worse', () => {
-  describe.each(journeys)('$problem times-when-worse', ({ problem, url, next, heading, error }) => {
-    it('Should call createTimesWhenWorseRoutes with the correct config', () => {
-      const createTimesWhenWorseRoutes = jest.fn()
-      jest.isolateModules(() => {
-        jest.doMock('../../rars/times-when-worse.js', () => ({
-          __esModule: true,
-          default: createTimesWhenWorseRoutes
-        }))
-        require(`../../${problem}/times-when-worse.js`)
-      })
-
-      expect(createTimesWhenWorseRoutes).toHaveBeenCalledTimes(1)
-      expect(createTimesWhenWorseRoutes).toHaveBeenCalledWith({
-        problem,
-        route: url,
-        redirect: {
-          effectOnDailyLife: next
-        }
-      })
-    })
-
+  describe.each(journeys)('$problem times-when-worse', ({ url, next, heading, error }) => {
     describe('GET', () => {
       it('Should return success response with the journey specific question', async () => {
         const response = await submitGetRequest({ url }, heading)
@@ -88,6 +68,21 @@ describe('RARS times-when-worse', () => {
         expect(response.payload).toContain('value="Morning" checked')
         expect(response.payload).toContain('value="Night" checked')
         expect(response.payload).not.toContain('value="Afternoon" checked')
+      })
+
+      it('Should pre-check the exclusive option already stored in the session', async () => {
+        const sessionData = {
+          [question.key]: [{
+            questionId: question.questionId,
+            questionAsked: heading,
+            questionResponse: true,
+            answerId: question.answers.times.answerId,
+            otherDetails: 'No particular day'
+          }]
+        }
+        const response = await submitGetRequest({ url }, heading, constants.statusCodes.OK, sessionData)
+        expect(response.payload).toContain('value="No particular day" checked')
+        expect(response.payload).not.toContain('value="Morning" checked')
       })
     })
 
@@ -136,6 +131,13 @@ describe('RARS times-when-worse', () => {
 
         expect(response.payload).toContain(error)
       })
+    })
+  })
+
+  // vermin and smell have no times-when-worse page, so the route must not exist
+  describe.each(['/vermin/times-when-worse', '/smell/times-when-worse'])('excluded journeys', url => {
+    it(`Should not register ${url}`, async () => {
+      await submitGetRequest({ url }, undefined, constants.statusCodes.PAGE_NOT_FOUND)
     })
   })
 })

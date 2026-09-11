@@ -3,6 +3,8 @@ import constants from '../../../utils/constants.js'
 import { questionSets } from '../../../utils/question-sets.js'
 import createWhenWorseRoutes from '../../rars/when-worse.js'
 
+const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_WHEN_WORSE
+
 const problems = [
   {
     problem: 'noise',
@@ -107,6 +109,19 @@ describe('RARS When Worse Routes', () => {
         const response = await submitGetRequest({ url }, expectedQuestion)
         expect(response.payload).toContain(expectedQuestion)
       })
+
+      it('Should render the radio values from the question set', async () => {
+        const response = await submitGetRequest({ url }, expectedQuestion)
+        expect(response.payload).toContain(`value="${question.answers.yes.answerId}"`)
+        expect(response.payload).toContain(`value="${question.answers.no.answerId}"`)
+      })
+
+      it('Should pre-check the answer already stored in the session', async () => {
+        const sessionData = { [question.key]: question.answers.no.answerId }
+        const response = await submitGetRequest({ url }, expectedQuestion, constants.statusCodes.OK, sessionData)
+        expect(response.payload).toContain(`value="${question.answers.no.answerId}" checked`)
+        expect(response.payload).not.toContain(`value="${question.answers.yes.answerId}" checked`)
+      })
     })
 
     describe('POST', () => {
@@ -139,5 +154,10 @@ describe('RARS When Worse Routes', () => {
         expect(response.request.yar.get(constants.redisKeys.RARS_WHEN_WORSE)).toBe(questionSets.REPORT_REGULATED_SITE.questions.RARS_WHEN_WORSE.answers.no.answerId)
       })
     })
+  })
+
+  // smell has no when-worse page, so the route must not exist
+  it('Should not register /smell/when-worse', async () => {
+    await submitGetRequest({ url: '/smell/when-worse' }, undefined, constants.statusCodes.PAGE_NOT_FOUND)
   })
 })

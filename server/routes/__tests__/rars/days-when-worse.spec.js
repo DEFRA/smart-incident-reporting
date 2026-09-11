@@ -38,27 +38,7 @@ const journeys = [
 ]
 
 describe('RARS days-when-worse', () => {
-  describe.each(journeys)('$problem days-when-worse', ({ problem, url, next, heading, error }) => {
-    it('Should call createDaysWhenWorseRoutes with the correct config', () => {
-      const createDaysWhenWorseRoutes = jest.fn()
-      jest.isolateModules(() => {
-        jest.doMock('../../rars/days-when-worse.js', () => ({
-          __esModule: true,
-          default: createDaysWhenWorseRoutes
-        }))
-        require(`../../${problem}/days-when-worse.js`)
-      })
-
-      expect(createDaysWhenWorseRoutes).toHaveBeenCalledTimes(1)
-      expect(createDaysWhenWorseRoutes).toHaveBeenCalledWith({
-        problem,
-        route: url,
-        redirect: {
-          timesWhenWorse: next
-        }
-      })
-    })
-
+  describe.each(journeys)('$problem days-when-worse', ({ url, next, heading, error }) => {
     describe('GET', () => {
       it('Should return success response with the journey specific question', async () => {
         const response = await submitGetRequest({ url }, heading)
@@ -88,6 +68,21 @@ describe('RARS days-when-worse', () => {
         expect(response.payload).toContain('value="Monday" checked')
         expect(response.payload).toContain('value="Sunday" checked')
         expect(response.payload).not.toContain('value="Tuesday" checked')
+      })
+
+      it('Should pre-check the exclusive option already stored in the session', async () => {
+        const sessionData = {
+          [question.key]: [{
+            questionId: question.questionId,
+            questionAsked: heading,
+            questionResponse: true,
+            answerId: question.answers.days.answerId,
+            otherDetails: 'No particular day'
+          }]
+        }
+        const response = await submitGetRequest({ url }, heading, constants.statusCodes.OK, sessionData)
+        expect(response.payload).toContain('value="No particular day" checked')
+        expect(response.payload).not.toContain('value="Monday" checked')
       })
     })
 
@@ -136,6 +131,13 @@ describe('RARS days-when-worse', () => {
 
         expect(response.payload).toContain(error)
       })
+    })
+  })
+
+  // vermin and smell have no days-when-worse page, so the route must not exist
+  describe.each(['/vermin/days-when-worse', '/smell/days-when-worse'])('excluded journeys', url => {
+    it(`Should not register ${url}`, async () => {
+      await submitGetRequest({ url }, undefined, constants.statusCodes.PAGE_NOT_FOUND)
     })
   })
 })
