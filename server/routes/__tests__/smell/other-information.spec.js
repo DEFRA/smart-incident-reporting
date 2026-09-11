@@ -15,7 +15,10 @@ describe('smell/other-information', () => {
     expect(createOtherInformationRoutes).toHaveBeenCalledTimes(1)
     expect(createOtherInformationRoutes).toHaveBeenCalledWith({
       problem: 'smell',
-      route: constants.routes.SMELL_OTHER_INFORMATION
+      route: constants.routes.SMELL_OTHER_INFORMATION,
+      redirect: {
+        reportSent: constants.routes.SMELL_REPORT_SENT
+      }
     })
   })
 })

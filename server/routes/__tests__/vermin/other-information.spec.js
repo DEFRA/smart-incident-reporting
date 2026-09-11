@@ -15,7 +15,10 @@ describe('vermin/other-information', () => {
     expect(createOtherInformationRoutes).toHaveBeenCalledTimes(1)
     expect(createOtherInformationRoutes).toHaveBeenCalledWith({
       problem: 'vermin',
-      route: constants.routes.VERMIN_OTHER_INFORMATION
+      route: constants.routes.VERMIN_OTHER_INFORMATION,
+      redirect: {
+        reportSent: constants.routes.VERMIN_REPORT_SENT
+      }
     })
   })
 })

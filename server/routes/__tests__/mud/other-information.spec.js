@@ -15,7 +15,10 @@ describe('mud/other-information', () => {
     expect(createOtherInformationRoutes).toHaveBeenCalledTimes(1)
     expect(createOtherInformationRoutes).toHaveBeenCalledWith({
       problem: 'mud',
-      route: constants.routes.MUD_OTHER_INFORMATION
+      route: constants.routes.MUD_OTHER_INFORMATION,
+      redirect: {
+        reportSent: constants.routes.MUD_REPORT_SENT
+      }
     })
   })
 })

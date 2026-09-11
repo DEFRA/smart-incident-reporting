@@ -7,16 +7,18 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    {{ govukTextarea({
+    {{ govukCharacterCount({
       name: "otherInfo",
       id: "otherInfo",
-      rows: "10",
+      rows: "15",
+      maxlength: 500,
       value: answers,
       label: {
-        text: pageTitle + "?",
+        text: pageTitle + "? (optional)",
         classes: "govuk-label--l",
         isPageHeading: true
-      }
+      },
+      errorMessage: findErrorMessageById(errorSummary, 'otherInfo')
     }) }}
 
     {{ govukButton({

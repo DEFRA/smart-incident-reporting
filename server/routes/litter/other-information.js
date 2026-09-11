@@ -3,5 +3,8 @@ import createOtherInformationRoutes from '../rars/other-information.js'
 
 export default createOtherInformationRoutes({
   problem: 'litter',
-  route: constants.routes.LITTER_OTHER_INFORMATION
+  route: constants.routes.LITTER_OTHER_INFORMATION,
+  redirect: {
+    reportSent: constants.routes.LITTER_REPORT_SENT
+  }
 })

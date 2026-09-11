@@ -15,7 +15,10 @@ describe('litter/other-information', () => {
     expect(createOtherInformationRoutes).toHaveBeenCalledTimes(1)
     expect(createOtherInformationRoutes).toHaveBeenCalledWith({
       problem: 'litter',
-      route: constants.routes.LITTER_OTHER_INFORMATION
+      route: constants.routes.LITTER_OTHER_INFORMATION,
+      redirect: {
+        reportSent: constants.routes.LITTER_REPORT_SENT
+      }
     })
   })
 })
