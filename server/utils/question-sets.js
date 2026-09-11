@@ -1372,6 +1372,26 @@ const questionSets = {
           }
         }
       },
+      RARS_DAYS_WHEN_WORSE: {
+        questionId: 1360,
+        key: constants.redisKeys.RARS_DAYS_WHEN_WORSE,
+        text: 'On which days of the week do you {verb} the {problem}?',
+        answers: {
+          days: {
+            answerId: 1363
+          }
+        }
+      },
+      RARS_TIMES_WHEN_WORSE: {
+        questionId: 1370,
+        key: constants.redisKeys.RARS_TIMES_WHEN_WORSE,
+        text: 'At which times of day do you {verb} the {problem}?',
+        answers: {
+          times: {
+            answerId: 1371
+          }
+        }
+      },
       RARS_RECURRING: {
         questionId: 1900,
         key: constants.redisKeys.RARS_RECURRING,

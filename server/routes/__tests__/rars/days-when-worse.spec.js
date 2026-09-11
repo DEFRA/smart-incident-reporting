@@ -1,53 +1,141 @@
+import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
-import sharedDaysWhenWorseRoutes from '../../rars/days-when-worse.js'
-import dustDaysWhenWorseRoutes from '../../dust/days-when-worse.js'
-import noiseDaysWhenWorseRoutes from '../../noise/days-when-worse.js'
-import litterDaysWhenWorseRoutes from '../../litter/days-when-worse.js'
-import mudDaysWhenWorseRoutes from '../../mud/days-when-worse.js'
+import { questionSets } from '../../../utils/question-sets.js'
 
-describe('RARS days-when-worse routes', () => {
-  it('Should render the shared days-when-worse view on GET', async () => {
-    const h = {
-      view: jest.fn(() => 'rendered-view')
-    }
+const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_DAYS_WHEN_WORSE
 
-    const response = await sharedDaysWhenWorseRoutes[0].handler({}, h)
+const allDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-    expect(h.view).toHaveBeenCalledWith(constants.views.RARS_DAYS_WHEN_WORSE)
-    expect(response).toBe('rendered-view')
-  })
+const journeys = [
+  {
+    problem: 'noise',
+    url: constants.routes.NOISE_DAYS_WHEN_WORSE,
+    next: constants.routes.NOISE_TIMES_WHEN_WORSE,
+    heading: 'On which days of the week do you hear the noise?',
+    error: 'Select the days of the week you heard the noise?'
+  },
+  {
+    problem: 'dust',
+    url: constants.routes.DUST_DAYS_WHEN_WORSE,
+    next: constants.routes.DUST_TIMES_WHEN_WORSE,
+    heading: 'On which days of the week do you notice the dust?',
+    error: 'Select the days of the week you noticed the dust?'
+  },
+  {
+    problem: 'litter',
+    url: constants.routes.LITTER_DAYS_WHEN_WORSE,
+    next: constants.routes.LITTER_TIMES_WHEN_WORSE,
+    heading: 'On which days of the week do you notice the litter?',
+    error: 'Select the days of the week you noticed the litter?'
+  },
+  {
+    problem: 'mud',
+    url: constants.routes.MUD_DAYS_WHEN_WORSE,
+    next: constants.routes.MUD_TIMES_WHEN_WORSE,
+    heading: 'On which days of the week do you notice the mud?',
+    error: 'Select the days of the week you noticed the mud?'
+  }
+]
 
-  it('Should redirect to the generic RARS location description on POST', async () => {
-    const h = {
-      redirect: jest.fn(() => 'redirected')
-    }
+describe('RARS days-when-worse', () => {
+  describe.each(journeys)('$problem days-when-worse', ({ problem, url, next, heading, error }) => {
+    it('Should call createDaysWhenWorseRoutes with the correct config', () => {
+      const createDaysWhenWorseRoutes = jest.fn()
+      jest.isolateModules(() => {
+        jest.doMock('../../rars/days-when-worse.js', () => ({
+          __esModule: true,
+          default: createDaysWhenWorseRoutes
+        }))
+        require(`../../${problem}/days-when-worse.js`)
+      })
 
-    const response = await sharedDaysWhenWorseRoutes[1].handler({}, h)
+      expect(createDaysWhenWorseRoutes).toHaveBeenCalledTimes(1)
+      expect(createDaysWhenWorseRoutes).toHaveBeenCalledWith({
+        problem,
+        route: url,
+        redirect: {
+          timesWhenWorse: next
+        }
+      })
+    })
 
-    expect(h.redirect).toHaveBeenCalledWith(constants.routes.RARS_LOCATION_DESCRIPTION)
-    expect(response).toBe('redirected')
-  })
+    describe('GET', () => {
+      it('Should return success response with the journey specific question', async () => {
+        const response = await submitGetRequest({ url }, heading)
+        expect(response.payload).toContain(heading)
+      })
 
-  it.each([
-    ['dust', dustDaysWhenWorseRoutes, constants.routes.DUST_LOCATION_DESCRIPTION, constants.routes.DUST_DAYS_WHEN_WORSE],
-    ['noise', noiseDaysWhenWorseRoutes, constants.routes.NOISE_LOCATION_DESCRIPTION, constants.routes.NOISE_DAYS_WHEN_WORSE],
-    ['litter', litterDaysWhenWorseRoutes, constants.routes.LITTER_LOCATION_DESCRIPTION, constants.routes.LITTER_DAYS_WHEN_WORSE],
-    ['mud', mudDaysWhenWorseRoutes, constants.routes.MUD_LOCATION_DESCRIPTION, constants.routes.MUD_DAYS_WHEN_WORSE]
-  ])('Should handle %s days-when-worse GET and POST routes', (_, routes, locationDescriptionRoute, routePath) => {
-    const viewHelper = { view: jest.fn(() => 'rendered-view') }
-    const redirectHelper = { redirect: jest.fn(() => 'redirected') }
+      it('Should render every day plus the exclusive option', async () => {
+        const response = await submitGetRequest({ url }, heading)
+        for (const day of allDays) {
+          expect(response.payload).toContain(`value="${day}"`)
+        }
+        expect(response.payload).toContain('value="No particular day"')
+        expect(response.payload).toContain('exclusive')
+      })
 
-    expect(routes[0].path).toBe(routePath)
-    expect(routes[1].path).toBe(routePath)
+      it('Should pre-check the days already stored in the session', async () => {
+        const sessionData = {
+          [question.key]: [{
+            questionId: question.questionId,
+            questionAsked: heading,
+            questionResponse: true,
+            answerId: question.answers.days.answerId,
+            otherDetails: 'Monday;Sunday'
+          }]
+        }
+        const response = await submitGetRequest({ url }, heading, constants.statusCodes.OK, sessionData)
+        expect(response.payload).toContain('value="Monday" checked')
+        expect(response.payload).toContain('value="Sunday" checked')
+        expect(response.payload).not.toContain('value="Tuesday" checked')
+      })
+    })
 
-    const getResponse = routes[0].handler({}, viewHelper)
-    expect(viewHelper.view).toHaveBeenCalledWith(constants.views.RARS_DAYS_WHEN_WORSE)
-    return getResponse.then(response => {
-      expect(response).toBe('rendered-view')
-    }).then(async () => {
-      const postResponse = await routes[1].handler({}, redirectHelper)
-      expect(redirectHelper.redirect).toHaveBeenCalledWith(locationDescriptionRoute)
-      expect(postResponse).toBe('redirected')
+    describe('POST', () => {
+      it('Should store the selected days in week order and redirect to times-when-worse', async () => {
+        const options = { url, payload: { answerId: ['Sunday', 'Monday', 'Wednesday'] } }
+        const response = await submitPostRequest(options, constants.statusCodes.REDIRECT)
+
+        expect(response.headers.location).toBe(next)
+        expect(response.request.yar.get(question.key)).toEqual([{
+          questionId: 1360,
+          questionAsked: heading,
+          questionResponse: true,
+          answerId: 1363,
+          otherDetails: 'Monday;Wednesday;Sunday'
+        }])
+      })
+
+      it('Should store a single selected day submitted as a string', async () => {
+        const options = { url, payload: { answerId: 'Friday' } }
+        const response = await submitPostRequest(options, constants.statusCodes.REDIRECT)
+
+        expect(response.headers.location).toBe(next)
+        expect(response.request.yar.get(question.key)[0].otherDetails).toBe('Friday')
+      })
+
+      it('Should discard any days submitted alongside the exclusive option', async () => {
+        const options = { url, payload: { answerId: ['Monday', 'No particular day'] } }
+        const response = await submitPostRequest(options, constants.statusCodes.REDIRECT)
+
+        expect(response.headers.location).toBe(next)
+        expect(response.request.yar.get(question.key)[0].otherDetails).toBe('No particular day')
+      })
+
+      it('Should error when nothing is selected', async () => {
+        const options = { url, payload: {} }
+        const response = await submitPostRequest(options, constants.statusCodes.OK)
+
+        expect(response.payload).toContain('There is a problem')
+        expect(response.payload).toContain(error)
+      })
+
+      it('Should error when only unrecognised values are submitted', async () => {
+        const options = { url, payload: { answerId: ['Funday'] } }
+        const response = await submitPostRequest(options, constants.statusCodes.OK)
+
+        expect(response.payload).toContain(error)
+      })
     })
   })
 })
