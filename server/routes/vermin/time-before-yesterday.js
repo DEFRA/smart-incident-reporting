@@ -5,6 +5,6 @@ export default createTimeBeforeYesterdayRoutes({
   problem: 'vermin',
   route: constants.routes.VERMIN_TIME_BEFORE_YESTERDAY,
   redirect: {
-    effectOnDailyLife: constants.routes.RARS_EFFECT_ON_DAILY_LIFE
+    effectOnDailyLife: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE
   }
 })

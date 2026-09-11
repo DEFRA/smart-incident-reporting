@@ -1351,7 +1351,7 @@ const questionSets = {
       RARS_DESCRIPTION: {
         questionId: 1350,
         key: constants.redisKeys.RARS_DESCRIPTION,
-        text: '{problem} description',
+        text: 'How would you describe the {problem}?',
         answers: {
           details: {
             answerId: 1351
@@ -1370,6 +1370,26 @@ const questionSets = {
           no: {
             answerId: 1362,
             text: 'No'
+          }
+        }
+      },
+      RARS_DAYS_WHEN_WORSE: {
+        questionId: 1360,
+        key: constants.redisKeys.RARS_DAYS_WHEN_WORSE,
+        text: 'On which days of the week do you {verb} the {problem}?',
+        answers: {
+          days: {
+            answerId: 1363
+          }
+        }
+      },
+      RARS_TIMES_WHEN_WORSE: {
+        questionId: 1370,
+        key: constants.redisKeys.RARS_TIMES_WHEN_WORSE,
+        text: 'At which times of day do you {verb} the {problem}?',
+        answers: {
+          times: {
+            answerId: 1371
           }
         }
       },

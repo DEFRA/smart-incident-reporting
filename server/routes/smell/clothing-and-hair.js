@@ -39,7 +39,7 @@ const handlers = {
     // set answer in session
     request.yar.set(question.key, buildAnswers(answerId))
 
-    return h.redirect(constants.routes.RARS_EFFECT_ON_DAILY_LIFE)
+    return h.redirect(constants.routes.SMELL_EFFECT_ON_DAILY_LIFE)
   }
 }
 
