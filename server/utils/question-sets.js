@@ -3,6 +3,7 @@ import constants from './constants.js'
 // Common phrases
 const YOU_DO_NOT_KNOW = 'You do not know'
 const SOMETHING_ELSE = 'Something else'
+const NONE_OF_THESE = 'None of these'
 const YOU_DO_NOT_KNOW_SHORT = 'Don\'t know'
 const NOT_GIVEN = 'Not given'
 const USE_CURRENT_LOCATION = 'Use your current location'
@@ -1351,10 +1352,45 @@ const questionSets = {
       RARS_DESCRIPTION: {
         questionId: 1350,
         key: constants.redisKeys.RARS_DESCRIPTION,
-        text: '{problem} description',
+        text: 'How would you describe the {problem}?',
         answers: {
           details: {
             answerId: 1351
+          }
+        }
+      },
+      RARS_WHEN_WORSE: {
+        questionId: 1360,
+        key: constants.redisKeys.RARS_WHEN_WORSE,
+        text: 'Do you notice the {problem} is worse on certain days or a particular time?',
+        answers: {
+          yes: {
+            answerId: 1361,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 1362,
+            text: 'No'
+          }
+        }
+      },
+      RARS_DAYS_WHEN_WORSE: {
+        questionId: 1360,
+        key: constants.redisKeys.RARS_DAYS_WHEN_WORSE,
+        text: 'On which days of the week do you {verb} the {problem}?',
+        answers: {
+          days: {
+            answerId: 1363
+          }
+        }
+      },
+      RARS_TIMES_WHEN_WORSE: {
+        questionId: 1370,
+        key: constants.redisKeys.RARS_TIMES_WHEN_WORSE,
+        text: 'At which times of day do you {verb} the {problem}?',
+        answers: {
+          times: {
+            answerId: 1371
           }
         }
       },
@@ -1412,6 +1448,114 @@ const questionSets = {
           },
           somethingElseDetails: {
             answerId: 1708
+          }
+        }
+      },
+      RARS_EFFECT_ON_DAILY_LIFE: {
+        questionId: 2400,
+        key: constants.redisKeys.RARS_EFFECT_ON_DAILY_LIFE,
+        text: 'Did you do any of the following because of the {problem}, on this occasion?',
+        answers: {
+          leave: {
+            answerId: 2401,
+            text: 'Leave or avoid the area'
+          },
+          windows: {
+            answerId: 2402,
+            text: 'Keep windows or doors closed'
+          },
+          goingOutside: {
+            answerId: 2403,
+            text: 'Avoid using parts of your property, for example your garden'
+          },
+          goingElsewhere: {
+            answerId: 2404,
+            text: 'Put off doing something, for example going to the shops'
+          },
+          cancelEvent: {
+            answerId: 2405,
+            text: 'Cancel, or not attend an event'
+          },
+          somethingElse: {
+            answerId: 2406,
+            text: SOMETHING_ELSE
+          },
+          noImpact: {
+            answerId: 2407,
+            text: NONE_OF_THESE
+          },
+          putOffDetails: {
+            answerId: 2408,
+            text: 'Give details about what you put off doing'
+          },
+          eventDetails: {
+            answerId: 2409,
+            text: 'Give details about the event'
+          },
+          somethingElseDetails: {
+            answerId: 2410,
+            text: 'Give details about what happened'
+          }
+        }
+      },
+      SMELL_SMELL_STRENGTH: {
+        questionId: 2200,
+        key: constants.redisKeys.SMELL_SMELL_STRENGTH,
+        text: 'How strong is the smell?',
+        answers: {
+          veryWeak: {
+            answerId: 2211,
+            text: 'Very weak'
+          },
+          weak: {
+            answerId: 2212,
+            text: 'Weak'
+          },
+          distinct: {
+            answerId: 2213,
+            text: 'Distinct'
+          },
+          strong: {
+            answerId: 2214,
+            text: 'Strong'
+          },
+          veryStrong: {
+            answerId: 2215,
+            text: 'Very strong'
+          },
+          extremelyStrong: {
+            answerId: 2216,
+            text: 'Extremely strong'
+          }
+        }
+      },
+      SMELL_INDOORS: {
+        questionId: 3000,
+        key: constants.redisKeys.SMELL_INDOORS,
+        text: 'Is the smell noticeable indoors?',
+        answers: {
+          yes: {
+            answerId: 3001,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3002,
+            text: 'No, you can only smell it outside'
+          }
+        }
+      },
+      SMELL_CLOTHING_AND_HAIR: {
+        questionId: 3600,
+        key: constants.redisKeys.SMELL_CLOTHING_AND_HAIR,
+        text: 'Does the smell stick to your clothing or hair?',
+        answers: {
+          yes: {
+            answerId: 3601,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3602,
+            text: 'No'
           }
         }
       },

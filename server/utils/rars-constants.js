@@ -32,6 +32,15 @@ const RARS_LOCATION_DESCRIPTION_OPTIONAL = 'rars/location-description-optional'
 const RARS_DESCRIPTION = 'rars/description'
 const RARS_RECURRING = 'rars/recurring'
 const RARS_WHEN = 'rars/when'
+const RARS_EFFECT_ON_DAILY_LIFE = 'rars/effect-on-daily-life'
+const RARS_EFFECT_ON_HEALTH = 'rars/effect-on-health'
+const RARS_EARLIER_TODAY = 'rars/earlier-today'
+const RARS_YESTERDAY = 'rars/yesterday'
+const RARS_DATE_BEFORE_YESTERDAY = 'rars/date-before-yesterday'
+const RARS_TIME_BEFORE_YESTERDAY = 'rars/time-before-yesterday'
+const RARS_WHEN_WORSE = 'rars/when-worse'
+const RARS_DAYS_WHEN_WORSE = 'rars/days-when-worse'
+const RARS_TIMES_WHEN_WORSE = 'rars/times-when-worse'
 const RARS_EFFECT_ON_HEALTH = 'rars/effect-on-health'
 const RARS_MEDICAL_HELP = 'rars/medical-help'
 
@@ -73,8 +82,8 @@ const routes = {
 
 // journeys that don't have a route file for a given view, so must be excluded from generation
 const journeyExclusions = {
-  vermin: ['RARS_DESCRIPTION'],
-  smell: ['RARS_DESCRIPTION']
+  vermin: ['RARS_DESCRIPTION', 'RARS_DAYS_WHEN_WORSE', 'RARS_TIMES_WHEN_WORSE'],
+  smell: ['RARS_DESCRIPTION', 'RARS_WHEN_WORSE', 'RARS_DAYS_WHEN_WORSE', 'RARS_TIMES_WHEN_WORSE']
 }
 
 for (const [key, value] of Object.entries(views)) {

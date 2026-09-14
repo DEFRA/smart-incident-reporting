@@ -13,7 +13,13 @@ describe('smell/when', () => {
     expect(createWhenRoutes).toHaveBeenCalledTimes(1)
     expect(createWhenRoutes).toHaveBeenCalledWith({
       problem: 'smell',
-      route: constants.routes.SMELL_WHEN
+      route: constants.routes.SMELL_WHEN,
+      redirect: {
+        smellStrength: constants.routes.SMELL_SMELL_STRENGTH,
+        earlierToday: constants.routes.SMELL_EARLIER_TODAY,
+        yesterday: constants.routes.SMELL_YESTERDAY,
+        dateBeforeYesterday: constants.routes.SMELL_DATE_BEFORE_YESTERDAY
+      }
     })
   })
 })

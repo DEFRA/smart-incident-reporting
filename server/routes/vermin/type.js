@@ -3,7 +3,6 @@ import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.VERMIN_TYPE
-const serviceDetails = getServiceDetails('vermin')
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -13,7 +12,8 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => h.view(constants.views.VERMIN_TYPE, {
-    ...getContext(request)
+    ...getContext(request),
+    ...getServiceDetails('vermin')
   }),
   post: async (request, h) => {
     // get payload
@@ -37,7 +37,8 @@ const handlers = {
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.VERMIN_TYPE, {
         errorSummary,
-        ...getContext(request)
+        ...getContext(request),
+        ...getServiceDetails('vermin')
       })
     }
     return h.redirect(constants.routes.VERMIN_SOURCE)
@@ -75,7 +76,7 @@ const getContext = request => {
   return {
     question,
     answers,
-    ...serviceDetails
+    ...getServiceDetails('vermin')
   }
 }
 

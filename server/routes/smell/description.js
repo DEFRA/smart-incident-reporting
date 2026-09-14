@@ -3,7 +3,6 @@ import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.SMELL_DESCRIPTION
-const serviceDetails = getServiceDetails('smell')
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -13,7 +12,6 @@ const baseAnswer = {
 
 const handlers = {
   get: async (request, h) => h.view(constants.views.SMELL_DESCRIPTION, {
-    ...serviceDetails,
     ...getContext(request)
   }),
   post: async (request, h) => {
@@ -24,7 +22,6 @@ const handlers = {
       request.yar.set(question.key, [])
       return h.view(constants.views.SMELL_DESCRIPTION, {
         errorSummary,
-        ...serviceDetails,
         ...getContext(request)
       })
     }
@@ -64,7 +61,7 @@ const getContext = request => {
   return {
     question,
     answers,
-    ...serviceDetails
+    ...getServiceDetails('smell')
   }
 }
 

@@ -141,6 +141,9 @@ const VERMIN_TYPE = 'vermin/type'
 
 const SMELL_HEALTH = 'smell/health'
 const SMELL_DESCRIPTION = 'smell/description'
+const SMELL_SMELL_STRENGTH = 'smell/smell-strength'
+const SMELL_INDOORS = 'smell/indoors'
+const SMELL_CLOTHING_AND_HAIR = 'smell/clothing-and-hair'
 
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
@@ -262,6 +265,9 @@ const views = {
   BLOCKAGE_OTHER_INFORMATION,
   SMELL_HEALTH,
   SMELL_DESCRIPTION,
+  SMELL_SMELL_STRENGTH,
+  SMELL_INDOORS,
+  SMELL_CLOTHING_AND_HAIR,
   VERMIN_TYPE
 }
 

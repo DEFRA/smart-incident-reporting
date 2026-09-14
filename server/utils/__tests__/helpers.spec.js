@@ -30,11 +30,11 @@ describe('helpers', () => {
     })
   })
   describe('getServiceDetails', () => {
-    beforeAll(() => {
+    beforeEach(() => {
       process.env.REGISTER_START_ROUTES = 'false'
     })
 
-    afterAll(() => {
+    afterEach(() => {
       process.env.REGISTER_START_ROUTES = 'true'
     })
 
