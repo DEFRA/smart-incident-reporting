@@ -1,12 +1,21 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { sendMessage } from '../../services/service-bus.js'
-import { validatePayload } from '../../utils/helpers.js'
+import { getErrorSummary, validatePayload } from '../../utils/helpers.js'
+import { maxLength } from '../../utils/validation.js'
 
 const handlers = {
   get: async (_request, h) => h.view(constants.views.ILLEGAL_FISHING_OTHER_INFORMATION),
   post: async (request, h) => {
     const { otherInfo } = request.payload
+
+    const errorSummary = validateOtherInfo(otherInfo)
+    if (errorSummary.errorList.length > 0) {
+      return h.view(constants.views.ILLEGAL_FISHING_OTHER_INFORMATION, {
+        answers: otherInfo,
+        errorSummary
+      })
+    }
 
     request.yar.set(constants.redisKeys.ILLEGAL_FISHING_OTHER_INFORMATION, otherInfo)
     request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
@@ -50,6 +59,17 @@ const buildAnswerDataset = (session, questionSet) => {
     })
   })
   return data
+}
+
+const validateOtherInfo = otherInfo => {
+  const errorSummary = getErrorSummary()
+  if (maxLength(otherInfo, constants.otherInformationCharacterLimit)) {
+    errorSummary.errorList.push({
+      text: `Anything else you'd like to add must be ${constants.otherInformationCharacterLimit} characters or less`,
+      href: '#otherInfo'
+    })
+  }
+  return errorSummary
 }
 
 export default [
