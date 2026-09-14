@@ -31,7 +31,7 @@ const problems = [
   {
     problem: 'vermin',
     url: constants.routes.VERMIN_EARLIER_TODAY,
-    redirectEffectOnDailyLife: constants.routes.RARS_EFFECT_ON_DAILY_LIFE
+    redirectEffectOnDailyLife: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE
   }
 ]
 

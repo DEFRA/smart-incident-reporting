@@ -42,6 +42,7 @@ const RARS_WHEN_WORSE = 'rars/when-worse'
 const RARS_DAYS_WHEN_WORSE = 'rars/days-when-worse'
 const RARS_IMAGES_OR_VIDEO = 'rars/images-or-video'
 const RARS_CONTACT_DETAILS = 'rars/contact-details'
+const RARS_TIMES_WHEN_WORSE = 'rars/times-when-worse'
 
 const views = {
   RARS_SOURCE,
@@ -71,7 +72,8 @@ const views = {
   RARS_WHEN_WORSE,
   RARS_DAYS_WHEN_WORSE,
   RARS_IMAGES_OR_VIDEO,
-  RARS_CONTACT_DETAILS
+  RARS_CONTACT_DETAILS,
+  RARS_TIMES_WHEN_WORSE
 }
 
 const redisKeys = {
@@ -89,8 +91,8 @@ const routes = {
 
 // journeys that don't have a route file for a given view, so must be excluded from generation
 const journeyExclusions = {
-  vermin: ['RARS_DESCRIPTION', 'RARS_DAYS_WHEN_WORSE'],
-  smell: ['RARS_DESCRIPTION', 'RARS_WHEN_WORSE', 'RARS_DAYS_WHEN_WORSE']
+  vermin: ['RARS_DESCRIPTION', 'RARS_DAYS_WHEN_WORSE', 'RARS_TIMES_WHEN_WORSE'],
+  smell: ['RARS_DESCRIPTION', 'RARS_WHEN_WORSE', 'RARS_DAYS_WHEN_WORSE', 'RARS_TIMES_WHEN_WORSE']
 }
 
 for (const [key, value] of Object.entries(views)) {

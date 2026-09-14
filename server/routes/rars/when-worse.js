@@ -1,5 +1,8 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
+import { questionSets } from '../../utils/question-sets.js'
+
+const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_WHEN_WORSE
 
 const questionsByProblem = {
   smell: 'Do you notice the smell is worse on certain days or a particular time',
@@ -17,6 +20,7 @@ const createWhenWorseRoutes = ({ problem, route, redirect }) => {
   const handlers = {
     get: async (request, h) => {
       return h.view(constants.views.RARS_WHEN_WORSE, {
+        question,
         questionText,
         ...getContext(request),
         ...serviceDetails
@@ -30,6 +34,7 @@ const createWhenWorseRoutes = ({ problem, route, redirect }) => {
       const errorSummary = validatePayload(answerId)
       if (errorSummary.errorList.length > 0) {
         return h.view(constants.views.RARS_WHEN_WORSE, {
+          question,
           questionText,
           ...getContext(request),
           errorSummary,
@@ -43,8 +48,13 @@ const createWhenWorseRoutes = ({ problem, route, redirect }) => {
       // set answer in session
       request.yar.set(constants.redisKeys.RARS_WHEN_WORSE, answerId)
 
-      // redirect to the special shared RARS days page
-      return h.redirect(redirect.daysWhenWorse)
+      // answering 'No' skips the days and times pages
+      if (answerId === question.answers.no.answerId) {
+        return h.redirect(redirect.effectOnDailyLife)
+      }
+
+      // vermin has no days-when-worse page, so it goes straight to effect-on-daily-life
+      return h.redirect(redirect.daysWhenWorse ?? redirect.effectOnDailyLife)
     }
   }
 

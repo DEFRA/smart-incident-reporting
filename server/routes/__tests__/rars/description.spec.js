@@ -5,7 +5,7 @@ import { parse } from 'node-html-parser'
 
 const baseAnswer = {
   questionId: 1350,
-  questionAsked: '{problem} description',
+  questionAsked: 'How would you describe the {problem}?',
   questionResponse: true,
   answerId: 1351
 }
@@ -14,30 +14,30 @@ const problems = [
   {
     problem: 'noise',
     url: constants.routes.NOISE_DESCRIPTION,
-    header: 'Noise description',
+    header: 'How would you describe the noise?',
     recurringUrl: constants.routes.NOISE_RECURRING,
     bulletPoints: [
       'what type of sound it is, for example a buzzing or banging',
-      'what it sounds similar to, for example a car engine or hammer',
-      'what activity you think is causing the noise, for example car breaking or digging'
+      'how loud it is, for example can you hear it with the doors and windows closed',
+      'what it sounds similar to, for example a car engine or hammer'
     ]
   },
   {
     problem: 'dust',
     url: constants.routes.DUST_DESCRIPTION,
-    header: 'Dust description',
+    header: 'How would you describe the dust?',
     recurringUrl: constants.routes.DUST_RECURRING,
     bulletPoints: [
-      'the colour of the dust',
-      'how thick or coarse the dust is',
-      'what substance the dust seems to be, for example is it soot, or metallic',
-      'what activity you think is causing the dust'
+      'the colour and texture of the dust',
+      'what substance the dust seems to be, for example is it soot or metallic',
+      'what activity you think is causing the dust',
+      'the spread of the dust, for example it has covered a car'
     ]
   },
   {
     problem: 'litter',
     url: constants.routes.LITTER_DESCRIPTION,
-    header: 'Litter description',
+    header: 'How would you describe the litter?',
     recurringUrl: constants.routes.LITTER_RECURRING,
     bulletPoints: [
       'what material the litter is made up of, for example is it household waste or packaging',
@@ -48,7 +48,7 @@ const problems = [
   {
     problem: 'mud',
     url: constants.routes.MUD_DESCRIPTION,
-    header: 'Mud description',
+    header: 'How would you describe the mud?',
     recurringUrl: constants.routes.MUD_RECURRING,
     bulletPoints: [
       'the colour',
@@ -89,8 +89,13 @@ describe('RARS Description Routes', () => {
       it('Sad: errors on no description provided', async () => {
         const options = { url, payload: {} }
         const response = await submitPostRequest(options, constants.statusCodes.OK)
+        const html = parse(response.payload)
+        const errorMessages = html.querySelectorAll('.govuk-error-message')
+
         expect(response.payload).toContain('There is a problem')
         expect(response.payload).toContain('Enter a description')
+        expect(errorMessages.length).toBeGreaterThan(0)
+        expect(errorMessages[0].textContent.trim()).toContain('Enter a description')
       })
     })
   })

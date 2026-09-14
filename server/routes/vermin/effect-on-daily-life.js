@@ -1,3 +1,4 @@
+import createEffectOnDailyLifeRoutes from '../rars/effect-on-daily-life.js'
 import constants from '../../utils/constants.js'
 import createEffectOnDailyLifeRoutes from '../rars/effect-on-daily-life.js'
 
