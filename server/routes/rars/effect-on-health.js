@@ -3,7 +3,7 @@ import { questionSets } from '../../utils/question-sets.js'
 import { getServiceDetails, getErrorSummary, titleHelper } from '../../utils/helpers.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_EFFECT_ON_HEALTH
-const verminQuestion = 'Do you know the site or business responsible for the {vermin}?'
+const verminQuestion = 'Has the {vermin} caused any of the following issues?'
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -15,9 +15,9 @@ const createEffectOnHealthroutes = ({ problem, route, redirect }) => {
   const serviceDetails = getServiceDetails(problem)
 
   const handlers = {
-    get: async (_request, h) => {
-      const { title, pageTitle } = titleHelper(_request, question.text, verminQuestion, problem)
-      return h.view(constants.views.RARS.EFFECT_ON_HEALTH, {
+    get: async (request, h) => {
+      const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
+      return h.view(constants.views.RARS_EFFECT_ON_HEALTH, {
         question,
         problem,
         title,
@@ -29,14 +29,14 @@ const createEffectOnHealthroutes = ({ problem, route, redirect }) => {
       let { answerId, somethingElseDetails } = request.payload
       const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
       const errorSummary = validatePayload(answerId, request, problem)
-      if (errorSummary.errorlist.length > 0) {
+      if (errorSummary.errorList.length > 0) {
         request.yar.set(question.key, [])
-        return h.view(constants.views.RARS.EFFECT_ON_HEALTH, {
+        return h.view(constants.views.RARS_EFFECT_ON_HEALTH, {
+          errorSummary,
           question,
           problem,
           title,
           pageTitle,
-          errorSummary,
           ...serviceDetails
         })
       }

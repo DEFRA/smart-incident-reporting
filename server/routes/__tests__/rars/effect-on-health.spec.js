@@ -7,15 +7,24 @@ const problems = [
   { problem: 'dust', url: constants.routes.DUST_EFFECT_ON_HEALTH },
   { problem: 'litter', url: constants.routes.LITTER_EFFECT_ON_HEALTH },
   { problem: 'mud', url: constants.routes.MUD_EFFECT_ON_HEALTH },
-  { problem: 'vermin', url: constants.routes.VERMIN_EFFECT_ON_HEALTH }
+  {
+    problem: 'vermin/pests',
+    url: constants.routes.VERMIN_EFFECT_ON_HEALTH,
+    sessionData: {
+      [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'vermin/pests'
+    }
+  }
 ]
 
 describe('RARS Effect On Health Routes', () => {
-  describe.each(problems)('$problem effect on health', ({ url }) => {
-    describe('GET', () => {
-      it('Should return success response and correct view', async () => {
-        await submitGetRequest({ url }, 'EFFECT ON HEALTH', constants.statusCodes.OK)
-      })
+  describe.each(problems)('$problem effect on health', ({ problem, url, sessionData = {} }) => {
+    it('Should return success response and correct view', async () => {
+      await submitGetRequest(
+        { url },
+        `Has the ${problem} caused any of the following issues?`,
+        constants.statusCodes.OK,
+        sessionData
+      )
     })
   })
 })
