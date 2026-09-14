@@ -2,16 +2,16 @@ import constants from '../../../utils/constants.js'
 
 describe('mud/effect-on-health', () => {
   it('Should call createEffectOnHealthRoutes with correct config', () => {
-    const mockCreateEffectOnHealthRoutes = jest.fn()
+    const createEffectOnHealthRoutes = jest.fn()
     jest.isolateModules(() => {
       jest.doMock('../../rars/effect-on-health.js', () => ({
         __esModule: true,
-        default: mockCreateEffectOnHealthRoutes
+        default: createEffectOnHealthRoutes
       }))
       require('../../mud/effect-on-health.js')
     })
-    expect(mockCreateEffectOnHealthRoutes).toHaveBeenCalledTimes(1)
-    expect(mockCreateEffectOnHealthRoutes).toHaveBeenCalledWith({
+    expect(createEffectOnHealthRoutes).toHaveBeenCalledTimes(1)
+    expect(createEffectOnHealthRoutes).toHaveBeenCalledWith({
       problem: 'mud',
       route: constants.routes.MUD_EFFECT_ON_HEALTH
     })

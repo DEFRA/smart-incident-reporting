@@ -1,19 +1,10 @@
+import createDaysWhenWorseRoutes from '../rars/days-when-worse.js'
 import constants from '../../utils/constants.js'
 
-const handlers = {
-  get: async (_request, h) => h.view(constants.views.RARS_DAYS_WHEN_WORSE),
-  post: async (_request, h) => h.redirect(constants.routes.DUST_LOCATION_DESCRIPTION)
-}
-
-export default [
-  {
-    method: 'GET',
-    path: constants.routes.DUST_DAYS_WHEN_WORSE,
-    handler: handlers.get
-  },
-  {
-    method: 'POST',
-    path: constants.routes.DUST_DAYS_WHEN_WORSE,
-    handler: handlers.post
+export default createDaysWhenWorseRoutes({
+  problem: 'dust',
+  route: constants.routes.DUST_DAYS_WHEN_WORSE,
+  redirect: {
+    timesWhenWorse: constants.routes.DUST_TIMES_WHEN_WORSE
   }
-]
+})

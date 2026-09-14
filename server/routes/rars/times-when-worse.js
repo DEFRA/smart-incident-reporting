@@ -2,29 +2,26 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
-const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_DAYS_WHEN_WORSE
+const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_TIMES_WHEN_WORSE
 
-const days = [
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Sunday'
+const times = [
+  'Morning',
+  'Afternoon',
+  'Evening',
+  'Night'
 ]
 
 const NO_PARTICULAR_DAY = 'No particular day'
 
-// the selected days are stored against a single answer id as a semicolon
-// separated list, for example 'Monday;Tuesday;Sunday'
+// the selected times are stored against a single answer id as a semicolon
+// separated list, for example 'Morning;Afternoon;Night'
 const ANSWER_SEPARATOR = ';'
 
 // noise is the only RARS journey that is heard rather than noticed
 const getPresentTenseVerb = problem => problem === 'noise' ? 'hear' : 'notice'
 const getPastTenseVerb = problem => problem === 'noise' ? 'heard' : 'noticed'
 
-const getSelectedDays = answerId => {
+const getSelectedTimes = answerId => {
   if (!answerId) {
     return []
   }
@@ -35,20 +32,20 @@ const getSelectedDays = answerId => {
     return [NO_PARTICULAR_DAY]
   }
 
-  // preserve week order rather than the order the browser posted them in
-  return days.filter(day => submitted.has(day))
+  // preserve time of day order rather than the order the browser posted them in
+  return times.filter(time => submitted.has(time))
 }
 
-const getStoredDays = request => {
+const getStoredTimes = request => {
   const storedValue = request.yar.get(question.key)?.[0]?.otherDetails
   return storedValue ? storedValue.split(ANSWER_SEPARATOR) : []
 }
 
 const buildCheckboxItems = selected => {
-  const items = days.map(day => ({
-    value: day,
-    text: day,
-    checked: selected.includes(day)
+  const items = times.map(time => ({
+    value: time,
+    text: time,
+    checked: selected.includes(time)
   }))
 
   items.push({ divider: 'or' })
@@ -62,12 +59,12 @@ const buildCheckboxItems = selected => {
   return items
 }
 
-const createDaysWhenWorseRoutes = ({ problem, route, redirect }) => {
+const createTimesWhenWorseRoutes = ({ problem, route, redirect }) => {
   const serviceDetails = getServiceDetails(problem)
   const questionText = question.text
     .replace('{verb}', getPresentTenseVerb(problem))
     .replace('{problem}', problem)
-  const errorText = `Select the days of the week you ${getPastTenseVerb(problem)} the ${problem}?`
+  const errorText = `Select the time of the day you ${getPastTenseVerb(problem)} the ${problem}?`
 
   const getContext = selected => ({
     question,
@@ -91,20 +88,20 @@ const createDaysWhenWorseRoutes = ({ problem, route, redirect }) => {
     questionId: question.questionId,
     questionAsked: questionText,
     questionResponse: true,
-    answerId: question.answers.days.answerId,
+    answerId: question.answers.times.answerId,
     otherDetails: selected.join(ANSWER_SEPARATOR)
   }]
 
   const handlers = {
     get: async (request, h) => {
-      return h.view(constants.views.RARS_DAYS_WHEN_WORSE, getContext(getStoredDays(request)))
+      return h.view(constants.views.RARS_TIMES_WHEN_WORSE, getContext(getStoredTimes(request)))
     },
     post: async (request, h) => {
-      const selected = getSelectedDays(request.payload.answerId)
+      const selected = getSelectedTimes(request.payload.answerId)
 
       const errorSummary = validatePayload(selected)
       if (errorSummary.errorList.length > 0) {
-        return h.view(constants.views.RARS_DAYS_WHEN_WORSE, {
+        return h.view(constants.views.RARS_TIMES_WHEN_WORSE, {
           ...getContext(selected),
           errorSummary
         })
@@ -112,7 +109,7 @@ const createDaysWhenWorseRoutes = ({ problem, route, redirect }) => {
 
       request.yar.set(question.key, buildAnswers(selected))
 
-      return h.redirect(redirect.timesWhenWorse)
+      return h.redirect(redirect.effectOnDailyLife)
     }
   }
 
@@ -122,4 +119,4 @@ const createDaysWhenWorseRoutes = ({ problem, route, redirect }) => {
   ]
 }
 
-export default createDaysWhenWorseRoutes
+export default createTimesWhenWorseRoutes

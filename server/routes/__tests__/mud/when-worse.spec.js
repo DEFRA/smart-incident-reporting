@@ -15,7 +15,8 @@ describe('mud/when-worse', () => {
       problem: 'mud',
       route: constants.routes.MUD_WHEN_WORSE,
       redirect: {
-        daysWhenWorse: constants.routes.MUD_DAYS_WHEN_WORSE
+        daysWhenWorse: constants.routes.MUD_DAYS_WHEN_WORSE,
+        effectOnDailyLife: constants.routes.MUD_EFFECT_ON_DAILY_LIFE
       }
     })
   })

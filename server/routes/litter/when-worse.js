@@ -5,6 +5,7 @@ export default createWhenWorseRoutes({
   problem: 'litter',
   route: constants.routes.LITTER_WHEN_WORSE,
   redirect: {
-    daysWhenWorse: constants.routes.LITTER_DAYS_WHEN_WORSE
+    daysWhenWorse: constants.routes.LITTER_DAYS_WHEN_WORSE,
+    effectOnDailyLife: constants.routes.LITTER_EFFECT_ON_DAILY_LIFE
   }
 })
