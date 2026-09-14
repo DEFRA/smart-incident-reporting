@@ -17,7 +17,6 @@ const NO_YOU_DO_NOT_HAVE_PHOTOS = 'No, you do not have photos'
 const YES_YOU_HAVE_VIDEO = 'Yes, you have video'
 const NO_YOU_DO_NOT_HAVE_VIDEO = 'No, you do not have video'
 const TOWN_OR_CITY = 'Town or city'
-const NONE_OF_THESE = 'None of these'
 
 const questionSets = {
   WATER_POLLUTION: {

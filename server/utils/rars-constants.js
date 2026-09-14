@@ -41,7 +41,6 @@ const RARS_TIME_BEFORE_YESTERDAY = 'rars/time-before-yesterday'
 const RARS_WHEN_WORSE = 'rars/when-worse'
 const RARS_DAYS_WHEN_WORSE = 'rars/days-when-worse'
 const RARS_TIMES_WHEN_WORSE = 'rars/times-when-worse'
-const RARS_EFFECT_ON_HEALTH = 'rars/effect-on-health'
 const RARS_MEDICAL_HELP = 'rars/medical-help'
 
 const views = {
@@ -63,7 +62,15 @@ const views = {
   RARS_DESCRIPTION,
   RARS_RECURRING,
   RARS_WHEN,
+  RARS_EFFECT_ON_DAILY_LIFE,
   RARS_EFFECT_ON_HEALTH,
+  RARS_EARLIER_TODAY,
+  RARS_YESTERDAY,
+  RARS_DATE_BEFORE_YESTERDAY,
+  RARS_TIME_BEFORE_YESTERDAY,
+  RARS_WHEN_WORSE,
+  RARS_DAYS_WHEN_WORSE,
+  RARS_TIMES_WHEN_WORSE,
   RARS_MEDICAL_HELP
 }
 
