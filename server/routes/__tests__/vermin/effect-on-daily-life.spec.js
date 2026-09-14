@@ -1,21 +1,22 @@
-import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
 
-const url = constants.routes.RARS_EFFECT_ON_DAILY_LIFE
-
-describe(url, () => {
-  describe('GET', () => {
-    it(`Should return success response and the dummy page title for ${url}`, async () => {
-      const response = await submitGetRequest({ url }, 'EFFECT ON DAILY LIFE')
-      expect(response.payload).toContain('EFFECT ON DAILY LIFE')
+describe('vermin/effect-on-daily-life', () => {
+  it('Should call createEffectOnDailyLifeRoutes with correct config', () => {
+    const mockCreateEffectOnDailyLifeRoutes = jest.fn()
+    jest.isolateModules(() => {
+      jest.doMock('../../rars/effect-on-daily-life.js', () => ({
+        __esModule: true,
+        default: mockCreateEffectOnDailyLifeRoutes
+      }))
+      require('../../vermin/effect-on-daily-life.js')
     })
-  })
-
-  describe('POST', () => {
-    it('Should redirect to the location description page', async () => {
-      const response = await submitPostRequest({ url, payload: {} })
-      expect(response.statusCode).toBe(302)
-      expect(response.headers.location).toBe(constants.routes.VERMIN_LOCATION_DESCRIPTION)
+    expect(mockCreateEffectOnDailyLifeRoutes).toHaveBeenCalledTimes(1)
+    expect(mockCreateEffectOnDailyLifeRoutes).toHaveBeenCalledWith({
+      problem: 'vermin',
+      route: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE,
+      redirect: {
+        effectOnHealth: constants.routes.VERMIN_EFFECT_ON_HEALTH
+      }
     })
   })
 })

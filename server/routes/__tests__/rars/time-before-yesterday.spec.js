@@ -31,7 +31,7 @@ const problems = [
   {
     problem: 'vermin',
     url: constants.routes.VERMIN_TIME_BEFORE_YESTERDAY,
-    redirectEffectOnDailyLife: constants.routes.RARS_EFFECT_ON_DAILY_LIFE
+    redirectEffectOnDailyLife: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE
   }
 ]
 
@@ -53,7 +53,7 @@ describe('RARS Time Before Yesterday Routes', () => {
       redirect: {
         whenWorse: constants.routes.NOISE_WHEN_WORSE,
         smellStrength: constants.routes.SMELL_SMELL_STRENGTH,
-        effectOnDailyLife: constants.routes.RARS_EFFECT_ON_DAILY_LIFE
+        effectOnDailyLife: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE
       }
     })
 

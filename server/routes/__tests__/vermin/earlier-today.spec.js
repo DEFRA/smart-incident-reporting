@@ -15,7 +15,7 @@ describe('vermin/earlier-today', () => {
       problem: 'vermin',
       route: constants.routes.VERMIN_EARLIER_TODAY,
       redirect: {
-        effectOnDailyLife: constants.routes.RARS_EFFECT_ON_DAILY_LIFE
+        effectOnDailyLife: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE
       }
     })
   })
