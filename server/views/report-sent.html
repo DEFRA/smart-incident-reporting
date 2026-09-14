@@ -10,11 +10,13 @@
     {% if(photoUploadDetails.reportersEmail !== '') %}
       {{ govukPanel({
         titleText: "Report sent",
+        classes: 'govuk-panel--blue' if photoUploadDetails.userAgreedForImages else '',
         html: "We have sent a confirmation of your report and a reference number to <strong>" + photoUploadDetails.reportersEmail + "</strong>"
       }) }}
     {% else %}
       {{ govukPanel({
-        titleText: "Report sent"        
+        titleText: "Report sent",
+        classes: 'govuk-panel--blue' if photoUploadDetails.userAgreedForImages else ''
       }) }}
     {% endif %}      
 

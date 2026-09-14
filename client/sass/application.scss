@@ -349,6 +349,11 @@ p {
   margin-bottom: 0;
 }
 
+.govuk-panel--blue {
+  background-color: govuk-colour("blue");
+  border-color: govuk-colour("blue");
+}
+
 
 //////////////////////////////////////////////////
 // OS MAP STYLES START ///////////////////////////
