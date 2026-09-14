@@ -31,5 +31,19 @@ describe(url, () => {
       expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION)).toEqual(otherInfo)
       expect(response.headers.location).toEqual(constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS)
     })
+
+    it('Should show an error and not progress when otherInfo exceeds the character limit', async () => {
+      const otherInfo = 'a'.repeat(constants.otherInformationCharacterLimit + 1)
+      const options = {
+        url,
+        payload: {
+          otherInfo
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.OK)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain(`Anything else you&#39;d like to add must be ${constants.otherInformationCharacterLimit} characters or less`)
+      expect(response.request.yar.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION)).toBeNull()
+    })
   })
 })
