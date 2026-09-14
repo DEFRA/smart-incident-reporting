@@ -2,72 +2,72 @@ import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/s
 import constants from '../../../utils/constants.js'
 import { questionSets } from '../../../utils/question-sets.js'
 
-const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_DAYS_WHEN_WORSE
+const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_TIMES_WHEN_WORSE
 
-const allDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+const allTimes = ['Morning', 'Afternoon', 'Evening', 'Night']
 
 const journeys = [
   {
     problem: 'noise',
-    url: constants.routes.NOISE_DAYS_WHEN_WORSE,
-    next: constants.routes.NOISE_TIMES_WHEN_WORSE,
-    heading: 'On which days of the week do you hear the noise?',
-    error: 'Select the days of the week you heard the noise?'
+    url: constants.routes.NOISE_TIMES_WHEN_WORSE,
+    next: constants.routes.NOISE_EFFECT_ON_DAILY_LIFE,
+    heading: 'At which times of day do you hear the noise?',
+    error: 'Select the time of the day you heard the noise?'
   },
   {
     problem: 'dust',
-    url: constants.routes.DUST_DAYS_WHEN_WORSE,
-    next: constants.routes.DUST_TIMES_WHEN_WORSE,
-    heading: 'On which days of the week do you notice the dust?',
-    error: 'Select the days of the week you noticed the dust?'
+    url: constants.routes.DUST_TIMES_WHEN_WORSE,
+    next: constants.routes.DUST_EFFECT_ON_DAILY_LIFE,
+    heading: 'At which times of day do you notice the dust?',
+    error: 'Select the time of the day you noticed the dust?'
   },
   {
     problem: 'litter',
-    url: constants.routes.LITTER_DAYS_WHEN_WORSE,
-    next: constants.routes.LITTER_TIMES_WHEN_WORSE,
-    heading: 'On which days of the week do you notice the litter?',
-    error: 'Select the days of the week you noticed the litter?'
+    url: constants.routes.LITTER_TIMES_WHEN_WORSE,
+    next: constants.routes.LITTER_EFFECT_ON_DAILY_LIFE,
+    heading: 'At which times of day do you notice the litter?',
+    error: 'Select the time of the day you noticed the litter?'
   },
   {
     problem: 'mud',
-    url: constants.routes.MUD_DAYS_WHEN_WORSE,
-    next: constants.routes.MUD_TIMES_WHEN_WORSE,
-    heading: 'On which days of the week do you notice the mud?',
-    error: 'Select the days of the week you noticed the mud?'
+    url: constants.routes.MUD_TIMES_WHEN_WORSE,
+    next: constants.routes.MUD_EFFECT_ON_DAILY_LIFE,
+    heading: 'At which times of day do you notice the mud?',
+    error: 'Select the time of the day you noticed the mud?'
   }
 ]
 
-describe('RARS days-when-worse', () => {
-  describe.each(journeys)('$problem days-when-worse', ({ url, next, heading, error }) => {
+describe('RARS times-when-worse', () => {
+  describe.each(journeys)('$problem times-when-worse', ({ url, next, heading, error }) => {
     describe('GET', () => {
       it('Should return success response with the journey specific question', async () => {
         const response = await submitGetRequest({ url }, heading)
         expect(response.payload).toContain(heading)
       })
 
-      it('Should render every day plus the exclusive option', async () => {
+      it('Should render every time of day plus the exclusive option', async () => {
         const response = await submitGetRequest({ url }, heading)
-        for (const day of allDays) {
-          expect(response.payload).toContain(`value="${day}"`)
+        for (const time of allTimes) {
+          expect(response.payload).toContain(`value="${time}"`)
         }
         expect(response.payload).toContain('value="No particular day"')
         expect(response.payload).toContain('exclusive')
       })
 
-      it('Should pre-check the days already stored in the session', async () => {
+      it('Should pre-check the times already stored in the session', async () => {
         const sessionData = {
           [question.key]: [{
             questionId: question.questionId,
             questionAsked: heading,
             questionResponse: true,
-            answerId: question.answers.days.answerId,
-            otherDetails: 'Monday;Sunday'
+            answerId: question.answers.times.answerId,
+            otherDetails: 'Morning;Night'
           }]
         }
         const response = await submitGetRequest({ url }, heading, constants.statusCodes.OK, sessionData)
-        expect(response.payload).toContain('value="Monday" checked')
-        expect(response.payload).toContain('value="Sunday" checked')
-        expect(response.payload).not.toContain('value="Tuesday" checked')
+        expect(response.payload).toContain('value="Morning" checked')
+        expect(response.payload).toContain('value="Night" checked')
+        expect(response.payload).not.toContain('value="Afternoon" checked')
       })
 
       it('Should pre-check the exclusive option already stored in the session', async () => {
@@ -76,41 +76,41 @@ describe('RARS days-when-worse', () => {
             questionId: question.questionId,
             questionAsked: heading,
             questionResponse: true,
-            answerId: question.answers.days.answerId,
+            answerId: question.answers.times.answerId,
             otherDetails: 'No particular day'
           }]
         }
         const response = await submitGetRequest({ url }, heading, constants.statusCodes.OK, sessionData)
         expect(response.payload).toContain('value="No particular day" checked')
-        expect(response.payload).not.toContain('value="Monday" checked')
+        expect(response.payload).not.toContain('value="Morning" checked')
       })
     })
 
     describe('POST', () => {
-      it('Should store the selected days in week order and redirect to times-when-worse', async () => {
-        const options = { url, payload: { answerId: ['Sunday', 'Monday', 'Wednesday'] } }
+      it('Should store the selected times in order and redirect to effect-on-daily-life', async () => {
+        const options = { url, payload: { answerId: ['Night', 'Morning', 'Afternoon'] } }
         const response = await submitPostRequest(options, constants.statusCodes.REDIRECT)
 
         expect(response.headers.location).toBe(next)
         expect(response.request.yar.get(question.key)).toEqual([{
-          questionId: 1360,
+          questionId: 1370,
           questionAsked: heading,
           questionResponse: true,
-          answerId: 1363,
-          otherDetails: 'Monday;Wednesday;Sunday'
+          answerId: 1371,
+          otherDetails: 'Morning;Afternoon;Night'
         }])
       })
 
-      it('Should store a single selected day submitted as a string', async () => {
-        const options = { url, payload: { answerId: 'Friday' } }
+      it('Should store a single selected time submitted as a string', async () => {
+        const options = { url, payload: { answerId: 'Evening' } }
         const response = await submitPostRequest(options, constants.statusCodes.REDIRECT)
 
         expect(response.headers.location).toBe(next)
-        expect(response.request.yar.get(question.key)[0].otherDetails).toBe('Friday')
+        expect(response.request.yar.get(question.key)[0].otherDetails).toBe('Evening')
       })
 
-      it('Should discard any days submitted alongside the exclusive option', async () => {
-        const options = { url, payload: { answerId: ['Monday', 'No particular day'] } }
+      it('Should discard any times submitted alongside the exclusive option', async () => {
+        const options = { url, payload: { answerId: ['Morning', 'No particular day'] } }
         const response = await submitPostRequest(options, constants.statusCodes.REDIRECT)
 
         expect(response.headers.location).toBe(next)
@@ -126,7 +126,7 @@ describe('RARS days-when-worse', () => {
       })
 
       it('Should error when only unrecognised values are submitted', async () => {
-        const options = { url, payload: { answerId: ['Funday'] } }
+        const options = { url, payload: { answerId: ['Midnight'] } }
         const response = await submitPostRequest(options, constants.statusCodes.OK)
 
         expect(response.payload).toContain(error)
@@ -134,8 +134,8 @@ describe('RARS days-when-worse', () => {
     })
   })
 
-  // vermin and smell have no days-when-worse page, so the route must not exist
-  describe.each(['/vermin/days-when-worse', '/smell/days-when-worse'])('excluded journeys', url => {
+  // vermin and smell have no times-when-worse page, so the route must not exist
+  describe.each(['/vermin/times-when-worse', '/smell/times-when-worse'])('excluded journeys', url => {
     it(`Should not register ${url}`, async () => {
       await submitGetRequest({ url }, undefined, constants.statusCodes.PAGE_NOT_FOUND)
     })

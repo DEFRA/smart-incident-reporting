@@ -42,7 +42,7 @@ describe(url, () => {
       const answerId = question.answers.no.answerId
       const response = await submitPostRequest({ url, payload: { answerId: answerId.toString() } })
       expect(response.statusCode).toBe(constants.statusCodes.REDIRECT)
-      expect(response.headers.location).toBe(constants.routes.RARS_EFFECT_ON_DAILY_LIFE)
+      expect(response.headers.location).toBe(constants.routes.SMELL_EFFECT_ON_DAILY_LIFE)
       expect(response.request.yar.get(constants.redisKeys.SMELL_CLOTHING_AND_HAIR)).toEqual([{
         questionId: question.questionId,
         questionAsked: question.text,
