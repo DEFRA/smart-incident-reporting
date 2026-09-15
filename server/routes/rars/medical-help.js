@@ -14,7 +14,7 @@ const createMedicalHelpRoutes = ({ problem, route }) => {
   const serviceDetails = getServiceDetails(problem)
 
   const handlers = {
-    get: async (request, h) => {
+    get: async (_request, h) => {
       return h.view(constants.views.RARS_MEDICAL_HELP, {
         question,
         problem,
