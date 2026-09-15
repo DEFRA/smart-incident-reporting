@@ -41,6 +41,7 @@ const RARS_TIME_BEFORE_YESTERDAY = 'rars/time-before-yesterday'
 const RARS_WHEN_WORSE = 'rars/when-worse'
 const RARS_DAYS_WHEN_WORSE = 'rars/days-when-worse'
 const RARS_TIMES_WHEN_WORSE = 'rars/times-when-worse'
+const RARS_MEDICAL_HELP = 'rars/medical-help'
 
 const views = {
   RARS_SOURCE,
@@ -69,7 +70,8 @@ const views = {
   RARS_TIME_BEFORE_YESTERDAY,
   RARS_WHEN_WORSE,
   RARS_DAYS_WHEN_WORSE,
-  RARS_TIMES_WHEN_WORSE
+  RARS_TIMES_WHEN_WORSE,
+  RARS_MEDICAL_HELP
 }
 
 const redisKeys = {
