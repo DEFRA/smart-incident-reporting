@@ -13,7 +13,10 @@ describe('dust/medical-help', () => {
     expect(createMedicalHealthRoutes).toHaveBeenCalledTimes(1)
     expect(createMedicalHealthRoutes).toHaveBeenCalledWith({
       problem: 'dust',
-      route: constants.routes.DUST_MEDICAL_HELP
+      route: constants.routes.DUST_MEDICAL_HELP,
+      redirect: {
+        imagesOrVideo: constants.routes.DUST_IMAGES_OR_VIDEOS
+      }
     })
   })
 })

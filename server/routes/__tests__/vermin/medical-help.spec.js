@@ -13,7 +13,10 @@ describe('vermin/medical-help', () => {
     expect(createMedicalHealthRoutes).toHaveBeenCalledTimes(1)
     expect(createMedicalHealthRoutes).toHaveBeenCalledWith({
       problem: 'vermin',
-      route: constants.routes.VERMIN_MEDICAL_HELP
+      route: constants.routes.VERMIN_MEDICAL_HELP,
+      redirect: {
+        imagesOrVideo: constants.routes.VERMIN_IMAGES_OR_VIDEO
+      }
     })
   })
 })

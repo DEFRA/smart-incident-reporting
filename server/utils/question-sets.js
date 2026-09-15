@@ -1596,6 +1596,21 @@ const questionSets = {
             text: 'Mental health issues, for example stress'
           }
         }
+      },
+      RARS_MEDICAL_HELP: {
+        questionId: 3300,
+        key: constants.redisKeys.RARS_MEDICAL_HELP,
+        text: 'Have you had to get any medical help or treatment?',
+        answers: {
+          yes: {
+            answerId: 3301,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3302,
+            text: 'No'
+          }
+        }
       }
     }
   }

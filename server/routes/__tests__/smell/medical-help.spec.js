@@ -13,7 +13,10 @@ describe('smell/medical-help', () => {
     expect(createMedicalHealthRoutes).toHaveBeenCalledTimes(1)
     expect(createMedicalHealthRoutes).toHaveBeenCalledWith({
       problem: 'smell',
-      route: constants.routes.SMELL_MEDICAL_HELP
+      route: constants.routes.SMELL_MEDICAL_HELP,
+      redirect: {
+        imagesOrVideo: constants.routes.SMELL_IMAGES_OR_VIDEO
+      }
     })
   })
 })
