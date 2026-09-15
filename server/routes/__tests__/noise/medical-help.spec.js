@@ -13,7 +13,10 @@ describe('noise/medical-help', () => {
     expect(createMedicalHealthRoutes).toHaveBeenCalledTimes(1)
     expect(createMedicalHealthRoutes).toHaveBeenCalledWith({
       problem: 'noise',
-      route: constants.routes.NOISE_MEDICAL_HELP
+      route: constants.routes.NOISE_MEDICAL_HELP,
+      redirect: {
+        imagesOrVideo: constants.routes.NOISE_IMAGES_OR_VIDEO
+      }
     })
   })
 })

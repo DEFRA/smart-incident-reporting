@@ -13,7 +13,10 @@ describe('litter/medical-help', () => {
     expect(createMedicalHealthRoutes).toHaveBeenCalledTimes(1)
     expect(createMedicalHealthRoutes).toHaveBeenCalledWith({
       problem: 'litter',
-      route: constants.routes.LITTER_MEDICAL_HELP
+      route: constants.routes.LITTER_MEDICAL_HELP,
+      redirect: {
+        imagesOrVideo: constants.routes.LITTER_IMAGES_OR_VIDEO
+      }
     })
   })
 })
