@@ -10,7 +10,7 @@ const baseAnswer = {
   questionResponse: true
 }
 
-const createMedicalHelpRoutes = ({ problem, route }) => {
+const createMedicalHelpRoutes = ({ problem, route, redirect }) => {
   const serviceDetails = getServiceDetails(problem)
 
   const handlers = {
@@ -37,7 +37,7 @@ const createMedicalHelpRoutes = ({ problem, route }) => {
       answerId = Number(answerId)
 
       request.yar.set(constants.redisKeys.RARS_MEDICAL_HELP, buildAnswer(answerId))
-      return h.redirect(constants.routes.RARS_IMAGES_OR_VIDEO)
+      return h.redirect(redirect.imagesOrVideo)
     }
   }
 

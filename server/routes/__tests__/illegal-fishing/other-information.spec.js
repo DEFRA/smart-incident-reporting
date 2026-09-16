@@ -82,5 +82,19 @@ describe(url, () => {
       }
       await submitPostRequest(options, 500)
     })
+
+    it('Should show an error and not progress when otherInfo exceeds the character limit', async () => {
+      const otherInfo = 'a'.repeat(constants.otherInformationCharacterLimit + 1)
+      const options = {
+        url,
+        payload: {
+          otherInfo
+        }
+      }
+      const response = await submitPostRequest(options, 200)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain(`Anything else you&#39;d like to add must be ${constants.otherInformationCharacterLimit} characters or less`)
+      expect(sendMessage).not.toHaveBeenCalled()
+    })
   })
 })

@@ -5,6 +5,6 @@ export default createMedicalHealthRoutes({
   problem: 'dust',
   route: constants.routes.DUST_MEDICAL_HELP,
   redirect: {
-    imagesOrVideo: constants.routes.DUST_IMAGES_OR_VIDEOS
+    imagesOrVideo: constants.routes.DUST_IMAGES_OR_VIDEO
   }
 })
