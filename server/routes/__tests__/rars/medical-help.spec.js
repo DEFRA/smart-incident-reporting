@@ -9,31 +9,37 @@ const problems = [
   {
     problem: 'smell',
     url: constants.routes.SMELL_MEDICAL_HELP,
+    redirect: constants.routes.SMELL_IMAGES_OR_VIDEO,
     errorText: 'Select &#39;yes&#39; if you have had to get any medical help, or treatment because of the smell'
   },
   {
     problem: 'noise',
     url: constants.routes.NOISE_MEDICAL_HELP,
+    redirect: constants.routes.NOISE_IMAGES_OR_VIDEO,
     errorText: 'Select &#39;yes&#39; if you have had to get any medical help, or treatment because of the noise'
   },
   {
     problem: 'dust',
     url: constants.routes.DUST_MEDICAL_HELP,
+    redirect: constants.routes.DUST_IMAGES_OR_VIDEO,
     errorText: 'Select &#39;yes&#39; if you have had to get any medical help, or treatment because of the dust'
   },
   {
     problem: 'litter',
     url: constants.routes.LITTER_MEDICAL_HELP,
+    redirect: constants.routes.LITTER_IMAGES_OR_VIDEO,
     errorText: 'Select &#39;yes&#39; if you have had to get any medical help, or treatment because of the litter'
   },
   {
     problem: 'mud',
     url: constants.routes.MUD_MEDICAL_HELP,
+    redirect: constants.routes.MUD_IMAGES_OR_VIDEO,
     errorText: 'Select &#39;yes&#39; if you have had to get any medical help, or treatment because of the mud'
   },
   {
     problem: 'vermin/pests',
     url: constants.routes.VERMIN_MEDICAL_HELP,
+    redirect: constants.routes.VERMIN_IMAGES_OR_VIDEO,
     errorText: 'Select &#39;yes&#39; if you have had to get any medical help, or treatment because of the vermin/pests',
     sessionData: {
       [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'vermin/pests'
@@ -42,7 +48,7 @@ const problems = [
 ]
 
 describe('RARS Medical Help Routes', () => {
-  describe.each(problems)('$problem medical help', ({ url, errorText, sessionData = {} }) => {
+  describe.each(problems)('$problem medical help', ({ url, redirect, errorText, sessionData = {} }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
         await submitGetRequest({ url }, heading, constants.statusCodes.OK, sessionData)
@@ -60,7 +66,7 @@ describe('RARS Medical Help Routes', () => {
       it('Happy: yes answer redirects to images or video', async () => {
         const options = { url, payload: { answerId: String(question.answers.yes.answerId) } }
         const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData)
-        expect(response.headers.location).toBe(constants.routes.RARS_IMAGES_OR_VIDEO)
+        expect(response.headers.location).toBe(redirect)
         expect(response.request.yar.get(question.key)).toEqual([{
           questionId: question.questionId,
           questionAsked: question.text,
@@ -72,7 +78,7 @@ describe('RARS Medical Help Routes', () => {
       it('Happy: no answer redirects to images or video', async () => {
         const options = { url, payload: { answerId: String(question.answers.no.answerId) } }
         const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData)
-        expect(response.headers.location).toBe(constants.routes.RARS_IMAGES_OR_VIDEO)
+        expect(response.headers.location).toBe(redirect)
         expect(response.request.yar.get(question.key)).toEqual([{
           questionId: question.questionId,
           questionAsked: question.text,
