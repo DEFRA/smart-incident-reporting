@@ -52,6 +52,14 @@ describe('validation', () => {
 
       expect(maxLength(valueWithinLimit, characterLimit)).toBeFalsy()
     })
+
+    it('should count CRLF line breaks as a single character, matching the browser character count', () => {
+      // a textarea submits "\r\n" for each line break, but the browser's character count treats it as "\n"
+      const valueWithLineBreaks = 'a'.repeat(9) + '\r\n' + 'a'.repeat(9)
+      const characterLimit = 19
+
+      expect(maxLength(valueWithLineBreaks, characterLimit)).toBeFalsy()
+    })
   })
 
   describe('postcode', () => {
