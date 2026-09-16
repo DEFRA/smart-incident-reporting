@@ -13,7 +13,10 @@ describe('mud/medical-help', () => {
     expect(createMedicalHealthRoutes).toHaveBeenCalledTimes(1)
     expect(createMedicalHealthRoutes).toHaveBeenCalledWith({
       problem: 'mud',
-      route: constants.routes.MUD_MEDICAL_HELP
+      route: constants.routes.MUD_MEDICAL_HELP,
+      redirect: {
+        imagesOrVideo: constants.routes.MUD_IMAGES_OR_VIDEO
+      }
     })
   })
 })

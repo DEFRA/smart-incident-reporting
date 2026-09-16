@@ -1,16 +1,20 @@
-{% extends 'layout.html' %}
- 
-{% set pageTitle = 'MEDICAL-HELP' %}
- 
-{% block content %}
- 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
- 
-    <h1 class="govuk-heading-l">
-      {{ pageTitle }}
-    </h1>
-  </div>
-</div>
- 
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% set items = [
+  {
+    value: question.answers.yes.answerId,
+    text: question.answers.yes.text
+  },
+  {
+    value: question.answers.no.answerId,
+    text: question.answers.no.text
+  }
+]%}
+
+{% block formContent %}
+
+  {% include "partials/radios.html" %} 
+
 {% endblock %}

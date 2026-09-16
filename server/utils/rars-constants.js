@@ -42,6 +42,7 @@ const RARS_WHEN_WORSE = 'rars/when-worse'
 const RARS_DAYS_WHEN_WORSE = 'rars/days-when-worse'
 const RARS_TIMES_WHEN_WORSE = 'rars/times-when-worse'
 const RARS_MEDICAL_HELP = 'rars/medical-help'
+const RARS_IMAGES_OR_VIDEO = 'rars/images-or-video'
 
 const views = {
   RARS_SOURCE,
@@ -71,7 +72,8 @@ const views = {
   RARS_WHEN_WORSE,
   RARS_DAYS_WHEN_WORSE,
   RARS_TIMES_WHEN_WORSE,
-  RARS_MEDICAL_HELP
+  RARS_MEDICAL_HELP,
+  RARS_IMAGES_OR_VIDEO
 }
 
 const redisKeys = {
