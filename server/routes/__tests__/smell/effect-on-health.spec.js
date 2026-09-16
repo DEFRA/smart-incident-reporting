@@ -13,7 +13,10 @@ describe('smell/effect-on-health', () => {
     expect(createEffectOnHealthRoutes).toHaveBeenCalledTimes(1)
     expect(createEffectOnHealthRoutes).toHaveBeenCalledWith({
       problem: 'smell',
-      route: constants.routes.SMELL_EFFECT_ON_HEALTH
+      route: constants.routes.SMELL_EFFECT_ON_HEALTH,
+      redirect: {
+        medicalHelp: constants.routes.SMELL_MEDICAL_HELP
+      }
     })
   })
 })

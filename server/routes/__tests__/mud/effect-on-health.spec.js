@@ -13,7 +13,10 @@ describe('mud/effect-on-health', () => {
     expect(createEffectOnHealthRoutes).toHaveBeenCalledTimes(1)
     expect(createEffectOnHealthRoutes).toHaveBeenCalledWith({
       problem: 'mud',
-      route: constants.routes.MUD_EFFECT_ON_HEALTH
+      route: constants.routes.MUD_EFFECT_ON_HEALTH,
+      redirect: {
+        medicalHelp: constants.routes.MUD_MEDICAL_HELP
+      }
     })
   })
 })

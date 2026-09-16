@@ -13,7 +13,10 @@ describe('vermin/effect-on-health', () => {
     expect(createEffectOnHealthRoutes).toHaveBeenCalledTimes(1)
     expect(createEffectOnHealthRoutes).toHaveBeenCalledWith({
       problem: 'vermin',
-      route: constants.routes.VERMIN_EFFECT_ON_HEALTH
+      route: constants.routes.VERMIN_EFFECT_ON_HEALTH,
+      redirect: {
+        medicalHelp: constants.routes.VERMIN_MEDICAL_HELP
+      }
     })
   })
 })
