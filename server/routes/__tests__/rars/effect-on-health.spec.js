@@ -84,6 +84,7 @@ describe('RARS Effect On Health Routes', () => {
           url,
           payload: {
             answerId: [
+              String(question.answers.disturbedSleep.answerId),
               String(question.answers.headache.answerId),
               String(question.answers.mentalHealthIssues.answerId),
               String(question.answers.noneOfthese.answerId)
@@ -93,6 +94,7 @@ describe('RARS Effect On Health Routes', () => {
         const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, sessionData)
         expect(response.headers.location).toBe(medicalHelp)
         expect(response.request.yar.get(question.key)).toEqual([
+          { questionId: question.questionId, questionAsked: question.text, questionResponse: true, answerId: question.answers.disturbedSleep.answerId },
           { questionId: question.questionId, questionAsked: question.text, questionResponse: true, answerId: question.answers.headache.answerId },
           { questionId: question.questionId, questionAsked: question.text, questionResponse: true, answerId: question.answers.mentalHealthIssues.answerId },
           { questionId: question.questionId, questionAsked: question.text, questionResponse: true, answerId: question.answers.noneOfthese.answerId }
