@@ -13,7 +13,10 @@ describe('dust/effect-on-health', () => {
     expect(createEffectOnHealthRoutes).toHaveBeenCalledTimes(1)
     expect(createEffectOnHealthRoutes).toHaveBeenCalledWith({
       problem: 'dust',
-      route: constants.routes.DUST_EFFECT_ON_HEALTH
+      route: constants.routes.DUST_EFFECT_ON_HEALTH,
+      redirect: {
+        medicalHelp: constants.routes.DUST_MEDICAL_HELP
+      }
     })
   })
 })
