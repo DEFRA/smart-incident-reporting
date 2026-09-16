@@ -5,7 +5,7 @@ import { questionSets } from '../../utils/question-sets.js'
 import reportSentRoutes from '../report-sent.js'
 
 const url = constants.routes.REPORT_SENT
-const header = 'Report sent'
+const header = 'Thank you'
 const submissionTimestamp = '2026-04-09T09:00:00.000Z'
 const sessionId = 'test-session-id'
 const expectedMediaUploadLink = `/media/upload-photo?sirid=${sessionId}`
