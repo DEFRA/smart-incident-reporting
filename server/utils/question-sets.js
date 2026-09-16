@@ -1500,7 +1500,61 @@ const questionSets = {
           }
         }
       },
-      RARS_IMAGES_OR_VIDEO: createImagesOrVideoQuestion(constants.redisKeys.RARS_IMAGES_OR_VIDEO)
+      RARS_IMAGES_OR_VIDEO: createImagesOrVideoQuestion(constants.redisKeys.RARS_IMAGES_OR_VIDEO),
+      RARS_EFFECT_ON_HEALTH: {
+        questionId: 2500,
+        key: constants.redisKeys.RARS_EFFECT_ON_HEALTH,
+        text: 'Has the {problem} caused any of the following issues?',
+        answers: {
+          headache: {
+            answerId: 2501,
+            text: 'Headache'
+          },
+          wateringEyes: {
+            answerId: 2502,
+            text: 'Watering eyes'
+          },
+          sicknessOrNausea: {
+            answerId: 2503,
+            text: 'Sickness or nausea'
+          },
+          vomiting: {
+            answerId: 2504,
+            text: 'Vomiting'
+          },
+          somethingElse: {
+            answerId: 2505,
+            text: 'Something else or you\'d prefer not to say'
+          },
+          noneOfthese: {
+            answerId: 2506,
+            text: NONE_OF_THESE
+          },
+          somethingElseDetails: {
+            answerId: 2507,
+            text: 'Give details about the health problem'
+          },
+          mentalHealthIssues: {
+            answerId: 2508,
+            text: 'Mental health issues, for example stress'
+          }
+        }
+      },
+      RARS_MEDICAL_HELP: {
+        questionId: 3300,
+        key: constants.redisKeys.RARS_MEDICAL_HELP,
+        text: 'Have you had to get any medical help or treatment?',
+        answers: {
+          yes: {
+            answerId: 3301,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3302,
+            text: 'No'
+          }
+        }
+      }
     }
   }
 }

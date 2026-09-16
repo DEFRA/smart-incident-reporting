@@ -13,7 +13,10 @@ describe('litter/effect-on-health', () => {
     expect(createEffectOnHealthRoutes).toHaveBeenCalledTimes(1)
     expect(createEffectOnHealthRoutes).toHaveBeenCalledWith({
       problem: 'litter',
-      route: constants.routes.LITTER_EFFECT_ON_HEALTH
+      route: constants.routes.LITTER_EFFECT_ON_HEALTH,
+      redirect: {
+        medicalHelp: constants.routes.LITTER_MEDICAL_HELP
+      }
     })
   })
 })
