@@ -9,7 +9,7 @@ const email = value =>
 
 const empty = value => !value || value.toString().trim().length === 0
 
-const maxLength = (value, characterLimit) => value && value.toString().trim().replace(/\r\n/g, '\n').length > characterLimit
+const maxLength = (value, characterLimit) => value && value.toString().trim().replaceAll('\r\n', '\n').length > characterLimit
 
 const postcode = value => !value || postcodeValidator(value.toString().trim(), 'GB')
 
