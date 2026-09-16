@@ -69,15 +69,15 @@ const handler = async (problem, overrides = {}) => {
   return { reset, set, view }
 }
 
-describe('RARS report sent routes', () => {
+describe('RARS report sentroutes', () => {
   describe.each(problems)('$problem report-sent', ({ url }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
-        await submitGetRequest({ url }, 'Report sent')
+        await submitGetRequest({ url }, 'Thank you')
       })
 
       it('should render a blue panel when the user agreed to upload photos', async () => {
-        const response = await submitGetRequest({ url }, 'Report sent', constants.statusCodes.OK, {
+        const response = await submitGetRequest({ url }, 'Thank you', constants.statusCodes.OK, {
           [constants.redisKeys.SUBMISSION_TIMESTAMP]: submissionTimestamp,
           [constants.redisKeys.RARS_CONTACT_DETAILS]: { reporterEmailAddress: 'smell@test.com' },
           [constants.redisKeys.RARS_IMAGES_OR_VIDEO]: [
@@ -91,7 +91,7 @@ describe('RARS report sent routes', () => {
       })
 
       it('should render the default confirmation panel when the user has no photos', async () => {
-        const response = await submitGetRequest({ url }, 'Report sent', constants.statusCodes.OK, {
+        const response = await submitGetRequest({ url }, 'Thank you', constants.statusCodes.OK, {
           [constants.redisKeys.SUBMISSION_TIMESTAMP]: submissionTimestamp,
           [constants.redisKeys.RARS_CONTACT_DETAILS]: { reporterEmailAddress: 'smell@test.com' },
           [constants.redisKeys.RARS_IMAGES_OR_VIDEO]: [
