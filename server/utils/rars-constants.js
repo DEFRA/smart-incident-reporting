@@ -1,6 +1,6 @@
 const NOISE = 'noise'
 const LITTER = 'litter'
-const VERMIN = 'vermin'
+const PESTS = 'pests'
 const DUST = 'dust'
 const MUD = 'mud'
 const SMELL = 'smell'
@@ -8,7 +8,7 @@ const SMELL = 'smell'
 const rarsJourneys = [
   NOISE,
   LITTER,
-  VERMIN,
+  PESTS,
   DUST,
   MUD,
   SMELL
@@ -89,7 +89,7 @@ const redisKeys = {
 const routes = {
   NOISE: `/${NOISE}`,
   LITTER: `/${LITTER}`,
-  VERMIN: `/${VERMIN}`,
+  PESTS: `/${PESTS}`,
   DUST: `/${DUST}`,
   MUD: `/${MUD}`,
   SMELL: `/${SMELL}`
@@ -97,7 +97,7 @@ const routes = {
 
 // journeys that don't have a route file for a given view, so must be excluded from generation
 const journeyExclusions = {
-  vermin: ['RARS_DESCRIPTION', 'RARS_DAYS_WHEN_WORSE', 'RARS_TIMES_WHEN_WORSE'],
+  pests: ['RARS_DESCRIPTION', 'RARS_DAYS_WHEN_WORSE', 'RARS_TIMES_WHEN_WORSE'],
   smell: ['RARS_DESCRIPTION', 'RARS_WHEN_WORSE', 'RARS_DAYS_WHEN_WORSE', 'RARS_TIMES_WHEN_WORSE']
 }
 

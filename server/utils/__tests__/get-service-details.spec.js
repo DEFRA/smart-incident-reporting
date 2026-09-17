@@ -102,12 +102,12 @@ describe('get-service-details', () => {
     })
   })
 
-  it('returns vermin service details for vermin journey template', () => {
-    const details = getServiceDetails(`root/${constants.routes.VERMIN}/template`)
+  it('returns pests service details for pests journey template', () => {
+    const details = getServiceDetails(`root/${constants.routes.PESTS}/template`)
     expect(details).toEqual({
-      serviceName: constants.serviceNames.VERMIN,
-      serviceUrl: constants.urls.GOV_UK_VERMIN,
-      pageTitleServiceName: generatePageTitle(constants.serviceNames.VERMIN)
+      serviceName: constants.serviceNames.PESTS,
+      serviceUrl: constants.urls.GOV_UK_PESTS,
+      pageTitleServiceName: generatePageTitle(constants.serviceNames.PESTS)
     })
   })
 })

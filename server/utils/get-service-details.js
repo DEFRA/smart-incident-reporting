@@ -9,7 +9,7 @@ const routeServiceMap = [
   { route: constants.routes.BLOCKAGE, name: constants.serviceNames.BLOCKAGE, url: constants.urls.GOV_UK_BLOCKAGE },
   { route: constants.routes.NOISE, name: constants.serviceNames.NOISE, url: constants.urls.GOV_UK_NOISE },
   { route: constants.routes.LITTER, name: constants.serviceNames.LITTER, url: constants.urls.GOV_UK_LITTER },
-  { route: constants.routes.VERMIN, name: constants.serviceNames.VERMIN, url: constants.urls.GOV_UK_VERMIN },
+  { route: constants.routes.PESTS, name: constants.serviceNames.PESTS, url: constants.urls.GOV_UK_PESTS },
   { route: constants.routes.DUST, name: constants.serviceNames.DUST, url: constants.urls.GOV_UK_DUST },
   { route: constants.routes.MUD, name: constants.serviceNames.MUD, url: constants.urls.GOV_UK_MUD }
 ]

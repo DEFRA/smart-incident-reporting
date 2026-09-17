@@ -37,11 +37,11 @@ const problems = [
   },
   {
     problem: 'vermin/pests',
-    url: constants.routes.VERMIN_EFFECT_ON_HEALTH,
-    medicalHelp: constants.routes.VERMIN_MEDICAL_HELP,
+    url: constants.routes.PESTS_EFFECT_ON_HEALTH,
+    medicalHelp: constants.routes.PESTS_MEDICAL_HELP,
     errorText: 'Select any health conditions caused by the vermin/pests, or &#39;none of these&#39;',
     sessionData: {
-      [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'vermin/pests'
+      [constants.redisKeys.PESTS_TYPE_SELECTED]: 'vermin/pests'
     }
   }
 ]
@@ -128,10 +128,10 @@ describe('RARS Effect On Health Routes', () => {
     })
   })
 
-  it('Sad: vermin with no vermin type selected in session defaults error text to vermin', async () => {
-    const options = { url: constants.routes.VERMIN_EFFECT_ON_HEALTH, payload: {} }
+  it('Sad: pests with no pests type selected in session defaults error text to pests', async () => {
+    const options = { url: constants.routes.PESTS_EFFECT_ON_HEALTH, payload: {} }
     const response = await submitPostRequest(options, constants.statusCodes.OK)
     expect(response.payload).toContain('There is a problem')
-    expect(response.payload).toContain('Select any health conditions caused by the vermin, or &#39;none of these&#39;')
+    expect(response.payload).toContain('Select any health conditions caused by the pests, or &#39;none of these&#39;')
   })
 })
