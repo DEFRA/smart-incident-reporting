@@ -13,7 +13,7 @@ const baseAnswer = {
 const handlers = {
   get: async (request, h) => h.view(constants.views.PESTS_TYPE, {
     ...getContext(request),
-    ...getServiceDetails('pests')
+    ...getServiceDetails('vermin/pests')
   }),
   post: async (request, h) => {
     // get payload
@@ -39,7 +39,7 @@ const handlers = {
       return h.view(constants.views.PESTS_TYPE, {
         errorSummary,
         ...getContext(request),
-        ...getServiceDetails('pests')
+        ...getServiceDetails('vermin/pests')
       })
     }
     return h.redirect(constants.routes.PESTS_SOURCE)
@@ -77,7 +77,7 @@ const getContext = request => {
   return {
     question,
     answers,
-    ...getServiceDetails('pests')
+    ...getServiceDetails('vermin/pests')
   }
 }
 
