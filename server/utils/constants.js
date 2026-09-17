@@ -131,19 +131,27 @@ const BLOCKAGE_OTHER_INFORMATION = 'blockage/other-information'
 const BLOCKAGE_HEALTH = 'blockage/health'
 
 const NOISE_START = 'noise-start'
+const NOISE_HEALTH = 'noise/health'
+
 const LITTER_START = 'litter-start'
-const PESTS_START = 'pests-start'
+const LITTER_HEALTH = 'litter/health'
+
 const DUST_START = 'dust-start'
+const DUST_HEALTH = 'dust/health'
+
 const MUD_START = 'mud-start'
-const SMELL_START = 'smell-start'
+const MUD_HEALTH = 'mud/health'
 
+const PESTS_START = 'pests-start'
 const PESTS_TYPE = 'pests/type'
+const PESTS_HEALTH = 'pests/health'
 
-const SMELL_HEALTH = 'smell/health'
+const SMELL_START = 'smell-start'
 const SMELL_DESCRIPTION = 'smell/description'
 const SMELL_SMELL_STRENGTH = 'smell/smell-strength'
 const SMELL_INDOORS = 'smell/indoors'
 const SMELL_CLOTHING_AND_HAIR = 'smell/clothing-and-hair'
+const SMELL_HEALTH = 'smell/health'
 
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
@@ -268,7 +276,12 @@ const views = {
   SMELL_SMELL_STRENGTH,
   SMELL_INDOORS,
   SMELL_CLOTHING_AND_HAIR,
-  PESTS_TYPE
+  PESTS_HEALTH,
+  PESTS_TYPE,
+  MUD_HEALTH,
+  LITTER_HEALTH,
+  NOISE_HEALTH,
+  DUST_HEALTH
 }
 
 const routes = {
