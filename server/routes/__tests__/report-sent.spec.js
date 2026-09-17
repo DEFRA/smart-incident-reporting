@@ -1,6 +1,6 @@
 import { submitGetRequest } from '../../__test-helpers__/server.js'
-import { parse } from 'node-html-parser'
 import constants from '../../utils/constants.js'
+import { parse } from 'node-html-parser'
 import { questionSets } from '../../utils/question-sets.js'
 import { buildDataForReportSentPage } from '../../services/send-report.js'
 import reportSentRoutes from '../report-sent.js'
@@ -10,7 +10,6 @@ const header = 'Thank you'
 const submissionTimestamp = '2026-04-09T09:00:00.000Z'
 const sessionId = 'test-session-id'
 const expectedMediaUploadLink = `/media/upload-photo?sirid=${sessionId}`
-const expectedCacheTtlMs = 168 * 60 * 60 * 1000
 
 const journeySessionData = {
   100: {
@@ -49,7 +48,6 @@ const journeySessionData = {
 }
 
 const handler = async (questionSetID, overrides = {}) => {
-  const set = jest.fn()
   const view = jest.fn()
 
   const defaultJourneyData = journeySessionData[questionSetID] || {
@@ -100,15 +98,10 @@ const handler = async (questionSetID, overrides = {}) => {
       }[key])),
       id: sessionId,
       reset: jest.fn()
-    },
-    server: {
-      app: {
-        mediaUploadCache: { set }
-      }
     }
   }, { view })
 
-  return { set, view }
+  return { view }
 }
 
 describe(url, () => {
@@ -119,87 +112,28 @@ describe(url, () => {
 
     it.each([
       {
-        journey: 'water pollution',
-        questionSetID: questionSets.WATER_POLLUTION.questionSetId,
-        contactDetailsKey: constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS,
-        imagesOrVideoKey: constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO,
-        imagesQuestion: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO,
-        photosAnswer: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yesPhotos.answerId,
+        photosAnswer: true,
         expectedBluePanel: true
       },
       {
-        journey: 'water pollution',
-        questionSetID: questionSets.WATER_POLLUTION.questionSetId,
-        contactDetailsKey: constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS,
-        imagesOrVideoKey: constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO,
-        imagesQuestion: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO,
-        photosAnswer: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noPhotos.answerId,
-        expectedBluePanel: false
-      },
-      {
-        journey: 'blockage',
-        questionSetID: questionSets.BLOCKAGE.questionSetId,
-        contactDetailsKey: constants.redisKeys.BLOCKAGE_CONTACT_DETAILS,
-        imagesOrVideoKey: constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO,
-        imagesQuestion: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO,
-        photosAnswer: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.yesPhotos.answerId,
-        expectedBluePanel: true
-      },
-      {
-        journey: 'blockage',
-        questionSetID: questionSets.BLOCKAGE.questionSetId,
-        contactDetailsKey: constants.redisKeys.BLOCKAGE_CONTACT_DETAILS,
-        imagesOrVideoKey: constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO,
-        imagesQuestion: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO,
-        photosAnswer: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.noPhotos.answerId,
-        expectedBluePanel: false
-      },
-      {
-        journey: 'illegal fishing',
-        questionSetID: questionSets.ILLEGAL_FISHING.questionSetId,
-        contactDetailsKey: constants.redisKeys.ILLEGAL_FISHING_CONTACT_DETAILS,
-        imagesOrVideoKey: constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO,
-        imagesQuestion: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO,
-        photosAnswer: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.yesPhotos.answerId,
-        expectedBluePanel: true
-      },
-      {
-        journey: 'illegal fishing',
-        questionSetID: questionSets.ILLEGAL_FISHING.questionSetId,
-        contactDetailsKey: constants.redisKeys.ILLEGAL_FISHING_CONTACT_DETAILS,
-        imagesOrVideoKey: constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO,
-        imagesQuestion: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO,
-        photosAnswer: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.noPhotos.answerId,
+        photosAnswer: false,
         expectedBluePanel: false
       }
-    ])('should render the correct panel colour for $journey when expectedBluePanel is $expectedBluePanel', async ({ questionSetID, contactDetailsKey, imagesOrVideoKey, imagesQuestion, photosAnswer, expectedBluePanel }) => {
+    ])('should render the correct panel colour when userAgreedForImages is $photosAnswer', async ({ photosAnswer, expectedBluePanel }) => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, {
-        [constants.redisKeys.QUESTION_SET_ID]: questionSetID,
-        [constants.redisKeys.SUBMISSION_TIMESTAMP]: submissionTimestamp,
-        [contactDetailsKey]: { reporterEmailAddress: 'test@example.com' },
-        [imagesOrVideoKey]: [
-          { answerId: photosAnswer },
-          { answerId: imagesQuestion.answers.noVideo.answerId }
-        ]
+        [constants.redisKeys.REPORT_SENT_PAGE_DATA]: {
+          reportersEmail: 'test@example.com',
+          hasPhoneNumber: false,
+          userAgreedForVideos: false,
+          userAgreedForImages: photosAnswer,
+          mediaUploadLink: 'test'
+        }
       })
       const html = parse(response.payload)
       const panel = html.querySelector('.govuk-panel')
 
       expect(panel.classList.contains('govuk-panel--confirmation')).toBe(true)
       expect(panel.classList.contains('govuk-panel--blue')).toBe(expectedBluePanel)
-    })
-
-    it.each([
-      { questionSetID: 100, expectedJourney: 'water pollution' },
-      { questionSetID: 300, expectedJourney: 'blockage' },
-      { questionSetID: 1800, expectedJourney: 'illegal fishing' }
-    ])('should cache journey "$expectedJourney" for questionSetID $questionSetID', async ({ questionSetID, expectedJourney }) => {
-      const { set } = await handler(questionSetID)
-
-      expect(set).toHaveBeenCalledWith(sessionId, {
-        journey: expectedJourney,
-        dateTime: submissionTimestamp
-      }, expectedCacheTtlMs)
     })
 
     it('should pass mediaUploadLink in photoUploadDetails', async () => {
