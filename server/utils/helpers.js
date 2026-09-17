@@ -63,7 +63,7 @@ const getServiceDetails = (problem) => {
     dust: constants.serviceNames.DUST,
     litter: constants.serviceNames.LITTER,
     mud: constants.serviceNames.MUD,
-    pests: constants.serviceNames.PESTS
+    'vermin/pests': constants.serviceNames.PESTS
   }
 
   const urlMap = {
@@ -72,7 +72,7 @@ const getServiceDetails = (problem) => {
     dust: constants.urls.GOV_UK_DUST,
     litter: constants.urls.GOV_UK_LITTER,
     mud: constants.urls.GOV_UK_MUD,
-    pests: constants.urls.GOV_UK_PESTS
+    'vermin/pests': constants.urls.GOV_UK_PESTS
   }
 
   const serviceName = serviceNameMap[problem]

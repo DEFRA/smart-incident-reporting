@@ -53,8 +53,12 @@ const buildPayload = (session, problem) => {
   const reporter = session.get(constants.redisKeys.RARS_CONTACT_DETAILS)
 
   let reportType
-  if (problem === 'vermin' && session.get(constants.redisKeys.VERMIN_TYPE_SELECTED) === 'flies') {
-    reportType = questionSets.REPORT_REGULATED_SITE.reportTypes.flies
+  if (problem === 'vermin/pests') {
+    if (session.get(constants.redisKeys.PESTS_TYPE_SELECTED) === 'flies') {
+      reportType = questionSets.REPORT_REGULATED_SITE.reportTypes.flies
+    } else {
+      reportType = questionSets.REPORT_REGULATED_SITE.reportTypes.vermin
+    }
   } else {
     reportType = questionSets.REPORT_REGULATED_SITE.reportTypes[problem]
   }
