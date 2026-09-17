@@ -29,9 +29,9 @@ const problems = [
     redirectWhenWorse: constants.routes.MUD_WHEN_WORSE
   },
   {
-    problem: 'vermin',
-    url: constants.routes.VERMIN_TIME_BEFORE_YESTERDAY,
-    redirectEffectOnDailyLife: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE
+    problem: 'vermin/pests',
+    url: constants.routes.PESTS_TIME_BEFORE_YESTERDAY,
+    redirectEffectOnDailyLife: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE
   }
 ]
 
@@ -53,7 +53,7 @@ describe('RARS Time Before Yesterday Routes', () => {
       redirect: {
         whenWorse: constants.routes.NOISE_WHEN_WORSE,
         smellStrength: constants.routes.SMELL_SMELL_STRENGTH,
-        effectOnDailyLife: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE
+        effectOnDailyLife: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE
       }
     })
 

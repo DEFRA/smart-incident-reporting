@@ -3,7 +3,7 @@ import { questionSets } from '../../utils/question-sets.js'
 import { getServiceDetails, getErrorSummary, titleHelper } from '../../utils/helpers.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_EFFECT_ON_HEALTH
-const verminQuestion = 'Has the {vermin} caused any of the following issues?'
+const verminPestsQuestion = 'Has the {vermin/pests} caused any of the following issues?'
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -16,7 +16,7 @@ const createEffectOnHealthroutes = ({ problem, route, redirect }) => {
 
   const handlers = {
     get: async (request, h) => {
-      const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
+      const { title, pageTitle } = titleHelper(request, question.text, verminPestsQuestion, problem)
       return h.view(constants.views.RARS_EFFECT_ON_HEALTH, {
         question,
         problem,
@@ -27,7 +27,7 @@ const createEffectOnHealthroutes = ({ problem, route, redirect }) => {
     },
     post: async (request, h) => {
       let { answerId, somethingElseDetails } = request.payload
-      const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
+      const { title, pageTitle } = titleHelper(request, question.text, verminPestsQuestion, problem)
       const errorSummary = validatePayload(answerId, request, problem)
       if (errorSummary.errorList.length > 0) {
         request.yar.set(question.key, [])
@@ -86,8 +86,8 @@ const buildAnswer = (answerId, somethingElseDetails) => {
 const validatePayload = (answerId, request, problem) => {
   const errorSummary = getErrorSummary()
   if (!answerId || answerId.length === 0) {
-    const selectedProblem = problem === 'vermin'
-      ? (request?.yar?.get(constants.redisKeys.VERMIN_TYPE_SELECTED) || 'vermin')
+    const selectedProblem = problem === 'vermin/pests'
+      ? (request?.yar?.get(constants.redisKeys.PESTS_TYPE_SELECTED) || 'pests')
       : problem
 
     errorSummary.errorList.push({

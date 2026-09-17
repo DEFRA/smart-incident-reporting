@@ -1100,7 +1100,6 @@ const questionSets = {
     }
   },
   REPORT_REGULATED_SITE: {
-    // FIXME: check the start pages and report sent
     reportTypes: {
       smell: 200,
       dust: 900,
@@ -1111,9 +1110,9 @@ const questionSets = {
       vermin: 3100
     },
     questions: {
-      VERMIN_TYPE: {
+      PESTS_TYPE: {
         questionId: 1620,
-        key: constants.redisKeys.VERMIN_TYPE,
+        key: constants.redisKeys.PESTS_TYPE,
         text: 'What type of vermin or pest is causing a problem?',
         answers: {
           flies: {

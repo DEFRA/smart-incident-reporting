@@ -48,12 +48,12 @@ const problems = [
     }
   },
   {
-    problem: 'vermin',
-    url: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE,
+    problem: 'vermin/pests',
+    url: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE,
     header: 'Do you know the site or business responsible for the vermin/pests?',
     errorText: 'Select any of the following you did because of the vermin/pests, or &#39;none of these&#39;',
     redirect: {
-      effectOnHealth: constants.routes.VERMIN_EFFECT_ON_HEALTH
+      effectOnHealth: constants.routes.PESTS_EFFECT_ON_HEALTH
     }
   }
 ]
@@ -62,8 +62,8 @@ describe('RARS Effect On Daily Life Routes', () => {
   describe.each(problems)('$problem effect on daily life', ({ problem, url, header }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
-        const sessionData = problem === 'vermin'
-          ? { [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'vermin/pests' }
+        const sessionData = problem === 'vermin/pests'
+          ? { [constants.redisKeys.PESTS_TYPE_SELECTED]: 'vermin/pests' }
           : {}
 
         await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
@@ -74,8 +74,8 @@ describe('RARS Effect On Daily Life Routes', () => {
   describe.each(problems)('$problem effect on daily life sad path', ({ url, errorText, problem }) => {
     describe('POST', () => {
       it('Sad: no checkbox selected, returns error state with dynamic error text', async () => {
-        const sessionData = problem === 'vermin'
-          ? { [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'vermin/pests' }
+        const sessionData = problem === 'vermin/pests'
+          ? { [constants.redisKeys.PESTS_TYPE_SELECTED]: 'vermin/pests' }
           : {}
         const options = { url, payload: {} }
         const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
@@ -85,11 +85,11 @@ describe('RARS Effect On Daily Life Routes', () => {
     })
   })
 
-  it('Sad: vermin with no vermin type selected in session defaults error text to vermin', async () => {
-    const options = { url: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE, payload: {} }
+  it('Sad: pests with no pests type selected in session defaults error text to pests', async () => {
+    const options = { url: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE, payload: {} }
     const response = await submitPostRequest(options, constants.statusCodes.OK)
     expect(response.payload).toContain('There is a problem')
-    expect(response.payload).toContain('Select any of the following you did because of the vermin, or &#39;none of these&#39;')
+    expect(response.payload).toContain('Select any of the following you did because of the vermin/pests, or &#39;none of these&#39;')
   })
 
   describe.each(problems)('$problem effect on daily life redirect', ({ url, redirect }) => {
@@ -161,27 +161,27 @@ describe('RARS Effect On Daily Life Routes', () => {
     })
   })
 
-  describe('vermin effect on daily life title behaviour', () => {
+  describe('vermin/pests effect on daily life title behaviour', () => {
     it.each(['rats', 'seagulls', 'vermin/pests'])(
-      'Should use selected vermin type in title when session has %s', async (selectedVermin) => {
+      'Should use selected vermin/pests type in title when session has %s', async (selectedVerminOrPests) => {
         const response = await submitGetRequest(
-          { url: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE },
-          `Do you know the site or business responsible for the ${selectedVermin}?`,
+          { url: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE },
+          `Do you know the site or business responsible for the ${selectedVerminOrPests}?`,
           constants.statusCodes.OK,
-          { [constants.redisKeys.VERMIN_TYPE_SELECTED]: selectedVermin }
+          { [constants.redisKeys.PESTS_TYPE_SELECTED]: selectedVerminOrPests }
         )
         expect(response.statusCode).toBe(constants.statusCodes.OK)
       }
     )
 
     it.each(['rats', 'seagulls', 'vermin/pests'])(
-      'Should show selected vermin type title when validation fails and session has %s', async (selectedVermin) => {
+      'Should show selected vermin/pests type title when validation fails and session has %s', async (selectedVerminOrPests) => {
         const response = await submitPostRequest(
-          { url: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE, payload: {} },
+          { url: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE, payload: {} },
           constants.statusCodes.OK,
-          { [constants.redisKeys.VERMIN_TYPE_SELECTED]: selectedVermin }
+          { [constants.redisKeys.PESTS_TYPE_SELECTED]: selectedVerminOrPests }
         )
-        expect(response.payload).toContain(`Do you know the site or business responsible for the ${selectedVermin}?`)
+        expect(response.payload).toContain(`Do you know the site or business responsible for the ${selectedVerminOrPests}?`)
         expect(response.payload).toContain('There is a problem')
       }
     )

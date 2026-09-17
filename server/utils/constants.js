@@ -12,7 +12,7 @@ const urls = {
   // FIXME: we will need the correct URLs for these services
   GOV_UK_NOISE: serviceHome,
   GOV_UK_LITTER: serviceHome,
-  GOV_UK_VERMIN: serviceHome,
+  GOV_UK_PESTS: serviceHome,
   GOV_UK_DUST: serviceHome,
   GOV_UK_MUD: serviceHome
 }
@@ -25,7 +25,7 @@ const serviceNames = {
   BLOCKAGE: 'Report a blockage in a river in England',
   NOISE: 'Report noise from a waste facility, industrial site or farm in England',
   LITTER: 'Report litter from a waste facility, industrial site or farm in England',
-  VERMIN: 'Report vermin or pest problem from a waste facility, industrial site or farm in England',
+  PESTS: 'Report vermin or pest problem from a waste facility, industrial site or farm in England',
   DUST: 'Report dust from a waste facility, industrial site or farm in England',
   MUD: 'Report mud from a waste facility, industrial site or farm in England'
 }
@@ -48,6 +48,7 @@ const ERROR = 'error'
 const PUBLIC = 'public'
 const HOME = 'home'
 const REPORT_SENT = 'report-sent'
+const REPORT_SENT_PAGE_DATA = 'report-sent-page-data'
 const FEEDBACK = 'feedback'
 const FEEDBACK_SUCCESS = 'feedback-success'
 
@@ -133,12 +134,12 @@ const BLOCKAGE_HEALTH = 'blockage/health'
 
 const NOISE_START = 'noise-start'
 const LITTER_START = 'litter-start'
-const VERMIN_START = 'vermin-start'
+const PESTS_START = 'pests-start'
 const DUST_START = 'dust-start'
 const MUD_START = 'mud-start'
 const SMELL_START = 'smell-start'
 
-const VERMIN_TYPE = 'vermin/type'
+const PESTS_TYPE = 'pests/type'
 
 const SMELL_HEALTH = 'smell/health'
 const SMELL_DESCRIPTION = 'smell/description'
@@ -156,7 +157,7 @@ const COUNTER = 'counter'
 // const SMELL_POSTCODE_DETAILS = 'smell-postcode-details'
 const DATE_TIME_OPTION = 'date-time-option'
 const QUESTION_SET_ID = 'question-set-id'
-const VERMIN_TYPE_SELECTED = 'vermin-type-selected'
+const PESTS_TYPE_SELECTED = 'pests-type-selected'
 
 // Configs to add additional home/start pages on non-production environments
 let viewsExtra = {}
@@ -168,7 +169,7 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
     BLOCKAGE_START,
     NOISE_START,
     LITTER_START,
-    VERMIN_START,
+    PESTS_START,
     DUST_START,
     MUD_START,
     TEST_MEDIA_UPLOAD_SUBMIT
@@ -269,7 +270,7 @@ const views = {
   SMELL_SMELL_STRENGTH,
   SMELL_INDOORS,
   SMELL_CLOTHING_AND_HAIR,
-  VERMIN_TYPE
+  PESTS_TYPE
 }
 
 const routes = {
@@ -289,7 +290,8 @@ const redisKeys = {
   // SMELL_POSTCODE_DETAILS,
   DATE_TIME_OPTION,
   QUESTION_SET_ID,
-  VERMIN_TYPE_SELECTED
+  PESTS_TYPE_SELECTED,
+  REPORT_SENT_PAGE_DATA
 }
 
 const statusCodes = {

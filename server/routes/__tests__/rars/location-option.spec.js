@@ -43,11 +43,11 @@ const problems = [
     }
   },
   {
-    problem: 'vermin',
-    url: constants.routes.VERMIN_LOCATION_OPTION,
+    problem: 'vermin/pests',
+    url: constants.routes.PESTS_LOCATION_OPTION,
     redirect: {
-      locationMap: constants.routes.VERMIN_LOCATION_MAP,
-      locationDescription: constants.routes.VERMIN_LOCATION_DESCRIPTION
+      locationMap: constants.routes.PESTS_LOCATION_MAP,
+      locationDescription: constants.routes.PESTS_LOCATION_DESCRIPTION
     }
   }
 ]

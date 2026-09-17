@@ -134,8 +134,8 @@ describe('RARS days-when-worse', () => {
     })
   })
 
-  // vermin and smell have no days-when-worse page, so the route must not exist
-  describe.each(['/vermin/days-when-worse', '/smell/days-when-worse'])('excluded journeys', url => {
+  // pests and smell have no days-when-worse page, so the route must not exist
+  describe.each(['/pests/days-when-worse', '/smell/days-when-worse'])('excluded journeys', url => {
     it(`Should not register ${url}`, async () => {
       await submitGetRequest({ url }, undefined, constants.statusCodes.PAGE_NOT_FOUND)
     })

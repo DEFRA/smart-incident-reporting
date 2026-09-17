@@ -1,7 +1,7 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
-import { sendMessage } from '../../services/service-bus.js'
-import { getErrorSummary, validatePayload } from '../../utils/helpers.js'
+import { sendReport } from '../../services/send-report.js'
+import { getErrorSummary } from '../../utils/helpers.js'
 import { maxLength } from '../../utils/validation.js'
 
 const handlers = {
@@ -27,13 +27,7 @@ const handlers = {
     // Build the payload to send to service bus
     const payload = buildPayload(request.yar)
 
-    // test the payload against the schema
-    if (!validatePayload(payload)) {
-      throw new Error('Invalid payload')
-    }
-
-    request.logger.info({ payload }, 'Sending blockage report to database')
-    await sendMessage(request.logger, payload)
+    await sendReport(request, payload)
 
     return h.redirect(constants.routes.REPORT_SENT)
   }

@@ -63,7 +63,7 @@ const getServiceDetails = (problem) => {
     dust: constants.serviceNames.DUST,
     litter: constants.serviceNames.LITTER,
     mud: constants.serviceNames.MUD,
-    vermin: constants.serviceNames.VERMIN
+    pests: constants.serviceNames.PESTS
   }
 
   const urlMap = {
@@ -72,7 +72,7 @@ const getServiceDetails = (problem) => {
     dust: constants.urls.GOV_UK_DUST,
     litter: constants.urls.GOV_UK_LITTER,
     mud: constants.urls.GOV_UK_MUD,
-    vermin: constants.urls.GOV_UK_VERMIN
+    pests: constants.urls.GOV_UK_PESTS
   }
 
   const serviceName = serviceNameMap[problem]
@@ -86,11 +86,11 @@ const getServiceDetails = (problem) => {
   }
 }
 
-const titleHelper = (request, questionText, verminQuestion, problem) => {
-  const isVermin = problem === 'vermin'
-  const selectedVermin = request.yar.get(constants.redisKeys.VERMIN_TYPE_SELECTED)
-  const title = isVermin
-    ? verminQuestion.replace('{vermin}', selectedVermin)
+const titleHelper = (request, questionText, verminPestsQuestion, problem) => {
+  const isVerminOrPests = problem === 'vermin/pests'
+  const selectedVerminOrPests = request.yar.get(constants.redisKeys.PESTS_TYPE_SELECTED)
+  const title = isVerminOrPests
+    ? verminPestsQuestion.replace('{vermin/pests}', selectedVerminOrPests)
     : questionText.replace('{problem}', problem)
 
   return {
