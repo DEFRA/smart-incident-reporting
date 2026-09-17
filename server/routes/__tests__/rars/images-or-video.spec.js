@@ -37,9 +37,9 @@ const problems = [
     redirect: constants.routes.MUD_CONTACT_DETAILS
   },
   {
-    problem: 'vermin',
-    url: constants.routes.VERMIN_IMAGES_OR_VIDEO,
-    redirect: constants.routes.VERMIN_CONTACT_DETAILS
+    problem: 'pests',
+    url: constants.routes.PESTS_IMAGES_OR_VIDEO,
+    redirect: constants.routes.PESTS_CONTACT_DETAILS
   }
 ]
 

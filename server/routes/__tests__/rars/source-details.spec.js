@@ -93,13 +93,13 @@ const problems = [
     }
   },
   {
-    problem: 'vermin',
-    url: constants.routes.VERMIN_SOURCE_DETAILS,
+    problem: 'pests',
+    url: constants.routes.PESTS_SOURCE_DETAILS,
     header: 'Do you know the site or business responsible for the vermin/pests?',
-    errorText: 'Select &#39;yes&#39; if you can give details about where the vermin is coming from',
+    errorText: 'Select &#39;yes&#39; if you can give details about where the pests are coming from',
     redirect: {
-      locationHome: constants.routes.VERMIN_LOCATION_HOME,
-      contactEnvironmentAgency: constants.routes.VERMIN_CONTACT_ENVIRONMENT_AGENCY
+      locationHome: constants.routes.PESTS_LOCATION_HOME,
+      contactEnvironmentAgency: constants.routes.PESTS_CONTACT_ENVIRONMENT_AGENCY
     }
   }
 ]
@@ -108,8 +108,8 @@ describe('RARS Source Details Routes', () => {
   describe.each(problems)('$problem source details', ({ problem, url, header }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
-        const sessionData = problem === 'vermin'
-          ? { [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'vermin/pests' }
+        const sessionData = problem === 'pests'
+          ? { [constants.redisKeys.PESTS_TYPE_SELECTED]: 'vermin/pests' }
           : {}
 
         await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)

@@ -39,9 +39,9 @@ const problems = [
     descriptionUrl: constants.routes.MUD_DESCRIPTION
   },
   {
-    problem: 'vermin',
-    url: constants.routes.VERMIN_LOCATION_DESCRIPTION,
-    descriptionUrl: constants.routes.VERMIN_RECURRING
+    problem: 'pests',
+    url: constants.routes.PESTS_LOCATION_DESCRIPTION,
+    descriptionUrl: constants.routes.PESTS_RECURRING
   }
 ]
 

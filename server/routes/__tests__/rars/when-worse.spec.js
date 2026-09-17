@@ -39,10 +39,10 @@ const problems = [
 describe('RARS When Worse Routes', () => {
   it('Should redirect to effect-on-daily-life when the journey has no days-when-worse page', async () => {
     const route = createWhenWorseRoutes({
-      problem: 'vermin',
-      route: constants.routes.VERMIN_WHEN_WORSE,
+      problem: 'pests',
+      route: constants.routes.PESTS_WHEN_WORSE,
       redirect: {
-        effectOnDailyLife: constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE
+        effectOnDailyLife: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE
       }
     })
 
@@ -58,13 +58,13 @@ describe('RARS When Worse Routes', () => {
     const response = await route[1].handler(request, h)
 
     expect(request.yar.set).toHaveBeenCalledWith(constants.redisKeys.RARS_WHEN_WORSE, 1)
-    expect(response).toBe(constants.routes.VERMIN_EFFECT_ON_DAILY_LIFE)
+    expect(response).toBe(constants.routes.PESTS_EFFECT_ON_DAILY_LIFE)
   })
 
-  it('Should surface the vermin-specific validation copy when the answer is missing', async () => {
+  it('Should surface the pests-specific validation copy when the answer is missing', async () => {
     const route = createWhenWorseRoutes({
-      problem: 'vermin',
-      route: constants.routes.VERMIN_WHEN_WORSE,
+      problem: 'pests',
+      route: constants.routes.PESTS_WHEN_WORSE,
       redirect: {
         daysWhenWorse: constants.routes.RARS_DAYS_WHEN_WORSE
       }
@@ -132,7 +132,7 @@ describe('RARS When Worse Routes', () => {
         )
         const expectedError = problem === 'noise'
           ? 'Select if the noise is worse on certain days'
-          : problem === 'vermin'
+          : problem === 'pests'
             ? 'Select if the vermin/pests is worse on certain days'
             : `Select if the ${problem} is worse on certain days`
 

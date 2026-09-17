@@ -32,8 +32,8 @@ const problems = [
     url: constants.routes.MUD_REPORT_SENT
   },
   {
-    problem: 'vermin',
-    url: constants.routes.VERMIN_REPORT_SENT
+    problem: 'pests',
+    url: constants.routes.PESTS_REPORT_SENT
   }
 ]
 

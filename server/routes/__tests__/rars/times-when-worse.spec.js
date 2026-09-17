@@ -134,8 +134,8 @@ describe('RARS times-when-worse', () => {
     })
   })
 
-  // vermin and smell have no times-when-worse page, so the route must not exist
-  describe.each(['/vermin/times-when-worse', '/smell/times-when-worse'])('excluded journeys', url => {
+  // pests and smell have no times-when-worse page, so the route must not exist
+  describe.each(['/pests/times-when-worse', '/smell/times-when-worse'])('excluded journeys', url => {
     it(`Should not register ${url}`, async () => {
       await submitGetRequest({ url }, undefined, constants.statusCodes.PAGE_NOT_FOUND)
     })

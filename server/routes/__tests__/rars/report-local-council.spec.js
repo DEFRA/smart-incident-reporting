@@ -29,9 +29,9 @@ const problems = [
     header: 'Report the mud to your local council'
   },
   {
-    problem: 'vermin',
-    url: constants.routes.VERMIN_REPORT_LOCAL_COUNCIL,
-    header: 'Report the vermin to your local council'
+    problem: 'pests',
+    url: constants.routes.PESTS_REPORT_LOCAL_COUNCIL,
+    header: 'Report the pests to your local council'
   }
 ]
 
@@ -39,8 +39,8 @@ describe('RARS Report Local Council Routes', () => {
   describe.each(problems)('$problem report local council', ({ problem, url, header }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
-        const sessionData = problem === 'vermin'
-          ? { [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'vermin' }
+        const sessionData = problem === 'pests'
+          ? { [constants.redisKeys.PESTS_TYPE_SELECTED]: 'pests' }
           : {}
 
         await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
@@ -48,9 +48,9 @@ describe('RARS Report Local Council Routes', () => {
     })
   })
 
-  const createRequest = selectedVermin => ({
+  const createRequest = selectedPests => ({
     yar: {
-      get: jest.fn(key => (key === constants.redisKeys.VERMIN_TYPE_SELECTED ? selectedVermin : undefined))
+      get: jest.fn(key => (key === constants.redisKeys.PESTS_TYPE_SELECTED ? selectedPests : undefined))
     }
   })
 
@@ -73,20 +73,20 @@ describe('RARS Report Local Council Routes', () => {
     }))
   })
 
-  it('passes title, pageTitle and issue for vermin from session', async () => {
-    const selectedVermin = 'rats'
+  it('passes title, pageTitle and issue for pests from session', async () => {
+    const selectedPests = 'rats'
     const [localCouncilRoute] = createReportLocalCouncilRoutes({
-      problem: 'vermin',
-      route: constants.routes.VERMIN_REPORT_LOCAL_COUNCIL
+      problem: 'pests',
+      route: constants.routes.PESTS_REPORT_LOCAL_COUNCIL
     })
     const view = jest.fn()
 
-    await localCouncilRoute.handler(createRequest(selectedVermin), { view })
+    await localCouncilRoute.handler(createRequest(selectedPests), { view })
 
     expect(view).toHaveBeenCalledWith(constants.views.RARS_REPORT_LOCAL_COUNCIL, expect.objectContaining({
-      title: `Report the ${selectedVermin} to your local council`,
-      pageTitle: `Report the ${selectedVermin} to your local council`,
-      issue: selectedVermin
+      title: `Report the ${selectedPests} to your local council`,
+      pageTitle: `Report the ${selectedPests} to your local council`,
+      issue: selectedPests
     }))
   })
 })

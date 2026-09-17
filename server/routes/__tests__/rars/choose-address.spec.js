@@ -151,7 +151,7 @@ const problems = [
   { problem: 'dust', url: constants.routes.DUST_CHOOSE_ADDRESS, redirect: constants.routes.DUST_CONFIRM_ADDRESS },
   { problem: 'litter', url: constants.routes.LITTER_CHOOSE_ADDRESS, redirect: constants.routes.LITTER_CONFIRM_ADDRESS },
   { problem: 'mud', url: constants.routes.MUD_CHOOSE_ADDRESS, redirect: constants.routes.MUD_CONFIRM_ADDRESS },
-  { problem: 'vermin', url: constants.routes.VERMIN_CHOOSE_ADDRESS, redirect: constants.routes.VERMIN_CONFIRM_ADDRESS }
+  { problem: 'pests', url: constants.routes.PESTS_CHOOSE_ADDRESS, redirect: constants.routes.PESTS_CONFIRM_ADDRESS }
 ]
 
 describe('RARS Choose Address Routes', () => {
@@ -221,7 +221,7 @@ describe('RARS Choose Address Routes', () => {
           'dust-postcode-details': postcodePayload,
           'litter-postcode-details': postcodePayload,
           'mud-postcode-details': postcodePayload,
-          'vermin-postcode-details': postcodePayload
+          'pests-postcode-details': postcodePayload
         }
         const response = await submitGetRequest({ url }, 'Choose an address', constants.statusCodes.OK, session)
         expect(response.payload).toContain('Unit 1, Test House, 5, Example Street, Testtown, TE1 0ST')

@@ -52,8 +52,8 @@ const createRecurringRoutes = ({ problem, route, redirect }) => {
 const validatePayload = (answerId, request, problem) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
-    const selectedProblem = problem === 'vermin'
-      ? (request?.yar?.get(constants.redisKeys.VERMIN_TYPE_SELECTED) || 'vermin')
+    const selectedProblem = problem === 'pests'
+      ? (request?.yar?.get(constants.redisKeys.PESTS_TYPE_SELECTED) || 'pests')
       : problem
 
     errorSummary.errorList.push({

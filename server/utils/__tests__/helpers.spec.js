@@ -44,7 +44,7 @@ describe('helpers', () => {
       ['dust', constants.serviceNames.DUST, constants.urls.GOV_UK_DUST],
       ['litter', constants.serviceNames.LITTER, constants.urls.GOV_UK_LITTER],
       ['mud', constants.serviceNames.MUD, constants.urls.GOV_UK_MUD],
-      ['vermin', constants.serviceNames.VERMIN, constants.urls.GOV_UK_VERMIN]
+      ['pests', constants.serviceNames.PESTS, constants.urls.GOV_UK_PESTS]
     ])('Should return correct details for %s', (problem, expectedServiceName, expectedUrl) => {
       const result = getServiceDetails(problem)
       expect(result.serviceName).toBe(expectedServiceName)
@@ -65,17 +65,17 @@ describe('helpers', () => {
   })
   describe('titleHelper', () => {
     const questionText = 'Where is the {problem} coming from?'
-    const verminQuestion = 'Where are the the {vermin} coming from?'
-    const mockRequest = (verminType) => ({ yar: { get: () => verminType } })
+    const pestsQuestion = 'Where are the the {pests} coming from?'
+    const mockRequest = (pestsType) => ({ yar: { get: () => pestsType } })
 
     it('Should replace {problem} with the problem for non-vermin problems', () => {
-      const { title, pageTitle } = titleHelper(mockRequest(null), questionText, verminQuestion, 'smell')
+      const { title, pageTitle } = titleHelper(mockRequest(null), questionText, pestsQuestion, 'smell')
       expect(title).toBe('Where is the smell coming from?')
       expect(pageTitle).toBe('Where is the smell coming from')
     })
 
-    it('Should use the vermin type from session for title when problem is vermin', () => {
-      const { title, pageTitle } = titleHelper(mockRequest('rats'), questionText, verminQuestion, 'vermin')
+    it('Should use the pests type from session for title when problem is pests', () => {
+      const { title, pageTitle } = titleHelper(mockRequest('rats'), questionText, pestsQuestion, 'pests')
       expect(title).toBe('Where are the the rats coming from?')
       expect(pageTitle).toBe('Where are the the rats coming from')
     })

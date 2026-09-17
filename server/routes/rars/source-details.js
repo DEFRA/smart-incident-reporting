@@ -3,7 +3,7 @@ import { questionSets } from '../../utils/question-sets.js'
 import { getServiceDetails, getErrorSummary, titleHelper } from '../../utils/helpers.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_SOURCE_DETAILS
-const verminQuestion = 'Do you know the site or business responsible for the {vermin}?'
+const pestsQuestion = 'Do you know the site or business responsible for the {pests}?'
 const postcodeRegExp = /^([A-Za-z][A-Ha-hJ-Yj-y]?\d[A-Za-z0-9]? ?\d[A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/ // https://stackoverflow.com/a/51885364
 
 const baseAnswer = {
@@ -17,7 +17,7 @@ const createSourceDetailsRoutes = ({ problem, route, redirect }) => {
 
   const handlers = {
     get: async (request, h) => {
-      const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
+      const { title, pageTitle } = titleHelper(request, question.text, pestsQuestion, problem)
       return h.view(constants.views.RARS_SOURCE_DETAILS, {
         question,
         problem,
@@ -35,7 +35,7 @@ const createSourceDetailsRoutes = ({ problem, route, redirect }) => {
       // validate payload for errors
       const errorSummary = validatePayload(request.payload, problem)
       if (errorSummary.errorList.length > 0) {
-        const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
+        const { title, pageTitle } = titleHelper(request, question.text, pestsQuestion, problem)
         return h.view(constants.views.RARS_SOURCE_DETAILS, {
           question,
           problem,
@@ -67,9 +67,10 @@ const createSourceDetailsRoutes = ({ problem, route, redirect }) => {
 
 const validatePayload = (payload, problem) => {
   const errorSummary = getErrorSummary()
+  const verb = problem === 'pests' ? 'are' : 'is'
   if (!payload.answerId) {
     errorSummary.errorList.push({
-      text: `Select 'yes' if you can give details about where the ${problem} is coming from`,
+      text: `Select 'yes' if you can give details about where the ${problem} ${verb} coming from`,
       href: '#answerId'
     })
   } else if (payload.answerId === 'yes') {

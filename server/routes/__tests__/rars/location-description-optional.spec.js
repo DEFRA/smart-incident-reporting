@@ -28,9 +28,9 @@ const problems = [
     redirectUrl: constants.routes.MUD_DESCRIPTION
   },
   {
-    problem: 'vermin',
-    url: constants.routes.VERMIN_LOCATION_DESCRIPTION_OPTIONAL,
-    redirectUrl: constants.routes.VERMIN_RECURRING
+    problem: 'pests',
+    url: constants.routes.PESTS_LOCATION_DESCRIPTION_OPTIONAL,
+    redirectUrl: constants.routes.PESTS_RECURRING
   }
 ]
 

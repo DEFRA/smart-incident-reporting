@@ -38,11 +38,11 @@ const problems = [
   },
   {
     problem: 'vermin/pests',
-    url: constants.routes.VERMIN_MEDICAL_HELP,
-    redirect: constants.routes.VERMIN_IMAGES_OR_VIDEO,
+    url: constants.routes.PESTS_MEDICAL_HELP,
+    redirect: constants.routes.PESTS_IMAGES_OR_VIDEO,
     errorText: 'Select &#39;yes&#39; if you have had to get any medical help, or treatment because of the vermin/pests',
     sessionData: {
-      [constants.redisKeys.VERMIN_TYPE_SELECTED]: 'vermin/pests'
+      [constants.redisKeys.PESTS_TYPE_SELECTED]: 'vermin/pests'
     }
   }
 ]
@@ -89,10 +89,10 @@ describe('RARS Medical Help Routes', () => {
     })
   })
 
-  it('Sad: vermin with no vermin type selected in session defaults error text to vermin', async () => {
-    const options = { url: constants.routes.VERMIN_MEDICAL_HELP, payload: {} }
+  it('Sad: pests with no pests type selected in session defaults error text to pests', async () => {
+    const options = { url: constants.routes.PESTS_MEDICAL_HELP, payload: {} }
     const response = await submitPostRequest(options, constants.statusCodes.OK)
     expect(response.payload).toContain('There is a problem')
-    expect(response.payload).toContain('Select &#39;yes&#39; if you have had to get any medical help, or treatment because of the vermin')
+    expect(response.payload).toContain('Select &#39;yes&#39; if you have had to get any medical help, or treatment because of the pests')
   })
 })

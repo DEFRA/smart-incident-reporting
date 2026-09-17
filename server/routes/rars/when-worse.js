@@ -7,7 +7,7 @@ const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_WHEN_WORSE
 const questionsByProblem = {
   smell: 'Do you notice the smell is worse on certain days or a particular time',
   noise: 'Do you notice the noise is worse on certain days or a particular time',
-  vermin: 'Do you notice the vermin/pests are worse on certain days or a particular time',
+  pests: 'Do you notice the vermin/pests are worse on certain days or a particular time',
   dust: 'Do you notice the dust is worse on certain days or a particular time',
   mud: 'Do you notice the mud is worse on certain days or a particular time',
   litter: 'Do you notice the litter is worse on certain days or a particular time'
@@ -53,7 +53,7 @@ const createWhenWorseRoutes = ({ problem, route, redirect }) => {
         return h.redirect(redirect.effectOnDailyLife)
       }
 
-      // vermin has no days-when-worse page, so it goes straight to effect-on-daily-life
+      // pests has no days-when-worse page, so it goes straight to effect-on-daily-life
       return h.redirect(redirect.daysWhenWorse ?? redirect.effectOnDailyLife)
     }
   }
@@ -71,7 +71,7 @@ const createWhenWorseRoutes = ({ problem, route, redirect }) => {
       let incidentType = problem
       if (problem === 'noise') {
         incidentType = 'noise'
-      } else if (problem === 'vermin') {
+      } else if (problem === 'pests') {
         incidentType = 'vermin/pests'
       } else {
         // do nothing
