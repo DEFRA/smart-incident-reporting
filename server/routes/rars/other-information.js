@@ -1,8 +1,8 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary, getServiceDetails, validatePayload } from '../../utils/helpers.js'
+import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { maxLength } from '../../utils/validation.js'
 import { questionSets } from '../../utils/question-sets.js'
-import { sendMessage } from '../../services/service-bus.js'
+import { sendReport } from '../../services/send-report.js'
 
 const createOtherInformationRoutes = ({ problem, route, redirect }) => {
   const serviceDetails = getServiceDetails(problem)
@@ -32,15 +32,13 @@ const createOtherInformationRoutes = ({ problem, route, redirect }) => {
 
       // Build the payload to send to service bus
       const payload = buildPayload(request.yar, problem)
+
       console.log(JSON.stringify(payload, null, 2))
 
-      // // test the payload against the schema
-      if (!validatePayload(payload)) {
-        throw new Error('Invalid payload')
-      }
+      await sendReport(request, payload)
 
-      await sendMessage(request.logger, payload)
-
+      // FIXME: use default one
+      // return h.redirect(constants.routes.REPORT_SENT)
       return h.redirect(redirect.reportSent)
     }
   }
