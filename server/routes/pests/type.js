@@ -33,9 +33,6 @@ const handlers = {
 
     request.yar.set(constants.redisKeys.PESTS_TYPE_SELECTED, selectedType)
 
-    console.log(question.key, answers)
-    console.log(selectedType)
-
     // validate payload for errors
     const errorSummary = validatePayload(answerId, somethingElseDetail)
     if (errorSummary.errorList.length > 0) {
