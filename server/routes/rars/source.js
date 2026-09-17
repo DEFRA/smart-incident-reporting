@@ -3,7 +3,7 @@ import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary, getServiceDetails, titleHelper } from '../../utils/helpers.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_SOURCE
-const verminQuestion = 'Where are the {vermin} coming from?'
+const verminPestsQuestion = 'Where are the {vermin/pests} coming from?'
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -16,7 +16,7 @@ const createSourceRoutes = ({ problem, route, redirect }) => {
 
   const handlers = {
     get: async (request, h) => {
-      const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
+      const { title, pageTitle } = titleHelper(request, question.text, verminPestsQuestion, problem)
       return h.view(constants.views.RARS_SOURCE, {
         question,
         problem,
@@ -30,7 +30,7 @@ const createSourceRoutes = ({ problem, route, redirect }) => {
 
       const errorSummary = validatePayload(answerId, problem)
       if (errorSummary.errorList.length > 0) {
-        const { title, pageTitle } = titleHelper(request, question.text, verminQuestion, problem)
+        const { title, pageTitle } = titleHelper(request, question.text, verminPestsQuestion, problem)
         return h.view(constants.views.RARS_SOURCE, {
           question,
           problem,
@@ -71,9 +71,10 @@ const buildAnswers = answerId => {
 
 const validatePayload = (answerId, problem) => {
   const errorSummary = getErrorSummary()
+  const verb = problem === 'vermin/pests' ? 'are' : 'is'
   if (!answerId) {
     errorSummary.errorList.push({
-      text: `Select a type of place or activity where the ${problem} is coming from`,
+      text: `Select a type of place or activity where the ${problem} ${verb} coming from`,
       href: '#answerId'
     })
   }

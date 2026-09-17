@@ -52,12 +52,14 @@ const createRecurringRoutes = ({ problem, route, redirect }) => {
 const validatePayload = (answerId, request, problem) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
-    const selectedProblem = problem === 'vermin'
-      ? (request?.yar?.get(constants.redisKeys.VERMIN_TYPE_SELECTED) || 'vermin')
+    const isVerminOrPests = problem === 'vermin/pests'
+    const selectedProblem = isVerminOrPests
+      ? (request?.yar?.get(constants.redisKeys.PESTS_TYPE_SELECTED) || 'vermin/pests')
       : problem
+    const verb = isVerminOrPests ? 'have' : 'has'
 
     errorSummary.errorList.push({
-      text: `Select 'yes' if the ${selectedProblem} has caused you a problem before`,
+      text: `Select 'yes' if the ${selectedProblem} ${verb} caused you a problem before`,
       href: '#answerId'
     })
   }

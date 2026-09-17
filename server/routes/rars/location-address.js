@@ -37,7 +37,7 @@ const createLocationAddressRoutes = ({ problem, route, redirect }) => {
 
       request.yar.set(constants.redisKeys.RARS_LOCATION_ADDRESS, buildAnswers(request.payload))
 
-      if (problem === 'vermin') {
+      if (problem === 'vermin/pests') {
         return h.redirect(redirect.recurring)
       }
       return h.redirect(redirect.description)

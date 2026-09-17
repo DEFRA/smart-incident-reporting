@@ -1111,9 +1111,9 @@ const questionSets = {
       vermin: 3100
     },
     questions: {
-      VERMIN_TYPE: {
+      PESTS_TYPE: {
         questionId: 1620,
-        key: constants.redisKeys.VERMIN_TYPE,
+        key: constants.redisKeys.PESTS_TYPE,
         text: 'What type of vermin or pest is causing a problem?',
         answers: {
           flies: {
@@ -1537,6 +1537,10 @@ const questionSets = {
           mentalHealthIssues: {
             answerId: 2508,
             text: 'Mental health issues, for example stress'
+          },
+          disturbedSleep: {
+            answerId: 2509,
+            text: 'Disturbed sleep'
           }
         }
       },

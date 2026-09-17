@@ -1,10 +1,12 @@
 import { submitGetRequest } from '../../__test-helpers__/server.js'
+import { parse } from 'node-html-parser'
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
+import { buildDataForReportSentPage } from '../../services/send-report.js'
 import reportSentRoutes from '../report-sent.js'
 
 const url = constants.routes.REPORT_SENT
-const header = 'Report sent'
+const header = 'Thank you'
 const submissionTimestamp = '2026-04-09T09:00:00.000Z'
 const sessionId = 'test-session-id'
 const expectedMediaUploadLink = `/media/upload-photo?sirid=${sessionId}`
@@ -22,17 +24,6 @@ const journeySessionData = {
       answerId: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noVideo.answerId
     }]
   },
-  // 200: {
-  //   contactDetails: {
-  //     reporterEmailAddress: 'smell@test.com'
-  //   },
-  //   imagesOrVideo: [{
-  //     answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
-  //   },
-  //   {
-  //     answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.noVideo.answerId
-  //   }]
-  // },
   300: {
     contactDetails: {
       reporterEmailAddress: 'blockage@test.com'
@@ -78,10 +69,6 @@ const handler = async (questionSetID, overrides = {}) => {
       contactDetailsKey: constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS,
       imagesOrVideoKey: constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO
     },
-    // 200: {
-    //   contactDetailsKey: constants.redisKeys.SMELL_CONTACT_DETAILS,
-    //   imagesOrVideoKey: constants.redisKeys.SMELL_IMAGES_OR_VIDEO
-    // },
     300: {
       contactDetailsKey: constants.redisKeys.BLOCKAGE_CONTACT_DETAILS,
       imagesOrVideoKey: constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO
@@ -93,12 +80,21 @@ const handler = async (questionSetID, overrides = {}) => {
   }
 
   const journeyKeys = keyMap[questionSetID] || {}
+  const reportSentPageData = buildDataForReportSentPage({
+    id: sessionId,
+    get: jest.fn(key => ({
+      [constants.redisKeys.QUESTION_SET_ID]: questionSetID,
+      [journeyKeys.contactDetailsKey]: contactDetails,
+      [journeyKeys.imagesOrVideoKey]: imagesOrVideo
+    }[key]))
+  })
 
   await reportSentRoutes[0].handler({
     yar: {
       get: jest.fn(key => ({
         [constants.redisKeys.QUESTION_SET_ID]: questionSetID,
         [constants.redisKeys.SUBMISSION_TIMESTAMP]: submissionTimestamp,
+        [constants.redisKeys.REPORT_SENT_PAGE_DATA]: reportSentPageData,
         [journeyKeys.contactDetailsKey]: contactDetails,
         [journeyKeys.imagesOrVideoKey]: imagesOrVideo
       }[key])),
@@ -122,8 +118,79 @@ describe(url, () => {
     })
 
     it.each([
+      {
+        journey: 'water pollution',
+        questionSetID: questionSets.WATER_POLLUTION.questionSetId,
+        contactDetailsKey: constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS,
+        imagesOrVideoKey: constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO,
+        imagesQuestion: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO,
+        photosAnswer: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.yesPhotos.answerId,
+        expectedBluePanel: true
+      },
+      {
+        journey: 'water pollution',
+        questionSetID: questionSets.WATER_POLLUTION.questionSetId,
+        contactDetailsKey: constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS,
+        imagesOrVideoKey: constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO,
+        imagesQuestion: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO,
+        photosAnswer: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noPhotos.answerId,
+        expectedBluePanel: false
+      },
+      {
+        journey: 'blockage',
+        questionSetID: questionSets.BLOCKAGE.questionSetId,
+        contactDetailsKey: constants.redisKeys.BLOCKAGE_CONTACT_DETAILS,
+        imagesOrVideoKey: constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO,
+        imagesQuestion: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO,
+        photosAnswer: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.yesPhotos.answerId,
+        expectedBluePanel: true
+      },
+      {
+        journey: 'blockage',
+        questionSetID: questionSets.BLOCKAGE.questionSetId,
+        contactDetailsKey: constants.redisKeys.BLOCKAGE_CONTACT_DETAILS,
+        imagesOrVideoKey: constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO,
+        imagesQuestion: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO,
+        photosAnswer: questionSets.BLOCKAGE.questions.BLOCKAGE_IMAGES_OR_VIDEO.answers.noPhotos.answerId,
+        expectedBluePanel: false
+      },
+      {
+        journey: 'illegal fishing',
+        questionSetID: questionSets.ILLEGAL_FISHING.questionSetId,
+        contactDetailsKey: constants.redisKeys.ILLEGAL_FISHING_CONTACT_DETAILS,
+        imagesOrVideoKey: constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO,
+        imagesQuestion: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO,
+        photosAnswer: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.yesPhotos.answerId,
+        expectedBluePanel: true
+      },
+      {
+        journey: 'illegal fishing',
+        questionSetID: questionSets.ILLEGAL_FISHING.questionSetId,
+        contactDetailsKey: constants.redisKeys.ILLEGAL_FISHING_CONTACT_DETAILS,
+        imagesOrVideoKey: constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO,
+        imagesQuestion: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO,
+        photosAnswer: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO.answers.noPhotos.answerId,
+        expectedBluePanel: false
+      }
+    ])('should render the correct panel colour for $journey when expectedBluePanel is $expectedBluePanel', async ({ questionSetID, contactDetailsKey, imagesOrVideoKey, imagesQuestion, photosAnswer, expectedBluePanel }) => {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, {
+        [constants.redisKeys.QUESTION_SET_ID]: questionSetID,
+        [constants.redisKeys.SUBMISSION_TIMESTAMP]: submissionTimestamp,
+        [contactDetailsKey]: { reporterEmailAddress: 'test@example.com' },
+        [imagesOrVideoKey]: [
+          { answerId: photosAnswer },
+          { answerId: imagesQuestion.answers.noVideo.answerId }
+        ]
+      })
+      const html = parse(response.payload)
+      const panel = html.querySelector('.govuk-panel')
+
+      expect(panel.classList.contains('govuk-panel--confirmation')).toBe(true)
+      expect(panel.classList.contains('govuk-panel--blue')).toBe(expectedBluePanel)
+    })
+
+    it.each([
       { questionSetID: 100, expectedJourney: 'water pollution' },
-      // { questionSetID: 200, expectedJourney: 'smell' },
       { questionSetID: 300, expectedJourney: 'blockage' },
       { questionSetID: 1800, expectedJourney: 'illegal fishing' }
     ])('should cache journey "$expectedJourney" for questionSetID $questionSetID', async ({ questionSetID, expectedJourney }) => {
@@ -147,7 +214,6 @@ describe(url, () => {
 
     it.each([
       { questionSetID: 100, email: 'water@test.com' },
-      // { questionSetID: 200, email: 'smell@test.com' },
       { questionSetID: 300, email: 'blockage@test.com' },
       { questionSetID: 1800, email: 'fishing@test.com' }
     ])('should pass photo upload details for questionSetID $questionSetID', async ({ questionSetID, email }) => {

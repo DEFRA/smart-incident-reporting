@@ -4,7 +4,7 @@ import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 const questionsByProblem = {
   smell: 'When did you most recently notice the smell',
   noise: 'When did you most recently hear the noise',
-  vermin: 'When did you most recently notice the vermin/pests',
+  'vermin/pests': 'When did you most recently notice the vermin/pests',
   dust: 'When did you most recently notice the dust',
   mud: 'When did you most recently notice the mud',
   litter: 'When did you most recently notice the litter'
@@ -87,7 +87,7 @@ const validatePayload = (answerId, problem) => {
     let incidentType = problem
     if (problem === 'noise') {
       incidentType = 'noise'
-    } else if (problem === 'vermin') {
+    } else if (problem === 'vermin/pests') {
       incidentType = 'vermin/pests'
     } else {
       // do nothing
