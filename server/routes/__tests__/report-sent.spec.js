@@ -2,6 +2,7 @@ import { submitGetRequest } from '../../__test-helpers__/server.js'
 import { parse } from 'node-html-parser'
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
+import { buildDataForReportSentPage } from '../../services/send-report.js'
 import reportSentRoutes from '../report-sent.js'
 
 const url = constants.routes.REPORT_SENT
@@ -79,12 +80,21 @@ const handler = async (questionSetID, overrides = {}) => {
   }
 
   const journeyKeys = keyMap[questionSetID] || {}
+  const reportSentPageData = buildDataForReportSentPage({
+    id: sessionId,
+    get: jest.fn(key => ({
+      [constants.redisKeys.QUESTION_SET_ID]: questionSetID,
+      [journeyKeys.contactDetailsKey]: contactDetails,
+      [journeyKeys.imagesOrVideoKey]: imagesOrVideo
+    }[key]))
+  })
 
   await reportSentRoutes[0].handler({
     yar: {
       get: jest.fn(key => ({
         [constants.redisKeys.QUESTION_SET_ID]: questionSetID,
         [constants.redisKeys.SUBMISSION_TIMESTAMP]: submissionTimestamp,
+        [constants.redisKeys.REPORT_SENT_PAGE_DATA]: reportSentPageData,
         [journeyKeys.contactDetailsKey]: contactDetails,
         [journeyKeys.imagesOrVideoKey]: imagesOrVideo
       }[key])),
