@@ -1,6 +1,8 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { sendReport } from '../../services/send-report.js'
+import { getErrorSummary } from '../../utils/helpers.js'
+import { maxLength } from '../../utils/validation.js'
 
 const handlers = {
   get: async (_request, h) => h.view(constants.views.ILLEGAL_FISHING_OTHER_INFORMATION),
