@@ -29,7 +29,7 @@ const problems = [
     redirectWhenWorse: constants.routes.MUD_WHEN_WORSE
   },
   {
-    problem: 'pests',
+    problem: 'vermin/pests',
     url: constants.routes.PESTS_EARLIER_TODAY,
     redirectEffectOnDailyLife: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE
   }

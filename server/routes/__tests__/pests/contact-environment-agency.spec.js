@@ -12,7 +12,7 @@ describe('pests/contact-environment-agency', () => {
     })
     expect(createContactEnvironmentAgencyRoutes).toHaveBeenCalledTimes(1)
     expect(createContactEnvironmentAgencyRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_CONTACT_ENVIRONMENT_AGENCY
     })
   })

@@ -50,7 +50,7 @@ const createMedicalHelpRoutes = ({ problem, route, redirect }) => {
 const validatePayload = (answerId, request, problem) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
-    const selectedProblem = problem === 'pests'
+    const selectedProblem = problem === 'vermin/pests'
       ? (request?.yar?.get(constants.redisKeys.PESTS_TYPE_SELECTED) || 'pests')
       : problem
 

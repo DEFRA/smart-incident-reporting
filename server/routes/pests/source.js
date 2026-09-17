@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import createSourceRoutes from '../rars/source.js'
 
 export default createSourceRoutes({
-  problem: 'pests',
+  problem: 'vermin/pests',
   route: constants.routes.PESTS_SOURCE,
   redirect: {
     contactEnvironmentAgency: constants.routes.PESTS_CONTACT_ENVIRONMENT_AGENCY,

@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import createWhenRoutes from '../rars/when.js'
 
 export default createWhenRoutes({
-  problem: 'pests',
+  problem: 'vermin/pests',
   route: constants.routes.PESTS_WHEN,
   redirect: {
     effectOnDailyLife: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE,

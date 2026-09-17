@@ -38,7 +38,7 @@ const problems = [
     exceededRedirect: '/mud/exceeded-attempts'
   },
   {
-    problem: 'pests',
+    problem: 'vermin/pests',
     url: constants.routes.PESTS_FIND_ADDRESS,
     redirect: constants.routes.PESTS_CHOOSE_ADDRESS,
     exceededRedirect: '/pests/exceeded-attempts'

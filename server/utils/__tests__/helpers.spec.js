@@ -65,17 +65,17 @@ describe('helpers', () => {
   })
   describe('titleHelper', () => {
     const questionText = 'Where is the {problem} coming from?'
-    const pestsQuestion = 'Where are the the {pests} coming from?'
-    const mockRequest = (pestsType) => ({ yar: { get: () => pestsType } })
+    const verminPestsQuestion = 'Where are the the {vermin/pests} coming from?'
+    const mockRequest = (verminPestsType) => ({ yar: { get: () => verminPestsType } })
 
     it('Should replace {problem} with the problem for non-vermin problems', () => {
-      const { title, pageTitle } = titleHelper(mockRequest(null), questionText, pestsQuestion, 'smell')
+      const { title, pageTitle } = titleHelper(mockRequest(null), questionText, verminPestsQuestion, 'smell')
       expect(title).toBe('Where is the smell coming from?')
       expect(pageTitle).toBe('Where is the smell coming from')
     })
 
-    it('Should use the pests type from session for title when problem is pests', () => {
-      const { title, pageTitle } = titleHelper(mockRequest('rats'), questionText, pestsQuestion, 'pests')
+    it('Should use the vermin/pests type from session for title when problem is vermin/pests', () => {
+      const { title, pageTitle } = titleHelper(mockRequest('rats'), questionText, verminPestsQuestion, 'vermin/pests')
       expect(title).toBe('Where are the the rats coming from?')
       expect(pageTitle).toBe('Where are the the rats coming from')
     })

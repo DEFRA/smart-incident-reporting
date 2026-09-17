@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import createFindAddressRoutes from '../rars/find-address.js'
 
 export default createFindAddressRoutes({
-  problem: 'pests',
+  problem: 'vermin/pests',
   route: constants.routes.PESTS_FIND_ADDRESS,
   redirect: {
     chooseAddress: constants.routes.PESTS_CHOOSE_ADDRESS,

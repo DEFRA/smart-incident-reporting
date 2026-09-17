@@ -12,7 +12,7 @@ describe('pests/when-worse', () => {
     })
     expect(createWhenWorseRoutes).toHaveBeenCalledTimes(1)
     expect(createWhenWorseRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_WHEN_WORSE,
       redirect: {
         effectOnDailyLife: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE

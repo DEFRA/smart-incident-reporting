@@ -28,7 +28,7 @@ const problems = [
     header: 'CONTACT LOCAL COUNCIL'
   },
   {
-    problem: 'pests',
+    problem: 'vermin/pests',
     url: constants.routes.PESTS_CONTACT_LOCAL_COUNCIL,
     header: 'CONTACT LOCAL COUNCIL'
   }

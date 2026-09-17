@@ -12,7 +12,7 @@ describe('pests/effect-on-daily-life', () => {
     })
     expect(mockCreateEffectOnDailyLifeRoutes).toHaveBeenCalledTimes(1)
     expect(mockCreateEffectOnDailyLifeRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE,
       redirect: {
         effectOnHealth: constants.routes.PESTS_EFFECT_ON_HEALTH

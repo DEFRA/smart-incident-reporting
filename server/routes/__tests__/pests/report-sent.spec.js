@@ -14,7 +14,7 @@ describe('pests/report-sent', () => {
 
     expect(createReportSentRoutes).toHaveBeenCalledTimes(1)
     expect(createReportSentRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_REPORT_SENT
     })
   })

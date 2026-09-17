@@ -12,7 +12,7 @@ describe('pests/exceeded-attempts', () => {
     })
     expect(createExceededAttemptsRoutes).toHaveBeenCalledTimes(1)
     expect(createExceededAttemptsRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_EXCEEDED_ATTEMPTS,
       redirect: {
         locationAddress: constants.routes.PESTS_LOCATION_ADDRESS

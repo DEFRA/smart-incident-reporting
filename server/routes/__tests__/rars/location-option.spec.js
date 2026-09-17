@@ -43,7 +43,7 @@ const problems = [
     }
   },
   {
-    problem: 'pests',
+    problem: 'vermin/pests',
     url: constants.routes.PESTS_LOCATION_OPTION,
     redirect: {
       locationMap: constants.routes.PESTS_LOCATION_MAP,

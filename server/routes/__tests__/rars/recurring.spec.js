@@ -42,7 +42,7 @@ const problems = [
     redirect: constants.routes.MUD_WHEN
   },
   {
-    problem: 'pests',
+    problem: 'vermin/pests',
     url: constants.routes.PESTS_RECURRING,
     header: 'Has this happened before?',
     redirect: constants.routes.PESTS_WHEN
@@ -53,7 +53,7 @@ describe('RARS Recurring Routes', () => {
   describe.each(problems)('$problem recurring', ({ problem, url, header }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
-        const sessionData = problem === 'pests'
+        const sessionData = problem === 'vermin/pests'
           ? { [constants.redisKeys.PESTS_TYPE_SELECTED]: 'rats' }
           : {}
 
@@ -65,7 +65,7 @@ describe('RARS Recurring Routes', () => {
   describe.each(problems)('$problem recurring sad path', ({ problem, url }) => {
     describe('POST', () => {
       it('Sad: no radio selected, returns error state', async () => {
-        const sessionData = problem === 'pests'
+        const sessionData = problem === 'vermin/pests'
           ? { [constants.redisKeys.PESTS_TYPE_SELECTED]: 'rats' }
           : {}
 
@@ -76,15 +76,16 @@ describe('RARS Recurring Routes', () => {
         )
 
         expect(response.payload).toContain('There is a problem')
-        const expectedProblem = problem === 'pests' ? 'rats' : problem
-        expect(response.payload).toContain(`Select &#39;yes&#39; if the ${expectedProblem} has caused you a problem before`)
+        const expectedProblem = problem === 'vermin/pests' ? 'rats' : problem
+        const verb = problem === 'vermin/pests' ? 'have' : 'has'
+        expect(response.payload).toContain(`Select &#39;yes&#39; if the ${expectedProblem} ${verb} caused you a problem before`)
       })
     })
   })
 
-  describe('pests recurring sad path with no pests type selected', () => {
+  describe('vermin/pests recurring sad path with no pests type selected', () => {
     describe('POST', () => {
-      it('Sad: no radio selected and no pests type in session, falls back to "pests"', async () => {
+      it('Sad: no radio selected and no vermin/pests type in session, falls back to "vermin/pests"', async () => {
         const response = await submitPostRequest(
           { url: constants.routes.PESTS_RECURRING, payload: {} },
           constants.statusCodes.OK,
@@ -92,7 +93,7 @@ describe('RARS Recurring Routes', () => {
         )
 
         expect(response.payload).toContain('There is a problem')
-        expect(response.payload).toContain('Select &#39;yes&#39; if the pests has caused you a problem before')
+        expect(response.payload).toContain('Select &#39;yes&#39; if the vermin/pests have caused you a problem before')
       })
     })
   })

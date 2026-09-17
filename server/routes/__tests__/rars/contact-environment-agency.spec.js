@@ -28,7 +28,7 @@ const problems = [
     header: 'Call the Environment Agency incident hotline'
   },
   {
-    problem: 'pests',
+    problem: 'vermin/pests',
     url: constants.routes.PESTS_CONTACT_ENVIRONMENT_AGENCY,
     header: 'Call the Environment Agency incident hotline'
   }

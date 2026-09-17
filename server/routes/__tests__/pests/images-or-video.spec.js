@@ -14,7 +14,7 @@ describe('pests/images-or-video', () => {
 
     expect(createImagesOrVideoRoutes).toHaveBeenCalledTimes(1)
     expect(createImagesOrVideoRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_IMAGES_OR_VIDEO,
       redirect: {
         contactDetails: constants.routes.PESTS_CONTACT_DETAILS

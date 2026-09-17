@@ -12,7 +12,7 @@ describe('pests/report-local-council', () => {
     })
     expect(createReportLocalCouncilRoutes).toHaveBeenCalledTimes(1)
     expect(createReportLocalCouncilRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_REPORT_LOCAL_COUNCIL
     })
   })

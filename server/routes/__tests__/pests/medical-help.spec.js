@@ -12,7 +12,7 @@ describe('pests/medical-help', () => {
     })
     expect(createMedicalHealthRoutes).toHaveBeenCalledTimes(1)
     expect(createMedicalHealthRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_MEDICAL_HELP,
       redirect: {
         imagesOrVideo: constants.routes.PESTS_IMAGES_OR_VIDEO

@@ -54,7 +54,7 @@ const problems = [
     expectedError: 'Select when you noticed the mud'
   },
   {
-    problem: 'pests',
+    problem: 'vermin/pests',
     url: constants.routes.PESTS_WHEN,
     redirectLocationDescription: constants.routes.PESTS_LOCATION_DESCRIPTION,
     redirectEarlierToday: constants.routes.PESTS_EARLIER_TODAY,
@@ -127,9 +127,9 @@ describe('RARS When Routes', () => {
     expect(request.yar.set).toHaveBeenCalledWith(constants.redisKeys.DATE_TIME_OPTION, 99)
   })
 
-  it('Should surface the pests-specific validation copy when the answer is missing', async () => {
+  it('Should surface the vermin/pests-specific validation copy when the answer is missing', async () => {
     const route = createWhenRoutes({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_WHEN,
       redirect: {
         whenWorse: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE,
@@ -155,7 +155,7 @@ describe('RARS When Routes', () => {
     expect(h.view).toHaveBeenCalledWith(
       constants.views.RARS_WHEN,
       expect.objectContaining({
-        problem: 'pests',
+        problem: 'vermin/pests',
         errorSummary: expect.objectContaining({
           errorList: [expect.objectContaining({
             text: 'Select when you noticed the vermin/pests',
@@ -183,7 +183,7 @@ describe('RARS When Routes', () => {
       dust: constants.routes.DUST_WHEN_WORSE,
       litter: constants.routes.LITTER_WHEN_WORSE,
       mud: constants.routes.MUD_WHEN_WORSE,
-      pests: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE
+      'vermin/pests': constants.routes.PESTS_EFFECT_ON_DAILY_LIFE
     }
     const redirectWorse = redirectWorseMap[problem]
 

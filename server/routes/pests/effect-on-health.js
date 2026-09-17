@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import createEffectOnHealthRoutes from '../../routes/rars/effect-on-health.js'
 
 export default createEffectOnHealthRoutes({
-  problem: 'pests',
+  problem: 'vermin/pests',
   route: constants.routes.PESTS_EFFECT_ON_HEALTH,
   redirect: {
     medicalHelp:

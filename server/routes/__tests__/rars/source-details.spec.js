@@ -93,10 +93,10 @@ const problems = [
     }
   },
   {
-    problem: 'pests',
+    problem: 'vermin/pests',
     url: constants.routes.PESTS_SOURCE_DETAILS,
     header: 'Do you know the site or business responsible for the vermin/pests?',
-    errorText: 'Select &#39;yes&#39; if you can give details about where the pests are coming from',
+    errorText: 'Select &#39;yes&#39; if you can give details about where the vermin/pests are coming from',
     redirect: {
       locationHome: constants.routes.PESTS_LOCATION_HOME,
       contactEnvironmentAgency: constants.routes.PESTS_CONTACT_ENVIRONMENT_AGENCY
@@ -108,7 +108,7 @@ describe('RARS Source Details Routes', () => {
   describe.each(problems)('$problem source details', ({ problem, url, header }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
-        const sessionData = problem === 'pests'
+        const sessionData = problem === 'vermin/pests'
           ? { [constants.redisKeys.PESTS_TYPE_SELECTED]: 'vermin/pests' }
           : {}
 

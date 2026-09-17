@@ -3,7 +3,7 @@ import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary, getServiceDetails, titleHelper } from '../../utils/helpers.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_EFFECT_ON_DAILY_LIFE
-const pestsQuestion = 'Do you know the site or business responsible for the {pests}?'
+const verminPestsQuestion = 'Do you know the site or business responsible for the {vermin/pests}?'
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -16,7 +16,7 @@ const createEffectOnDailyLifeRoutes = ({ problem, route, redirect }) => {
 
   const handlers = {
     get: async (request, h) => {
-      const { title, pageTitle } = titleHelper(request, question.text, pestsQuestion, problem)
+      const { title, pageTitle } = titleHelper(request, question.text, verminPestsQuestion, problem)
       return h.view(constants.views.RARS_EFFECT_ON_DAILY_LIFE, {
         question,
         problem,
@@ -27,7 +27,7 @@ const createEffectOnDailyLifeRoutes = ({ problem, route, redirect }) => {
     },
     post: async (request, h) => {
       let { answerId, putOffDetails, eventDetails, somethingElseDetails } = request.payload
-      const { title, pageTitle } = titleHelper(request, question.text, pestsQuestion, problem)
+      const { title, pageTitle } = titleHelper(request, question.text, verminPestsQuestion, problem)
       const errorSummary = validatePayload(answerId, request, problem)
       if (errorSummary.errorList.length > 0) {
         request.yar.set(question.key, [])
@@ -108,8 +108,8 @@ const buildAnswers = (answerId, putOffDetails, eventDetails, somethingElseDetail
 const validatePayload = (answerId, request, problem) => {
   const errorSummary = getErrorSummary()
   if (!answerId || answerId.length === 0) {
-    const selectedProblem = problem === 'pests'
-      ? (request?.yar?.get(constants.redisKeys.PESTS_TYPE_SELECTED) || 'pests')
+    const selectedProblem = problem === 'vermin/pests'
+      ? (request?.yar?.get(constants.redisKeys.PESTS_TYPE_SELECTED) || 'vermin/pests')
       : problem
 
     errorSummary.errorList.push({

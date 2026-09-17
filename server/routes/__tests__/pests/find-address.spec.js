@@ -12,7 +12,7 @@ describe('pests/find-address', () => {
     })
     expect(createFindAddressRoutes).toHaveBeenCalledTimes(1)
     expect(createFindAddressRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_FIND_ADDRESS,
       redirect: {
         chooseAddress: constants.routes.PESTS_CHOOSE_ADDRESS,

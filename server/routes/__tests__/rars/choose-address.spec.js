@@ -151,11 +151,11 @@ const problems = [
   { problem: 'dust', url: constants.routes.DUST_CHOOSE_ADDRESS, redirect: constants.routes.DUST_CONFIRM_ADDRESS },
   { problem: 'litter', url: constants.routes.LITTER_CHOOSE_ADDRESS, redirect: constants.routes.LITTER_CONFIRM_ADDRESS },
   { problem: 'mud', url: constants.routes.MUD_CHOOSE_ADDRESS, redirect: constants.routes.MUD_CONFIRM_ADDRESS },
-  { problem: 'pests', url: constants.routes.PESTS_CHOOSE_ADDRESS, redirect: constants.routes.PESTS_CONFIRM_ADDRESS }
+  { problem: 'vermin/pests', url: constants.routes.PESTS_CHOOSE_ADDRESS, redirect: constants.routes.PESTS_CONFIRM_ADDRESS }
 ]
 
 describe('RARS Choose Address Routes', () => {
-  describe.each(problems)('$problem choose address', ({ url, redirect }) => {
+  describe.each(problems)('$problem choose address', ({ problem, url, redirect }) => {
     describe('GET', () => {
       it('Happy: Should return success response and display matching addresses', async () => {
         findByPostcode.mockResolvedValueOnce(apiResponse)
@@ -216,12 +216,7 @@ describe('RARS Choose Address Routes', () => {
             buildingDetails: 'Test House',
             postcode: 'TE1 0ST'
           },
-          'smell-postcode-details': postcodePayload,
-          'noise-postcode-details': postcodePayload,
-          'dust-postcode-details': postcodePayload,
-          'litter-postcode-details': postcodePayload,
-          'mud-postcode-details': postcodePayload,
-          'pests-postcode-details': postcodePayload
+          [`${problem}-postcode-details`]: postcodePayload
         }
         const response = await submitGetRequest({ url }, 'Choose an address', constants.statusCodes.OK, session)
         expect(response.payload).toContain('Unit 1, Test House, 5, Example Street, Testtown, TE1 0ST')

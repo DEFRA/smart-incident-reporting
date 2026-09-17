@@ -86,11 +86,11 @@ const getServiceDetails = (problem) => {
   }
 }
 
-const titleHelper = (request, questionText, pestsQuestion, problem) => {
-  const isPests = problem === 'pests'
-  const selectedPests = request.yar.get(constants.redisKeys.PESTS_TYPE_SELECTED)
-  const title = isPests
-    ? pestsQuestion.replace('{pests}', selectedPests)
+const titleHelper = (request, questionText, verminPestsQuestion, problem) => {
+  const isVerminOrPests = problem === 'vermin/pests'
+  const selectedVerminOrPests = request.yar.get(constants.redisKeys.PESTS_TYPE_SELECTED)
+  const title = isVerminOrPests
+    ? verminPestsQuestion.replace('{vermin/pests}', selectedVerminOrPests)
     : questionText.replace('{problem}', problem)
 
   return {

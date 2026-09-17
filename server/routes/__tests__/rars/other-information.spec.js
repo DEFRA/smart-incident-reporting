@@ -33,7 +33,7 @@ const problems = [
     reportSent: constants.routes.MUD_REPORT_SENT
   },
   {
-    problem: 'pests',
+    problem: 'vermin/pests',
     url: constants.routes.PESTS_OTHER_INFORMATION,
     redisKey: constants.redisKeys.RARS_OTHER_INFORMATION,
     reportSent: constants.routes.PESTS_REPORT_SENT

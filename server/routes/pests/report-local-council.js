@@ -2,6 +2,6 @@ import constants from '../../utils/constants.js'
 import createReportLocalCouncilRoutes from '../rars/report-local-council.js'
 
 export default createReportLocalCouncilRoutes({
-  problem: 'pests',
+  problem: 'vermin/pests',
   route: constants.routes.PESTS_REPORT_LOCAL_COUNCIL
 })

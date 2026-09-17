@@ -7,7 +7,7 @@ const problems = [
   { problem: 'dust', url: constants.routes.DUST_EXCEEDED_ATTEMPTS, enterAddress: constants.routes.DUST_LOCATION_ADDRESS },
   { problem: 'litter', url: constants.routes.LITTER_EXCEEDED_ATTEMPTS, enterAddress: constants.routes.LITTER_LOCATION_ADDRESS },
   { problem: 'mud', url: constants.routes.MUD_EXCEEDED_ATTEMPTS, enterAddress: constants.routes.MUD_LOCATION_ADDRESS },
-  { problem: 'pests', url: constants.routes.PESTS_EXCEEDED_ATTEMPTS, enterAddress: constants.routes.PESTS_LOCATION_ADDRESS }
+  { problem: 'vermin/pests', url: constants.routes.PESTS_EXCEEDED_ATTEMPTS, enterAddress: constants.routes.PESTS_LOCATION_ADDRESS }
 ]
 
 describe('RARS Exceeded Attempts Routes', () => {

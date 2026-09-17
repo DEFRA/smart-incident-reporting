@@ -12,7 +12,7 @@ describe('pests/location-option', () => {
     })
     expect(createLocationOptionRoutes).toHaveBeenCalledTimes(1)
     expect(createLocationOptionRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_LOCATION_OPTION,
       redirect: {
         locationMap: constants.routes.PESTS_LOCATION_MAP,

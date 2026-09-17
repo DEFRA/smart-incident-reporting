@@ -2,7 +2,7 @@ import constants from '../../utils/constants.js'
 import createConfirmAddressRoutes from '../rars/confirm-address.js'
 
 export default createConfirmAddressRoutes({
-  problem: 'pests',
+  problem: 'vermin/pests',
   route: constants.routes.PESTS_CONFIRM_ADDRESS,
   redirect: {
     chooseAddress: constants.routes.PESTS_CHOOSE_ADDRESS,

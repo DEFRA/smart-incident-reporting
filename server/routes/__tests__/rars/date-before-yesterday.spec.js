@@ -28,7 +28,7 @@ const problems = [
     redirectTimeBeforeYesterday: constants.routes.MUD_TIME_BEFORE_YESTERDAY
   },
   {
-    problem: 'pests',
+    problem: 'vermin/pests',
     url: constants.routes.PESTS_DATE_BEFORE_YESTERDAY,
     redirectTimeBeforeYesterday: constants.routes.PESTS_TIME_BEFORE_YESTERDAY
   }

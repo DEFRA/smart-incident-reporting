@@ -39,7 +39,7 @@ const problems = [
 describe('RARS When Worse Routes', () => {
   it('Should redirect to effect-on-daily-life when the journey has no days-when-worse page', async () => {
     const route = createWhenWorseRoutes({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_WHEN_WORSE,
       redirect: {
         effectOnDailyLife: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE
@@ -61,9 +61,9 @@ describe('RARS When Worse Routes', () => {
     expect(response).toBe(constants.routes.PESTS_EFFECT_ON_DAILY_LIFE)
   })
 
-  it('Should surface the pests-specific validation copy when the answer is missing', async () => {
+  it('Should surface the vermin/pests-specific validation copy when the answer is missing', async () => {
     const route = createWhenWorseRoutes({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_WHEN_WORSE,
       redirect: {
         daysWhenWorse: constants.routes.RARS_DAYS_WHEN_WORSE
@@ -88,13 +88,13 @@ describe('RARS When Worse Routes', () => {
       expect.objectContaining({
         errorSummary: expect.objectContaining({
           errorList: [expect.objectContaining({
-            text: 'Select if the vermin/pests is worse on certain days',
+            text: 'Select if the vermin/pests are worse on certain days',
             href: '#answerId'
           })]
         })
       })
     )
-    expect(response.viewData.errorSummary.errorList[0].text).toBe('Select if the vermin/pests is worse on certain days')
+    expect(response.viewData.errorSummary.errorList[0].text).toBe('Select if the vermin/pests are worse on certain days')
   })
 
   describe.each(problems)('$problem when-worse', ({
@@ -132,8 +132,8 @@ describe('RARS When Worse Routes', () => {
         )
         const expectedError = problem === 'noise'
           ? 'Select if the noise is worse on certain days'
-          : problem === 'pests'
-            ? 'Select if the vermin/pests is worse on certain days'
+          : problem === 'vermin/pests'
+            ? 'Select if the vermin/pests are worse on certain days'
             : `Select if the ${problem} is worse on certain days`
 
         expect(response.payload).toContain(expectedError)

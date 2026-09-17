@@ -12,7 +12,7 @@ describe('pests/earlier-today', () => {
     })
     expect(createEarlierTodayRoutes).toHaveBeenCalledTimes(1)
     expect(createEarlierTodayRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_EARLIER_TODAY,
       redirect: {
         effectOnDailyLife: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE

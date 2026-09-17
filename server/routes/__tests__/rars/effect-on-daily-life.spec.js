@@ -48,7 +48,7 @@ const problems = [
     }
   },
   {
-    problem: 'pests',
+    problem: 'vermin/pests',
     url: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE,
     header: 'Do you know the site or business responsible for the vermin/pests?',
     errorText: 'Select any of the following you did because of the vermin/pests, or &#39;none of these&#39;',
@@ -62,7 +62,7 @@ describe('RARS Effect On Daily Life Routes', () => {
   describe.each(problems)('$problem effect on daily life', ({ problem, url, header }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
-        const sessionData = problem === 'pests'
+        const sessionData = problem === 'vermin/pests'
           ? { [constants.redisKeys.PESTS_TYPE_SELECTED]: 'vermin/pests' }
           : {}
 
@@ -74,7 +74,7 @@ describe('RARS Effect On Daily Life Routes', () => {
   describe.each(problems)('$problem effect on daily life sad path', ({ url, errorText, problem }) => {
     describe('POST', () => {
       it('Sad: no checkbox selected, returns error state with dynamic error text', async () => {
-        const sessionData = problem === 'pests'
+        const sessionData = problem === 'vermin/pests'
           ? { [constants.redisKeys.PESTS_TYPE_SELECTED]: 'vermin/pests' }
           : {}
         const options = { url, payload: {} }
@@ -89,7 +89,7 @@ describe('RARS Effect On Daily Life Routes', () => {
     const options = { url: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE, payload: {} }
     const response = await submitPostRequest(options, constants.statusCodes.OK)
     expect(response.payload).toContain('There is a problem')
-    expect(response.payload).toContain('Select any of the following you did because of the pests, or &#39;none of these&#39;')
+    expect(response.payload).toContain('Select any of the following you did because of the vermin/pests, or &#39;none of these&#39;')
   })
 
   describe.each(problems)('$problem effect on daily life redirect', ({ url, redirect }) => {
@@ -161,27 +161,27 @@ describe('RARS Effect On Daily Life Routes', () => {
     })
   })
 
-  describe('pests effect on daily life title behaviour', () => {
+  describe('vermin/pests effect on daily life title behaviour', () => {
     it.each(['rats', 'seagulls', 'vermin/pests'])(
-      'Should use selected pests type in title when session has %s', async (selectedPests) => {
+      'Should use selected vermin/pests type in title when session has %s', async (selectedVerminOrPests) => {
         const response = await submitGetRequest(
           { url: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE },
-          `Do you know the site or business responsible for the ${selectedPests}?`,
+          `Do you know the site or business responsible for the ${selectedVerminOrPests}?`,
           constants.statusCodes.OK,
-          { [constants.redisKeys.PESTS_TYPE_SELECTED]: selectedPests }
+          { [constants.redisKeys.PESTS_TYPE_SELECTED]: selectedVerminOrPests }
         )
         expect(response.statusCode).toBe(constants.statusCodes.OK)
       }
     )
 
     it.each(['rats', 'seagulls', 'vermin/pests'])(
-      'Should show selected pests type title when validation fails and session has %s', async (selectedPests) => {
+      'Should show selected vermin/pests type title when validation fails and session has %s', async (selectedVerminOrPests) => {
         const response = await submitPostRequest(
           { url: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE, payload: {} },
           constants.statusCodes.OK,
-          { [constants.redisKeys.PESTS_TYPE_SELECTED]: selectedPests }
+          { [constants.redisKeys.PESTS_TYPE_SELECTED]: selectedVerminOrPests }
         )
-        expect(response.payload).toContain(`Do you know the site or business responsible for the ${selectedPests}?`)
+        expect(response.payload).toContain(`Do you know the site or business responsible for the ${selectedVerminOrPests}?`)
         expect(response.payload).toContain('There is a problem')
       }
     )

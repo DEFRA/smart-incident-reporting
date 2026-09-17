@@ -12,7 +12,7 @@ describe('pests/recurring', () => {
     })
     expect(createRecurringRoutes).toHaveBeenCalledTimes(1)
     expect(createRecurringRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_RECURRING,
       redirect: {
         when: constants.routes.PESTS_WHEN

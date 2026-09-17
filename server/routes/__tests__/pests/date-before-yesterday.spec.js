@@ -12,7 +12,7 @@ describe('pests/date-before-yesterday', () => {
     })
     expect(createDateBeforeYesterdayRoutes).toHaveBeenCalledTimes(1)
     expect(createDateBeforeYesterdayRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_DATE_BEFORE_YESTERDAY,
       redirect: {
         timeBeforeYesterday: constants.routes.PESTS_TIME_BEFORE_YESTERDAY

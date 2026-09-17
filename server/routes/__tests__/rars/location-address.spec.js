@@ -23,7 +23,7 @@ const problems = [
   { problem: 'dust', url: constants.routes.DUST_LOCATION_ADDRESS, redirect: constants.routes.DUST_DESCRIPTION },
   { problem: 'litter', url: constants.routes.LITTER_LOCATION_ADDRESS, redirect: constants.routes.LITTER_DESCRIPTION },
   { problem: 'mud', url: constants.routes.MUD_LOCATION_ADDRESS, redirect: constants.routes.MUD_DESCRIPTION },
-  { problem: 'pests', url: constants.routes.PESTS_LOCATION_ADDRESS, redirect: constants.routes.PESTS_RECURRING }
+  { problem: 'vermin/pests', url: constants.routes.PESTS_LOCATION_ADDRESS, redirect: constants.routes.PESTS_RECURRING }
 ]
 
 describe('RARS Location Address Routes', () => {

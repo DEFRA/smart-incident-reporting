@@ -12,7 +12,7 @@ describe('pests/source', () => {
     })
     expect(createSourceRoutes).toHaveBeenCalledTimes(1)
     expect(createSourceRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_SOURCE,
       redirect: {
         contactEnvironmentAgency: constants.routes.PESTS_CONTACT_ENVIRONMENT_AGENCY,

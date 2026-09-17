@@ -12,7 +12,7 @@ describe('pests/effect-on-health', () => {
     })
     expect(createEffectOnHealthRoutes).toHaveBeenCalledTimes(1)
     expect(createEffectOnHealthRoutes).toHaveBeenCalledWith({
-      problem: 'pests',
+      problem: 'vermin/pests',
       route: constants.routes.PESTS_EFFECT_ON_HEALTH,
       redirect: {
         medicalHelp: constants.routes.PESTS_MEDICAL_HELP

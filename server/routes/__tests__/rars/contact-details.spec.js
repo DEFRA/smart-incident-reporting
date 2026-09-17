@@ -39,7 +39,7 @@ const problems = [
     header: 'Contact details'
   },
   {
-    problem: 'pests',
+    problem: 'vermin/pests',
     url: constants.routes.PESTS_CONTACT_DETAILS,
     redirect: constants.routes.PESTS_OTHER_INFORMATION,
     header: 'Contact details'
