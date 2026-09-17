@@ -1100,7 +1100,7 @@ const questionSets = {
     }
   },
   REPORT_REGULATED_SITE: {
-    questionSetId: 200,
+    // FIXME: check the start pages and report sent
     reportTypes: {
       smell: 200,
       dust: 900,

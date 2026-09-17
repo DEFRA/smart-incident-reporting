@@ -1,9 +1,8 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
+import { getErrorSummary, getServiceDetails, validatePayload } from '../../utils/helpers.js'
 import { maxLength } from '../../utils/validation.js'
-// import { getServiceDetails, validatePayload } from '../../utils/helpers.js'
-// import { questionSets } from '../../utils/question-sets.js'
-// import { sendMessage } from '../../services/service-bus.js'
+import { questionSets } from '../../utils/question-sets.js'
+import { sendMessage } from '../../services/service-bus.js'
 
 const createOtherInformationRoutes = ({ problem, route, redirect }) => {
   const serviceDetails = getServiceDetails(problem)
@@ -31,15 +30,16 @@ const createOtherInformationRoutes = ({ problem, route, redirect }) => {
       request.yar.set(constants.redisKeys.RARS_OTHER_INFORMATION, otherInfo)
       request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
 
-      // // Build the payload to send to service bus
-      // const payload = buildPayload(request.yar)
+      // Build the payload to send to service bus
+      const payload = buildPayload(request.yar, problem)
+      console.log(JSON.stringify(payload, null, 2))
 
       // // test the payload against the schema
-      // if (!validatePayload(payload)) {
-      //   throw new Error('Invalid payload')
-      // }
+      if (!validatePayload(payload)) {
+        throw new Error('Invalid payload')
+      }
 
-      // await sendMessage(request.logger, payload)
+      await sendMessage(request.logger, payload)
 
       return h.redirect(redirect.reportSent)
     }
@@ -51,32 +51,44 @@ const createOtherInformationRoutes = ({ problem, route, redirect }) => {
   ]
 }
 
-// const buildPayload = (session) => {
-//   const reporter = session.get(constants.redisKeys.ILLEGAL_FISHING_CONTACT_DETAILS)
-//   return {
-//     reportingAnEnvironmentalProblem: {
-//       sessionGuid: session.id,
-//       reportType: questionSets.ILLEGAL_FISHING.questionSetId,
-//       datetimeObserved: session.get(constants.redisKeys.ILLEGAL_FISHING_WHEN),
-//       datetimeReported: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
-//       otherDetails: session.get(constants.redisKeys.ILLEGAL_FISHING_OTHER_INFORMATION),
-//       questionSetId: questionSets.ILLEGAL_FISHING.questionSetId,
-//       data: buildAnswerDataset(session, questionSets.ILLEGAL_FISHING),
-//       ...reporter
-//     }
-//   }
-// }
+const buildPayload = (session, problem) => {
+  const reporter = session.get(constants.redisKeys.RARS_CONTACT_DETAILS)
 
-// const buildAnswerDataset = (session, questionSet) => {
-//   const data = []
-//   Object.keys(questionSet.questions).forEach(key => {
-//     const answers = session.get(questionSet.questions[key].key)
-//     answers?.forEach(item => {
-//       data.push(item)
-//     })
-//   })
-//   return data
-// }
+  let reportType
+  if (problem === 'vermin' && session.get(constants.redisKeys.VERMIN_TYPE_SELECTED) === 'flies') {
+    reportType = questionSets.REPORT_REGULATED_SITE.reportTypes.flies
+  } else {
+    reportType = questionSets.REPORT_REGULATED_SITE.reportTypes[problem]
+  }
+
+  const data = buildAnswerDataset(session, questionSets.REPORT_REGULATED_SITE, problem)
+
+  return {
+    reportingAnEnvironmentalProblem: {
+      sessionGuid: session.id,
+      datetimeObserved: session.get(constants.redisKeys.RARS_WHEN),
+      datetimeReported: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
+      otherDetails: session.get(constants.redisKeys.RARS_OTHER_INFORMATION),
+      questionSetId: reportType,
+      data,
+      reportType,
+      ...reporter
+    }
+  }
+}
+
+const buildAnswerDataset = (session, questionSet) => {
+  const data = []
+  Object.keys(questionSet.questions).forEach(key => {
+    const answers = session.get(questionSet.questions[key].key)
+    console.log(`${key}: ${questionSet.questions[key].key}`)
+    console.log(answers)
+    answers?.forEach(item => {
+      data.push(item)
+    })
+  })
+  return data
+}
 
 const validateOtherInfo = otherInfo => {
   const errorSummary = getErrorSummary()
