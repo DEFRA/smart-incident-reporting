@@ -27,12 +27,11 @@ const handlers = {
 
     if (answerId === question.answers.flies.answerId) {
       request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.REPORT_REGULATED_SITE.reportTypes.flies)
+    } else {
+      request.yar.set(question.key, answers)
     }
-    request.yar.set(question.key, answers)
-    request.yar.set(constants.redisKeys.PESTS_TYPE_SELECTED, selectedType)
 
-    console.log(question.key, answers)
-    console.log(selectedType)
+    request.yar.set(constants.redisKeys.PESTS_TYPE_SELECTED, selectedType)
 
     // validate payload for errors
     const errorSummary = validatePayload(answerId, somethingElseDetail)
