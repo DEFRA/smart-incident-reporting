@@ -71,6 +71,8 @@ const validatePayload = locationDescription => {
       text: `Location description must be ${constants.locationDescriptionCharacterLimit} characters or less`,
       href: '#locationDescription'
     })
+  } else {
+    // do nothing
   }
   return errorSummary
 }
