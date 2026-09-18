@@ -12,28 +12,28 @@ const journeys = [
     url: constants.routes.NOISE_TIMES_WHEN_WORSE,
     next: constants.routes.NOISE_EFFECT_ON_DAILY_LIFE,
     heading: 'At which times of day do you hear the noise?',
-    error: 'Select the time of the day you heard the noise?'
+    error: 'Select when you heard the noise?'
   },
   {
     problem: 'dust',
     url: constants.routes.DUST_TIMES_WHEN_WORSE,
     next: constants.routes.DUST_EFFECT_ON_DAILY_LIFE,
     heading: 'At which times of day do you notice the dust?',
-    error: 'Select the time of the day you noticed the dust?'
+    error: 'Select when you noticed the dust?'
   },
   {
     problem: 'litter',
     url: constants.routes.LITTER_TIMES_WHEN_WORSE,
     next: constants.routes.LITTER_EFFECT_ON_DAILY_LIFE,
     heading: 'At which times of day do you notice the litter?',
-    error: 'Select the time of the day you noticed the litter?'
+    error: 'Select when you noticed the litter?'
   },
   {
     problem: 'mud',
     url: constants.routes.MUD_TIMES_WHEN_WORSE,
     next: constants.routes.MUD_EFFECT_ON_DAILY_LIFE,
     heading: 'At which times of day do you notice the mud?',
-    error: 'Select the time of the day you noticed the mud?'
+    error: 'Select when you noticed the mud?'
   }
 ]
 
