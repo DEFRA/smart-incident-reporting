@@ -12,28 +12,28 @@ const journeys = [
     url: constants.routes.NOISE_DAYS_WHEN_WORSE,
     next: constants.routes.NOISE_TIMES_WHEN_WORSE,
     heading: 'On which days of the week do you hear the noise?',
-    error: 'Select the days of the week you heard the noise?'
+    error: 'Select when you heard the noise?'
   },
   {
     problem: 'dust',
     url: constants.routes.DUST_DAYS_WHEN_WORSE,
     next: constants.routes.DUST_TIMES_WHEN_WORSE,
     heading: 'On which days of the week do you notice the dust?',
-    error: 'Select the days of the week you noticed the dust?'
+    error: 'Select when you noticed the dust?'
   },
   {
     problem: 'litter',
     url: constants.routes.LITTER_DAYS_WHEN_WORSE,
     next: constants.routes.LITTER_TIMES_WHEN_WORSE,
     heading: 'On which days of the week do you notice the litter?',
-    error: 'Select the days of the week you noticed the litter?'
+    error: 'Select when you noticed the litter?'
   },
   {
     problem: 'mud',
     url: constants.routes.MUD_DAYS_WHEN_WORSE,
     next: constants.routes.MUD_TIMES_WHEN_WORSE,
     heading: 'On which days of the week do you notice the mud?',
-    error: 'Select the days of the week you noticed the mud?'
+    error: 'Select when you noticed the mud?'
   }
 ]
 
