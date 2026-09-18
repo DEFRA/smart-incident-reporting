@@ -16,6 +16,45 @@ const YES_YOU_HAVE_PHOTOS = 'Yes, you have photos'
 const NO_YOU_DO_NOT_HAVE_PHOTOS = 'No, you do not have photos'
 const YES_YOU_HAVE_VIDEO = 'Yes, you have video'
 const NO_YOU_DO_NOT_HAVE_VIDEO = 'No, you do not have video'
+const TOWN_OR_CITY = 'Town or city'
+
+const createImagesOrVideoQuestion = (key) => ({
+  questionId: 2800,
+  key,
+  text: IMAGES_OR_VIDEO_QUESTION,
+  answers: {
+    yes: {
+      answerId: 2801,
+      text: 'Yes',
+      shortText: 'Yes'
+    },
+    no: {
+      answerId: 2802,
+      text: 'No',
+      shortText: 'No'
+    },
+    yesPhotos: {
+      answerId: 2803,
+      text: YES_YOU_HAVE_PHOTOS,
+      shortText: 'Yes - photos'
+    },
+    noPhotos: {
+      answerId: 2804,
+      text: NO_YOU_DO_NOT_HAVE_PHOTOS,
+      shortText: 'No - photos'
+    },
+    yesVideo: {
+      answerId: 2805,
+      text: YES_YOU_HAVE_VIDEO,
+      shortText: 'Yes - video'
+    },
+    noVideo: {
+      answerId: 2806,
+      text: NO_YOU_DO_NOT_HAVE_VIDEO,
+      shortText: 'No - video'
+    }
+  }
+})
 
 const questionSets = {
   WATER_POLLUTION: {
@@ -208,43 +247,7 @@ const questionSets = {
           }
         }
       },
-      WATER_POLLUTION_IMAGES_OR_VIDEO: {
-        questionId: 2800,
-        key: constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO,
-        text: IMAGES_OR_VIDEO_QUESTION,
-        answers: {
-          yes: {
-            answerId: 2801,
-            text: 'Yes',
-            shortText: 'Yes'
-          },
-          no: {
-            answerId: 2802,
-            text: 'No',
-            shortText: 'No'
-          },
-          yesPhotos: {
-            answerId: 2803,
-            text: YES_YOU_HAVE_PHOTOS,
-            shortText: 'Yes - photos'
-          },
-          noPhotos: {
-            answerId: 2804,
-            text: NO_YOU_DO_NOT_HAVE_PHOTOS,
-            shortText: 'No - photos'
-          },
-          yesVideo: {
-            answerId: 2805,
-            text: YES_YOU_HAVE_VIDEO,
-            shortText: 'Yes - video'
-          },
-          noVideo: {
-            answerId: 2806,
-            text: NO_YOU_DO_NOT_HAVE_VIDEO,
-            shortText: 'No - video'
-          }
-        }
-      },
+      WATER_POLLUTION_IMAGES_OR_VIDEO: createImagesOrVideoQuestion(constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO),
       WATER_POLLUTION_LOCATION_OPTION: {
         questionId: 2600,
         key: constants.redisKeys.WATER_POLLUTION_LOCATION_OPTION,
@@ -376,431 +379,6 @@ const questionSets = {
           yesDetails: {
             answerId: 1028,
             text: 'Describe the smell'
-          }
-        }
-      }
-    }
-  },
-  SMELL: {
-    questionSetId: 200,
-    questions: {
-      SMELL_SOURCE: {
-        questionId: 1600,
-        key: constants.redisKeys.SMELL_SOURCE,
-        text: 'Where is the smell coming from?',
-        answers: {
-          wasteSite: {
-            answerId: 1601,
-            text: 'A waste site, for example a landfill or recycling centre'
-          },
-          industry: {
-            answerId: 1602,
-            text: 'A large industrial site, factory or business, for example a food processing plant'
-          },
-          sewage: {
-            answerId: 1603,
-            text: 'A sewage or water treatment works'
-          },
-          wasteSpreading: {
-            answerId: 1604,
-            text: 'Agricultural site or activity, for example muck spreading'
-          },
-          local: {
-            answerId: 1605,
-            text: 'A small local business, for example a restaurant'
-          },
-          neighbour: {
-            answerId: 1606,
-            text: 'A neighbouring property'
-          },
-          rubbish: {
-            answerId: 1607,
-            text: 'Household waste and rubbish'
-          },
-          unknown: {
-            answerId: 1608,
-            text: 'Something else or you do not know'
-          }
-        }
-      },
-      SMELL_SOURCE_DETAILS: {
-        questionId: 3200,
-        key: constants.redisKeys.SMELL_SOURCE_DETAILS,
-        text: 'Can you give details about where the smell is coming from?',
-        answers: {
-          siteName: {
-            answerId: 3202,
-            text: 'Name of person or site'
-          },
-          sourceAddress: {
-            answerId: 3203,
-            text: 'Street name and number (if known)'
-          },
-          sourceTown: {
-            answerId: 3204,
-            text: 'Town or city'
-          },
-          sourcePostcode: {
-            answerId: 3205,
-            text: 'Postcode (if known)'
-          }
-        }
-      },
-      SMELL_LOCATION_HOME: {
-        questionId: 3100,
-        key: constants.redisKeys.SMELL_LOCATION_HOME,
-        text: 'Is the smell affecting you at home?',
-        answers: {
-          yes: {
-            answerId: 3101,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 3102,
-            text: 'No, somewhere else'
-          }
-        }
-      },
-      SMELL_LOCATION_ADDRESS: {
-        questionId: 1400,
-        key: constants.redisKeys.SMELL_LOCATION_ADDRESS,
-        text: 'Enter your address',
-        answers: {
-          addressLine1: {
-            answerId: 1401,
-            text: 'Address line 1'
-          },
-          addressLine2: {
-            answerId: 1402,
-            text: 'Address line 2 (optional)'
-          },
-          townOrCity: {
-            answerId: 1403,
-            text: 'Town or city'
-          },
-          county: {
-            answerId: 1404,
-            text: 'County (optional)'
-          },
-          postcode: {
-            answerId: 1405,
-            text: 'Postcode'
-          }
-        }
-      },
-      SMELL_LOCATION_OPTION: {
-        questionId: 2600,
-        key: constants.redisKeys.SMELL_LOCATION_OPTION,
-        text: 'How do you want to tell us where you\'ve noticed the smell?',
-        answers: {
-          gps: {
-            answerId: 2603,
-            text: USE_CURRENT_LOCATION
-          },
-          map: {
-            answerId: 2602,
-            text: MARK_LOCATION_ON_MAP
-          },
-          description: {
-            answerId: 2601,
-            text: DESCRIBE_THE_LOCATION
-          }
-        }
-      },
-      SMELL_LOCATION_DESCRIPTION: {
-        questionId: 1500,
-        key: constants.redisKeys.SMELL_LOCATION_DESCRIPTION,
-        text: 'Describe the location where you noticed the smell',
-        answers: {
-          locationDetails: {
-            answerId: 1501
-          }
-        }
-      },
-      SMELL_PREVIOUS: {
-        questionId: 1900,
-        key: constants.redisKeys.SMELL_PREVIOUS,
-        text: 'Has this happened before?',
-        answers: {
-          yes: {
-            answerId: 1901,
-            text: 'Yes, it happens often'
-          },
-          occasionally: {
-            answerId: 1902,
-            text: 'Yes, now and then'
-          },
-          no: {
-            answerId: 1903,
-            text: 'No, this is the first time'
-          }
-        }
-      },
-      SMELL_LOCATION_MAP: {
-        questionId: 2700,
-        key: constants.redisKeys.SMELL_LOCATION_MAP,
-        text: MARK_THE_LOCATION,
-        answers: {
-          nationalGridReference: {
-            answerId: 2701
-          },
-          easting: {
-            answerId: 2702
-          },
-          northing: {
-            answerId: 2703
-          },
-          lng: {
-            answerId: 2704
-          },
-          lat: {
-            answerId: 2705
-          }
-        }
-      },
-      SMELL_CURRENT: {
-        questionId: 2100,
-        key: constants.redisKeys.SMELL_CURRENT,
-        text: 'Is the smell still there?',
-        answers: {
-          yes: {
-            answerId: 2101,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 2102,
-            text: 'No'
-          }
-        }
-      },
-      SMELL_SMELL_STRENGTH: {
-        questionId: 2200,
-        key: constants.redisKeys.SMELL_SMELL_STRENGTH,
-        text: 'How strong is the smell?',
-        answers: {
-          veryWeak: {
-            answerId: 2211,
-            text: 'Very weak'
-          },
-          weak: {
-            answerId: 2212,
-            text: 'Weak'
-          },
-          distinct: {
-            answerId: 2213,
-            text: 'Distinct'
-          },
-          strong: {
-            answerId: 2214,
-            text: 'Strong'
-          },
-          veryStrong: {
-            answerId: 2215,
-            text: 'Very strong'
-          },
-          extremelyStrong: {
-            answerId: 2216,
-            text: 'Extremely strong'
-          }
-        }
-      },
-      SMELL_INDOORS: {
-        questionId: 3000,
-        key: constants.redisKeys.SMELL_INDOORS,
-        text: 'Is the smell noticeable indoors?',
-        answers: {
-          yes: {
-            answerId: 3001,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 3002,
-            text: 'No, you can only smell it outside'
-          }
-        }
-      },
-      SMELL_CLOTHING_AND_HAIR: {
-        questionId: 3600,
-        key: constants.redisKeys.SMELL_CLOTHING_AND_HAIR,
-        text: 'Does the smell stick to your clothing or hair?',
-        answers: {
-          yes: {
-            answerId: 3601,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 3602,
-            text: 'No'
-          }
-        }
-      },
-      SMELL_EFFECT_ON_DAILY_LIFE: {
-        questionId: 2400,
-        key: constants.redisKeys.SMELL_EFFECT_ON_DAILY_LIFE,
-        text: 'Did you do any of the following because of the smell?',
-        answers: {
-          leave: {
-            answerId: 2401,
-            text: 'Leave the area of the smell'
-          },
-          windows: {
-            answerId: 2402,
-            text: 'Keep windows or doors closed'
-          },
-          goingOutside: {
-            answerId: 2403,
-            text: 'Avoid using parts of your property, for example your garden'
-          },
-          goingElsewhere: {
-            answerId: 2404,
-            text: 'Put off doing something, for example going to the shops'
-          },
-          cancelEvent: {
-            answerId: 2405,
-            text: 'Cancel, or not attend an event or planned activity'
-          },
-          somethingElse: {
-            answerId: 2406,
-            text: SOMETHING_ELSE
-          },
-          noImpact: {
-            answerId: 2407,
-            text: NONE_OF_THESE
-          },
-          putOffDetails: {
-            answerId: 2408,
-            text: 'Give details about what you put off doing'
-          },
-          eventDetails: {
-            answerId: 2409,
-            text: 'Give details about the event'
-          },
-          somethingElseDetails: {
-            answerId: 2410,
-            text: 'Give details about what happened'
-          }
-        }
-      },
-      SMELL_EFFECT_ON_HEALTH: {
-        questionId: 2500,
-        key: constants.redisKeys.SMELL_EFFECT_ON_HEALTH,
-        text: 'Has the smell caused any of the following issues?',
-        answers: {
-          headache: {
-            answerId: 2501,
-            text: 'Headache'
-          },
-          wateringEyes: {
-            answerId: 2502,
-            text: 'Watering eyes'
-          },
-          sicknessOrNausea: {
-            answerId: 2503,
-            text: 'Sickness or nausea'
-          },
-          vomiting: {
-            answerId: 2504,
-            text: 'Vomiting'
-          },
-          somethingElse: {
-            answerId: 2505,
-            text: 'Something else or you\'d prefer not to say'
-          },
-          noneOfthese: {
-            answerId: 2506,
-            text: NONE_OF_THESE
-          },
-          somethingElseDetails: {
-            answerId: 2507,
-            text: 'Give details about the health problem'
-          },
-          mentalHealthIssues: {
-            answerId: 2508,
-            text: 'Mental health issues, for example stress'
-          }
-        }
-      },
-      SMELL_MEDICAL_HELP: {
-        questionId: 3300,
-        key: constants.redisKeys.SMELL_MEDICAL_HELP,
-        text: 'Have you had to get any medical help or treatment?',
-        answers: {
-          yes: {
-            answerId: 3301,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 3302,
-            text: 'No'
-          }
-        }
-      },
-      SMELL_IMAGES_OR_VIDEO: {
-        questionId: 3500,
-        key: constants.redisKeys.SMELL_IMAGES_OR_VIDEO,
-        text: IMAGES_OR_VIDEO_QUESTION,
-        answers: {
-          yes: {
-            answerId: 3501,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 3502,
-            text: 'No'
-          },
-          yesPhotos: {
-            answerId: 3503,
-            text: YES_YOU_HAVE_PHOTOS
-          },
-          noPhotos: {
-            answerId: 3504,
-            text: NO_YOU_DO_NOT_HAVE_PHOTOS
-          },
-          yesVideo: {
-            answerId: 3505,
-            text: YES_YOU_HAVE_VIDEO
-          },
-          noVideo: {
-            answerId: 3506,
-            text: NO_YOU_DO_NOT_HAVE_VIDEO
-          }
-        }
-      },
-      SMELL_DESCRIPTION: {
-        questionId: 1700,
-        key: constants.redisKeys.SMELL_DESCRIPTION,
-        text: 'How would you describe the smell?',
-        answers: {
-          sewage: {
-            answerId: 1701,
-            text: 'Sewage'
-          },
-          rubbishOrRefuse: {
-            answerId: 1702,
-            text: RUBBISH_OR_REFUSE
-          },
-          burningOrSmoke: {
-            answerId: 1703,
-            text: 'Burning or smoke'
-          },
-          gasOrPetrol: {
-            answerId: 1704,
-            text: 'Gas or petrol'
-          },
-          agriculture: {
-            answerId: 1705,
-            text: 'Agriculture'
-          },
-          somethingElse: {
-            answerId: 1706,
-            text: SOMETHING_ELSE
-          },
-          cannotDescribe: {
-            answerId: 1707,
-            text: 'You cannot describe it'
-          },
-          somethingElseDetails: {
-            answerId: 1708
           }
         }
       }
@@ -1144,37 +722,7 @@ const questionSets = {
           }
         }
       },
-      ILLEGAL_FISHING_IMAGES_OR_VIDEO: {
-        questionId: 2800,
-        key: constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO,
-        text: IMAGES_OR_VIDEO_QUESTION,
-        answers: {
-          yes: {
-            answerId: 2801,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 2802,
-            text: 'No'
-          },
-          yesPhotos: {
-            answerId: 2803,
-            text: YES_YOU_HAVE_PHOTOS
-          },
-          noPhotos: {
-            answerId: 2804,
-            text: NO_YOU_DO_NOT_HAVE_PHOTOS
-          },
-          yesVideo: {
-            answerId: 2805,
-            text: YES_YOU_HAVE_VIDEO
-          },
-          noVideo: {
-            answerId: 2806,
-            text: NO_YOU_DO_NOT_HAVE_VIDEO
-          }
-        }
-      },
+      ILLEGAL_FISHING_IMAGES_OR_VIDEO: createImagesOrVideoQuestion(constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO),
       ILLEGAL_FISHING_ANGLING_TRUST: {
         questionId: 4280,
         key: constants.redisKeys.ILLEGAL_FISHING_ANGLING_TRUST,
@@ -1457,37 +1005,7 @@ const questionSets = {
           }
         }
       },
-      BLOCKAGE_IMAGES_OR_VIDEO: {
-        questionId: 2800,
-        key: constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO,
-        text: IMAGES_OR_VIDEO_QUESTION,
-        answers: {
-          yes: {
-            answerId: 2801,
-            text: 'Yes'
-          },
-          no: {
-            answerId: 2802,
-            text: 'No'
-          },
-          yesPhotos: {
-            answerId: 2803,
-            text: YES_YOU_HAVE_PHOTOS
-          },
-          noPhotos: {
-            answerId: 2804,
-            text: NO_YOU_DO_NOT_HAVE_PHOTOS
-          },
-          yesVideo: {
-            answerId: 2805,
-            text: YES_YOU_HAVE_VIDEO
-          },
-          noVideo: {
-            answerId: 2806,
-            text: NO_YOU_DO_NOT_HAVE_VIDEO
-          }
-        }
-      }
+      BLOCKAGE_IMAGES_OR_VIDEO: createImagesOrVideoQuestion(constants.redisKeys.BLOCKAGE_IMAGES_OR_VIDEO)
     }
   },
   CREATE_A_REPORT: {
@@ -1576,6 +1094,467 @@ const questionSets = {
           },
           locationDescription: {
             answerId: 4102
+          }
+        }
+      }
+    }
+  },
+  REPORT_REGULATED_SITE: {
+    reportTypes: {
+      smell: 200,
+      dust: 900,
+      flies: 1300,
+      litter: 2200,
+      mud: 2300,
+      noise: 2500,
+      vermin: 3100
+    },
+    questions: {
+      PESTS_TYPE: {
+        questionId: 1620,
+        key: constants.redisKeys.PESTS_TYPE,
+        text: 'What type of vermin or pest is causing a problem?',
+        answers: {
+          flies: {
+            answerId: 1625,
+            text: 'Flies'
+          },
+          rats: {
+            answerId: 1621,
+            text: 'Rats'
+          },
+          seagulls: {
+            answerId: 1622,
+            text: 'Seagulls'
+          },
+          somethingElse: {
+            answerId: 1623,
+            text: SOMETHING_ELSE,
+            shortText: SOMETHING_ELSE
+          },
+          somethingElseDetail: {
+            answerId: 1624,
+            text: 'Type of vermin or pest'
+          }
+        }
+      },
+      RARS_SOURCE: {
+        questionId: 1600,
+        key: constants.redisKeys.RARS_SOURCE,
+        text: 'Where is the {problem} coming from?',
+        answers: {
+          wasteSite: {
+            answerId: 1601,
+            text: 'A waste site, for example a rubbish tip, recycling centre or scrapyard'
+          },
+          industry: {
+            answerId: 1602,
+            text: 'An industrial site, factory or business, for example a food processing or chemical plant'
+          },
+          sewage: {
+            answerId: 1603,
+            text: 'A sewage or water treatment works'
+          },
+          farm: {
+            answerId: 1609,
+            text: 'A farm or farming activity'
+          },
+          local: {
+            answerId: 1605,
+            text: 'A small local business, for example a restaurant'
+          },
+          neighbour: {
+            answerId: 1606,
+            text: 'A neighbouring property, including from their househld rubbish'
+          },
+          unknown: {
+            answerId: 1608,
+            text: 'Something else or you do not know'
+          }
+        }
+      },
+      RARS_SOURCE_DETAILS: {
+        questionId: 3200,
+        key: constants.redisKeys.RARS_SOURCE_DETAILS,
+        text: 'Do you know the site or business responsible for the {problem}?',
+        answers: {
+          siteName: {
+            answerId: 3202,
+            text: 'Name of person or site'
+          },
+          sourceAddress: {
+            answerId: 3203,
+            text: 'Street name and number (if known)'
+          },
+          sourceTown: {
+            answerId: 3204,
+            text: TOWN_OR_CITY
+          },
+          sourcePostcode: {
+            answerId: 3205,
+            text: 'Postcode (if known)'
+          }
+        }
+      },
+      RARS_LOCATION_HOME: {
+        questionId: 3100,
+        key: constants.redisKeys.RARS_LOCATION_HOME,
+        text: 'Where is the {problem} causing a problem?',
+        answers: {
+          home: {
+            answerId: 3101,
+            text: 'At your home'
+          },
+          somewhereElse: {
+            answerId: 3102,
+            text: 'Somewhere else'
+          }
+        }
+      },
+      RARS_LOCATION_OPTION: {
+        questionId: 2600,
+        key: constants.redisKeys.RARS_LOCATION_OPTION,
+        text: 'How do you want to tell us where the problem is?',
+        answers: {
+          gps: {
+            answerId: 2603,
+            text: USE_CURRENT_LOCATION
+          },
+          map: {
+            answerId: 2602,
+            text: MARK_LOCATION_ON_MAP
+          },
+          description: {
+            answerId: 2601,
+            text: DESCRIBE_THE_LOCATION
+          }
+        }
+      },
+      RARS_LOCATION_MAP: {
+        questionId: 2700,
+        key: constants.redisKeys.RARS_LOCATION_MAP,
+        text: MARK_THE_LOCATION,
+        answers: {
+          nationalGridReference: {
+            answerId: 2701
+          },
+          easting: {
+            answerId: 2702
+          },
+          northing: {
+            answerId: 2703
+          },
+          lng: {
+            answerId: 2704
+          },
+          lat: {
+            answerId: 2705
+          }
+        }
+      },
+      RARS_LOCATION_ADDRESS: {
+        questionId: 2750,
+        key: constants.redisKeys.RARS_LOCATION_ADDRESS,
+        text: 'Enter your address',
+        answers: {
+          addressLine1: {
+            answerId: 2751,
+            text: 'Address line 1'
+          },
+          addressLine2: {
+            answerId: 2752,
+            text: 'Address line 2 (optional)'
+          },
+          townOrCity: {
+            answerId: 2753,
+            text: TOWN_OR_CITY
+          },
+          county: {
+            answerId: 2754,
+            text: 'County (optional)'
+          },
+          postcode: {
+            answerId: 2755,
+            text: 'Postcode'
+          }
+        }
+      },
+      RARS_LOCATION_DESCRIPTION: {
+        questionId: 1500,
+        key: constants.redisKeys.RARS_LOCATION_DESCRIPTION,
+        text: 'Describe the location',
+        answers: {
+          locationDetails: {
+            answerId: 1501
+          }
+        }
+      },
+      RARS_DESCRIPTION: {
+        questionId: 1350,
+        key: constants.redisKeys.RARS_DESCRIPTION,
+        text: 'How would you describe the {problem}?',
+        answers: {
+          details: {
+            answerId: 1351
+          }
+        }
+      },
+      RARS_WHEN_WORSE: {
+        questionId: 1360,
+        key: constants.redisKeys.RARS_WHEN_WORSE,
+        text: 'Do you notice the {problem} is worse on certain days or a particular time?',
+        answers: {
+          yes: {
+            answerId: 1361,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 1362,
+            text: 'No'
+          }
+        }
+      },
+      RARS_DAYS_WHEN_WORSE: {
+        questionId: 1360,
+        key: constants.redisKeys.RARS_DAYS_WHEN_WORSE,
+        text: 'On which days of the week do you {verb} the {problem}?',
+        answers: {
+          days: {
+            answerId: 1363
+          }
+        }
+      },
+      RARS_TIMES_WHEN_WORSE: {
+        questionId: 1370,
+        key: constants.redisKeys.RARS_TIMES_WHEN_WORSE,
+        text: 'At which times of day do you {verb} the {problem}?',
+        answers: {
+          times: {
+            answerId: 1371
+          }
+        }
+      },
+      RARS_RECURRING: {
+        questionId: 1900,
+        key: constants.redisKeys.RARS_RECURRING,
+        text: 'Has this happened before?',
+        answers: {
+          yes: {
+            answerId: 1901,
+            text: 'Yes, it happens often'
+          },
+          occasionally: {
+            answerId: 1902,
+            text: 'Yes, now and then'
+          },
+          no: {
+            answerId: 1903,
+            text: 'No, this is the first time'
+          }
+        }
+      },
+      SMELL_DESCRIPTION: {
+        questionId: 1700,
+        key: constants.redisKeys.SMELL_DESCRIPTION,
+        text: 'How would you describe the smell?',
+        answers: {
+          sewage: {
+            answerId: 1701,
+            text: 'Sewage'
+          },
+          rubbishOrRefuse: {
+            answerId: 1702,
+            text: RUBBISH_OR_REFUSE
+          },
+          burningOrSmoke: {
+            answerId: 1703,
+            text: 'Burning or smoke'
+          },
+          gasOrPetrol: {
+            answerId: 1704,
+            text: 'Gas or petrol'
+          },
+          agriculture: {
+            answerId: 1705,
+            text: 'Agriculture'
+          },
+          somethingElse: {
+            answerId: 1706,
+            text: SOMETHING_ELSE
+          },
+          cannotDescribe: {
+            answerId: 1707,
+            text: 'You cannot describe it'
+          },
+          somethingElseDetails: {
+            answerId: 1708
+          }
+        }
+      },
+      RARS_EFFECT_ON_DAILY_LIFE: {
+        questionId: 2400,
+        key: constants.redisKeys.RARS_EFFECT_ON_DAILY_LIFE,
+        text: 'Did you do any of the following because of the {problem}, on this occasion?',
+        answers: {
+          leave: {
+            answerId: 2401,
+            text: 'Leave or avoid the area'
+          },
+          windows: {
+            answerId: 2402,
+            text: 'Keep windows or doors closed'
+          },
+          goingOutside: {
+            answerId: 2403,
+            text: 'Avoid using parts of your property, for example your garden'
+          },
+          goingElsewhere: {
+            answerId: 2404,
+            text: 'Put off doing something, for example going to the shops'
+          },
+          cancelEvent: {
+            answerId: 2405,
+            text: 'Cancel, or not attend an event'
+          },
+          somethingElse: {
+            answerId: 2406,
+            text: SOMETHING_ELSE
+          },
+          noImpact: {
+            answerId: 2407,
+            text: NONE_OF_THESE
+          },
+          putOffDetails: {
+            answerId: 2408,
+            text: 'Give details about what you put off doing'
+          },
+          eventDetails: {
+            answerId: 2409,
+            text: 'Give details about the event'
+          },
+          somethingElseDetails: {
+            answerId: 2410,
+            text: 'Give details about what happened'
+          }
+        }
+      },
+      SMELL_SMELL_STRENGTH: {
+        questionId: 2200,
+        key: constants.redisKeys.SMELL_SMELL_STRENGTH,
+        text: 'How strong is the smell?',
+        answers: {
+          veryWeak: {
+            answerId: 2211,
+            text: 'Very weak'
+          },
+          weak: {
+            answerId: 2212,
+            text: 'Weak'
+          },
+          distinct: {
+            answerId: 2213,
+            text: 'Distinct'
+          },
+          strong: {
+            answerId: 2214,
+            text: 'Strong'
+          },
+          veryStrong: {
+            answerId: 2215,
+            text: 'Very strong'
+          },
+          extremelyStrong: {
+            answerId: 2216,
+            text: 'Extremely strong'
+          }
+        }
+      },
+      SMELL_INDOORS: {
+        questionId: 3000,
+        key: constants.redisKeys.SMELL_INDOORS,
+        text: 'Is the smell noticeable indoors?',
+        answers: {
+          yes: {
+            answerId: 3001,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3002,
+            text: 'No, you can only smell it outside'
+          }
+        }
+      },
+      SMELL_CLOTHING_AND_HAIR: {
+        questionId: 3600,
+        key: constants.redisKeys.SMELL_CLOTHING_AND_HAIR,
+        text: 'Does the smell stick to your clothing or hair?',
+        answers: {
+          yes: {
+            answerId: 3601,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3602,
+            text: 'No'
+          }
+        }
+      },
+      RARS_IMAGES_OR_VIDEO: createImagesOrVideoQuestion(constants.redisKeys.RARS_IMAGES_OR_VIDEO),
+      RARS_EFFECT_ON_HEALTH: {
+        questionId: 2500,
+        key: constants.redisKeys.RARS_EFFECT_ON_HEALTH,
+        text: 'Has the {problem} caused any of the following issues?',
+        answers: {
+          headache: {
+            answerId: 2501,
+            text: 'Headache'
+          },
+          wateringEyes: {
+            answerId: 2502,
+            text: 'Watering eyes'
+          },
+          sicknessOrNausea: {
+            answerId: 2503,
+            text: 'Sickness or nausea'
+          },
+          vomiting: {
+            answerId: 2504,
+            text: 'Vomiting'
+          },
+          somethingElse: {
+            answerId: 2505,
+            text: 'Something else or you\'d prefer not to say'
+          },
+          noneOfthese: {
+            answerId: 2506,
+            text: NONE_OF_THESE
+          },
+          somethingElseDetails: {
+            answerId: 2507,
+            text: 'Give details about the health problem'
+          },
+          mentalHealthIssues: {
+            answerId: 2508,
+            text: 'Mental health issues, for example stress'
+          },
+          disturbedSleep: {
+            answerId: 2509,
+            text: 'Disturbed sleep'
+          }
+        }
+      },
+      RARS_MEDICAL_HELP: {
+        questionId: 3300,
+        key: constants.redisKeys.RARS_MEDICAL_HELP,
+        text: 'Have you had to get any medical help or treatment?',
+        answers: {
+          yes: {
+            answerId: 3301,
+            text: 'Yes'
+          },
+          no: {
+            answerId: 3302,
+            text: 'No'
           }
         }
       }

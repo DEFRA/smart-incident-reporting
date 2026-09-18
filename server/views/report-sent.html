@@ -9,12 +9,15 @@
   <div class="govuk-grid-column-two-thirds">    
     {% if(photoUploadDetails.reportersEmail !== '') %}
       {{ govukPanel({
-        titleText: "Report sent",
-        html: "We have sent a confirmation of your report and a reference number to <strong>" + photoUploadDetails.reportersEmail + "</strong>"
+        titleText: "Thank you",
+        classes: 'govuk-panel--blue' if photoUploadDetails.userAgreedForImages else '',
+        html: "<p class='govuk-body-l govuk-!-margin-bottom-0' style='color: white;'>We have received your report. Check <span class='govuk-!-font-weight-bold govuk-!-word-break-break-word'>" + photoUploadDetails.reportersEmail + "</span> for your confirmation and reference number.</p>"
       }) }}
     {% else %}
       {{ govukPanel({
-        titleText: "Report sent"        
+        titleText: "Thank you",
+        classes: 'govuk-panel--blue' if photoUploadDetails.userAgreedForImages else '',
+        html: "<p class='govuk-body-l govuk-!-margin-bottom-0' style='color: white;'>We have received your report</p>"
       }) }}
     {% endif %}      
 
@@ -34,6 +37,12 @@
         <p>Someone will contact you separately if we need to see any videos.</p> 
       {% endif %}
     {% endif %} 
+
+    {% if problem %}
+      <div class="govuk-inset-text">
+        <a href="/">Report another problem</a> with the same site.
+      </div>
+    {% endif %}
 
     <h2 class="govuk-heading-m">
       What happens next

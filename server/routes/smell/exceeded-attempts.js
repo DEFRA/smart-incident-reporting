@@ -1,23 +1,10 @@
 import constants from '../../utils/constants.js'
+import createExceededAttemptsRoutes from '../rars/exceeded-attempts.js'
 
-const handlers = {
-  get: async (_request, h) => {
-    return h.view(constants.views.SMELL_EXCEEDED_ATTEMPTS, {
-      ...getContext()
-    })
+export default createExceededAttemptsRoutes({
+  problem: 'smell',
+  route: constants.routes.SMELL_EXCEEDED_ATTEMPTS,
+  redirect: {
+    locationAddress: constants.routes.SMELL_LOCATION_ADDRESS
   }
-}
-
-const getContext = () => {
-  return {
-    enterAddress: constants.routes.SMELL_LOCATION_ADDRESS
-  }
-}
-
-export default [
-  {
-    method: 'GET',
-    path: constants.routes.SMELL_EXCEEDED_ATTEMPTS,
-    handler: handlers.get
-  }
-]
+})

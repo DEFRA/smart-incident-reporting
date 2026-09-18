@@ -1,153 +1,54 @@
-import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/smell-server.js'
-import { questionSets } from '../../../utils/question-sets.js'
+import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
+import { questionSets } from '../../../utils/question-sets.js'
 
 const url = constants.routes.SMELL_SMELL_STRENGTH
-const question = questionSets.SMELL.questions.SMELL_SMELL_STRENGTH
-const header = question.text
-const baseAnswer = {
-  questionId: question.questionId,
-  questionAsked: question.text,
-  questionResponse: true
-}
+const question = questionSets.REPORT_REGULATED_SITE.questions.SMELL_SMELL_STRENGTH
 
 describe(url, () => {
   describe('GET', () => {
-    it(`Should return success response and correct view for ${url} if current smell`, async () => {
-      const sessionData = {
-        'smell/current': [{
-          questionId: questionSets.SMELL.questions.SMELL_CURRENT.questionId,
-          answerId: questionSets.SMELL.questions.SMELL_CURRENT.answers.yes.answerId
-        }]
-      }
-      await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+    it('Should return success response and the past tense question by default', async () => {
+      const response = await submitGetRequest({ url }, 'How strong was the smell')
+      expect(response.payload).toContain('How strong was the smell?')
+      expect(response.payload).toContain(question.answers.veryWeak.text)
+      expect(response.payload).toContain(question.answers.extremelyStrong.text)
     })
-    it(`Should return success response and correct view for ${url} if past smell`, async () => {
+
+    it('Should return the present tense question when the smell is happening now', async () => {
       const sessionData = {
-        'smell/current': [{
-          questionId: questionSets.SMELL.questions.SMELL_CURRENT.questionId,
-          answerId: questionSets.SMELL.questions.SMELL_CURRENT.answers.no.answerId
-        }]
+        'date-time-option': 1
       }
-      const wasHeader = header.replace('is', 'was')
-      await submitGetRequest({ url }, wasHeader, constants.statusCodes.OK, sessionData)
+      const response = await submitGetRequest({ url }, 'How strong is the smell', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('How strong is the smell?')
     })
   })
 
   describe('POST', () => {
-    it('Happy: Weak and continues to SMELL_INDOORS', async () => {
-      const options = {
-        url,
-        payload: {
-          answerId: question.answers.weak.answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_INDOORS)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_SMELL_STRENGTH)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.weak.answerId
-      }])
+    it('Should return an error when the answer is missing', async () => {
+      const response = await submitPostRequest({ url, payload: {} }, constants.statusCodes.OK)
+      expect(response.payload).toContain('Select how strong the smell was')
+      expect(response.payload).toContain('href="#answerId"')
     })
-    it('Happy: Very weak and continues to SMELL_INDOORS', async () => {
-      const options = {
-        url,
-        payload: {
-          answerId: question.answers.veryWeak.answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_INDOORS)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_SMELL_STRENGTH)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.veryWeak.answerId
-      }])
-    })
-    it('Happy: Distinct and continues to SMELL_INDOORS', async () => {
-      const options = {
-        url,
-        payload: {
-          answerId: question.answers.distinct.answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_INDOORS)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_SMELL_STRENGTH)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.distinct.answerId
-      }])
-    })
-    it('Happy: Strong and continues to SMELL_INDOORS', async () => {
-      const options = {
-        url,
-        payload: {
-          answerId: question.answers.strong.answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_INDOORS)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_SMELL_STRENGTH)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.strong.answerId
-      }])
-    })
-    it('Happy: Very strong and continues to SMELL_INDOORS', async () => {
-      const options = {
-        url,
-        payload: {
-          answerId: question.answers.veryStrong.answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_INDOORS)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_SMELL_STRENGTH)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.veryStrong.answerId
-      }])
-    })
-    it('Happy: Extermely strong and continues to SMELL_INDOORS', async () => {
-      const options = {
-        url,
-        payload: {
-          answerId: question.answers.extremelyStrong.answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_INDOORS)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_SMELL_STRENGTH)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.extremelyStrong.answerId
-      }])
-    })
-    it('Sad rejects empty payload with current smell', async () => {
+
+    it('Should return a present tense error when the smell is happening now', async () => {
       const sessionData = {
-        'smell/current': [{
-          questionId: questionSets.SMELL.questions.SMELL_CURRENT.questionId,
-          answerId: questionSets.SMELL.questions.SMELL_CURRENT.answers.yes.answerId
-        }]
+        'date-time-option': 1
       }
-      const options = {
-        url,
-        payload: {}
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('There is a problem')
+      const response = await submitPostRequest({ url, payload: {} }, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Select how strong the smell is')
     })
-    it('Sad rejects empty payload with past smell', async () => {
-      const sessionData = {
-        'smell/current': [{
-          questionId: questionSets.SMELL.questions.SMELL_CURRENT.questionId,
-          answerId: questionSets.SMELL.questions.SMELL_CURRENT.answers.no.answerId
-        }]
-      }
-      const options = {
-        url,
-        payload: {}
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select how strong the smell was')
+
+    it('Should store the answer and redirect to the indoors page', async () => {
+      const answerId = question.answers.distinct.answerId
+      const response = await submitPostRequest({ url, payload: { answerId: answerId.toString() } })
+      expect(response.statusCode).toBe(constants.statusCodes.REDIRECT)
+      expect(response.headers.location).toBe(constants.routes.SMELL_INDOORS)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_SMELL_STRENGTH)).toEqual([{
+        questionId: question.questionId,
+        questionAsked: question.text,
+        questionResponse: true,
+        answerId
+      }])
     })
   })
 })

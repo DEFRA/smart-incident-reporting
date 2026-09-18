@@ -52,6 +52,13 @@ describe('validation', () => {
 
       expect(maxLength(valueWithinLimit, characterLimit)).toBeFalsy()
     })
+
+    it('should count leading/trailing whitespace, matching the browser character count', () => {
+      const valueWithWhitespace = '  ' + 'a'.repeat(9) + '  '
+      const characterLimit = 12
+
+      expect(maxLength(valueWithWhitespace, characterLimit)).toBeTruthy()
+    })
   })
 
   describe('postcode', () => {

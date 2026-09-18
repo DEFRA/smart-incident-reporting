@@ -1,8 +1,9 @@
 import constants from '../../utils/constants.js'
+import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
-import { getErrorSummary } from '../../utils/helpers.js'
 
-const question = questionSets.SMELL.questions.SMELL_CLOTHING_AND_HAIR
+const question = questionSets.REPORT_REGULATED_SITE.questions.SMELL_CLOTHING_AND_HAIR
+const serviceDetails = getServiceDetails('smell')
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -13,7 +14,8 @@ const baseAnswer = {
 const handlers = {
   get: async (request, h) => {
     return h.view(constants.views.SMELL_CLOTHING_AND_HAIR, {
-      ...getContext(request)
+      ...getContext(request),
+      ...serviceDetails
     })
   },
   post: async (request, h) => {
@@ -25,9 +27,9 @@ const handlers = {
     const errorSummary = validatePayload(answerId, current)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.SMELL_CLOTHING_AND_HAIR, {
-        question,
-        current,
-        errorSummary
+        ...getContext(request),
+        errorSummary,
+        ...serviceDetails
       })
     }
 
@@ -35,19 +37,24 @@ const handlers = {
     answerId = Number(answerId)
 
     // set answer in session
-    request.yar.set(constants.redisKeys.SMELL_CLOTHING_AND_HAIR, buildAnswers(answerId))
+    request.yar.set(question.key, buildAnswers(answerId))
 
     return h.redirect(constants.routes.SMELL_EFFECT_ON_DAILY_LIFE)
   }
 }
 
 const getContext = request => {
-  const currentAnswer = request.yar.get(constants.redisKeys.SMELL_INDOORS)
-  const current = currentAnswer?.[0]?.answerId === questionSets.SMELL.questions.SMELL_INDOORS.answers.yes.answerId
+  const answers = request.yar.get(question.key)
   return {
     question,
-    current
+    answers,
+    current: isCurrent(request)
   }
+}
+
+const isCurrent = request => {
+  const optionNow = 1
+  return request.yar.get(constants.redisKeys.DATE_TIME_OPTION) === optionNow
 }
 
 const validatePayload = (answerId, current) => {

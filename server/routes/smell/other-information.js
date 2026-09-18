@@ -1,60 +1,10 @@
 import constants from '../../utils/constants.js'
-import { questionSets } from '../../utils/question-sets.js'
-import { sendReport } from '../../services/send-report.js'
+import createOtherInformationRoutes from '../rars/other-information.js'
 
-const handlers = {
-  get: async (_request, h) => h.view(constants.views.SMELL_OTHER_INFORMATION),
-  post: async (request, h) => {
-    const { otherInfo } = request.payload
-
-    request.yar.set(constants.redisKeys.SMELL_OTHER_INFORMATION, otherInfo)
-    request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
-
-    // Build the payload to send to service bus
-    const payload = buildPayload(request.yar)
-
-    await sendReport(request, payload)
-
-    return h.redirect(constants.routes.REPORT_SENT)
+export default createOtherInformationRoutes({
+  problem: 'smell',
+  route: constants.routes.SMELL_OTHER_INFORMATION,
+  redirect: {
+    reportSent: constants.routes.SMELL_REPORT_SENT
   }
-}
-
-const buildPayload = (session) => {
-  const reporter = session.get(constants.redisKeys.SMELL_CONTACT_DETAILS)
-  return {
-    reportingAnEnvironmentalProblem: {
-      sessionGuid: session.id,
-      reportType: questionSets.SMELL.questionSetId,
-      datetimeObserved: session.get(constants.redisKeys.SMELL_START_DATE_TIME),
-      datetimeReported: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
-      otherDetails: session.get(constants.redisKeys.SMELL_OTHER_INFORMATION),
-      questionSetId: questionSets.SMELL.questionSetId,
-      data: buildAnswerDataset(session, questionSets.SMELL),
-      ...reporter
-    }
-  }
-}
-
-const buildAnswerDataset = (session, questionSet) => {
-  const data = []
-  Object.keys(questionSet.questions).forEach(key => {
-    const answers = session.get(questionSet.questions[key].key)
-    answers?.forEach(item => {
-      data.push(item)
-    })
-  })
-  return data
-}
-
-export default [
-  {
-    method: 'GET',
-    path: constants.routes.SMELL_OTHER_INFORMATION,
-    handler: handlers.get
-  },
-  {
-    method: 'POST',
-    path: constants.routes.SMELL_OTHER_INFORMATION,
-    handler: handlers.post
-  }
-]
+})

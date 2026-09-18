@@ -1,8 +1,9 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary } from '../../utils/helpers.js'
+import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
-const question = questionSets.SMELL.questions.SMELL_INDOORS
+const question = questionSets.REPORT_REGULATED_SITE.questions.SMELL_INDOORS
+const serviceDetails = getServiceDetails('smell')
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -13,38 +14,47 @@ const baseAnswer = {
 const handlers = {
   get: async (request, h) => {
     return h.view(constants.views.SMELL_INDOORS, {
-      ...getContext(request)
+      ...getContext(request),
+      ...serviceDetails
     })
   },
   post: async (request, h) => {
+    // get payload
     let { answerId } = request.payload
     const { current } = getContext(request)
 
-    // validate payload
+    // validate payload for errors
     const errorSummary = validatePayload(answerId, current)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.SMELL_INDOORS, {
-        question,
-        current,
-        errorSummary
+        ...getContext(request),
+        errorSummary,
+        ...serviceDetails
       })
     }
+
     // convert answerId to number
     answerId = Number(answerId)
 
-    request.yar.set(constants.redisKeys.SMELL_INDOORS, buildAnswers(answerId))
+    // set answer in session
+    request.yar.set(question.key, buildAnswers(answerId))
 
     return h.redirect(constants.routes.SMELL_CLOTHING_AND_HAIR)
   }
 }
 
 const getContext = request => {
-  const currentAnswer = request.yar.get(constants.redisKeys.SMELL_CURRENT)
-  const current = currentAnswer?.[0]?.answerId === questionSets.SMELL.questions.SMELL_CURRENT.answers.yes.answerId
+  const answers = request.yar.get(question.key)
   return {
     question,
-    current
+    answers,
+    current: isCurrent(request)
   }
+}
+
+const isCurrent = request => {
+  const optionNow = 1
+  return request.yar.get(constants.redisKeys.DATE_TIME_OPTION) === optionNow
 }
 
 const validatePayload = (answerId, current) => {

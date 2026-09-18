@@ -1,7 +1,8 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary } from '../../utils/helpers.js'
+import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
-const question = questionSets.SMELL.questions.SMELL_DESCRIPTION
+
+const question = questionSets.REPORT_REGULATED_SITE.questions.SMELL_DESCRIPTION
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -14,10 +15,8 @@ const handlers = {
     ...getContext(request)
   }),
   post: async (request, h) => {
-    // get payload
     let { answerId, somethingElseDetails } = request.payload
 
-    // validate payload for errors
     const errorSummary = validatePayload(answerId)
     if (errorSummary.errorList.length > 0) {
       request.yar.set(question.key, [])
@@ -27,16 +26,13 @@ const handlers = {
       })
     }
 
-    // Convert answer to array if only a single string answer
     if (!Array.isArray(answerId)) {
       answerId = [answerId]
     }
 
-    // set answer in session
     request.yar.set(question.key, buildAnswers(answerId, somethingElseDetails))
 
-    // handle redirects
-    return h.redirect(constants.routes.SMELL_PREVIOUS)
+    return h.redirect(constants.routes.SMELL_RECURRING)
   }
 }
 
@@ -49,7 +45,7 @@ const buildAnswers = (answerId, somethingElseDetails) => {
     })
   })
 
-  if (answerId.indexOf(question.answers.somethingElse.answerId.toString()) > -1 && somethingElseDetails) {
+  if (answerId.includes(question.answers.somethingElse.answerId.toString()) && somethingElseDetails) {
     answers.push({
       ...baseAnswer,
       answerId: question.answers.somethingElseDetails.answerId,
@@ -64,7 +60,8 @@ const getContext = request => {
   const answers = request.yar.get(question.key)
   return {
     question,
-    answers
+    answers,
+    ...getServiceDetails('smell')
   }
 }
 

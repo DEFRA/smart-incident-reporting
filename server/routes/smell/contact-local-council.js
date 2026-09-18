@@ -1,15 +1,7 @@
 import constants from '../../utils/constants.js'
+import createContactLocalCouncilRoutes from '../rars/contact-local-council.js'
 
-const handlers = {
-  get: async (_request, h) => {
-    return h.view(constants.views.SMELL_CONTACT_LOCAL_COUNCIL)
-  }
-}
-
-export default [
-  {
-    method: 'GET',
-    path: constants.routes.SMELL_CONTACT_LOCAL_COUNCIL,
-    handler: handlers.get
-  }
-]
+export default createContactLocalCouncilRoutes({
+  problem: 'smell',
+  route: constants.routes.SMELL_CONTACT_LOCAL_COUNCIL
+})
