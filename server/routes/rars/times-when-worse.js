@@ -64,7 +64,7 @@ const createTimesWhenWorseRoutes = ({ problem, route, redirect }) => {
   const questionText = question.text
     .replace('{verb}', getPresentTenseVerb(problem))
     .replace('{problem}', problem)
-  const errorText = `Select the time of the day you ${getPastTenseVerb(problem)} the ${problem}?`
+  const errorText = `Select when you ${getPastTenseVerb(problem)} the ${problem}?`
 
   const getContext = selected => ({
     question,
