@@ -25,11 +25,12 @@ const handlers = {
     // build answers and get selected pests type
     const { answers, selectedType } = buildAnswers(answerId, somethingElseDetail)
 
-    // flies skips the source journey so no answers to store
-    if (answerId !== question.answers.flies.answerId) {
+    if (answerId === question.answers.flies.answerId) {
+      request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.REPORT_REGULATED_SITE.reportTypes.flies)
+    } else {
       request.yar.set(question.key, answers)
     }
-    // if selected something else don't set it as the details, set it as "vermin/pests"
+
     request.yar.set(constants.redisKeys.PESTS_TYPE_SELECTED, selectedType)
 
     // validate payload for errors

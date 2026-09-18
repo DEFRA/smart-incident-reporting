@@ -1100,7 +1100,6 @@ const questionSets = {
     }
   },
   REPORT_REGULATED_SITE: {
-    questionSetId: 200,
     reportTypes: {
       smell: 200,
       dust: 900,
