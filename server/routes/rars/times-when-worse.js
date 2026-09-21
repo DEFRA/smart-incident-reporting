@@ -11,7 +11,7 @@ const times = [
   'Night'
 ]
 
-const NO_PARTICULAR_DAY = 'No particular day'
+const NO_PARTICULAR_TIME_OF_DAY = 'No particular time of day'
 
 // the selected times are stored against a single answer id as a semicolon
 // separated list, for example 'Morning;Afternoon;Night'
@@ -28,8 +28,8 @@ const getSelectedTimes = answerId => {
 
   const submitted = new Set(Array.isArray(answerId) ? answerId : [answerId])
 
-  if (submitted.has(NO_PARTICULAR_DAY)) {
-    return [NO_PARTICULAR_DAY]
+  if (submitted.has(NO_PARTICULAR_TIME_OF_DAY)) {
+    return [NO_PARTICULAR_TIME_OF_DAY]
   }
 
   // preserve time of day order rather than the order the browser posted them in
@@ -50,10 +50,10 @@ const buildCheckboxItems = selected => {
 
   items.push({ divider: 'or' })
   items.push({
-    value: NO_PARTICULAR_DAY,
-    text: NO_PARTICULAR_DAY,
+    value: NO_PARTICULAR_TIME_OF_DAY,
+    text: NO_PARTICULAR_TIME_OF_DAY,
     behaviour: 'exclusive',
-    checked: selected.includes(NO_PARTICULAR_DAY)
+    checked: selected.includes(NO_PARTICULAR_TIME_OF_DAY)
   })
 
   return items

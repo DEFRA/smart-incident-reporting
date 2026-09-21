@@ -4,7 +4,7 @@ import { maxLength } from '../../utils/validation.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { sendReport } from '../../services/send-report.js'
 
-const createOtherInformationRoutes = ({ problem, route, redirect }) => {
+const createOtherInformationRoutes = ({ problem, route }) => {
   const serviceDetails = getServiceDetails(problem)
 
   const handlers = {

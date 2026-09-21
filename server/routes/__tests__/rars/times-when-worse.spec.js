@@ -50,7 +50,7 @@ describe('RARS times-when-worse', () => {
         for (const time of allTimes) {
           expect(response.payload).toContain(`value="${time}"`)
         }
-        expect(response.payload).toContain('value="No particular day"')
+        expect(response.payload).toContain('value="No particular time of day"')
         expect(response.payload).toContain('exclusive')
       })
 
@@ -77,11 +77,11 @@ describe('RARS times-when-worse', () => {
             questionAsked: heading,
             questionResponse: true,
             answerId: question.answers.times.answerId,
-            otherDetails: 'No particular day'
+            otherDetails: 'No particular time of day'
           }]
         }
         const response = await submitGetRequest({ url }, heading, constants.statusCodes.OK, sessionData)
-        expect(response.payload).toContain('value="No particular day" checked')
+        expect(response.payload).toContain('value="No particular time of day" checked')
         expect(response.payload).not.toContain('value="Morning" checked')
       })
     })
@@ -110,11 +110,11 @@ describe('RARS times-when-worse', () => {
       })
 
       it('Should discard any times submitted alongside the exclusive option', async () => {
-        const options = { url, payload: { answerId: ['Morning', 'No particular day'] } }
+        const options = { url, payload: { answerId: ['Morning', 'No particular time of day'] } }
         const response = await submitPostRequest(options, constants.statusCodes.REDIRECT)
 
         expect(response.headers.location).toBe(next)
-        expect(response.request.yar.get(question.key)[0].otherDetails).toBe('No particular day')
+        expect(response.request.yar.get(question.key)[0].otherDetails).toBe('No particular time of day')
       })
 
       it('Should error when nothing is selected', async () => {
