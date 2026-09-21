@@ -11,6 +11,12 @@ const journeyMap = {
   1800: 'illegal fishing'
 }
 
+const rarsConfig = {
+  contactDetailsKey: constants.redisKeys.RARS_CONTACT_DETAILS,
+  imagesOrVideoKey: constants.redisKeys.RARS_IMAGES_OR_VIDEO,
+  imagesQuestion: questionSets.REPORT_REGULATED_SITE.questions.RARS_IMAGES_OR_VIDEO
+}
+
 const journeyConfigMap = {
   100: {
     contactDetailsKey: constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS,
@@ -26,10 +32,17 @@ const journeyConfigMap = {
     contactDetailsKey: constants.redisKeys.ILLEGAL_FISHING_CONTACT_DETAILS,
     imagesOrVideoKey: constants.redisKeys.ILLEGAL_FISHING_IMAGES_OR_VIDEO,
     imagesQuestion: questionSets.ILLEGAL_FISHING.questions.ILLEGAL_FISHING_IMAGES_OR_VIDEO
-  }
+  },
+  200: rarsConfig,
+  900: rarsConfig,
+  1300: rarsConfig,
+  2200: rarsConfig,
+  2300: rarsConfig,
+  2500: rarsConfig,
+  3100: rarsConfig
 }
 
-const buildDataForReportSentPage = (session) => {
+const buildDataForReportSentPage = (session, problem) => {
   const questionSetID = session.get(constants.redisKeys.QUESTION_SET_ID)
   const journeyConfig = journeyConfigMap[questionSetID]
 
@@ -61,16 +74,17 @@ const buildDataForReportSentPage = (session) => {
     hasPhoneNumber,
     userAgreedForVideos,
     userAgreedForImages,
-    mediaUploadLink
+    mediaUploadLink,
+    problem
   }
 }
 
-const sendReport = async (request, payload) => {
+const sendReport = async (request, payload, problem) => {
   if (!validatePayload(payload)) {
     throw new Error('Invalid payload')
   }
 
-  const reportSentPageData = buildDataForReportSentPage(request.yar)
+  const reportSentPageData = buildDataForReportSentPage(request.yar, problem)
   request.yar.set(constants.redisKeys.REPORT_SENT_PAGE_DATA, reportSentPageData)
 
   const submissionTimestamp = request.yar.get(constants.redisKeys.SUBMISSION_TIMESTAMP)

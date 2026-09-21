@@ -33,13 +33,9 @@ const createOtherInformationRoutes = ({ problem, route, redirect }) => {
       // Build the payload to send to service bus
       const payload = buildPayload(request.yar, problem)
 
-      console.log(JSON.stringify(payload, null, 2))
+      await sendReport(request, payload, problem)
 
-      await sendReport(request, payload)
-
-      // FIXME: use default one
-      // return h.redirect(constants.routes.REPORT_SENT)
-      return h.redirect(redirect.reportSent)
+      return h.redirect(constants.routes.REPORT_SENT)
     }
   }
 
