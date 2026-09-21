@@ -59,7 +59,7 @@ const buildPayload = (session, problem) => {
     reportType = questionSets.REPORT_REGULATED_SITE.reportTypes[problem]
   }
 
-  const data = buildAnswerDataset(session, questionSets.REPORT_REGULATED_SITE, problem)
+  const data = buildAnswerDataset(session, questionSets.REPORT_REGULATED_SITE)
 
   return {
     reportingAnEnvironmentalProblem: {

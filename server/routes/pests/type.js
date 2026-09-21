@@ -3,6 +3,7 @@ import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.PESTS_TYPE
+const journey = 'vermin/pests'
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -13,7 +14,7 @@ const baseAnswer = {
 const handlers = {
   get: async (request, h) => h.view(constants.views.PESTS_TYPE, {
     ...getContext(request),
-    ...getServiceDetails('vermin/pests')
+    ...getServiceDetails(journey)
   }),
   post: async (request, h) => {
     // get payload
@@ -39,7 +40,7 @@ const handlers = {
       return h.view(constants.views.PESTS_TYPE, {
         errorSummary,
         ...getContext(request),
-        ...getServiceDetails('vermin/pests')
+        ...getServiceDetails(journey)
       })
     }
     return h.redirect(constants.routes.PESTS_SOURCE)
@@ -52,7 +53,7 @@ const buildAnswers = (answerId, somethingElseDetail) => {
     [question.answers.flies.answerId]: question.answers.flies.text.toLowerCase(),
     [question.answers.rats.answerId]: question.answers.rats.text.toLowerCase(),
     [question.answers.seagulls.answerId]: question.answers.seagulls.text.toLowerCase(),
-    [question.answers.somethingElse.answerId]: 'vermin/pests'
+    [question.answers.somethingElse.answerId]: journey
   }
   const selectedType = selectedTypeByAnswerId[answerId] || ''
 
@@ -77,7 +78,7 @@ const getContext = request => {
   return {
     question,
     answers,
-    ...getServiceDetails('vermin/pests')
+    ...getServiceDetails(journey)
   }
 }
 
