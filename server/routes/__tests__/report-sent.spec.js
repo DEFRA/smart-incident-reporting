@@ -248,5 +248,77 @@ describe(url, () => {
         })
       }))
     })
+
+    it.each([
+      { problem: 'smell', serviceName: constants.serviceNames.SMELL },
+      { problem: 'noise', serviceName: constants.serviceNames.NOISE },
+      { problem: 'dust', serviceName: constants.serviceNames.DUST },
+      { problem: 'litter', serviceName: constants.serviceNames.LITTER },
+      { problem: 'mud', serviceName: constants.serviceNames.MUD },
+      { problem: 'vermin/pests', serviceName: constants.serviceNames.PESTS }
+    ])('should pass service details for the $problem journey', async ({ problem, serviceName }) => {
+      const view = jest.fn()
+
+      await reportSentRoutes[0].handler({
+        yar: {
+          get: jest.fn(key => ({
+            [constants.redisKeys.REPORT_SENT_PAGE_DATA]: {
+              reportersEmail: `${problem}@test.com`,
+              hasPhoneNumber: false,
+              userAgreedForVideos: false,
+              userAgreedForImages: true,
+              mediaUploadLink: expectedMediaUploadLink,
+              problem
+            }
+          }[key])),
+          id: sessionId,
+          reset: jest.fn()
+        }
+      }, { view })
+
+      expect(view).toHaveBeenCalledWith(constants.views.REPORT_SENT, expect.objectContaining({
+        serviceName,
+        pageTitleServiceName: serviceName,
+        photoUploadDetails: expect.objectContaining({
+          problem
+        })
+      }))
+    })
+
+    it.each([
+      { problem: 'smell' },
+      { problem: 'noise' },
+      { problem: 'dust' },
+      { problem: 'litter' },
+      { problem: 'mud' },
+      { problem: 'vermin/pests' }
+    ])('should show a link to report another problem when problem is $problem', async ({ problem }) => {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, {
+        [constants.redisKeys.REPORT_SENT_PAGE_DATA]: {
+          reportersEmail: `${problem}@test.com`,
+          hasPhoneNumber: false,
+          userAgreedForVideos: false,
+          userAgreedForImages: false,
+          problem
+        }
+      })
+      const html = parse(response.payload)
+
+      expect(html.querySelector('.govuk-inset-text').textContent).toContain('Report another problem')
+    })
+
+    it('should not show a link to report another problem when problem is not set', async () => {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, {
+        [constants.redisKeys.REPORT_SENT_PAGE_DATA]: {
+          reportersEmail: 'water@test.com',
+          hasPhoneNumber: false,
+          userAgreedForVideos: false,
+          userAgreedForImages: false
+        }
+      })
+      const html = parse(response.payload)
+
+      expect(html.text).not.toContain('Report another problem')
+    })
   })
 })

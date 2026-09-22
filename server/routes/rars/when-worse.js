@@ -4,6 +4,12 @@ import { questionSets } from '../../utils/question-sets.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_WHEN_WORSE
 
+const baseAnswer = {
+  questionId: question.questionId,
+  questionAsked: question.text,
+  questionResponse: true
+}
+
 const questionsByProblem = {
   smell: 'Do you notice the smell is worse on certain days or a particular time',
   noise: 'Do you notice the noise is worse on certain days or a particular time',
@@ -46,7 +52,7 @@ const createWhenWorseRoutes = ({ problem, route, redirect }) => {
       answerId = Number(answerId)
 
       // set answer in session
-      request.yar.set(constants.redisKeys.RARS_WHEN_WORSE, answerId)
+      request.yar.set(constants.redisKeys.RARS_WHEN_WORSE, buildAnswers(answerId))
 
       // answering 'No' skips the days and times pages
       if (answerId === question.answers.no.answerId) {
@@ -63,6 +69,13 @@ const createWhenWorseRoutes = ({ problem, route, redirect }) => {
     return {
       answers
     }
+  }
+
+  const buildAnswers = answerId => {
+    return [{
+      ...baseAnswer,
+      answerId
+    }]
   }
 
   const validatePayload = answerId => {

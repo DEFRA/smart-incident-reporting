@@ -57,7 +57,16 @@ describe('RARS When Worse Routes', () => {
 
     const response = await route[1].handler(request, h)
 
-    expect(request.yar.set).toHaveBeenCalledWith(constants.redisKeys.RARS_WHEN_WORSE, 1)
+    expect(request.yar.set).toHaveBeenCalledWith(constants.redisKeys.RARS_WHEN_WORSE, [
+      {
+        answerId: 1,
+        questionAsked: 'Do you notice the {problem} is worse on certain days or a particular time?',
+        questionId: 1360,
+        questionResponse: true
+      }
+    ]
+
+    )
     expect(response).toBe(constants.routes.PESTS_EFFECT_ON_DAILY_LIFE)
   })
 
@@ -144,14 +153,14 @@ describe('RARS When Worse Routes', () => {
         const response = await submitPostRequest({ url, payload: { answerId: String(questionSets.REPORT_REGULATED_SITE.questions.RARS_WHEN_WORSE.answers.yes.answerId) } })
         expect(response.statusCode).toBe(302)
         expect(response.headers.location).toBe(redirectDaysWhenWorse)
-        expect(response.request.yar.get(constants.redisKeys.RARS_WHEN_WORSE)).toBe(questionSets.REPORT_REGULATED_SITE.questions.RARS_WHEN_WORSE.answers.yes.answerId)
+        expect(response.request.yar.get(constants.redisKeys.RARS_WHEN_WORSE)[0].answerId).toBe(questionSets.REPORT_REGULATED_SITE.questions.RARS_WHEN_WORSE.answers.yes.answerId)
       })
 
       it('Should store answer and redirect to effect-on-daily-life when option 2 (No) selected', async () => {
         const response = await submitPostRequest({ url, payload: { answerId: String(questionSets.REPORT_REGULATED_SITE.questions.RARS_WHEN_WORSE.answers.no.answerId) } })
         expect(response.statusCode).toBe(302)
         expect(response.headers.location).toBe(redirectEffectOnDailyLife)
-        expect(response.request.yar.get(constants.redisKeys.RARS_WHEN_WORSE)).toBe(questionSets.REPORT_REGULATED_SITE.questions.RARS_WHEN_WORSE.answers.no.answerId)
+        expect(response.request.yar.get(constants.redisKeys.RARS_WHEN_WORSE)[0].answerId).toBe(questionSets.REPORT_REGULATED_SITE.questions.RARS_WHEN_WORSE.answers.no.answerId)
       })
     })
   })
