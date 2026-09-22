@@ -1,5 +1,8 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
+import { questionSets } from '../../../utils/question-sets.js'
+
+const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_DESCRIPTION_OPTIONAL
 
 const problems = [
   {
@@ -46,11 +49,11 @@ describe('RARS Location Description Optional Routes', () => {
 
       it(`Should return success response and correct view with prefilled data for ${url}`, async () => {
         const sessionData = {
-          'rars/location-description': [{
-            questionId: 1500,
-            questionAsked: 'Describe the location',
+          [question.key]: [{
+            questionId: question.questionId,
+            questionAsked: question.text,
             questionResponse: true,
-            answerId: 1501,
+            answerId: question.answers.locationDetails.answerId,
             otherDetails: 'Details of other location information'
           }]
         }
@@ -69,12 +72,12 @@ describe('RARS Location Description Optional Routes', () => {
           }
         }
         const response = await submitPostRequest(options)
-        const storedData = response.request.yar.get('rars/location-description')
+        const storedData = response.request.yar.get(question.key)
         expect(storedData).toEqual([{
-          questionId: 1500,
-          questionAsked: 'Describe the location',
+          questionId: question.questionId,
+          questionAsked: question.text,
           questionResponse: true,
-          answerId: 1501,
+          answerId: question.answers.locationDetails.answerId,
           otherDetails: locationInfo
         }])
         expect(response.headers.location).toEqual(redirectUrl)
@@ -86,7 +89,7 @@ describe('RARS Location Description Optional Routes', () => {
           payload: {}
         }
         const response = await submitPostRequest(options)
-        const storedData = response.request.yar.get('rars/location-description')
+        const storedData = response.request.yar.get(question.key)
         expect(storedData).toBeFalsy()
         expect(response.headers.location).toEqual(redirectUrl)
       })
@@ -99,8 +102,34 @@ describe('RARS Location Description Optional Routes', () => {
           }
         }
         const response = await submitPostRequest(options)
-        const storedData = response.request.yar.get('rars/location-description')
+        const storedData = response.request.yar.get(question.key)
         expect(storedData).toBeFalsy()
+        expect(response.headers.location).toEqual(redirectUrl)
+      })
+
+      it('Should show an error and not progress when the location info exceeds the character limit', async () => {
+        const otherLocationInfo = 'a'.repeat(constants.locationDescriptionCharacterLimit + 1)
+        const options = {
+          url,
+          payload: {
+            otherLocationInfo
+          }
+        }
+        const response = await submitPostRequest(options, constants.statusCodes.OK)
+        expect(response.payload).toContain('There is a problem')
+        expect(response.payload).toContain(`Other location information must be ${constants.locationDescriptionCharacterLimit} characters or less`)
+        expect(response.request.yar.get(question.key)).toBeFalsy()
+      })
+
+      it('Should accept location info at the character limit', async () => {
+        const otherLocationInfo = 'a'.repeat(constants.locationDescriptionCharacterLimit)
+        const options = {
+          url,
+          payload: {
+            otherLocationInfo
+          }
+        }
+        const response = await submitPostRequest(options)
         expect(response.headers.location).toEqual(redirectUrl)
       })
 

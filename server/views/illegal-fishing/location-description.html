@@ -6,10 +6,11 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    {{ govukTextarea({
+    {{ govukCharacterCount({
       name: "locationDescription",
       id: "locationDescription",
       rows: "10",
+      maxlength: 300,
       label: {
         text: question.text,
         classes: "govuk-label--l",

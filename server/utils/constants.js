@@ -326,6 +326,8 @@ const errorSummary = {
 
 const otherInformationCharacterLimit = 500
 
+const locationDescriptionCharacterLimit = 300
+
 const waterFeatureLabels = {
   501: 'river',
   504: 'canal',
@@ -361,6 +363,7 @@ export default Object.freeze({
   redisKeys,
   errorSummary,
   otherInformationCharacterLimit,
+  locationDescriptionCharacterLimit,
   phoneRegex,
   postcodeRegExp,
   waterFeatureLabels,
