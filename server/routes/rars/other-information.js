@@ -79,8 +79,6 @@ const buildAnswerDataset = (session, questionSet) => {
   const data = []
   Object.keys(questionSet.questions).forEach(key => {
     const answers = session.get(questionSet.questions[key].key)
-    console.log(`${key}: ${questionSet.questions[key].key}`)
-    console.log(answers)
     answers?.forEach(item => {
       data.push(item)
     })
