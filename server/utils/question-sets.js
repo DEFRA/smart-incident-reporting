@@ -1253,28 +1253,28 @@ const questionSets = {
         }
       },
       RARS_LOCATION_ADDRESS: {
-        questionId: 2750,
+        questionId: 1400,
         key: constants.redisKeys.RARS_LOCATION_ADDRESS,
         text: 'Enter your address',
         answers: {
           addressLine1: {
-            answerId: 2751,
+            answerId: 1401,
             text: 'Address line 1'
           },
           addressLine2: {
-            answerId: 2752,
+            answerId: 1402,
             text: 'Address line 2 (optional)'
           },
           townOrCity: {
-            answerId: 2753,
+            answerId: 1403,
             text: TOWN_OR_CITY
           },
           county: {
-            answerId: 2754,
+            answerId: 1404,
             text: 'County (optional)'
           },
           postcode: {
-            answerId: 2755,
+            answerId: 1405,
             text: 'Postcode'
           }
         }

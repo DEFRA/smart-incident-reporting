@@ -44,7 +44,7 @@ describe('helpers', () => {
       ['dust', constants.serviceNames.DUST, constants.urls.GOV_UK_DUST],
       ['litter', constants.serviceNames.LITTER, constants.urls.GOV_UK_LITTER],
       ['mud', constants.serviceNames.MUD, constants.urls.GOV_UK_MUD],
-      ['pests', constants.serviceNames.PESTS, constants.urls.GOV_UK_PESTS]
+      ['vermin/pests', constants.serviceNames.PESTS, constants.urls.GOV_UK_PESTS]
     ])('Should return correct details for %s', (problem, expectedServiceName, expectedUrl) => {
       const result = getServiceDetails(problem)
       expect(result.serviceName).toBe(expectedServiceName)

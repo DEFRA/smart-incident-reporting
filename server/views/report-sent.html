@@ -7,19 +7,12 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">    
-    {% if(photoUploadDetails.reportersEmail !== '') %}
-      {{ govukPanel({
-        titleText: "Thank you",
-        classes: 'govuk-panel--blue' if photoUploadDetails.userAgreedForImages else '',
-        html: "<p class='govuk-body-l govuk-!-margin-bottom-0' style='color: white;'>We have received your report. Check <span class='govuk-!-font-weight-bold govuk-!-word-break-break-word'>" + photoUploadDetails.reportersEmail + "</span> for your confirmation and reference number.</p>"
-      }) }}
-    {% else %}
-      {{ govukPanel({
-        titleText: "Thank you",
-        classes: 'govuk-panel--blue' if photoUploadDetails.userAgreedForImages else '',
-        html: "<p class='govuk-body-l govuk-!-margin-bottom-0' style='color: white;'>We have received your report</p>"
-      }) }}
-    {% endif %}      
+
+    {{ govukPanel({
+      titleText: "Thank you",
+      classes: 'govuk-panel--blue' if photoUploadDetails.userAgreedForImages else '',
+      html: "<p class='govuk-body-l govuk-!-margin-bottom-0' style='color: white;'>We have received your report.</p>"
+    }) }}     
 
     {% if(photoUploadDetails.userAgreedForVideos or photoUploadDetails.userAgreedForImages) %}
       <h2 class="govuk-heading-m">
@@ -40,7 +33,7 @@
 
     {% if problem %}
       <div class="govuk-inset-text">
-        <a href="/">Report another problem</a> with the same site.
+        <a href="https://www.gov.uk/report-environmental-problem">Report another problem.</a>
       </div>
     {% endif %}
 

@@ -15,10 +15,7 @@ describe('noise/other-information', () => {
     expect(createOtherInformationRoutes).toHaveBeenCalledTimes(1)
     expect(createOtherInformationRoutes).toHaveBeenCalledWith({
       problem: 'noise',
-      route: constants.routes.NOISE_OTHER_INFORMATION,
-      redirect: {
-        reportSent: constants.routes.NOISE_REPORT_SENT
-      }
+      route: constants.routes.NOISE_OTHER_INFORMATION
     })
   })
 })
