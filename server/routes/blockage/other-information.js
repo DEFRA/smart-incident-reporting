@@ -3,19 +3,30 @@ import { questionSets } from '../../utils/question-sets.js'
 import { sendReport } from '../../services/send-report.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { maxLength } from '../../utils/validation.js'
+import { getSubmissionMetadata } from '../../utils/submission-metadata.js'
+import captchaCheck from '../../services/captchaCheck.js'
+import config from '../../utils/config.js'
+
+const getCaptchaContext = () => ({
+  captchaEnabled: config.captchaEnabled,
+  captchaSiteKey: config.captchaSiteKey
+})
 
 const handlers = {
   get: async (request, h) => {
     return h.view(constants.views.BLOCKAGE_OTHER_INFORMATION, {
+      ...getCaptchaContext(),
       ...getContext(request)
     })
   },
   post: async (request, h) => {
     const { otherInfo } = request.payload
 
+    const friendlyCaptchaStatus = await captchaCheck.validateSubmission(request.payload)
     const errorSummary = validateOtherInfo(otherInfo)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.BLOCKAGE_OTHER_INFORMATION, {
+        ...getCaptchaContext(),
         answers: otherInfo,
         errorSummary
       })
@@ -25,7 +36,11 @@ const handlers = {
     request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
 
     // Build the payload to send to service bus
-    const payload = buildPayload(request.yar)
+    const payload = buildPayload(
+      request.yar,
+      friendlyCaptchaStatus,
+      getSubmissionMetadata(request)
+    )
 
     await sendReport(request, payload)
 
@@ -41,7 +56,7 @@ const getContext = request => {
   }
 }
 
-const buildPayload = (session) => {
+const buildPayload = (session, friendlyCaptchaStatus, submissionMetadata) => {
   const reporter = session.get(constants.redisKeys.BLOCKAGE_CONTACT_DETAILS)
   const riverData = session.get(constants.redisKeys.BLOCKAGE_RIVER)
   return {
@@ -52,6 +67,8 @@ const buildPayload = (session) => {
       datetimeReported: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
       otherDetails: session.get(constants.redisKeys.BLOCKAGE_OTHER_INFORMATION),
       questionSetId: questionSets.BLOCKAGE.questionSetId,
+      friendlyCaptchaStatus,
+      ...submissionMetadata,
       data: buildAnswerDataset(session, questionSets.BLOCKAGE),
       isBlockageInRiver: riverData,
       ...reporter
@@ -70,7 +87,7 @@ const buildAnswerDataset = (session, questionSet) => {
   return data
 }
 
-const validateOtherInfo = otherInfo => {
+const validateOtherInfo = (otherInfo) => {
   const errorSummary = getErrorSummary()
   if (maxLength(otherInfo, constants.otherInformationCharacterLimit)) {
     errorSummary.errorList.push({

@@ -1,0 +1,19 @@
+<input type="hidden" id="javascriptEnabled" name="javascriptEnabled" value="false">
+<script>
+  document.getElementById('javascriptEnabled').value = 'true'
+</script>
+
+{% if captchaEnabled and not friendlyCaptchaCompleted %}
+  <div id="friendly-captcha-container" hidden>
+    <div class="govuk-body frc-captcha govuk-!-margin-bottom-4" id="friendly-captcha" data-sitekey="{{captchaSiteKey}}" data-start="auto"></div>
+    <p class="govuk-body govuk-hint">
+      Friendly Captcha checks that you aren't a robot. Find out how to use it in our <a href="/privacy-notice" class="govuk-link">privacy notice</a>
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('friendly-captcha-container').hidden = false
+  </script>
+  <script type="module" src="{{ assetPath }}/js/site.min.js" async defer></script>
+  <script nomodule src="{{ assetPath }}/js/site.compat.min.js" async defer></script>
+{% endif %}

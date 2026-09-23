@@ -72,4 +72,48 @@ describe('captchaCheck', () => {
       expect(util.post).toHaveBeenCalledTimes(1)
     })
   })
+
+  describe('validateSubmission', () => {
+    it('should return success when captcha was completed earlier in the journey', async () => {
+      await doImports()
+
+      const result = await captchaCheck.validateSubmission({}, true)
+
+      expect(result).toEqual('success')
+      expect(util.post).toHaveBeenCalledTimes(0)
+    })
+
+    it('should return not completed when JavaScript is not enabled', async () => {
+      await doImports()
+
+      const result = await captchaCheck.validateSubmission({ javascriptEnabled: 'false' })
+
+      expect(result).toEqual('not completed')
+      expect(util.post).toHaveBeenCalledTimes(0)
+    })
+
+    it('should return success when the captcha response is valid', async () => {
+      await doImports()
+      util.post.mockResolvedValueOnce({ success: true })
+
+      const result = await captchaCheck.validateSubmission({
+        javascriptEnabled: 'true',
+        'frc-captcha-response': 'a-valid-response'
+      })
+
+      expect(result).toEqual('success')
+    })
+
+    it('should return failed when the captcha response is invalid', async () => {
+      await doImports()
+      util.post.mockResolvedValueOnce({ success: false })
+
+      const result = await captchaCheck.validateSubmission({
+        javascriptEnabled: 'true',
+        'frc-captcha-response': 'an-invalid-response'
+      })
+
+      expect(result).toEqual('failed')
+    })
+  })
 })

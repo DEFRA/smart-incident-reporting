@@ -92,6 +92,7 @@ describe('RARS Find Address Routes', () => {
           buildingDetails: 'Test House',
           postcode: 'TE1 0ST'
         })
+        expect(response.request.yar.get(constants.redisKeys.FRIENDLY_CAPTCHA_COMPLETED)).toEqual(true)
       })
 
       it('Happy: accepts valid postcode without building details and redirects to choose address', async () => {
