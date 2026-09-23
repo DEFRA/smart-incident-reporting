@@ -13,7 +13,8 @@ const urls = {
   GOV_UK_LITTER: serviceHome,
   GOV_UK_PESTS: serviceHome,
   GOV_UK_DUST: serviceHome,
-  GOV_UK_MUD: serviceHome
+  GOV_UK_MUD: serviceHome,
+  GOV_UK_FLOOD: serviceHome
 }
 
 const serviceNames = {
@@ -26,7 +27,8 @@ const serviceNames = {
   LITTER: 'Report litter from a waste facility, industrial site or farm in England',
   PESTS: 'Report vermin or pest problem from a waste facility, industrial site or farm in England',
   DUST: 'Report dust from a waste facility, industrial site or farm in England',
-  MUD: 'Report mud from a waste facility, industrial site or farm in England'
+  MUD: 'Report mud from a waste facility, industrial site or farm in England',
+  FLOOD: 'Report flooding from a waste facility, industrial site or farm in England'
 }
 
 const phoneRegex = /^[\s\d-+()#]*$/
@@ -154,6 +156,9 @@ const SMELL_INDOORS = 'smell/indoors'
 const SMELL_CLOTHING_AND_HAIR = 'smell/clothing-and-hair'
 const SMELL_HEALTH = 'smell/health'
 
+const FLOOD_START = 'flood-start'
+const FLOOD = 'flood'
+
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
 
@@ -179,6 +184,7 @@ if (process.env.REGISTER_START_ROUTES === 'true') {
     PESTS_START,
     DUST_START,
     MUD_START,
+    FLOOD_START,
     TEST_MEDIA_UPLOAD_SUBMIT
   }
 }
@@ -282,7 +288,8 @@ const views = {
   MUD_HEALTH,
   LITTER_HEALTH,
   NOISE_HEALTH,
-  DUST_HEALTH
+  DUST_HEALTH,
+  FLOOD
 }
 
 const routes = {
