@@ -11,12 +11,38 @@
       Report flooding
     </h1>
 
+    <p>Use this service to report flooding or something that may cause flooding from rivers or the sea.</p>
+
+        <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        Dial 999 if you or anyone else is in danger.
+      </strong>
+    </div>
+
+    <h2 class="govuk-heading-m">Before you start</h2>
+    <p class="govuk-body">You'll need to know the location of the flooding.</p>
+    <p class="govuk-body">You can <a href="https://check-for-flooding.service.gov.uk/">search recent reports</a> to see if we already know about the flooding.</p>
+
     {{ govukButton({
       text: "Start now",
       href: startHref,
       isStartButton: true
     }) }}
+
+          <p>If you're unable to use the online service you can call the Environment Agency.</p>
+
+          <div class="contact">
+
+      <p>Environment Agency incident hotline<br />
+        Telephone: 0800 80 70 60<br />
+        24 hours<br />
+        <a href="https://www.gov.uk/call-charges" class="govuk-link">Find out about call charges</a>
+      </p>
+    </div>
   </div>
+
+
 </div>
 
 {% endblock %}
