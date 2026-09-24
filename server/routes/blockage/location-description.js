@@ -1,6 +1,7 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
+import { maxLength } from '../../utils/validation.js'
 
 const question = questionSets.BLOCKAGE.questions.BLOCKAGE_LOCATION_DESCRIPTION
 
@@ -50,6 +51,13 @@ const validatePayload = locationDescription => {
       text: 'Enter a description of where you\'ve seen the problem',
       href: '#locationDescription'
     })
+  } else if (maxLength(locationDescription, constants.locationDescriptionCharacterLimit)) {
+    errorSummary.errorList.push({
+      text: `Location description must be ${constants.locationDescriptionCharacterLimit} characters or less`,
+      href: '#locationDescription'
+    })
+  } else {
+    // do nothing
   }
   return errorSummary
 }

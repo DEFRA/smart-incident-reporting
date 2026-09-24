@@ -56,8 +56,53 @@ const validateEmail = email => {
   return !domainIssue
 }
 
+const getServiceDetails = (problem) => {
+  const serviceNameMap = {
+    smell: constants.serviceNames.SMELL,
+    noise: constants.serviceNames.NOISE,
+    dust: constants.serviceNames.DUST,
+    litter: constants.serviceNames.LITTER,
+    mud: constants.serviceNames.MUD,
+    'vermin/pests': constants.serviceNames.PESTS
+  }
+
+  const urlMap = {
+    smell: constants.urls.GOV_UK_SMELL,
+    noise: constants.urls.GOV_UK_NOISE,
+    dust: constants.urls.GOV_UK_DUST,
+    litter: constants.urls.GOV_UK_LITTER,
+    mud: constants.urls.GOV_UK_MUD,
+    'vermin/pests': constants.urls.GOV_UK_PESTS
+  }
+
+  const serviceName = serviceNameMap[problem]
+  const govUkUrl = urlMap[problem]
+  const serviceUrl = govUkUrl && process.env.REGISTER_START_ROUTES === 'true' ? '/' : govUkUrl
+
+  return {
+    serviceName,
+    pageTitleServiceName: serviceName,
+    serviceUrl
+  }
+}
+
+const titleHelper = (request, questionText, verminPestsQuestion, problem) => {
+  const isVerminOrPests = problem === 'vermin/pests'
+  const selectedVerminOrPests = request.yar.get(constants.redisKeys.PESTS_TYPE_SELECTED)
+  const title = isVerminOrPests
+    ? verminPestsQuestion.replace('{vermin/pests}', selectedVerminOrPests)
+    : questionText.replace('{problem}', problem)
+
+  return {
+    title,
+    pageTitle: title.replace('?', '')
+  }
+}
+
 export {
   getErrorSummary,
   validatePayload,
-  validateEmail
+  validateEmail,
+  getServiceDetails,
+  titleHelper
 }

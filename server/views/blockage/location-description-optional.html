@@ -14,16 +14,18 @@
       <li>local access, such as nearby roads or paths</li>      
     </ul>
     
-    {{ govukTextarea({
+    {{ govukCharacterCount({
       name: "otherLocationInfo",
       id: "otherLocationInfo",
       rows: "10",
+      maxlength: 300,
       value: answers,
       label: {
         text: "Enter location information",
         classes: "govuk-label--m",
         isPageHeading: true
-      }
+      },
+      errorMessage: findErrorMessageById(errorSummary, 'otherLocationInfo')
     }) }}
 
     {{ govukButton({

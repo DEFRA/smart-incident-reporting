@@ -1,11 +1,12 @@
 import { submitGetRequest } from '../../__test-helpers__/server.js'
 import constants from '../../utils/constants.js'
+import { parse } from 'node-html-parser'
 import { questionSets } from '../../utils/question-sets.js'
 import { buildDataForReportSentPage } from '../../services/send-report.js'
 import reportSentRoutes from '../report-sent.js'
 
 const url = constants.routes.REPORT_SENT
-const header = 'Report sent'
+const header = 'Thank you'
 const submissionTimestamp = '2026-04-09T09:00:00.000Z'
 const sessionId = 'test-session-id'
 const expectedMediaUploadLink = `/media/upload-photo?sirid=${sessionId}`
@@ -20,17 +21,6 @@ const journeySessionData = {
     },
     {
       answerId: questionSets.WATER_POLLUTION.questions.WATER_POLLUTION_IMAGES_OR_VIDEO.answers.noVideo.answerId
-    }]
-  },
-  200: {
-    contactDetails: {
-      reporterEmailAddress: 'smell@test.com'
-    },
-    imagesOrVideo: [{
-      answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.yesPhotos.answerId
-    },
-    {
-      answerId: questionSets.SMELL.questions.SMELL_IMAGES_OR_VIDEO.answers.noVideo.answerId
     }]
   },
   300: {
@@ -58,7 +48,6 @@ const journeySessionData = {
 }
 
 const handler = async (questionSetID, overrides = {}) => {
-  const set = jest.fn()
   const view = jest.fn()
 
   const defaultJourneyData = journeySessionData[questionSetID] || {
@@ -77,10 +66,6 @@ const handler = async (questionSetID, overrides = {}) => {
     100: {
       contactDetailsKey: constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS,
       imagesOrVideoKey: constants.redisKeys.WATER_POLLUTION_IMAGES_OR_VIDEO
-    },
-    200: {
-      contactDetailsKey: constants.redisKeys.SMELL_CONTACT_DETAILS,
-      imagesOrVideoKey: constants.redisKeys.SMELL_IMAGES_OR_VIDEO
     },
     300: {
       contactDetailsKey: constants.redisKeys.BLOCKAGE_CONTACT_DETAILS,
@@ -113,21 +98,42 @@ const handler = async (questionSetID, overrides = {}) => {
       }[key])),
       id: sessionId,
       reset: jest.fn()
-    },
-    server: {
-      app: {
-        mediaUploadCache: { set }
-      }
     }
   }, { view })
 
-  return { set, view }
+  return { view }
 }
 
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
       await submitGetRequest({ url }, header)
+    })
+
+    it.each([
+      {
+        photosAnswer: true,
+        expectedBluePanel: true
+      },
+      {
+        photosAnswer: false,
+        expectedBluePanel: false
+      }
+    ])('should render the correct panel colour when userAgreedForImages is $photosAnswer', async ({ photosAnswer, expectedBluePanel }) => {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, {
+        [constants.redisKeys.REPORT_SENT_PAGE_DATA]: {
+          reportersEmail: 'test@example.com',
+          hasPhoneNumber: false,
+          userAgreedForVideos: false,
+          userAgreedForImages: photosAnswer,
+          mediaUploadLink: 'test'
+        }
+      })
+      const html = parse(response.payload)
+      const panel = html.querySelector('.govuk-panel')
+
+      expect(panel.classList.contains('govuk-panel--confirmation')).toBe(true)
+      expect(panel.classList.contains('govuk-panel--blue')).toBe(expectedBluePanel)
     })
 
     it('should pass mediaUploadLink in photoUploadDetails', async () => {
@@ -142,7 +148,6 @@ describe(url, () => {
 
     it.each([
       { questionSetID: 100, email: 'water@test.com' },
-      { questionSetID: 200, email: 'smell@test.com' },
       { questionSetID: 300, email: 'blockage@test.com' },
       { questionSetID: 1800, email: 'fishing@test.com' }
     ])('should pass photo upload details for questionSetID $questionSetID', async ({ questionSetID, email }) => {
@@ -242,6 +247,78 @@ describe(url, () => {
           userAgreedForImages: expectedImages
         })
       }))
+    })
+
+    it.each([
+      { problem: 'smell', serviceName: constants.serviceNames.SMELL },
+      { problem: 'noise', serviceName: constants.serviceNames.NOISE },
+      { problem: 'dust', serviceName: constants.serviceNames.DUST },
+      { problem: 'litter', serviceName: constants.serviceNames.LITTER },
+      { problem: 'mud', serviceName: constants.serviceNames.MUD },
+      { problem: 'vermin/pests', serviceName: constants.serviceNames.PESTS }
+    ])('should pass service details for the $problem journey', async ({ problem, serviceName }) => {
+      const view = jest.fn()
+
+      await reportSentRoutes[0].handler({
+        yar: {
+          get: jest.fn(key => ({
+            [constants.redisKeys.REPORT_SENT_PAGE_DATA]: {
+              reportersEmail: `${problem}@test.com`,
+              hasPhoneNumber: false,
+              userAgreedForVideos: false,
+              userAgreedForImages: true,
+              mediaUploadLink: expectedMediaUploadLink,
+              problem
+            }
+          }[key])),
+          id: sessionId,
+          reset: jest.fn()
+        }
+      }, { view })
+
+      expect(view).toHaveBeenCalledWith(constants.views.REPORT_SENT, expect.objectContaining({
+        serviceName,
+        pageTitleServiceName: serviceName,
+        photoUploadDetails: expect.objectContaining({
+          problem
+        })
+      }))
+    })
+
+    it.each([
+      { problem: 'smell' },
+      { problem: 'noise' },
+      { problem: 'dust' },
+      { problem: 'litter' },
+      { problem: 'mud' },
+      { problem: 'vermin/pests' }
+    ])('should show a link to report another problem when problem is $problem', async ({ problem }) => {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, {
+        [constants.redisKeys.REPORT_SENT_PAGE_DATA]: {
+          reportersEmail: `${problem}@test.com`,
+          hasPhoneNumber: false,
+          userAgreedForVideos: false,
+          userAgreedForImages: false,
+          problem
+        }
+      })
+      const html = parse(response.payload)
+
+      expect(html.querySelector('.govuk-inset-text').textContent).toContain('Report another problem')
+    })
+
+    it('should not show a link to report another problem when problem is not set', async () => {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, {
+        [constants.redisKeys.REPORT_SENT_PAGE_DATA]: {
+          reportersEmail: 'water@test.com',
+          hasPhoneNumber: false,
+          userAgreedForVideos: false,
+          userAgreedForImages: false
+        }
+      })
+      const html = parse(response.payload)
+
+      expect(html.text).not.toContain('Report another problem')
     })
   })
 })

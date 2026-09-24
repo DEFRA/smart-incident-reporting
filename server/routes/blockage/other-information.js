@@ -1,6 +1,8 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { sendReport } from '../../services/send-report.js'
+import { getErrorSummary } from '../../utils/helpers.js'
+import { maxLength } from '../../utils/validation.js'
 
 const handlers = {
   get: async (request, h) => {
@@ -10,6 +12,14 @@ const handlers = {
   },
   post: async (request, h) => {
     const { otherInfo } = request.payload
+
+    const errorSummary = validateOtherInfo(otherInfo)
+    if (errorSummary.errorList.length > 0) {
+      return h.view(constants.views.BLOCKAGE_OTHER_INFORMATION, {
+        answers: otherInfo,
+        errorSummary
+      })
+    }
 
     request.yar.set(constants.redisKeys.BLOCKAGE_OTHER_INFORMATION, otherInfo)
     request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
@@ -24,11 +34,10 @@ const handlers = {
 }
 
 const getContext = request => {
-  const data = request.yar.get(constants.redisKeys.BLOCKAGE_OTHER_INFORMATION)
-  const otherInformation = data || ''
+  const answers = request.yar.get(constants.redisKeys.BLOCKAGE_OTHER_INFORMATION) || ''
 
   return {
-    otherInformation
+    answers
   }
 }
 
@@ -59,6 +68,17 @@ const buildAnswerDataset = (session, questionSet) => {
     })
   })
   return data
+}
+
+const validateOtherInfo = otherInfo => {
+  const errorSummary = getErrorSummary()
+  if (maxLength(otherInfo, constants.otherInformationCharacterLimit)) {
+    errorSummary.errorList.push({
+      text: `Anything else you'd like to add must be ${constants.otherInformationCharacterLimit} characters or less`,
+      href: '#otherInfo'
+    })
+  }
+  return errorSummary
 }
 
 export default [

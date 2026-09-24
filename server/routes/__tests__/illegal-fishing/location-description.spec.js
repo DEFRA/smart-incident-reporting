@@ -44,5 +44,29 @@ describe(url, () => {
       expect(response.payload).toContain('There is a problem')
       expect(response.payload).toContain('Enter a description of where you&#39;ve seen illegal fishing')
     })
+    it('Sad: errors when locationDescription exceeds the character limit', async () => {
+      const locationDescription = 'a'.repeat(constants.locationDescriptionCharacterLimit + 1)
+      const options = {
+        url,
+        payload: {
+          locationDescription
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.OK)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain(`Location description must be ${constants.locationDescriptionCharacterLimit} characters or less`)
+      expect(response.request.yar.get(constants.redisKeys.ILLEGAL_FISHING_LOCATION_DESCRIPTION)).toBeFalsy()
+    })
+    it('Happy: accepts a locationDescription at the character limit', async () => {
+      const locationDescription = 'a'.repeat(constants.locationDescriptionCharacterLimit)
+      const options = {
+        url,
+        payload: {
+          locationDescription
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.ILLEGAL_FISHING_WHEN)
+    })
   })
 })

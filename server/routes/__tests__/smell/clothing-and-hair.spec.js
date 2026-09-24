@@ -1,107 +1,54 @@
-import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/smell-server.js'
-import { questionSets } from '../../../utils/question-sets.js'
+import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
-import { parse } from 'node-html-parser'
+import { questionSets } from '../../../utils/question-sets.js'
 
 const url = constants.routes.SMELL_CLOTHING_AND_HAIR
-const question = questionSets.SMELL.questions.SMELL_CLOTHING_AND_HAIR
-const header = question.text
-const baseAnswer = {
-  questionId: question.questionId,
-  questionAsked: question.text,
-  questionResponse: true
-}
+const question = questionSets.REPORT_REGULATED_SITE.questions.SMELL_CLOTHING_AND_HAIR
 
 describe(url, () => {
   describe('GET', () => {
-    it(`Should return success response and correct view for ${url} if current smell`, async () => {
-      const sessionData = {
-        'smell/indoors': [{
-          questionId: questionSets.SMELL.questions.SMELL_INDOORS.questionId,
-          answerId: questionSets.SMELL.questions.SMELL_INDOORS.answers.yes.answerId
-        }]
-      }
-      await submitGetRequest({ url }, header, constants.statusCodes.OK, sessionData)
+    it('Should return success response and the past tense question by default', async () => {
+      const response = await submitGetRequest({ url }, 'Did the smell stick to your clothing or hair')
+      expect(response.payload).toContain('Did the smell stick to your clothing or hair?')
+      expect(response.payload).toContain(question.answers.yes.text)
+      expect(response.payload).toContain(question.answers.no.text)
     })
-    it(`Should return success response and correct view for ${url} if past smell`, async () => {
+
+    it('Should return the present tense question when the smell is happening now', async () => {
       const sessionData = {
-        'smell/indoors': [{
-          questionId: questionSets.SMELL.questions.SMELL_INDOORS.questionId,
-          answerId: questionSets.SMELL.questions.SMELL_INDOORS.answers.no.answerId
-        }]
+        'date-time-option': 1
       }
-      const wasHeader = header.replace('Does', 'Did')
-      await submitGetRequest({ url }, wasHeader, constants.statusCodes.OK, sessionData)
-    })
-    it(`Should show the correct service name and link for an odour/smell service page on ${url}`, async () => {
-      process.env.REGISTER_START_ROUTES = 'false'
-      const response = await submitGetRequest({ url })
-      const html = parse(response.payload)
-      const serviceNameLink = html.querySelector('.govuk-service-navigation__link')
-      expect(html.querySelector('.govuk-service-navigation__service-name').textContent).toContain(constants.serviceNames.SMELL)
-      expect(serviceNameLink.getAttribute('href')).toBe(constants.urls.GOV_UK_SMELL)
-      process.env.REGISTER_START_ROUTES = 'true'
+      const response = await submitGetRequest({ url }, 'Does the smell stick to your clothing or hair', constants.statusCodes.OK, sessionData)
+      expect(response.payload).toContain('Does the smell stick to your clothing or hair?')
     })
   })
 
   describe('POST', () => {
-    it('Happy: Yes and continues to smell/effect-on-daily-life', async () => {
-      const options = {
-        url,
-        payload: {
-          answerId: question.answers.yes.answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_EFFECT_ON_DAILY_LIFE)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_CLOTHING_AND_HAIR)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.yes.answerId
-      }])
+    it('Should return an error when the answer is missing', async () => {
+      const response = await submitPostRequest({ url, payload: {} }, constants.statusCodes.OK)
+      expect(response.payload).toContain('Select &#39;yes&#39; if the smell stuck to your clothing or hair')
+      expect(response.payload).toContain('href="#answerId"')
     })
-    it('Happy: No and continues to smell/effect-on-daily-life', async () => {
-      const options = {
-        url,
-        payload: {
-          answerId: question.answers.no.answerId
-        }
-      }
-      const response = await submitPostRequest(options)
-      expect(response.headers.location).toEqual(constants.routes.SMELL_EFFECT_ON_DAILY_LIFE)
-      expect(response.request.yar.get(constants.redisKeys.SMELL_CLOTHING_AND_HAIR)).toEqual([{
-        ...baseAnswer,
-        answerId: question.answers.no.answerId
-      }])
-    })
-    it('Sad: Rejects empty payload with current smell is noticeable indoors', async () => {
+
+    it('Should return a present tense error when the smell is happening now', async () => {
       const sessionData = {
-        'smell/indoors': [{
-          questionId: questionSets.SMELL.questions.SMELL_INDOORS.questionId,
-          answerId: questionSets.SMELL.questions.SMELL_INDOORS.answers.yes.answerId
-        }]
+        'date-time-option': 1
       }
-      const options = {
-        url,
-        payload: {}
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('There is a problem')
+      const response = await submitPostRequest({ url, payload: {} }, constants.statusCodes.OK, sessionData)
       expect(response.payload).toContain('Select &#39;yes&#39; if the smell sticks to your clothing or hair')
     })
-    it('Sad: Rejects empty payload with current smell is not noticeable indoors', async () => {
-      const sessionData = {
-        'smell/indoors': [{
-          questionId: questionSets.SMELL.questions.SMELL_INDOORS.questionId,
-          answerId: questionSets.SMELL.questions.SMELL_INDOORS.answers.no.answerId
-        }]
-      }
-      const options = {
-        url,
-        payload: {}
-      }
-      const response = await submitPostRequest(options, constants.statusCodes.OK, sessionData)
-      expect(response.payload).toContain('There is a problem')
-      expect(response.payload).toContain('Select &#39;yes&#39; if the smell stuck to your clothing or hair')
+
+    it('Should store the answer and redirect to the effect on daily life page', async () => {
+      const answerId = question.answers.no.answerId
+      const response = await submitPostRequest({ url, payload: { answerId: answerId.toString() } })
+      expect(response.statusCode).toBe(constants.statusCodes.REDIRECT)
+      expect(response.headers.location).toBe(constants.routes.SMELL_EFFECT_ON_DAILY_LIFE)
+      expect(response.request.yar.get(constants.redisKeys.SMELL_CLOTHING_AND_HAIR)).toEqual([{
+        questionId: question.questionId,
+        questionAsked: question.text,
+        questionResponse: true,
+        answerId
+      }])
     })
   })
 })

@@ -1,5 +1,7 @@
 import constants from '../../utils/constants.js'
+import { getErrorSummary } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
+import { maxLength } from '../../utils/validation.js'
 
 const question = questionSets.BLOCKAGE.questions.BLOCKAGE_LOCATION_DESCRIPTION
 
@@ -18,6 +20,15 @@ const handlers = {
   },
   post: async (request, h) => {
     const { otherLocationInfo } = request.payload
+
+    const errorSummary = validatePayload(otherLocationInfo)
+    if (errorSummary.errorList.length > 0) {
+      return h.view(constants.views.BLOCKAGE_LOCATION_DESCRIPTION_OPTIONAL, {
+        question,
+        answers: otherLocationInfo,
+        errorSummary
+      })
+    }
 
     if (otherLocationInfo) {
       request.yar.set(constants.redisKeys.BLOCKAGE_LOCATION_DESCRIPTION, buildAnswers(otherLocationInfo))
@@ -39,6 +50,17 @@ const buildAnswers = otherDetails => {
     ...baseAnswer,
     otherDetails
   }]
+}
+
+const validatePayload = otherLocationInfo => {
+  const errorSummary = getErrorSummary()
+  if (maxLength(otherLocationInfo, constants.locationDescriptionCharacterLimit)) {
+    errorSummary.errorList.push({
+      text: `Other location information must be ${constants.locationDescriptionCharacterLimit} characters or less`,
+      href: '#otherLocationInfo'
+    })
+  }
+  return errorSummary
 }
 
 export default [

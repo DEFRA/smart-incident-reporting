@@ -59,5 +59,31 @@ describe(url, () => {
       expect(storedData).toBeFalsy()
       expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_WHEN)
     })
+
+    it('Should show an error and not progress when the location info exceeds the character limit', async () => {
+      const otherLocationInfo = 'a'.repeat(constants.locationDescriptionCharacterLimit + 1)
+      const options = {
+        url,
+        payload: {
+          otherLocationInfo
+        }
+      }
+      const response = await submitPostRequest(options, constants.statusCodes.OK)
+      expect(response.payload).toContain('There is a problem')
+      expect(response.payload).toContain(`Other location information must be ${constants.locationDescriptionCharacterLimit} characters or less`)
+      expect(response.request.yar.get(constants.redisKeys.BLOCKAGE_LOCATION_DESCRIPTION)).toBeFalsy()
+    })
+
+    it('Should accept location info at the character limit', async () => {
+      const otherLocationInfo = 'a'.repeat(constants.locationDescriptionCharacterLimit)
+      const options = {
+        url,
+        payload: {
+          otherLocationInfo
+        }
+      }
+      const response = await submitPostRequest(options)
+      expect(response.headers.location).toEqual(constants.routes.BLOCKAGE_WHEN)
+    })
   })
 })
