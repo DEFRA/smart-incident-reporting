@@ -59,4 +59,16 @@ describe('getSubmissionMetadata', () => {
   it('records JavaScript as on when captcha was completed earlier', () => {
     expect(getSubmissionMetadata(request, true).javascriptStatus).toEqual('on')
   })
+
+  it('defaults to an empty user agent when the header is missing', () => {
+    const noUserAgentRequest = {
+      ...request,
+      headers: {}
+    }
+
+    expect(getSubmissionMetadata(noUserAgentRequest)).toEqual(expect.objectContaining({
+      browserType: 'Unknown',
+      deviceType: 'laptop'
+    }))
+  })
 })

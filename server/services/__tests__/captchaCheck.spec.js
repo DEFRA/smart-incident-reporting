@@ -74,6 +74,15 @@ describe('captchaCheck', () => {
   })
 
   describe('validateSubmission', () => {
+    it('should return not completed when called with no arguments', async () => {
+      await doImports()
+
+      const result = await captchaCheck.validateSubmission()
+
+      expect(result).toEqual('not completed')
+      expect(util.post).toHaveBeenCalledTimes(0)
+    })
+
     it('should return success when captcha was completed earlier in the journey', async () => {
       await doImports()
 
