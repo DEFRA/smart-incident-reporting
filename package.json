@@ -66,6 +66,7 @@
     "style-loader": "^4.0.0",
     "webpack": "^5.97.1",
     "copy-webpack-plugin": "^13.0.0",
+    "ua-parser-js": "^2.0.10",
     "webpack-cli": "^5.1.4"
   },
   "devDependencies": {

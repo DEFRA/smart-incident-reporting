@@ -1,29 +1,44 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { sendReport } from '../../services/send-report.js'
+import { getSubmissionMetadata } from '../../utils/submission-metadata.js'
+import captchaCheck from '../../services/captchaCheck.js'
+import config from '../../utils/config.js'
 
 const url = constants.routes
 
 const handlers = {
   get: async (request, h) => {
     return h.view(constants.views.WATER_POLLUTION_CHECK_YOUR_ANSWERS, {
-      ...getContext(),
-      ...getYourDetails(request),
-      ...getLocationAndSizeOfPollution(request),
-      ...getAboutThePollution(request)
+      ...getViewContext(request)
     })
   },
   post: async (request, h) => {
+    const friendlyCaptchaStatus = await captchaCheck.validateSubmission(request.payload)
+
     request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
 
     // Build the payload to send to service bus
-    const payload = buildPayload(request.yar)
+    const payload = buildPayload(
+      request.yar,
+      friendlyCaptchaStatus,
+      getSubmissionMetadata(request)
+    )
 
     await sendReport(request, payload)
 
     return h.redirect(constants.routes.REPORT_SENT)
   }
 }
+
+const getViewContext = request => ({
+  ...getContext(),
+  ...getYourDetails(request),
+  ...getLocationAndSizeOfPollution(request),
+  ...getAboutThePollution(request),
+  captchaEnabled: config.captchaEnabled,
+  captchaSiteKey: config.captchaSiteKey
+})
 
 const getContext = () => {
   return {
@@ -351,7 +366,7 @@ const getWhenData = (request, pageUrl) => {
   return null
 }
 
-const buildPayload = (session) => {
+const buildPayload = (session, friendlyCaptchaStatus, submissionMetadata) => {
   const reporter = session.get(constants.redisKeys.WATER_POLLUTION_CONTACT_DETAILS)
   return {
     reportingAnEnvironmentalProblem: {
@@ -361,6 +376,8 @@ const buildPayload = (session) => {
       datetimeReported: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
       otherDetails: session.get(constants.redisKeys.WATER_POLLUTION_OTHER_INFORMATION),
       questionSetId: questionSets.WATER_POLLUTION.questionSetId,
+      friendlyCaptchaStatus,
+      ...submissionMetadata,
       data: buildAnswerDataset(session, questionSets.WATER_POLLUTION),
       ...reporter
     }
