@@ -1,6 +1,7 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
+import { maxLength } from '../../utils/validation.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_DESCRIPTION
 
@@ -16,12 +17,10 @@ const createLocationDescriptionRoutes = ({ problem, route, redirect }) => {
 
   const handlers = {
     get: async (request, h) => {
-      const answers = request.yar.get(constants.redisKeys.RARS_LOCATION_DESCRIPTION)
       return h.view(constants.views.RARS_LOCATION_DESCRIPTION, {
-        question,
         problem,
-        answers,
-        ...serviceDetails
+        ...serviceDetails,
+        ...getContext(request)
       })
     },
     post: async (request, h) => {
@@ -31,10 +30,10 @@ const createLocationDescriptionRoutes = ({ problem, route, redirect }) => {
       const errorSummary = validatePayload(locationDescription)
       if (errorSummary.errorList.length > 0) {
         return h.view(constants.views.RARS_LOCATION_DESCRIPTION, {
-          question,
           problem,
-          errorSummary,
-          ...serviceDetails
+          ...serviceDetails,
+          ...getContext(request),
+          errorSummary
         })
       }
 
@@ -53,6 +52,13 @@ const createLocationDescriptionRoutes = ({ problem, route, redirect }) => {
   ]
 }
 
+const getContext = request => {
+  return {
+    question,
+    answers: request.yar.get(constants.redisKeys.RARS_LOCATION_DESCRIPTION)
+  }
+}
+
 const validatePayload = locationDescription => {
   const errorSummary = getErrorSummary()
   if (!locationDescription) {
@@ -60,6 +66,13 @@ const validatePayload = locationDescription => {
       text: 'Enter a description of the location',
       href: '#locationDescription'
     })
+  } else if (maxLength(locationDescription, constants.locationDescriptionCharacterLimit)) {
+    errorSummary.errorList.push({
+      text: `Location description must be ${constants.locationDescriptionCharacterLimit} characters or less`,
+      href: '#locationDescription'
+    })
+  } else {
+    // do nothing
   }
   return errorSummary
 }

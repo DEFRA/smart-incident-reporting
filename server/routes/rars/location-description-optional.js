@@ -1,8 +1,9 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
-import { getServiceDetails } from '../../utils/helpers.js'
+import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
+import { maxLength } from '../../utils/validation.js'
 
-const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_DESCRIPTION
+const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_DESCRIPTION_OPTIONAL
 
 const baseAnswer = {
   questionId: question.questionId,
@@ -24,6 +25,17 @@ const createLocationDescriptionOptionalRoutes = ({ problem, route, redirect }) =
     },
     post: async (request, h) => {
       const { otherLocationInfo } = request.payload
+
+      const errorSummary = validatePayload(otherLocationInfo)
+      if (errorSummary.errorList.length > 0) {
+        return h.view(constants.views.RARS_LOCATION_DESCRIPTION_OPTIONAL, {
+          problem,
+          ...serviceDetails,
+          question,
+          answers: otherLocationInfo,
+          errorSummary
+        })
+      }
 
       if (otherLocationInfo) {
         request.yar.set(question.key, buildAnswers(otherLocationInfo))
@@ -54,6 +66,17 @@ const buildAnswers = (otherDetails) => {
     ...baseAnswer,
     otherDetails
   }]
+}
+
+const validatePayload = otherLocationInfo => {
+  const errorSummary = getErrorSummary()
+  if (maxLength(otherLocationInfo, constants.locationDescriptionCharacterLimit)) {
+    errorSummary.errorList.push({
+      text: `Other location information must be ${constants.locationDescriptionCharacterLimit} characters or less`,
+      href: '#otherLocationInfo'
+    })
+  }
+  return errorSummary
 }
 
 export default createLocationDescriptionOptionalRoutes
