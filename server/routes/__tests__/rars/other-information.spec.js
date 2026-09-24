@@ -6,11 +6,8 @@ import { questionSets } from '../../../utils/question-sets.js'
 
 jest.mock('../../../services/service-bus.js')
 
-<<<<<<< HEAD
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
 
-=======
->>>>>>> develop
 const problems = [
   {
     problem: 'smell',
