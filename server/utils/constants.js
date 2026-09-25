@@ -158,6 +158,7 @@ const SMELL_HEALTH = 'smell/health'
 
 const FLOOD_START = 'flood-start'
 const FLOOD = 'flood'
+const FLOOD_CONTACT_DETAILS = 'flood/contact-details'
 
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
@@ -289,7 +290,8 @@ const views = {
   LITTER_HEALTH,
   NOISE_HEALTH,
   DUST_HEALTH,
-  FLOOD
+  FLOOD,
+  FLOOD_CONTACT_DETAILS
 }
 
 const routes = {
