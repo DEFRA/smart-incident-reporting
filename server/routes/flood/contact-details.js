@@ -1,0 +1,102 @@
+import constants from '../../utils/constants.js'
+import { getErrorSummary } from '../../utils/helpers.js'
+import { questionSets } from '../../utils/question-sets.js'
+
+const imageQuestion = questionSets.FLOOD.questions.FLOOD_IMAGES_OR_VIDEO
+const yesPhotosAnswerId = imageQuestion.answers.yesPhotos.answerId 
+const yesVideosAnswerId = imageQuestion.answers.yesVideos.answerId 
+
+const isEmailRequired = (request) => {
+  const imagesOrVideoAnswer = request.yar.get(constants.redisKeys.FLOOD_IMAGES_OR_VIDEO)
+  if (!Array.isArray(imagesOrVideoAnswer)) { return false }
+
+  return imagesOrVideoAnswer.some(answer => [yesPhotosAnswerId, yesVideosAnswerId].includes(answer.answerId))
+}
+
+const handlers = {
+  get: async (request, h) => { 
+    return h.view(constants.views.FLOOD_CONTACT_DETAILS, {
+      ...getContext(request),
+      emailRequired: isEmailRequired(request)
+    })
+  },
+  post: async (request, h) => {
+    const { fullName, phone, email } = request.payload
+    const emailRequired = isEmailRequired(request)
+    const errorSummary = validatePayload(phone, email, emailRequired)
+    
+    if (errorSummary) {
+      return h.view(constants.views.FLOOD_CONTACT_DETAILS, {
+        ...getContext(request),
+        fullName,
+        phone,
+        email,
+        emailRequired,
+        errorSummary
+      })
+    }
+    
+    request.yar.set(constants.redisKeys.FLOOD_CONTACT_DETAILS, { 
+      reporterName: fullName,
+      reporterPhone: phone,
+      reporterEmail: email
+    })
+
+    return h.redirect('/next-page') // TODO Replace '/next-page' with the actual next page URL in your flow  
+  }
+}
+
+const getContext = (request) => {
+  const contactDetails = request.yar.get(constants.redisKeys.FLOOD_CONTACT_DETAILS)
+  const fullName = contactDetails?.reporterName || ''
+  const phone = contactDetails?.reporterPhone || ''
+  const email = contactDetails?.reporterEmail || ''
+
+  return {
+    fullName,
+    phone,
+    email
+  }
+}
+
+const validatePayload = (phone, email, emailRequired) => {
+  const errorSummary = getErrorSummary()
+  if ((!phone?.length > 0 ) && !constants.phoneRegex.test(phone)) {
+    errorSummary.errorList.push({
+      text: 'Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192',
+      href: '#phone'
+    })
+  }
+
+  if (emailRequired && !email?.length) {
+    errorSummary.errorList.push({
+      text: 'Enter an email address',
+      href: '#email'
+    })
+  }
+
+  else if (email?.length > 0 && !constants.emailRegex.test(email)) {
+    errorSummary.errorList.push({
+      text: 'Enter an email address in the correct format, like name@example.com',
+      href: '#email'
+    })
+  } else {
+    // do nothing if the email is not required and either empty or valid
+    
+  }
+
+  return errorSummary
+}
+
+export default [
+  {
+    method: 'GET',
+    path: constants.routes.FLOOD_CONTACT_DETAILS,
+    handler: handlers.get
+  },
+  {
+    method: 'POST',
+    path: constants.routes.FLOOD_CONTACT_DETAILS,
+    handler: handlers.post
+  }
+]
