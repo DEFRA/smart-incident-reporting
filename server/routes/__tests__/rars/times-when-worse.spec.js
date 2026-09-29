@@ -97,7 +97,7 @@ describe('RARS times-when-worse', () => {
           questionAsked: heading,
           questionResponse: true,
           answerId: 1371,
-          otherDetails: 'Morning;Afternoon;Night'
+          otherDetails: 'Morning; Afternoon; Night'
         }])
       })
 
