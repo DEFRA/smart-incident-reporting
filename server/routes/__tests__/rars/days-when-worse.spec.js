@@ -97,7 +97,7 @@ describe('RARS days-when-worse', () => {
           questionAsked: heading,
           questionResponse: true,
           answerId: 1363,
-          otherDetails: 'Monday;Wednesday;Sunday'
+          otherDetails: 'Monday; Wednesday; Sunday'
         }])
       })
 
