@@ -1573,10 +1573,10 @@ const questionSets = {
   FLOOD: {
     questionSetId: 0,
     questions: {
+      FLOOD_IMAGES_OR_VIDEO: createImagesOrVideoQuestion(constants.redisKeys.FLOOD_IMAGES_OR_VIDEO)
     }
   }
 }
-
 export {
   questionSets
 }
