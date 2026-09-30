@@ -1,20 +1,20 @@
 import constants from '../../utils/constants.js'
-import { getErrorSummary } from '../../utils/helpers.js'
+import { getErrorSummary, validateEmail } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
 
 const imageQuestion = questionSets.FLOOD.questions.FLOOD_IMAGES_OR_VIDEO
-const yesPhotosAnswerId = imageQuestion.answers.yesPhotos.answerId 
-const yesVideosAnswerId = imageQuestion.answers.yesVideos.answerId 
+const yesPhotosAnswerId = imageQuestion.answers.yesPhotos.answerId
+const yesVideoAnswerId = imageQuestion.answers.yesVideo.answerId
 
 const isEmailRequired = (request) => {
   const imagesOrVideoAnswer = request.yar.get(constants.redisKeys.FLOOD_IMAGES_OR_VIDEO)
   if (!Array.isArray(imagesOrVideoAnswer)) { return false }
 
-  return imagesOrVideoAnswer.some(answer => [yesPhotosAnswerId, yesVideosAnswerId].includes(answer.answerId))
+  return imagesOrVideoAnswer.some(answer => [yesPhotosAnswerId, yesVideoAnswerId].includes(answer.answerId))
 }
 
 const handlers = {
-  get: async (request, h) => { 
+  get: async (request, h) => {
     return h.view(constants.views.FLOOD_CONTACT_DETAILS, {
       ...getContext(request),
       emailRequired: isEmailRequired(request)
@@ -24,8 +24,8 @@ const handlers = {
     const { fullName, phone, email } = request.payload
     const emailRequired = isEmailRequired(request)
     const errorSummary = validatePayload(phone, email, emailRequired)
-    
-    if (errorSummary) {
+
+    if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.FLOOD_CONTACT_DETAILS, {
         ...getContext(request),
         fullName,
@@ -35,14 +35,14 @@ const handlers = {
         errorSummary
       })
     }
-    
-    request.yar.set(constants.redisKeys.FLOOD_CONTACT_DETAILS, { 
+
+    request.yar.set(constants.redisKeys.FLOOD_CONTACT_DETAILS, {
       reporterName: fullName,
       reporterPhone: phone,
       reporterEmail: email
     })
 
-    return h.redirect('/next-page') // TODO Replace '/next-page' with the actual next page URL in your flow  
+    return h.redirect('/next-page') // TODO Replace '/next-page' with the actual next page URL in your flow
   }
 }
 
@@ -61,7 +61,7 @@ const getContext = (request) => {
 
 const validatePayload = (phone, email, emailRequired) => {
   const errorSummary = getErrorSummary()
-  if ((!phone?.length > 0 ) && !constants.phoneRegex.test(phone)) {
+  if ((phone?.length > 0) && !constants.phoneRegex.test(phone)) {
     errorSummary.errorList.push({
       text: 'Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192',
       href: '#phone'
@@ -73,16 +73,13 @@ const validatePayload = (phone, email, emailRequired) => {
       text: 'Enter an email address',
       href: '#email'
     })
-  }
-
-  else if (email?.length > 0 && !constants.emailRegex.test(email)) {
+  } else if ((email?.length > 0) && !validateEmail(email)) {
     errorSummary.errorList.push({
       text: 'Enter an email address in the correct format, like name@example.com',
       href: '#email'
     })
   } else {
     // do nothing if the email is not required and either empty or valid
-    
   }
 
   return errorSummary

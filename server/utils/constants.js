@@ -159,6 +159,8 @@ const SMELL_HEALTH = 'smell/health'
 const FLOOD_START = 'flood-start'
 const FLOOD = 'flood'
 const FLOOD_CONTACT_DETAILS = 'flood/contact-details'
+// Session only, the flood images or video page has not been built yet
+const FLOOD_IMAGES_OR_VIDEO = 'flood/images-or-video'
 
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
@@ -305,6 +307,7 @@ for (const [key, value] of Object.entries(views)) {
 const redisKeys = {
   ...views,
   ...rarsConstants.redisKeys,
+  FLOOD_IMAGES_OR_VIDEO,
   SUBMISSION_TIMESTAMP,
   REFERER,
   COUNTER,
