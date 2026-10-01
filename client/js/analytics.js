@@ -16,9 +16,7 @@ const analytics = () => {
     const cookieSettings = window.sir.utils.getCookie('cookies_settings')
     if (cookieSettings) {
       const trackingPreferences = JSON.parse(decodeURIComponent(cookieSettings))
-      if (trackingPreferences.analytics === 'on') {
-        window.sir.utils.setupGoogleTagManager()
-      } else {
+      if (trackingPreferences.analytics !== 'on') {
         window.sir.utils.deleteAnalyticsCookies()
       }
     }

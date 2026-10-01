@@ -118,17 +118,18 @@
 
     </tbody>
     </table>
-    <div class="defra-js-show" hidden>
+    <form action="/cookies" method="post">
+      <input type="hidden" name="returnUrl" value="">
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset" aria-describedby="f-cookieConsent-hint">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Do you accept analytics cookies?</legend>
             <div class="govuk-radios govuk-radios--inline">
               <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="f-cookieConsent" name="cookieConsent" type="radio" value="Yes" data-ga-question="Do you accept analytics cookies?" data-ga-answer="Yes">
+                <input class="govuk-radios__input" id="f-cookieConsent" name="analytics" type="radio" value="true" data-ga-question="Do you accept analytics cookies?" data-ga-answer="Yes">
                 <label class="govuk-label govuk-radios__label" for="f-cookieConsent">Yes</label>
               </div>
               <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="f-cookieConsent-2" name="cookieConsent" type="radio" value="No" checked data-ga-question="Do you accept analytics cookies?" data-ga-answer="No">
+                <input class="govuk-radios__input" id="f-cookieConsent-2" name="analytics" type="radio" value="false" checked data-ga-question="Do you accept analytics cookies?" data-ga-answer="No">
                 <label class="govuk-label govuk-radios__label" for="f-cookieConsent-2">No</label>
               </div>
             </div>
@@ -137,7 +138,7 @@
       <button class="govuk-button" data-module="govuk-button" id="continue-button">
         Save cookie settings
       </button>
-    </div>
+    </form>
   </div>
 </div>
 

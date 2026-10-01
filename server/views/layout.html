@@ -25,6 +25,18 @@
 
   <link href="{{ assetPath }}/stylesheets/application.css" rel="stylesheet" />
 
+  {% if cookiePreference.analytics and analyticsAccount %}
+    <script nonce="{{ cspNonce }}">
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
+      var firstScript = document.getElementsByTagName('script')[0]
+      var gtmScript = document.createElement('script')
+      gtmScript.async = true
+      gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id={{ analyticsAccount }}'
+      firstScript.parentNode.insertBefore(gtmScript, firstScript)
+    </script>
+  {% endif %}
+
 {% endblock %}
 
 {% block bodyStart %}
@@ -62,7 +74,7 @@
 
   <!-- Hide the back link if Javascript is not available -->
   <noscript>
-    <style>#back-link {display: none} </style>
+    <style nonce="{{ cspNonce }}">#back-link {display: none} </style>
   </noscript>
 
   {% if (not hideBackLink) %}
@@ -71,7 +83,7 @@
         href: "#",
         attributes: {
             id: "back-link",
-            onclick: "window.history.go(-1); return false;"
+            href: "#"
         }
     }) }}
   {% endif %}
@@ -89,7 +101,7 @@
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   <script type="module" src="{{ assetPath }}/govuk-frontend.min.js"></script>
-  <script type="module">
+  <script type="module" nonce="{{ cspNonce }}">
     import { initAll } from '{{assetPath}}/govuk-frontend.min.js'
     initAll()
   </script>

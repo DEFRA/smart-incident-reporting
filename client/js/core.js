@@ -12,15 +12,19 @@ window.sir = {
       date.setTime(date.getTime() + (cookieExpiryDays * 24 * 60 * 60 * 1000))
       const expires = 'expires=' + date.toUTCString()
       const sameSite = 'SameSite=Strict'
-      document.cookie = `${cookieName}=${window.btoa(encodeURIComponent(cookieValue))};${sameSite};${expires};path=/;secure`
+      const secure = window.location.protocol === 'https:' ? ';secure' : ''
+      document.cookie = `${cookieName}=${window.btoa(encodeURIComponent(cookieValue))};${sameSite};${expires};path=/${secure}`
     },
     deleteCookie: (cookieName) => {
       const expires = 'expires=Thu, 01 Jan 1970 00:00:01 GMT'
       const path = 'path=/'
       const hostname = window.location.hostname
       const dotHostname = `.${hostname}`
-      const domain = `domain=${(hostname === 'localhost') ? 'localhost' : dotHostname}`
-      document.cookie = `${cookieName}=;${expires};${domain};${path}`
+      const domain = (hostname === 'localhost' || hostname === '127.0.0.1') ? '' : `domain=${dotHostname}`
+      document.cookie = `${cookieName}=;${expires};${path}${domain ? `;${domain}` : ''}`
+      if (domain) {
+        document.cookie = `${cookieName}=;${expires};${path}`
+      }
     },
     deleteAnalyticsCookies: () => {
       const splitCookies = document.cookie.split(';')
@@ -78,6 +82,11 @@ Array.prototype.forEach.call(jsElements, function (element) {
   // where an attribute is not possible (gds summaryList row) remove 1 hidden class
   // Note if 2 hidden classes are set then it will remain hidden
   element.className = element.className.replace('hidden', '')
+})
+
+document.querySelector('#back-link')?.addEventListener('click', event => {
+  event.preventDefault()
+  window.history.go(-1)
 })
 
 // Initialise analytics tracking and associated cookies
