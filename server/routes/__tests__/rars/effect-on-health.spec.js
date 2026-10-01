@@ -52,7 +52,7 @@ describe('RARS Effect On Health Routes', () => {
       it('Should return success response and correct view', async () => {
         await submitGetRequest(
           { url },
-          `Has the ${problem} caused any of the following issues?`,
+          `Have the ${problem} caused any of the following issues?`,
           constants.statusCodes.OK,
           sessionData
         )
