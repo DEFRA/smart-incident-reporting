@@ -2,23 +2,30 @@ import constants from '../../utils/constants.js'
 import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 
 const questionsByProblem = {
-  smell: 'When did you most recently notice the smell',
-  noise: 'When did you most recently hear the noise',
-  'vermin/pests': 'When did you most recently notice the vermin/pests',
-  dust: 'When did you most recently notice the dust',
-  mud: 'When did you most recently notice the mud',
-  litter: 'When did you most recently notice the litter'
+  smell: 'When did you most recently notice the {problem}',
+  noise: 'When did you most recently hear the {problem}',
+  'vermin/pests': 'When did you most recently notice the {problem}',
+  dust: 'When did you most recently notice the {problem}',
+  mud: 'When did you most recently notice the {problem}',
+  litter: 'When did you most recently notice the {problem}'
+}
+
+// the pests journey asks about the specific type of vermin or pest the user selected
+const getQuestionText = (request, problem) => {
+  const label = problem === 'vermin/pests'
+    ? request.yar.get(constants.redisKeys.PESTS_TYPE_SELECTED) || problem
+    : problem
+  return questionsByProblem[problem].replace('{problem}', label)
 }
 
 const createWhenRoutes = ({ problem, route, redirect }) => {
   const serviceDetails = getServiceDetails(problem)
-  const questionText = questionsByProblem[problem]
 
   const handlers = {
     get: async (request, h) => {
       return h.view(constants.views.RARS_WHEN, {
         problem,
-        questionText,
+        questionText: getQuestionText(request, problem),
         ...getContext(request),
         ...serviceDetails
       })
@@ -32,7 +39,7 @@ const createWhenRoutes = ({ problem, route, redirect }) => {
       if (errorSummary.errorList.length > 0) {
         return h.view(constants.views.RARS_WHEN, {
           problem,
-          questionText,
+          questionText: getQuestionText(request, problem),
           errorSummary,
           ...getContext(request),
           ...serviceDetails
