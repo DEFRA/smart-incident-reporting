@@ -3,7 +3,7 @@ import { questionSets } from '../../utils/question-sets.js'
 import { getServiceDetails, getErrorSummary, titleHelper } from '../../utils/helpers.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_EFFECT_ON_HEALTH
-const verminPestsQuestion = 'Has the {vermin/pests} caused any of the following issues?'
+const verminPestsQuestion = 'Have the {vermin/pests} caused any of the following issues?'
 
 const baseAnswer = {
   questionId: question.questionId,
