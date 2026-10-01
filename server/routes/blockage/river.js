@@ -1,8 +1,13 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary } from '../../utils/helpers.js'
+import { questionSets } from '../../utils/question-sets.js'
 
 const handlers = {
   get: async (request, h) => {
+    // Temporary fix as /blockage is bypassed
+    request.yar.reset()
+    request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.BLOCKAGE.questionSetId)
+
     return h.view(constants.views.BLOCKAGE_RIVER, {
       ...getContext(request)
     })

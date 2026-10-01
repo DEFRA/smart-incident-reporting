@@ -2,9 +2,15 @@ import constants from '../utils/constants.js'
 
 const journeyMap = {
   100: 'water pollution',
-  200: 'smell',
-  300: 'blockage',
-  1800: 'illegal fishing'
+  300: 'blockage in a river',
+  1800: 'illegal fishing',
+  200: 'a smell from a waste facility, industrial site or farm',
+  900: 'dust from a waste facility, industrial site or farm',
+  1300: 'a vermin or pest problem from a waste facility, industrial site or farm',
+  2200: 'litter from a waste facility, industrial site or farm',
+  2300: 'mud from a waste facility, industrial site or farm',
+  2500: 'noise from a waste facility, industrial site or farm',
+  3100: 'a vermin or pest problem from a waste facility, industrial site or farm'
 }
 
 const handlers = {
