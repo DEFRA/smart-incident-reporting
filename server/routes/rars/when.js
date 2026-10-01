@@ -1,18 +1,21 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 
+const VERMIN_PESTS = 'vermin/pests'
+const NOTICE_QUESTION = 'When did you most recently notice the {problem}'
+
 const questionsByProblem = {
-  smell: 'When did you most recently notice the {problem}',
+  smell: NOTICE_QUESTION,
   noise: 'When did you most recently hear the {problem}',
-  'vermin/pests': 'When did you most recently notice the {problem}',
-  dust: 'When did you most recently notice the {problem}',
-  mud: 'When did you most recently notice the {problem}',
-  litter: 'When did you most recently notice the {problem}'
+  [VERMIN_PESTS]: NOTICE_QUESTION,
+  dust: NOTICE_QUESTION,
+  mud: NOTICE_QUESTION,
+  litter: NOTICE_QUESTION
 }
 
 // the pests journey asks about the specific type of vermin or pest the user selected
 const getQuestionText = (request, problem) => {
-  const label = problem === 'vermin/pests'
+  const label = problem === VERMIN_PESTS
     ? request.yar.get(constants.redisKeys.PESTS_TYPE_SELECTED) || problem
     : problem
   return questionsByProblem[problem].replace('{problem}', label)
@@ -91,19 +94,10 @@ const getContext = request => {
 const validatePayload = (answerId, problem) => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
-    let incidentType = problem
-    if (problem === 'noise') {
-      incidentType = 'noise'
-    } else if (problem === 'vermin/pests') {
-      incidentType = 'vermin/pests'
-    } else {
-      // do nothing
-    }
-
     errorSummary.errorList.push({
       text: problem === 'noise'
         ? 'Select when you heard the noise'
-        : `Select when you noticed the ${incidentType}`,
+        : `Select when you noticed the ${problem}`,
       href: '#answerId'
     })
   }
