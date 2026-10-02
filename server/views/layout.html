@@ -22,6 +22,7 @@
   <!-- Environment: {{ env }} -->
   <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="{% if metaDescription %}{{ metaDescription }}{% else %}Report pollution, including sewage, in rivers, lakes, canals, the sea and other watercourses in England.{% endif %}">
+  <meta name="analytics-account" content="{{ analyticsAccount }}">
 
   <link href="{{ assetPath }}/stylesheets/application.css" rel="stylesheet" />
 
@@ -33,6 +34,8 @@
       var gtmScript = document.createElement('script')
       gtmScript.async = true
       gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id={{ analyticsAccount }}'
+      gtmScript.onload = () => console.info('[cookie-consent] GTM loaded for previously accepted consent')
+      gtmScript.onerror = () => console.error('[cookie-consent] GTM failed to load')
       firstScript.parentNode.insertBefore(gtmScript, firstScript)
     </script>
   {% endif %}

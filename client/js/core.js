@@ -28,19 +28,37 @@ window.sir = {
     },
     deleteAnalyticsCookies: () => {
       const splitCookies = document.cookie.split(';')
+      let deletedCookieCount = 0
       splitCookies.forEach((cookie) => {
         const nameAndValue = cookie.trim().split('=')
-        if (nameAndValue && nameAndValue.length === 2 && nameAndValue[0].startsWith('_ga')) {
+        if (nameAndValue && nameAndValue.length === 2 && ['_ga', '_gid', '_gat', '_dc_gtm_'].some(prefix => nameAndValue[0].startsWith(prefix))) {
           window.sir.utils.deleteCookie(nameAndValue[0])
+          deletedCookieCount++
         }
       })
+      console.info(`[cookie-consent] Requested deletion of ${deletedCookieCount} analytics cookie(s)`)
+    },
+    updateGoogleAnalyticsConsent: accepted => {
+      window.dataLayer = window.dataLayer || []
+      window.gtag = window.gtag || function () { window.dataLayer.push(arguments) }
+      const consent = accepted ? 'granted' : 'denied'
+      window.gtag('consent', 'update', {
+        ad_storage: consent,
+        ad_personalization: consent,
+        ad_user_data: consent,
+        analytics_storage: consent
+      })
+      console.info(`[cookie-consent] Google consent mode updated to ${consent}`)
     },
     setupGoogleTagManager: () => {
-      const gaId = process.env.GA_ID
-      if (gaId) {
+      const gaId = document.querySelector('meta[name="analytics-account"]')?.content || process.env.GA_ID
+      const gtmAlreadyLoaded = document.querySelector('script[src*="googletagmanager.com/gtm.js"]')
+      if (gaId && !gtmAlreadyLoaded) {
+        console.info('[cookie-consent] Loading GTM after consent')
         const script = document.createElement('script')
         script.src = `https://www.googletagmanager.com/gtm.js?id=${gaId}`
         script.onload = () => {
+          console.info('[cookie-consent] GTM loaded')
           window.dataLayer = window.dataLayer || []
           function gtag () { window.dataLayer.push(arguments) }
           // setupGoogleTagManager is only called after cookies/tracking has been consented to
@@ -55,15 +73,31 @@ window.sir = {
             event: 'gtm.js'
           })
         }
+        script.onerror = () => console.error('[cookie-consent] GTM failed to load')
         document.body.appendChild(script)
+      } else {
+        const reason = gtmAlreadyLoaded ? 'already loaded' : 'no GTM ID configured'
+        console.info(`[cookie-consent] GTM not loaded: ${reason}`)
       }
     },
     savePreference: accepted => {
+      console.info(`[cookie-consent] Analytics cookies ${accepted ? 'accepted' : 'rejected'}`)
       const prefs = {
         analytics: accepted ? 'on' : 'off'
       }
       window.sir.utils.setCookie('cookies_settings', JSON.stringify(prefs))
       window.sir.utils.setCookie('cookies_preferences_set', 'true')
+      fetch('/cookies', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ analytics: String(accepted) })
+      }).then(response => {
+        if (!response.ok) {
+          console.error(`[cookie-consent] Server did not save ${accepted ? 'accepted' : 'rejected'} preference (${response.status})`)
+        }
+      }).catch(error => {
+        console.error('[cookie-consent] Could not send preference to server', error)
+      })
     }
   }
 }

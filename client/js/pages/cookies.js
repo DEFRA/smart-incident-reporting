@@ -24,6 +24,7 @@ saveButton?.addEventListener('click', (e) => {
   const analyticsPreference = document.querySelector('input[name="analytics"]:checked')
   const accepted = analyticsPreference.value === 'true'
   window.sir.utils.savePreference(accepted)
+  window.sir.utils.updateGoogleAnalyticsConsent(accepted)
   if (accepted) {
     window.sir.utils.setupGoogleTagManager()
   } else {
