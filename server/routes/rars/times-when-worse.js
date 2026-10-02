@@ -13,9 +13,8 @@ const times = [
 
 const NO_PARTICULAR_TIME_OF_DAY = 'No particular time of day'
 
-// the selected times are stored against a single answer id as a semicolon
-// separated list, for example 'Morning;Afternoon;Night'
-const ANSWER_SEPARATOR = ';'
+// selected times are stored as a single string, for example 'Morning; Afternoon; Night'
+const ANSWER_SEPARATOR = '; '
 
 // noise is the only RARS journey that is heard rather than noticed
 const getPresentTenseVerb = problem => problem === 'noise' ? 'hear' : 'notice'
@@ -38,7 +37,8 @@ const getSelectedTimes = answerId => {
 
 const getStoredTimes = request => {
   const storedValue = request.yar.get(question.key)?.[0]?.otherDetails
-  return storedValue ? storedValue.split(ANSWER_SEPARATOR) : []
+  // split on the semicolon alone so the separating space is optional
+  return storedValue ? storedValue.split(';').map(time => time.trim()) : []
 }
 
 const buildCheckboxItems = selected => {
