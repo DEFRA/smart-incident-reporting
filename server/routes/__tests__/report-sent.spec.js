@@ -81,16 +81,14 @@ const handler = async (questionSetID, overrides = {}) => {
   const reportSentPageData = buildDataForReportSentPage({
     id: sessionId,
     get: jest.fn(key => ({
-      [constants.redisKeys.QUESTION_SET_ID]: questionSetID,
       [journeyKeys.contactDetailsKey]: contactDetails,
       [journeyKeys.imagesOrVideoKey]: imagesOrVideo
     }[key]))
-  })
+  }, questionSetID)
 
   await reportSentRoutes[0].handler({
     yar: {
       get: jest.fn(key => ({
-        [constants.redisKeys.QUESTION_SET_ID]: questionSetID,
         [constants.redisKeys.SUBMISSION_TIMESTAMP]: submissionTimestamp,
         [constants.redisKeys.REPORT_SENT_PAGE_DATA]: reportSentPageData,
         [journeyKeys.contactDetailsKey]: contactDetails,
