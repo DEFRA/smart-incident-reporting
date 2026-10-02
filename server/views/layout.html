@@ -29,7 +29,7 @@
   {% if cookiePreference.analytics and analyticsAccount %}
     <script nonce="{{ cspNonce }}">
       window.dataLayer = window.dataLayer || []
-      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
+      window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' })
       var firstScript = document.getElementsByTagName('script')[0]
       var gtmScript = document.createElement('script')
       gtmScript.async = true
