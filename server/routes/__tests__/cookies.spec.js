@@ -53,8 +53,19 @@ describe(url, () => {
       const response = await submitPostRequest({
         url,
         payload: {
+          analytics: 'false'
+        }
+      })
+
+      expect(response.headers.location).toBe('/cookies?updated=true')
+    })
+
+    it('does not redirect to a protocol-relative return URL', async () => {
+      const response = await submitPostRequest({
+        url,
+        payload: {
           analytics: 'false',
-          returnUrl: ''
+          returnUrl: '//example.com'
         }
       })
 

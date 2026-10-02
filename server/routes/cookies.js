@@ -10,13 +10,14 @@ const handlers = {
   },
   post: (request, h) => {
     if (!request.payload || !['true', 'false'].includes(request.payload.analytics)) {
-      return h.response('Invalid cookie preference').code(400)
+      return h.response('Invalid cookie preference').code(constants.statusCodes.BAD_REQUEST)
     }
 
     setPreference(h, request.payload.analytics === 'true')
 
-    if (request.payload.returnUrl && request.payload.returnUrl.startsWith('/') && !request.payload.returnUrl.startsWith('//')) {
-      return h.redirect(request.payload.returnUrl)
+    const returnUrl = request.payload?.returnUrl
+    if (returnUrl?.startsWith('/') && !returnUrl.startsWith('//')) {
+      return h.redirect(returnUrl)
     }
 
     return h.redirect(`${constants.routes.COOKIES}?updated=true`)

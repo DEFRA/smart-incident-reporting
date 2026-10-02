@@ -3,6 +3,8 @@ const consentCookieNames = {
   settings: 'cookies_settings'
 }
 
+const cookiePreferenceTtl = 365 * 24 * 60 * 60 * 1000
+
 const analyticsCookiePattern = /^_ga$|^_ga_.*$|^_gid$|^_gat_.*$|^_dc_gtm_.*$/
 
 const encodeCookie = value => Buffer.from(encodeURIComponent(value)).toString('base64')
@@ -40,7 +42,7 @@ const setPreference = (h, analytics) => {
     isSecure: false,
     path: '/',
     sameSite: 'Strict',
-    ttl: 365 * 24 * 60 * 60 * 1000
+    ttl: cookiePreferenceTtl
   }
 
   h.state(consentCookieNames.settings, encodeCookie(JSON.stringify({ analytics: analytics ? 'on' : 'off' })), cookieOptions)

@@ -21,7 +21,8 @@ window.sir = {
       const hostname = window.location.hostname
       const dotHostname = `.${hostname}`
       const domain = (hostname === 'localhost' || hostname === '127.0.0.1') ? '' : `domain=${dotHostname}`
-      document.cookie = `${cookieName}=;${expires};${path}${domain ? `;${domain}` : ''}`
+      const domainAttribute = domain ? `;${domain}` : ''
+      document.cookie = `${cookieName}=;${expires};${path}${domainAttribute}`
       if (domain) {
         document.cookie = `${cookieName}=;${expires};${path}`
       }
@@ -31,7 +32,7 @@ window.sir = {
       let deletedCookieCount = 0
       splitCookies.forEach((cookie) => {
         const nameAndValue = cookie.trim().split('=')
-        if (nameAndValue && nameAndValue.length === 2 && ['_ga', '_gid', '_gat', '_dc_gtm_'].some(prefix => nameAndValue[0].startsWith(prefix))) {
+        if (nameAndValue?.length === 2 && ['_ga', '_gid', '_gat', '_dc_gtm_'].some(prefix => nameAndValue[0].startsWith(prefix))) {
           window.sir.utils.deleteCookie(nameAndValue[0])
           deletedCookieCount++
         }
@@ -40,7 +41,7 @@ window.sir = {
     },
     updateGoogleAnalyticsConsent: accepted => {
       window.dataLayer = window.dataLayer || []
-      window.gtag = window.gtag || function () { window.dataLayer.push(arguments) }
+      window.gtag = window.gtag || function (...args) { window.dataLayer.push(args) }
       const consent = accepted ? 'granted' : 'denied'
       window.gtag('consent', 'update', {
         ad_storage: consent,
@@ -60,7 +61,7 @@ window.sir = {
         script.onload = () => {
           console.info('[cookie-consent] GTM loaded')
           window.dataLayer = window.dataLayer || []
-          function gtag () { window.dataLayer.push(arguments) }
+          function gtag (...args) { window.dataLayer.push(args) }
           // setupGoogleTagManager is only called after cookies/tracking has been consented to
           gtag('consent', 'default', {
             ad_storage: 'granted',
@@ -69,7 +70,7 @@ window.sir = {
             analytics_storage: 'granted'
           })
           window.dataLayer.push({
-            'gtm.start': new Date().getTime(),
+            'gtm.start': Date.now(),
             event: 'gtm.js'
           })
         }
