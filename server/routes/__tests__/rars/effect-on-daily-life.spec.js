@@ -50,7 +50,7 @@ const problems = [
   {
     problem: 'vermin/pests',
     url: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE,
-    header: 'Do you know the site or business responsible for the vermin/pests?',
+    header: 'Did you do any of the following because of the vermin/pests, on this occasion?',
     errorText: 'Select any of the following you did because of the vermin/pests, or &#39;none of these&#39;',
     redirect: {
       effectOnHealth: constants.routes.PESTS_EFFECT_ON_HEALTH
@@ -166,7 +166,7 @@ describe('RARS Effect On Daily Life Routes', () => {
       'Should use selected vermin/pests type in title when session has %s', async (selectedVerminOrPests) => {
         const response = await submitGetRequest(
           { url: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE },
-          `Do you know the site or business responsible for the ${selectedVerminOrPests}?`,
+          `Did you do any of the following because of the ${selectedVerminOrPests}, on this occasion?`,
           constants.statusCodes.OK,
           { [constants.redisKeys.PESTS_TYPE_SELECTED]: selectedVerminOrPests }
         )
@@ -181,7 +181,7 @@ describe('RARS Effect On Daily Life Routes', () => {
           constants.statusCodes.OK,
           { [constants.redisKeys.PESTS_TYPE_SELECTED]: selectedVerminOrPests }
         )
-        expect(response.payload).toContain(`Do you know the site or business responsible for the ${selectedVerminOrPests}?`)
+        expect(response.payload).toContain(`Did you do any of the following because of the ${selectedVerminOrPests}, on this occasion?`)
         expect(response.payload).toContain('There is a problem')
       }
     )
