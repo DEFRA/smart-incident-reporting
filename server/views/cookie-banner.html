@@ -1,7 +1,8 @@
 {% from "dist/govuk/components/cookie-banner/macro.njk" import govukCookieBanner %}
 {% set description = "Cookies on the " + serviceName + " service" %}
 
-<div class="js-cookie-banner-container defra-js-show" hidden>
+<form action="/cookies" method="post" class="js-cookie-banner-container">
+  <input type="hidden" name="returnUrl" value="{{ currentPath }}">
   {% set html %}
   <p>We use some essential cookies to make this service work.</p>
   <p>We'd also like to use analytics cookies so we can understand how people use this service and make improvements.</p>
@@ -30,16 +31,16 @@
         actions: [
           {
             text: "Accept analytics cookies",
-            type: "button",
-            name: "cookies",
-            value: "accept",
+            type: "submit",
+            name: "analytics",
+            value: "true",
             classes: "js-cookies-button-accept"
           },
           {
             text: "Reject analytics cookies",
-            type: "button",
-            name: "cookies",
-            value: "reject",
+            type: "submit",
+            name: "analytics",
+            value: "false",
             classes: "js-cookies-button-reject"
           },
           {
@@ -73,4 +74,4 @@
       }
     ]
   }) }}
-</div>
+</form>

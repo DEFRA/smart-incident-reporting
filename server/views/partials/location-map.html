@@ -146,13 +146,13 @@
 
   {% if showCurrentLocation %}
     <script src="{{ assetPath }}/js/locationMapGps.js"></script>
-    <script>
+    <script nonce="{{ cspNonce }}">
       const mapConfigGps = {{ locationAnswer | dump | safe }};
       locationMapGps.initialiseMap(mapConfigGps);
     </script>
   {% else %}
     <script src="{{ assetPath }}/js/locationMap.js"></script>
-    <script>
+    <script nonce="{{ cspNonce }}">
       const mapConfig = {{ locationAnswer | dump | safe }};
       locationMap.initialiseMap(mapConfig);
     </script>
