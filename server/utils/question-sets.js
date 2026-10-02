@@ -1513,7 +1513,7 @@ const questionSets = {
       RARS_EFFECT_ON_HEALTH: {
         questionId: 2500,
         key: constants.redisKeys.RARS_EFFECT_ON_HEALTH,
-        text: 'Have the {problem} caused any of the following issues?',
+        text: 'Has the {problem} caused any of the following issues?',
         answers: {
           headache: {
             answerId: 2501,
