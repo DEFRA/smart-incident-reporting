@@ -11,11 +11,11 @@ const journeyMap = {
   1800: 'illegal fishing',
   200: 'a smell',
   900: 'dust',
-  1300: 'vermin or pest problem',
+  1300: 'a vermin or pest problem',
   2200: 'litter',
   2300: 'mud',
   2500: 'noise',
-  3100: 'vermin or pest problem'
+  3100: 'a vermin or pest problem'
 }
 
 const rarsConfig = {
