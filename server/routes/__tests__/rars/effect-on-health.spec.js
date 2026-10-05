@@ -40,6 +40,7 @@ const problems = [
     url: constants.routes.PESTS_EFFECT_ON_HEALTH,
     medicalHelp: constants.routes.PESTS_MEDICAL_HELP,
     errorText: 'Select any health conditions caused by the vermin/pests, or &#39;none of these&#39;',
+    heading: 'Have the vermin/pests caused any of the following issues?',
     sessionData: {
       [constants.redisKeys.PESTS_TYPE_SELECTED]: 'vermin/pests'
     }
@@ -47,12 +48,12 @@ const problems = [
 ]
 
 describe('RARS Effect On Health Routes', () => {
-  describe.each(problems)('$problem effect on health', ({ problem, url, medicalHelp, errorText, sessionData = {} }) => {
+  describe.each(problems)('$problem effect on health', ({ problem, url, medicalHelp, errorText, heading, sessionData = {} }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
         await submitGetRequest(
           { url },
-          `Has the ${problem} caused any of the following issues?`,
+          heading ?? `Has the ${problem} caused any of the following issues?`,
           constants.statusCodes.OK,
           sessionData
         )
