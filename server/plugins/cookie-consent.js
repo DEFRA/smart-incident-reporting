@@ -6,8 +6,8 @@ const contentSecurityPolicy = nonce => [
   `script-src 'self' 'nonce-${nonce}' https://www.googletagmanager.com https://www.google-analytics.com`,
   `style-src 'self' 'nonce-${nonce}'`,
   "font-src 'self' data:",
-  "img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com",
-  "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.analytics.google.com",
+  "img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com",
+  "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com",
   "frame-src 'self' https://www.googletagmanager.com",
   "form-action 'self'",
   "frame-ancestors 'self'"

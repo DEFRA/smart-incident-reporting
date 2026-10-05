@@ -41,7 +41,7 @@ window.sir = {
     },
     updateGoogleAnalyticsConsent: accepted => {
       window.dataLayer = window.dataLayer || []
-      window.gtag = window.gtag || function (...args) { window.dataLayer.push(args) }
+      window.gtag = window.gtag || function () { window.dataLayer.push(arguments) }
       const consent = accepted ? 'granted' : 'denied'
       window.gtag('consent', 'update', {
         ad_storage: consent,
@@ -61,7 +61,7 @@ window.sir = {
         script.onload = () => {
           console.info('[cookie-consent] GTM loaded')
           window.dataLayer = window.dataLayer || []
-          function gtag (...args) { window.dataLayer.push(args) }
+          function gtag () { window.dataLayer.push(arguments) }
           // setupGoogleTagManager is only called after cookies/tracking has been consented to
           gtag('consent', 'default', {
             ad_storage: 'granted',

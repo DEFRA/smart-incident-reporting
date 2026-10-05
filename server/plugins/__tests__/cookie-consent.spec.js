@@ -92,4 +92,20 @@ describe('cookie-consent plugin', () => {
 
     expect(response.header).toHaveBeenCalledWith('set-cookie', expect.stringContaining('_ga='), { append: true })
   })
+
+  it.each(['connect-src', 'img-src'])('allows regional GA collection endpoints in %s', directive => {
+    const response = {
+      variety: 'view',
+      source: { context: {} },
+      headers: {},
+      header: jest.fn()
+    }
+    const request = { path: '/', url: { search: '' }, state: {}, response }
+
+    onPreResponse(request, { continue: Symbol('continue') })
+
+    const [, policy] = response.header.mock.calls.find(([name]) => name === 'content-security-policy')
+    const sources = policy.split('; ').find(value => value.startsWith(`${directive} `)).split(' ').slice(1)
+    expect(sources).toContain('https://*.google-analytics.com')
+  })
 })
