@@ -146,6 +146,11 @@ const payload =
     reporterEmailAddress: 'test@test.com',
     otherDetails: 'test',
     questionSetId: 100,
+    ipAddress: '127.0.0.1',
+    browserType: 'Chrome',
+    deviceType: 'laptop',
+    javascriptStatus: 'off',
+    friendlyCaptchaStatus: 'not completed',
     data: [{
       questionId: 500,
       questionAsked: 'In what kind of water is the pollution?',

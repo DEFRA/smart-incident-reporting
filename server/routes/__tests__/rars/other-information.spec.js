@@ -6,6 +6,8 @@ import { questionSets } from '../../../utils/question-sets.js'
 
 jest.mock('../../../services/service-bus.js')
 
+const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
+
 const problems = [
   {
     problem: 'smell',
@@ -51,6 +53,27 @@ describe('RARS other information routes', () => {
       it('Should return success response and correct view', async () => {
         await submitGetRequest({ url }, 'Is there anything else you\'d like to add')
       })
+
+      it('Should keep Friendly Captcha hidden until JavaScript runs', async () => {
+        const response = await submitGetRequest({ url }, 'Is there anything else you\'d like to add')
+
+        expect(response.payload).toContain('id="friendly-captcha-container" hidden')
+        expect(response.payload).toContain('id="friendly-captcha"')
+      })
+
+      it('Should not render Friendly Captcha when it was completed earlier', async () => {
+        const sessionData = {
+          [constants.redisKeys.FRIENDLY_CAPTCHA_COMPLETED]: true
+        }
+        const response = await submitGetRequest(
+          { url },
+          'Is there anything else you\'d like to add',
+          constants.statusCodes.OK,
+          sessionData
+        )
+
+        expect(response.payload).not.toContain('id="friendly-captcha"')
+      })
     })
 
     describe('POST', () => {
@@ -58,6 +81,9 @@ describe('RARS other information routes', () => {
         const otherInfo = 'This is a description of the problem'
         const options = {
           url,
+          headers: {
+            'user-agent': userAgent
+          },
           payload: {
             otherInfo
           }
@@ -76,6 +102,11 @@ describe('RARS other information routes', () => {
             reporterEmailAddress: 'test@test.com',
             otherDetails: otherInfo,
             questionSetId: reportType,
+            ipAddress: '127.0.0.1',
+            browserType: 'Chrome',
+            deviceType: 'laptop',
+            javascriptStatus: 'off',
+            friendlyCaptchaStatus: 'not completed',
             data: expect.arrayContaining([
               expect.objectContaining({ questionId: 1600, answerId: 1601 }),
               expect.objectContaining({ questionId: 3200, answerId: 3202, otherDetails: 'test' }),

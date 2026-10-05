@@ -3,6 +3,19 @@ import config from '../utils/config.js'
 
 const captchaVerifyUrl = 'https://global.frcapi.com/api/v2/captcha/siteverify'
 
+const validateSubmission = async (payload = {}, previouslyCompleted = false) => {
+  if (previouslyCompleted) {
+    return 'success'
+  }
+
+  if (!config.captchaEnabled || payload.javascriptEnabled !== 'true') {
+    return 'not completed'
+  }
+
+  const captchaSuccess = await validate(payload['frc-captcha-response'], payload.captchaBypassKey)
+  return captchaSuccess ? 'success' : 'failed'
+}
+
 const validate = async (captchaResponse, payloadCaptchaBypassKey) => {
   if (payloadCaptchaBypassKey && payloadCaptchaBypassKey === config.captchaBypassKey) {
     return true
@@ -40,5 +53,6 @@ const validate = async (captchaResponse, payloadCaptchaBypassKey) => {
 }
 
 export default {
-  validate
+  validate,
+  validateSubmission
 }
