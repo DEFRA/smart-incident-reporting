@@ -20,7 +20,7 @@ window.sir = {
       const hostname = window.location.hostname
       const parts = hostname.split('.')
       const domains = new Set([hostname, `.${hostname}`])
-      parts.slice(1, -1).forEach((part, index) => domains.add(`.${parts.slice(index + 1).join('.')}`))
+      parts.slice(1, -1).forEach((_part, index) => domains.add(`.${parts.slice(index + 1).join('.')}`))
       document.cookie = `${cookieName}=;${expires};${path}`
       domains.forEach(domain => {
         document.cookie = `${cookieName}=;${expires};${path};domain=${domain}`
@@ -30,7 +30,7 @@ window.sir = {
       const splitCookies = document.cookie.split(';')
       splitCookies.forEach((cookie) => {
         const nameAndValue = cookie.trim().split('=')
-        if (nameAndValue && nameAndValue.length === 2 && ['_ga', '_gid', '_gat', '_dc_gtm_'].some(prefix => nameAndValue[0].startsWith(prefix))) {
+        if (nameAndValue?.length === 2 && ['_ga', '_gid', '_gat', '_dc_gtm_'].some(prefix => nameAndValue[0].startsWith(prefix))) {
           window.sir.utils.deleteCookie(nameAndValue[0])
         }
       })
