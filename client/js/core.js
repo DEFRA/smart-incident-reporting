@@ -12,57 +12,37 @@ window.sir = {
       date.setTime(date.getTime() + (cookieExpiryDays * 24 * 60 * 60 * 1000))
       const expires = 'expires=' + date.toUTCString()
       const sameSite = 'SameSite=Strict'
-      const secure = window.location.protocol === 'https:' ? ';secure' : ''
-      document.cookie = `${cookieName}=${window.btoa(encodeURIComponent(cookieValue))};${sameSite};${expires};path=/${secure}`
+      document.cookie = `${cookieName}=${window.btoa(encodeURIComponent(cookieValue))};${sameSite};${expires};path=/;secure`
     },
     deleteCookie: (cookieName) => {
       const expires = 'expires=Thu, 01 Jan 1970 00:00:01 GMT'
       const path = 'path=/'
       const hostname = window.location.hostname
-      const dotHostname = `.${hostname}`
-      const domain = (hostname === 'localhost' || hostname === '127.0.0.1') ? '' : `domain=${dotHostname}`
-      const domainAttribute = domain ? `;${domain}` : ''
-      document.cookie = `${cookieName}=;${expires};${path}${domainAttribute}`
-      if (domain) {
-        document.cookie = `${cookieName}=;${expires};${path}`
-      }
+      const parts = hostname.split('.')
+      const domains = new Set([hostname, `.${hostname}`])
+      parts.slice(1, -1).forEach((part, index) => domains.add(`.${parts.slice(index + 1).join('.')}`))
+      document.cookie = `${cookieName}=;${expires};${path}`
+      domains.forEach(domain => {
+        document.cookie = `${cookieName}=;${expires};${path};domain=${domain}`
+      })
     },
     deleteAnalyticsCookies: () => {
       const splitCookies = document.cookie.split(';')
-      let deletedCookieCount = 0
       splitCookies.forEach((cookie) => {
-        const nameAndValue = cookie.trim().split('=')
-        if (nameAndValue?.length === 2 && ['_ga', '_gid', '_gat', '_dc_gtm_'].some(prefix => nameAndValue[0].startsWith(prefix))) {
-          window.sir.utils.deleteCookie(nameAndValue[0])
-          deletedCookieCount++
+        const name = cookie.split('=')[0].trim()
+        if (['_ga', '_gid', '_gat', '_dc_gtm_'].some(prefix => name.startsWith(prefix))) {
+          window.sir.utils.deleteCookie(name)
         }
       })
-      console.info(`[cookie-consent] Requested deletion of ${deletedCookieCount} analytics cookie(s)`)
-    },
-    updateGoogleAnalyticsConsent: accepted => {
-      window.dataLayer = window.dataLayer || []
-      window.gtag = window.gtag || function () { window.dataLayer.push(arguments) }
-      const consent = accepted ? 'granted' : 'denied'
-      window.gtag('consent', 'update', {
-        ad_storage: consent,
-        ad_personalization: consent,
-        ad_user_data: consent,
-        analytics_storage: consent
-      })
-      console.info(`[cookie-consent] Google consent mode updated to ${consent}`)
     },
     setupGoogleTagManager: () => {
-      const gaId = document.querySelector('meta[name="analytics-account"]')?.content || process.env.GA_ID
-      const gtmAlreadyLoaded = document.querySelector('script[src*="googletagmanager.com/gtm.js"]')
-      if (gaId && !gtmAlreadyLoaded) {
-        console.info('[cookie-consent] Loading GTM after consent')
+      const gaId = process.env.GA_ID
+      if (gaId && !document.querySelector('script[src*="googletagmanager.com/gtm.js"]')) {
         const script = document.createElement('script')
         script.src = `https://www.googletagmanager.com/gtm.js?id=${gaId}`
         script.onload = () => {
-          console.info('[cookie-consent] GTM loaded')
           window.dataLayer = window.dataLayer || []
           function gtag () { window.dataLayer.push(arguments) }
-          // setupGoogleTagManager is only called after cookies/tracking has been consented to
           gtag('consent', 'default', {
             ad_storage: 'granted',
             ad_personalization: 'granted',
@@ -70,35 +50,25 @@ window.sir = {
             analytics_storage: 'granted'
           })
           window.dataLayer.push({
-            'gtm.start': Date.now(),
+            'gtm.start': new Date().getTime(),
             event: 'gtm.js'
           })
         }
-        script.onerror = () => console.error('[cookie-consent] GTM failed to load')
         document.body.appendChild(script)
-      } else {
-        const reason = gtmAlreadyLoaded ? 'already loaded' : 'no GTM ID configured'
-        console.info(`[cookie-consent] GTM not loaded: ${reason}`)
       }
     },
     savePreference: accepted => {
-      console.info(`[cookie-consent] Analytics cookies ${accepted ? 'accepted' : 'rejected'}`)
       const prefs = {
         analytics: accepted ? 'on' : 'off'
       }
       window.sir.utils.setCookie('cookies_settings', JSON.stringify(prefs))
       window.sir.utils.setCookie('cookies_preferences_set', 'true')
-      fetch('/cookies', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ analytics: String(accepted) })
-      }).then(response => {
-        if (!response.ok) {
-          console.error(`[cookie-consent] Server did not save ${accepted ? 'accepted' : 'rejected'} preference (${response.status})`)
+      if (!accepted) {
+        window.sir.utils.deleteAnalyticsCookies()
+        if (document.querySelector('script[src*="googletagmanager.com/gtm.js"]')) {
+          window.location.reload()
         }
-      }).catch(error => {
-        console.error('[cookie-consent] Could not send preference to server', error)
-      })
+      }
     }
   }
 }
@@ -119,10 +89,11 @@ Array.prototype.forEach.call(jsElements, function (element) {
   element.className = element.className.replace('hidden', '')
 })
 
-document.querySelector('#back-link')?.addEventListener('click', event => {
-  event.preventDefault()
-  window.history.go(-1)
-})
-
 // Initialise analytics tracking and associated cookies
 analytics()
+
+window.addEventListener('pageshow', event => {
+  if (event.persisted) {
+    window.location.reload()
+  }
+})

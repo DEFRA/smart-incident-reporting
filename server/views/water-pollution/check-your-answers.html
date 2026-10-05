@@ -371,7 +371,7 @@
   {{ super() }}
   {% if locationAnswer.point %}
     <script src="{{ assetPath }}/js/checkYourAnswers.js"></script>
-    <script nonce="{{ cspNonce }}">
+    <script>
       const safeMapConfig = {{ locationAnswer | dump | safe }}
       checkYourAnswers.initialiseMap(safeMapConfig)
     </script>

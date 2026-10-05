@@ -21,11 +21,9 @@ if (cookiePreferencesSet) {
 const saveButton = document.querySelector('#continue-button')
 saveButton?.addEventListener('click', (e) => {
   e.preventDefault()
-  const analyticsPreference = document.querySelector('input[name="analytics"]:checked')
-  const accepted = analyticsPreference.value === 'true'
-  window.sir.utils.savePreference(accepted)
-  window.sir.utils.updateGoogleAnalyticsConsent(accepted)
-  if (accepted) {
+  const analyticsPreference = document.querySelector('input[name="cookieConsent"]:checked')
+  window.sir.utils.savePreference(analyticsPreference.value === 'Yes')
+  if (analyticsPreference.value === 'Yes') {
     window.sir.utils.setupGoogleTagManager()
   } else {
     window.sir.utils.deleteAnalyticsCookies()

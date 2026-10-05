@@ -16,7 +16,9 @@ const analytics = () => {
     const cookieSettings = window.sir.utils.getCookie('cookies_settings')
     if (cookieSettings) {
       const trackingPreferences = JSON.parse(decodeURIComponent(cookieSettings))
-      if (trackingPreferences.analytics !== 'on') {
+      if (trackingPreferences.analytics === 'on') {
+        window.sir.utils.setupGoogleTagManager()
+      } else {
         window.sir.utils.deleteAnalyticsCookies()
       }
     }
@@ -36,7 +38,6 @@ const analytics = () => {
     acceptButton?.addEventListener('click', function (event) {
       event.preventDefault()
       window.sir.utils.savePreference(true)
-      window.sir.utils.updateGoogleAnalyticsConsent(true)
       window.sir.utils.setupGoogleTagManager()
       showBanner(acceptedBanner)
     })
@@ -44,7 +45,6 @@ const analytics = () => {
     rejectButton?.addEventListener('click', function (event) {
       event.preventDefault()
       window.sir.utils.savePreference(false)
-      window.sir.utils.updateGoogleAnalyticsConsent(false)
       window.sir.utils.deleteAnalyticsCookies()
       showBanner(rejectedBanner)
     })
