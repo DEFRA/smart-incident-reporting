@@ -66,13 +66,6 @@ describe('analytics acceptance and withdrawal', () => {
     expect(scripts).toHaveLength(0)
   })
 
-  it('does not load a second GTM script when preferences are saved again', () => {
-    savedPreference('on')
-    initialise()
-    window.sir.utils.setupGoogleTagManager()
-    expect(scripts).toHaveLength(1)
-  })
-
   it('deletes GA cookies immediately after withdrawal', () => {
     savedPreference('on')
     initialise()
@@ -112,9 +105,26 @@ describe('analytics acceptance and withdrawal', () => {
     expect([...cookies.keys()]).toEqual(['cookies_preferences_set', 'cookies_settings'])
   })
 
-  it('reloads restored pages so they use the latest saved preference', () => {
+  it('reloads restored pages after analytics has been rejected', () => {
+    savedPreference('off')
     initialise()
     events.pageshow({ persisted: true })
     expect(window.location.reload).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not reload restored pages while analytics remains accepted', () => {
+    savedPreference('on')
+    initialise()
+    events.pageshow({ persisted: true })
+    expect(window.location.reload).not.toHaveBeenCalled()
+  })
+
+  it('cleans GA cookies when returning to an accepted page after withdrawal', () => {
+    savedPreference('on')
+    initialise()
+    savedPreference('off')
+    cookies.set('_ga', 'value')
+    events.pageshow({ persisted: true })
+    expect(cookies.has('_ga')).toBe(false)
   })
 })

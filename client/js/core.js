@@ -29,20 +29,21 @@ window.sir = {
     deleteAnalyticsCookies: () => {
       const splitCookies = document.cookie.split(';')
       splitCookies.forEach((cookie) => {
-        const name = cookie.split('=')[0].trim()
-        if (['_ga', '_gid', '_gat', '_dc_gtm_'].some(prefix => name.startsWith(prefix))) {
-          window.sir.utils.deleteCookie(name)
+        const nameAndValue = cookie.trim().split('=')
+        if (nameAndValue && nameAndValue.length === 2 && ['_ga', '_gid', '_gat', '_dc_gtm_'].some(prefix => nameAndValue[0].startsWith(prefix))) {
+          window.sir.utils.deleteCookie(nameAndValue[0])
         }
       })
     },
     setupGoogleTagManager: () => {
       const gaId = process.env.GA_ID
-      if (gaId && !document.querySelector('script[src*="googletagmanager.com/gtm.js"]')) {
+      if (gaId) {
         const script = document.createElement('script')
         script.src = `https://www.googletagmanager.com/gtm.js?id=${gaId}`
         script.onload = () => {
           window.dataLayer = window.dataLayer || []
           function gtag () { window.dataLayer.push(arguments) }
+          // setupGoogleTagManager is only called after cookies/tracking has been consented to
           gtag('consent', 'default', {
             ad_storage: 'granted',
             ad_personalization: 'granted',
@@ -94,6 +95,10 @@ analytics()
 
 window.addEventListener('pageshow', event => {
   if (event.persisted) {
-    window.location.reload()
+    const cookieSettings = window.sir.utils.getCookie('cookies_settings')
+    if (cookieSettings && JSON.parse(decodeURIComponent(cookieSettings)).analytics === 'off') {
+      window.sir.utils.deleteAnalyticsCookies()
+      window.location.reload()
+    }
   }
 })
