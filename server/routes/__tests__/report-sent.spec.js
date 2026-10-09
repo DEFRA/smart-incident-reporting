@@ -283,17 +283,76 @@ describe(url, () => {
       }))
     })
 
-    it.each([
-      { problem: 'smell' },
-      { problem: 'noise' },
-      { problem: 'dust' },
-      { problem: 'litter' },
-      { problem: 'mud' },
-      { problem: 'vermin/pests' }
-    ])('should show a link to report another problem when problem is $problem', async ({ problem }) => {
+    it('should show links to report other issues', async () => {
       const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, {
         [constants.redisKeys.REPORT_SENT_PAGE_DATA]: {
-          reportersEmail: `${problem}@test.com`,
+          reportersEmail: 'test@example.com',
+          hasPhoneNumber: false,
+          userAgreedForVideos: false,
+          userAgreedForImages: false,
+          problem: 'dust'
+        }
+      })
+      const html = parse(response.payload)
+
+      expect(html.querySelector('.govuk-inset-text').textContent).toContain('You can report other issues')
+    })
+
+    it.each([
+      {
+        registerStartRoutes: 'true',
+        expectedLinks: [
+          ['Dust', constants.routes.DUST_START],
+          ['Litter', constants.routes.LITTER_START],
+          ['Mud', constants.routes.MUD_START],
+          ['Noise', constants.routes.NOISE_START],
+          ['Vermin or pests', constants.routes.PESTS_START]
+        ]
+      },
+      {
+        registerStartRoutes: 'false',
+        expectedLinks: [
+          ['Dust', constants.urls.GOV_UK_DUST],
+          ['Litter', constants.urls.GOV_UK_LITTER],
+          ['Mud', constants.urls.GOV_UK_MUD],
+          ['Noise', constants.urls.GOV_UK_NOISE],
+          ['Vermin or pests', constants.urls.GOV_UK_PESTS]
+        ]
+      }
+    ])('should render individual issue links except the current issue when REGISTER_START_ROUTES is $registerStartRoutes', async ({ registerStartRoutes, expectedLinks }) => {
+      const originalRegisterStartRoutes = process.env.REGISTER_START_ROUTES
+      process.env.REGISTER_START_ROUTES = registerStartRoutes
+
+      try {
+        const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, {
+          [constants.redisKeys.REPORT_SENT_PAGE_DATA]: {
+            reportersEmail: 'test@example.com',
+            hasPhoneNumber: false,
+            userAgreedForVideos: false,
+            userAgreedForImages: false,
+            problem: 'smell'
+          }
+        })
+        const html = parse(response.payload)
+        const links = html.querySelectorAll('.govuk-inset-text a')
+
+        expect(links.map(link => [link.textContent, link.getAttribute('href')])).toEqual(expectedLinks)
+      } finally {
+        process.env.REGISTER_START_ROUTES = originalRegisterStartRoutes
+      }
+    })
+
+    it.each([
+      { problem: 'dust', label: 'Dust' },
+      { problem: 'litter', label: 'Litter' },
+      { problem: 'mud', label: 'Mud' },
+      { problem: 'noise', label: 'Noise' },
+      { problem: 'smell', label: 'Smell' },
+      { problem: 'vermin/pests', label: 'Vermin or pests' }
+    ])('should not link to the current $label journey', async ({ problem, label }) => {
+      const response = await submitGetRequest({ url }, header, constants.statusCodes.OK, {
+        [constants.redisKeys.REPORT_SENT_PAGE_DATA]: {
+          reportersEmail: 'test@example.com',
           hasPhoneNumber: false,
           userAgreedForVideos: false,
           userAgreedForImages: false,
@@ -301,8 +360,9 @@ describe(url, () => {
         }
       })
       const html = parse(response.payload)
+      const links = html.querySelectorAll('.govuk-inset-text a')
 
-      expect(html.querySelector('.govuk-inset-text').textContent).toContain('Report another problem')
+      expect(links.map(link => link.textContent)).not.toContain(label)
     })
 
     it('should not show a link to report another problem when problem is not set', async () => {
@@ -316,7 +376,7 @@ describe(url, () => {
       })
       const html = parse(response.payload)
 
-      expect(html.text).not.toContain('Report another problem')
+      expect(html.text).not.toContain('You can report other issues')
     })
   })
 })

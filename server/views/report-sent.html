@@ -33,7 +33,10 @@
 
     {% if problem %}
       <div class="govuk-inset-text">
-        <a href="{{ serviceUrl }}">Report another problem</a>
+        <p>You can report other issues from a waste facility, industrial site or farm in England, such as:</p>
+        {% for link in otherRarsLinks %}
+          <a href="{{ link.url }}">{{ link.label }}</a>{% if not loop.last %}<br>{% endif %}
+        {% endfor %}
       </div>
     {% endif %}
 
