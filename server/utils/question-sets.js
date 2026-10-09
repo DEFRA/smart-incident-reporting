@@ -1573,6 +1573,25 @@ const questionSets = {
   FLOOD: {
     questionSetId: 0,
     questions: {
+      FLOOD_LOCATION_OPTION: {
+        questionId: 2600,
+        key: constants.redisKeys.FLOOD_LOCATION_OPTION,
+        text: 'How do you want to tell us where you\'ve seen flooding?',
+        answers: {
+          gps: {
+            answerId: 2603,
+            text: USE_CURRENT_LOCATION
+          },
+          map: {
+            answerId: 2602,
+            text: MARK_LOCATION_ON_MAP
+          },
+          description: {
+            answerId: 2601,
+            text: DESCRIBE_THE_LOCATION
+          }
+        }
+      }
     }
   }
 }
