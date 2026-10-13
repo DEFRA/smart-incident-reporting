@@ -25,6 +25,15 @@ describe('cookie consent utilities', () => {
     })).toBe('off')
   })
 
+  it('ignores unrecognised analytics values', () => {
+    expect(getAnalyticsPreference({
+      state: {
+        cookies_preferences_set: encodeCookie('true'),
+        cookies_settings: encodeCookie(JSON.stringify({ analytics: 'maybe' }))
+      }
+    })).toBeNull()
+  })
+
   it('ignores malformed preference cookies', () => {
     expect(getAnalyticsPreference({
       state: {
@@ -42,6 +51,18 @@ describe('cookie consent utilities', () => {
     expect(h.state.mock.calls[0][1]).toBe(encodeCookie(JSON.stringify({ analytics: 'off' })))
     expect(h.state.mock.calls[1][0]).toBe('cookies_preferences_set')
     expect(h.state.mock.calls[1][1]).toBe(encodeCookie('true'))
+  })
+
+  it('writes an opt-in value when analytics are accepted', () => {
+    const h = { state: jest.fn() }
+    setAnalyticsPreference(h, true)
+    expect(h.state.mock.calls[0][1]).toBe(encodeCookie(JSON.stringify({ analytics: 'on' })))
+  })
+
+  it('does not set headers when the request has no cookie state', () => {
+    const response = { header: jest.fn() }
+    clearAnalyticsCookies(response, { info: { hostname: 'localhost' } })
+    expect(response.header).not.toHaveBeenCalled()
   })
 
   it('expires GA cookies on host and parent domains', () => {
