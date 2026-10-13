@@ -12,7 +12,9 @@ const decodeCookie = value => {
 }
 
 const getAnalyticsPreference = request => {
-  if (decodeCookie(request.state?.[preferencesSetCookie]) !== 'true') return null
+  if (decodeCookie(request.state?.[preferencesSetCookie]) !== 'true') {
+    return null
+  }
   try {
     const analytics = JSON.parse(decodeCookie(request.state[settingsCookie]))?.analytics
     return ['on', 'off'].includes(analytics) ? analytics : null
