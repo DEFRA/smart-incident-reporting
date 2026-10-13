@@ -1573,6 +1573,16 @@ const questionSets = {
   FLOOD: {
     questionSetId: 0,
     questions: {
+      FLOOD_LOCATION_DESCRIPTION: {
+        questionId: 900,
+        key: constants.redisKeys.FLOOD_LOCATION_DESCRIPTION,
+        text: 'Describe the location affected by the flood',
+        answers: {
+          locationDetails: {
+            answerId: 901
+          }
+        }
+      }
     }
   }
 }
