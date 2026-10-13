@@ -18,15 +18,19 @@ window.sir = {
       const expires = 'expires=Thu, 01 Jan 1970 00:00:01 GMT'
       const path = 'path=/'
       const hostname = window.location.hostname
-      const dotHostname = `.${hostname}`
-      const domain = `domain=${(hostname === 'localhost') ? 'localhost' : dotHostname}`
-      document.cookie = `${cookieName}=;${expires};${domain};${path}`
+      const parts = hostname.split('.')
+      const domains = new Set([hostname, `.${hostname}`])
+      parts.slice(1, -1).forEach((_part, index) => domains.add(`.${parts.slice(index + 1).join('.')}`))
+      document.cookie = `${cookieName}=;${expires};${path}`
+      domains.forEach(domain => {
+        document.cookie = `${cookieName}=;${expires};${path};domain=${domain}`
+      })
     },
     deleteAnalyticsCookies: () => {
       const splitCookies = document.cookie.split(';')
       splitCookies.forEach((cookie) => {
         const nameAndValue = cookie.trim().split('=')
-        if (nameAndValue && nameAndValue.length === 2 && nameAndValue[0].startsWith('_ga')) {
+        if (nameAndValue?.length === 2 && ['_ga', '_gid', '_gat', '_dc_gtm_'].some(prefix => nameAndValue[0].startsWith(prefix))) {
           window.sir.utils.deleteCookie(nameAndValue[0])
         }
       })
@@ -60,6 +64,12 @@ window.sir = {
       }
       window.sir.utils.setCookie('cookies_settings', JSON.stringify(prefs))
       window.sir.utils.setCookie('cookies_preferences_set', 'true')
+      if (!accepted) {
+        window.sir.utils.deleteAnalyticsCookies()
+        if (document.querySelector('script[src*="googletagmanager.com/gtm.js"]')) {
+          window.location.reload()
+        }
+      }
     }
   }
 }
@@ -82,3 +92,13 @@ Array.prototype.forEach.call(jsElements, function (element) {
 
 // Initialise analytics tracking and associated cookies
 analytics()
+
+window.addEventListener('pageshow', event => {
+  if (event.persisted) {
+    const cookieSettings = window.sir.utils.getCookie('cookies_settings')
+    if (cookieSettings && JSON.parse(decodeURIComponent(cookieSettings)).analytics === 'off') {
+      window.sir.utils.deleteAnalyticsCookies()
+      window.location.reload()
+    }
+  }
+})
