@@ -110,6 +110,23 @@
           "type": "string",
           "enum": ["yes", "no", "notSure"]
         },
+        "ipAddress": {
+          "type": "string"
+        },
+        "browserType": {
+          "type": "string"
+        },
+        "deviceType": {
+          "type": "string"
+        },
+        "javascriptStatus": {
+          "type": "string",
+          "enum": ["on", "off"]
+        },
+        "friendlyCaptchaStatus": {
+          "type": "string",
+          "enum": ["success", "failed", "not completed"]
+        },
         "data": {
           "type": "array",
           "minItems": 0,
@@ -148,6 +165,11 @@
         "datetimeReported",
         "datetimeObserved",
         "questionSetId",
+        "ipAddress",
+        "browserType",
+        "deviceType",
+        "javascriptStatus",
+        "friendlyCaptchaStatus",
         "data"
       ],
       "additionalProperties": false

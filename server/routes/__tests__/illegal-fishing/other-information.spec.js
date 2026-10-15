@@ -6,6 +6,7 @@ jest.mock('../../../services/service-bus.js')
 
 const url = constants.routes.ILLEGAL_FISHING_OTHER_INFORMATION
 const header = 'Is there anything else you\'d like to add?'
+const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
 
 describe(url, () => {
   describe('GET', () => {
@@ -19,6 +20,9 @@ describe(url, () => {
       const otherInfo = 'This is a description of the illegal fishing activity'
       const options = {
         url,
+        headers: {
+          'user-agent': userAgent
+        },
         payload: {
           otherInfo
         }
@@ -36,6 +40,11 @@ describe(url, () => {
           reporterEmailAddress: 'test@test.com',
           otherDetails: otherInfo,
           questionSetId: 1800,
+          ipAddress: '127.0.0.1',
+          browserType: 'Chrome',
+          deviceType: 'laptop',
+          javascriptStatus: 'off',
+          friendlyCaptchaStatus: 'not completed',
           data: expect.arrayContaining([
             expect.objectContaining({ questionId: 500, questionAsked: 'In what kind of water have you seen illegal fishing?', questionResponse: true, answerId: 501 }),
             expect.objectContaining({ questionId: 500, questionAsked: 'In what kind of water have you seen illegal fishing?', questionResponse: true, answerId: 509, otherDetails: 'test' }),

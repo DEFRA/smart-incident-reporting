@@ -1,26 +1,42 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { maxLength } from '../../utils/validation.js'
+import { getSubmissionMetadata } from '../../utils/submission-metadata.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { sendReport } from '../../services/send-report.js'
+import captchaCheck from '../../services/captchaCheck.js'
+import config from '../../utils/config.js'
+
+const getCaptchaContext = request => ({
+  captchaEnabled: config.captchaEnabled,
+  captchaSiteKey: config.captchaSiteKey,
+  friendlyCaptchaCompleted: request.yar.get(constants.redisKeys.FRIENDLY_CAPTCHA_COMPLETED) === true
+})
 
 const createOtherInformationRoutes = ({ problem, route }) => {
   const serviceDetails = getServiceDetails(problem)
 
   const handlers = {
-    get: async (_request, h) => {
+    get: async (request, h) => {
       return h.view(constants.views.RARS_OTHER_INFORMATION, {
         problem,
+        ...getCaptchaContext(request),
         ...serviceDetails
       })
     },
     post: async (request, h) => {
       const { otherInfo } = request.payload
+      const friendlyCaptchaCompleted = request.yar.get(constants.redisKeys.FRIENDLY_CAPTCHA_COMPLETED) === true
 
+      const friendlyCaptchaStatus = await captchaCheck.validateSubmission(
+        request.payload,
+        friendlyCaptchaCompleted
+      )
       const errorSummary = validateOtherInfo(otherInfo)
       if (errorSummary.errorList.length > 0) {
         return h.view(constants.views.RARS_OTHER_INFORMATION, {
           problem,
+          ...getCaptchaContext(request),
           ...serviceDetails,
           answers: otherInfo,
           errorSummary
@@ -31,7 +47,12 @@ const createOtherInformationRoutes = ({ problem, route }) => {
       request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
 
       // Build the payload to send to service bus
-      const payload = buildPayload(request.yar, problem)
+      const payload = buildPayload(
+        request.yar,
+        problem,
+        friendlyCaptchaStatus,
+        getSubmissionMetadata(request, friendlyCaptchaCompleted)
+      )
 
       await sendReport(request, payload, problem)
 
@@ -45,7 +66,7 @@ const createOtherInformationRoutes = ({ problem, route }) => {
   ]
 }
 
-const buildPayload = (session, problem) => {
+const buildPayload = (session, problem, friendlyCaptchaStatus, submissionMetadata) => {
   const reporter = session.get(constants.redisKeys.RARS_CONTACT_DETAILS)
 
   let reportType
@@ -68,6 +89,8 @@ const buildPayload = (session, problem) => {
       datetimeReported: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
       otherDetails: session.get(constants.redisKeys.RARS_OTHER_INFORMATION),
       questionSetId: reportType,
+      friendlyCaptchaStatus,
+      ...submissionMetadata,
       data,
       reportType,
       ...reporter
@@ -86,7 +109,7 @@ const buildAnswerDataset = (session, questionSet) => {
   return data
 }
 
-const validateOtherInfo = otherInfo => {
+const validateOtherInfo = (otherInfo) => {
   const errorSummary = getErrorSummary()
   if (maxLength(otherInfo, constants.otherInformationCharacterLimit)) {
     errorSummary.errorList.push({
