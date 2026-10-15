@@ -1,7 +1,8 @@
-version: "3.9"
+name: smart-incident-reporting
 services:
   webapp:
     image: smart-incident-reporting:${TAG:-latest}
+    container_name: smart-incident-reporting-webapp
     build:
       context: ../
       dockerfile: dockerfile

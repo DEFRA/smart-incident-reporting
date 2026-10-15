@@ -45,7 +45,7 @@ eg:
 ```
 export REDIS_HOST=redis
 export REDIS_PORT=6379
-export NODE_ENV=production
+export NODE_ENV=development
 export SERVICE_BUS_QUEUE_NAME=****
 export SERVICE_BUS_CONNECTION_STRING=****
 export AUTH_ACCOUNTS='[{"id":1,"password":"WPINTERNAL"},{"id":2,"password":"ODINTERNAL"}]'
