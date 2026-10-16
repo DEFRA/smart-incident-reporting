@@ -35,4 +35,5 @@ COPY --from=development --chown=node:node /home/node/server ./server
 COPY --from=development --chown=node:node /home/node/index.js /home/node/dirname.cjs ./
 
 EXPOSE ${PORT}
+USER node
 CMD [ "npm", "start" ]
