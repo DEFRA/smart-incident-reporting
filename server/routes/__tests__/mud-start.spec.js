@@ -1,4 +1,5 @@
 import { submitGetRequest } from '../../__test-helpers__/server.js'
+import { expectStartPageContent } from '../../__test-helpers__/start-page.js'
 import constants from '../../utils/constants.js'
 
 const url = constants.routes.MUD_START
@@ -7,7 +8,16 @@ const header = 'Report mud from a waste facility, industrial site or farm in Eng
 describe(url, () => {
   describe('GET', () => {
     it(`Should return success response and correct view for ${url}`, async () => {
-      await submitGetRequest({ url }, header)
+      const response = await submitGetRequest({ url }, header)
+      expectStartPageContent(response.payload, {
+        startHref: constants.routes.MUD,
+        sectionIds: ['report-other-types-of-mud', 'before-you-start', 'report-mud-online', 'report-mud-by-phone', 'after-youve-reported-the-problem'],
+        links: [
+          'https://www.nidirect.gov.uk/information-and-services/environment-and-outdoors/environmental-quality-your-area',
+          'https://www.gov.uk/find-local-council',
+          'https://www.gov.uk/government/publications/environment-agency-customer-service-commitment/environment-agency-customer-service-commitment#responding-to-environmental-incidents'
+        ]
+      })
     })
   })
 })
