@@ -40,10 +40,15 @@ describe(url, () => {
           reporterEmailAddress: 'test@test.com',
           otherDetails: otherInfo,
           questionSetId: 1800,
-          ipAddress: '127.0.0.1',
-          browserType: 'Chrome',
-          deviceType: 'laptop',
           javascriptStatus: 'off',
+          userAgent: expect.objectContaining({
+            ua: userAgent,
+            browser: expect.objectContaining({ name: 'Chrome', version: '140.0.0.0' }),
+            os: expect.objectContaining({ name: 'Windows', version: '10' }),
+            device: expect.any(Object),
+            engine: expect.objectContaining({ name: 'Blink' }),
+            cpu: expect.objectContaining({ architecture: 'amd64' })
+          }),
           friendlyCaptchaStatus: 'not completed',
           data: expect.arrayContaining([
             expect.objectContaining({ questionId: 500, questionAsked: 'In what kind of water have you seen illegal fishing?', questionResponse: true, answerId: 501 }),

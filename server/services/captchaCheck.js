@@ -12,13 +12,13 @@ const validateSubmission = async (payload = {}, previouslyCompleted = false) => 
     return 'not completed'
   }
 
-  const captchaSuccess = await validate(payload['frc-captcha-response'], payload.captchaBypassKey)
-  return captchaSuccess ? 'success' : 'failed'
+  const captchaStatus = await validate(payload['frc-captcha-response'], payload.captchaBypassKey)
+  return captchaStatus === 'unavailable' ? 'not completed' : captchaStatus
 }
 
 const validate = async (captchaResponse, payloadCaptchaBypassKey) => {
   if (payloadCaptchaBypassKey && payloadCaptchaBypassKey === config.captchaBypassKey) {
-    return true
+    return 'success'
   }
 
   if (captchaResponse) {
@@ -39,17 +39,15 @@ const validate = async (captchaResponse, payloadCaptchaBypassKey) => {
         }
       )
 
-      return captchaVerifyResponse.success
+      return captchaVerifyResponse.success ? 'success' : 'failed'
     } catch (error) {
-      // If we are unable to validate the captcha response, leave captchaSuccess as true so
-      // that we don't stop the user from progressing in the case where the external API is down
       console.log('Error: failed to validate captcha against API')
       console.log(error)
-      return true
+      return 'unavailable'
     }
   }
 
-  return false
+  return 'failed'
 }
 
 export default {

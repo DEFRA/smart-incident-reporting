@@ -146,10 +146,15 @@ const payload =
     reporterEmailAddress: 'test@test.com',
     otherDetails: 'test',
     questionSetId: 100,
-    ipAddress: '127.0.0.1',
-    browserType: 'Chrome',
-    deviceType: 'laptop',
     javascriptStatus: 'off',
+    userAgent: {
+      ua: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+      browser: { name: 'Chrome', version: '140.0.0.0', major: '140' },
+      cpu: { architecture: 'amd64' },
+      device: {},
+      engine: { name: 'Blink', version: '140.0.0.0' },
+      os: { name: 'Windows', version: '10' }
+    },
     friendlyCaptchaStatus: 'not completed',
     data: [{
       questionId: 500,

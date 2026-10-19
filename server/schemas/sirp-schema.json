@@ -110,18 +110,21 @@
           "type": "string",
           "enum": ["yes", "no", "notSure"]
         },
-        "ipAddress": {
-          "type": "string"
-        },
-        "browserType": {
-          "type": "string"
-        },
-        "deviceType": {
-          "type": "string"
-        },
         "javascriptStatus": {
           "type": "string",
           "enum": ["on", "off"]
+        },
+        "userAgent": {
+          "type": "object",
+          "properties": {
+            "ua": { "type": "string" },
+            "browser": { "type": "object" },
+            "cpu": { "type": "object" },
+            "device": { "type": "object" },
+            "engine": { "type": "object" },
+            "os": { "type": "object" }
+          },
+          "required": ["ua", "browser", "cpu", "device", "engine", "os"]
         },
         "friendlyCaptchaStatus": {
           "type": "string",
@@ -165,10 +168,8 @@
         "datetimeReported",
         "datetimeObserved",
         "questionSetId",
-        "ipAddress",
-        "browserType",
-        "deviceType",
         "javascriptStatus",
+        "userAgent",
         "friendlyCaptchaStatus",
         "data"
       ],

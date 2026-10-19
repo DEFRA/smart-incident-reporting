@@ -51,7 +51,7 @@ const createOtherInformationRoutes = ({ problem, route }) => {
         request.yar,
         problem,
         friendlyCaptchaStatus,
-        getSubmissionMetadata(request, friendlyCaptchaCompleted)
+        getSubmissionMetadata(request)
       )
 
       await sendReport(request, payload, problem)

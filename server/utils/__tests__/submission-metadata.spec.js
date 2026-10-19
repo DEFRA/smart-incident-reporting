@@ -12,13 +12,15 @@ describe('getSubmissionMetadata', () => {
     payload: {}
   }
 
-  it('captures the remote IP address, browser, device and disabled JavaScript status', () => {
-    expect(getSubmissionMetadata(request)).toEqual({
-      ipAddress: '192.0.2.1',
-      browserType: 'Chrome',
-      deviceType: 'laptop',
-      javascriptStatus: 'off'
-    })
+  it('captures the full parsed user agent', () => {
+    expect(getSubmissionMetadata(request).userAgent).toEqual(expect.objectContaining({
+      ua: chromeDesktopUserAgent,
+      browser: expect.objectContaining({ name: 'Chrome', version: '140.0.0.0', major: '140' }),
+      os: expect.objectContaining({ name: 'macOS', version: '10.15.7' }),
+      device: expect.objectContaining({ type: undefined }),
+      engine: expect.objectContaining({ name: 'Blink', version: '140.0.0.0' }),
+      cpu: expect.any(Object)
+    }))
   })
 
   it('identifies a mobile Safari device', () => {
@@ -29,13 +31,14 @@ describe('getSubmissionMetadata', () => {
       }
     }
 
-    expect(getSubmissionMetadata(mobileRequest)).toEqual(expect.objectContaining({
-      browserType: 'Mobile Safari',
-      deviceType: 'mobile'
+    expect(getSubmissionMetadata(mobileRequest).userAgent).toEqual(expect.objectContaining({
+      browser: expect.objectContaining({ name: 'Mobile Safari', version: '18.0' }),
+      os: expect.objectContaining({ name: 'iOS', version: '18.0' }),
+      device: expect.objectContaining({ type: 'mobile', vendor: 'Apple', model: 'iPhone' })
     }))
   })
 
-  it('uses the originating forwarded IP address', () => {
+  it('does not include IP addresses in the user-agent metadata', () => {
     const forwardedRequest = {
       ...request,
       headers: {
@@ -44,10 +47,10 @@ describe('getSubmissionMetadata', () => {
       }
     }
 
-    expect(getSubmissionMetadata(forwardedRequest).ipAddress).toEqual('203.0.113.10')
+    expect(getSubmissionMetadata(forwardedRequest)).not.toHaveProperty('ipAddress')
   })
 
-  it('records JavaScript as on when the page marker is posted', () => {
+  it('records JavaScript as on when the page marker is true', () => {
     const javascriptRequest = {
       ...request,
       payload: { javascriptEnabled: 'true' }
@@ -56,8 +59,15 @@ describe('getSubmissionMetadata', () => {
     expect(getSubmissionMetadata(javascriptRequest).javascriptStatus).toEqual('on')
   })
 
-  it('records JavaScript as on when captcha was completed earlier', () => {
-    expect(getSubmissionMetadata(request, true).javascriptStatus).toEqual('on')
+  it.each(['false', undefined, true])('records JavaScript as off when the marker is %s', (javascriptEnabled) => {
+    expect(getSubmissionMetadata({
+      ...request,
+      payload: { javascriptEnabled }
+    }).javascriptStatus).toEqual('off')
+  })
+
+  it('records JavaScript as off when the payload is missing', () => {
+    expect(getSubmissionMetadata({ headers: request.headers }).javascriptStatus).toEqual('off')
   })
 
   it('defaults to an empty user agent when the header is missing', () => {
@@ -66,9 +76,10 @@ describe('getSubmissionMetadata', () => {
       headers: {}
     }
 
-    expect(getSubmissionMetadata(noUserAgentRequest)).toEqual(expect.objectContaining({
-      browserType: 'Unknown',
-      deviceType: 'laptop'
+    expect(getSubmissionMetadata(noUserAgentRequest).userAgent).toEqual(expect.objectContaining({
+      ua: '',
+      browser: expect.objectContaining({ name: undefined }),
+      device: expect.objectContaining({ type: undefined })
     }))
   })
 })
