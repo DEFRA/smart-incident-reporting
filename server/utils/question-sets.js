@@ -1165,7 +1165,7 @@ const questionSets = {
           },
           neighbour: {
             answerId: 1606,
-            text: 'A neighbouring property, including from their househld rubbish'
+            text: 'A neighbouring property, including from their household rubbish'
           },
           unknown: {
             answerId: 1608,
