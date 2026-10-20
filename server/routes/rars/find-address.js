@@ -52,9 +52,7 @@ const createFindAddressRoutes = ({ problem, route, redirect }) => {
         })
       }
 
-      if (captchaStatus === 'success') {
-        request.yar.set(constants.redisKeys.FRIENDLY_CAPTCHA_COMPLETED, true)
-      }
+      request.yar.set(constants.redisKeys.FRIENDLY_CAPTCHA_COMPLETED, true)
 
       const counterVal = request.yar.get(constants.redisKeys.COUNTER)
       request.yar.set(constants.redisKeys.COUNTER, counterVal + 1)
