@@ -54,11 +54,12 @@ describe('RARS other information routes', () => {
         await submitGetRequest({ url }, 'Is there anything else you\'d like to add')
       })
 
-      it('Should keep Friendly Captcha hidden until JavaScript runs', async () => {
+      it('Should run Friendly Captcha in the background without displaying it', async () => {
         const response = await submitGetRequest({ url }, 'Is there anything else you\'d like to add')
 
-        expect(response.payload).toContain('id="friendly-captcha-container" hidden')
+        expect(response.payload).toContain('id="friendly-captcha-container" class="govuk-visually-hidden"')
         expect(response.payload).toContain('id="friendly-captcha"')
+        expect(response.payload).toContain('/js/site.min.js')
       })
 
       it('Should not render Friendly Captcha when it was completed earlier', async () => {
