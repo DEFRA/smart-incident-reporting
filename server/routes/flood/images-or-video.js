@@ -19,27 +19,28 @@ const handlers = {
     return h.view(constants.views.FLOOD_IMAGES_OR_VIDEO, {
       ...getContext(request)
     })
-},
-post: async (request, h) => {
-  const answerIds = getAnswerIds(request.payload.answerId)
+  },
+  post: async (request, h) => {
+    const answerIds = getAnswerIds(request.payload.answerId)
 
-  const errorSummary = getErrorSummary(answerIds)
-  if (errorSummary.errorList.length > 0) {
-    request.yar.set(question.key, [])
-    return h.view(constants.views.FLOOD_IMAGES_OR_VIDEO, {
-      question,
-      answers: buildAnswersForError(answerIds),
-      errorSummary
-    })
+    const errorSummary = validatePayload(answerIds)
+    if (errorSummary.errorList.length > 0) {
+      request.yar.set(question.key, [])
+      return h.view(constants.views.FLOOD_IMAGES_OR_VIDEO, {
+        question,
+        answers: buildAnswersForError(answerIds),
+        errorSummary
+      })
+    }
+
+    request.yar.set(constants.redisKeys.FLOOD_IMAGES_OR_VIDEO, buildAnswers(answerIds))
+
+    return h.redirect(constants.routes.FLOOD_CONTACT_DETAILS)
   }
-
-  request.yar.set(constants.redisKeys.FLOOD_IMAGES_OR_VIDEO, buildAnswers(answerIds))
-
-  return h.redirect(constants.routes.FLOOD_CONTACT_DETAILS)
-}
 }
 
 const getContext = (request) => {
+  const answers = request.yar.get(question.key)
   return {
     question,
     answers
@@ -47,10 +48,9 @@ const getContext = (request) => {
 }
 
 const validatePayload = (answerIds) => {
-  const errorSummary = getErrorSummary(answerIds)
+  const errorSummary = getErrorSummary()
   const validAnswerIds = new Set([yesPhotosAnswerId, noPhotosAnswerId, yesVideoAnswerId, noVideoAnswerId])
   const hasValidSelection = answerIds?.some(answerId => validAnswerIds.has(answerId))
-  
   if (!hasValidSelection) {
     errorSummary.errorList.push({
       text: 'Select whether you have any photos or videos to include',
@@ -60,7 +60,7 @@ const validatePayload = (answerIds) => {
   return errorSummary
 }
 
-const getAnswerId = answerId => {
+const getAnswerIds = answerId => {
   if (!answerId) {
     return []
   }
@@ -100,14 +100,27 @@ const buildAnswers = answerIds => {
     ]
   }
 
+  if (selectedPhotos) {
+    return [
+      {
+        ...baseAnswer,
+        answerId: yesPhotosAnswerId
+      },
+      {
+        ...baseAnswer,
+        answerId: noVideoAnswerId
+      }
+    ]
+  }
+
   return [
-    { 
+    {
       ...baseAnswer,
       answerId: noPhotosAnswerId
     },
     {
       ...baseAnswer,
-      answerId: noVideoAnswerId
+      answerId: yesVideoAnswerId
     }
   ]
 }
@@ -132,8 +145,6 @@ export default [
   {
     method: 'POST',
     path: constants.routes.FLOOD_IMAGES_OR_VIDEO,
-    handler: handlers.post  
+    handler: handlers.post
   }
 ]
-  
-

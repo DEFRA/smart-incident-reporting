@@ -161,7 +161,6 @@ const FLOOD = 'flood'
 const FLOOD_IMAGES_OR_VIDEO = 'flood/images-or-video'
 const FLOOD_CONTACT_DETAILS = 'flood/contact-details'
 
-
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
 
