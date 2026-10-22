@@ -144,6 +144,7 @@ const payload =
     reporterName: 'John Smith',
     reporterPhoneNumber: '012345678910',
     reporterEmailAddress: 'test@test.com',
+    ipAddress: '192.0.2.1',
     otherDetails: 'test',
     questionSetId: 100,
     javascriptStatus: 'off',

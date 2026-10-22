@@ -71,7 +71,9 @@ describe('getSubmissionMetadata', () => {
   })
 
   it('records JavaScript as off when the payload is missing', () => {
-    expect(getSubmissionMetadata({ headers: request.headers }).javascriptStatus).toEqual('off')
+    const { payload, ...requestWithoutPayload } = request
+
+    expect(getSubmissionMetadata(requestWithoutPayload).javascriptStatus).toEqual('off')
   })
 
   it('defaults to an empty user agent when the header is missing', () => {
