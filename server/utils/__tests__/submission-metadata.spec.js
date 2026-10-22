@@ -38,7 +38,7 @@ describe('getSubmissionMetadata', () => {
     }))
   })
 
-  it('does not include IP addresses in the user-agent metadata', () => {
+  it('uses the first forwarded IP address', () => {
     const forwardedRequest = {
       ...request,
       headers: {
@@ -47,7 +47,11 @@ describe('getSubmissionMetadata', () => {
       }
     }
 
-    expect(getSubmissionMetadata(forwardedRequest)).not.toHaveProperty('ipAddress')
+    expect(getSubmissionMetadata(forwardedRequest).ipAddress).toEqual('203.0.113.10')
+  })
+
+  it('falls back to the connection IP address when no forwarded IP is present', () => {
+    expect(getSubmissionMetadata(request).ipAddress).toEqual('192.0.2.1')
   })
 
   it('records JavaScript as on when the page marker is true', () => {
