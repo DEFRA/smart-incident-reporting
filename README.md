@@ -8,7 +8,7 @@
 
 # Prerequisites
 
-NodeJS v26 needs to be installed locally along with npm.
+NodeJS v24 needs to be installed locally along with npm.
 
 # Getting started
 
