@@ -21,6 +21,8 @@
       errorMessage: findErrorMessageById(errorSummary, 'otherInfo')
     }) }}
 
+    {% include "shared/friendly-captcha.html" %}
+
     {{ govukButton({
       text: "Continue"
     }) }}
