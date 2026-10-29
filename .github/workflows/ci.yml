@@ -1,4 +1,4 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# This workflow installs and audits dependencies, builds the source code and runs tests.
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 on:
   push:
@@ -32,6 +32,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci --ignore-scripts
+      - name: Audit dependencies
+        run: npm audit --audit-level=moderate --include=dev
       - run: npm run build --if-present
       - run: npm test
       - name: SonarCloud Scan
