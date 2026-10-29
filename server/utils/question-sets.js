@@ -1173,29 +1173,6 @@ const questionSets = {
           }
         }
       },
-      RARS_SOURCE_DETAILS: {
-        questionId: 3200,
-        key: constants.redisKeys.RARS_SOURCE_DETAILS,
-        text: 'Do you know the site or business responsible for the {problem}?',
-        answers: {
-          siteName: {
-            answerId: 3202,
-            text: 'Name of person or site'
-          },
-          sourceAddress: {
-            answerId: 3203,
-            text: 'Street name and number (if known)'
-          },
-          sourceTown: {
-            answerId: 3204,
-            text: TOWN_OR_CITY
-          },
-          sourcePostcode: {
-            answerId: 3205,
-            text: 'Postcode (if known)'
-          }
-        }
-      },
       RARS_LOCATION_HOME: {
         questionId: 3100,
         key: constants.redisKeys.RARS_LOCATION_HOME,

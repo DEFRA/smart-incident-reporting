@@ -78,7 +78,6 @@ describe('RARS other information routes', () => {
             questionSetId: reportType,
             data: expect.arrayContaining([
               expect.objectContaining({ questionId: 1600, answerId: 1601 }),
-              expect.objectContaining({ questionId: 3200, answerId: 3202, otherDetails: 'test' }),
               expect.objectContaining({ questionId: 3100, answerId: 3101 }),
               expect.objectContaining({ questionId: 2600, answerId: 2601 }),
               expect.objectContaining({ questionId: 1900, answerId: 1901 }),

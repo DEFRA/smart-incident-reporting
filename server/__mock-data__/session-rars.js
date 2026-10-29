@@ -18,15 +18,6 @@ const session = JSON.parse(`{
       "answerId": 1601
     }
   ],
-  "rars/source-details": [
-    {
-      "questionId": 3200,
-      "questionAsked": "Do you know the site or business responsible for the problem?",
-      "questionResponse": true,
-      "answerId": 3202,
-      "otherDetails": "test"
-    }
-  ],
   "rars/location-home": [
     {
       "questionId": 3100,
