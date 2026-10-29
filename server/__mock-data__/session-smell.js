@@ -18,36 +18,6 @@ const session = JSON.parse(`{
       "answerId": 1601
     }
   ],
-  "smell/source-details": [
-    {
-      "questionId": 3200,
-      "questionAsked": "Can you give details about where the smell is coming from?",
-      "questionResponse": true,
-      "answerId": 3202,
-      "otherDetails": "test"
-    },
-    {
-      "questionId": 3200,
-      "questionAsked": "Can you give details about where the smell is coming from?",
-      "questionResponse": true,
-      "answerId": 3203,
-      "otherDetails": "test"
-    },
-    {
-      "questionId": 3200,
-      "questionAsked": "Can you give details about where the smell is coming from?",
-      "questionResponse": true,
-      "answerId": 3204,
-      "otherDetails": "test"
-    },
-    {
-      "questionId": 3200,
-      "questionAsked": "Can you give details about where the smell is coming from?",
-      "questionResponse": true,
-      "answerId": 3205,
-      "otherDetails": "m11mm"
-    }
-  ],
   "smell/location-home": [
     {
       "questionId": 3100,

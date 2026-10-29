@@ -7,6 +7,6 @@ export default createSourceRoutes({
   redirect: {
     contactEnvironmentAgency: constants.routes.DUST_CONTACT_ENVIRONMENT_AGENCY,
     localCouncil: constants.routes.DUST_REPORT_LOCAL_COUNCIL,
-    sourceDetails: constants.routes.DUST_SOURCE_DETAILS
+    locationHome: constants.routes.DUST_LOCATION_HOME
   }
 })

@@ -7,6 +7,6 @@ export default createSourceRoutes({
   redirect: {
     contactEnvironmentAgency: constants.routes.MUD_CONTACT_ENVIRONMENT_AGENCY,
     localCouncil: constants.routes.MUD_REPORT_LOCAL_COUNCIL,
-    sourceDetails: constants.routes.MUD_SOURCE_DETAILS
+    locationHome: constants.routes.MUD_LOCATION_HOME
   }
 })

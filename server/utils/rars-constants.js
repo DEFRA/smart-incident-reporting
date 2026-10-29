@@ -15,7 +15,6 @@ const rarsJourneys = [
 ]
 
 const RARS_SOURCE = 'rars/source'
-const RARS_SOURCE_DETAILS = 'rars/source-details'
 const RARS_CONTACT_ENVIRONMENT_AGENCY = 'rars/contact-environment-agency'
 const RARS_REPORT_LOCAL_COUNCIL = 'rars/report-local-council'
 const RARS_LOCATION_HOME = 'rars/location-home'
@@ -48,7 +47,6 @@ const RARS_MEDICAL_HELP = 'rars/medical-help'
 
 const views = {
   RARS_SOURCE,
-  RARS_SOURCE_DETAILS,
   RARS_CONTACT_ENVIRONMENT_AGENCY,
   RARS_REPORT_LOCAL_COUNCIL,
   RARS_LOCATION_HOME,

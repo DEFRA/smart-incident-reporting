@@ -17,7 +17,7 @@ describe('litter/source', () => {
       redirect: {
         contactEnvironmentAgency: constants.routes.LITTER_CONTACT_ENVIRONMENT_AGENCY,
         localCouncil: constants.routes.LITTER_REPORT_LOCAL_COUNCIL,
-        sourceDetails: constants.routes.LITTER_SOURCE_DETAILS
+        locationHome: constants.routes.LITTER_LOCATION_HOME
       }
     })
   })
