@@ -1,0 +1,26 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'Confirm site' %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Confirm site</h1>
+    <div class="govuk-inset-text">
+      {{ site.name }}{% if site.address %}<br>{{ site.address }}{% endif %}
+    </div>
+    {{ govukButton({
+      text: "Use this site",
+      isStartButton: false
+    }) }}
+    <p class="govuk-body">
+      <a href="{{ chooseSite }}" class="govuk-link">Choose a different site</a>
+    </p>
+    <p class="govuk-body">
+      <a href="{{ siteNotListed }}" class="govuk-link">The site is not listed</a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

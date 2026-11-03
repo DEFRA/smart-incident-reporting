@@ -1,0 +1,53 @@
+{% extends 'form-layout.html' %}
+
+{% set pageTitle = 'Choose the site you want to report' %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-form-group {% if findErrorMessageById(errorSummary, 'answerId-1') %}govuk-form-group--error{% endif %}">
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">
+            Choose the site you want to report
+          </h1>
+        </legend>
+        <p class="govuk-body">{{ resultlength }} {% if resultlength === 1 %}site{% else %}sites{% endif %} found within 3km of <b>{{ postcode }}</b>.</p>
+
+        <p class="govuk-body">
+          <a href="{{ chooseAddress }}" class="govuk-link">Change address</a>
+        </p>
+
+        {% if findErrorMessageById(errorSummary, 'answerId-1') %}
+          <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> Select a site
+          </p>
+        {% endif %}
+
+        <div class="govuk-radios" data-module="govuk-radios">
+          {% for site in sites %}
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="answerId-{{ loop.index }}" name="answerId" type="radio" value="{{ site.id }}" {% if answer === site.id %}checked{% endif %}>
+            <label class="govuk-label govuk-radios__label" for="answerId-{{ loop.index }}">
+              {{ site.name }}{% if site.address %}, {{ site.address }}{% endif %}
+            </label>
+          </div>
+          {% endfor %}
+        </div>
+      </fieldset>
+    </div>
+
+    {{ govukButton({
+    text: "Continue",
+    isStartButton: false
+    }) }}
+
+    <p class="govuk-body">
+      <a href="{{ siteNotListed }}" class="govuk-link">The site is not listed</a>
+    </p>
+
+  </div>
+</div>
+
+{% endblock %}

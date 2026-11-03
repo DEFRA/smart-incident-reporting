@@ -1,6 +1,11 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
+import { findSitesNearby } from '../../../services/nearby-sites.js'
+
+jest.mock('../../../services/nearby-sites.js', () => ({
+  findSitesNearby: jest.fn()
+}))
 
 const addressQuestion = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_ADDRESS
 const locationMapQuestion = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_MAP
@@ -46,16 +51,16 @@ const doubleLineSession = {
 }
 
 const problems = [
-  { problem: 'smell', url: constants.routes.SMELL_CONFIRM_ADDRESS, redirect: constants.routes.SMELL_DESCRIPTION },
-  { problem: 'noise', url: constants.routes.NOISE_CONFIRM_ADDRESS, redirect: constants.routes.NOISE_DESCRIPTION },
-  { problem: 'dust', url: constants.routes.DUST_CONFIRM_ADDRESS, redirect: constants.routes.DUST_DESCRIPTION },
-  { problem: 'litter', url: constants.routes.LITTER_CONFIRM_ADDRESS, redirect: constants.routes.LITTER_DESCRIPTION },
-  { problem: 'mud', url: constants.routes.MUD_CONFIRM_ADDRESS, redirect: constants.routes.MUD_DESCRIPTION },
-  { problem: 'vermin/pests', url: constants.routes.PESTS_CONFIRM_ADDRESS, redirect: constants.routes.PESTS_RECURRING }
+  { problem: 'smell', url: constants.routes.SMELL_CONFIRM_ADDRESS, redirect: constants.routes.SMELL_DESCRIPTION, chooseSite: constants.routes.SMELL_CHOOSE_SITE },
+  { problem: 'noise', url: constants.routes.NOISE_CONFIRM_ADDRESS, redirect: constants.routes.NOISE_DESCRIPTION, chooseSite: constants.routes.NOISE_CHOOSE_SITE },
+  { problem: 'dust', url: constants.routes.DUST_CONFIRM_ADDRESS, redirect: constants.routes.DUST_DESCRIPTION, chooseSite: constants.routes.DUST_CHOOSE_SITE },
+  { problem: 'litter', url: constants.routes.LITTER_CONFIRM_ADDRESS, redirect: constants.routes.LITTER_DESCRIPTION, chooseSite: constants.routes.LITTER_CHOOSE_SITE },
+  { problem: 'mud', url: constants.routes.MUD_CONFIRM_ADDRESS, redirect: constants.routes.MUD_DESCRIPTION, chooseSite: constants.routes.MUD_CHOOSE_SITE },
+  { problem: 'vermin/pests', url: constants.routes.PESTS_CONFIRM_ADDRESS, redirect: constants.routes.PESTS_RECURRING, chooseSite: constants.routes.PESTS_CHOOSE_SITE }
 ]
 
 describe('RARS Confirm Address Routes', () => {
-  describe.each(problems)('$problem confirm address', ({ url, redirect }) => {
+  describe.each(problems)('$problem confirm address', ({ url, redirect, chooseSite }) => {
     describe('GET', () => {
       it('Happy: Should display a single-line address in the inset text', async () => {
         const response = await submitGetRequest({ url }, 'Confirm address', constants.statusCodes.OK, singleLineSession)
@@ -69,8 +74,18 @@ describe('RARS Confirm Address Routes', () => {
     })
 
     describe('POST', () => {
-      it('Happy: stores location address and map answers then redirects to description', async () => {
+      it('Happy: stores nearby sites and redirects to choose site when sites are found', async () => {
+        const sites = [{ id: 'EPR/AB1234CD', name: 'Site A', address: '1 Road, Town, TE1 0ST' }]
+        findSitesNearby.mockResolvedValueOnce(sites)
+        const response = await submitPostRequest({ url }, constants.statusCodes.REDIRECT, singleLineSession)
+        expect(response.headers.location).toEqual(chooseSite)
+        expect(findSitesNearby).toHaveBeenCalledWith(365739, 343015)
+        expect(response.request.yar.get(constants.redisKeys.RARS_NEARBY_SITES)).toEqual(sites)
+      })
+
+      it('Happy: stores location address and map answers then redirects to description when no sites are found', async () => {
         const options = { url }
+        findSitesNearby.mockResolvedValueOnce([])
         const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, singleLineSession)
         expect(response.headers.location).toEqual(redirect)
 
