@@ -3,15 +3,25 @@ import { questionSets } from '../../utils/question-sets.js'
 import { sendReport } from '../../services/send-report.js'
 import { getErrorSummary } from '../../utils/helpers.js'
 import { maxLength } from '../../utils/validation.js'
+import { getSubmissionMetadata } from '../../utils/submission-metadata.js'
+import captchaCheck from '../../services/captchaCheck.js'
+import config from '../../utils/config.js'
+
+const getCaptchaContext = () => ({
+  captchaEnabled: config.captchaEnabled,
+  captchaSiteKey: config.captchaSiteKey
+})
 
 const handlers = {
-  get: async (_request, h) => h.view(constants.views.ILLEGAL_FISHING_OTHER_INFORMATION),
+  get: async (_request, h) => h.view(constants.views.ILLEGAL_FISHING_OTHER_INFORMATION, getCaptchaContext()),
   post: async (request, h) => {
     const { otherInfo } = request.payload
 
+    const friendlyCaptchaStatus = await captchaCheck.validateSubmission(request.payload)
     const errorSummary = validateOtherInfo(otherInfo)
     if (errorSummary.errorList.length > 0) {
       return h.view(constants.views.ILLEGAL_FISHING_OTHER_INFORMATION, {
+        ...getCaptchaContext(),
         answers: otherInfo,
         errorSummary
       })
@@ -21,7 +31,11 @@ const handlers = {
     request.yar.set(constants.redisKeys.SUBMISSION_TIMESTAMP, (new Date()).toISOString())
 
     // Build the payload to send to service bus
-    const payload = buildPayload(request.yar)
+    const payload = buildPayload(
+      request.yar,
+      friendlyCaptchaStatus,
+      getSubmissionMetadata(request)
+    )
 
     await sendReport(request, payload)
 
@@ -29,7 +43,7 @@ const handlers = {
   }
 }
 
-const buildPayload = (session) => {
+const buildPayload = (session, friendlyCaptchaStatus, submissionMetadata) => {
   const reporter = session.get(constants.redisKeys.ILLEGAL_FISHING_CONTACT_DETAILS)
   return {
     reportingAnEnvironmentalProblem: {
@@ -39,6 +53,8 @@ const buildPayload = (session) => {
       datetimeReported: session.get(constants.redisKeys.SUBMISSION_TIMESTAMP),
       otherDetails: session.get(constants.redisKeys.ILLEGAL_FISHING_OTHER_INFORMATION),
       questionSetId: questionSets.ILLEGAL_FISHING.questionSetId,
+      friendlyCaptchaStatus,
+      ...submissionMetadata,
       data: buildAnswerDataset(session, questionSets.ILLEGAL_FISHING),
       ...reporter
     }
@@ -56,7 +72,7 @@ const buildAnswerDataset = (session, questionSet) => {
   return data
 }
 
-const validateOtherInfo = otherInfo => {
+const validateOtherInfo = (otherInfo) => {
   const errorSummary = getErrorSummary()
   if (maxLength(otherInfo, constants.otherInformationCharacterLimit)) {
     errorSummary.errorList.push({

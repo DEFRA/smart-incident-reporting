@@ -77,7 +77,7 @@ describe('RARS Find Address Routes', () => {
 
     describe('POST', () => {
       it('Happy: accepts valid postcode with building details and redirects to choose address', async () => {
-        captchaCheck.validate.mockResolvedValueOnce(true)
+        captchaCheck.validate.mockResolvedValueOnce('success')
         const options = {
           url,
           payload: {
@@ -92,10 +92,11 @@ describe('RARS Find Address Routes', () => {
           buildingDetails: 'Test House',
           postcode: 'TE1 0ST'
         })
+        expect(response.request.yar.get(constants.redisKeys.FRIENDLY_CAPTCHA_COMPLETED)).toEqual(true)
       })
 
       it('Happy: accepts valid postcode without building details and redirects to choose address', async () => {
-        captchaCheck.validate.mockResolvedValueOnce(true)
+        captchaCheck.validate.mockResolvedValueOnce('success')
         const options = {
           url,
           payload: {
@@ -117,7 +118,7 @@ describe('RARS Find Address Routes', () => {
       })
 
       it('Sad: errors when postcode is invalid', async () => {
-        captchaCheck.validate.mockResolvedValueOnce(true)
+        captchaCheck.validate.mockResolvedValueOnce('success')
         const options = {
           url,
           payload: {
@@ -132,7 +133,7 @@ describe('RARS Find Address Routes', () => {
       })
 
       it('Sad: redirects to exceeded attempts when counter exceeds limit', async () => {
-        captchaCheck.validate.mockResolvedValueOnce(true)
+        captchaCheck.validate.mockResolvedValueOnce('success')
         const options = {
           url,
           payload: {
@@ -146,7 +147,7 @@ describe('RARS Find Address Routes', () => {
       })
 
       it('Sad: errors when captcha check fails', async () => {
-        captchaCheck.validate.mockResolvedValueOnce(false)
+        captchaCheck.validate.mockResolvedValueOnce('failed')
         const options = {
           url,
           payload: {
@@ -158,6 +159,23 @@ describe('RARS Find Address Routes', () => {
         const response = await submitPostRequest(options, constants.statusCodes.OK)
         expect(response.payload).toContain('There is a problem')
         expect(response.payload).toContain('You cannot continue until Friendly Captcha')
+      })
+
+      it('blocks progress when captcha API is unavailable without marking captcha complete', async () => {
+        captchaCheck.validate.mockResolvedValueOnce('unavailable')
+        const options = {
+          url,
+          payload: {
+            buildingDetails: 'Test House',
+            postcode: 'TE1 0ST',
+            'frc-captcha-response': 'test123'
+          }
+        }
+        const response = await submitPostRequest(options, constants.statusCodes.OK)
+
+        expect(response.headers.location).toBeUndefined()
+        expect(response.payload).toContain('You cannot continue until Friendly Captcha')
+        expect(response.request.yar.get(constants.redisKeys.FRIENDLY_CAPTCHA_COMPLETED)).toBeNull()
       })
     })
   })

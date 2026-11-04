@@ -37,9 +37,10 @@ const createFindAddressRoutes = ({ problem, route, redirect }) => {
         postcode = postcode.replace(/[^\w\s]/gi, '')
       }
 
-      const captchaSuccess = await captchaCheck.validate(captchaResponse, captchaBypassKey)
+      const captchaStatus = await captchaCheck.validate(captchaResponse, captchaBypassKey)
+      const captchaCanProceed = captchaStatus === 'success'
 
-      const errorSummary = validatePayload(postcode, captchaSuccess)
+      const errorSummary = validatePayload(postcode, captchaCanProceed)
       if (errorSummary.errorList.length > 0) {
         return h.view(constants.views.RARS_FIND_ADDRESS, {
           errorSummary,
@@ -50,6 +51,8 @@ const createFindAddressRoutes = ({ problem, route, redirect }) => {
           ...serviceDetails
         })
       }
+
+      request.yar.set(constants.redisKeys.FRIENDLY_CAPTCHA_COMPLETED, true)
 
       const counterVal = request.yar.get(constants.redisKeys.COUNTER)
       request.yar.set(constants.redisKeys.COUNTER, counterVal + 1)

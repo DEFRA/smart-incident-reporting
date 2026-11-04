@@ -100,6 +100,9 @@
         "reporterEmailAddress": {
           "type": "string"
         },
+        "ipAddress": {
+          "type": "string"
+        },
         "questionSetId": {
           "type": "number"
         },
@@ -109,6 +112,26 @@
         "isBlockageInRiver": {
           "type": "string",
           "enum": ["yes", "no", "notSure"]
+        },
+        "javascriptStatus": {
+          "type": "string",
+          "enum": ["on", "off"]
+        },
+        "userAgent": {
+          "type": "object",
+          "properties": {
+            "ua": { "type": "string" },
+            "browser": { "type": "object" },
+            "cpu": { "type": "object" },
+            "device": { "type": "object" },
+            "engine": { "type": "object" },
+            "os": { "type": "object" }
+          },
+          "required": ["ua", "browser", "cpu", "device", "engine", "os"]
+        },
+        "friendlyCaptchaStatus": {
+          "type": "string",
+          "enum": ["success", "failed", "not completed"]
         },
         "data": {
           "type": "array",
@@ -148,6 +171,10 @@
         "datetimeReported",
         "datetimeObserved",
         "questionSetId",
+        "ipAddress",
+        "javascriptStatus",
+        "userAgent",
+        "friendlyCaptchaStatus",
         "data"
       ],
       "additionalProperties": false

@@ -7,6 +7,7 @@ jest.mock('../../../services/service-bus.js')
 
 const url = constants.routes.WATER_POLLUTION_CHECK_YOUR_ANSWERS
 const header = 'Check your answers before sending your report'
+const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
 
 let sessionData = {
   'water-pollution/contact-details': {
@@ -547,7 +548,13 @@ describe(url, () => {
   describe('POST', () => {
     it('Should accept and store a description', async () => {
       const options = {
-        url
+        url,
+        headers: {
+          'user-agent': userAgent
+        },
+        payload: {
+          javascriptEnabled: 'false'
+        }
       }
       const response = await submitPostRequest(options, 302, session)
       expect(sendMessage).toHaveBeenCalledTimes(1)
@@ -562,6 +569,16 @@ describe(url, () => {
           reporterEmailAddress: 'test@test.com',
           otherDetails: 'test',
           questionSetId: 100,
+          javascriptStatus: 'off',
+          userAgent: expect.objectContaining({
+            ua: userAgent,
+            browser: expect.objectContaining({ name: 'Chrome', version: '140.0.0.0' }),
+            os: expect.objectContaining({ name: 'Windows', version: '10' }),
+            device: expect.any(Object),
+            engine: expect.objectContaining({ name: 'Blink' }),
+            cpu: expect.objectContaining({ architecture: 'amd64' })
+          }),
+          friendlyCaptchaStatus: 'not completed',
           data: expect.arrayContaining([
             expect.objectContaining({
               questionId: 500,
