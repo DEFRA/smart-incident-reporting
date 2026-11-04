@@ -15,7 +15,7 @@ describe('dust/location-description', () => {
       problem: 'dust',
       route: constants.routes.DUST_LOCATION_DESCRIPTION,
       redirect: {
-        description: constants.routes.DUST_DESCRIPTION
+        sourceDetails: constants.routes.DUST_SOURCE_DETAILS
       }
     })
   })

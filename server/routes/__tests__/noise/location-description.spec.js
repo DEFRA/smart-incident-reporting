@@ -15,7 +15,7 @@ describe('noise/location-description', () => {
       problem: 'noise',
       route: constants.routes.NOISE_LOCATION_DESCRIPTION,
       redirect: {
-        description: constants.routes.NOISE_DESCRIPTION
+        sourceDetails: constants.routes.NOISE_SOURCE_DETAILS
       }
     })
   })
