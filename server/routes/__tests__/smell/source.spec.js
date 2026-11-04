@@ -17,7 +17,7 @@ describe('smell/source', () => {
       redirect: {
         contactEnvironmentAgency: constants.routes.SMELL_CONTACT_ENVIRONMENT_AGENCY,
         localCouncil: constants.routes.SMELL_REPORT_LOCAL_COUNCIL,
-        sourceDetails: constants.routes.SMELL_SOURCE_DETAILS
+        locationHome: constants.routes.SMELL_LOCATION_HOME
       }
     })
   })

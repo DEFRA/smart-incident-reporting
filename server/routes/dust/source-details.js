@@ -5,7 +5,7 @@ export default createSourceDetailsRoutes({
   problem: 'dust',
   route: constants.routes.DUST_SOURCE_DETAILS,
   redirect: {
-    locationHome: constants.routes.DUST_LOCATION_HOME,
-    contactEnvironmentAgency: constants.routes.DUST_CONTACT_ENVIRONMENT_AGENCY
+    contactEnvironmentAgency: constants.routes.DUST_CONTACT_ENVIRONMENT_AGENCY,
+    description: constants.routes.DUST_DESCRIPTION
   }
 })

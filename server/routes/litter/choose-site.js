@@ -5,8 +5,8 @@ export default createChooseSiteRoutes({
   problem: 'litter',
   route: constants.routes.LITTER_CHOOSE_SITE,
   redirect: {
-    chooseAddress: constants.routes.LITTER_CHOOSE_ADDRESS,
+    changeAddress: constants.routes.LITTER_LOCATION_HOME,
     confirmSite: constants.routes.LITTER_CONFIRM_SITE,
-    next: constants.routes.LITTER_DESCRIPTION
+    manualSite: constants.routes.LITTER_SOURCE_DETAILS
   }
 })

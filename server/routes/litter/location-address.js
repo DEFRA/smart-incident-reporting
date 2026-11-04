@@ -5,6 +5,6 @@ export default createLocationAddressRoutes({
   problem: 'litter',
   route: constants.routes.LITTER_LOCATION_ADDRESS,
   redirect: {
-    description: constants.routes.LITTER_DESCRIPTION
+    chooseSite: constants.routes.LITTER_CHOOSE_SITE
   }
 })

@@ -34,9 +34,9 @@ describe('findSitesNearby', () => {
       })
       .mockResolvedValueOnce({ items: [{ '@id': 'u5', distance: 1.8 }] })
     expect(await findSitesNearby(1, 2)).toEqual([
-      { id: 'u2', name: 'Near Site', address: 'A2' },
-      { id: 'u3', name: 'Holder Only', address: '' },
-      { id: 'u1', name: 'Far Site', address: 'A1' }
+      { id: 'u2', name: 'Near Site', address: 'A2', distance: 0.1 },
+      { id: 'u3', name: 'Holder Only', address: '', distance: 1.2 },
+      { id: 'u1', name: 'Far Site', address: 'A1', distance: 2.5 }
     ])
   })
 
@@ -45,7 +45,7 @@ describe('findSitesNearby', () => {
       .mockRejectedValueOnce(new Error('boom'))
       .mockResolvedValueOnce({ items: [{ '@id': 'u1', distance: 1, holder: { name: 'Site' } }] })
       .mockResolvedValueOnce({ items: [] })
-    expect(await findSitesNearby(1, 2)).toEqual([{ id: 'u1', name: 'Site', address: '' }])
+    expect(await findSitesNearby(1, 2)).toEqual([{ id: 'u1', name: 'Site', address: '', distance: 1 }])
   })
 
   it('returns an empty list when all api calls fail', async () => {

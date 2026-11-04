@@ -13,12 +13,13 @@
             Choose the site you want to report
           </h1>
         </legend>
-        <p class="govuk-body">{{ resultlength }} {% if resultlength === 1 %}site{% else %}sites{% endif %} found within 3km of <b>{{ postcode }}</b>.</p>
+        <p class="govuk-body"><b>{{ resultlength }}</b> {% if resultlength === 1 %}address{% else %}addresses{% endif %} found within <b>3 kilometres</b> of <b>{{ postcode }}</b>.</p>
 
         <p class="govuk-body">
-          <a href="{{ chooseAddress }}" class="govuk-link">Change address</a>
+          <a href="{{ changeAddress }}" class="govuk-link">Change address</a>
         </p>
 
+        {% if resultlength > 0 %}
         {% if findErrorMessageById(errorSummary, 'answerId-1') %}
           <p class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span> Select a site
@@ -30,21 +31,24 @@
           <div class="govuk-radios__item">
             <input class="govuk-radios__input" id="answerId-{{ loop.index }}" name="answerId" type="radio" value="{{ site.id }}" {% if answer === site.id %}checked{% endif %}>
             <label class="govuk-label govuk-radios__label" for="answerId-{{ loop.index }}">
-              {{ site.name }}{% if site.address %}, {{ site.address }}{% endif %}
+              {{ site.name }}{% if site.address %}, {{ site.address }}{% endif %}{% if site.distance !== undefined and site.distance !== null %} - <b>{{ site.distance.toFixed(2) }} kilometres</b>{% endif %}
             </label>
           </div>
           {% endfor %}
         </div>
+        {% endif %}
       </fieldset>
     </div>
 
+    {% if resultlength > 0 %}
     {{ govukButton({
     text: "Continue",
     isStartButton: false
     }) }}
+    {% endif %}
 
     <p class="govuk-body">
-      <a href="{{ siteNotListed }}" class="govuk-link">The site is not listed</a>
+      <a href="{{ manualSite }}" class="govuk-link">Enter site address manually</a>
     </p>
 
   </div>

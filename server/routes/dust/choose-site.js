@@ -5,8 +5,8 @@ export default createChooseSiteRoutes({
   problem: 'dust',
   route: constants.routes.DUST_CHOOSE_SITE,
   redirect: {
-    chooseAddress: constants.routes.DUST_CHOOSE_ADDRESS,
+    changeAddress: constants.routes.DUST_LOCATION_HOME,
     confirmSite: constants.routes.DUST_CONFIRM_SITE,
-    next: constants.routes.DUST_DESCRIPTION
+    manualSite: constants.routes.DUST_SOURCE_DETAILS
   }
 })

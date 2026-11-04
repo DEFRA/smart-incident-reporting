@@ -5,8 +5,8 @@ export default createChooseSiteRoutes({
   problem: 'mud',
   route: constants.routes.MUD_CHOOSE_SITE,
   redirect: {
-    chooseAddress: constants.routes.MUD_CHOOSE_ADDRESS,
+    changeAddress: constants.routes.MUD_LOCATION_HOME,
     confirmSite: constants.routes.MUD_CONFIRM_SITE,
-    next: constants.routes.MUD_DESCRIPTION
+    manualSite: constants.routes.MUD_SOURCE_DETAILS
   }
 })

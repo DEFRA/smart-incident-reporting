@@ -1,5 +1,8 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
+import { questionSets } from '../../utils/question-sets.js'
+
+const addressQuestion = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_ADDRESS
 
 const createChooseSiteRoutes = ({ problem, route, redirect }) => {
   const serviceDetails = getServiceDetails(problem)
@@ -7,9 +10,6 @@ const createChooseSiteRoutes = ({ problem, route, redirect }) => {
   const handlers = {
     get: async (request, h) => {
       const sites = request.yar.get(constants.redisKeys.RARS_NEARBY_SITES) || []
-      if (sites.length === 0) {
-        return h.redirect(redirect.next)
-      }
       return h.view(constants.views.RARS_CHOOSE_SITE, {
         ...serviceDetails,
         ...getContext(request, sites, redirect)
@@ -46,15 +46,19 @@ const createChooseSiteRoutes = ({ problem, route, redirect }) => {
 }
 
 const getContext = (request, sites, redirect) => {
-  const { selectedAddress } = request.yar.get(constants.redisKeys.RARS_CONFIRM_ADDRESS)
+  const manualAddress = request.yar.get(constants.redisKeys.RARS_LOCATION_ADDRESS)
+  const selectedAddress = request.yar.get(constants.redisKeys.RARS_CONFIRM_ADDRESS)?.selectedAddress
+  const postcode = manualAddress?.find(
+    answer => answer.answerId === addressQuestion.answers.postcode.answerId
+  )?.otherDetails || selectedAddress?.[0]?.postcode
   const confirmedSite = request.yar.get(constants.redisKeys.RARS_CONFIRM_SITE)
   return {
     sites,
     resultlength: sites.length,
-    postcode: selectedAddress[0].postcode,
+    postcode,
     answer: confirmedSite?.selectedSite.id,
-    chooseAddress: redirect.chooseAddress,
-    siteNotListed: redirect.next
+    changeAddress: redirect.changeAddress,
+    manualSite: redirect.manualSite
   }
 }
 

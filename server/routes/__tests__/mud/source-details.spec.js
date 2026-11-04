@@ -15,8 +15,8 @@ describe('mud/source-details', () => {
       problem: 'mud',
       route: constants.routes.MUD_SOURCE_DETAILS,
       redirect: {
-        locationHome: constants.routes.MUD_LOCATION_HOME,
-        contactEnvironmentAgency: constants.routes.MUD_CONTACT_ENVIRONMENT_AGENCY
+        contactEnvironmentAgency: constants.routes.MUD_CONTACT_ENVIRONMENT_AGENCY,
+        description: constants.routes.MUD_DESCRIPTION
       }
     })
   })

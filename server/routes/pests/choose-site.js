@@ -5,8 +5,8 @@ export default createChooseSiteRoutes({
   problem: 'vermin/pests',
   route: constants.routes.PESTS_CHOOSE_SITE,
   redirect: {
-    chooseAddress: constants.routes.PESTS_CHOOSE_ADDRESS,
+    changeAddress: constants.routes.PESTS_LOCATION_HOME,
     confirmSite: constants.routes.PESTS_CONFIRM_SITE,
-    next: constants.routes.PESTS_RECURRING
+    manualSite: constants.routes.PESTS_SOURCE_DETAILS
   }
 })

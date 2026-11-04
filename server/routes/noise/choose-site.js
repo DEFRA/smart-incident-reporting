@@ -5,8 +5,8 @@ export default createChooseSiteRoutes({
   problem: 'noise',
   route: constants.routes.NOISE_CHOOSE_SITE,
   redirect: {
-    chooseAddress: constants.routes.NOISE_CHOOSE_ADDRESS,
+    changeAddress: constants.routes.NOISE_LOCATION_HOME,
     confirmSite: constants.routes.NOISE_CONFIRM_SITE,
-    next: constants.routes.NOISE_DESCRIPTION
+    manualSite: constants.routes.NOISE_SOURCE_DETAILS
   }
 })

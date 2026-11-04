@@ -37,7 +37,7 @@ const findSitesNearby = async (easting, northing) => {
       const key = `${name}|${address}`
       if (name && !sites.has(key)) {
         // registration numbers are not unique across registers, so use the item URI
-        sites.set(key, { id: item['@id'], name, address })
+        sites.set(key, { id: item['@id'], name, address, distance: item.distance })
       }
     })
   return [...sites.values()]
