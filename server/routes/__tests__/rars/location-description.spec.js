@@ -16,37 +16,37 @@ const problems = [
   {
     problem: 'smell',
     url: constants.routes.SMELL_LOCATION_DESCRIPTION,
-    descriptionUrl: constants.routes.SMELL_DESCRIPTION
+    sourceDetailsUrl: constants.routes.SMELL_SOURCE_DETAILS
   },
   {
     problem: 'noise',
     url: constants.routes.NOISE_LOCATION_DESCRIPTION,
-    descriptionUrl: constants.routes.NOISE_DESCRIPTION
+    sourceDetailsUrl: constants.routes.NOISE_SOURCE_DETAILS
   },
   {
     problem: 'dust',
     url: constants.routes.DUST_LOCATION_DESCRIPTION,
-    descriptionUrl: constants.routes.DUST_DESCRIPTION
+    sourceDetailsUrl: constants.routes.DUST_SOURCE_DETAILS
   },
   {
     problem: 'litter',
     url: constants.routes.LITTER_LOCATION_DESCRIPTION,
-    descriptionUrl: constants.routes.LITTER_DESCRIPTION
+    sourceDetailsUrl: constants.routes.LITTER_SOURCE_DETAILS
   },
   {
     problem: 'mud',
     url: constants.routes.MUD_LOCATION_DESCRIPTION,
-    descriptionUrl: constants.routes.MUD_DESCRIPTION
+    sourceDetailsUrl: constants.routes.MUD_SOURCE_DETAILS
   },
   {
     problem: 'vermin/pests',
     url: constants.routes.PESTS_LOCATION_DESCRIPTION,
-    descriptionUrl: constants.routes.PESTS_RECURRING
+    sourceDetailsUrl: constants.routes.PESTS_SOURCE_DETAILS
   }
 ]
 
 describe('RARS Location Description Routes', () => {
-  describe.each(problems)('$problem location description', ({ url, descriptionUrl }) => {
+  describe.each(problems)('$problem location description', ({ url, sourceDetailsUrl }) => {
     const sessionData = {
       [constants.redisKeys.RARS_LOCATION_DESCRIPTION]: [{
         questionId: baseAnswer.questionId,
@@ -71,7 +71,7 @@ describe('RARS Location Description Routes', () => {
         const locationDescription = 'This is a description of the location of the problem'
         const options = { url, payload: { locationDescription } }
         const response = await submitPostRequest(options)
-        expect(response.headers.location).toEqual(descriptionUrl)
+        expect(response.headers.location).toEqual(sourceDetailsUrl)
         expect(response.request.yar.get(constants.redisKeys.RARS_LOCATION_DESCRIPTION)).toEqual([{
           ...baseAnswer,
           otherDetails: locationDescription
@@ -101,7 +101,7 @@ describe('RARS Location Description Routes', () => {
         const locationDescription = 'a'.repeat(constants.locationDescriptionCharacterLimit)
         const options = { url, payload: { locationDescription } }
         const response = await submitPostRequest(options)
-        expect(response.headers.location).toEqual(descriptionUrl)
+        expect(response.headers.location).toEqual(sourceDetailsUrl)
       })
     })
   })

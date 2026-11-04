@@ -23,6 +23,8 @@ const RARS_CONTACT_LOCAL_COUNCIL = 'rars/contact-local-council'
 const RARS_FIND_ADDRESS = 'rars/find-address'
 const RARS_CHOOSE_ADDRESS = 'rars/choose-address'
 const RARS_CONFIRM_ADDRESS = 'rars/confirm-address'
+const RARS_CHOOSE_SITE = 'rars/choose-site'
+const RARS_CONFIRM_SITE = 'rars/confirm-site'
 const RARS_EXCEEDED_ATTEMPTS = 'rars/exceeded-attempts'
 const RARS_LOCATION_ADDRESS = 'rars/location-address'
 const RARS_LOCATION_OPTION = 'rars/location-option'
@@ -56,6 +58,8 @@ const views = {
   RARS_FIND_ADDRESS,
   RARS_CHOOSE_ADDRESS,
   RARS_CONFIRM_ADDRESS,
+  RARS_CHOOSE_SITE,
+  RARS_CONFIRM_SITE,
   RARS_EXCEEDED_ATTEMPTS,
   RARS_LOCATION_ADDRESS,
   RARS_LOCATION_OPTION,
@@ -81,7 +85,8 @@ const views = {
 }
 
 const redisKeys = {
-  ...views
+  ...views,
+  RARS_NEARBY_SITES: 'rars/nearby-sites'
 }
 
 const routes = {

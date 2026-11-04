@@ -15,7 +15,7 @@ describe('dust/location-address', () => {
       problem: 'dust',
       route: constants.routes.DUST_LOCATION_ADDRESS,
       redirect: {
-        description: constants.routes.DUST_DESCRIPTION
+        chooseSite: constants.routes.DUST_CHOOSE_SITE
       }
     })
   })

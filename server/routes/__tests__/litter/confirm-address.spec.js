@@ -17,6 +17,7 @@ describe('litter/confirm-address', () => {
       redirect: {
         description: constants.routes.LITTER_DESCRIPTION,
         chooseAddress: constants.routes.LITTER_CHOOSE_ADDRESS,
+        chooseSite: constants.routes.LITTER_CHOOSE_SITE,
         locationAddress: constants.routes.LITTER_LOCATION_ADDRESS
       }
     })

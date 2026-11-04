@@ -15,7 +15,7 @@ describe('pests/source-details', () => {
       problem: 'vermin/pests',
       route: constants.routes.PESTS_SOURCE_DETAILS,
       redirect: {
-        locationHome: constants.routes.PESTS_LOCATION_HOME,
+        recurring: constants.routes.PESTS_RECURRING,
         contactEnvironmentAgency: constants.routes.PESTS_CONTACT_ENVIRONMENT_AGENCY
       }
     })
