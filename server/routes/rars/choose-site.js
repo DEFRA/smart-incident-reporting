@@ -57,7 +57,6 @@ const getContext = (request, sites, redirect) => {
     resultlength: sites.length,
     postcode,
     answer: confirmedSite?.selectedSite.id,
-    changeAddress: redirect.changeAddress,
     manualSite: redirect.manualSite
   }
 }

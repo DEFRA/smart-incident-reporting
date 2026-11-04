@@ -15,16 +15,16 @@ const baseSession = {
 }
 
 const problems = [
-  { problem: 'smell', url: constants.routes.SMELL_CHOOSE_SITE, changeAddress: constants.routes.SMELL_LOCATION_HOME, manualSite: constants.routes.SMELL_SOURCE_DETAILS, confirmSite: constants.routes.SMELL_CONFIRM_SITE },
-  { problem: 'noise', url: constants.routes.NOISE_CHOOSE_SITE, changeAddress: constants.routes.NOISE_LOCATION_HOME, manualSite: constants.routes.NOISE_SOURCE_DETAILS, confirmSite: constants.routes.NOISE_CONFIRM_SITE },
-  { problem: 'dust', url: constants.routes.DUST_CHOOSE_SITE, changeAddress: constants.routes.DUST_LOCATION_HOME, manualSite: constants.routes.DUST_SOURCE_DETAILS, confirmSite: constants.routes.DUST_CONFIRM_SITE },
-  { problem: 'litter', url: constants.routes.LITTER_CHOOSE_SITE, changeAddress: constants.routes.LITTER_LOCATION_HOME, manualSite: constants.routes.LITTER_SOURCE_DETAILS, confirmSite: constants.routes.LITTER_CONFIRM_SITE },
-  { problem: 'mud', url: constants.routes.MUD_CHOOSE_SITE, changeAddress: constants.routes.MUD_LOCATION_HOME, manualSite: constants.routes.MUD_SOURCE_DETAILS, confirmSite: constants.routes.MUD_CONFIRM_SITE },
-  { problem: 'vermin/pests', url: constants.routes.PESTS_CHOOSE_SITE, changeAddress: constants.routes.PESTS_LOCATION_HOME, manualSite: constants.routes.PESTS_SOURCE_DETAILS, confirmSite: constants.routes.PESTS_CONFIRM_SITE }
+  { problem: 'smell', url: constants.routes.SMELL_CHOOSE_SITE, manualSite: constants.routes.SMELL_SOURCE_DETAILS, confirmSite: constants.routes.SMELL_CONFIRM_SITE },
+  { problem: 'noise', url: constants.routes.NOISE_CHOOSE_SITE, manualSite: constants.routes.NOISE_SOURCE_DETAILS, confirmSite: constants.routes.NOISE_CONFIRM_SITE },
+  { problem: 'dust', url: constants.routes.DUST_CHOOSE_SITE, manualSite: constants.routes.DUST_SOURCE_DETAILS, confirmSite: constants.routes.DUST_CONFIRM_SITE },
+  { problem: 'litter', url: constants.routes.LITTER_CHOOSE_SITE, manualSite: constants.routes.LITTER_SOURCE_DETAILS, confirmSite: constants.routes.LITTER_CONFIRM_SITE },
+  { problem: 'mud', url: constants.routes.MUD_CHOOSE_SITE, manualSite: constants.routes.MUD_SOURCE_DETAILS, confirmSite: constants.routes.MUD_CONFIRM_SITE },
+  { problem: 'vermin/pests', url: constants.routes.PESTS_CHOOSE_SITE, manualSite: constants.routes.PESTS_SOURCE_DETAILS, confirmSite: constants.routes.PESTS_CONFIRM_SITE }
 ]
 
 describe('RARS Choose Site Routes', () => {
-  describe.each(problems)('$problem choose site', ({ url, changeAddress, manualSite, confirmSite }) => {
+  describe.each(problems)('$problem choose site', ({ url, manualSite, confirmSite }) => {
     describe('GET', () => {
       it('Happy: lists nearby sites', async () => {
         const response = await submitGetRequest({ url }, 'Choose the site you want to report', constants.statusCodes.OK, baseSession)
@@ -33,7 +33,6 @@ describe('RARS Choose Site Routes', () => {
         expect(response.payload).toContain('- <b>0.10 kilometres</b>')
         expect(response.payload).toContain('- <b>1.20 kilometres</b>')
         expect(response.payload).toContain('value="WEX123456"')
-        expect(response.payload).toContain(`href="${changeAddress}"`)
         expect(response.payload).toContain(`href="${manualSite}"`)
       })
 
@@ -68,7 +67,6 @@ describe('RARS Choose Site Routes', () => {
           [constants.redisKeys.RARS_NEARBY_SITES]: []
         })
         expect(response.payload).toContain('<b>0</b> addresses found within <b>3 kilometres</b> of <b>TE1 0ST</b>.')
-        expect(response.payload).toContain(`href="${changeAddress}"`)
         expect(response.payload).toContain(`href="${manualSite}"`)
         expect(response.payload).not.toContain('type="radio"')
         expect(response.payload).not.toContain('>Continue</button>')

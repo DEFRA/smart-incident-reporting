@@ -15,10 +15,6 @@
         </legend>
         <p class="govuk-body"><b>{{ resultlength }}</b> {% if resultlength === 1 %}address{% else %}addresses{% endif %} found within <b>3 kilometres</b> of <b>{{ postcode }}</b>.</p>
 
-        <p class="govuk-body">
-          <a href="{{ changeAddress }}" class="govuk-link">Change address</a>
-        </p>
-
         {% if resultlength > 0 %}
         {% if findErrorMessageById(errorSummary, 'answerId-1') %}
           <p class="govuk-error-message">
