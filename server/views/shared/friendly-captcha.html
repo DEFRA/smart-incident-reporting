@@ -11,6 +11,24 @@
     </p>
   </div>
 
+  <script>
+    console.log('[Friendly Captcha] diagnostics active')
+    document.addEventListener('frc:widget.statechange', ({ detail }) => {
+      console.log('[Friendly Captcha] state', {
+        state: detail.state,
+        response: detail.response?.startsWith('.') ? detail.response.split('~')[0] : detail.response ? 'token-present' : 'missing',
+        error: detail.error
+      })
+    })
+
+    document.addEventListener('submit', (event) => {
+      const response = event.target.querySelector('[name="frc-captcha-response"]')?.value
+      console.log('[Friendly Captcha] form submit', {
+        response: response?.startsWith('.') ? response : response ? 'token-present' : 'missing'
+      })
+    }, true)
+  </script>
+
   <script type="module" src="{{ assetPath }}/js/site.min.js" async defer></script>
   <script nomodule src="{{ assetPath }}/js/site.compat.min.js" async defer></script>
 {% endif %}
