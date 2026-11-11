@@ -17,7 +17,7 @@ describe('noise/confirm-address', () => {
       redirect: {
         description: constants.routes.NOISE_DESCRIPTION,
         chooseAddress: constants.routes.NOISE_CHOOSE_ADDRESS,
-        chooseSite: constants.routes.NOISE_CHOOSE_SITE,
+        siteLocationOption: constants.routes.NOISE_SITE_LOCATION_OPTION,
         locationAddress: constants.routes.NOISE_LOCATION_ADDRESS
       }
     })

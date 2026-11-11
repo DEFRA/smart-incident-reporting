@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% set pageTitle = 'Select the site' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Select the site</h1>
+    <div id="map"></div>
+    {# Form sits outside the map so the map's own buttons cannot submit it #}
+    <form method="post" novalidate="novalidate" action="#" class="govuk-!-margin-top-6">
+      <input type="hidden" id="answerId" name="answerId" value="">
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-display-none",
+        attributes: {
+          id: "continue",
+          "data-testid": "continue"
+        }
+      }) }}
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script src="{{ assetPath }}/js/siteLocationMap.js"></script>
+  <script>
+    siteLocationMap.initialiseMap({{ mapConfig | dump | safe }});
+  </script>
+{% endblock %}

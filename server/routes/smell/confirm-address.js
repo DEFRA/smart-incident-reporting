@@ -7,7 +7,7 @@ export default createConfirmAddressRoutes({
   redirect: {
     description: constants.routes.SMELL_DESCRIPTION,
     chooseAddress: constants.routes.SMELL_CHOOSE_ADDRESS,
-    chooseSite: constants.routes.SMELL_CHOOSE_SITE,
+    siteLocationOption: constants.routes.SMELL_SITE_LOCATION_OPTION,
     locationAddress: constants.routes.SMELL_LOCATION_ADDRESS
   }
 })

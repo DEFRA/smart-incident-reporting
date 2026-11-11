@@ -27,7 +27,7 @@ const createConfirmAddressRoutes = ({ problem, route, redirect }) => {
       request.yar.set(constants.redisKeys.RARS_NEARBY_SITES, nearbySites)
 
       if (nearbySites.length > 0) {
-        return h.redirect(redirect.chooseSite)
+        return h.redirect(redirect.siteLocationOption)
       }
       if (problem === 'vermin/pests') {
         return h.redirect(redirect.recurring)

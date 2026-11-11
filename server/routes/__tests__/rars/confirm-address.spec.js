@@ -51,12 +51,12 @@ const doubleLineSession = {
 }
 
 const problems = [
-  { problem: 'smell', url: constants.routes.SMELL_CONFIRM_ADDRESS, redirect: constants.routes.SMELL_DESCRIPTION, chooseSite: constants.routes.SMELL_CHOOSE_SITE },
-  { problem: 'noise', url: constants.routes.NOISE_CONFIRM_ADDRESS, redirect: constants.routes.NOISE_DESCRIPTION, chooseSite: constants.routes.NOISE_CHOOSE_SITE },
-  { problem: 'dust', url: constants.routes.DUST_CONFIRM_ADDRESS, redirect: constants.routes.DUST_DESCRIPTION, chooseSite: constants.routes.DUST_CHOOSE_SITE },
-  { problem: 'litter', url: constants.routes.LITTER_CONFIRM_ADDRESS, redirect: constants.routes.LITTER_DESCRIPTION, chooseSite: constants.routes.LITTER_CHOOSE_SITE },
-  { problem: 'mud', url: constants.routes.MUD_CONFIRM_ADDRESS, redirect: constants.routes.MUD_DESCRIPTION, chooseSite: constants.routes.MUD_CHOOSE_SITE },
-  { problem: 'vermin/pests', url: constants.routes.PESTS_CONFIRM_ADDRESS, redirect: constants.routes.PESTS_RECURRING, chooseSite: constants.routes.PESTS_CHOOSE_SITE }
+  { problem: 'smell', url: constants.routes.SMELL_CONFIRM_ADDRESS, redirect: constants.routes.SMELL_DESCRIPTION, chooseSite: constants.routes.SMELL_SITE_LOCATION_OPTION },
+  { problem: 'noise', url: constants.routes.NOISE_CONFIRM_ADDRESS, redirect: constants.routes.NOISE_DESCRIPTION, chooseSite: constants.routes.NOISE_SITE_LOCATION_OPTION },
+  { problem: 'dust', url: constants.routes.DUST_CONFIRM_ADDRESS, redirect: constants.routes.DUST_DESCRIPTION, chooseSite: constants.routes.DUST_SITE_LOCATION_OPTION },
+  { problem: 'litter', url: constants.routes.LITTER_CONFIRM_ADDRESS, redirect: constants.routes.LITTER_DESCRIPTION, chooseSite: constants.routes.LITTER_SITE_LOCATION_OPTION },
+  { problem: 'mud', url: constants.routes.MUD_CONFIRM_ADDRESS, redirect: constants.routes.MUD_DESCRIPTION, chooseSite: constants.routes.MUD_SITE_LOCATION_OPTION },
+  { problem: 'vermin/pests', url: constants.routes.PESTS_CONFIRM_ADDRESS, redirect: constants.routes.PESTS_RECURRING, chooseSite: constants.routes.PESTS_SITE_LOCATION_OPTION }
 ]
 
 describe('RARS Confirm Address Routes', () => {

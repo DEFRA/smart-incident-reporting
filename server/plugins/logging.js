@@ -17,6 +17,7 @@ export default {
       '/public/js/cookies.js',
       '/public/js/locationMap.js',
       '/public/js/locationMapGps.js',
+      '/public/js/siteLocationMap.js',
       '/public/js/site.min.js',
       '/public/js/site.compat.min.js',
       '/public/govuk-frontend.min.js',

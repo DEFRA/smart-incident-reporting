@@ -14,7 +14,8 @@ export default {
     core: './client/js/core.js',
     cookies: './client/js/pages/cookies.js',
     locationMap: './client/js/pages/location-map.js',
-    locationMapGps: './client/js/pages/location-map-gps.js'
+    locationMapGps: './client/js/pages/location-map-gps.js',
+    siteLocationMap: './client/js/pages/site-location-map.js'
   },
   output: {
     path: path.resolve(__dirname, 'server/public/build/js'),

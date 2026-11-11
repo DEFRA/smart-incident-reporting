@@ -17,7 +17,7 @@ describe('mud/confirm-address', () => {
       redirect: {
         description: constants.routes.MUD_DESCRIPTION,
         chooseAddress: constants.routes.MUD_CHOOSE_ADDRESS,
-        chooseSite: constants.routes.MUD_CHOOSE_SITE,
+        siteLocationOption: constants.routes.MUD_SITE_LOCATION_OPTION,
         locationAddress: constants.routes.MUD_LOCATION_ADDRESS
       }
     })

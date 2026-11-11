@@ -7,7 +7,7 @@ export default createConfirmAddressRoutes({
   redirect: {
     description: constants.routes.LITTER_DESCRIPTION,
     chooseAddress: constants.routes.LITTER_CHOOSE_ADDRESS,
-    chooseSite: constants.routes.LITTER_CHOOSE_SITE,
+    siteLocationOption: constants.routes.LITTER_SITE_LOCATION_OPTION,
     locationAddress: constants.routes.LITTER_LOCATION_ADDRESS
   }
 })
