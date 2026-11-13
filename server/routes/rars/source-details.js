@@ -52,7 +52,10 @@ const createSourceDetailsRoutes = ({ problem, route, redirect }) => {
       if (request.payload.answerId === 'yes') {
         // set answer in session
         request.yar.set(constants.redisKeys.RARS_SOURCE_DETAILS, buildAnswers(request.payload))
-        return h.redirect(redirect.locationHome)
+        if (problem === 'vermin/pests') {
+          return h.redirect(redirect.recurring)
+        }
+        return h.redirect(redirect.description)
       }
 
       return h.redirect(redirect.contactEnvironmentAgency)
