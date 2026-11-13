@@ -7,6 +7,7 @@ export default createConfirmAddressRoutes({
   redirect: {
     description: constants.routes.MUD_DESCRIPTION,
     chooseAddress: constants.routes.MUD_CHOOSE_ADDRESS,
+    chooseSite: constants.routes.MUD_CHOOSE_SITE,
     locationAddress: constants.routes.MUD_LOCATION_ADDRESS
   }
 })

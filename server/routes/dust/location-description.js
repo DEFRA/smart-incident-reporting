@@ -5,6 +5,6 @@ export default createLocationDescriptionRoutes({
   problem: 'dust',
   route: constants.routes.DUST_LOCATION_DESCRIPTION,
   redirect: {
-    description: constants.routes.DUST_DESCRIPTION
+    choose: constants.routes.DUST_SOURCE_DETAILS
   }
 })

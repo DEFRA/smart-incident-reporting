@@ -6,6 +6,7 @@ export default createConfirmAddressRoutes({
   route: constants.routes.PESTS_CONFIRM_ADDRESS,
   redirect: {
     chooseAddress: constants.routes.PESTS_CHOOSE_ADDRESS,
+    chooseSite: constants.routes.PESTS_CHOOSE_SITE,
     locationAddress: constants.routes.PESTS_LOCATION_ADDRESS,
     recurring: constants.routes.PESTS_RECURRING
   }

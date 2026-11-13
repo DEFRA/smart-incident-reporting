@@ -3,6 +3,7 @@ import { questionSets } from '../../utils/question-sets.js'
 import bngToNgr from '../../utils/bng-to-ngr.js'
 import { oSGBToWGS84 } from '../../utils/transform-point.js'
 import { getServiceDetails } from '../../utils/helpers.js'
+import { findSitesNearby } from '../../services/nearby-sites.js'
 
 const addressQuestion = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_ADDRESS
 const locationMapQuestion = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_MAP
@@ -22,7 +23,12 @@ const createConfirmAddressRoutes = ({ problem, route, redirect }) => {
       const point = [selectedAddress[0].x, selectedAddress[0].y]
       request.yar.set(constants.redisKeys.RARS_LOCATION_ADDRESS, buildAddressAnswers(selectedAddress))
       request.yar.set(constants.redisKeys.RARS_LOCATION_MAP, buildLocationAnswers(point))
+      const nearbySites = await findSitesNearby(...point)
+      request.yar.set(constants.redisKeys.RARS_NEARBY_SITES, nearbySites)
 
+      if (nearbySites.length > 0) {
+        return h.redirect(redirect.chooseSite)
+      }
       if (problem === 'vermin/pests') {
         return h.redirect(redirect.recurring)
       }

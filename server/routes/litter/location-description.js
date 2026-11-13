@@ -5,6 +5,6 @@ export default createLocationDescriptionRoutes({
   problem: 'litter',
   route: constants.routes.LITTER_LOCATION_DESCRIPTION,
   redirect: {
-    description: constants.routes.LITTER_DESCRIPTION
+    description: constants.routes.LITTER_SOURCE_DETAILS
   }
 })
