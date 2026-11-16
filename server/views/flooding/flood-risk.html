@@ -1,0 +1,65 @@
+{% extends 'form-layout.html' %}
+{% set pageTitle = question.text.replace('?', '') %}
+
+{% block formContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds"> 
+    {% set warningHtml %}
+      {{ govukWarningText({
+        text: "Call 999 if you or someone else is in immediate danger.",
+        iconFallbackText: "Warning"
+      }) }}
+    {% endset %}
+
+    {{ govukRadios({ 
+      classes: "govuk-radios", 
+      name: "answerId",
+      id: "answerId",
+      fieldset: {
+        legend: {
+          text: pageTitle + "?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      hint: {
+        html: warningHtml
+      },
+      errorMessage: findErrorMessageById(errorSummary, "answerId"), 
+      items: [ 
+        {
+          value: question.answers.now.answerId,
+          text: question.answers.now.text,
+          checked: getAnswer(answers, question.answers.now.answerId)
+        },
+        {
+          value: question.answers.soon.answerId,
+          text: question.answers.soon.text,
+          checked: getAnswer(answers, question.answers.soon.answerId)
+        },
+        {
+          value: question.answers.recent.answerId,
+          text: question.answers.recent.text,
+          checked: getAnswer(answers, question.answers.recent.answerId)
+        },
+        {
+          value: question.answers.mayCause.answerId,
+          text: question.answers.mayCause.text,
+          checked: getAnswer(answers, question.answers.mayCause.answerId)
+        },
+        {
+          value: question.answers.iDontKnow.answerId,
+          text: question.answers.iDontKnow.text,
+          checked: getAnswer(answers, question.answers.iDontKnow.answerId)
+        }
+      ] 
+    }) }} 
+
+    {{ govukButton({ 
+      text: "Continue" 
+    }) }} 
+  </div> 
+
+</div> 
+{% endblock %}
