@@ -5,6 +5,7 @@ export default createSourceDetailsRoutes({
   problem: 'noise',
   route: constants.routes.NOISE_SOURCE_DETAILS,
   redirect: {
-    contactEnvironmentAgency: constants.routes.NOISE_CONTACT_ENVIRONMENT_AGENCY, description: constants.routes.NOISE_DESCRIPTION
+    contactEnvironmentAgency: constants.routes.NOISE_CONTACT_ENVIRONMENT_AGENCY,
+    description: constants.routes.NOISE_DESCRIPTION
   }
 })

@@ -17,7 +17,7 @@ describe('noise/source', () => {
       redirect: {
         contactEnvironmentAgency: constants.routes.NOISE_CONTACT_ENVIRONMENT_AGENCY,
         localCouncil: constants.routes.NOISE_REPORT_LOCAL_COUNCIL,
-        sourceDetails: constants.routes.NOISE_SOURCE_DETAILS
+        locationHome: constants.routes.NOISE_LOCATION_HOME
       }
     })
   })
