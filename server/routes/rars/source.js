@@ -51,7 +51,7 @@ const createSourceRoutes = ({ problem, route, redirect }) => {
       } else if (answerId === question.answers.unknown.answerId) {
         return h.redirect(redirect.contactEnvironmentAgency)
       } else {
-        return h.redirect(redirect.sourceDetails)
+        return h.redirect(redirect.locationHome)
       }
     }
   }

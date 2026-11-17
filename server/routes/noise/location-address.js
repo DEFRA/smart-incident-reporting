@@ -5,6 +5,6 @@ export default createLocationAddressRoutes({
   problem: 'noise',
   route: constants.routes.NOISE_LOCATION_ADDRESS,
   redirect: {
-    description: constants.routes.NOISE_DESCRIPTION
+    chooseSite: constants.routes.NOISE_CHOOSE_SITE
   }
 })
