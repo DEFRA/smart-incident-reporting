@@ -160,6 +160,7 @@ const FLOOD_START = 'flood-start'
 const FLOOD = 'flood'
 const FLOOD_LOCATION_OPTION = 'flood/location-option'
 const FLOOD_LOCATION_MAP = 'flood/location-map'
+const FLOOD_LOCATION_DESCRIPTION = 'flood/location-description'
 
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
@@ -293,7 +294,8 @@ const views = {
   DUST_HEALTH,
   FLOOD,
   FLOOD_LOCATION_OPTION,
-  FLOOD_LOCATION_MAP
+  FLOOD_LOCATION_MAP, 
+  FLOOD_LOCATION_DESCRIPTION
 }
 
 const routes = {
