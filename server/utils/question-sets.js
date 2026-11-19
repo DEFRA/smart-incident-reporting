@@ -10,6 +10,7 @@ const USE_CURRENT_LOCATION = 'Use your current location'
 const MARK_LOCATION_ON_MAP = 'Mark the location on an online map'
 const DESCRIBE_THE_LOCATION = 'Describe the location'
 const MARK_THE_LOCATION = 'Mark the location'
+const YOUR_HOME_ADDRESS = 'Provide your home address'
 const RUBBISH_OR_REFUSE = 'Rubbish or refuse'
 const IMAGES_OR_VIDEO_QUESTION = 'Do you have any photos or videos to include?'
 const YES_YOU_HAVE_PHOTOS = 'Yes, you have photos'
@@ -1589,6 +1590,10 @@ const questionSets = {
           description: {
             answerId: 2601,
             text: DESCRIBE_THE_LOCATION
+          },
+          home: {
+            answerId: 3101,
+            text: 'YOUR_HOME_ADDRESS'
           }
         }
       }
