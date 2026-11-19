@@ -16,8 +16,10 @@ describe(url, () => {
       await submitGetRequest({ url }, question.text)
     })
 
-    it('renders a previously selected answer', async () => {
-      const answerId = question.answers.description.answerId
+    it.each([
+      ['description', question.answers.description.answerId],
+      ['home', question.answers.home.answerId]
+    ])('renders a previously selected %s answer', async (_option, answerId) => {
       const sessionData = {
         [constants.redisKeys.FLOOD_LOCATION_OPTION]: [{ questionId: question.questionId, answerId }]
       }
@@ -31,6 +33,7 @@ describe(url, () => {
     it.each([
       ['GPS', question.answers.gps.answerId, constants.routes.FLOOD_LOCATION_MAP],
       ['map', question.answers.map.answerId, constants.routes.FLOOD_LOCATION_MAP],
+      ['home', question.answers.home.answerId, constants.routes.FLOOD_FIND_ADDRESS],
       ['description', question.answers.description.answerId, constants.routes.FLOOD_LOCATION_DESCRIPTION]
     ])('accepts the %s option and stores the answer', async (_option, answerId, redirect) => {
       const response = await submitPostRequest({

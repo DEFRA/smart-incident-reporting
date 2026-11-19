@@ -161,6 +161,7 @@ const FLOOD = 'flood'
 const FLOOD_LOCATION_OPTION = 'flood/location-option'
 const FLOOD_LOCATION_MAP = 'flood/location-map'
 const FLOOD_LOCATION_DESCRIPTION = 'flood/location-description'
+const FLOOD_FIND_ADDRESS = 'flood/find-address'
 
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
@@ -295,7 +296,8 @@ const views = {
   FLOOD,
   FLOOD_LOCATION_OPTION,
   FLOOD_LOCATION_MAP, 
-  FLOOD_LOCATION_DESCRIPTION
+  FLOOD_LOCATION_DESCRIPTION,
+  FLOOD_FIND_ADDRESS
 }
 
 const routes = {

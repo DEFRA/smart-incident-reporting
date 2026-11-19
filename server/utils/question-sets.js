@@ -1593,7 +1593,7 @@ const questionSets = {
           },
           home: {
             answerId: 3101,
-            text: 'YOUR_HOME_ADDRESS'
+            text: YOUR_HOME_ADDRESS
           }
         }
       }
