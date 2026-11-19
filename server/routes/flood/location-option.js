@@ -35,11 +35,9 @@ const handlers = {
 
     if (answerId === question.answers.gps.answerId || answerId === question.answers.map.answerId) {
       return h.redirect(constants.routes.FLOOD_LOCATION_MAP)
-    } 
-    else if (answerId === question.answers.home.answerId) {
+    } else if (answerId === question.answers.home.answerId) {
       return h.redirect(constants.routes.FLOOD_FIND_ADDRESS)
-    }
-    else {
+    } else {
       return h.redirect(constants.routes.FLOOD_LOCATION_DESCRIPTION)
     }
   }
