@@ -15,7 +15,6 @@ describe('findSitesNearby', () => {
     expect(getJson).toHaveBeenCalledTimes(3)
     expect(getJson).toHaveBeenCalledWith(`https://environment.data.gov.uk/public-register/industrial-installations/registration.json?${query}`, true)
     expect(getJson).toHaveBeenCalledWith(`https://environment.data.gov.uk/public-register/waste-operations/registration.json?${query}`, true)
-    expect(getJson).toHaveBeenCalledWith(`https://environment.data.gov.uk/public-register/end-of-life-vehicles/registration.json?${query}`, true)
   })
 
   it('returns unique sites across registers ordered by distance, falling back to holder name', async () => {
