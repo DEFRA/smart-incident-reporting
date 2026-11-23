@@ -8,7 +8,7 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">Confirm site</h1>
     <div class="govuk-inset-text">
-      {{ selectedSite.name }}{% if selectedSite.address %}<br>{{ selectedSite.address }}{% endif %}
+      {{ selectedSite.name }}{% if selectedSite.streetAddress %}<br>{{ selectedSite.streetAddress }}{% endif %}{% if selectedSite.town %}<br>{{ selectedSite.town }}{% endif %}{% if selectedSite.postcode %}<br>{{ selectedSite.postcode }}{% endif %}
     </div>
     {{ govukButton({
       text: "Use this site",
