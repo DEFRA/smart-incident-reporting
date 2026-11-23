@@ -15,7 +15,7 @@ describe('smell/location-description', () => {
       problem: 'smell',
       route: constants.routes.SMELL_LOCATION_DESCRIPTION,
       redirect: {
-        description: constants.routes.SMELL_DESCRIPTION
+        sourceDetails: constants.routes.SMELL_SOURCE_DETAILS
       }
     })
   })

@@ -5,6 +5,6 @@ export default createLocationAddressRoutes({
   problem: 'mud',
   route: constants.routes.MUD_LOCATION_ADDRESS,
   redirect: {
-    description: constants.routes.MUD_DESCRIPTION
+    chooseSite: constants.routes.MUD_CHOOSE_SITE
   }
 })

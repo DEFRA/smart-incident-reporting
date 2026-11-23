@@ -1,6 +1,11 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
 import { questionSets } from '../../../utils/question-sets.js'
+import { findSitesNearby } from '../../../services/nearby-sites.js'
+
+jest.mock('../../../services/nearby-sites.js', () => ({
+  findSitesNearby: jest.fn()
+}))
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_DESCRIPTION_OPTIONAL
 
@@ -8,37 +13,45 @@ const problems = [
   {
     problem: 'smell',
     url: constants.routes.SMELL_LOCATION_DESCRIPTION_OPTIONAL,
-    redirectUrl: constants.routes.SMELL_DESCRIPTION
+    redirectUrl: constants.routes.SMELL_CHOOSE_SITE,
+    chooseSiteUrl: constants.routes.SMELL_CHOOSE_SITE
   },
   {
     problem: 'noise',
     url: constants.routes.NOISE_LOCATION_DESCRIPTION_OPTIONAL,
-    redirectUrl: constants.routes.NOISE_DESCRIPTION
+    redirectUrl: constants.routes.NOISE_CHOOSE_SITE,
+    chooseSiteUrl: constants.routes.NOISE_CHOOSE_SITE
   },
   {
     problem: 'dust',
     url: constants.routes.DUST_LOCATION_DESCRIPTION_OPTIONAL,
-    redirectUrl: constants.routes.DUST_DESCRIPTION
+    redirectUrl: constants.routes.DUST_CHOOSE_SITE,
+    chooseSiteUrl: constants.routes.DUST_CHOOSE_SITE
   },
   {
     problem: 'litter',
     url: constants.routes.LITTER_LOCATION_DESCRIPTION_OPTIONAL,
-    redirectUrl: constants.routes.LITTER_DESCRIPTION
+    redirectUrl: constants.routes.LITTER_CHOOSE_SITE,
+    chooseSiteUrl: constants.routes.LITTER_CHOOSE_SITE
   },
   {
     problem: 'mud',
     url: constants.routes.MUD_LOCATION_DESCRIPTION_OPTIONAL,
-    redirectUrl: constants.routes.MUD_DESCRIPTION
+    redirectUrl: constants.routes.MUD_CHOOSE_SITE,
+    chooseSiteUrl: constants.routes.MUD_CHOOSE_SITE
   },
   {
     problem: 'vermin/pests',
     url: constants.routes.PESTS_LOCATION_DESCRIPTION_OPTIONAL,
-    redirectUrl: constants.routes.PESTS_RECURRING
+    redirectUrl: constants.routes.PESTS_CHOOSE_SITE,
+    chooseSiteUrl: constants.routes.PESTS_CHOOSE_SITE
   }
 ]
 
 describe('RARS Location Description Optional Routes', () => {
-  describe.each(problems)('$problem location description optional', ({ problem, url, redirectUrl }) => {
+  afterEach(() => jest.resetAllMocks())
+
+  describe.each(problems)('$problem location description optional', ({ problem, url, redirectUrl, chooseSiteUrl }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
         const response = await submitGetRequest({ url }, 'Other location information (optional)')
@@ -81,6 +94,56 @@ describe('RARS Location Description Optional Routes', () => {
           otherDetails: locationInfo
         }])
         expect(response.headers.location).toEqual(redirectUrl)
+      })
+
+      it('searches near the point stored by the map page', async () => {
+        findSitesNearby.mockResolvedValueOnce([{ id: 'site-1', name: 'Test Site', address: '' }])
+        const sessionData = {
+          [constants.redisKeys.RARS_LOCATION_MAP]: [
+            { otherDetails: 'SU 00000 00000' },
+            { otherDetails: '374999' },
+            { otherDetails: '164393' }
+          ]
+        }
+
+        const response = await submitPostRequest({
+          url: constants.routes.SMELL_LOCATION_DESCRIPTION_OPTIONAL,
+          payload: { otherLocationInfo: 'Near the railway bridge' }
+        }, constants.statusCodes.REDIRECT, sessionData)
+
+        expect(findSitesNearby).toHaveBeenCalledWith(374999, 164393)
+        expect(response.headers.location).toEqual(constants.routes.SMELL_CHOOSE_SITE)
+      })
+
+      it('redirects to choose site with no nearby results when map coordinates are unavailable', async () => {
+        const response = await submitPostRequest({
+          url,
+          payload: { otherLocationInfo: 'Near the railway bridge' }
+        }, constants.statusCodes.REDIRECT)
+
+        expect(findSitesNearby).not.toHaveBeenCalled()
+        expect(response.headers.location).toEqual(chooseSiteUrl)
+        expect(response.request.yar.get(constants.redisKeys.RARS_NEARBY_SITES)).toEqual([])
+      })
+
+      it('redirects to choose site when the lookup finds no nearby sites', async () => {
+        findSitesNearby.mockResolvedValueOnce([])
+        const sessionData = {
+          [constants.redisKeys.RARS_LOCATION_MAP]: [
+            { otherDetails: 'SU 00000 00000' },
+            { otherDetails: '374999' },
+            { otherDetails: '164393' }
+          ]
+        }
+
+        const response = await submitPostRequest({
+          url,
+          payload: { otherLocationInfo: 'Near the railway bridge' }
+        }, constants.statusCodes.REDIRECT, sessionData)
+
+        expect(findSitesNearby).toHaveBeenCalledWith(374999, 164393)
+        expect(response.headers.location).toEqual(chooseSiteUrl)
+        expect(response.request.yar.get(constants.redisKeys.RARS_NEARBY_SITES)).toEqual([])
       })
 
       it('Should not store data when payload is empty', async () => {

@@ -17,6 +17,7 @@ describe('smell/confirm-address', () => {
       redirect: {
         description: constants.routes.SMELL_DESCRIPTION,
         chooseAddress: constants.routes.SMELL_CHOOSE_ADDRESS,
+        chooseSite: constants.routes.SMELL_CHOOSE_SITE,
         locationAddress: constants.routes.SMELL_LOCATION_ADDRESS
       }
     })

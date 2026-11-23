@@ -1,6 +1,8 @@
 import constants from '../../utils/constants.js'
 import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
+import { findByPostcode } from '../../services/find-location.js'
+import { findSitesNearby } from '../../services/nearby-sites.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_ADDRESS
 const { postcodeRegExp } = constants
@@ -36,11 +38,20 @@ const createLocationAddressRoutes = ({ problem, route, redirect }) => {
       }
 
       request.yar.set(constants.redisKeys.RARS_LOCATION_ADDRESS, buildAnswers(request.payload))
+      request.yar.set(constants.redisKeys.RARS_NEARBY_SITES, [])
 
-      if (problem === 'vermin/pests') {
-        return h.redirect(redirect.recurring)
+      const { payload: postcodeResults } = await findByPostcode(request.payload.postcode)
+      const addressPoint = findAddressPoint(request.payload, postcodeResults.results || [])
+
+      if (addressPoint) {
+        const point = [Number(addressPoint.X_COORDINATE), Number(addressPoint.Y_COORDINATE)]
+        if (point.every(Number.isFinite)) {
+          const nearbySites = await findSitesNearby(...point)
+          request.yar.set(constants.redisKeys.RARS_NEARBY_SITES, nearbySites)
+        }
       }
-      return h.redirect(redirect.description)
+
+      return h.redirect(redirect.chooseSite)
     }
   }
 
@@ -48,6 +59,23 @@ const createLocationAddressRoutes = ({ problem, route, redirect }) => {
     { method: 'GET', path: route, handler: handlers.get },
     { method: 'POST', path: route, handler: handlers.post }
   ]
+}
+
+const findAddressPoint = (payload, results) => {
+  const normalize = value => (value || '').toUpperCase().replace(/[^A-Z0-9]/g, '')
+  const addressLine1 = normalize(payload.addressLine1)
+  const addressLine2 = normalize(payload.addressLine2)
+  const townOrCity = normalize(payload.townOrCity)
+  const postcode = normalize(payload.postcode)
+  const postcodeAddresses = results
+    .map(result => result.DPA)
+    .filter(address => address && normalize(address.POSTCODE) === postcode)
+  const candidates = postcodeAddresses.filter(address => normalize(address.ADDRESS).includes(addressLine1))
+
+  return candidates.find(address => {
+    const fullAddress = normalize(address.ADDRESS)
+    return (!addressLine2 || fullAddress.includes(addressLine2)) && (!townOrCity || fullAddress.includes(townOrCity))
+  }) || candidates[0] || (postcodeAddresses.length === 1 ? postcodeAddresses[0] : undefined)
 }
 
 const validatePayload = payload => {
