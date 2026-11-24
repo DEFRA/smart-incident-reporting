@@ -21,7 +21,8 @@ describe('analytics acceptance and withdrawal', () => {
     global.window = {
       atob: value => Buffer.from(value, 'base64').toString(),
       btoa: value => Buffer.from(value).toString('base64'),
-      location: { hostname: 'sir.test.example.com', reload: jest.fn() },
+      location: { hostname: 'sir.test.example.com', reload: jest.fn(), assign: jest.fn() },
+      scrollTo: jest.fn(),
       addEventListener: (name, handler) => { events[name] = handler }
     }
     global.document = {
@@ -87,6 +88,29 @@ describe('analytics acceptance and withdrawal', () => {
     initialise()
     window.sir.utils.savePreference(false)
     expect(window.location.reload).toHaveBeenCalledTimes(1)
+  })
+
+  it('keeps the confirmation visible after withdrawing on the cookies page', () => {
+    savedPreference('on')
+    initialise()
+    const saveButton = { addEventListener: jest.fn() }
+    const successBanner = { removeAttribute: jest.fn() }
+    const querySelector = document.querySelector
+    const elements = {
+      '#continue-button': saveButton,
+      'input[name="cookieConsent"]:checked': { value: 'No' },
+      '#f-cookieConsent': {},
+      '#successBanner': successBanner
+    }
+    document.querySelector = selector => elements[selector] ?? querySelector(selector)
+
+    jest.isolateModules(() => { require('../pages/cookies.js') })
+    expect(saveButton.addEventListener).toHaveBeenCalledWith('click', expect.any(Function))
+    saveButton.addEventListener.mock.calls[0][1]({ preventDefault: jest.fn() })
+
+    expect(window.location.assign).toHaveBeenCalledWith('/cookies?updated=true')
+    expect(window.location.reload).not.toHaveBeenCalled()
+    expect(successBanner.removeAttribute).toHaveBeenCalledWith('hidden')
   })
 
   it('does not load GTM on later journey pages after rejection', () => {

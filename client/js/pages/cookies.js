@@ -22,7 +22,7 @@ const saveButton = document.querySelector('#continue-button')
 saveButton?.addEventListener('click', (e) => {
   e.preventDefault()
   const analyticsPreference = document.querySelector('input[name="cookieConsent"]:checked')
-  window.sir.utils.savePreference(analyticsPreference.value === 'Yes')
+  window.sir.utils.savePreference(analyticsPreference.value === 'Yes', '/cookies?updated=true')
   if (analyticsPreference.value === 'Yes') {
     window.sir.utils.setupGoogleTagManager()
   } else {

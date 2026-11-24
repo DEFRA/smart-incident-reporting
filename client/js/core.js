@@ -58,7 +58,7 @@ window.sir = {
         document.body.appendChild(script)
       }
     },
-    savePreference: accepted => {
+    savePreference: (accepted, returnUrl) => {
       const prefs = {
         analytics: accepted ? 'on' : 'off'
       }
@@ -67,7 +67,11 @@ window.sir = {
       if (!accepted) {
         window.sir.utils.deleteAnalyticsCookies()
         if (document.querySelector('script[src*="googletagmanager.com/gtm.js"]')) {
-          window.location.reload()
+          if (returnUrl) {
+            window.location.assign(returnUrl)
+          } else {
+            window.location.reload()
+          }
         }
       }
     }
