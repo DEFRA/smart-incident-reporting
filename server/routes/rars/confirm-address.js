@@ -23,8 +23,9 @@ const createConfirmAddressRoutes = ({ problem, route, redirect }) => {
       const point = [selectedAddress[0].x, selectedAddress[0].y]
       request.yar.set(constants.redisKeys.RARS_LOCATION_ADDRESS, buildAddressAnswers(selectedAddress))
       request.yar.set(constants.redisKeys.RARS_LOCATION_MAP, buildLocationAnswers(point))
-      const nearbySites = await findSitesNearby(...point)
+      const { sites: nearbySites, apiDown } = await findSitesNearby(...point)
       request.yar.set(constants.redisKeys.RARS_NEARBY_SITES, nearbySites)
+      request.yar.set(constants.redisKeys.RARS_SITE_FINDER_API_DOWN, apiDown)
 
       if (nearbySites.length > 0) {
         return h.redirect(redirect.chooseSite)

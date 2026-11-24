@@ -76,7 +76,7 @@ describe('RARS Confirm Address Routes', () => {
     describe('POST', () => {
       it('Happy: stores nearby sites and redirects to choose site when sites are found', async () => {
         const sites = [{ id: 'EPR/AB1234CD', name: 'Site A', address: '1 Road, Town, TE1 0ST' }]
-        findSitesNearby.mockResolvedValueOnce(sites)
+        findSitesNearby.mockResolvedValueOnce({ sites, apiDown: false })
         const response = await submitPostRequest({ url }, constants.statusCodes.REDIRECT, singleLineSession)
         expect(response.headers.location).toEqual(chooseSite)
         expect(findSitesNearby).toHaveBeenCalledWith(365739, 343015)
@@ -85,7 +85,7 @@ describe('RARS Confirm Address Routes', () => {
 
       it('Happy: stores location address and map answers then redirects to description when no sites are found', async () => {
         const options = { url }
-        findSitesNearby.mockResolvedValueOnce([])
+        findSitesNearby.mockResolvedValueOnce({ sites: [], apiDown: false })
         const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, singleLineSession)
         expect(response.headers.location).toEqual(redirect)
 
