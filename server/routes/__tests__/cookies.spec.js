@@ -13,6 +13,14 @@ describe(url, () => {
       expect(response.payload).not.toContain('class="defra-js-show" hidden')
     })
 
+    it('shows confirmation only after preferences are updated', async () => {
+      const initial = parse((await submitGetRequest({ url })).payload)
+      const updated = parse((await submitGetRequest({ url: `${url}?updated=true` })).payload)
+
+      expect(initial.querySelector('#successBanner').hasAttribute('hidden')).toBe(true)
+      expect(updated.querySelector('#successBanner').hasAttribute('hidden')).toBe(false)
+    })
+
     it(`Should show the correct service name and link for an overarching service page on ${url}`, async () => {
       process.env.REGISTER_START_ROUTES = 'false'
       const response = await submitGetRequest({ url })
@@ -25,6 +33,18 @@ describe(url, () => {
   })
 
   describe('POST', () => {
+    it.each(['Yes', 'No'])('accepts the native form choice %s and shows confirmation', async choice => {
+      const response = await submitPostRequest({
+        url,
+        payload: `cookieConsent=${choice}`,
+        headers: { 'content-type': 'application/x-www-form-urlencoded' }
+      })
+
+      expect(response.headers.location).toBe(`${url}?updated=true`)
+      const page = parse((await submitGetRequest({ url: response.headers.location })).payload)
+      expect(page.querySelector('#successBanner').hasAttribute('hidden')).toBe(false)
+    })
+
     it('saves an analytics opt-out and redirects to the confirmation page', async () => {
       const response = await submitPostRequest({
         url,

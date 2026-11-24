@@ -10,7 +10,7 @@ const handlers = {
     })
   },
   post: (request, h) => {
-    const preference = request.payload?.analytics
+    const preference = request.payload?.cookieConsent ?? request.payload?.analytics
     const accepted = ['true', 'Yes'].includes(preference)
     if (!accepted && !['false', 'No'].includes(preference)) {
       return h.response('Invalid cookie preference').code(constants.statusCodes.BAD_REQUEST)
