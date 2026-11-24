@@ -18,7 +18,8 @@ const createChooseSiteRoutes = ({ problem, route, redirect }) => {
     post: async (request, h) => {
       const { answerId } = request.payload
       const sites = request.yar.get(constants.redisKeys.RARS_NEARBY_SITES) || []
-      const selectedSite = sites.find(site => site.id === answerId)
+      // the option value is the list position, as a url in the form body can be blocked by the web application firewall
+      const selectedSite = /^\d+$/.test(answerId) ? sites[Number(answerId)] : undefined
 
       if (!selectedSite) {
         const errorSummary = getErrorSummary()
@@ -56,7 +57,7 @@ const getContext = (request, sites, redirect) => {
     sites,
     resultlength: sites.length,
     postcode,
-    answer: confirmedSite?.selectedSite.id,
+    answer: sites.findIndex(site => site.id === confirmedSite?.selectedSite.id),
     manualSite: redirect.manualSite
   }
 }

@@ -32,7 +32,7 @@ describe('RARS Choose Site Routes', () => {
         expect(response.payload).toContain('Acme Waste Ltd, 1, Industrial Estate, Testtown, TE1 0ST')
         expect(response.payload).toContain('- <b>0.10 kilometres</b>')
         expect(response.payload).toContain('- <b>1.20 kilometres</b>')
-        expect(response.payload).toContain('value="WEX123456"')
+        expect(response.payload).toContain('value="1"')
         expect(response.payload).toContain(`href="${manualSite}"`)
       })
 
@@ -41,7 +41,7 @@ describe('RARS Choose Site Routes', () => {
           ...baseSession,
           [constants.redisKeys.RARS_CONFIRM_SITE]: { selectedSite: sites[1] }
         })
-        expect(response.payload).toMatch(/value="WEX123456"\s+checked/)
+        expect(response.payload).toMatch(/value="1"\s+checked/)
       })
 
       it('uses the manually entered postcode instead of an earlier searched postcode', async () => {
@@ -75,10 +75,16 @@ describe('RARS Choose Site Routes', () => {
 
     describe('POST', () => {
       it('Happy: stores selected site and redirects to confirm site', async () => {
-        const options = { url, payload: { answerId: 'EPR/AB1234CD' } }
+        const options = { url, payload: { answerId: '0' } }
         const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, baseSession)
         expect(response.headers.location).toEqual(confirmSite)
         expect(response.request.yar.get(constants.redisKeys.RARS_CONFIRM_SITE)).toEqual({ selectedSite: sites[0] })
+      })
+
+      it('Sad: shows an error when the selected site is not in the list', async () => {
+        const options = { url, payload: { answerId: '5' } }
+        const response = await submitPostRequest(options, constants.statusCodes.OK, baseSession)
+        expect(response.payload).toContain('Select a site')
       })
 
       it('Sad: shows an error when no site is selected', async () => {
