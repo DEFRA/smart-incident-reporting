@@ -9,7 +9,7 @@
         You’ve set your cookie preferences. <a class="govuk-notification-banner__link" href="javascript:history.back()">Go back to the page you were looking at</a>.
       </p>
     {% endset %}
-    <div id="successBanner" hidden>
+    <div id="successBanner" {% if not showSuccessBanner %}hidden{% endif %}>
       {{ govukNotificationBanner({
         type: "success",
         html: successBannerHtml
@@ -118,7 +118,7 @@
 
     </tbody>
     </table>
-    <div class="defra-js-show" hidden>
+    <form action="/cookies" method="post">
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset" aria-describedby="f-cookieConsent-hint">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Do you accept analytics cookies?</legend>
@@ -137,7 +137,7 @@
       <button class="govuk-button" data-module="govuk-button" id="continue-button">
         Save cookie settings
       </button>
-    </div>
+    </form>
   </div>
 </div>
 
