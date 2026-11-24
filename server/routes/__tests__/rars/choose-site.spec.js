@@ -36,6 +36,18 @@ describe('RARS Choose Site Routes', () => {
         expect(response.payload).toContain(`href="${manualSite}"`)
       })
 
+      it('handles missing nearby sites in session (uses empty array fallback)', async () => {
+        const sessionWithoutSites = {
+          [constants.redisKeys.RARS_CONFIRM_ADDRESS]: {
+            selectedAddress: [{ postcode: 'TE1 0ST', address: 'Test House, Testtown, TE1 0ST', x: 365739, y: 343015 }]
+          }
+        }
+        const response = await submitGetRequest({ url }, 'Choose the site you want to report', constants.statusCodes.OK, sessionWithoutSites)
+        expect(response.payload).toContain('<b>0</b> addresses found within <b>3 kilometres</b> of <b>TE1 0ST</b>.')
+        expect(response.payload).toContain(`href="${manualSite}"`)
+        expect(response.payload).not.toContain('type="radio"')
+      })
+
       it('Happy: pre-selects a previously chosen site', async () => {
         const response = await submitGetRequest({ url }, 'Choose the site you want to report', constants.statusCodes.OK, {
           ...baseSession,
@@ -79,6 +91,18 @@ describe('RARS Choose Site Routes', () => {
         const response = await submitPostRequest(options, constants.statusCodes.REDIRECT, baseSession)
         expect(response.headers.location).toEqual(confirmSite)
         expect(response.request.yar.get(constants.redisKeys.RARS_CONFIRM_SITE)).toEqual({ selectedSite: sites[0] })
+      })
+
+      it('handles missing nearby sites in session (uses empty array fallback)', async () => {
+        const sessionWithoutSites = {
+          [constants.redisKeys.RARS_CONFIRM_ADDRESS]: {
+            selectedAddress: [{ postcode: 'TE1 0ST', address: 'Test House, Testtown, TE1 0ST', x: 365739, y: 343015 }]
+          }
+        }
+        const options = { url, payload: { answerId: 'EPR/AB1234CD' } }
+        const response = await submitPostRequest(options, constants.statusCodes.OK, sessionWithoutSites)
+        expect(response.payload).toContain('Select a site')
+        expect(response.payload).toContain('href="#answerId-1"')
       })
 
       it('Sad: shows an error when no site is selected', async () => {

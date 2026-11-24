@@ -193,6 +193,41 @@ describe('RARS Location Address Routes', () => {
         expect(response.request.yar.get(constants.redisKeys.RARS_NEARBY_SITES)).toEqual([])
       })
 
+      it('handles when postcodeResults.results is null or undefined', async () => {
+        findByPostcode.mockResolvedValueOnce({
+          payload: {
+            results: null
+          }
+        })
+
+        const response = await submitPostRequest({ url, payload })
+
+        expect(findSitesNearby).not.toHaveBeenCalled()
+        expect(response.headers.location).toEqual(redirect)
+        expect(response.request.yar.get(constants.redisKeys.RARS_NEARBY_SITES)).toEqual([])
+      })
+
+      it('skips findSitesNearby when coordinates are not finite numbers', async () => {
+        findByPostcode.mockResolvedValueOnce({
+          payload: {
+            results: [{
+              DPA: {
+                ADDRESS: 'ADDRESS LINE 1, ADDRESS LINE 2, TESTTOWN, TE1 0ST',
+                POSTCODE: 'TE1 0ST',
+                X_COORDINATE: 'invalid',
+                Y_COORDINATE: 164393
+              }
+            }]
+          }
+        })
+
+        const response = await submitPostRequest({ url, payload })
+
+        expect(findSitesNearby).not.toHaveBeenCalled()
+        expect(response.headers.location).toEqual(redirect)
+        expect(response.request.yar.get(constants.redisKeys.RARS_NEARBY_SITES)).toEqual([])
+      })
+
       it('Sad: errors when no fields provided', async () => {
         const options = { url, payload: {} }
         const response = await submitPostRequest(options, constants.statusCodes.OK)
