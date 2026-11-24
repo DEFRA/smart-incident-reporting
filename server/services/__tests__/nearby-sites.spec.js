@@ -31,10 +31,6 @@ describe('findSitesNearby', () => {
           { '@id': 'u4', distance: 1.5, site: { siteAddress: { organization_name: 'Near Site', address: 'A2' } } }
         ]
       })
-<<<<<<< HEAD
-      .mockResolvedValueOnce({ items: [{ '@id': 'u5', distance: 1.8 }] })
-=======
->>>>>>> regulated-site-finder
     expect(await findSitesNearby(1, 2)).toEqual([
       { id: 'u2', name: 'Near Site', address: 'A2', distance: 0.1 },
       { id: 'u3', name: 'Holder Only', address: '', distance: 1.2 },
@@ -46,10 +42,6 @@ describe('findSitesNearby', () => {
     getJson
       .mockRejectedValueOnce(new Error('boom'))
       .mockResolvedValueOnce({ items: [{ '@id': 'u1', distance: 1, holder: { name: 'Site' } }] })
-<<<<<<< HEAD
-      .mockResolvedValueOnce({ items: [] })
-=======
->>>>>>> regulated-site-finder
     expect(await findSitesNearby(1, 2)).toEqual([{ id: 'u1', name: 'Site', address: '', distance: 1 }])
   })
 
