@@ -13,7 +13,12 @@ describe('smell/confirm-site', () => {
     expect(createConfirmSiteRoutes).toHaveBeenCalledTimes(1)
     expect(createConfirmSiteRoutes).toHaveBeenCalledWith({
       problem: 'smell',
-      route: constants.routes.SMELL_CONFIRM_SITE
+      route: constants.routes.SMELL_CONFIRM_SITE,
+      redirect: {
+        chooseSite: constants.routes.SMELL_CHOOSE_SITE,
+        sourceDetails: constants.routes.SMELL_SOURCE_DETAILS,
+        description: constants.routes.SMELL_DESCRIPTION
+      }
     })
   })
 })

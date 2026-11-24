@@ -13,7 +13,12 @@ describe('noise/confirm-site', () => {
     expect(createConfirmSiteRoutes).toHaveBeenCalledTimes(1)
     expect(createConfirmSiteRoutes).toHaveBeenCalledWith({
       problem: 'noise',
-      route: constants.routes.NOISE_CONFIRM_SITE
+      route: constants.routes.NOISE_CONFIRM_SITE,
+      redirect: {
+        chooseSite: constants.routes.NOISE_CHOOSE_SITE,
+        sourceDetails: constants.routes.NOISE_SOURCE_DETAILS,
+        description: constants.routes.NOISE_DESCRIPTION
+      }
     })
   })
 })

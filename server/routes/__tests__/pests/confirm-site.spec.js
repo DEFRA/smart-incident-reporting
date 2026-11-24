@@ -13,7 +13,12 @@ describe('pests/confirm-site', () => {
     expect(createConfirmSiteRoutes).toHaveBeenCalledTimes(1)
     expect(createConfirmSiteRoutes).toHaveBeenCalledWith({
       problem: 'vermin/pests',
-      route: constants.routes.PESTS_CONFIRM_SITE
+      route: constants.routes.PESTS_CONFIRM_SITE,
+      redirect: {
+        chooseSite: constants.routes.PESTS_CHOOSE_SITE,
+        sourceDetails: constants.routes.PESTS_SOURCE_DETAILS,
+        recurring: constants.routes.PESTS_RECURRING
+      }
     })
   })
 })

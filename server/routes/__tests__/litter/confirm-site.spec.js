@@ -13,7 +13,12 @@ describe('litter/confirm-site', () => {
     expect(createConfirmSiteRoutes).toHaveBeenCalledTimes(1)
     expect(createConfirmSiteRoutes).toHaveBeenCalledWith({
       problem: 'litter',
-      route: constants.routes.LITTER_CONFIRM_SITE
+      route: constants.routes.LITTER_CONFIRM_SITE,
+      redirect: {
+        chooseSite: constants.routes.LITTER_CHOOSE_SITE,
+        sourceDetails: constants.routes.LITTER_SOURCE_DETAILS,
+        description: constants.routes.LITTER_DESCRIPTION
+      }
     })
   })
 })

@@ -3,5 +3,10 @@ import createConfirmSiteRoutes from '../rars/confirm-site.js'
 
 export default createConfirmSiteRoutes({
   problem: 'smell',
-  route: constants.routes.SMELL_CONFIRM_SITE
+  route: constants.routes.SMELL_CONFIRM_SITE,
+  redirect: {
+    chooseSite: constants.routes.SMELL_CHOOSE_SITE,
+    sourceDetails: constants.routes.SMELL_SOURCE_DETAILS,
+    description: constants.routes.SMELL_DESCRIPTION
+  }
 })

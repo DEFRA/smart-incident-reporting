@@ -13,7 +13,12 @@ describe('dust/confirm-site', () => {
     expect(createConfirmSiteRoutes).toHaveBeenCalledTimes(1)
     expect(createConfirmSiteRoutes).toHaveBeenCalledWith({
       problem: 'dust',
-      route: constants.routes.DUST_CONFIRM_SITE
+      route: constants.routes.DUST_CONFIRM_SITE,
+      redirect: {
+        chooseSite: constants.routes.DUST_CHOOSE_SITE,
+        sourceDetails: constants.routes.DUST_SOURCE_DETAILS,
+        description: constants.routes.DUST_DESCRIPTION
+      }
     })
   })
 })

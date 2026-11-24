@@ -13,7 +13,12 @@ describe('mud/confirm-site', () => {
     expect(createConfirmSiteRoutes).toHaveBeenCalledTimes(1)
     expect(createConfirmSiteRoutes).toHaveBeenCalledWith({
       problem: 'mud',
-      route: constants.routes.MUD_CONFIRM_SITE
+      route: constants.routes.MUD_CONFIRM_SITE,
+      redirect: {
+        chooseSite: constants.routes.MUD_CHOOSE_SITE,
+        sourceDetails: constants.routes.MUD_SOURCE_DETAILS,
+        description: constants.routes.MUD_DESCRIPTION
+      }
     })
   })
 })
