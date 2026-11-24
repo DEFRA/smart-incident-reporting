@@ -3,8 +3,7 @@ import { getJson } from '../utils/util.js'
 const PUBLIC_REGISTER_URL = 'https://environment.data.gov.uk/public-register'
 const REGISTERS = [
   'industrial-installations',
-  'waste-operations',
-  'end-of-life-vehicles'
+  'waste-operations'
 ]
 const SEARCH_RADIUS_KM = 3
 const MAX_RESULTS = 2000

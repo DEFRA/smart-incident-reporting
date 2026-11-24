@@ -8,14 +8,13 @@ jest.mock('../../utils/util.js', () => ({
 describe('findSitesNearby', () => {
   afterEach(() => jest.resetAllMocks())
 
-  it('searches only installations, waste operations and end-of-life vehicles registers within 3km', async () => {
+  it('searches only installations and waste operations registers within 3km', async () => {
     getJson.mockResolvedValue({ items: [] })
     await findSitesNearby(374999.4, 164393.6)
     const query = 'easting=374999&northing=164394&dist=3&_limit=2000'
-    expect(getJson).toHaveBeenCalledTimes(3)
+    expect(getJson).toHaveBeenCalledTimes(2)
     expect(getJson).toHaveBeenCalledWith(`https://environment.data.gov.uk/public-register/industrial-installations/registration.json?${query}`, true)
     expect(getJson).toHaveBeenCalledWith(`https://environment.data.gov.uk/public-register/waste-operations/registration.json?${query}`, true)
-    expect(getJson).toHaveBeenCalledWith(`https://environment.data.gov.uk/public-register/end-of-life-vehicles/registration.json?${query}`, true)
   })
 
   it('returns unique sites across registers ordered by distance, falling back to holder name', async () => {
@@ -32,7 +31,10 @@ describe('findSitesNearby', () => {
           { '@id': 'u4', distance: 1.5, site: { siteAddress: { organization_name: 'Near Site', address: 'A2' } } }
         ]
       })
+<<<<<<< HEAD
       .mockResolvedValueOnce({ items: [{ '@id': 'u5', distance: 1.8 }] })
+=======
+>>>>>>> regulated-site-finder
     expect(await findSitesNearby(1, 2)).toEqual([
       { id: 'u2', name: 'Near Site', address: 'A2', distance: 0.1 },
       { id: 'u3', name: 'Holder Only', address: '', distance: 1.2 },
@@ -44,7 +46,10 @@ describe('findSitesNearby', () => {
     getJson
       .mockRejectedValueOnce(new Error('boom'))
       .mockResolvedValueOnce({ items: [{ '@id': 'u1', distance: 1, holder: { name: 'Site' } }] })
+<<<<<<< HEAD
       .mockResolvedValueOnce({ items: [] })
+=======
+>>>>>>> regulated-site-finder
     expect(await findSitesNearby(1, 2)).toEqual([{ id: 'u1', name: 'Site', address: '', distance: 1 }])
   })
 
