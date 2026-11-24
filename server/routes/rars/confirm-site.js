@@ -29,7 +29,6 @@ const createConfirmSiteRoutes = ({ problem, route, redirect }) => {
       }
 
       const answers = buildAnswers(selectedSite)
-      console.log('RARS_SOURCE_DETAILS answers stored:', JSON.stringify(answers, null, 2))
       request.yar.set(constants.redisKeys.RARS_SOURCE_DETAILS, answers)
 
       if (problem === 'vermin/pests') {
