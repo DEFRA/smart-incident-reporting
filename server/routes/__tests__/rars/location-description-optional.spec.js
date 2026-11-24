@@ -97,7 +97,7 @@ describe('RARS Location Description Optional Routes', () => {
       })
 
       it('searches near the point stored by the map page', async () => {
-        findSitesNearby.mockResolvedValueOnce([{ id: 'site-1', name: 'Test Site', address: '' }])
+        findSitesNearby.mockResolvedValueOnce({ sites: [{ id: 'site-1', name: 'Test Site', address: '' }], apiDown: false })
         const sessionData = {
           [constants.redisKeys.RARS_LOCATION_MAP]: [
             { otherDetails: 'SU 00000 00000' },
@@ -127,7 +127,7 @@ describe('RARS Location Description Optional Routes', () => {
       })
 
       it('redirects to choose site when the lookup finds no nearby sites', async () => {
-        findSitesNearby.mockResolvedValueOnce([])
+        findSitesNearby.mockResolvedValueOnce({ sites: [], apiDown: false })
         const sessionData = {
           [constants.redisKeys.RARS_LOCATION_MAP]: [
             { otherDetails: 'SU 00000 00000' },

@@ -5,10 +5,15 @@ import { questionSets } from '../../../utils/question-sets.js'
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_SOURCE_DETAILS
 
 const site = {
-  id: 'EPR/AB1234CD',
+  id: 'http://environment.data.gov.uk/public-register/industrial-installations/registration/EPR-AB1234CD',
   name: 'Acme Waste Ltd',
   address: '1, Industrial Estate, Testtown, TE1 0ST',
-  distance: 0.1
+  streetAddress: '1, Industrial Estate',
+  town: 'Testtown',
+  postcode: 'TE1 0ST',
+  registrationNumber: 'EPR/AB1234CD',
+  primaryActivity: 'New Medium Combustion Plant',
+  distance: 0.1234
 }
 
 const sessionData = {
@@ -66,7 +71,9 @@ describe('RARS Confirm Site Routes', () => {
         )
 
         expect(response.payload).toContain(site.name)
-        expect(response.payload).toContain(site.address)
+        expect(response.payload).toContain(site.streetAddress)
+        expect(response.payload).toContain(site.town)
+        expect(response.payload).toContain(site.postcode)
         expect(response.payload).toContain(`href="${chooseSite}"`)
       })
 
@@ -90,36 +97,36 @@ describe('RARS Confirm Site Routes', () => {
         )
 
         expect(response.headers.location).toEqual(next)
-        expect(response.request.yar.get(constants.redisKeys.RARS_SOURCE_DETAILS)).toEqual([
-          {
-            questionId: question.questionId,
-            questionAsked: question.text,
-            questionResponse: true,
-            answerId: question.answers.siteName.answerId,
-            otherDetails: site.name
-          },
-          {
-            questionId: question.questionId,
-            questionAsked: question.text,
-            questionResponse: true,
-            answerId: question.answers.sourceAddress.answerId,
-            otherDetails: site.address
-          },
-          {
-            questionId: question.questionId,
-            questionAsked: question.text,
-            questionResponse: true,
-            answerId: question.answers.sourceTown.answerId,
-            otherDetails: ''
-          },
-          {
-            questionId: question.questionId,
-            questionAsked: question.text,
-            questionResponse: true,
-            answerId: question.answers.sourcePostcode.answerId,
-            otherDetails: ''
-          }
+        const answers = response.request.yar.get(constants.redisKeys.RARS_SOURCE_DETAILS)
+        expect(answers.every(answer => answer.questionId === question.questionId && answer.questionResponse === true)).toBe(true)
+        expect(answers.map(({ answerId, otherDetails }) => [answerId, otherDetails])).toEqual([
+          [question.answers.siteFinderUsed.answerId, 'Site finder (suspected source) completed successfully'],
+          [question.answers.siteName.answerId, site.name],
+          [question.answers.sourceAddress.answerId, site.streetAddress],
+          [question.answers.sourceTown.answerId, site.town],
+          [question.answers.sourcePostcode.answerId, site.postcode],
+          [question.answers.registrationNumber.answerId, 'EPR/AB1234CD'],
+          [question.answers.permitType.answerId, 'Industrial Installations'],
+          [question.answers.distance.answerId, '0.12 km'],
+          [question.answers.primaryActivity.answerId, 'New Medium Combustion Plant'],
+          [question.answers.permitUrl.answerId, 'https://environment.data.gov.uk/public-register/industrial-installations/registration/EPR-AB1234CD']
         ])
+      })
+
+      it('Happy: stores the waste operations permit type and omits the primary activity when there is none', async () => {
+        const wasteSite = {
+          ...site,
+          id: 'http://environment.data.gov.uk/public-register/waste-operations/registration/AB3208MT',
+          primaryActivity: ''
+        }
+        const response = await submitPostRequest(
+          { url, payload: {} },
+          constants.statusCodes.REDIRECT,
+          { [constants.redisKeys.RARS_CONFIRM_SITE]: { selectedSite: wasteSite } }
+        )
+        const answers = response.request.yar.get(constants.redisKeys.RARS_SOURCE_DETAILS)
+        expect(answers.find(answer => answer.answerId === question.answers.permitType.answerId).otherDetails).toBe('Waste Operations')
+        expect(answers.some(answer => answer.answerId === question.answers.primaryActivity.answerId)).toBe(false)
       })
 
       it('Sad: redirects to choose site when no site has been selected', async () => {

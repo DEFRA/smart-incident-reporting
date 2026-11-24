@@ -25,7 +25,7 @@
         <div class="govuk-radios" data-module="govuk-radios">
           {% for site in sites %}
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="answerId-{{ loop.index }}" name="answerId" type="radio" value="{{ site.id }}" {% if answer === site.id %}checked{% endif %}>
+            <input class="govuk-radios__input" id="answerId-{{ loop.index }}" name="answerId" type="radio" value="{{ loop.index0 }}" {% if answer === loop.index0 %}checked{% endif %}>
             <label class="govuk-label govuk-radios__label" for="answerId-{{ loop.index }}">
               {{ site.name }}{% if site.address %}, {{ site.address }}{% endif %}{% if site.distance !== undefined and site.distance !== null %} - <b>{{ site.distance.toFixed(2) }} kilometres</b>{% endif %}
             </label>

@@ -39,6 +39,7 @@ const createLocationAddressRoutes = ({ problem, route, redirect }) => {
 
       request.yar.set(constants.redisKeys.RARS_LOCATION_ADDRESS, buildAnswers(request.payload))
       request.yar.set(constants.redisKeys.RARS_NEARBY_SITES, [])
+      request.yar.set(constants.redisKeys.RARS_SITE_FINDER_API_DOWN, false)
 
       const { payload: postcodeResults } = await findByPostcode(request.payload.postcode)
       const addressPoint = findAddressPoint(request.payload, postcodeResults.results || [])
@@ -46,8 +47,9 @@ const createLocationAddressRoutes = ({ problem, route, redirect }) => {
       if (addressPoint) {
         const point = [Number(addressPoint.X_COORDINATE), Number(addressPoint.Y_COORDINATE)]
         if (point.every(Number.isFinite)) {
-          const nearbySites = await findSitesNearby(...point)
+          const { sites: nearbySites, apiDown } = await findSitesNearby(...point)
           request.yar.set(constants.redisKeys.RARS_NEARBY_SITES, nearbySites)
+          request.yar.set(constants.redisKeys.RARS_SITE_FINDER_API_DOWN, apiDown)
         }
       }
 
