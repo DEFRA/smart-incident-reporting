@@ -34,6 +34,9 @@ const getTown = ({ address = '', street_address: streetAddress = '', postcode = 
 const getPrimaryActivity = activity => [activity ?? []].flat()
   .find(({ primaryActivityFlag }) => primaryActivityFlag === 1)?.comment || ''
 
+// mobile plant permits have no fixed site address
+const isMobilePlant = siteAddress => /mobile plant/i.test(siteAddress?.street_address || '')
+
 const findSitesNearby = async (easting, northing) => {
   const query = new URLSearchParams({
     easting: Math.round(easting),
@@ -53,7 +56,7 @@ const findSitesNearby = async (easting, northing) => {
       const name = item.holder?.name || siteAddress?.organization_name
       const address = siteAddress?.address || ''
       const key = `${name}|${address}`
-      if (name && !sites.has(key)) {
+      if (name && !isMobilePlant(siteAddress) && !sites.has(key)) {
         // registration numbers are not unique across registers, so use the item URI
         sites.set(key, {
           id: item['@id'],
