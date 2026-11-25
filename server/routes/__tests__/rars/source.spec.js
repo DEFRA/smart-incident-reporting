@@ -10,7 +10,7 @@ const problems = [
     redirect: {
       contactEnvironmentAgency: constants.routes.SMELL_CONTACT_ENVIRONMENT_AGENCY,
       localCouncil: constants.routes.SMELL_REPORT_LOCAL_COUNCIL,
-      sourceDetails: constants.routes.SMELL_SOURCE_DETAILS
+      locationHome: constants.routes.SMELL_LOCATION_HOME
     }
   },
   {
@@ -21,7 +21,7 @@ const problems = [
     redirect: {
       contactEnvironmentAgency: constants.routes.NOISE_CONTACT_ENVIRONMENT_AGENCY,
       localCouncil: constants.routes.NOISE_REPORT_LOCAL_COUNCIL,
-      sourceDetails: constants.routes.NOISE_SOURCE_DETAILS
+      locationHome: constants.routes.NOISE_LOCATION_HOME
     }
   },
   {
@@ -32,7 +32,7 @@ const problems = [
     redirect: {
       contactEnvironmentAgency: constants.routes.DUST_CONTACT_ENVIRONMENT_AGENCY,
       localCouncil: constants.routes.DUST_REPORT_LOCAL_COUNCIL,
-      sourceDetails: constants.routes.DUST_SOURCE_DETAILS
+      locationHome: constants.routes.DUST_LOCATION_HOME
     }
   },
   {
@@ -43,7 +43,7 @@ const problems = [
     redirect: {
       contactEnvironmentAgency: constants.routes.LITTER_CONTACT_ENVIRONMENT_AGENCY,
       localCouncil: constants.routes.LITTER_REPORT_LOCAL_COUNCIL,
-      sourceDetails: constants.routes.LITTER_SOURCE_DETAILS
+      locationHome: constants.routes.LITTER_LOCATION_HOME
     }
   },
   {
@@ -54,7 +54,7 @@ const problems = [
     redirect: {
       contactEnvironmentAgency: constants.routes.MUD_CONTACT_ENVIRONMENT_AGENCY,
       localCouncil: constants.routes.MUD_REPORT_LOCAL_COUNCIL,
-      sourceDetails: constants.routes.MUD_SOURCE_DETAILS
+      locationHome: constants.routes.MUD_LOCATION_HOME
     }
   },
   {
@@ -65,7 +65,7 @@ const problems = [
     redirect: {
       contactEnvironmentAgency: constants.routes.PESTS_CONTACT_ENVIRONMENT_AGENCY,
       localCouncil: constants.routes.PESTS_REPORT_LOCAL_COUNCIL,
-      sourceDetails: constants.routes.PESTS_SOURCE_DETAILS
+      locationHome: constants.routes.PESTS_LOCATION_HOME
     }
   }
 ]
@@ -98,11 +98,11 @@ describe('RARS Source Routes', () => {
     describe('POST', () => {
       it.each([
         { answerId: 1601 }, { answerId: 1602 }, { answerId: 1603 }, { answerId: 1604 }
-      ])('Happy: valid answer redirects to source details', async (answerId) => {
+      ])('Happy: valid answer redirects to location home', async (answerId) => {
         const options = { url, payload: answerId }
         const response = await submitPostRequest(options)
         expect(response.statusCode).toBe(constants.statusCodes.REDIRECT)
-        expect(response.headers.location).toBe(redirect.sourceDetails)
+        expect(response.headers.location).toBe(redirect.locationHome)
       })
 
       it.each([

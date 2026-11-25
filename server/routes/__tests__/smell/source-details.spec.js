@@ -15,8 +15,8 @@ describe('smell/source-details', () => {
       problem: 'smell',
       route: constants.routes.SMELL_SOURCE_DETAILS,
       redirect: {
-        locationHome: constants.routes.SMELL_LOCATION_HOME,
-        contactEnvironmentAgency: constants.routes.SMELL_CONTACT_ENVIRONMENT_AGENCY
+        contactEnvironmentAgency: constants.routes.SMELL_CONTACT_ENVIRONMENT_AGENCY,
+        description: constants.routes.SMELL_DESCRIPTION
       }
     })
   })
