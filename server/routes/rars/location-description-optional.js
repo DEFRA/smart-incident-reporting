@@ -47,9 +47,11 @@ const createLocationDescriptionOptionalRoutes = ({ problem, route, redirect }) =
       const point = [Number(easting), Number(northing)]
 
       request.yar.set(constants.redisKeys.RARS_NEARBY_SITES, [])
+      request.yar.set(constants.redisKeys.RARS_SITE_FINDER_API_DOWN, false)
       if (easting && northing && point.every(Number.isFinite)) {
-        const nearbySites = await findSitesNearby(...point)
+        const { sites: nearbySites, apiDown } = await findSitesNearby(...point)
         request.yar.set(constants.redisKeys.RARS_NEARBY_SITES, nearbySites)
+        request.yar.set(constants.redisKeys.RARS_SITE_FINDER_API_DOWN, apiDown)
       }
 
       return h.redirect(redirect.chooseSite)

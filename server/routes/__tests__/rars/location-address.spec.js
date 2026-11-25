@@ -126,7 +126,7 @@ describe('RARS Location Address Routes', () => {
             }]
           }
         })
-        findSitesNearby.mockResolvedValueOnce([{ id: 'site-1', name: 'Test Site', address: '' }])
+        findSitesNearby.mockResolvedValueOnce({ sites: [{ id: 'site-1', name: 'Test Site', address: '' }], apiDown: false })
 
         const response = await submitPostRequest({
           url: constants.routes.SMELL_LOCATION_ADDRESS,
@@ -151,7 +151,7 @@ describe('RARS Location Address Routes', () => {
             }]
           }
         })
-        findSitesNearby.mockResolvedValueOnce([{ id: 'site-1', name: 'Example Water Ltd', address: 'Example Treatment Works' }])
+        findSitesNearby.mockResolvedValueOnce({ sites: [{ id: 'site-1', name: 'Example Water Ltd', address: 'Example Treatment Works' }], apiDown: false })
 
         const response = await submitPostRequest({
           url,
@@ -184,7 +184,7 @@ describe('RARS Location Address Routes', () => {
             }]
           }
         })
-        findSitesNearby.mockResolvedValueOnce([])
+        findSitesNearby.mockResolvedValueOnce({ sites: [], apiDown: false })
 
         const response = await submitPostRequest({ url, payload })
 
