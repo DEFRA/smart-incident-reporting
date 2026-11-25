@@ -18,7 +18,12 @@ const payload = {
   sourcePostcode: 'WA4 1HT'
 }
 
-const buildAnswers = data => ([
+const buildAnswers = (data, siteFinderResult = 'Site (suspected source) address entered manually') => ([
+  {
+    ...baseAnswer,
+    answerId: question.answers.siteFinderUsed.answerId,
+    otherDetails: siteFinderResult
+  },
   {
     ...baseAnswer,
     answerId: question.answers.siteName.answerId,
@@ -167,6 +172,17 @@ describe('RARS Source Details Routes', () => {
         const response = await submitPostRequest(options)
         expect(response.headers.location).toEqual(problem === 'vermin/pests' ? redirect.recurring : redirect.description)
         expect(response.request.yar.get(constants.redisKeys.RARS_SOURCE_DETAILS)).toEqual(buildAnswers(partialPayload))
+      })
+
+      it('Happy: records that the site finder api was down when the search failed', async () => {
+        const response = await submitPostRequest(
+          { url, payload },
+          constants.statusCodes.REDIRECT,
+          { [constants.redisKeys.RARS_SITE_FINDER_API_DOWN]: true }
+        )
+        expect(response.request.yar.get(constants.redisKeys.RARS_SOURCE_DETAILS)).toEqual(
+          buildAnswers(payload, 'Site finder API down (public services register)')
+        )
       })
 
       it('Happy: strips special characters from postcode', async () => {

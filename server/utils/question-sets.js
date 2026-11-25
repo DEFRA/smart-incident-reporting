@@ -1178,6 +1178,10 @@ const questionSets = {
         key: constants.redisKeys.RARS_SOURCE_DETAILS,
         text: 'Do you know the site or business responsible for the {problem}?',
         answers: {
+          siteFinderUsed: {
+            answerId: 3201,
+            text: 'Site finder used'
+          },
           siteName: {
             answerId: 3202,
             text: 'Name of person or site'
@@ -1193,6 +1197,26 @@ const questionSets = {
           sourcePostcode: {
             answerId: 3205,
             text: 'Postcode (if known)'
+          },
+          registrationNumber: {
+            answerId: 3206,
+            text: 'Registration number'
+          },
+          permitType: {
+            answerId: 3207,
+            text: 'Permit type'
+          },
+          distance: {
+            answerId: 3208,
+            text: 'Distance from the NGR'
+          },
+          primaryActivity: {
+            answerId: 3209,
+            text: 'Primary activity'
+          },
+          permitUrl: {
+            answerId: 3210,
+            text: 'Permit URL'
           }
         }
       },

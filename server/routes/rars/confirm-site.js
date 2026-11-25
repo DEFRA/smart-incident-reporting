@@ -1,6 +1,7 @@
 import constants from '../../utils/constants.js'
 import { getServiceDetails } from '../../utils/helpers.js'
 import { questionSets } from '../../utils/question-sets.js'
+import { SITE_FINDER_RESULT } from '../../utils/site-finder.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_SOURCE_DETAILS
 
@@ -27,7 +28,8 @@ const createConfirmSiteRoutes = ({ problem, route, redirect }) => {
         return h.redirect(redirect.chooseSite)
       }
 
-      request.yar.set(constants.redisKeys.RARS_SOURCE_DETAILS, buildAnswers(selectedSite))
+      const answers = buildAnswers(selectedSite)
+      request.yar.set(constants.redisKeys.RARS_SOURCE_DETAILS, answers)
 
       if (problem === 'vermin/pests') {
         return h.redirect(redirect.recurring)
@@ -42,12 +44,30 @@ const createConfirmSiteRoutes = ({ problem, route, redirect }) => {
   ]
 }
 
+const PERMIT_TYPES = {
+  'waste-operations': 'Waste Operations',
+  'industrial-installations': 'Industrial Installations'
+}
+
+const getPermitType = id => Object.entries(PERMIT_TYPES).find(([register]) => id?.includes(register))?.[1] || ''
+
 const buildAnswers = selectedSite => {
   const details = {
+    siteFinderUsed: SITE_FINDER_RESULT.COMPLETED,
     siteName: selectedSite.name,
-    sourceAddress: selectedSite.address,
-    sourceTown: '',
-    sourcePostcode: ''
+    sourceAddress: selectedSite.streetAddress,
+    sourceTown: selectedSite.town,
+    sourcePostcode: selectedSite.postcode,
+    registrationNumber: selectedSite.registrationNumber,
+    permitType: getPermitType(selectedSite.id),
+    distance: `${selectedSite.distance.toFixed(2)} km`,
+    primaryActivity: selectedSite.primaryActivity,
+    permitUrl: selectedSite.id.replace(/^http:/, 'https:')
+  }
+
+  // the primary activity is only available for industrial installations
+  if (!details.primaryActivity) {
+    delete details.primaryActivity
   }
 
   return Object.entries(details).map(([key, otherDetails]) => ({
