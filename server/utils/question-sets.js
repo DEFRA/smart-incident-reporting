@@ -1571,31 +1571,27 @@ const questionSets = {
     }
   },
   FLOODING: {
-    questionSetId: 0,
+    questionSetId: 1400,
     questions: {
       FLOOD_RISK: {
-        questionId: 1,
+        questionId: 210,
         key: constants.redisKeys.FLOOD_RISK,
         text: 'What would you like to report?',
         answers: {
           now: {
-            answerId: 2,
+            answerId: 211,
             text: 'Flooding happening now'
           },
           soon: {
-            answerId: 3,
+            answerId: 212,
             text: 'Flooding that may happen soon'
           },
           recent: {
-            answerId: 4,
+            answerId: 213,
             text: 'A flood that has happened recently'
           },
-          mayCause: {
-            answerId: 5,
-            text: 'Something that may cause flooding'
-          },
           iDontKnow: {
-            answerId: 6,
+            answerId: 214,
             text: 'I don\'t know'
           }
         }

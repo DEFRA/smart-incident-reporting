@@ -24,8 +24,7 @@ describe(url, () => {
       { answer: 'now', id: 'answerId' },
       { answer: 'soon', id: 'answerId-2' },
       { answer: 'recent', id: 'answerId-3' },
-      { answer: 'mayCause', id: 'answerId-4' },
-      { answer: 'iDontKnow', id: 'answerId-5' }
+      { answer: 'iDontKnow', id: 'answerId-4' }
     ])(`Should pre-select saved $answer answer from session for ${url}`, async ({ answer, id }) => {
       const answerId = question.answers[answer].answerId
       const sessionData = {
@@ -43,7 +42,6 @@ describe(url, () => {
       { answer: 'now', description: 'flooding happening now', redirectTo: constants.routes.FLOOD_SOURCE },
       { answer: 'soon', description: 'flooding that may happen soon', redirectTo: constants.routes.FLOOD_SOURCE },
       { answer: 'recent', description: 'a recent flood', redirectTo: constants.routes.FLOOD_SOURCE },
-      { answer: 'mayCause', description: 'something that may cause flooding', redirectTo: constants.routes.FLOOD_SOURCE },
       { answer: 'iDontKnow', description: 'not knowing', redirectTo: constants.routes.FLOOD_SOURCE }
     ])('Should redirect to $redirectTo when $description selected', async ({ answer, redirectTo }) => {
       const answerId = question.answers[answer].answerId
@@ -60,7 +58,6 @@ describe(url, () => {
       { answer: 'now', description: 'flooding happening now' },
       { answer: 'soon', description: 'flooding that may happen soon' },
       { answer: 'recent', description: 'a recent flood' },
-      { answer: 'mayCause', description: 'something that may cause flooding' },
       { answer: 'iDontKnow', description: 'not knowing' }
     ])('Should save $description answer to session', async ({ answer }) => {
       const answerId = question.answers[answer].answerId
