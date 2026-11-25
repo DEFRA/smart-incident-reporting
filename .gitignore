@@ -5,8 +5,4 @@ coverage
 server/public
 .DS_Store
 .env
-<<<<<<< HEAD
 /docker/secrets
-=======
-/docker/secrets
->>>>>>> flood
