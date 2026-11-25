@@ -18,16 +18,6 @@ const searchRegister = async (register, query) => {
   }
 }
 
-const isSeparator = char => char === ',' || char.trim() === ''
-
-const trimSeparators = text => {
-  let start = 0
-  let end = text.length
-  while (start < end && isSeparator(text[start])) start++
-  while (end > start && isSeparator(text[end - 1])) end--
-  return text.slice(start, end)
-}
-
 // the town or city is what remains of the full address after the street address and the trailing postcode are removed
 const getTown = ({ address = '', street_address: streetAddress = '', postcode = '' } = {}) => {
   let town = address
@@ -37,7 +27,7 @@ const getTown = ({ address = '', street_address: streetAddress = '', postcode = 
   if (postcode && town.endsWith(postcode)) {
     town = town.slice(0, -postcode.length)
   }
-  return trimSeparators(town)
+  return town.split(',').map(part => part.trim()).filter(Boolean).join(', ')
 }
 
 // the api returns a single object instead of an array when there is only one activity
