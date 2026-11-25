@@ -1,4 +1,4 @@
-version: "3.9"
+name: smart-incident-reporting-local
 secrets:
   WEBAPP_ENV:
     file: ./secrets/WEBAPP_ENV
@@ -8,10 +8,13 @@ services:
     build:
       context: ../
       dockerfile: dockerfile
+      target: development
       args:
         - GA_ID
     ports:
-      - "3000:3000"
+      - "8000:8000"
     secrets:
       - WEBAPP_ENV
-    entrypoint: [ '/bin/sh', '-c', "source /run/secrets/WEBAPP_ENV && npm run start" ]
+    entrypoint: [ '/bin/sh', '-c' ]
+    command:
+      - "source /run/secrets/WEBAPP_ENV && export NODE_ENV=development && npm run dev"
