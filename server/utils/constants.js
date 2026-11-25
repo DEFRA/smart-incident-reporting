@@ -159,6 +159,7 @@ const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 const REFERER = 'referer'
 const COUNTER = 'counter'
+const FRIENDLY_CAPTCHA_COMPLETED = 'friendly-captcha-completed'
 // const SMELL_POSTCODE_DETAILS = 'smell-postcode-details'
 const DATE_TIME_OPTION = 'date-time-option'
 const QUESTION_SET_ID = 'question-set-id'
@@ -297,6 +298,7 @@ const redisKeys = {
   SUBMISSION_TIMESTAMP,
   REFERER,
   COUNTER,
+  FRIENDLY_CAPTCHA_COMPLETED,
   // SMELL_POSTCODE_DETAILS,
   DATE_TIME_OPTION,
   QUESTION_SET_ID,
@@ -309,6 +311,7 @@ const statusCodes = {
   CREATED: 201,
   NO_CONTENT: 204,
   REDIRECT: 302,
+  BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
   PAGE_NOT_FOUND: 404,
   REQUEST_TIMEOUT: 408,

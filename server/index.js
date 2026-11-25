@@ -9,6 +9,7 @@ import cache from './plugins/cache.js'
 import logging from './plugins/logging.js'
 import session from './plugins/session.js'
 import onPostHandler from './plugins/on-post-handler.js'
+import cookieConsent from './plugins/cookie-consent.js'
 
 const expire = 168 * 60 * 60 * 1000
 
@@ -53,6 +54,7 @@ const _registerPlugins = async server => {
   await server.register(views)
   await server.register(Blipp)
   await server.register(onPostHandler)
+  await server.register(cookieConsent)
 }
 
 export { createServer, init }
