@@ -6,7 +6,7 @@
   <div class="govuk-grid-column-two-thirds">
     {% set successBannerHtml %}
       <p class="govuk-notification-banner__heading">
-        You’ve set your cookie preferences. <a class="govuk-notification-banner__link" href="javascript:history.back()">Go back to the page you were looking at</a>.
+        You’ve set your cookie preferences. <a class="govuk-notification-banner__link" href="{{ returnLink }}">Go back to the page you were looking at</a>.
       </p>
     {% endset %}
     <div id="successBanner" {% if not showSuccessBanner %}hidden{% endif %}>

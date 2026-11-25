@@ -1,12 +1,59 @@
 import { submitGetRequest, submitPostRequest } from '../../__test-helpers__/server.js'
 import constants from '../../utils/constants.js'
 import { parse } from 'node-html-parser'
+import { getServer } from '../../../.jest/setup.js'
 
 const url = constants.routes.COOKIES
 const encodeCookie = value => Buffer.from(encodeURIComponent(value)).toString('base64')
 
 describe(url, () => {
   describe('GET', () => {
+    it('remembers the journey page across cookie saves and updates it on re-entry', async () => {
+      const server = getServer()
+      const headers = { host: 'service.test', referer: 'http://service.test/smell/source?step=1' }
+      const first = await server.inject({ method: 'GET', url, headers })
+      const sessionCookie = first.headers['set-cookie'].find(cookie => cookie.startsWith('session=')).split(';')[0]
+      const link = response => parse(response.payload).querySelector('#successBanner a').getAttribute('href')
+
+      expect(link(first)).toBe('/smell/source?step=1')
+      const saved = await server.inject({
+        method: 'POST',
+        url,
+        headers: { host: 'service.test', cookie: sessionCookie },
+        payload: { cookieConsent: 'No' }
+      })
+      expect(saved.headers.location).toBe('/cookies?updated=true')
+      const confirmation = await server.inject({
+        method: 'GET',
+        url: saved.headers.location,
+        headers: { host: 'service.test', cookie: sessionCookie, referer: 'http://service.test/cookies' }
+      })
+      expect(link(confirmation)).toBe('/smell/source?step=1')
+      const reentry = await server.inject({
+        method: 'GET',
+        url,
+        headers: { host: 'service.test', cookie: sessionCookie, referer: 'http://service.test/noise/when' }
+      })
+      expect(link(reentry)).toBe('/noise/when')
+    })
+
+    it('uses the previous page path from the referer', async () => {
+      const referer = 'http://service.test/smell/source'
+      const expectedPath = '/smell/source'
+      const response = await submitGetRequest({ url, headers: { host: 'service.test', referer } })
+      const link = parse(response.payload).querySelector('#successBanner a')
+
+      expect(link.getAttribute('href')).toBe(expectedPath)
+    })
+
+    it('falls back to the service page for an invalid referrer', async () => {
+      const referer = 'invalid'
+      const response = await submitGetRequest({ url, headers: { host: 'service.test', referer } })
+      const link = parse(response.payload).querySelector('#successBanner a')
+
+      expect(link.getAttribute('href')).toBe(constants.urls.GOV_UK_SERVICE_HOME)
+    })
+
     it(`Should return success response and correct view for ${url}`, async () => {
       const response = await submitGetRequest({ url }, 'Cookies on the Report an environmental problem service')
       expect(response.payload).toContain('<form action="/cookies" method="post">')
