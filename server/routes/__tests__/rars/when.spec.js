@@ -167,6 +167,33 @@ describe('RARS When Routes', () => {
     expect(response.viewData.errorSummary.errorList[0].text).toBe('Select when you noticed the vermin/pests')
   })
 
+  it.each(['rats', 'seagulls', 'flies'])('Should use the selected vermin/pests type in the question when session has %s', async (selectedVerminOrPests) => {
+    const route = createWhenRoutes({
+      problem: 'vermin/pests',
+      route: constants.routes.PESTS_WHEN,
+      redirect: {
+        whenWorse: constants.routes.PESTS_EFFECT_ON_DAILY_LIFE,
+        earlierToday: constants.routes.PESTS_EARLIER_TODAY,
+        yesterday: constants.routes.PESTS_YESTERDAY,
+        dateBeforeYesterday: constants.routes.PESTS_DATE_BEFORE_YESTERDAY
+      }
+    })
+
+    const request = {
+      yar: {
+        get: jest.fn(key => key === constants.redisKeys.PESTS_TYPE_SELECTED ? selectedVerminOrPests : undefined),
+        set: jest.fn()
+      }
+    }
+    const h = {
+      view: jest.fn((viewName, viewData) => ({ viewName, viewData }))
+    }
+
+    const response = await route[0].handler(request, h)
+
+    expect(response.viewData.questionText).toBe(`When did you most recently notice the ${selectedVerminOrPests}`)
+  })
+
   describe.each(problems)('$problem when', ({
     url,
     redirectEarlierToday,

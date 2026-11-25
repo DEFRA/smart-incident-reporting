@@ -1,49 +1,79 @@
 {% extends 'layout.html' %}
 
-{% set pageTitle = 'Report blockage in a river in England' %}
+{% set pageTitle = 'Report a blockage in a river in England' %}
 
 {% block content %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+
     <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
-    <p>Use this service to report blockage in a river in England. Blockages can include:</p>    
+
+    <p class="govuk-body">Use this service to report a blockage in a river in England.</p>
+
+    <p class="govuk-body">Blockages might include:</p>
     <ul class="govuk-list govuk-list--bullet">
       <li>fallen trees or other vegetation</li>
       <li>vehicles</li>
-      <li>a build-up of material such as stone or soil, or rubbish</li>
+      <li>a buildup of rubbish or materials such as stone or soil</li>
       <li>someone deliberately blocking the river</li>
     </ul>
-    <div class="govuk-inset-text">There's a different way to report <a rel="external" href="https://naturalresources.wales/about-us/contact-us/report-an-incident/?lang=en">a blockage to a river in Wales</a>, <a rel="external" href="https://www.mygov.scot/report-environmental-incident">a blockage to a river  in Scotland</a> or <a rel="external" href="https://www.nidirect.gov.uk/information-and-services/environment-and-outdoors/environmental-quality-your-area">a blockage to a river in Northern Ireland</a>.</div>
-    <h2 class="govuk-heading-m">Before you start</h2>
-    <p>You'll need to know the location of the blockage.</p>
-    <p>You only need to give your personal details if you're happy to be contacted for more information.</p>
-    <p>If you want to send photos, you'll need to give an email address.</p>
-    <div class="govuk-inset-text">Do not use this service to report blockages to other watercourses, such as streams or canals. <a href="https://www.gov.uk/find-local-council">Contact your local council</a> instead.</div>
+
+    <p class="govuk-body">There’s a different way to:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li><a rel="external" class="govuk-link" href="https://www.mygov.scot/report-environmental-incident">report a blocked river in Scotland</a></li>
+      <li><a rel="external" class="govuk-link" href="https://naturalresources.wales/about-us/contact-us/report-an-incident/?lang=en">report a blocked river in Wales</a></li>
+      <li><a rel="external" class="govuk-link" href="https://www.nidirect.gov.uk/articles/reporting-flooding">report a blocked river in Northern Ireland</a></li>
+    </ul>
+
+    <h2 class="govuk-heading-m" id="before-you-start">Before you start</h2>
+    <p class="govuk-body">You’ll need to know:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>where the blockage is</li>
+      <li>when you noticed it</li>
+    </ul>
+    <p class="govuk-body">You’ll need to give the location of the blockage, either by describing where it is or using the map in the service.</p>
+    <p class="govuk-body">You only need to give your personal details if you’re happy to be contacted for more information.</p>
+    <p class="govuk-body">You’ll need to give an email address if you want either to:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>send photos</li>
+      <li>get a reference number</li>
+    </ul>
+
+    <div class="govuk-inset-text">
+      You cannot use this service to report other blocked watercourses, such as streams or canals. <a href="https://www.gov.uk/find-local-council" class="govuk-link">Contact your local council</a> instead.
+    </div>
+
+    <h2 class="govuk-heading-m" id="report-a-river-blockage">Report a river blockage</h2>
     {{ govukButton({
       text: "Start now",
       href: startHref,
       isStartButton: true
     }) }}
-    <h2 class="govuk-heading-m">Report a blockage in a river by phone</h2>
-    <p>If you're unable to use the online service you can call the Environment Agency.</p>
+
+    <h2 class="govuk-heading-m" id="report-a-river-blockage-by-phone">Report a river blockage by phone</h2>
+    <p class="govuk-body">If you cannot use the online service, you can call the Environment Agency.</p>
     <div class="contact">
       <p>Environment Agency incident hotline<br />
-      Telephone: 0800 80 70 60<br />
-      24 hours service <br />
-      <a href="https://www.gov.uk/call-charges">Find out about call charges</a></p>     
+        Telephone: 0800 80 70 60<br />
+        Open every day, 24 hours a day<br />
+        <a href="https://www.gov.uk/call-charges" class="govuk-link">Find out about call charges</a>
+      </p>
     </div>
-    <h2 class="govuk-heading-m">After you make your report</h2>
-    <p>The Environment Agency will review your report and decide if any action is needed.</p>
-    <p>You will not get updates on your report.</p>
-    <h2 class="govuk-heading-m">Report other problems with your environment</h2>
-    <p>How you report other environmental problems depends on the type of issue and where it is. You may have to report it to:
-      <ul class="govuk-list govuk-list--bullet">
-    <li>the Environment Agency</li>
-    <li>your local council</li>
-    <li>your utilities company</li>
+
+    <h2 class="govuk-heading-m" id="after-youve-reported-the-problem">After you’ve reported the problem</h2>
+    <p class="govuk-body">The Environment Agency will look at your report and decide if any action is needed.</p>
+    <p class="govuk-body">You will not get updates on your report.</p>
+
+    <h2 class="govuk-heading-m" id="report-other-environmental-problems">Report other environmental problems</h2>
+    <p class="govuk-body">How you report other problems depends on the type of problem and where it is. You may have to report it to:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>the Environment Agency</li>
+      <li>your local council</li>
+      <li>your utilities company</li>
     </ul>
-    <p><a href="https://www.gov.uk/report-environmental-problem">Find out how to report other problems with your environment</a>.</p>
+    <p class="govuk-body">Find out <a href="https://www.gov.uk/report-environmental-problem" class="govuk-link">how to report other environmental problems</a>.</p>
+
   </div>
 </div>
 

@@ -7,61 +7,68 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <h1 class="govuk-heading-xl">
-      Report a smell
-    </h1>
-    <p>Use this service to report unpleasant smells from industry and businesses in England.</p>
-    <p>This includes smells from:</p>
+    <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+
+    <p class="govuk-body">Use this service to report unpleasant smells from waste facilities, industrial sites and farms.</p>
+    <p class="govuk-body">This includes smells from:</p>
     <ul class="govuk-list govuk-list--bullet">
       <li>rubbish tips</li>
       <li>recycling centres</li>
-      <li>other waste management activities</li>
+      <li>large industrial sites, factories or businesses (such as food processing plants)</li>
+      <li>farming activity, such as poultry or pig farming</li>
     </ul>
 
-    <div class="govuk-inset-text">
-      There’s a different way to
-      <a rel="external" href="https://naturalresources.wales/about-us/contact-us/report-an-incident/?lang=en">report an environmental problem in Wales</a>,
-      <a rel="external" href="https://www.mygov.scot/report-environmental-incident">report an environmental problem in Scotland</a> or
-      <a rel="external" href="https://www.nidirect.gov.uk/information-and-services/environment-and-outdoors/">report an environmental problem in Northern Ireland</a>.
-    </div>
-
-    <h2 class="govuk-heading-m">Before you start</h2>
-    <p>You'll need to know:</p>
+    <p class="govuk-body">There’s a different way to:</p>
     <ul class="govuk-list govuk-list--bullet">
-      <li>where the smell is coming from, for example the name of the site or business responsible</li>
-      <li>where you were when you noticed the smell</li>
-      <li>when the smell started</li>
+      <li><a rel="external" class="govuk-link" href="https://www.mygov.scot/report-environmental-incident">report a smell in Scotland</a></li>
+      <li><a rel="external" class="govuk-link" href="https://naturalresources.wales/about-us/contact-us/report-an-incident/?lang=en">report a smell in Wales</a></li>
+      <li><a rel="external" class="govuk-link" href="https://www.nidirect.gov.uk/information-and-services/environment-and-outdoors/environmental-quality-your-area">report a smell in Northern Ireland</a></li>
     </ul>
 
-    <div class="govuk-inset-text">
-      Do not use this service to report nuisance smells from your neighbours, domestic rubbish or small local businesses, such as restaurants.
-      <a href="https://www.gov.uk/find-local-council">Contact your local council's environmental health team for help</a>.
-    </div>
+    <h2 class="govuk-heading-m" id="report-other-types-of-smells">Report other types of smells</h2>
+    <p class="govuk-body">You cannot use this service to report smells from:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>neighbours</li>
+      <li>local businesses like restaurants and cafés</li>
+    </ul>
+    <p class="govuk-body">You’ll need to <a href="https://www.gov.uk/find-local-council" class="govuk-link">contact your local council</a> and ask for their environmental health department.</p>
 
+    <h2 class="govuk-heading-m" id="before-you-start">Before you start</h2>
+    <p class="govuk-body">You’ll need to know:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>where the smell is coming from</li>
+      <li>where you noticed it</li>
+      <li>when you noticed it</li>
+    </ul>
+    <p class="govuk-body">You only need to give your personal details if you’re happy to be contacted for more information.</p>
+    <p class="govuk-body">You’ll need to give an email address if you want to:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>send photos</li>
+      <li>get a reference number</li>
+    </ul>
+
+    <h2 class="govuk-heading-m" id="report-a-smell-online">Report a smell online</h2>
     {{ govukButton({
-    text: "Start now",
-    href: startHref,
-    isStartButton: true
+      text: "Start now",
+      href: startHref,
+      isStartButton: true
     }) }}
 
-    <h2 class="govuk-heading-l">If you cannot report online</h2>
-    <p>You can report the problem to the Environment Agency over the phone.</p>
+    <h2 class="govuk-heading-m" id="report-a-smell-by-phone">Report a smell by phone</h2>
+    <p class="govuk-body">Contact the Environment Agency to report a smell by phone.</p>
     <div class="contact">
       <p>Environment Agency incident hotline<br />
         Telephone: 0800 80 70 60<br />
-        24 hours<br />
-        <a href="https://www.gov.uk/call-charges">Find out about call charges</a>
+        24-hour service<br />
+        <a href="https://www.gov.uk/call-charges" class="govuk-link">Find out about call charges</a>
       </p>
     </div>
 
-    <h2 class="govuk-heading-l">Other environmental problems</h2>
-    <p>How you report other problems affecting the environment depends on what it is and where it's happening. You may have to report it to:</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>the Environment Agency</li>
-      <li>your local council</li>
-      <li>your utilities company</li>
-    </ul>
-    <p><a href="https://www.gov.uk/report-an-environmental-incident">Report other environmental problems</a>.</p>
+    <h2 class="govuk-heading-m" id="after-youve-reported-the-problem">After you’ve reported the problem</h2>
+    <p class="govuk-body">The Environment Agency will review your report and decide if any action is needed.</p>
+    <p class="govuk-body">You will not get updates on your report.</p>
+    <p class="govuk-body"><a href="https://www.gov.uk/government/publications/environment-agency-customer-service-commitment/environment-agency-customer-service-commitment#responding-to-environmental-incidents" class="govuk-link">Find out how the Environment Agency respond to environmental incidents you report</a>.</p>
+
   </div>
 </div>
 

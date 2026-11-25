@@ -16,9 +16,8 @@ const days = [
 
 const NO_PARTICULAR_DAY = 'No particular day'
 
-// the selected days are stored against a single answer id as a semicolon
-// separated list, for example 'Monday;Tuesday;Sunday'
-const ANSWER_SEPARATOR = ';'
+// selected days are stored as a single string, for example 'Monday; Tuesday; Sunday'
+const ANSWER_SEPARATOR = '; '
 
 // noise is the only RARS journey that is heard rather than noticed
 const getPresentTenseVerb = problem => problem === 'noise' ? 'hear' : 'notice'
@@ -41,7 +40,8 @@ const getSelectedDays = answerId => {
 
 const getStoredDays = request => {
   const storedValue = request.yar.get(question.key)?.[0]?.otherDetails
-  return storedValue ? storedValue.split(ANSWER_SEPARATOR) : []
+  // split on the semicolon alone so the separating space is optional
+  return storedValue ? storedValue.split(';').map(day => day.trim()) : []
 }
 
 const buildCheckboxItems = selected => {
@@ -67,7 +67,7 @@ const createDaysWhenWorseRoutes = ({ problem, route, redirect }) => {
   const questionText = question.text
     .replace('{verb}', getPresentTenseVerb(problem))
     .replace('{problem}', problem)
-  const errorText = `Select when you ${getPastTenseVerb(problem)} the ${problem}?`
+  const errorText = `Select when you ${getPastTenseVerb(problem)} the ${problem}`
 
   const getContext = selected => ({
     question,

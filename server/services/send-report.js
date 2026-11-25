@@ -7,8 +7,15 @@ const mediaUploadBaseURL = '/media/upload-photo'
 
 const journeyMap = {
   100: 'water pollution',
-  300: 'blockage',
-  1800: 'illegal fishing'
+  300: 'blockage in a river',
+  1800: 'illegal fishing',
+  200: 'a smell',
+  900: 'dust',
+  1300: 'a vermin or pest problem',
+  2200: 'litter',
+  2300: 'mud',
+  2500: 'noise',
+  3100: 'a vermin or pest problem'
 }
 
 const rarsConfig = {
@@ -42,10 +49,8 @@ const journeyConfigMap = {
   3100: rarsConfig
 }
 
-const buildDataForReportSentPage = (session, problem) => {
-  const questionSetID = session.get(constants.redisKeys.QUESTION_SET_ID)
-  const journeyConfig = journeyConfigMap[questionSetID]
-
+const buildDataForReportSentPage = (session, reportType, problem) => {
+  const journeyConfig = journeyConfigMap[reportType]
   const contactDetails = journeyConfig
     ? session.get(journeyConfig.contactDetailsKey)
     : null
@@ -84,11 +89,12 @@ const sendReport = async (request, payload, problem) => {
     throw new Error('Invalid payload')
   }
 
-  const reportSentPageData = buildDataForReportSentPage(request.yar, problem)
+  const reportType = payload?.reportingAnEnvironmentalProblem?.reportType
+  const reportSentPageData = buildDataForReportSentPage(request.yar, reportType, problem)
   request.yar.set(constants.redisKeys.REPORT_SENT_PAGE_DATA, reportSentPageData)
 
   const submissionTimestamp = request.yar.get(constants.redisKeys.SUBMISSION_TIMESTAMP)
-  const journey = journeyMap[request.yar.get(constants.redisKeys.QUESTION_SET_ID)]
+  const journey = journeyMap[reportType]
 
   if (reportSentPageData.userAgreedForImages) {
     await request.server.app.mediaUploadCache.set(request.yar.id, {
@@ -97,6 +103,8 @@ const sendReport = async (request, payload, problem) => {
     }, 0)
 
     request.logger.info(`send-report.js:sendReport: media upload cache set for session ${request.yar.id} with journey ${journey} and timestamp ${submissionTimestamp}`)
+  } else {
+    console.log('Nope, not writing the redis data')
   }
 
   await sendMessage(request.logger, payload)

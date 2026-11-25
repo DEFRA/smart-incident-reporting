@@ -1,20 +1,17 @@
 import rarsConstants from './rars-constants.js'
 
-// UPDATE URLS
-const serviceHome = 'https://www.gov.uk/report-environmental-problem'
 const urls = {
   GOV_UK_HOME: 'https://www.gov.uk',
-  GOV_UK_SERVICE_HOME: serviceHome,
+  GOV_UK_SERVICE_HOME: 'https://www.gov.uk/report-environmental-problem',
   GOV_UK_WATER_POLLUTION: 'https://www.gov.uk/report-water-pollution',
   GOV_UK_SMELL: 'https://www.gov.uk/report-smell',
   GOV_UK_ILLEGAL_FISHING: 'https://www.gov.uk/report-illegal-fishing-in-england',
   GOV_UK_BLOCKAGE: 'https://www.gov.uk/report-river-blockage',
-  GOV_UK_NOISE: serviceHome,
-  GOV_UK_LITTER: serviceHome,
-  GOV_UK_PESTS: serviceHome,
-  GOV_UK_DUST: serviceHome,
-  GOV_UK_MUD: serviceHome,
-  GOV_UK_FLOOD: serviceHome
+  GOV_UK_NOISE: 'https://www.gov.uk/report-noise',
+  GOV_UK_LITTER: 'https://www.gov.uk/report-litter-at-regulated-site',
+  GOV_UK_PESTS: 'https://www.gov.uk/report-vermin',
+  GOV_UK_DUST: 'https://www.gov.uk/report-dust',
+  GOV_UK_MUD: 'https://www.gov.uk/report-mud'
 }
 
 const serviceNames = {
@@ -166,6 +163,7 @@ const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
 const SUBMISSION_TIMESTAMP = 'submission-timestamp'
 const REFERER = 'referer'
 const COUNTER = 'counter'
+const FRIENDLY_CAPTCHA_COMPLETED = 'friendly-captcha-completed'
 // const SMELL_POSTCODE_DETAILS = 'smell-postcode-details'
 const DATE_TIME_OPTION = 'date-time-option'
 const QUESTION_SET_ID = 'question-set-id'
@@ -306,6 +304,7 @@ const redisKeys = {
   SUBMISSION_TIMESTAMP,
   REFERER,
   COUNTER,
+  FRIENDLY_CAPTCHA_COMPLETED,
   // SMELL_POSTCODE_DETAILS,
   DATE_TIME_OPTION,
   QUESTION_SET_ID,
@@ -318,6 +317,7 @@ const statusCodes = {
   CREATED: 201,
   NO_CONTENT: 204,
   REDIRECT: 302,
+  BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
   PAGE_NOT_FOUND: 404,
   REQUEST_TIMEOUT: 408,

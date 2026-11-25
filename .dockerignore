@@ -20,11 +20,13 @@ pids
 
 **/public/
 
-**/Dockerfile*
+**/dockerfile*
 
-**/LICENSE
+**/LICENCE
 
 **/README.md
+
+**/docker/secrets/
 
 # Test sources
 **/tests/
