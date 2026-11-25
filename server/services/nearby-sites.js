@@ -50,7 +50,7 @@ const findSitesNearby = async (easting, northing) => {
 
   const sites = new Map()
   items
-    .sort((a, b) => a.distance - b.distance)
+    .toSorted((a, b) => a.distance - b.distance)
     .forEach(item => {
       const siteAddress = item.site?.siteAddress
       const name = item.holder?.name || siteAddress?.organization_name
