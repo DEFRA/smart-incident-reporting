@@ -1594,9 +1594,32 @@ const questionSets = {
       }
     }
   },
-  FLOOD: {
-    questionSetId: 0,
+  FLOODING: {
+    questionSetId: 1400,
     questions: {
+      FLOOD_RISK: {
+        questionId: 210,
+        key: constants.redisKeys.FLOOD_RISK,
+        text: 'What would you like to report?',
+        answers: {
+          now: {
+            answerId: 211,
+            text: 'Flooding happening now'
+          },
+          soon: {
+            answerId: 212,
+            text: 'Flooding that may happen soon'
+          },
+          recent: {
+            answerId: 213,
+            text: 'A flood that has happened recently'
+          },
+          iDontKnow: {
+            answerId: 214,
+            text: 'I don\'t know'
+          }
+        }
+      }
     }
   }
 }

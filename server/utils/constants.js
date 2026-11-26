@@ -153,8 +153,10 @@ const SMELL_INDOORS = 'smell/indoors'
 const SMELL_CLOTHING_AND_HAIR = 'smell/clothing-and-hair'
 const SMELL_HEALTH = 'smell/health'
 
-const FLOOD_START = 'flood-start'
-const FLOOD = 'flood'
+const FLOOD_START = 'flooding-start'
+const FLOOD = 'flooding'
+const FLOOD_RISK = 'flooding/flood-risk'
+const FLOOD_SOURCE = 'flooding/flood-source'
 
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
@@ -287,7 +289,9 @@ const views = {
   LITTER_HEALTH,
   NOISE_HEALTH,
   DUST_HEALTH,
-  FLOOD
+  FLOOD,
+  FLOOD_RISK,
+  FLOOD_SOURCE
 }
 
 const routes = {

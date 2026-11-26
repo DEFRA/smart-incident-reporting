@@ -4,8 +4,8 @@ import { questionSets } from '../utils/question-sets.js'
 const handlers = {
   get: async (request, h) => {
     request.yar.reset()
-    request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.FLOOD.questionSetId)
-    return h.redirect(constants.routes.FLOOD_START)
+    request.yar.set(constants.redisKeys.QUESTION_SET_ID, questionSets.FLOODING.questionSetId)
+    return h.redirect(constants.routes.FLOOD_RISK)
   }
 }
 
