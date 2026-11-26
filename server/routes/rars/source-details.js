@@ -1,5 +1,6 @@
 import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
+import { SITE_FINDER_RESULT } from '../../utils/site-finder.js'
 import { getServiceDetails, getErrorSummary, titleHelper } from '../../utils/helpers.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_SOURCE_DETAILS
@@ -51,8 +52,11 @@ const createSourceDetailsRoutes = ({ problem, route, redirect }) => {
       // handle redirects
       if (request.payload.answerId === 'yes') {
         // set answer in session
-        request.yar.set(constants.redisKeys.RARS_SOURCE_DETAILS, buildAnswers(request.payload))
-        return h.redirect(redirect.locationHome)
+        request.yar.set(constants.redisKeys.RARS_SOURCE_DETAILS, buildAnswers(request.payload, siteFinderApiDown(request)))
+        if (problem === 'vermin/pests') {
+          return h.redirect(redirect.recurring)
+        }
+        return h.redirect(redirect.description)
       }
 
       return h.redirect(redirect.contactEnvironmentAgency)
@@ -99,8 +103,14 @@ const validatePayload = (payload, problem) => {
   return errorSummary
 }
 
-const buildAnswers = payload => {
+const siteFinderApiDown = request => request.yar.get(constants.redisKeys.RARS_SITE_FINDER_API_DOWN) === true
+
+const buildAnswers = (payload, apiDown) => {
   return [{
+    ...baseAnswer,
+    answerId: question.answers.siteFinderUsed.answerId,
+    otherDetails: apiDown ? SITE_FINDER_RESULT.API_DOWN : SITE_FINDER_RESULT.MANUAL
+  }, {
     ...baseAnswer,
     answerId: question.answers.siteName.answerId,
     otherDetails: payload.siteName

@@ -5,6 +5,6 @@ export default createLocationAddressRoutes({
   problem: 'smell',
   route: constants.routes.SMELL_LOCATION_ADDRESS,
   redirect: {
-    description: constants.routes.SMELL_DESCRIPTION
+    chooseSite: constants.routes.SMELL_CHOOSE_SITE
   }
 })

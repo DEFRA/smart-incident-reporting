@@ -18,7 +18,12 @@ const payload = {
   sourcePostcode: 'WA4 1HT'
 }
 
-const buildAnswers = data => ([
+const buildAnswers = (data, siteFinderResult = 'Site (suspected source) address entered manually') => ([
+  {
+    ...baseAnswer,
+    answerId: question.answers.siteFinderUsed.answerId,
+    otherDetails: siteFinderResult
+  },
   {
     ...baseAnswer,
     answerId: question.answers.siteName.answerId,
@@ -48,7 +53,7 @@ const problems = [
     header: 'Do you know the site or business responsible for the smell?',
     errorText: 'Select &#39;yes&#39; if you can give details about where the smell is coming from',
     redirect: {
-      locationHome: constants.routes.SMELL_LOCATION_HOME,
+      description: constants.routes.SMELL_DESCRIPTION,
       contactEnvironmentAgency: constants.routes.SMELL_CONTACT_ENVIRONMENT_AGENCY
     }
   },
@@ -58,7 +63,7 @@ const problems = [
     header: 'Do you know the site or business responsible for the noise?',
     errorText: 'Select &#39;yes&#39; if you can give details about where the noise is coming from',
     redirect: {
-      locationHome: constants.routes.NOISE_LOCATION_HOME,
+      description: constants.routes.NOISE_DESCRIPTION,
       contactEnvironmentAgency: constants.routes.NOISE_CONTACT_ENVIRONMENT_AGENCY
     }
   },
@@ -68,7 +73,7 @@ const problems = [
     header: 'Do you know the site or business responsible for the dust?',
     errorText: 'Select &#39;yes&#39; if you can give details about where the dust is coming from',
     redirect: {
-      locationHome: constants.routes.DUST_LOCATION_HOME,
+      description: constants.routes.DUST_DESCRIPTION,
       contactEnvironmentAgency: constants.routes.DUST_CONTACT_ENVIRONMENT_AGENCY
     }
   },
@@ -78,7 +83,7 @@ const problems = [
     header: 'Do you know the site or business responsible for the litter?',
     errorText: 'Select &#39;yes&#39; if you can give details about where the litter is coming from',
     redirect: {
-      locationHome: constants.routes.LITTER_LOCATION_HOME,
+      description: constants.routes.LITTER_DESCRIPTION,
       contactEnvironmentAgency: constants.routes.LITTER_CONTACT_ENVIRONMENT_AGENCY
     }
   },
@@ -88,7 +93,7 @@ const problems = [
     header: 'Do you know the site or business responsible for the mud?',
     errorText: 'Select &#39;yes&#39; if you can give details about where the mud is coming from',
     redirect: {
-      locationHome: constants.routes.MUD_LOCATION_HOME,
+      description: constants.routes.MUD_DESCRIPTION,
       contactEnvironmentAgency: constants.routes.MUD_CONTACT_ENVIRONMENT_AGENCY
     }
   },
@@ -98,7 +103,7 @@ const problems = [
     header: 'Do you know the site or business responsible for the vermin/pests?',
     errorText: 'Select &#39;yes&#39; if you can give details about where the vermin/pests are coming from',
     redirect: {
-      locationHome: constants.routes.PESTS_LOCATION_HOME,
+      recurring: constants.routes.PESTS_RECURRING,
       contactEnvironmentAgency: constants.routes.PESTS_CONTACT_ENVIRONMENT_AGENCY
     }
   }
@@ -146,7 +151,7 @@ describe('RARS Source Details Routes', () => {
     })
   })
 
-  describe.each(problems)('$problem source details redirect', ({ url, redirect }) => {
+  describe.each(problems)('$problem source details redirect', ({ problem, url, redirect }) => {
     describe('POST', () => {
       it('Happy: accepts valid answerId no and redirects to contact environment agency', async () => {
         const options = { url, payload: { answerId: 'no' } }
@@ -157,7 +162,7 @@ describe('RARS Source Details Routes', () => {
       it('Happy: accepts valid answerId yes and complete address with valid postcode', async () => {
         const options = { url, payload }
         const response = await submitPostRequest(options)
-        expect(response.headers.location).toEqual(redirect.locationHome)
+        expect(response.headers.location).toEqual(problem === 'vermin/pests' ? redirect.recurring : redirect.description)
         expect(response.request.yar.get(constants.redisKeys.RARS_SOURCE_DETAILS)).toEqual(buildAnswers(payload))
       })
 
@@ -165,15 +170,26 @@ describe('RARS Source Details Routes', () => {
         const partialPayload = { ...payload, sourceAddress: '' }
         const options = { url, payload: partialPayload }
         const response = await submitPostRequest(options)
-        expect(response.headers.location).toEqual(redirect.locationHome)
+        expect(response.headers.location).toEqual(problem === 'vermin/pests' ? redirect.recurring : redirect.description)
         expect(response.request.yar.get(constants.redisKeys.RARS_SOURCE_DETAILS)).toEqual(buildAnswers(partialPayload))
+      })
+
+      it('Happy: records that the site finder api was down when the search failed', async () => {
+        const response = await submitPostRequest(
+          { url, payload },
+          constants.statusCodes.REDIRECT,
+          { [constants.redisKeys.RARS_SITE_FINDER_API_DOWN]: true }
+        )
+        expect(response.request.yar.get(constants.redisKeys.RARS_SOURCE_DETAILS)).toEqual(
+          buildAnswers(payload, 'Site finder API down (public services register)')
+        )
       })
 
       it('Happy: strips special characters from postcode', async () => {
         const dirtyPayload = { ...payload, sourcePostcode: 'WA4 &^%$%$--1HT' }
         const options = { url, payload: dirtyPayload }
         const response = await submitPostRequest(options)
-        expect(response.headers.location).toEqual(redirect.locationHome)
+        expect(response.headers.location).toEqual(problem === 'vermin/pests' ? redirect.recurring : redirect.description)
         expect(response.request.yar.get(constants.redisKeys.RARS_SOURCE_DETAILS)).toEqual(buildAnswers({ ...dirtyPayload, sourcePostcode: 'WA4 1HT' }))
       })
     })

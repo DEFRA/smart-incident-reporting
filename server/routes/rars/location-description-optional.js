@@ -2,6 +2,7 @@ import constants from '../../utils/constants.js'
 import { questionSets } from '../../utils/question-sets.js'
 import { getErrorSummary, getServiceDetails } from '../../utils/helpers.js'
 import { maxLength } from '../../utils/validation.js'
+import { findSitesNearby } from '../../services/nearby-sites.js'
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_DESCRIPTION_OPTIONAL
 
@@ -40,10 +41,20 @@ const createLocationDescriptionOptionalRoutes = ({ problem, route, redirect }) =
       if (otherLocationInfo) {
         request.yar.set(question.key, buildAnswers(otherLocationInfo))
       }
-      if (problem === 'vermin/pests') {
-        return h.redirect(redirect.recurring)
+      const locationMap = request.yar.get(constants.redisKeys.RARS_LOCATION_MAP) || []
+      const easting = locationMap[1]?.otherDetails
+      const northing = locationMap[2]?.otherDetails
+      const point = [Number(easting), Number(northing)]
+
+      request.yar.set(constants.redisKeys.RARS_NEARBY_SITES, [])
+      request.yar.set(constants.redisKeys.RARS_SITE_FINDER_API_DOWN, false)
+      if (easting && northing && point.every(Number.isFinite)) {
+        const { sites: nearbySites, apiDown } = await findSitesNearby(...point)
+        request.yar.set(constants.redisKeys.RARS_NEARBY_SITES, nearbySites)
+        request.yar.set(constants.redisKeys.RARS_SITE_FINDER_API_DOWN, apiDown)
       }
-      return h.redirect(redirect.description)
+
+      return h.redirect(redirect.chooseSite)
     }
   }
 

@@ -17,7 +17,7 @@ describe('pests/source', () => {
       redirect: {
         contactEnvironmentAgency: constants.routes.PESTS_CONTACT_ENVIRONMENT_AGENCY,
         localCouncil: constants.routes.PESTS_REPORT_LOCAL_COUNCIL,
-        sourceDetails: constants.routes.PESTS_SOURCE_DETAILS
+        locationHome: constants.routes.PESTS_LOCATION_HOME
       }
     })
   })
