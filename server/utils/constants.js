@@ -157,6 +157,7 @@ const FLOOD_START = 'flooding-start'
 const FLOOD = 'flooding'
 const FLOOD_RISK = 'flooding/flood-risk'
 const FLOOD_SOURCE = 'flooding/flood-source'
+const FLOOD_CONTACT_LOCAL_COUNCIL = 'flooding/contact-local-council'
 
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
@@ -291,7 +292,8 @@ const views = {
   DUST_HEALTH,
   FLOOD,
   FLOOD_RISK,
-  FLOOD_SOURCE
+  FLOOD_SOURCE,
+  FLOOD_CONTACT_LOCAL_COUNCIL
 }
 
 const routes = {
