@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% set pageTitle = 'Contact your water company' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+
+    <p class="govuk-body">Contact your <a href="https://www.water.org.uk/customers/find-your-supplier" class="govuk-link govuk-link--no-visited-state">local water company</a> to fix:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>blocked sewers</li>
+      <li>burst water mains</li>
+    </ul>
+    {{ govukWarningText({
+      text: "Call 999 if you or someone else is in immediate danger.",
+      iconFallbackText: "Warning"
+    }) }}
+  </div>
+</div>
+
+{% endblock %}
