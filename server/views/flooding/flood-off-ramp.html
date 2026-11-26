@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% set pageTitle = 'Contact the Canal & River Trust' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+
+    <p class="govuk-body">If you think there is a flood or something that might cause a flood of a canal <a href="https://canalrivertrust.org.uk/contact-us" class="govuk-link govuk-link--no-visited-state">contact the Canal &amp; River Trust</a>.</p>
+
+    {{ govukWarningText({
+      text: "Call 999 if you or someone else is in immediate danger.",
+      iconFallbackText: "Warning"
+    }) }}
+  </div>
+</div>
+
+{% endblock %}
