@@ -49,7 +49,7 @@ const validatePayload = answerId => {
   const errorSummary = getErrorSummary()
   if (!answerId) {
     errorSummary.errorList.push({
-      text: 'Select the type of flooding you want to report',
+      text: 'Select what you would like to report',
       href: '#answerId'
     })
   }

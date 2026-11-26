@@ -87,7 +87,7 @@ describe(url, () => {
         payload: {}
       }
       const response = await submitPostRequest(options, constants.statusCodes.OK)
-      expect(response.payload).toContain('Select the type of flooding you want to report')
+      expect(response.payload).toContain('Select what you would like to report')
     })
   })
 })
