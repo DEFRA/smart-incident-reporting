@@ -76,7 +76,7 @@ describe('RARS Location Description Optional Routes', () => {
     const newList = await submitGetRequest({ url: constants.routes.SMELL_CHOOSE_SITE }, 'Choose the site you want to report')
 
     expect(findSitesNearby).toHaveBeenCalledWith(374999, 164393)
-    expect(newList.payload).toContain('nearest address postcode: <b>BA1 1UB</b>')
+    expect(newList.payload).toContain('<b>1</b> address found within <b>3 kilometres</b> of <b>BA1 1UB</b>.')
     expect(newList.payload).toContain('New Site')
     expect(newList.payload).not.toContain('TE1 0ST')
     expect(newList.payload).not.toContain('Old Site')
@@ -147,8 +147,8 @@ describe('RARS Location Description Optional Routes', () => {
       })
 
       it.each([
-        ['BA1 1UB', 'your selected location (nearest address postcode: <b>BA1 1UB</b>)'],
-        [null, 'your selected location.']
+        ['BA1 1UB', '<b>BA1 1UB</b>'],
+        [null, '<b>ST 74999 64393</b>']
       ])('shows the current map location when the nearest postcode is %s', async (postcode, locationText) => {
         findSitesNearby.mockResolvedValueOnce({ sites: [{ id: 'site-1', name: 'New Site' }], apiDown: false })
         findNearestPostcode.mockResolvedValueOnce(postcode)
