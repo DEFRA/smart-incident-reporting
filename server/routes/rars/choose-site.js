@@ -50,16 +50,15 @@ const getContext = (request, sites, redirect) => {
   const mapLocation = request.yar.get(constants.redisKeys.RARS_SITE_SEARCH_MAP_LOCATION)
   const manualAddress = request.yar.get(constants.redisKeys.RARS_LOCATION_ADDRESS)
   const selectedAddress = request.yar.get(constants.redisKeys.RARS_CONFIRM_ADDRESS)?.selectedAddress
-  const addressPostcode = manualAddress?.find(
+  const postcode = manualAddress?.find(
     answer => answer.answerId === addressQuestion.answers.postcode.answerId
   )?.otherDetails || selectedAddress?.[0]?.postcode
-  const mapReference = request.yar.get(constants.redisKeys.RARS_LOCATION_MAP)?.[0]?.otherDetails
-  const postcode = mapLocation ? (mapLocation.postcode || mapReference || 'your selected location') : addressPostcode
   const confirmedSite = request.yar.get(constants.redisKeys.RARS_CONFIRM_SITE)
   return {
     sites,
     resultlength: sites.length,
     postcode,
+    mapLocation,
     answer: sites.findIndex(site => site.id === confirmedSite?.selectedSite.id),
     manualSite: redirect.manualSite
   }

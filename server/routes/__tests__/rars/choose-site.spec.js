@@ -73,13 +73,14 @@ describe('RARS Choose Site Routes', () => {
         expect(response.payload).toContain(`href="${manualSite}"`)
       })
 
-      it('does not reuse an old postcode when the map location has no postcode or grid reference', async () => {
+      it.each([[[]], [sites]])('shows location provided for a map search', async (nearbySites) => {
         const response = await submitGetRequest({ url }, 'Choose the site you want to report', constants.statusCodes.OK, {
           ...baseSession,
-          [constants.redisKeys.RARS_SITE_SEARCH_MAP_LOCATION]: { postcode: null }
+          [constants.redisKeys.RARS_NEARBY_SITES]: nearbySites,
+          [constants.redisKeys.RARS_SITE_SEARCH_MAP_LOCATION]: true
         })
 
-        expect(response.payload).toContain('of <b>your selected location</b>.')
+        expect(response.payload).toContain('of location provided.')
         expect(response.payload).not.toContain('of <b>TE1 0ST</b>.')
       })
 

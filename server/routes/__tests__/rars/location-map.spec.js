@@ -1,11 +1,6 @@
 import { submitGetRequest, submitPostRequest } from '../../../__test-helpers__/server.js'
 import { questionSets } from '../../../utils/question-sets.js'
 import constants from '../../../utils/constants.js'
-import { findNearestPostcode } from '../../../services/find-location.js'
-
-jest.mock('../../../services/find-location.js', () => ({
-  findNearestPostcode: jest.fn()
-}))
 
 const question = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_MAP
 const baseAnswer = {
@@ -77,7 +72,6 @@ describe('RARS Location Map Routes', () => {
 
     describe('POST', () => {
       it('Happy: accept and store a point as a national grid reference', async () => {
-        findNearestPostcode.mockResolvedValueOnce('BA1 1UB')
         const point = '[365739.764, 343015.986]'
         const options = {
           url,
@@ -87,8 +81,7 @@ describe('RARS Location Map Routes', () => {
         }
         const response = await submitPostRequest(options)
         expect(response.headers.location).toEqual(redirect)
-        expect(findNearestPostcode).toHaveBeenCalledWith(365739, 343015)
-        expect(response.request.yar.get(constants.redisKeys.RARS_SITE_SEARCH_MAP_LOCATION)).toEqual({ postcode: 'BA1 1UB' })
+        expect(response.request.yar.get(constants.redisKeys.RARS_SITE_SEARCH_MAP_LOCATION)).toBe(true)
         expect(response.request.yar.get(constants.redisKeys.RARS_LOCATION_MAP)).toEqual([{
           ...baseAnswer,
           answerId: question.answers.nationalGridReference.answerId,
@@ -120,7 +113,6 @@ describe('RARS Location Map Routes', () => {
         const response = await submitPostRequest(options, constants.statusCodes.OK)
         expect(response.payload).toContain('There is a problem')
         expect(response.payload).toContain('Mark a location by clicking or tapping the map')
-        expect(findNearestPostcode).not.toHaveBeenCalled()
       })
     })
   })
