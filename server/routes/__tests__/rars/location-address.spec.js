@@ -101,6 +101,17 @@ describe('RARS Location Address Routes', () => {
         }])
       })
 
+      it('uses the manually entered postcode after a map search', async () => {
+        const sessionData = {
+          [constants.redisKeys.RARS_SITE_SEARCH_MAP_LOCATION]: { postcode: 'BA1 1UB' }
+        }
+        await submitPostRequest({ url, payload: { ...payload } }, constants.statusCodes.REDIRECT, sessionData)
+        const response = await submitGetRequest({ url: redirect }, 'Choose the site you want to report')
+
+        expect(response.payload).toContain('of <b>TE1 0ST</b>')
+        expect(response.payload).not.toContain('BA1 1UB')
+      })
+
       it('Happy: strips special characters from postcode', async () => {
         const options = { url, payload: { ...payload, postcode: 'TE1 &^%--0ST' } }
         const response = await submitPostRequest(options)

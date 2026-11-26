@@ -87,6 +87,7 @@ const views = {
 const redisKeys = {
   ...views,
   RARS_NEARBY_SITES: 'rars/nearby-sites',
+  RARS_SITE_SEARCH_MAP_LOCATION: 'rars/site-search-map-location',
   RARS_SITE_FINDER_API_DOWN: 'rars/site-finder-api-down'
 }
 

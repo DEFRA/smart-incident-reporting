@@ -21,6 +21,18 @@ const findByPostcode = async (postcode) => {
   }
 }
 
+const findNearestPostcode = async (easting, northing) => {
+  try {
+    const uri = `https://api.os.uk/search/places/v1/nearest?point=${easting},${northing}&key=${config.osSearchKey}&lr=EN&dataset=DPA`
+    const payload = await getJson(uri, true)
+    return payload.results?.[0]?.DPA?.POSTCODE || null
+  } catch (e) {
+    console.log('Error occurred while finding the nearest postcode using os data hub api' + e)
+    return null
+  }
+}
+
 export {
-  findByPostcode
+  findByPostcode,
+  findNearestPostcode
 }

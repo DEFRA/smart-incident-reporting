@@ -83,6 +83,19 @@ describe('RARS Confirm Address Routes', () => {
         expect(response.request.yar.get(constants.redisKeys.RARS_NEARBY_SITES)).toEqual(sites)
       })
 
+      it('uses the confirmed address after a map search', async () => {
+        findSitesNearby.mockResolvedValueOnce({ sites: [{ id: 'site-1', name: 'Site A' }], apiDown: false })
+        const sessionData = {
+          ...singleLineSession,
+          [constants.redisKeys.RARS_SITE_SEARCH_MAP_LOCATION]: { postcode: 'BA1 1UB' }
+        }
+        await submitPostRequest({ url }, constants.statusCodes.REDIRECT, sessionData)
+        const response = await submitGetRequest({ url: chooseSite }, 'Choose the site you want to report')
+
+        expect(response.payload).toContain('of <b>TE1 0ST</b>')
+        expect(response.payload).not.toContain('BA1 1UB')
+      })
+
       it('Happy: stores location address and map answers then redirects to description when no sites are found', async () => {
         const options = { url }
         findSitesNearby.mockResolvedValueOnce({ sites: [], apiDown: false })

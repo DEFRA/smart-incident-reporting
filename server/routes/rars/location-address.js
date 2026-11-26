@@ -38,6 +38,7 @@ const createLocationAddressRoutes = ({ problem, route, redirect }) => {
       }
 
       request.yar.set(constants.redisKeys.RARS_LOCATION_ADDRESS, buildAnswers(request.payload))
+      request.yar.clear(constants.redisKeys.RARS_SITE_SEARCH_MAP_LOCATION)
       request.yar.set(constants.redisKeys.RARS_NEARBY_SITES, [])
       request.yar.set(constants.redisKeys.RARS_SITE_FINDER_API_DOWN, false)
 

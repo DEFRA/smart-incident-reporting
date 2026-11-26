@@ -1,4 +1,4 @@
-import { findByPostcode } from '../find-location.js'
+import { findByPostcode, findNearestPostcode } from '../find-location.js'
 import util from '../../utils/util.js'
 
 jest.mock('../../../server/utils/util', () => ({
@@ -6,6 +6,29 @@ jest.mock('../../../server/utils/util', () => ({
 }))
 
 describe('OrdnanceService', () => {
+  describe('findNearestPostcode', () => {
+    it('returns the postcode of the nearest address to the map point', async () => {
+      util.getJson.mockResolvedValueOnce({ results: [{ DPA: { POSTCODE: 'BA1 1UB' } }] })
+
+      expect(await findNearestPostcode(374999, 164393)).toBe('BA1 1UB')
+      expect(util.getJson).toHaveBeenCalledWith('https://api.os.uk/search/places/v1/nearest?point=374999,164393&key=testSearchKey&lr=EN&dataset=DPA', true)
+    })
+
+    it('returns no postcode when no nearby address is found', async () => {
+      util.getJson.mockResolvedValueOnce({ header: { totalresults: 0 } })
+      expect(await findNearestPostcode(374999, 164393)).toBeNull()
+    })
+
+    it('logs lookup failures and returns no postcode', async () => {
+      const log = jest.spyOn(console, 'log').mockImplementation(() => {})
+      util.getJson.mockRejectedValueOnce(new Error('OS unavailable'))
+
+      expect(await findNearestPostcode(374999, 164393)).toBeNull()
+      expect(log).toHaveBeenCalledWith(expect.stringContaining('OS unavailable'))
+      log.mockRestore()
+    })
+  })
+
   describe('findByPostcode', () => {
     it('should return the coordinates for a valid postcode', async () => {
       // Mock the util.getJson function

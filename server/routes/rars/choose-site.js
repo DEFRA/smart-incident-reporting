@@ -47,6 +47,7 @@ const createChooseSiteRoutes = ({ problem, route, redirect }) => {
 }
 
 const getContext = (request, sites, redirect) => {
+  const mapLocation = request.yar.get(constants.redisKeys.RARS_SITE_SEARCH_MAP_LOCATION)
   const manualAddress = request.yar.get(constants.redisKeys.RARS_LOCATION_ADDRESS)
   const selectedAddress = request.yar.get(constants.redisKeys.RARS_CONFIRM_ADDRESS)?.selectedAddress
   const postcode = manualAddress?.find(
@@ -57,6 +58,7 @@ const getContext = (request, sites, redirect) => {
     sites,
     resultlength: sites.length,
     postcode,
+    mapLocation,
     answer: sites.findIndex(site => site.id === confirmedSite?.selectedSite.id),
     manualSite: redirect.manualSite
   }
