@@ -38,6 +38,7 @@ const createLocationMapRoutes = ({ problem, route, redirect }) => {
       const lngLat = oSGBToWGS84(point)
 
       request.yar.set(constants.redisKeys.RARS_LOCATION_MAP, buildAnswers(point, lngLat))
+      request.yar.set(constants.redisKeys.RARS_SITE_SEARCH_MAP_LOCATION, true)
 
       // handle redirects
       return h.redirect(redirect.locationDescriptionOptional)

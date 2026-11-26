@@ -13,7 +13,7 @@
             Choose the site you want to report
           </h1>
         </legend>
-        <p class="govuk-body"><b>{{ resultlength }}</b> {% if resultlength === 1 %}address{% else %}addresses{% endif %} found within <b>3 kilometres</b> of <b>{{ postcode }}</b>.</p>
+        <p class="govuk-body"><b>{{ resultlength }}</b> {% if resultlength === 1 %}address{% else %}addresses{% endif %} found within <b>3 kilometres</b> of {% if mapLocation %}location provided{% else %}<b>{{ postcode }}</b>{% endif %}.</p>
 
         {% if resultlength > 0 %}
         {% if findErrorMessageById(errorSummary, 'answerId-1') %}

@@ -51,6 +51,31 @@ const problems = [
 describe('RARS Location Description Optional Routes', () => {
   afterEach(() => jest.resetAllMocks())
 
+  it('updates the displayed location when changing from an address to a map location', async () => {
+    const addressQuestion = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_ADDRESS
+    const sessionData = {
+      [constants.redisKeys.RARS_CONFIRM_ADDRESS]: { selectedAddress: [{ postcode: 'TE1 0ST' }] },
+      [constants.redisKeys.RARS_LOCATION_ADDRESS]: [{
+        answerId: addressQuestion.answers.postcode.answerId,
+        otherDetails: 'TE1 0ST'
+      }],
+      [constants.redisKeys.RARS_NEARBY_SITES]: [{ id: 'old', name: 'Old Site' }]
+    }
+    const oldList = await submitGetRequest({ url: constants.routes.SMELL_CHOOSE_SITE }, 'Choose the site you want to report', constants.statusCodes.OK, sessionData)
+    expect(oldList.payload).toContain('of <b>TE1 0ST</b>')
+
+    await submitPostRequest({ url: constants.routes.SMELL_LOCATION_MAP, payload: { point: '[374999,164393]' } })
+    findSitesNearby.mockResolvedValueOnce({ sites: [{ id: 'new', name: 'New Site' }], apiDown: false })
+    await submitPostRequest({ url: constants.routes.SMELL_LOCATION_DESCRIPTION_OPTIONAL, payload: {} })
+    const newList = await submitGetRequest({ url: constants.routes.SMELL_CHOOSE_SITE }, 'Choose the site you want to report')
+
+    expect(findSitesNearby).toHaveBeenCalledWith(374999, 164393)
+    expect(newList.payload).toContain('<b>1</b> address found within <b>3 kilometres</b> of location provided.')
+    expect(newList.payload).toContain('New Site')
+    expect(newList.payload).not.toContain('TE1 0ST')
+    expect(newList.payload).not.toContain('Old Site')
+  })
+
   describe.each(problems)('$problem location description optional', ({ problem, url, redirectUrl, chooseSiteUrl }) => {
     describe('GET', () => {
       it('Should return success response and correct view', async () => {
@@ -113,6 +138,34 @@ describe('RARS Location Description Optional Routes', () => {
 
         expect(findSitesNearby).toHaveBeenCalledWith(374999, 164393)
         expect(response.headers.location).toEqual(constants.routes.SMELL_CHOOSE_SITE)
+      })
+
+      it('shows location provided for a map search', async () => {
+        findSitesNearby.mockResolvedValueOnce({ sites: [{ id: 'site-1', name: 'New Site' }], apiDown: false })
+        const addressQuestion = questionSets.REPORT_REGULATED_SITE.questions.RARS_LOCATION_ADDRESS
+        const sessionData = {
+          [constants.redisKeys.RARS_CONFIRM_ADDRESS]: { selectedAddress: [{ postcode: 'TE1 0ST' }] },
+          [constants.redisKeys.RARS_LOCATION_ADDRESS]: [{
+            answerId: addressQuestion.answers.postcode.answerId,
+            otherDetails: 'TE1 0ST'
+          }],
+          [constants.redisKeys.RARS_LOCATION_MAP]: [
+            { otherDetails: 'ST 74999 64393' },
+            { otherDetails: '374999' },
+            { otherDetails: '164393' }
+          ]
+        }
+
+        await submitPostRequest({
+          url: constants.routes.SMELL_LOCATION_MAP,
+          payload: { point: '[374999,164393]' }
+        }, constants.statusCodes.REDIRECT, sessionData)
+        await submitPostRequest({ url, payload: {} })
+        const response = await submitGetRequest({ url: chooseSiteUrl }, 'Choose the site you want to report')
+
+        expect(response.payload).toContain('of location provided.')
+        expect(response.payload).toContain('New Site')
+        expect(response.payload).not.toContain('TE1 0ST')
       })
 
       it('redirects to choose site with no nearby results when map coordinates are unavailable', async () => {

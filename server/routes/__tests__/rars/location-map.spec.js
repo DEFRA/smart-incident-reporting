@@ -81,6 +81,7 @@ describe('RARS Location Map Routes', () => {
         }
         const response = await submitPostRequest(options)
         expect(response.headers.location).toEqual(redirect)
+        expect(response.request.yar.get(constants.redisKeys.RARS_SITE_SEARCH_MAP_LOCATION)).toBe(true)
         expect(response.request.yar.get(constants.redisKeys.RARS_LOCATION_MAP)).toEqual([{
           ...baseAnswer,
           answerId: question.answers.nationalGridReference.answerId,
