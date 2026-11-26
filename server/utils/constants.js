@@ -157,7 +157,7 @@ const FLOOD_START = 'flooding-start'
 const FLOOD = 'flooding'
 const FLOOD_RISK = 'flooding/flood-risk'
 const FLOOD_SOURCE = 'flooding/flood-source'
-const CONTACT_CANAL_AND_RIVER_TRUST = 'flooding/contact-canal-and-river-trust'
+const FLOOD_CONTACT_CANAL_AND_RIVER_TRUST = 'flooding/contact-canal-and-river-trust'
 
 // Testing helper pages
 const TEST_MEDIA_UPLOAD_SUBMIT = 'test-media-upload-submit'
@@ -293,7 +293,7 @@ const views = {
   FLOOD,
   FLOOD_RISK,
   FLOOD_SOURCE,
-  CONTACT_CANAL_AND_RIVER_TRUST
+  FLOOD_CONTACT_CANAL_AND_RIVER_TRUST
 }
 
 const routes = {

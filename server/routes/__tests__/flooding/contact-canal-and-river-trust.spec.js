@@ -1,7 +1,7 @@
 import { submitGetRequest } from '../../../__test-helpers__/server.js'
 import constants from '../../../utils/constants.js'
 
-const url = constants.routes.CONTACT_CANAL_AND_RIVER_TRUST
+const url = constants.routes.FLOOD_CONTACT_CANAL_AND_RIVER_TRUST
 const pageTitle = 'Contact the Canal & River Trust'
 
 describe(url, () => {
